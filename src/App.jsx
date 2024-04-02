@@ -6,6 +6,8 @@ import Auth from "@/pages/Auth.jsx";
 import Product from "@/pages/Product.jsx";
 import NotFound from "@/pages/NotFound.jsx";
 import Category from "@/pages/Category.jsx";
+import Favorites from "@/pages/Favorites.jsx";
+import Cart from "@/pages/Cart.jsx";
 
 function App() {
   return (      
@@ -14,9 +16,11 @@ function App() {
             <Route  element={<MainLayout/>}>
               <Route path='/' index element={<Home/>}/>
               <Route path='/category' element={<Catalog/>}/>
-              <Route path='/category/:slug' element={<Category/>}/>
+              <Route path='/category/:category' element={<Category/>}/>
               <Route path='/auth' element={<Auth/>}/>
               <Route path='/product/:slug' element={<Product/>}/>
+              <Route path='/favorites' element={<Favorites/>}/>
+              <Route path='/cart' element={<Cart/>}/>
               <Route path='*' element={<NotFound/>}/>
             </Route>
           </Routes>
