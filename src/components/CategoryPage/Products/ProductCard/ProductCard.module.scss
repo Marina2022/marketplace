@@ -1,0 +1,150 @@
+@import '@/assets/styles/mixins';
+
+
+.productCardHorizontal {
+  min-height: 150px;
+  display: flex;
+  padding-block: 20px;
+  border-bottom: 1px solid #E1E1E1;
+  
+  .imgCardHor {
+    width: 210px;
+    height: 213px;
+    object-fit: cover;
+    margin-right: 30px;
+    margin-left: 5px;
+  }
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.productCardVertical {
+  width: 264px;
+  height: 419px;
+  background: #fff;
+  min-height: 100px;
+  
+  @include t {
+    width: 215px;
+    height: 369px;
+  }
+  
+  @include m {    
+    width: 100%;
+    height: auto;
+  }
+}
+
+
+
+
+
+s.title {
+  margin-top: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  margin-bottom: 5px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.star {
+  margin-right: 2px;
+}
+
+.reviews {
+  color: rgb(101, 128, 146);
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;   
+}
+
+.featureItem {
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+}
+
+.featureName {
+  color: rgb(101, 128, 146);
+  
+  margin-right: 5px;
+}
+
+.featureValue {
+  color: rgb(19, 29, 42);  
+  margin-right: 5px;
+}
+
+.priceAndCartBlock {
+  width: 270px;
+  margin-left: auto;
+}
+
+.priceWrapper {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 16px;
+}
+
+.price {
+  font-family: 'Exo 2';
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 28.8px;
+  margin-right: 10px;
+  
+}
+
+.regularPrice {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.94px;
+  color: #658092;
+  text-decoration: line-through;
+}
+
+.vendor {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.94px;
+  color: #658092;
+  margin-bottom: 16px;
+}
+
+.btnWrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.favoriteIcon {
+  fill: #3E5067;
+  ransition: all .2s ease-in-out;
+  
+  &:hover {
+    fill: #c31a24;
+  }
+}

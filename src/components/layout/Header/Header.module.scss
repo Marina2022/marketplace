@@ -1,0 +1,15 @@
+@import "@/assets/styles/mixins";
+
+.header {
+  height: 122px;
+  background: white;
+  
+  @include m {
+    height: 101px;
+  }
+}
+
+.wrapper {
+  padding-top: 16px;
+  padding-bottom: 19px;
+}

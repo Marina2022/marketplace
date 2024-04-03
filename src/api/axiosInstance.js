@@ -3,7 +3,8 @@ import axios from "axios";
 // import { store } from "../redux/store";
 
 // AXIOS GLOBAL CONFIG
-axios.defaults.baseURL = 'http://185.178.44.121/api/'
+// axios.defaults.baseURL = 'http://185.178.44.121/api/'
+axios.defaults.baseURL = 'https://i-rif.com/api/'
 axios.interceptors.request.use((request) => {
   
   // потом если  появится токен

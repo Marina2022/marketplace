@@ -1,0 +1,31 @@
+@import '@/assets/styles/mixins';
+
+.productsWrapper {  
+  width: 1120px;
+}
+
+.verticalViewCardWrapper {
+  display: grid;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: 1120px;
+  grid-template-columns: repeat(4, 1fr);
+  
+  @include t {
+    width: 698px;
+    row-gap: 22px;
+    column-gap: 22px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @include m {
+    display: flex;
+    display: grid;
+    width: 100%;    
+    
+    grid-template-columns: repeat(2, minmax(0, 260px));
+    gap: 8px;
+    justify-content: center;
+  }
+}
+

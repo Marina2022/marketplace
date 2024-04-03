@@ -1,0 +1,30 @@
+@import '@/assets/styles/mixins';
+
+.title {
+  margin-bottom: 24px;
+}
+
+.wrapper {
+  display: flex;
+  flex:1;
+  margin-bottom: 53px;
+}
+
+.rightPart {
+  flex: 1;
+ 
+  @include m {
+    width: 100%;
+  }
+}
+
+.sortAndView {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  
+  @include t {
+    margin-bottom: 24px;
+  }
+}

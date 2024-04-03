@@ -1,4 +1,5 @@
 @import 'normalize';
+@import 'mixins';
 
 * {
   box-sizing: border-box;
@@ -6,9 +7,14 @@
   padding: 0;
   list-style: none;
 }
+h1, h2, h3, ul, ol, li {
+  margin: 0;
+  
+}
 
 body {
   font-family: Inter, serif;
+  background: #F5F5F5;
 }
 
 button {
@@ -28,4 +34,13 @@ a {
   margin: 0 auto;
   width: 100%;
   max-width: 1440px;
+  
+  @include t {
+    max-width: 980px;
+  }
+  
+  @include m {
+    max-width: unset;
+    padding-inline: 16px;
+  }
 }
