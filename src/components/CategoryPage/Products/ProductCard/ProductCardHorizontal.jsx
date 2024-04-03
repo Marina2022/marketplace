@@ -3,9 +3,10 @@ import s from "@/components/CategoryPage/Products/ProductCard/ProductCard.module
 import star from '@/assets/img/star.svg'
 import {getRightWord} from "@/utils/reviews.js";
 import Button from "@/components/ui/Button/Button.jsx";
+import CartInput from "@/components/ui/CartInput/CartInput.jsx";
 
 const base_url = 'https://i-rif.com/'
-const ProductCardHorizontal = ({product}) => {
+const ProductCardHorizontal = ({product, isInCart}) => {
 
   console.log('product images', product.images)
   console.log('product', product)
@@ -41,6 +42,8 @@ const ProductCardHorizontal = ({product}) => {
               </ul>
           }
         </div>
+
+
         <div className={s.priceAndCartBlock}>
           <p className={s.priceWrapper}>
             <span className={s.price}>{product.price.toLocaleString()} ₽</span>
@@ -48,11 +51,21 @@ const ProductCardHorizontal = ({product}) => {
                 product.regularPrice &&
                 <span className={s.regularPrice}>{product.regularPrice.toLocaleString()} ₽</span>
             }
-
           </p>
           <p className={s.vendor}>{product.vendorName}</p>
+
+
           <div className={s.btnWrapper}>
-            <Button>В&nbsp;корзину</Button>
+
+            {
+                isInCart && (
+                    <CartInput />
+                )
+            }
+
+            {
+                !isInCart && <Button>В&nbsp;корзину</Button>
+            }
             <button>
               <svg className={s.favoriteIcon} width="22" height="20" viewBox="0 0 22 20"
                    xmlns="http://www.w3.org/2000/svg">
@@ -62,9 +75,10 @@ const ProductCardHorizontal = ({product}) => {
               </svg>
 
             </button>
-          </div>
 
+          </div>
         </div>
+
       </div>
   );
 };

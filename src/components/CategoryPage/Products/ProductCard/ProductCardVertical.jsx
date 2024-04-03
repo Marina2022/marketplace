@@ -2,8 +2,9 @@ import s from "@/components/CategoryPage/Products/ProductCard/ProductCard.module
 import star from "@/assets/img/star.svg";
 import {getRightWord} from "@/utils/reviews.js";
 import Button from "@/components/ui/Button/Button.jsx";
+import CartInput from "@/components/ui/CartInput/CartInput.jsx";
 
-const ProductCardVertical = ({product}) => {
+const ProductCardVertical = ({product, isInCart}) => {
 
   const base_url = 'https://i-rif.com/'
 
@@ -39,7 +40,6 @@ const ProductCardVertical = ({product}) => {
               {product.reviewsRating} ({getRightWord(product.reviewsCount)})
             </div>
           </div>
-
         </div>
         <div className={s.priceAndCartBlock}>
           <p className={s.priceWrapper}>
@@ -49,13 +49,21 @@ const ProductCardVertical = ({product}) => {
                 product.regularPrice &&
                 <span className={s.regularPrice}>{product.regularPrice.toLocaleString()} ₽</span>
             }
-
           </p>
 
-          <Button className={s.verCardBtn}>В&nbsp;корзину</Button>
+          {
+              isInCart && (
+                  <CartInput className={s.cartInputVertical} />
+              )
+          }
 
+          {
+              !isInCart && <Button className={s.verCardBtn}>В&nbsp;корзину</Button>
+          }
+          
+          
+        </div>  
 
-        </div>
       </div>
 
   );
