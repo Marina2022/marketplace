@@ -1,7 +1,6 @@
 import s from './Products.module.scss';
 import {useSearchParams} from "react-router-dom";
 import ProductCard from "@/components/CategoryPage/Products/ProductCard/ProductCard.jsx";
-import {useEffect, useState} from "react";
 
 const Products = ({products, isBigScreen}) => {
   

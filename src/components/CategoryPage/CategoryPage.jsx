@@ -4,13 +4,16 @@ import Sort from "@/components/CategoryPage/Sort/Sort.jsx";
 import Products from "@/components/CategoryPage/Products/Products.jsx";
 import CardView from "@/components/CategoryPage/CardView/CardView.jsx";
 import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 
 const CategoryPage = ({products, filters, path}) => {
 
   const [isBigScreen, setIsBigScreen] = useState(window.innerWidth > 1720)
+  
+  const user = useSelector(state =>state.user.user)
+  console.log('user', user)
 
   useEffect(() => {
-
     const onWindowResize = () => {
       if (window.innerWidth <= 1720) {
         setIsBigScreen(false)
@@ -28,9 +31,7 @@ const CategoryPage = ({products, filters, path}) => {
   }, []);
 
   console.log(products)
-
-  if (!products) return <p>Loading...</p>
-
+  
   return (
       <div className='container'>
         <div>breadcrumbs</div>
