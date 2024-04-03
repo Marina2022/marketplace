@@ -2,14 +2,17 @@
 
 .productsWrapper {  
   width: 1120px;
+  margin-top: -20px;
 }
 
 .verticalViewCardWrapper {
+  margin-top: 0;
   display: grid;
   gap: 20px;
   flex-wrap: wrap;
   width: 1120px;
   grid-template-columns: repeat(4, 1fr);
+  align-items: stretch;
   
   @include t {
     width: 698px;
@@ -23,9 +26,13 @@
     display: grid;
     width: 100%;    
     
-    grid-template-columns: repeat(2, minmax(0, 260px));
+    grid-template-columns: repeat(auto-fit, minmax(0, 200px));
     gap: 8px;
     justify-content: center;
+  }
+  
+  @media (max-width: 536px) {
+    grid-template-columns: repeat(2, minmax(0, 200px));
   }
 }
 

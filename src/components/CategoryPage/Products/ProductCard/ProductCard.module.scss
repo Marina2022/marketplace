@@ -1,57 +1,136 @@
 @import '@/assets/styles/mixins';
 
 
-.productCardHorizontal {
+.productCardHorizontal {  
   min-height: 150px;
-  display: flex;
+  display: flex;  
   padding-block: 20px;
   border-bottom: 1px solid #E1E1E1;
-  
+
   .imgCardHor {
+    background: #fff;
     width: 210px;
     height: 213px;
-    object-fit: cover;
-    margin-right: 30px;
-    margin-left: 5px;
+    object-fit: contain;    
+    margin-left: 5px;    
   }
-  
+
+  .imgWrapper {
+    margin-right: 30px;
+  }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 .productCardVertical {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   width: 264px;
-  height: 419px;
-  background: #fff;
+  min-height: 419px;
   min-height: 100px;
-  
+
   @include t {
     width: 215px;
-    height: 369px;
+    min-height: 369px;
   }
-  
-  @include m {    
+
+  @include m {
     width: 100%;
     height: auto;
+    min-height: unset;
+  }
+
+  .priceAndCartBlock {
+    margin-top: auto;
+    margin-left: 0;
+  }
+  
+  // title - внутри вертик. карточки
+
+  .title {
+    font-size: 16px;
+    margin-bottom: 6px;
+    width: 85%;
+
+    @include t {
+      font-size: 12px;
+    }
+  }
+
+  // reviews - внутри вертик. карточки
+  .reviews {
+    font-size: 12px;   
+  }
+
+  .rating {
+    margin-bottom: 6px;
+  }
+
+  .priceAndCartBlock {
+    width: auto;
+  }
+
+  .price {
+    font-size: 18px;
+    line-height: 14px;
+  }
+  
+  .imgWrapper {
+    margin-bottom: 15px;
+    
+    @include t {
+      margin-bottom: 14px;
+    }
+    
+    @include m {
+      margin-bottom: 8px;
+    }
+  }
+
+  
+}
+
+.topVerticalCardWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  
+  svg {
+    width: 18px;
+    height: 16px;
   }
 }
 
+.imgCardVer {
+  background: #fff;
+  max-width: 100%;
+  width: 230px;
+  height: 230px;
+  object-fit: contain;
+  
 
+  @include t {
+    width: 185px;
+    height: 185px;
+  
+  }
 
+  @include m {
+    width: 160px;
+    height: 160px;
+  
+  }
+}
+
+.priceHighlighted {
+  color: #E32636;
+  font-family: 'Exo 2';
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 14px;
+  margin-right: 10px;  
+}
 
 
 s.title {
@@ -60,6 +139,10 @@ s.title {
   font-weight: 500;
   line-height: 19px;
   margin-bottom: 5px;
+
+  @include t {
+    font-size: 12px;
+  }
 }
 
 .rating {
@@ -77,7 +160,7 @@ s.title {
   font-family: Inter;
   font-size: 14px;
   font-weight: 500;
-  line-height: 17px;   
+  line-height: 17px;
 }
 
 .featureItem {
@@ -89,12 +172,12 @@ s.title {
 
 .featureName {
   color: rgb(101, 128, 146);
-  
+
   margin-right: 5px;
 }
 
 .featureValue {
-  color: rgb(19, 29, 42);  
+  color: rgb(19, 29, 42);
   margin-right: 5px;
 }
 
@@ -115,7 +198,7 @@ s.title {
   font-weight: 500;
   line-height: 28.8px;
   margin-right: 10px;
-  
+
 }
 
 .regularPrice {
@@ -143,8 +226,23 @@ s.title {
 .favoriteIcon {
   fill: #3E5067;
   ransition: all .2s ease-in-out;
-  
+
   &:hover {
     fill: #c31a24;
   }
 }
+
+
+
+.verCardBtn {
+  width: 100% !important;  
+}
+
+
+.imgWrapper {
+  padding: 15px;
+  background: #fff;
+  display: flex;
+  justify-content: center;  
+}
+
