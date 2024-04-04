@@ -4,7 +4,9 @@ import {getRightWord} from "@/utils/reviews.js";
 import Button from "@/components/ui/Button/Button.jsx";
 import CartInput from "@/components/ui/CartInput/CartInput.jsx";
 
-const ProductCardVertical = ({product, isInCart, onFavClick}) => {
+const ProductCardVertical = ({product, quantity, onFavClick, onAddToCartClick}) => {
+  
+  const isInCart = quantity > 0
 
   const base_url = 'https://i-rif.com/'
 
@@ -23,7 +25,7 @@ const ProductCardVertical = ({product, isInCart, onFavClick}) => {
             <h3 className={s.title}>
               {product.productName}
             </h3>
-            <button onClick={()=>onFavClick(product.productHandle)}>
+            <button onClick={()=>onFavClick(product.productVariantId)}>
               <svg className={s.favoriteIcon} width="22" height="20" viewBox="0 0 22 20"
                    xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -52,12 +54,12 @@ const ProductCardVertical = ({product, isInCart, onFavClick}) => {
 
           {
               isInCart && (
-                  <CartInput className={s.cartInputVertical} />
+                  <CartInput className={s.cartInputVertical} value={quantity} product={product} />
               )
           }
 
           {
-              !isInCart && <Button className={s.verCardBtn}>В&nbsp;корзину</Button>
+              !isInCart && <Button onClick={()=>onAddToCartClick(product.productVariantId, 1)} className={s.verCardBtn}>В&nbsp;корзину</Button>
           }
           
           

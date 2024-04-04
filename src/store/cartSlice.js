@@ -1,48 +1,102 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import axiosInstance from "@/api/axiosInstance.js";
+
+export const loadCart = createAsyncThunk('cart/loadCart', async () => {
+  // Запрос на получение корзины с сервера.. 
+  // Может, она вместе с пользователем будет приходить при авторизации, тогда эту санку потом уберем?
+
+  // .. давай пока так, потом, возможно, перепишем: Запрос на авторизацию, если юзер не авторизован, то корзину в санке из ЛС подгрузим
+  // а сейчс просто из LS
+
+  console.log('я в санке loadCart')
+
+  const LSstring = localStorage.getItem('cart')
+  if (!LSstring) return []
+  return JSON.parse(LSstring)
+})
+
+export const addToCart = createAsyncThunk('cart/sendCart', async (params, thunkAPI) => {
+  const state = thunkAPI.getState()
+  const {id, quantity} = params
+  let cart = state.cart.productsInCart.slice()
+  if (state.user.isAuthenticated) {
+    // посылаем корзину на сервер  
+    // const data = await axiosInstance(`https://cart`)
+    // return data.data // возвращаем корзину, которая, наверное, придет в ответе от сервере
+
+    // потом, при авторизации, корзину из LS прибавляем к корзине с сервера и по новой отправляем. 
+
+  } else {
+
+    const productIndex = cart.findIndex((item) => {
+      return item.id == id
+    })
+
+    if (productIndex >= 0) {
+
+      if (cart[productIndex].count + quantity === 0) {
+        //remove
+        cart = cart.filter(product => product.id !== id)
+      } else {
+        // add quantity to count
+        const newProduct = {...cart[productIndex], count: cart[productIndex].count + quantity}
+        cart.splice(productIndex, 1, newProduct)
+      }
+
+    } else {      
+      // add new item to cart
+      cart.push({id: id, count: 1})
+    }
+  }
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+  return cart
+})
 
 const initialState = {
-  products: [],
+  productsInCart: [],
+  isLoading: false
 }
 
-const cartSlice = createSlice({
+export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
 
     setCart: (state, action) => {
-      state.products = action.payload
+      state.productsInCart = action.payload
     },
+  },
 
-    clearProducts: (state) => {
-      state.products = []
-    },
-    addProduct: (state, action) => {
-      const product = state.products.find((item) => item.id === action.payload.id)
+  extraReducers: builder => builder
+      .addCase(addToCart.pending, (state, action) => {
+        state.isLoading = 'loading'
+      })
+      .addCase(addToCart.fulfilled, (state, action) => {
+        state.isLoading = 'success'
+        state.productsInCart = action.payload
+      })
+      .addCase(addToCart.rejected, (state, action) => {
+        state.isLoading = 'error'
+        console.log('ошибка', action.error.message)
+      })
 
-      if (product) {
-        product.count++
-      } else {
-        state.products.push({...action.payload, count: 1})
-      }
-    },
-    plus: (state, action) => {
-      const product = state.products.find((item) => item.id === action.payload)
-      if (product) product.count++
-    },
-
-    minus: (state, action) => {
-      const product = state.products.find((item) => item.id === action.payload)
-      if (product) {
-        if (product.count === 1) return
-        product.count--
-      }
-    },
-    removeProduct: (state, action) => {
-      state.products = state.products.filter(product => product.id !== action.payload)
-    }
-  }
+      .addCase(loadCart.pending, (state, action) => {
+        state.isLoading = 'loading'
+      })
+      .addCase(loadCart.fulfilled, (state, action) => {
+        state.isLoading = 'success'
+        state.productsInCart = action.payload
+      })
+      .addCase(loadCart.rejected, (state, action) => {
+        state.isLoading = 'error'
+        console.log('ошибка', action.error.message)
+      })
+  ,
 })
 
 export const {clearProducts, addProduct, plus, minus, removeProduct, setCart} = cartSlice.actions
+
+export const getCart = (state) => state.cart.productsInCart
 
 export default cartSlice.reducer

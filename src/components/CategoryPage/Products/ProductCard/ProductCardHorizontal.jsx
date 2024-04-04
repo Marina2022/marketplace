@@ -4,14 +4,14 @@ import star from '@/assets/img/star.svg'
 import {getRightWord} from "@/utils/reviews.js";
 import Button from "@/components/ui/Button/Button.jsx";
 import CartInput from "@/components/ui/CartInput/CartInput.jsx";
+import {addToCart} from "@/store/cartSlice.js";
 
 const base_url = 'https://i-rif.com/'
-const ProductCardHorizontal = ({product, isInCart, onFavClick}) => {
+const ProductCardHorizontal = ({product, quantity, onFavClick, onAddToCartClick}) => {
 
-  console.log('product images', product.images)
-  console.log('product', product)
-
-
+  
+  const isInCart = quantity > 0
+  
   return (
       <div className={s.productCardHorizontal}>
         <div className={s.imgWrapper}>
@@ -59,12 +59,12 @@ const ProductCardHorizontal = ({product, isInCart, onFavClick}) => {
 
             {
                 isInCart && (
-                    <CartInput />
+                    <CartInput product={product} value={quantity} />
                 )
             }
 
             {
-                !isInCart && <Button>В&nbsp;корзину</Button>
+                !isInCart && <Button  onClick={()=>onAddToCartClick(product.productVariantId, 1)} >В&nbsp;корзину</Button>
             }
             <button onClick={()=>onFavClick(product.id)}>
               <svg className={s.favoriteIcon} width="22" height="20" viewBox="0 0 22 20"

@@ -9,23 +9,29 @@ import Category from "@/pages/Category.jsx";
 import Favorites from "@/pages/Favorites.jsx";
 import Cart from "@/pages/Cart.jsx";
 import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute.jsx";
+import {useDispatch} from "react-redux";
+import {loadCart} from "@/store/cartSlice.js";
+
 
 function App() {
-  return (      
-        <Router>
-          <Routes>
-            <Route  element={<MainLayout/>}>
-              <Route path='/' index element={<Home/>}/>
-              <Route path='/category' element={<Catalog/>}/>
-              <Route path='/category/:category' element={<Category/>}/>
-              <Route path='/login' element={<Auth/>}/>
-              <Route path='/product/:slug' element={<Product/>}/>
-              <Route path='/favorites' element={<ProtectedRoute> <Favorites/> </ProtectedRoute>}/>              
-              <Route path='/cart' element={<Cart/>}/>
-              <Route path='*' element={<NotFound/>}/>
-            </Route>
-          </Routes>
-        </Router>      
+
+   
+
+  return (
+      <Router>
+        <Routes>
+          <Route element={<MainLayout/>}>
+            <Route path='/' index element={<Home/>}/>
+            <Route path='/category' element={<Catalog/>}/>
+            <Route path='/category/:category' element={<Category/>}/>
+            <Route path='/login' element={<Auth/>}/>
+            <Route path='/product/:slug' element={<Product/>}/>
+            <Route path='/favorites' element={<ProtectedRoute> <Favorites/> </ProtectedRoute>}/>
+            <Route path='/cart' element={<Cart/>}/>
+            <Route path='*' element={<NotFound/>}/>
+          </Route>
+        </Routes>
+      </Router>
   );
 }
 
