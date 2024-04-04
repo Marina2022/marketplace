@@ -1,23 +1,20 @@
 import s from './Products.module.scss';
-import {useSearchParams} from "react-router-dom";
 import ProductCard from "@/components/CategoryPage/Products/ProductCard/ProductCard.jsx";
+import {useSelector} from "react-redux";
+import {getCartView} from "@/store/catalogSlice.js";
 
 const Products = ({products, isBigScreen}) => {
   
-  const [searchParams, setSearchParams] = useSearchParams()  
-  const cardView = searchParams.get('cardView') || 'horizontal'
-  
-    
-  return (
-      
+  const cardView = useSelector(getCartView)
+
+  return (    
       <div className={`${s.productsWrapper} ${(cardView==='vertical' || !isBigScreen)  && s.verticalViewCardWrapper}`}>
         
         {
           products.map((product, i)=>{
-            return <ProductCard key={i} isBigScreen={isBigScreen} product={product} />                          
+            return <ProductCard key={i} isBigScreen={isBigScreen} product={product}  />                          
           })  
-        }
-        
+        }        
       </div>
   );
 };

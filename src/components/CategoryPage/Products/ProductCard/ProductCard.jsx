@@ -1,25 +1,21 @@
 import s from './ProductCard.module.scss';
 
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import ProductCardHorizontal from "@/components/CategoryPage/Products/ProductCard/ProductCardHorizontal.jsx";
 import ProductCardVertical from "@/components/CategoryPage/Products/ProductCard/ProductCardVertical.jsx";
-import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getIsAuthenticated} from "@/store/userSlice.js";
 import {getCart, addToCart} from "@/store/cartSlice.js";
+import {getCartView} from "@/store/catalogSlice.js";
 
 
 const ProductCard = ({isBigScreen, product}) => {
-
+  
+  const cardView = useSelector(getCartView) 
 
   const isAuthenticated = useSelector(getIsAuthenticated)
-
-  const [searchParams, setSearchParams] = useSearchParams()
-  const cardView = searchParams.get('cardView') || 'horizontal'
-
   const productsInCart = useSelector(getCart)
-  
-  
+    
   const productInCart = productsInCart.find(item=>item.id === product.productVariantId)
   
   let quantity
@@ -28,8 +24,7 @@ const ProductCard = ({isBigScreen, product}) => {
   } else {
     quantity = 0
   }
-  
-  
+    
   const dispatch = useDispatch()
   const onAddToCartClick = (id, quantity)=>dispatch(addToCart({id, quantity}))
 
@@ -41,7 +36,6 @@ const ProductCard = ({isBigScreen, product}) => {
       console.log('Поместить в Избранное товар ', id)
     }
   }
-
 
     return (
 

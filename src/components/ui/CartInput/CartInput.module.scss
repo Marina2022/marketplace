@@ -1,6 +1,8 @@
 @import '@/assets/styles/mixins';
 
 .wrapper {
+  z-index: 2;
+  position: relative;
   height: 40px;
   width: 205px;
   display: flex;  

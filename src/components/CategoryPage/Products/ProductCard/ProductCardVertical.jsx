@@ -3,9 +3,10 @@ import star from "@/assets/img/star.svg";
 import {getRightWord} from "@/utils/reviews.js";
 import Button from "@/components/ui/Button/Button.jsx";
 import CartInput from "@/components/ui/CartInput/CartInput.jsx";
+import {Link} from "react-router-dom";
 
 const ProductCardVertical = ({product, quantity, onFavClick, onAddToCartClick}) => {
-  
+
   const isInCart = quantity > 0
 
   const base_url = 'https://i-rif.com/'
@@ -13,19 +14,18 @@ const ProductCardVertical = ({product, quantity, onFavClick, onAddToCartClick}) 
   return (
       <div
           className={s.productCardVertical}>
-
         <div className={s.imgWrapper}>
           <img className={s.imgCardVer} src={`${base_url}${product.images[0]?.imageUrl}`} alt=""/>
         </div>
 
         <div className={s.desc}>
-
-
           <div className={s.topVerticalCardWrapper}>
-            <h3 className={s.title}>
-              {product.productName}
+            <h3 className={s.title}>              
+              <Link className={s.cardLink} to={`/product/${product.productHandle}`}>
+                {product.productName}
+              </Link>
             </h3>
-            <button onClick={()=>onFavClick(product.productVariantId)}>
+            <button className={s.favBtn} onClick={() => onFavClick(product.productVariantId)}>
               <svg className={s.favoriteIcon} width="22" height="20" viewBox="0 0 22 20"
                    xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -54,16 +54,17 @@ const ProductCardVertical = ({product, quantity, onFavClick, onAddToCartClick}) 
 
           {
               isInCart && (
-                  <CartInput className={s.cartInputVertical} value={quantity} product={product} />
+                  <CartInput className={s.cartInputVertical} value={quantity} product={product}/>
               )
           }
 
           {
-              !isInCart && <Button onClick={()=>onAddToCartClick(product.productVariantId, 1)} className={s.verCardBtn}>В&nbsp;корзину</Button>
+              !isInCart && <Button onClick={() => onAddToCartClick(product.productVariantId, 1)}
+                                   className={s.verCardBtn}>В&nbsp;корзину</Button>
           }
-          
-          
-        </div>  
+
+
+        </div>
 
       </div>
 

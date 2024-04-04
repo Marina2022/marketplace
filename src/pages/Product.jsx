@@ -1,8 +1,12 @@
+import {useParams} from "react-router-dom";
 
 const Product = () => {
+
+  const {slug} = useParams()
+  
   return (
-      <div>
-        Product
+      <div className='container'>
+        Product - {slug}
       </div>
   );
 };

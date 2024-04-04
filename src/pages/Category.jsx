@@ -47,8 +47,6 @@ const Category = () => {
   }, [searchParams]);
  
   console.log(products)
-
-  // if (!products) return <Spinner />
   if (isLoading) return <Spinner />
   
   return (   

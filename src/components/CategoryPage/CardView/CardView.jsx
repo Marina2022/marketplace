@@ -1,20 +1,18 @@
 import s from './CardView.module.scss';
-
-import {useSearchParams} from "react-router-dom";
-
+import {useDispatch, useSelector} from "react-redux";
+import {getCartView, setCardView} from "@/store/catalogSlice.js";
 const CardView = () => {
-
-  const [searchParams, setSearchParams] = useSearchParams()
-  const cardView = searchParams.get('cardView') || 'horizontal'
-  
+   
+  const cardView = useSelector(getCartView)
+  const dispatch = useDispatch()
   const onVerticalClick = () => {
-    searchParams.set('cardView', 'vertical')
-    setSearchParams(searchParams)
+
+    dispatch(setCardView('vertical'))
+    
   }
 
   const onHorizontalClick = () => {
-    searchParams.set('cardView', 'horizontal')
-    setSearchParams(searchParams)
+    dispatch(setCardView('horizontal'))    
   }
   
   return (

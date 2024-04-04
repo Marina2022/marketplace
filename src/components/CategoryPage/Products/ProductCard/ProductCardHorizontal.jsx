@@ -5,6 +5,7 @@ import {getRightWord} from "@/utils/reviews.js";
 import Button from "@/components/ui/Button/Button.jsx";
 import CartInput from "@/components/ui/CartInput/CartInput.jsx";
 import {addToCart} from "@/store/cartSlice.js";
+import {Link} from "react-router-dom";
 
 const base_url = 'https://i-rif.com/'
 const ProductCardHorizontal = ({product, quantity, onFavClick, onAddToCartClick}) => {
@@ -20,7 +21,9 @@ const ProductCardHorizontal = ({product, quantity, onFavClick, onAddToCartClick}
 
         <div className={s.desc}>
           <h3 className={s.title}>
-            {product.productName}
+            <Link className={s.cardLink} to={`/product/${product.productHandle}`}>
+              {product.productName}
+            </Link>
           </h3>
           <div className={s.rating}>
             <img className={s.star} src={star} alt="star"/>
@@ -64,9 +67,9 @@ const ProductCardHorizontal = ({product, quantity, onFavClick, onAddToCartClick}
             }
 
             {
-                !isInCart && <Button  onClick={()=>onAddToCartClick(product.productVariantId, 1)} >В&nbsp;корзину</Button>
+                !isInCart && <Button className={s.toCartBtn}  onClick={()=>onAddToCartClick(product.productVariantId, 1)} >В&nbsp;корзину</Button>
             }
-            <button onClick={()=>onFavClick(product.id)}>
+            <button className={s.favBtn} onClick={()=>onFavClick(product.id)}>
               <svg className={s.favoriteIcon} width="22" height="20" viewBox="0 0 22 20"
                    xmlns="http://www.w3.org/2000/svg">
                 <path

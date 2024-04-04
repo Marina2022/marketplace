@@ -1,9 +1,10 @@
 @import '@/assets/styles/mixins';
 
 
-.productCardHorizontal {  
+.productCardHorizontal {
+  position: relative;
   min-height: 150px;
-  display: flex;  
+  display: flex;
   padding-block: 20px;
   border-bottom: 1px solid #E1E1E1;
 
@@ -11,14 +12,13 @@
     background: #fff;
     width: 210px;
     height: 213px;
-    object-fit: contain;    
-    margin-left: 5px;    
+    object-fit: contain;
+    margin-left: 5px;
   }
 
   .imgWrapper {
     margin-right: 30px;
   }
-
 }
 
 
@@ -29,6 +29,7 @@
   width: 264px;
   min-height: 419px;
   min-height: 100px;
+  position: relative;
 
   @include t {
     width: 215px;
@@ -41,12 +42,12 @@
     min-height: unset;
   }
 
+  // блоки внутри вертик. карточки
+
   .priceAndCartBlock {
     margin-top: auto;
     margin-left: 0;
   }
-  
-  // title - внутри вертик. карточки
 
   .title {
     font-size: 16px;
@@ -58,9 +59,8 @@
     }
   }
 
-  // reviews - внутри вертик. карточки
   .reviews {
-    font-size: 12px;   
+    font-size: 12px;
   }
 
   .rating {
@@ -75,27 +75,25 @@
     font-size: 18px;
     line-height: 14px;
   }
-  
+
   .imgWrapper {
     margin-bottom: 15px;
-    
+
     @include t {
       margin-bottom: 14px;
     }
-    
+
     @include m {
       margin-bottom: 8px;
     }
   }
-
-  
 }
 
 .topVerticalCardWrapper {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  
+
   svg {
     width: 18px;
     height: 16px;
@@ -108,18 +106,18 @@
   width: 230px;
   height: 230px;
   object-fit: contain;
-  
+
 
   @include t {
     width: 185px;
     height: 185px;
-  
+
   }
 
   @include m {
     width: 160px;
     max-width: 100%;
-    height: 160px;  
+    height: 160px;
   }
 }
 
@@ -129,7 +127,7 @@
   font-size: 18px;
   font-weight: 600;
   line-height: 14px;
-  margin-right: 10px;  
+  margin-right: 10px;
 }
 
 
@@ -223,7 +221,7 @@ s.title {
   gap: 15px;
 }
 
-.favoriteIcon {
+.favoriteIcon {  
   fill: #3E5067;
   ransition: all .2s ease-in-out;
 
@@ -232,10 +230,15 @@ s.title {
   }
 }
 
-
+.favBtn {
+  position: relative;
+  z-index: 2;
+}
 
 .verCardBtn {
-  width: 100% !important;  
+  width: 100% !important;
+  position: relative;
+  z-index: 2;
 }
 
 
@@ -243,9 +246,26 @@ s.title {
   padding: 15px;
   background: #fff;
   display: flex;
-  justify-content: center;  
+  justify-content: center;
 }
 
 .cartInputVertical {
   width: 100% !important;
+}
+
+.cardLink {
+  color: #000;
+  &:after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    z-index: 1;
+  }
+}
+
+.toCartBtn {
+  position: relative;
+  z-index: 2;
 }

@@ -9,9 +9,7 @@ import {useSelector} from "react-redux";
 const CategoryPage = ({products, filters, path}) => {
 
   const [isBigScreen, setIsBigScreen] = useState(window.innerWidth > 1720)
-  
-  const user = useSelector(state =>state.user.user)
-  console.log('user', user)
+
 
   useEffect(() => {
     const onWindowResize = () => {
@@ -40,18 +38,17 @@ const CategoryPage = ({products, filters, path}) => {
         <div className={s.wrapper}>
 
           <Filters filters={filters}/>
-
           <div className={s.rightPart}>
             <div className={s.sortAndView}>
               <Sort/>
 
               {
-                  isBigScreen && <CardView/>
+                  isBigScreen && <CardView />
               }
 
             </div>
 
-            <Products products={products} isBigScreen={isBigScreen}/>
+            <Products products={products} isBigScreen={isBigScreen}   />
 
           </div>
 
