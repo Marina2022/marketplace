@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
-import {useParams, useSearchParams} from "react-router-dom";
-import CategoryPage from "@/components/CategoryPage/CategoryPage.jsx";
+import {useLocation, useParams, useSearchParams} from "react-router-dom";
+import CategoryBlock from "@/components/CategoryBlock/CategoryBlock.jsx";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
+import Error from "@/components/Error/Error.jsx";
 
 const Category = () => {
 
@@ -15,15 +16,21 @@ const Category = () => {
   const [page, setPage] = useState(1)  
   const [allFilters, setAllFilters] = useState([])
   const [path,setPath] = useState([])
+  const [error, setError] = useState(null)
+
+  
+  const location = useLocation();
   
   console.log('allFilters', allFilters)
  
+  
   useEffect(() => {
     const getData = async () => {
 
       setIsLoading(true)
-      
+      setError(false)     
       try {
+
         const filtersFromServer = await axiosInstance(`category/${category}/filters`)
         setAllFilters(filtersFromServer.data.filters)
 
@@ -37,6 +44,10 @@ const Category = () => {
         setPath(productsResponse.data.meta.path)
         setProducts(productsResponse.data.products)
       } catch (err) {
+        setProducts([])
+        setAllFilters([])
+        setPath([])
+        setError('Нет такой страницы')
         console.log( err)
       } finally {
         setIsLoading(false)
@@ -44,13 +55,15 @@ const Category = () => {
      }
     
     getData()
-  }, [searchParams]);
+  }, [searchParams, location]);
  
-  console.log(products)
   if (isLoading) return <Spinner />
   
+  if (error) return  <Error>Нет такой страницы</Error>
+  
   return (   
-       <CategoryPage products={products} filters={allFilters} path={path} />
+       <CategoryBlock products={products} filters={allFilters} path={path} />
+     // Вы смотрели
   );
 };
 

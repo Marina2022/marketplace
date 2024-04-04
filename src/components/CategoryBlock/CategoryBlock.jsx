@@ -1,12 +1,12 @@
-import s from './CategoryPage.module.scss'
-import Filters from "@/components/CategoryPage/Filters/Filters.jsx";
-import Sort from "@/components/CategoryPage/Sort/Sort.jsx";
-import Products from "@/components/CategoryPage/Products/Products.jsx";
-import CardView from "@/components/CategoryPage/CardView/CardView.jsx";
+import s from './CategoryBlock.module.scss'
+import Filters from "@/components/CategoryBlock/Filters/Filters.jsx";
+import Sort from "@/components/CategoryBlock/Sort/Sort.jsx";
+import Products from "@/components/CategoryBlock/Products/Products.jsx";
+import CardView from "@/components/CategoryBlock/CardView/CardView.jsx";
 import {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
+import BreadCrumbs from "@/components/CategoryBlock/BreadCrumbs/BreadCrumbs.jsx";
 
-const CategoryPage = ({products, filters, path}) => {
+const CategoryBlock = ({products, filters, path}) => {
 
   const [isBigScreen, setIsBigScreen] = useState(window.innerWidth > 1720)
 
@@ -32,7 +32,7 @@ const CategoryPage = ({products, filters, path}) => {
   
   return (
       <div className='container'>
-        <div>breadcrumbs</div>
+        <BreadCrumbs path={path} />
         <h1 className={s.title}>{path[0].name}</h1>
 
         <div className={s.wrapper}>
@@ -60,4 +60,4 @@ const CategoryPage = ({products, filters, path}) => {
   );
 };
 
-export default CategoryPage;
+export default CategoryBlock;

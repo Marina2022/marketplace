@@ -1,8 +1,8 @@
 import s from './ProductCard.module.scss';
 
 import {useNavigate} from "react-router-dom";
-import ProductCardHorizontal from "@/components/CategoryPage/Products/ProductCard/ProductCardHorizontal.jsx";
-import ProductCardVertical from "@/components/CategoryPage/Products/ProductCard/ProductCardVertical.jsx";
+import ProductCardHorizontal from "@/components/CategoryBlock/Products/ProductCard/ProductCardHorizontal.jsx";
+import ProductCardVertical from "@/components/CategoryBlock/Products/ProductCard/ProductCardVertical.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {getIsAuthenticated} from "@/store/userSlice.js";
 import {getCart, addToCart} from "@/store/cartSlice.js";

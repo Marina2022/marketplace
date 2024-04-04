@@ -1,0 +1,35 @@
+.breadcrumbs {
+  margin-top: 8px;
+  margin-bottom: 19px;
+  color: #658092;
+  font-size: 12px;
+  line-height: 14.52px;
+  display: flex;
+  gap: 30px;
+}
+
+.link {
+  color: #658092;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  
+  &:after {
+    content: '';
+    width: 3.7px;
+    height: 7.3px;
+    position: absolute;
+    background: url(@/assets/img/breadcrumbsArrow.svg) no-repeat;
+    right: -18px;
+    top: 3px;
+  }
+
+  &:last-child {
+    &:after {
+      display: none;
+    }
+  }
+}

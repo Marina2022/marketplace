@@ -1,4 +1,4 @@
-import s from "@/components/CategoryPage/Products/ProductCard/ProductCard.module.scss";
+import s from "@/components/CategoryBlock/Products/ProductCard/ProductCard.module.scss";
 import star from "@/assets/img/star.svg";
 import {getRightWord} from "@/utils/reviews.js";
 import Button from "@/components/ui/Button/Button.jsx";
