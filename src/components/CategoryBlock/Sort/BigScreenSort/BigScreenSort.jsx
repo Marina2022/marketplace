@@ -8,9 +8,10 @@ const BigScreenSort = () => {
       <ul className={s.sortList}>
 
         {
-          sortOptions.map((option, i)=><BigScreenSortItem sortColumn={option.sortColumn} label={option.label}  defaultOrder={option.defaultOrder} />)
+          sortOptions.map((option, i) => <BigScreenSortItem key={i} sortColumn={option.sortColumn} label={option.label}
+                                                            defaultOrder={option.defaultOrder}/>)
         }
-        
+
       </ul>
   );
 };

@@ -4,6 +4,7 @@ import {useLocation, useParams, useSearchParams} from "react-router-dom";
 import CategoryBlock from "@/components/CategoryBlock/CategoryBlock.jsx";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import Error from "@/components/Error/Error.jsx";
+import {PAGE_SIZE} from "@/consts/pageSize.js";
 
 const Category = () => {
 
@@ -13,10 +14,11 @@ const Category = () => {
   const [products, setProducts] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  const [page, setPage] = useState(1)
   const [allFilters, setAllFilters] = useState([])
   const [path, setPath] = useState([])
   const [error, setError] = useState(null)
+  
+  const [pageCountTotal, setPageCountTotal] = useState(0)
 
 
   const location = useLocation();
@@ -54,18 +56,24 @@ const Category = () => {
           }
         }
 
-        queryString = `${queryString}&sortColumn=${sortColumn}&sortOrder=${sortOrder}`
-
-
-        const productsResponse = await axiosInstance(`category/${category}/products?page=${page}&pageSize=36${queryString}`)
+        // добавляем в строку запроса на АПИ page
+        let page = searchParams.get('page')
+        if(!page) page = 1
+        
+        queryString = `${queryString}&page=${page}`
+        
+        const productsResponse = await axiosInstance(`category/${category}/products?pageSize=${PAGE_SIZE}${queryString}`)
         console.log(productsResponse.data)
         console.log('productsResponse', productsResponse)
         setPath(productsResponse.data.meta.path)
         setProducts(productsResponse.data.products)
+        setPageCountTotal(productsResponse.data.meta.pages.totalCount)
+        
       } catch (err) {
         setProducts([])
         setAllFilters([])
         setPath([])
+        setPageCountTotal(0)
 
         // это будет работать, если статус 405 приходит только! в случае, если не найдена страница
         if (err.response.status === '405') {
@@ -86,7 +94,14 @@ const Category = () => {
   if (error) return <Error>Нет такой страницы</Error>
 
   return (
-      <CategoryBlock products={products} filters={allFilters} path={path}/>
+      <CategoryBlock 
+          products={products} 
+          setProducts={setProducts} 
+          filters={allFilters} 
+          path={path} 
+          pageCountTotal={pageCountTotal} 
+          allFilters={allFilters}          
+      />
       // Вы смотрели
   );
 };

@@ -1,0 +1,21 @@
+@import '@/assets/styles/mixins';
+
+.pagination {
+  margin-top: 24px;
+  display: flex;
+  gap: 5px;
+  
+  @include m {
+    display: none;
+  }
+}
+
+.btn {
+  border: 1px solid #3E5067;
+  width: 105px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+}

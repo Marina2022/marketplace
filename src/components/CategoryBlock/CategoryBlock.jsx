@@ -6,39 +6,42 @@ import CardView from "@/components/CategoryBlock/CardView/CardView.jsx";
 import BreadCrumbs from "@/components/CategoryBlock/BreadCrumbs/BreadCrumbs.jsx";
 import useBigScreen from "@/hooks/useBigScreen.js";
 import MobileFilters from "@/components/CategoryBlock/Filters/MobileFilters/MobileFilters.jsx";
+import Pagination from "@/components/CategoryBlock/Pagination/Pagination.jsx";
 
-const CategoryBlock = ({products, filters, path}) => {
-  
+const CategoryBlock = ({products, filters, path, pageCountTotal, setProducts, allFilters}) => {
+
   const isBigScreen = useBigScreen()
-  
+
   console.log(products)
-  
+
   return (
       <div className='container'>
-        <BreadCrumbs path={path} />
+        <BreadCrumbs path={path}/>
         <h1 className={s.title}>{path[0].name}</h1>
 
         <div className={s.wrapper}>
 
           <Filters filters={filters}/>
           <div className={s.rightPart}>
+
             <div className={s.sortAndView}>
               <Sort/>
 
               {
-                  isBigScreen && <CardView />
+                  isBigScreen && <CardView/>
               }
 
               {
-                <MobileFilters />
+                <MobileFilters/>
               }
 
             </div>
 
-            <Products products={products} isBigScreen={isBigScreen}   />
+            <Products products={products} isBigScreen={isBigScreen}/>
 
+            <Pagination pageCountTotal={pageCountTotal} setProducts={setProducts} products={products}
+                        allFilters={allFilters} />
           </div>
-
 
           <div className={s.cardsWrapper}></div>
         </div>
