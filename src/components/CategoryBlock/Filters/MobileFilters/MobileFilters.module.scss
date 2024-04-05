@@ -1,0 +1,18 @@
+@import '@/assets/styles/mixins';
+
+.globalWrapper {
+  display: none;
+  
+  @include m {
+    display: block;
+  }
+}
+
+.buttonBlock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #131D2A;
+}
+

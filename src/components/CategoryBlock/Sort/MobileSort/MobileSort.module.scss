@@ -1,0 +1,52 @@
+.img {
+  margin-right: 5px;
+  fill: #131D2A
+}
+
+.imgAsc {
+  transform: rotate3d(1, 0, 0, 180deg);
+  fill: #E32636;
+  margin-right: 5px;
+}
+
+.imgDesc {
+  fill: #E32636;
+  margin-right: 5px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+}
+
+.buttonText {
+  font-size: 12px;
+  color: #131D2A;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0, .4);
+  z-index: 3;
+}
+
+.modal {
+  width: 280px;
+  max-width: 100%;
+  min-height: 157px;
+  background: #fff;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 25px;
+}
+
+
+
+.list {
+  margin-bottom: 5px;
+}

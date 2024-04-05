@@ -7,9 +7,6 @@ export const loadCart = createAsyncThunk('cart/loadCart', async () => {
 
   // .. давай пока так, потом, возможно, перепишем: Запрос на авторизацию, если юзер не авторизован, то корзину в санке из ЛС подгрузим
   // а сейчс просто из LS
-
-  console.log('я в санке loadCart')
-
   const LSstring = localStorage.getItem('cart')
   if (!LSstring) return []
   return JSON.parse(LSstring)

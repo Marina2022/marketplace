@@ -3,31 +3,14 @@ import Filters from "@/components/CategoryBlock/Filters/Filters.jsx";
 import Sort from "@/components/CategoryBlock/Sort/Sort.jsx";
 import Products from "@/components/CategoryBlock/Products/Products.jsx";
 import CardView from "@/components/CategoryBlock/CardView/CardView.jsx";
-import {useEffect, useState} from "react";
 import BreadCrumbs from "@/components/CategoryBlock/BreadCrumbs/BreadCrumbs.jsx";
+import useBigScreen from "@/hooks/useBigScreen.js";
+import MobileFilters from "@/components/CategoryBlock/Filters/MobileFilters/MobileFilters.jsx";
 
 const CategoryBlock = ({products, filters, path}) => {
-
-  const [isBigScreen, setIsBigScreen] = useState(window.innerWidth > 1720)
-
-
-  useEffect(() => {
-    const onWindowResize = () => {
-      if (window.innerWidth <= 1720) {
-        setIsBigScreen(false)
-      } else {
-        setIsBigScreen(true)
-      }
-    }
-
-    window.addEventListener('resize', onWindowResize)
-
-    return () => {
-      window.removeEventListener('resize', onWindowResize)
-    }
-
-  }, []);
-
+  
+  const isBigScreen = useBigScreen()
+  
   console.log(products)
   
   return (
@@ -44,6 +27,10 @@ const CategoryBlock = ({products, filters, path}) => {
 
               {
                   isBigScreen && <CardView />
+              }
+
+              {
+                <MobileFilters />
               }
 
             </div>

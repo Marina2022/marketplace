@@ -1,0 +1,14 @@
+.item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;  
+}
+
+.ascIcon {
+  margin-left: 5px;
+}
+
+.descIcon {
+  margin-left: 5px;
+  transform: rotate3d(1, 0, 0, 180deg);
+}
