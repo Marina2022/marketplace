@@ -1,2 +1,2 @@
-export const PAGE_SIZE = 36
+export const PAGE_SIZE = 26
 
