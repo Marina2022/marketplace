@@ -1,0 +1,34 @@
+@import '@/assets/styles/mixins';
+
+
+.desktopFilters {
+  width: 300px;
+  flex-shrink: 0;
+  
+
+  @include t {
+    width: 260px;
+  }
+
+  @include m {
+    display: none;
+  }
+}
+
+.filtersWrapper {
+  width: 300px;
+}
+
+.filtersItem {
+  margin-bottom: 15px;
+  background: #fff;
+  padding: 16px 26px;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  @include t {
+    padding: 16px;
+  }
+}

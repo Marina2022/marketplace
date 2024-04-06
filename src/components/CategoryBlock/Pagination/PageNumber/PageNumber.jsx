@@ -3,7 +3,7 @@ import {useSearchParams} from "react-router-dom";
 
 const PageNumber = ({number}) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = searchParams.get('page')
+  const currentPage = searchParams.get('page') || 1
   const onNumberClick = () => {
 
     if (number === '...') return

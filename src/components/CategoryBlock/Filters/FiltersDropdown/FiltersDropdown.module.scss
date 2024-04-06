@@ -1,0 +1,21 @@
+.dropdownWrapper {    
+  
+}
+
+.btnWhenFilterIsOpen {
+  transform: rotate(180deg);
+  
+  width: 12px;
+  height: 12px;
+}
+
+.title {
+  display:  flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19.36px;
+  color: #131D2A;
+}

@@ -12,10 +12,12 @@
   display: flex;
   flex:1;
   margin-bottom: 53px;
+  align-items: flex-start;  
 }
 
 .rightPart {
   flex: 1;
+  margin-left: 22px;
  
   @include m {
     width: 100%;
