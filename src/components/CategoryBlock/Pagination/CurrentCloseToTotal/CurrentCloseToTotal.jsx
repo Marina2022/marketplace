@@ -4,7 +4,7 @@ import PageNumber from "@/components/CategoryBlock/Pagination/PageNumber/PageNum
 
 const CurrentCloseToTotal = ({pageCountTotal}) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = searchParams.get('page')
+  const currentPage = searchParams.get('page') || 1
 
   const onStartClick = () => {
     searchParams.set('page', 1)

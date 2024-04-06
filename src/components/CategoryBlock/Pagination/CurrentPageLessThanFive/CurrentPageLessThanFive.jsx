@@ -5,7 +5,7 @@ import {useSearchParams} from "react-router-dom";
 const CurrentPageLessThanFive = ({pageCountTotal}) => {
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = searchParams.get('page')
+  const currentPage = searchParams.get('page') || 1
   
   let pageArray
 
@@ -33,7 +33,8 @@ const CurrentPageLessThanFive = ({pageCountTotal}) => {
             showFurther && <PageNumber number="..."/>
         }
         {
-            showFurther && <button onClick={onNextClick} className={s.btn}>Дальше</button>
+            // showFurther && <button onClick={onNextClick} className={s.btn}>Дальше</button>
+            pageCountTotal !== +currentPage &&  <button onClick={onNextClick} className={s.btn}>Дальше</button>
         }
       </ul>
   );

@@ -1,5 +1,5 @@
 import s from './CategoryBlock.module.scss'
-import Filters from "@/components/CategoryBlock/Filters/Filters.jsx";
+import Filters from "@/components/CategoryBlock/Filters/DesktopFilters/Filters.jsx";
 import Sort from "@/components/CategoryBlock/Sort/Sort.jsx";
 import Products from "@/components/CategoryBlock/Products/Products.jsx";
 import CardView from "@/components/CategoryBlock/CardView/CardView.jsx";
@@ -8,12 +8,10 @@ import useBigScreen from "@/hooks/useBigScreen.js";
 import MobileFilters from "@/components/CategoryBlock/Filters/MobileFilters/MobileFilters.jsx";
 import Pagination from "@/components/CategoryBlock/Pagination/Pagination.jsx";
 
-const CategoryBlock = ({products, filters, path, pageCountTotal, setProducts, allFilters}) => {
+const CategoryBlock = ({products, path, pageCountTotal, setProducts, allFilters}) => {
 
   const isBigScreen = useBigScreen()
-
-  console.log(products)
-
+  
   return (
       <div className='container'>
         <BreadCrumbs path={path}/>
@@ -21,7 +19,7 @@ const CategoryBlock = ({products, filters, path, pageCountTotal, setProducts, al
 
         <div className={s.wrapper}>
 
-          <Filters filters={filters}/>
+          <Filters allFilters={allFilters}/>
           <div className={s.rightPart}>
 
             <div className={s.sortAndView}>

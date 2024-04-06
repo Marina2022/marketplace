@@ -5,7 +5,7 @@ import {useSearchParams} from "react-router-dom";
 const CurrentPageMoreThanFive = () => {
   
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = searchParams.get('page')
+  const currentPage = searchParams.get('page') || 1
   
   const onStartClick = () => {
     searchParams.set('page', 1)

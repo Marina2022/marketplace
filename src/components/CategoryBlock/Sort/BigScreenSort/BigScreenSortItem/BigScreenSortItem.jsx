@@ -31,6 +31,7 @@ const BigScreenSortItem = ({label, sortColumn, defaultOrder}) => {
 
     searchParams.set('sortOrder', valueToSet)
     searchParams.set('sortColumn', sortColumn)
+    searchParams.set('page', 1)
     setSearchParams(searchParams)
   }
 
