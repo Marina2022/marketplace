@@ -21,10 +21,11 @@ const DesktopFilters = ({allFilters, rightPartRef, globalWrapperRef}) => {
               if (window.pageYOffset > pageYOffset) {
                 if (filterWrapperBottom <= window.innerHeight) {
 
-
                   //если каталог еще не дошел до низа страницы                  
                   if (rightPartRef.current.getBoundingClientRect().bottom > window.innerHeight) {
                     filtersWrapper.current.style = 'position: fixed; bottom: 20px'
+
+                    //если каталог дошел до низа страницы       
                   } else {
                     filtersWrapper.current.style = 'position: static'
                     globalWrapperRef.current.style = 'align-items: flex-end'
@@ -37,7 +38,9 @@ const DesktopFilters = ({allFilters, rightPartRef, globalWrapperRef}) => {
               // скроллим вверх
               if (window.pageYOffset < pageYOffset) {
 
-                 //filtersWrapper.current.style = `position: static` 
+                 
+                filtersWrapper.current.style = 'position: static'
+                // globalWrapperRef.current.style = 'align-items: flex-end'
                 
 
                 // Если фильтры доехали до верха экрана
@@ -59,16 +62,14 @@ const DesktopFilters = ({allFilters, rightPartRef, globalWrapperRef}) => {
                   }
                 } else {
                   console.log('фильтры не доехали до верха экрана')
-                  // если фильтры не доехали до верха экрана:
-                  // filtersWrapper.current.style = `position: relative; top:${}`
-                  // filtersWrapper.current.style = `position: relative; `
-                  // globalWrapperRef.current.style = 'align-items: flex-start'
+          
                 }
 
-                pageYOffset = window.pageYOffset
+                
 
               }
 
+              pageYOffset = window.pageYOffset
             }
 
 
