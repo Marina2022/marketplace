@@ -1,12 +1,25 @@
 import s from './FiltersDropdown.module.scss';
 import {useState} from "react";
 
-const FiltersDropdown = ({children, title}) => {
+const FiltersDropdown = ({children, title, filtersWrapper, rightPartRef}) => {
 
   const [isOpen, setIsOpen] = useState(true)
 
   const onBtnClick = () => {
     setIsOpen(prev => !prev)
+ 
+    
+    //if (filtersWrapper.current.getBoundingClientRect().height <= window.innerHeight - 230) {
+      if (filtersWrapper.current.getBoundingClientRect().height <= window.innerHeight ) {
+      console.log('happen')
+      if (rightPartRef.current.getBoundingClientRect().top <= 0) {
+       
+      filtersWrapper.current.style = 'position: fixed; top: 20px'
+      } else {
+        filtersWrapper.current.style = 'position: static; '
+      }
+    }
+    
   }
 
   return (

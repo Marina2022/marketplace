@@ -1,9 +1,8 @@
 @import '@/assets/styles/mixins';
 
-
 .desktopFilters {
   width: 300px;
-  flex-shrink: 0;
+  flex-shrink: 0;  
   
 
   @include t {
@@ -17,6 +16,16 @@
 
 .filtersWrapper {
   width: 300px;
+  flex-shrink: 0;
+
+
+  @include t {
+    width: 260px;
+  }
+
+  @include m {
+    display: none;
+  }
 }
 
 .filtersItem {

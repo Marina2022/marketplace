@@ -7,91 +7,103 @@ import ColorFilter from "@/components/CategoryBlock/Filters/DesktopFilters/Color
 import {useEffect, useRef} from "react";
 
 
-const DesktopFilters = ({allFilters, rightPartRef, globalWrapperRef}) => {
-
+const DesktopFilters = ({allFilters, rightPartRef}) => {
 
       useEffect(() => {
 
             let pageYOffset = window.pageYOffset;
+            let isRelative = false
 
             const scrollHandler = (e) => {
+     
+              globalWrapper.current.style = 'position: static; top: 0'
+
               const filterWrapperBottom = filtersWrapper.current.getBoundingClientRect().bottom
 
               // скроллим вниз
               if (window.pageYOffset > pageYOffset) {
+
+                // если фильтры дошли до низа страницы
                 if (filterWrapperBottom <= window.innerHeight) {
 
-                  //если каталог еще не дошел до низа страницы                  
-                  if (rightPartRef.current.getBoundingClientRect().bottom > window.innerHeight) {
+                  //если каталог еще не дошел снизу до низа страницы                  
+                  if (rightPartRef.current.getBoundingClientRect().bottom - 70 > window.innerHeight) {
                     filtersWrapper.current.style = 'position: fixed; bottom: 20px'
+                    isRelative = false
 
-                    //если каталог дошел до низа страницы       
+                    // Высота маленькая (фильтры влазят на экран, не скрролим)
+                    if (filtersWrapper.current.getBoundingClientRect().height < window.innerHeight - 230) {
+                      if (rightPartRef.current.getBoundingClientRect().top <= 0) {
+                        filtersWrapper.current.style = 'position: fixed; top: 20px'
+                      } else {
+                        filtersWrapper.current.style = 'position: static; '
+                      }
+                    }
+
+                    //если каталог дошел снизу до низа страницы       
                   } else {
-                    filtersWrapper.current.style = 'position: static'
-                    globalWrapperRef.current.style = 'align-items: flex-end'
-                  }
 
+                    if (!isRelative) {
+                      isRelative = true
+                      filtersWrapper.current.style = `position: relative; top: ${window.pageYOffset + filtersWrapper.current.getBoundingClientRect().y - 215}px`
+                    }
+                  }
                   pageYOffset = window.pageYOffset
+
+                  // если фильтры не дошли до низа страницы:
+                } else {
+                  if (!isRelative) {
+                    isRelative = true
+                    filtersWrapper.current.style = `position: relative; top: ${window.pageYOffset + filtersWrapper.current.getBoundingClientRect().y - 215}px`
+                  }
                 }
               }
 
               // скроллим вверх
               if (window.pageYOffset < pageYOffset) {
 
-                 
-                filtersWrapper.current.style = 'position: static'
-                // globalWrapperRef.current.style = 'align-items: flex-end'
-                
+                if (!isRelative) {
+                  isRelative = true
+                  filtersWrapper.current.style = `position: relative; top: ${window.pageYOffset + filtersWrapper.current.getBoundingClientRect().y - 215}px`
+                }
 
                 // Если фильтры доехали до верха экрана
                 if (filtersWrapper.current.getBoundingClientRect().top >= 0) {
 
-                  console.log('фильтры доехали до верха экрана')
-
-                  console.log('верхний край фильтров = ', filtersWrapper.current.getBoundingClientRect().top )
-                  
-                  // // фиксируем их по верхнему краю: 
-                  
-
+                  // фиксируем их по верхнему краю: 
                   // если сверху выезжает правый блок
                   if (rightPartRef.current.getBoundingClientRect().top > 0) {
+
+
                     filtersWrapper.current.style = 'position: static'
-                    globalWrapperRef.current.style = 'align-items: flex-start'
+                    // isRelative = false
+
                   } else {
-                    filtersWrapper.current.style = 'position: fixed; top: 20px'  
+                    filtersWrapper.current.style = 'position: fixed; top: 20px'
+                    isRelative = false
                   }
-                } else {
-                  console.log('фильтры не доехали до верха экрана')
-          
                 }
-
-                
-
               }
-
               pageYOffset = window.pageYOffset
             }
-
-
             window.addEventListener('scroll', scrollHandler)
 
             return () => window.removeEventListener('scroll', scrollHandler)
-
-
           }, []
       )
-      ;
+
 
       const filtersWrapper = useRef()
+      const globalWrapper = useRef()
 
       return (
-          <div className={s.desktopFilters}>
+          <div className={s.desktopFilters} ref={globalWrapper}>
             <div className={s.filtersWrapper} ref={filtersWrapper}>
               <ul>
                 {
                   allFilters.map((filter, i) => {
                     if (filter.filterType === 'checkbox') {
-                      return <li key={i} className={s.filtersItem}><CheckboxFilter filter={filter}/></li>
+                      return <li key={i} className={s.filtersItem}><CheckboxFilter filter={filter} filtersWrapper={filtersWrapper} rightPartRef={rightPartRef} /></li>
                     }
                     if (filter.filterType === 'incheckbox') {
                       return <li key={i} className={s.filtersItem}><IncheckboxFilter key={i} filter={filter}/></li>
@@ -106,8 +118,6 @@ const DesktopFilters = ({allFilters, rightPartRef, globalWrapperRef}) => {
                     }
                   })
                 }
-
-
               </ul>
             </div>
           </div>

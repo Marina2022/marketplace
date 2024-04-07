@@ -14,16 +14,16 @@ const CategoryBlock = ({products, path, pageCountTotal, setProducts, allFilters}
   const isBigScreen = useBigScreen()
   
   const rightPartRef = useRef()
-  const globalWrapperRef = useRef()
+  
   
   return (
       <div className='container'>
         <BreadCrumbs path={path}/>
         <h1 className={s.title}>{path[0].name}</h1>
 
-        <div className={s.wrapper} ref={globalWrapperRef}>
+        <div className={s.wrapper}>
 
-          <DesktopFilters allFilters={allFilters}  rightPartRef={rightPartRef} globalWrapperRef={globalWrapperRef} />
+          <DesktopFilters allFilters={allFilters}  rightPartRef={rightPartRef}  />
           <div className={s.rightPart} ref={rightPartRef}>
 
             <div className={s.sortAndView}>
