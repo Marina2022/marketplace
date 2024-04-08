@@ -25,7 +25,6 @@ const CategoryBlock = ({products, path, pageCountTotal, setProducts, allFilters}
 
           <DesktopFilters allFilters={allFilters}  rightPartRef={rightPartRef}  />
           <div className={s.rightPart} ref={rightPartRef}>
-
             <div className={s.sortAndView}>
               <Sort/>
 
@@ -41,8 +40,11 @@ const CategoryBlock = ({products, path, pageCountTotal, setProducts, allFilters}
 
             <Products products={products} isBigScreen={isBigScreen}/>
 
-            <Pagination pageCountTotal={pageCountTotal} setProducts={setProducts} products={products}
-                        allFilters={allFilters} />
+            {
+              products.length > 0 && <Pagination pageCountTotal={pageCountTotal} setProducts={setProducts} products={products}
+                                                 allFilters={allFilters} />
+            }
+            
           </div>
 
           <div className={s.cardsWrapper}></div>

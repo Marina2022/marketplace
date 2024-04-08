@@ -28,11 +28,13 @@ const DesktopFilters = ({allFilters, rightPartRef}) => {
 
                   //если каталог еще не дошел снизу до низа страницы                  
                   if (rightPartRef.current.getBoundingClientRect().bottom - 70 > window.innerHeight) {
+                    
+                    
                     filtersWrapper.current.style = 'position: fixed; bottom: 20px'
                     isRelative = false
 
                     // Высота маленькая (фильтры влазят на экран, не скрролим)
-                    if (filtersWrapper.current.getBoundingClientRect().height < window.innerHeight - 230) {
+                    if (filtersWrapper.current.getBoundingClientRect().height < window.innerHeight -40 ) {  // 40 - Вертикальный отступ у фильтров
                       if (rightPartRef.current.getBoundingClientRect().top <= 0) {
                         filtersWrapper.current.style = 'position: fixed; top: 20px'
                       } else {
@@ -73,11 +75,8 @@ const DesktopFilters = ({allFilters, rightPartRef}) => {
                   // фиксируем их по верхнему краю: 
                   // если сверху выезжает правый блок
                   if (rightPartRef.current.getBoundingClientRect().top > 0) {
-
-
                     filtersWrapper.current.style = 'position: static'
                     // isRelative = false
-
                   } else {
                     filtersWrapper.current.style = 'position: fixed; top: 20px'
                     isRelative = false
@@ -92,7 +91,6 @@ const DesktopFilters = ({allFilters, rightPartRef}) => {
           }, []
       )
 
-
       const filtersWrapper = useRef()
       const globalWrapper = useRef()
 
@@ -106,15 +104,15 @@ const DesktopFilters = ({allFilters, rightPartRef}) => {
                       return <li key={i} className={s.filtersItem}><CheckboxFilter filter={filter} filtersWrapper={filtersWrapper} rightPartRef={rightPartRef} /></li>
                     }
                     if (filter.filterType === 'incheckbox') {
-                      return <li key={i} className={s.filtersItem}><IncheckboxFilter key={i} filter={filter}/></li>
+                      return <li key={i} className={s.filtersItem}><IncheckboxFilter key={i} filter={filter} filtersWrapper={filtersWrapper} rightPartRef={rightPartRef}/></li>
                     }
 
                     if (filter.filterType === 'interval') {
-                      return <li key={i} className={s.filtersItem}><PriceFilter key={i} filter={filter}/></li>
+                      return <li key={i} className={s.filtersItem}><PriceFilter key={i} filter={filter} filtersWrapper={filtersWrapper} rightPartRef={rightPartRef}/></li>
                     }
 
                     if (filter.filterType === 'colcheckbox') {
-                      return <li key={i} className={s.filtersItem}><ColorFilter key={i} filter={filter}/></li>
+                      return <li key={i} className={s.filtersItem}><ColorFilter key={i} filter={filter} filtersWrapper={filtersWrapper} rightPartRef={rightPartRef}/></li>
                     }
                   })
                 }
