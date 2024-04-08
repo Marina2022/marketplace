@@ -10,7 +10,7 @@ const CheckboxFilter = ({filter, filtersWrapper, rightPartRef}) => {
       <FiltersDropdown title={filterName} filtersWrapper={filtersWrapper} rightPartRef={rightPartRef} filter={nameHandle}>
         <ul className={s.list}>
           {
-            filterSettings.map((item, i)=><CheckboxFilterItem key={i} item={item} filterNameHandle={nameHandle} />)
+            filterSettings.map((item, i)=><CheckboxFilterItem key={i} item={item} filterNameHandle={nameHandle} />)            
           }          
         </ul>        
       </FiltersDropdown>

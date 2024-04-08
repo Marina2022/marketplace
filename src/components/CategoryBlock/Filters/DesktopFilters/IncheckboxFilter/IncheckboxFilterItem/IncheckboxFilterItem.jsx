@@ -1,4 +1,4 @@
-import s from './CheckboxFilterItem.module.scss';
+import s from './IncheckboxFilterItem.module.scss';
 import {useSearchParams} from "react-router-dom";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
@@ -7,15 +7,18 @@ import {getScroll, setScroll} from "@/store/catalogSlice.js";
 const CheckboxFilterItem = ({item, filterNameHandle}) => {
 
   const scrollPosition = useSelector(getScroll)
-  
+
   useEffect(() => {
-    window.scrollTo(0, scrollPosition);  
+    window.scrollTo(0, scrollPosition);
   }, []);
-  
 
   const dispatch = useDispatch()
-   
   const {value, valueHandle} = item
+  const tempArray = valueHandle.split('-')
+
+  // значение типа minValue:65;maxValue:100  
+  const valueHandleForWork = `minValue:${tempArray[0]};maxValue:${tempArray[1]}`
+
   const [searchParams, setSearchParams] = useSearchParams();
   const valueFromAddressBar = searchParams.get(filterNameHandle)
 
@@ -26,33 +29,32 @@ const CheckboxFilterItem = ({item, filterNameHandle}) => {
   }
 
   let isSelected = false
-  if (valuesArray.includes(valueHandle.toString())) isSelected = true
-
+  if (valuesArray.includes(valueHandleForWork)) isSelected = true
   const onCheck = () => {
-   
-    // Убираем значение из searchParams
+
+    // Убираем значение из searchParams - todo
     if (isSelected) {
 
-      const filteredArray = valuesArray.filter(item => item !== valueHandle)
-      
+      const filteredArray = valuesArray.filter(item => item !== valueHandleForWork)
+
       if (filteredArray.length === 0) {
         searchParams.delete(filterNameHandle)
         setSearchParams(searchParams)
       } else {
 
-        searchParams.set(filterNameHandle,filteredArray.join(',') )
+        searchParams.set(filterNameHandle, filteredArray.join(','))
         setSearchParams(searchParams)
       }
-      
+
       // добавляем значение в searchParams
     } else {
-      valuesArray.push(valueHandle)
+      valuesArray.push(valueHandleForWork)
       searchParams.set(filterNameHandle, valuesArray.join(','))
       setSearchParams(searchParams)
     }
-    
+
     // сохраняем скролл в редаксе
-    dispatch(setScroll(window.scrollY))    
+    dispatch(setScroll(window.scrollY))
   }
 
   return (
@@ -74,7 +76,6 @@ const CheckboxFilterItem = ({item, filterNameHandle}) => {
                   fill="white"/>
             </svg>
         }
-
         {value}
       </li>
   );
