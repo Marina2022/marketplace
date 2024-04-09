@@ -21,7 +21,7 @@ const BigScreenSortItem = ({label, sortColumn, defaultOrder}) => {
     }
   }
 
-  const onItemClick = () => {
+  const onItemClick = () => {    
     let valueToSet = status === 'asc' ? 'desc' : 'asc'
 
     if (status === 'notSelected') {
@@ -37,7 +37,8 @@ const BigScreenSortItem = ({label, sortColumn, defaultOrder}) => {
     searchParams.set('page', 1)
     setSearchParams(searchParams)
 
-    dispatch(setScroll(window.scrollY))
+    //dispatch(setScroll(window.scrollY))
+    
   }
 
   return (

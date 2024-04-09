@@ -1,16 +1,9 @@
 import s from './IncheckboxFilterItem.module.scss';
 import {useSearchParams} from "react-router-dom";
-import {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {getScroll, setScroll} from "@/store/catalogSlice.js";
+import {useDispatch} from "react-redux";
+import {setScroll} from "@/store/catalogSlice.js";
 
-const CheckboxFilterItem = ({item, filterNameHandle}) => {
-
-  const scrollPosition = useSelector(getScroll)
-
-  useEffect(() => {
-    window.scrollTo(0, scrollPosition);
-  }, []);
+const IncheckboxFilterItem = ({item, filterNameHandle}) => {
 
   const dispatch = useDispatch()
   const {value, valueHandle} = item
@@ -43,6 +36,7 @@ const CheckboxFilterItem = ({item, filterNameHandle}) => {
       } else {
 
         searchParams.set(filterNameHandle, filteredArray.join(','))
+        searchParams.set('page', 1)
         setSearchParams(searchParams)
       }
 
@@ -50,11 +44,10 @@ const CheckboxFilterItem = ({item, filterNameHandle}) => {
     } else {
       valuesArray.push(valueHandleForWork)
       searchParams.set(filterNameHandle, valuesArray.join(','))
+      searchParams.set('page', 1)
       setSearchParams(searchParams)
     }
 
-    // сохраняем скролл в редаксе
-    dispatch(setScroll(window.scrollY))
   }
 
   return (
@@ -81,4 +74,4 @@ const CheckboxFilterItem = ({item, filterNameHandle}) => {
   );
 };
 
-export default CheckboxFilterItem;
+export default IncheckboxFilterItem;

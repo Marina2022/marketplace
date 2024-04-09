@@ -1,6 +1,11 @@
 import s from './FiltersDropdown.module.scss';
 import {useRef, useState} from "react";
-import {addDropdownedFilters, getDropdownedFilters, removeFromDropdownedFilters} from "@/store/catalogSlice.js";
+import {
+  addDropdownedFilters,
+  getDropdownedFilters,
+  removeFromDropdownedFilters,
+  setScroll
+} from "@/store/catalogSlice.js";
 import {useDispatch, useSelector} from "react-redux";
 
 const FiltersDropdown = ({children, title, filtersWrapper, rightPartRef, filter}) => {
@@ -24,6 +29,7 @@ const FiltersDropdown = ({children, title, filtersWrapper, rightPartRef, filter}
     // если меняем состояние на Свернутое - посылаем в редакс экшн
     if (isOpen) {
       dispatch(addDropdownedFilters(filter))
+      dispatch(setScroll(window.scrollY))
 
       const filtersHeigthAfterClosing = filtersWrapper.current.getBoundingClientRect().height
           - (dropdownRef.current.getBoundingClientRect().height - dropdownTitleRef.current.getBoundingClientRect().height)
@@ -41,6 +47,7 @@ const FiltersDropdown = ({children, title, filtersWrapper, rightPartRef, filter}
       // если меняем состояние на Развернутое
     } else {
       dispatch(removeFromDropdownedFilters(filter))
+      dispatch(setScroll(window.scrollY))
     }
   }
 
@@ -49,9 +56,9 @@ const FiltersDropdown = ({children, title, filtersWrapper, rightPartRef, filter}
 
   return (
       <div className={s.dropdownWrapper} ref={dropdownRef}>
-        <h3 className={s.title} ref={dropdownTitleRef}>
+        <h3 className={s.title} ref={dropdownTitleRef} onClick={onBtnClick}>
           <span>{title}</span>
-          <button onClick={onBtnClick}>
+          <button >
             <svg className={isOpen ? s.btnWhenFilterIsOpen : ''} width="12" height="13" viewBox="0 0 12 13" fill="none"
                  xmlns="http://www.w3.org/2000/svg">
               <path d="M9.5 5L6 8.5L2.5 5" stroke="#5C798B" strokeWidth="2" strokeLinecap="round"

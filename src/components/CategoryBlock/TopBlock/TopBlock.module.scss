@@ -1,0 +1,21 @@
+@import '@/assets/styles/mixins';
+
+
+.placeholder {
+  height: 94px;
+  
+  @include m {
+    height: 61px;
+  }  
+}
+
+
+.title {
+  margin-bottom: 24px;
+  font-size: 28px;
+
+  @include m {
+    margin-top: 17px;
+    font-size: 18px;
+  }
+}

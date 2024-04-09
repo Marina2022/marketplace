@@ -3,53 +3,31 @@ import DesktopFilters from "@/components/CategoryBlock/Filters/DesktopFilters/De
 import Sort from "@/components/CategoryBlock/Sort/Sort.jsx";
 import Products from "@/components/CategoryBlock/Products/Products.jsx";
 import CardView from "@/components/CategoryBlock/CardView/CardView.jsx";
-import BreadCrumbs from "@/components/CategoryBlock/BreadCrumbs/BreadCrumbs.jsx";
 import useBigScreen from "@/hooks/useBigScreen.js";
 import MobileFilters from "@/components/CategoryBlock/Filters/MobileFilters/MobileFilters.jsx";
-import Pagination from "@/components/CategoryBlock/Pagination/Pagination.jsx";
 import {useRef} from "react";
+import TopBlock from "@/components/CategoryBlock/TopBlock/TopBlock.jsx";
 
-const CategoryBlock = ({products, path, pageCountTotal, setProducts, allFilters}) => {
+const CategoryBlock = ({allFilters}) => {
 
   const isBigScreen = useBigScreen()
-  
   const rightPartRef = useRef()
-  
-  
+
   return (
       <div className='container'>
-        <BreadCrumbs path={path}/>
-        <h1 className={s.title}>{path[0].name}</h1>
+
+        <TopBlock/>
 
         <div className={s.wrapper}>
 
-          <DesktopFilters allFilters={allFilters}  rightPartRef={rightPartRef}  />
-          <div className={s.rightPart} ref={rightPartRef}>
-            <div className={s.sortAndView}>
-              <Sort/>
-
-              {
-                  isBigScreen && <CardView/>
-              }
-
-              {
-                <MobileFilters/>
-              }
-
+          <DesktopFilters allFilters={allFilters} rightPartRef={rightPartRef}/>
+          <div className={s.rightPartWrapper}>
+            <div className={s.rightPart} ref={rightPartRef}>             
+              <Products isBigScreen={isBigScreen} allFilters={allFilters}/>
             </div>
-
-            <Products products={products} isBigScreen={isBigScreen}/>
-
-            {
-              products.length > 0 && <Pagination pageCountTotal={pageCountTotal} setProducts={setProducts} products={products}
-                                                 allFilters={allFilters} />
-            }
-            
           </div>
-
-          <div className={s.cardsWrapper}></div>
         </div>
-
+        
       </div>
   );
 };

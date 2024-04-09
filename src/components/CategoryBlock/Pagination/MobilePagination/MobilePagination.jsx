@@ -47,6 +47,13 @@ const MobilePagination = ({products, setProducts, allFilters}) => {
     // добавляем страницу в строку запроса на АПИ 
     queryString = `${queryString}&page=${+currentPage + pagesToAdd}`
 
+    // добавляем в строку запроса на АПИ - цену
+    let minPrice = searchParams.get('minPrice')
+    let maxPrice = searchParams.get('maxPrice')
+    if (minPrice && maxPrice) {
+      queryString = `${queryString}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+    }
+
     try {
       setIsLoading(true)
       const productsResponse = await axiosInstance(`category/${category}/products?pageSize=${PAGE_SIZE}${queryString}`)

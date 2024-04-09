@@ -9,6 +9,7 @@ const CurrentCloseToTotal = ({pageCountTotal}) => {
   const onStartClick = () => {
     searchParams.set('page', 1)
     setSearchParams(searchParams)
+    window.scrollTo(0, scroll)
   }
 
   return (

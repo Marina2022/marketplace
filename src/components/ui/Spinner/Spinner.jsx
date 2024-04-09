@@ -1,10 +1,10 @@
 import s from './Spinner.module.scss'
-import {RotatingLines} from 'react-loader-spinner';
+import {TailSpin } from 'react-loader-spinner';
 const Spinner = ({className}) => {
   return (
       <div className={`${s.spinner} ${className}`}>
-        <RotatingLines
-            strokeColor="#E32636"/>
+         <TailSpin
+            color="#E32636"/>
       </div>
   );
 };

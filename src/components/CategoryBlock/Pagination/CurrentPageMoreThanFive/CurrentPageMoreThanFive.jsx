@@ -10,10 +10,12 @@ const CurrentPageMoreThanFive = () => {
   const onStartClick = () => {
     searchParams.set('page', 1)
     setSearchParams(searchParams)
+    window.scrollTo(0, scroll)
   }
   const onNextClick = () => {
     searchParams.set('page', +currentPage + 1)
     setSearchParams(searchParams)
+    window.scrollTo(0, scroll)
   }
     
   return (      

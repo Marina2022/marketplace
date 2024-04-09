@@ -5,122 +5,153 @@ import IncheckboxFilter
 import PriceFilter from "@/components/CategoryBlock/Filters/DesktopFilters/PriceFilter/PriceFilter.jsx";
 import ColorFilter from "@/components/CategoryBlock/Filters/DesktopFilters/ColorFilter/ColorFilter.jsx";
 import {useEffect, useRef} from "react";
+import {useSelector} from "react-redux";
+import {getScroll} from "@/store/catalogSlice.js";
 
 
 const DesktopFilters = ({allFilters, rightPartRef}) => {
 
-      useEffect(() => {
+  useEffect(() => {
 
-            let pageYOffset = window.pageYOffset;
-            let isRelative = false
 
-            const scrollHandler = (e) => {
-     
-              globalWrapper.current.style = 'position: static; top: 0'
+        let pageYOffset = window.pageYOffset;
+        let isRelative = false
 
-              const filterWrapperBottom = filtersWrapper.current.getBoundingClientRect().bottom
 
-              // скроллим вниз
-              if (window.pageYOffset > pageYOffset) {
+        const scrollHandler = () => {
 
-                // если фильтры дошли до низа страницы
-                if (filterWrapperBottom <= window.innerHeight) {
+          // минимальная высота для блока-обертки фильтров, чтобы не выпадать из потока 
+          const minHeight = (filtersWrapper.current.getBoundingClientRect().height + window.pageYOffset + filtersWrapper.current.getBoundingClientRect().y - 225) > rightPartRef.current.getBoundingClientRect().height
+              ? filtersWrapper.current.getBoundingClientRect().height + window.pageYOffset + filtersWrapper.current.getBoundingClientRect().y - 225 : rightPartRef.current.getBoundingClientRect().height
+          
+          globalWrapper.current.style.minHeight = minHeight + 'px'
+          
+          if ((filtersWrapper.current.getBoundingClientRect().top <= rightPartRef.current.getBoundingClientRect().top) &&
+              (rightPartRef.current.getBoundingClientRect().top < 225)) {
+            filtersWrapper.current.style.position = 'static'
+          }
 
-                  //если каталог еще не дошел снизу до низа страницы                  
-                  if (rightPartRef.current.getBoundingClientRect().bottom - 70 > window.innerHeight) {
+          const filterWrapperBottom = filtersWrapper.current.getBoundingClientRect().bottom
+
+          // скроллим вниз
+          if (window.pageYOffset > pageYOffset) {
+
+            // если фильтры дошли до низа страницы
+            if (filterWrapperBottom <= window.innerHeight) {
+
+              //если каталог еще не дошел снизу до низа страницы                  
+              if (rightPartRef.current.getBoundingClientRect().bottom - 70 > window.innerHeight) {
+
+                filtersWrapper.current.style = 'position: fixed; bottom: 20px'
+                isRelative = false
+
+                // Высота маленькая (фильтры влазят на экран, не скрролим)
+                if (filtersWrapper.current.getBoundingClientRect().height < window.innerHeight - 40) {  // 40 - Вертикальный отступ у фильтров
+                  if (rightPartRef.current.getBoundingClientRect().top <= 0) {
+                    filtersWrapper.current.style = 'position: fixed; top: 20px'
+              
                     
-                    
-                    filtersWrapper.current.style = 'position: fixed; bottom: 20px'
-                    isRelative = false
-
-                    // Высота маленькая (фильтры влазят на экран, не скрролим)
-                    if (filtersWrapper.current.getBoundingClientRect().height < window.innerHeight -40 ) {  // 40 - Вертикальный отступ у фильтров
-                      if (rightPartRef.current.getBoundingClientRect().top <= 0) {
-                        filtersWrapper.current.style = 'position: fixed; top: 20px'
-                      } else {
-                        filtersWrapper.current.style = 'position: static; '
-                      }
-                    }
-
-                    //если каталог дошел снизу до низа страницы       
                   } else {
-
-                    if (!isRelative) {
-                      isRelative = true
-                      filtersWrapper.current.style = `position: relative; top: ${window.pageYOffset + filtersWrapper.current.getBoundingClientRect().y - 215}px`
-                    }
-                  }
-                  pageYOffset = window.pageYOffset
-
-                  // если фильтры не дошли до низа страницы:
-                } else {
-                  if (!isRelative) {
-                    isRelative = true
-                    filtersWrapper.current.style = `position: relative; top: ${window.pageYOffset + filtersWrapper.current.getBoundingClientRect().y - 215}px`
+                    filtersWrapper.current.style = 'position: static'
                   }
                 }
-              }
 
-              // скроллим вверх
-              if (window.pageYOffset < pageYOffset) {
+                //если каталог дошел снизу до низа страницы       
+              } else {
 
                 if (!isRelative) {
                   isRelative = true
-                  filtersWrapper.current.style = `position: relative; top: ${window.pageYOffset + filtersWrapper.current.getBoundingClientRect().y - 215}px`
-                }
-
-                // Если фильтры доехали до верха экрана
-                if (filtersWrapper.current.getBoundingClientRect().top >= 0) {
-
-                  // фиксируем их по верхнему краю: 
-                  // если сверху выезжает правый блок
-                  if (rightPartRef.current.getBoundingClientRect().top > 0) {
-                    filtersWrapper.current.style = 'position: static'
-                    // isRelative = false
-                  } else {
-                    filtersWrapper.current.style = 'position: fixed; top: 20px'
-                    isRelative = false
-                  }
+                  // filtersWrapper.current.style = `position: relative; top: ${window.pageYOffset + filtersWrapper.current.getBoundingClientRect().y - 215}px`
+                  let topValue = window.pageYOffset + filtersWrapper.current.getBoundingClientRect().y - 225
+                  // if (topValue< 0) topValue = 0
+                  filtersWrapper.current.style = `position: relative; top: ${topValue}px`
                 }
               }
               pageYOffset = window.pageYOffset
+
+              // если фильтры не дошли до низа страницы:
+            } else {
+              if (!isRelative) {
+                isRelative = true
+                // filtersWrapper.current.style = `position: relative; top: ${window.pageYOffset + filtersWrapper.current.getBoundingClientRect().y - 215}px`
+                let topValue = window.pageYOffset + filtersWrapper.current.getBoundingClientRect().y - 225
+                // if (topValue< 0) topValue = 0
+                filtersWrapper.current.style = `position: relative; top: ${topValue}px`
+              }
             }
-            window.addEventListener('scroll', scrollHandler)
+          }
 
-            return () => window.removeEventListener('scroll', scrollHandler)
-          }, []
-      )
+          // скроллим вверх
+          if (window.pageYOffset < pageYOffset) {
 
-      const filtersWrapper = useRef()
-      const globalWrapper = useRef()
+            if (!isRelative) {
+              isRelative = true
 
-      return (
-          <div className={s.desktopFilters} ref={globalWrapper}>
-            <div className={s.filtersWrapper} ref={filtersWrapper}>
-              <ul>
-                {
-                  allFilters.map((filter, i) => {
-                    if (filter.filterType === 'checkbox') {
-                      return <li key={i} className={s.filtersItem}><CheckboxFilter filter={filter} filtersWrapper={filtersWrapper} rightPartRef={rightPartRef} /></li>
-                    }
-                    if (filter.filterType === 'incheckbox') {
-                      return <li key={i} className={s.filtersItem}><IncheckboxFilter key={i} filter={filter} filtersWrapper={filtersWrapper} rightPartRef={rightPartRef}/></li>
-                    }
+              let topValue = window.pageYOffset + filtersWrapper.current.getBoundingClientRect().y - 225
+              // if (topValue < 0) topValue = 0
+              filtersWrapper.current.style = `position: relative; top: ${topValue}px`
+              
+            }
 
-                    if (filter.filterType === 'interval') {
-                      return <li key={i} className={s.filtersItem}><PriceFilter key={i} filter={filter} filtersWrapper={filtersWrapper} rightPartRef={rightPartRef}/></li>
-                    }
+            // Если фильтры доехали до верха экрана
+            if (filtersWrapper.current.getBoundingClientRect().top >= 0) {
 
-                    if (filter.filterType === 'colcheckbox') {
-                      return <li key={i} className={s.filtersItem}><ColorFilter key={i} filter={filter} filtersWrapper={filtersWrapper} rightPartRef={rightPartRef}/></li>
-                    }
-                  })
+              // фиксируем их по верхнему краю: 
+              // если сверху выезжает правый блок
+              if (rightPartRef.current.getBoundingClientRect().top > 0) {
+                filtersWrapper.current.style = 'position: static'
+                isRelative = false
+                
+              } else {
+                filtersWrapper.current.style = 'position: fixed; top: 20px'                
+                isRelative = false
+              }
+            }
+          }
+          pageYOffset = window.pageYOffset
+        }
+        window.addEventListener('scroll', scrollHandler)
+        return () => window.removeEventListener('scroll', scrollHandler)
+      }, []
+  )
+
+  const filtersWrapper = useRef()
+  const globalWrapper = useRef()
+
+  return (
+      <div className={s.desktopFilters} ref={globalWrapper}>
+        <div className={s.filtersWrapper} ref={filtersWrapper}>
+          <ul>
+            {
+              allFilters.map((filter, i) => {
+                if (filter.filterType === 'checkbox') {
+                  return <li key={i} className={s.filtersItem}><CheckboxFilter filter={filter}
+                                                                               filtersWrapper={filtersWrapper}
+                                                                               rightPartRef={rightPartRef}/></li>
                 }
-              </ul>
-            </div>
-          </div>
-      );
-    }
-;
+                if (filter.filterType === 'incheckbox') {
+                  return <li key={i} className={s.filtersItem}><IncheckboxFilter key={i} filter={filter}
+                                                                                 filtersWrapper={filtersWrapper}
+                                                                                 rightPartRef={rightPartRef}/></li>
+                }
+
+                if (filter.filterType === 'interval') {
+                  return <li key={i} className={s.filtersItem}><PriceFilter key={i} filter={filter}
+                                                                            filtersWrapper={filtersWrapper}
+                                                                            rightPartRef={rightPartRef}/></li>
+                }
+
+                if (filter.filterType === 'colcheckbox') {
+                  return <li key={i} className={s.filtersItem}><ColorFilter key={i} filter={filter}
+                                                                            filtersWrapper={filtersWrapper}
+                                                                            rightPartRef={rightPartRef}/></li>
+                }
+              })
+            }
+          </ul>
+        </div>
+      </div>
+  )
+}
 
 export default DesktopFilters;

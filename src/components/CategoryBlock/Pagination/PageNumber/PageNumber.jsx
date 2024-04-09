@@ -12,7 +12,7 @@ const PageNumber = ({number}) => {
     if (number === '...') return
     searchParams.set('page', number)
     setSearchParams(searchParams)
-    dispatch(setScroll(0))
+    window.scrollTo(0, scroll)
   }
 
   let classname
