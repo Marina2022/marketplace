@@ -1,6 +1,6 @@
 import s from './MobilePagination.module.scss';
 import {useParams, useSearchParams} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import {PAGE_SIZE} from "@/consts/pageSize.js";
 import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
@@ -17,8 +17,19 @@ const MobilePagination = ({products, setProducts, allFilters, pageCountTotal}) =
 
   let currentPage = searchParams.get('page')
   if (!currentPage) currentPage = 1
+
+  const [pageIsFinal, setPageIsFinal] = useState(currentPage > pageCountTotal)
   
-  const [pageIsFinal, setPageIsFinal] = useState(currentPage > pageCountTotal )
+  useEffect(() => {
+    console.log('я где')
+    if (currentPage >= pageCountTotal){
+      setPageIsFinal(true)
+    } else {
+      setPageIsFinal(false)
+    }
+  }, [pageCountTotal]);
+  
+  
   
   const onShowMoreClick = async () => {
 
@@ -60,8 +71,12 @@ const MobilePagination = ({products, setProducts, allFilters, pageCountTotal}) =
             
       const newProducts = [...products, ...productsResponse.data.products]
       setProducts(newProducts)
+
+      // console.log('productsResponse', productsResponse)
+      // console.log('productsResponse.data.meta.pages.page =', productsResponse.data.meta.pages.page)
+      // console.log('productsResponse.data.meta.pages.totalCount', productsResponse.data.meta.pages.totalCount)
       
-      if (productsResponse.data.meta.pages.page === productsResponse.data.meta.pages.totalCount) setPageIsFinal(true)
+      if (productsResponse.data.meta.pages.page >= productsResponse.data.meta.pages.totalCount) setPageIsFinal(true)
 
     } catch (err) {
       console.log(err)
@@ -69,7 +84,7 @@ const MobilePagination = ({products, setProducts, allFilters, pageCountTotal}) =
       setIsLoading(false)
     }
   }
-
+  
   if (pageIsFinal) return <></>
 
   return (

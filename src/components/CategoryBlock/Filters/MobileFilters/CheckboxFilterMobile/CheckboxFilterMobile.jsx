@@ -6,6 +6,7 @@ import CheckboxFilterMobileItem
 import CheckboxFilterMobileItemFull
   from "@/components/CategoryBlock/Filters/MobileFilters/CheckboxFilterMobile/CheckboxFilterMobileItemFull/CheckboxFilterMobileItemFull.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
+import {sortFilterValues} from "@/utils/mobileFilters.js";
 
 const CheckboxFilterMobile = ({filter, currentFilters, setCurrentFilters}) => {
 
@@ -13,52 +14,26 @@ const CheckboxFilterMobile = ({filter, currentFilters, setCurrentFilters}) => {
 
   // сортировка - вначале идут selected
   const filterSettingsSorted = [...filterSettings]
-
-  const foundInState = currentFilters.find(stateItem => stateItem.nameHandle === nameHandle)
-
-  if (foundInState) {
-
-    filterSettingsSorted.sort((a, b) => {
-      const arrayOfValues = foundInState.selectedValue.split(',')
-      let result = 0
-      if (arrayOfValues.includes(a.valueHandle) && !arrayOfValues.includes(b.valueHandle) ) {
-        result = -1
-      } else {
-        result = 1
-      }
-      
-      //   
-      // if (arrayOfValues.includes(b.valueHandle) && !arrayOfValues.includes(a.valueHandle)) {
-      //   result = 1
-      // } else {
-      //   result = -1
-      // }      
-      //
-      return result
-    })
-  }
-
+  sortFilterValues(filterSettingsSorted, nameHandle, currentFilters)
 
   const [showMoreIsOpen, setShowMoreIsOpen] = useState(false)
   const valuesToShow = filterSettingsSorted.slice(0, 5)
 
-  // фильтрую filterSettings - выбираю те, которые есть в стейте currentFilters для текущего фильтра
+  // выбираются значения, которые есть в стейте currentFilters для текущего фильтра
   const activeValues = filterSettingsSorted.filter(filterSetting => {
         const foundFilterInState = currentFilters.find(stateItem => stateItem.nameHandle === nameHandle)
         if (foundFilterInState) {
-
           if (foundFilterInState.selectedValue.split(',').includes(filterSetting.valueHandle)) return true
         }
       }
   )
-  
+
   const onDeleteAllClick = () => {
-    const newState =  [...currentFilters]
+    const newState = [...currentFilters]
     const anotherNewState = newState.filter(filter => filter.nameHandle !== nameHandle)
     setCurrentFilters(anotherNewState)
   }
-  
-  
+
   return (
       <li className={s.filterItem}>
         <div className={s.topWrapper}>
@@ -95,7 +70,7 @@ const CheckboxFilterMobile = ({filter, currentFilters, setCurrentFilters}) => {
 
               {
                   activeValues.length > 0 && <ul className={s.filtersListFull}>
-                    <button onClick={onDeleteAllClick} >
+                    <button onClick={onDeleteAllClick}>
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M10.0013 18.9584C5.05964 18.9584 1.04297 14.9417 1.04297 10.0001C1.04297 5.05841 5.05964 1.04175 10.0013 1.04175C14.943 1.04175 18.9596 5.05841 18.9596 10.0001C18.9596 14.9417 14.943 18.9584 10.0013 18.9584ZM10.0013 2.29175C5.7513 2.29175 2.29297 5.75008 2.29297 10.0001C2.29297 14.2501 5.7513 17.7084 10.0013 17.7084C14.2513 17.7084 17.7096 14.2501 17.7096 10.0001C17.7096 5.75008 14.2513 2.29175 10.0013 2.29175Z"
@@ -122,16 +97,16 @@ const CheckboxFilterMobile = ({filter, currentFilters, setCurrentFilters}) => {
 
               <ul>
                 {
-                  filterSettingsSorted.map((value, i) => <CheckboxFilterMobileItemFull 
+                  filterSettingsSorted.map((value, i) => <CheckboxFilterMobileItemFull
                       key={i} valueObject={value}
                       currentFilters={currentFilters}
                       filter={filter}
-                      setCurrentFilters={setCurrentFilters}                  
+                      setCurrentFilters={setCurrentFilters}
                   />)
                 }
               </ul>
 
-              <Button className={s.readyBtn}>Готово</Button>
+              <Button className={s.readyBtn} onClick={() => setShowMoreIsOpen(false)}>Готово</Button>
 
             </>
           </ShowMoreModal>
@@ -142,4 +117,3 @@ const CheckboxFilterMobile = ({filter, currentFilters, setCurrentFilters}) => {
 }
 
 export default CheckboxFilterMobile
-;

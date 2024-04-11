@@ -1,18 +1,25 @@
-import s from './CheckboxFilterMobileItem.module.scss';
+import s from './IncheckboxFilterMobileItem.module.scss';
 
-const CheckboxFilterMobileItem = ({valueObject, currentFilters, filter, setCurrentFilters}) => {
+const IncheckboxFilterMobileItem = ({valueObject, currentFilters, filter, setCurrentFilters}) => {
   let isActive = false
   const {value, valueHandle} = valueObject
-
+  
+  const arr = valueHandle.split('-')
+  const formattedValueHandle = `minValue:${arr[0]};maxValue:${arr[1]}`
+    
+  
+  
   // filterHandle текущего фильтра, из которого компонент делается, (например, brand)
   const {nameHandle} = filter
 
   const filterFromAddressBar = currentFilters.find(filterItem => filterItem.nameHandle === nameHandle)
 
   if (filterFromAddressBar) {
+    
+    const newString = filterFromAddressBar.selectedValue.replaceAll('minValue:', '').replaceAll('maxValue:', '').replaceAll(';', '-')
+      
 
-
-    if (filterFromAddressBar.selectedValue.split(',').includes(valueHandle)) {
+    if (newString.split(',').includes(valueHandle)) {
       isActive = true
     }
   }
@@ -26,14 +33,14 @@ const CheckboxFilterMobileItem = ({valueObject, currentFilters, filter, setCurre
 
       if (currentFilter) {
         const valueArray = currentFilter.selectedValue.split(',')
-        valueArray.push(valueHandle)
+        valueArray.push(formattedValueHandle)
         const valueString = valueArray.join(',')
         currentFilter.selectedValue = valueString
       } else {
 
         const newStateItem = {
           ...filter,
-          selectedValue: valueHandle
+          selectedValue: formattedValueHandle
         }
         newState.push(newStateItem)
       }
@@ -48,7 +55,7 @@ const CheckboxFilterMobileItem = ({valueObject, currentFilters, filter, setCurre
       const valueArray = currentFilter.selectedValue.split(',')
 
       if (valueArray.length > 1) {
-        const newValueArray = valueArray.filter(item => item !== valueHandle)
+        const newValueArray = valueArray.filter(item => item !== formattedValueHandle)
         const valueString = newValueArray.join(',')
         currentFilter.selectedValue = valueString
         setCurrentFilters(newState)
@@ -78,4 +85,5 @@ const CheckboxFilterMobileItem = ({valueObject, currentFilters, filter, setCurre
   );
 };
 
-export default CheckboxFilterMobileItem;
+
+export default IncheckboxFilterMobileItem;

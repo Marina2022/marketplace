@@ -15,7 +15,8 @@ import {useEffect, useState} from "react";
 
 
 const MobileFilters = ({isMobileFiltersOpen, setIsMobileFiltersOpen, allFilters}) => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+
 
   const [currentFilters, setCurrentFilters] = useState([])
 
@@ -30,26 +31,39 @@ const MobileFilters = ({isMobileFiltersOpen, setIsMobileFiltersOpen, allFilters}
         }
     )
     const minPrice = searchParams.get('minPrice')
+
     if (minPrice) filtersFromAddressBar.push({
       filterName: 'Цена',
       nameHandle: 'minPrice',
-      value: minPrice
+      selectedValue: minPrice
     })
 
-    const maxPrice = searchParams.get('minPrice')
-    if (minPrice) filtersFromAddressBar.push({
+    const maxPrice = searchParams.get('maxPrice')
+    if (maxPrice) filtersFromAddressBar.push({
       filterName: 'Цена',
       nameHandle: 'maxPrice',
-      value: maxPrice
+      selectedValue: maxPrice
+    })
+    setCurrentFilters(filtersFromAddressBar)
+  }, []);
+
+  const onSubmitClick = () => {
+    console.log('currentFilters', currentFilters)
+
+    allFilters.forEach(filterItem => {
+      searchParams.delete(filterItem.nameHandle)
+    })
+    searchParams.delete('minPrice')
+    searchParams.delete('maxPrice')
+
+    currentFilters.forEach(filterItem => {
+      searchParams.set(filterItem.nameHandle, filterItem.selectedValue)
     })
 
-    console.log('filtersFromAddressBar', filtersFromAddressBar)
+    setSearchParams(searchParams)
+    setIsMobileFiltersOpen(false)
+  }
 
-    setCurrentFilters(filtersFromAddressBar)
-    
-  }, []);
-  
-  
 
   return (
       <div className={s.globalWrapper}>
@@ -83,24 +97,28 @@ const MobileFilters = ({isMobileFiltersOpen, setIsMobileFiltersOpen, allFilters}
             {
               allFilters.map((filter, i) => {
                 if (filter.filterType === 'checkbox') {
-                  return <CheckboxFilterMobile key={i} filter={filter} currentFilters={currentFilters} setCurrentFilters={setCurrentFilters}   />
+                  return <CheckboxFilterMobile key={i} filter={filter} currentFilters={currentFilters}
+                                               setCurrentFilters={setCurrentFilters}/>
 
                 }
                 if (filter.filterType === 'incheckbox') {
-                  return <IncheckboxFilterMobile key={i} filter={filter} currentFilters={currentFilters}  />
+                  return <IncheckboxFilterMobile key={i} filter={filter} currentFilters={currentFilters}
+                                                 setCurrentFilters={setCurrentFilters}/>
                 }
 
                 if (filter.filterType === 'interval') {
-                  return <PriceFilterMobile key={i} filter={filter} currentFilters={currentFilters}  />
+                  return <PriceFilterMobile key={i} filter={filter} currentFilters={currentFilters}
+                                            setCurrentFilters={setCurrentFilters}/>
                 }
 
                 if (filter.filterType === 'colcheckbox') {
-                  return <ColorFilterMobile key={i} filter={filter} currentFilters={currentFilters} />
+                  return <ColorFilterMobile key={i} filter={filter} currentFilters={currentFilters}
+                                            setCurrentFilters={setCurrentFilters}/>
                 }
               })
             }
           </ul>
-          <Button className={s.submitBtn}>Показать товары</Button>
+          <Button onClick={onSubmitClick} className={s.submitBtn}>Показать товары</Button>
 
         </MobileFiltersPopup>
       </div>

@@ -2,9 +2,7 @@ import s from './CheckboxFilterItem.module.scss';
 import {useSearchParams} from "react-router-dom";
 
 const CheckboxFilterItem = ({item, filterNameHandle}) => {
-
   
-   
   const {value, valueHandle} = item
   const [searchParams, setSearchParams] = useSearchParams();
   const valueFromAddressBar = searchParams.get(filterNameHandle)

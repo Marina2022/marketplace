@@ -6,16 +6,45 @@
 .topWrapper {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .title {
   font-weight: 500;
   font-size: 12px;
-  
+  margin-bottom: 8px;
 }
 
 .btn {
   font-size: 10px;
   color: #0093FD;
+}
+
+.filtersList {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap ;
+  color: #131D2A;
+}
+
+.filtersListFull {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap ;
+  color: #131D2A;
+  margin-bottom: 16px;
+}
+
+.readyBtn {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 16px;
+}
+
+.deleteBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
