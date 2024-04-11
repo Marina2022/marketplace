@@ -7,11 +7,15 @@ import useBigScreen from "@/hooks/useBigScreen.js";
 import MobileFilters from "@/components/CategoryBlock/Filters/MobileFilters/MobileFilters.jsx";
 import {useRef} from "react";
 import TopBlock from "@/components/CategoryBlock/TopBlock/TopBlock.jsx";
+import useMobileScreen from "@/hooks/useMobileScreen.js";
 
 const CategoryBlock = ({allFilters}) => {
 
   const isBigScreen = useBigScreen()
+  const isMobile = useMobileScreen()
+  
   const rightPartRef = useRef()
+
 
   return (
       <div className='container'>
@@ -20,14 +24,16 @@ const CategoryBlock = ({allFilters}) => {
 
         <div className={s.wrapper}>
 
-          <DesktopFilters allFilters={allFilters} rightPartRef={rightPartRef}/>
+          {
+              !isMobile && <DesktopFilters allFilters={allFilters} rightPartRef={rightPartRef}/>
+          }
           <div className={s.rightPartWrapper}>
-            <div className={s.rightPart} ref={rightPartRef}>             
-              <Products isBigScreen={isBigScreen} allFilters={allFilters}/>
+            <div className={s.rightPart} ref={rightPartRef}>
+              <Products isBigScreen={isBigScreen} allFilters={allFilters} rightPartRef={rightPartRef}/>
             </div>
           </div>
         </div>
-        
+
       </div>
   );
 };

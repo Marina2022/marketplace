@@ -1,9 +1,59 @@
 import s from './MobileFilters.module.scss'
+import MobileFiltersPopup
+  from "@/components/CategoryBlock/Filters/MobileFilters/MobileFiltersPopup/MobileFiltersPopup.jsx";
+import IncheckboxFilterMobile
+  from "@/components/CategoryBlock/Filters/MobileFilters/IncheckboxFilterMobile/IncheckboxFilterMobile.jsx";
+import PriceFilterMobile
+  from "@/components/CategoryBlock/Filters/MobileFilters/PriceFilterMobile/PriceFilterMobile.jsx";
+import CheckboxFilterMobile
+  from "@/components/CategoryBlock/Filters/MobileFilters/CheckboxFilterMobile/CheckboxFilterMobile.jsx";
+import ColorFilterMobile
+  from "@/components/CategoryBlock/Filters/MobileFilters/ColorFilterMobile/ColorFilterMobile.jsx";
+import {useSearchParams} from "react-router-dom";
+import Button from "@/components/ui/Button/Button.jsx";
+import {useEffect, useState} from "react";
 
-const MobileFilters = () => {
+
+const MobileFilters = ({isMobileFiltersOpen, setIsMobileFiltersOpen, allFilters}) => {
+  const [searchParams] = useSearchParams();
+
+  const [currentFilters, setCurrentFilters] = useState([])
+
+  useEffect(() => {
+    const filtersFromAddressBar = []
+
+    allFilters.forEach(filter => {
+          const selectedValue = searchParams.get(filter.nameHandle)
+          if (selectedValue) {
+            filtersFromAddressBar.push({...filter, selectedValue: selectedValue})
+          }
+        }
+    )
+    const minPrice = searchParams.get('minPrice')
+    if (minPrice) filtersFromAddressBar.push({
+      filterName: 'Цена',
+      nameHandle: 'minPrice',
+      value: minPrice
+    })
+
+    const maxPrice = searchParams.get('minPrice')
+    if (minPrice) filtersFromAddressBar.push({
+      filterName: 'Цена',
+      nameHandle: 'maxPrice',
+      value: maxPrice
+    })
+
+    console.log('filtersFromAddressBar', filtersFromAddressBar)
+
+    setCurrentFilters(filtersFromAddressBar)
+    
+  }, []);
+  
+  
+
   return (
       <div className={s.globalWrapper}>
-        <button className={s.buttonBlock}>
+        <button onClick={() => setIsMobileFiltersOpen(true)} className={s.buttonBlock}>
           <span>Фильтры</span>
           <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -26,6 +76,33 @@ const MobileFilters = () => {
                 fill="#131D2A"/>
           </svg>
         </button>
+
+        <MobileFiltersPopup isOpen={isMobileFiltersOpen} setIsOpen={setIsMobileFiltersOpen} title="Фильтры">
+
+          <ul className={s.list}>
+            {
+              allFilters.map((filter, i) => {
+                if (filter.filterType === 'checkbox') {
+                  return <CheckboxFilterMobile key={i} filter={filter} currentFilters={currentFilters} setCurrentFilters={setCurrentFilters}   />
+
+                }
+                if (filter.filterType === 'incheckbox') {
+                  return <IncheckboxFilterMobile key={i} filter={filter} currentFilters={currentFilters}  />
+                }
+
+                if (filter.filterType === 'interval') {
+                  return <PriceFilterMobile key={i} filter={filter} currentFilters={currentFilters}  />
+                }
+
+                if (filter.filterType === 'colcheckbox') {
+                  return <ColorFilterMobile key={i} filter={filter} currentFilters={currentFilters} />
+                }
+              })
+            }
+          </ul>
+          <Button className={s.submitBtn}>Показать товары</Button>
+
+        </MobileFiltersPopup>
       </div>
   );
 };

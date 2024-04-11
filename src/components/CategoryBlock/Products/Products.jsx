@@ -12,8 +12,10 @@ import Pagination from "@/components/CategoryBlock/Pagination/Pagination.jsx";
 import Sort from "@/components/CategoryBlock/Sort/Sort.jsx";
 import CardView from "@/components/CategoryBlock/CardView/CardView.jsx";
 import MobileFilters from "@/components/CategoryBlock/Filters/MobileFilters/MobileFilters.jsx";
+import MobileFilterListBlock
+  from "@/components/CategoryBlock/Filters/MobileFilters/MobileFilterListBlock/MobileFilterListBlock.jsx";
 
-const Products = ({isBigScreen, allFilters}) => {
+const Products = ({isBigScreen, allFilters, rightPartRef}) => {
 
 
   const [searchParams] = useSearchParams();
@@ -22,10 +24,12 @@ const Products = ({isBigScreen, allFilters}) => {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
 
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false)
 
   const {category} = useParams()
 
 
+   
   // useEffect - загрузка списка товаров
   useEffect(() => {
     // window.scrollTo(0, scroll)
@@ -77,8 +81,6 @@ const Products = ({isBigScreen, allFilters}) => {
         setProducts(productsResponse.data.products)
         setPageCountTotal(productsResponse.data.meta.pages.totalCount)
         
-
-
       } catch (err) {
         setProducts([])
         //setAllFilters([])
@@ -98,6 +100,14 @@ const Products = ({isBigScreen, allFilters}) => {
     getData()
   }, [searchParams, location, allFilters]);
 
+
+  useEffect(() => {
+    // если товаров мало пришло в запросе, уменьшаем скролл    
+    const rightPartHeight =  rightPartRef.current.getBoundingClientRect().height  - window.innerHeight + 240  // скролл до низа каталога
+
+    if (rightPartHeight < window.scrollY) window.scrollTo(0, rightPartHeight)
+  }, [products]);
+  
   const cardView = useSelector(getCartView)
 
 
@@ -116,13 +126,15 @@ const Products = ({isBigScreen, allFilters}) => {
           }
 
           {
-            <MobileFilters/>
+            <MobileFilters isMobileFiltersOpen={isMobileFiltersOpen} setIsMobileFiltersOpen={setIsMobileFiltersOpen} allFilters={allFilters} />
           }
         </div>
 
+        <MobileFilterListBlock filters={allFilters} isMobileFiltersOpen={isMobileFiltersOpen} setIsMobileFiltersOpen={setIsMobileFiltersOpen} />
+        
         <div
             className={`${s.productsWrapper} ${(cardView === 'vertical' || !isBigScreen) && s.verticalViewCardWrapper}`}>
-
+         
           {
             products.map((product, i) => {
               return <ProductCard key={i} isBigScreen={isBigScreen} product={product}/>
@@ -133,7 +145,7 @@ const Products = ({isBigScreen, allFilters}) => {
         {
             products.length > 0 &&
             <Pagination pageCountTotal={pageCountTotal} setProducts={setProducts} products={products}
-                        allFilters={allFilters}/>
+                        allFilters={allFilters}  />
         }
       </>
 

@@ -5,7 +5,7 @@ import axiosInstance from "@/api/axiosInstance.js";
 import {PAGE_SIZE} from "@/consts/pageSize.js";
 import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 
-const MobilePagination = ({products, setProducts, allFilters}) => {
+const MobilePagination = ({products, setProducts, allFilters, pageCountTotal}) => {
 
   const {category} = useParams()
   const [searchParams] = useSearchParams();
@@ -14,12 +14,12 @@ const MobilePagination = ({products, setProducts, allFilters}) => {
   const [pagesToAdd, setPagesToAdd] = useState(1)
 
   const [isLoading, setIsLoading] = useState(false)
-  const [pageIsFinal, setPageIsFinal] = useState(false)
 
   let currentPage = searchParams.get('page')
   if (!currentPage) currentPage = 1
-
-
+  
+  const [pageIsFinal, setPageIsFinal] = useState(currentPage > pageCountTotal )
+  
   const onShowMoreClick = async () => {
 
     setPagesToAdd(prev => prev + 1)
@@ -60,7 +60,7 @@ const MobilePagination = ({products, setProducts, allFilters}) => {
             
       const newProducts = [...products, ...productsResponse.data.products]
       setProducts(newProducts)
-
+      
       if (productsResponse.data.meta.pages.page === productsResponse.data.meta.pages.totalCount) setPageIsFinal(true)
 
     } catch (err) {

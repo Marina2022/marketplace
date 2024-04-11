@@ -1,10 +1,13 @@
-import s from './PriceFilter.moduleMobile.scss';
+import s from './PriceFilter.moduleMobile.module.scss';
 
-const PriceFilterMobile = () => {
+const PriceFilterMobile = ({filter}) => {
+  const {filterName} = filter
   return (
-      <div>
-        PriceFilter
-      </div>
+      <li className={s.filterItem}>
+        <div className={s.topWrapper}>
+          <h2 className={s.title}>{filterName}</h2>
+        </div>
+      </li>
   );
 };
 

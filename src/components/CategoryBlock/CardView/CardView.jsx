@@ -6,9 +6,7 @@ const CardView = () => {
   const cardView = useSelector(getCartView)
   const dispatch = useDispatch()
   const onVerticalClick = () => {
-
-    dispatch(setCardView('vertical'))
-    
+    dispatch(setCardView('vertical'))    
   }
 
   const onHorizontalClick = () => {

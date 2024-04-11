@@ -123,7 +123,7 @@ const PriceFilter = ({filter, filtersWrapper, rightPartRef}) => {
 
 
   return (
-      <FiltersDropdown title={filterName} filtersWrapper={filtersWrapper} rightPartRef={rightPartRef}
+      <FiltersDropdown title={`${filterName}, ${filter.unit}`} filtersWrapper={filtersWrapper} rightPartRef={rightPartRef}
                        filter={nameHandle}>
 
         <div className={s.rangeSlider}>

@@ -1,0 +1,31 @@
+@import '@/assets/styles/mixins';
+
+.globalWrapper {
+
+  display: none;
+
+  @include m {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    position: relative;
+  }
+  height: 40px;
+}
+
+.wrapperScreenWidth {
+  display: flex;
+  gap: 4px;
+  width: calc(100vw - 16px);
+  top: 0;
+  left: 0;
+  position: absolute;
+  overflow: auto;
+  padding-bottom: 3px;
+  padding-right: 16px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+

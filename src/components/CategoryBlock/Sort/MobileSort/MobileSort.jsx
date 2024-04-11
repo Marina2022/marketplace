@@ -68,7 +68,7 @@ const MobileSort = () => {
 
         {
             isOpen && <div>
-              <div onClick={() => setIsOpen(false)} className={s.overlay}>]
+              <div onClick={() => setIsOpen(false)} className={s.overlay}>
                 <div onClick={(e)=>e.stopPropagation()} className={s.modal}>
                   <ul className={s.list}>
                     {

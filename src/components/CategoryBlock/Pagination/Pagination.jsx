@@ -16,7 +16,7 @@ const Pagination = ({pageCountTotal, setProducts, products, allFilters}) => {
 
   let showFurther = pageCountTotal >= 9
 
-  if (isMobile) return <MobilePagination setProducts={setProducts} products={products} allFilters={allFilters}  />
+  if (isMobile) return <MobilePagination setProducts={setProducts} products={products} allFilters={allFilters} pageCountTotal={pageCountTotal}  />
   
   if (currentPage < 5 || !showFurther) return <CurrentPageLessThanFive pageCountTotal={pageCountTotal}/>
   if ((pageCountTotal - currentPage) <= 2 && showFurther) return <CurrentCloseToTotal pageCountTotal={pageCountTotal}/>
