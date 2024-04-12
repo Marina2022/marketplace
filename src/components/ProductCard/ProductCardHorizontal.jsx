@@ -15,7 +15,7 @@ const ProductCardHorizontal = ({product, quantity, onFavClick, onAddToCartClick}
   return (
       <div className={s.productCardHorizontal}>
         <div className={s.imgWrapper}>
-          <ProductImage product={product} />
+          <ProductImage product={product} orientation="horizontal" />
           {/*<img className={s.imgCardHor} src={`${base_url}${product.images[0]?.imageUrl}`} alt=""/>*/}
         </div>
 
