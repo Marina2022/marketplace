@@ -1,5 +1,5 @@
 import s from './Products.module.scss';
-import ProductCard from "@/components/CategoryBlock/Products/ProductCard/ProductCard.jsx";
+import ProductCard from "@/components/ProductCard/ProductCard.jsx";
 import {useSelector} from "react-redux";
 import {getCartView, getScroll} from "@/store/catalogSlice.js";
 import {useParams, useSearchParams} from "react-router-dom";

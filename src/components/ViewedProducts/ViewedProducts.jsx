@@ -1,5 +1,5 @@
 import s from "./ViewedProducts.module.scss";
-import ProductCard from "@/components/CategoryBlock/Products/ProductCard/ProductCard.jsx";
+import ProductCard from "@/components/ProductCard/ProductCard.jsx";
 import {viewedProducts} from "@/dev-data/viewedProducts.js";
 
 

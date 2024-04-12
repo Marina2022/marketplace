@@ -1,22 +1,22 @@
-import s from "@/components/CategoryBlock/Products/ProductCard/ProductCard.module.scss";
+import s from "@/components/ProductCard/ProductCard.module.scss";
 
 import star from '@/assets/img/star.svg'
 import {getRightWord} from "@/utils/reviews.js";
 import Button from "@/components/ui/Button/Button.jsx";
 import CartInput from "@/components/ui/CartInput/CartInput.jsx";
-import {addToCart} from "@/store/cartSlice.js";
 import {Link} from "react-router-dom";
+import ProductImage from "@/components/ProductCard/ProductImage/ProductImage.jsx";
 
-const base_url = 'https://i-rif.com/'
 const ProductCardHorizontal = ({product, quantity, onFavClick, onAddToCartClick}) => {
 
-  
+  // const base_url = 'https://i-rif.com/'
   const isInCart = quantity > 0
   
   return (
       <div className={s.productCardHorizontal}>
         <div className={s.imgWrapper}>
-          <img className={s.imgCardHor} src={`${base_url}${product.images[0]?.imageUrl}`} alt=""/>
+          <ProductImage product={product} />
+          {/*<img className={s.imgCardHor} src={`${base_url}${product.images[0]?.imageUrl}`} alt=""/>*/}
         </div>
 
         <div className={s.desc}>

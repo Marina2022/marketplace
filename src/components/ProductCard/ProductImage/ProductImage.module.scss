@@ -1,0 +1,29 @@
+@import '@/assets/styles/mixins';
+
+.imgCardVer {
+  background: #fff;
+  max-width: 100%;
+  width: 230px;
+  height: 230px;
+  object-fit: contain;
+
+
+  @include t {
+    width: 185px;
+    height: 185px;
+
+  }
+
+  @include m {
+    width: 160px;
+    max-width: 100%;
+  }
+}
+
+.imgCardHor {
+  background: #fff;
+  width: 210px;
+  height: 213px;
+  object-fit: contain;  
+}
+
