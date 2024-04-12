@@ -51,7 +51,7 @@ const PriceFilterMobile = ({filter, currentFilters, setCurrentFilters}) => {
   return (
       <li className={s.filterItem}>
         <div className={s.topWrapper}>
-          <h2 className={s.title}>{filterName}</h2>
+          <h2 className={s.title}>{filterName}, {unit}</h2>
 
 
         </div>

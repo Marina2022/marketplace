@@ -51,7 +51,7 @@ const Category = () => {
           allFilters={allFilters}
       />
       
-      // Блок "Вы смотрели"
+      
   );
 };
 

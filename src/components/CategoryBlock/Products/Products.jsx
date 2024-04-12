@@ -110,14 +110,12 @@ const Products = ({isBigScreen, allFilters, rightPartRef}) => {
   
   const cardView = useSelector(getCartView)
 
-
   if (isLoading) return <Spinner/>
   if (error) return <Error>Нет такой страницы</Error>
 
   return (
 
       <>
-
         <div className={s.sortAndView}>
           <Sort/>
 
