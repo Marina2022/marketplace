@@ -1,0 +1,20 @@
+.badgeContainer {
+  top: 17px;
+  left: 15px;
+  bottom: 15px;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.badgeInnerContainer {
+  display: flex;
+  flex-direction: column;
+  gap:3px;
+  align-items: flex-start;
+}

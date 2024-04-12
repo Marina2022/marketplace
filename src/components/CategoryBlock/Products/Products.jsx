@@ -28,12 +28,11 @@ const Products = ({isBigScreen, allFilters, rightPartRef}) => {
 
   const {category} = useParams()
 
-
    
   // useEffect - загрузка списка товаров
   useEffect(() => {
     // window.scrollTo(0, scroll)
-    console.log('allFilters', allFilters)
+    // console.log('allFilters', allFilters)
 
     if (allFilters.length === 0) return
     const getData = async () => {
@@ -76,8 +75,8 @@ const Products = ({isBigScreen, allFilters, rightPartRef}) => {
         
         // запрос
         const productsResponse = await axiosInstance(`category/${category}/products?pageSize=${PAGE_SIZE}${queryString}`)
-        console.log('products', productsResponse.data.products)
-        console.log('productsResponse', productsResponse)
+        // console.log('products', productsResponse.data.products)
+        // console.log('productsResponse', productsResponse)
         setProducts(productsResponse.data.products)
         setPageCountTotal(productsResponse.data.meta.pages.totalCount)
         

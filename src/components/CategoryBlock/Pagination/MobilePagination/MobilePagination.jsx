@@ -21,7 +21,6 @@ const MobilePagination = ({products, setProducts, allFilters, pageCountTotal}) =
   const [pageIsFinal, setPageIsFinal] = useState(currentPage > pageCountTotal)
   
   useEffect(() => {
-    console.log('я где')
     if (currentPage >= pageCountTotal){
       setPageIsFinal(true)
     } else {
@@ -70,12 +69,7 @@ const MobilePagination = ({products, setProducts, allFilters, pageCountTotal}) =
       const productsResponse = await axiosInstance(`category/${category}/products?pageSize=${PAGE_SIZE}${queryString}`)
             
       const newProducts = [...products, ...productsResponse.data.products]
-      setProducts(newProducts)
-
-      // console.log('productsResponse', productsResponse)
-      // console.log('productsResponse.data.meta.pages.page =', productsResponse.data.meta.pages.page)
-      // console.log('productsResponse.data.meta.pages.totalCount', productsResponse.data.meta.pages.totalCount)
-      
+      setProducts(newProducts)           
       if (productsResponse.data.meta.pages.page >= productsResponse.data.meta.pages.totalCount) setPageIsFinal(true)
 
     } catch (err) {

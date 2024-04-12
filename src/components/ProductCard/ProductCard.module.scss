@@ -1,5 +1,11 @@
 @import '@/assets/styles/mixins';
 
+.moveOnHover {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .productCardHorizontal {
   position: relative;
   min-height: 150px;
@@ -36,6 +42,7 @@
   min-height: 419px;
   min-height: 100px;
   position: relative;
+  justify-content: space-between;
 
   @include t {
     width: 215px;
@@ -50,7 +57,9 @@
 
   &:hover {
     .moveOnHover {
-      transform: translateY(5px);
+      transform: translateY(5px);      
+      flex-direction: column;
+      
     }
     
     .imgWrapper {
@@ -304,4 +313,6 @@ s.title {
 .toCartBtn {
   position: relative;
   z-index: 2;
+  
 }
+

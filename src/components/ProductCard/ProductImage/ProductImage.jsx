@@ -1,42 +1,87 @@
 import s from './ProductImage.module.scss';
-import Badge from "@/components/ui/Badge/Badge.jsx";
+import Badges from "@/components/ProductCard/ProductImage/Badges/Badges.jsx";
+import {Swiper, SwiperSlide} from 'swiper/react';
+import 'swiper/css';
+import {useEffect, useRef, useState} from "react";
+import useBigScreen from "@/hooks/useBigScreen.js";
+
+// import { Pagination } from 'swiper/modules';
+// import 'swiper/css/pagination';
 
 const ProductImage = ({product, orientation}) => {
+  const isBigScreen = useBigScreen()
+  
+  const [currentSlide, setCurrentSlide] = useState(0)
 
   const base_url = 'https://i-rif.com/'
-
-  const hoverHandler = () => {
-    console.log('hover')
+  const swiperRef = useRef(null)
+  const hoverHandler = (index) => {
+    if (swiperRef.current !== null) {
+      swiperRef.current.swiper.slideTo(index);
+    }   
+  }
+    const mouseLeaveHandler = () => {
+    swiperRef.current.swiper.slideTo(0);    
+  }
+  
+  if (product.images.length === 0) {
+    return (
+        <div className={orientation === "vertical" ? s.imgCardVer : s.imgCardHor}>
+          <div>
+            Нет фото
+          </div>
+          <Badges product={product}/>
+        </div>
+    )
   }
 
   return (
+      <div className={orientation === "vertical" ? s.imgCardVer : s.imgCardHor} onMouseLeave={mouseLeaveHandler} >
 
-      <div className={orientation === "vertical" ? s.imgCardVer : s.imgCardHor}>
-        <div onMouseEnter={hoverHandler} className={s.slider}>
-          <img className={s.testImg} src={`${base_url}${product.images[0]?.imageUrl}`} alt=""/>
-        </div>
+        <Swiper
+            ref={swiperRef}
+            className={s.slider}
+            slidesPerView={1}
+            onSlideChange={() => setCurrentSlide(swiperRef.current.swiper.activeIndex)}
+            loop            
+            speed={isBigScreen ? 0 : 300}
+        >
 
-        <div className={s.badgeContainer}>
-          <div className={s.badgeInnerContainer}>           
+          {
+            product.images.map((image, i) => {
+              return (
+                  <SwiperSlide className={s.slide} key={i}>
+                    <img className={s.testImg} src={`${base_url}${image.imageUrl}`} alt=""/>
+                  </SwiperSlide>
+              )
+            })
+          }
 
-            {
-              product.isSecondHand && <Badge bgColor="#E32636">Б\У</Badge> 
-            }
+        </Swiper>
 
-            {
-              product.isDiscounted && <Badge bgColor="#4D9ACA">Уцененный</Badge> 
-            }
-            
-          </div>
-          <div>
-            {
-                product.discount && <Badge bgColor="#FF3104">-{product.discount}%</Badge>
-            }
-          </div>
-        </div>
-      </div>
+        {
+            isBigScreen && <div className={s.overlay}>
+              {
+              product.images.map((image, i) => <div onMouseEnter={()=>hoverHandler(i)} className={s.tile} key={i}></div>)
+              }
+          
+            </div>
+        }
 
-  );
-};
+        {
+            <div className={s.pagination}>
+              {
+                product.images.map((image, i) => <div 
+                    onMouseEnter={()=>hoverHandler(i)} 
+                    className={currentSlide === i ? s.paginationItemActive : s.paginationItem} key={i}>                
+                  
+                </div>)
+              }
+            </div>
+        }
+
+        <Badges product={product}/>
+      </div>)
+}
 
 export default ProductImage;
