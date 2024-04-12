@@ -1,5 +1,5 @@
 .filterItem {
-  padding-block: 16px;
+  padding-bottom: 16px;
   border-bottom: 1px #F0F1F1 solid;
 }
 
@@ -12,5 +12,24 @@
 .title {
   font-weight: 500;
   font-size: 12px;
+  margin-bottom: 8px;
 }
 
+.inputWrapper {
+  display: flex;
+  gap: 8px;
+  max-width: 100%;
+  font-size: 12px;
+}
+
+.input {
+  height: 31px;
+  padding: 12px;
+  border: 1px solid #AAB7BF;
+  width: 100%;
+  
+  &:focus {
+    outline: #131D2A 1px solid;
+    border-radius: 4px ;
+  }
+}

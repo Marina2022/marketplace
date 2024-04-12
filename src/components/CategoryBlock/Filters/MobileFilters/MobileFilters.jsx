@@ -32,18 +32,41 @@ const MobileFilters = ({isMobileFiltersOpen, setIsMobileFiltersOpen, allFilters}
     )
     const minPrice = searchParams.get('minPrice')
 
+    const priceFilter =  allFilters.find(filter => filter.nameHandle === 'priceRange')
+    
+    // если цены нет в адресной строке, устанавливаем значение в '' (это будте state для инпута)
+    if (!minPrice) filtersFromAddressBar.push({
+      filterName: 'Цена',
+      nameHandle: 'minPrice',
+      selectedValue:  '',
+      filterSettings: priceFilter.filterSettings
+    })
+
     if (minPrice) filtersFromAddressBar.push({
       filterName: 'Цена',
       nameHandle: 'minPrice',
-      selectedValue: minPrice
+      selectedValue: minPrice,
+      filterSettings: priceFilter.filterSettings
     })
 
     const maxPrice = searchParams.get('maxPrice')
+
+    // если цены нет в адресной строке, устанавливаем значение в '' (это будте state для инпута)
+    if (!maxPrice) filtersFromAddressBar.push({
+      filterName: 'Цена',
+      nameHandle: 'maxPrice',
+      selectedValue: '',
+      filterSettings: priceFilter.filterSettings
+    })
+    
     if (maxPrice) filtersFromAddressBar.push({
       filterName: 'Цена',
       nameHandle: 'maxPrice',
-      selectedValue: maxPrice
+      selectedValue: maxPrice,
+      filterSettings: priceFilter.filterSettings
     })
+    
+    
     setCurrentFilters(filtersFromAddressBar)
   }, []);
 
@@ -57,7 +80,25 @@ const MobileFilters = ({isMobileFiltersOpen, setIsMobileFiltersOpen, allFilters}
     searchParams.delete('maxPrice')
 
     currentFilters.forEach(filterItem => {
-      searchParams.set(filterItem.nameHandle, filterItem.selectedValue)
+      
+      if(filterItem.nameHandle === 'minPrice') {
+        if (filterItem.selectedValue === '') {
+          searchParams.set(filterItem.nameHandle, filterItem.filterSettings[0].value)          
+        }
+        else {
+          searchParams.set(filterItem.nameHandle, filterItem.selectedValue)
+        } 
+      }
+
+      if(filterItem.nameHandle === 'maxPrice') {
+        if (filterItem.selectedValue === '') {
+          searchParams.set(filterItem.nameHandle, filterItem.filterSettings[1].value)
+        } else {
+          searchParams.set(filterItem.nameHandle, filterItem.selectedValue)
+        }
+      }
+      
+      
     })
 
     setSearchParams(searchParams)
