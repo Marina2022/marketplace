@@ -97,6 +97,7 @@ const MobileFilters = ({isMobileFiltersOpen, setIsMobileFiltersOpen, allFilters}
 
     setSearchParams(searchParams)
     setIsMobileFiltersOpen(false)
+    window.scrollTo(0,0)
   }
 
   return (
