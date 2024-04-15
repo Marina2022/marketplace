@@ -27,15 +27,12 @@ const MobilePagination = ({products, setProducts, allFilters, pageCountTotal}) =
       setPageIsFinal(false)
     }
   }, [pageCountTotal]);
-  
-  
-  
+     
   const onShowMoreClick = async () => {
 
     setPagesToAdd(prev => prev + 1)
 
     let queryString = ''
-
 
     //добавляем фильтры в строку запроса на АПИ  
     allFilters.map(filter => {
@@ -66,8 +63,7 @@ const MobilePagination = ({products, setProducts, allFilters, pageCountTotal}) =
 
     try {
       setIsLoading(true)
-      const productsResponse = await axiosInstance(`category/${category}/products?pageSize=${PAGE_SIZE}${queryString}`)
-            
+      const productsResponse = await axiosInstance(`category/${category}/products?pageSize=${PAGE_SIZE}${queryString}`)            
       const newProducts = [...products, ...productsResponse.data.products]
       setProducts(newProducts)           
       if (productsResponse.data.meta.pages.page >= productsResponse.data.meta.pages.totalCount) setPageIsFinal(true)

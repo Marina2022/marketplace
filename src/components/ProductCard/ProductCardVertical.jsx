@@ -3,23 +3,20 @@ import star from "@/assets/img/star.svg";
 import {getRightWord} from "@/utils/reviews.js";
 import Button from "@/components/ui/Button/Button.jsx";
 import CartInput from "@/components/ui/CartInput/CartInput.jsx";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import ProductImage from "@/components/ProductCard/ProductImage/ProductImage.jsx";
 
 const ProductCardVertical = ({product, quantity, onFavClick, onAddToCartClick}) => {
-
   const isInCart = quantity > 0
-
-  // const base_url = 'https://i-rif.com/'
-
+  const navigate = useNavigate()
+  
   return (
       <div
           className={s.productCardVertical}>
 
         <div className={s.moveOnHover}>
-          <div className={s.imgWrapper}>
-            <ProductImage product={product} orientation="vertical"/>
-            {/*<img className={s.imgCardVer} src={`${base_url}${product.images[0]?.imageUrl}`} alt=""/>*/}
+          <div className={s.imgWrapper} onClick={()=>navigate(`/product/${product.productHandle}`)} >
+            <ProductImage product={product} orientation="vertical"/>            
           </div>
 
           <div className={s.desc}>
@@ -67,9 +64,7 @@ const ProductCardVertical = ({product, quantity, onFavClick, onAddToCartClick}) 
                   <span className={s.regularPrice}>{product.regularPrice.toLocaleString()} ₽</span>
               }
             </p>
-
         </div>
-
             {
                 isInCart && (
                     <CartInput className={s.cartInputVertical} value={quantity} product={product}/>
@@ -79,11 +74,7 @@ const ProductCardVertical = ({product, quantity, onFavClick, onAddToCartClick}) 
             {
                 !isInCart && <Button onClick={() => onAddToCartClick(product.productVariantId, 1)}
                                      className={s.verCardBtn}>В&nbsp;корзину</Button>
-            }
-
-
-          {/*</div>*/}
-        
+            }      
       </div>
 
   );

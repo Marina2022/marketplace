@@ -59,13 +59,10 @@ const CheckboxFilterMobile = ({filter, currentFilters, setCurrentFilters}) => {
           }
         </ul>
 
-
         {/* модалка "Показать все "*/}
-
         {
           <ShowMoreModal setIsOpen={setShowMoreIsOpen} isOpen={showMoreIsOpen} title={filter.filterName}
                          filterSettings={filterSettingsSorted}>
-
             <>
 
               {
@@ -110,7 +107,6 @@ const CheckboxFilterMobile = ({filter, currentFilters, setCurrentFilters}) => {
 
             </>
           </ShowMoreModal>
-
         }
       </li>
   )

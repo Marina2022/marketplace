@@ -61,9 +61,7 @@ const CheckboxFilterItem = ({item, filterNameHandle}) => {
                     fill="white"/>
               </svg>
             </div>
-
         }
-
         {value}
       </li>
   );

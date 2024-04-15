@@ -1,17 +1,13 @@
 import s from './CheckboxFilterMobileItem.module.scss';
-
 const CheckboxFilterMobileItem = ({valueObject, currentFilters, filter, setCurrentFilters}) => {
   let isActive = false
   const {value, valueHandle} = valueObject
 
   // filterHandle текущего фильтра, из которого компонент делается, (например, brand)
   const {nameHandle} = filter
-
   const filterFromAddressBar = currentFilters.find(filterItem => filterItem.nameHandle === nameHandle)
 
   if (filterFromAddressBar) {
-
-
     if (filterFromAddressBar.selectedValue.split(',').includes(valueHandle)) {
       isActive = true
     }

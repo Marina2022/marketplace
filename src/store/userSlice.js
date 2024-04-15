@@ -15,9 +15,6 @@ const userSlice = createSlice({
     },
   }
 })
-
 export const {setUser} = userSlice.actions
-
 export const getIsAuthenticated = state => state.user.isAuthenticated
-
 export default userSlice.reducer

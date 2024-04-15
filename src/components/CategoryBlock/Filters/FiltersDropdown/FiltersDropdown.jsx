@@ -1,5 +1,5 @@
 import s from './FiltersDropdown.module.scss';
-import {useRef, useState} from "react";
+import {useRef} from "react";
 import {
   addDropdownedFilters,
   getDropdownedFilters,

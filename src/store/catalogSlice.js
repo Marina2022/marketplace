@@ -1,5 +1,4 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import axiosInstance from "@/api/axiosInstance.js";
+import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
   cardView: 'horizontal',
@@ -30,15 +29,11 @@ export const catalogSlice = createSlice({
       const filterToRemove = action.payload
       state.dropdownedFilters = state.dropdownedFilters.filter(item => item !==filterToRemove)
     },
-    
-    clearIsScrolledProgrammatically: (state, action) => {
-      state.isScrolledProgrammatically = false
-    },
   },
 })
-export const {setCardView, setScroll, addDropdownedFilters, removeFromDropdownedFilters, clearIsScrolledProgrammatically} = catalogSlice.actions
+export const {setCardView, setScroll, addDropdownedFilters, removeFromDropdownedFilters} = catalogSlice.actions
 export const getCartView = (state) => state.catalog.cardView
 export const getScroll = (state) => state.catalog.scroll
 export const getDropdownedFilters = (state) => state.catalog.dropdownedFilters
-// export const getIsScrolledProgrammatically = (state) => state.catalog.isScrolledProgrammatically
+
 export default catalogSlice.reducer

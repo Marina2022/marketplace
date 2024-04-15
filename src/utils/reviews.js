@@ -7,6 +7,4 @@ export const getRightWord = (num) => {
   } else {
     return num + " отзывов";
   }
-  
-  
 }

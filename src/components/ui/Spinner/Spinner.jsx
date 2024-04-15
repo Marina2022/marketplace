@@ -4,7 +4,10 @@ const Spinner = ({className}) => {
   return (
       <div className={`${s.spinner} ${className}`}>
          <TailSpin
-            color="#658092"/>
+            color="#658092"
+            height="60"
+            width="60"
+         />        
             {/*color="#E32636"/>*/}
       </div>
   );

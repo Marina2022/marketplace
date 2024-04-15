@@ -1,23 +1,15 @@
 import s from './IncheckboxFilterMobileItem.module.scss';
-
 const IncheckboxFilterMobileItem = ({valueObject, currentFilters, filter, setCurrentFilters}) => {
   let isActive = false
   const {value, valueHandle} = valueObject
   
   const arr = valueHandle.split('-')
-  const formattedValueHandle = `minValue:${arr[0]};maxValue:${arr[1]}`
-    
-  
-  
-  // filterHandle текущего фильтра, из которого компонент делается, (например, brand)
+  const formattedValueHandle = `minValue:${arr[0]};maxValue:${arr[1]}`   
   const {nameHandle} = filter
-
   const filterFromAddressBar = currentFilters.find(filterItem => filterItem.nameHandle === nameHandle)
-
   if (filterFromAddressBar) {
     
     const newString = filterFromAddressBar.selectedValue.replaceAll('minValue:', '').replaceAll('maxValue:', '').replaceAll(';', '-')
-      
 
     if (newString.split(',').includes(valueHandle)) {
       isActive = true
@@ -27,7 +19,6 @@ const IncheckboxFilterMobileItem = ({valueObject, currentFilters, filter, setCur
 
     // добавляем в стейт
     if (!isActive) {
-
       const newState = [...currentFilters]
       let currentFilter = newState.find(filter => filter.nameHandle === nameHandle)
 
@@ -84,6 +75,5 @@ const IncheckboxFilterMobileItem = ({valueObject, currentFilters, filter, setCur
       </li>
   );
 };
-
 
 export default IncheckboxFilterMobileItem;

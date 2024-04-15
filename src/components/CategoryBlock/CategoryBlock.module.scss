@@ -1,6 +1,5 @@
 @import '@/assets/styles/mixins';
 
-
 .wrapper {
   display: flex;
   flex:1;
@@ -11,6 +10,7 @@
 .rightPartWrapper {
   flex: 1;
   margin-left: 22px;
+  
  
   @include m {
     width: 100%;

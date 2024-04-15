@@ -15,8 +15,6 @@ const Sort = () => {
         {
             isMobileScreen && <MobileSort />
         }
-        
-        
       </>
   );
 };

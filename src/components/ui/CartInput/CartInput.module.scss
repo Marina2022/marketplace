@@ -5,15 +5,14 @@
   position: relative;
   height: 40px;
   width: 205px;
-  display: flex;  
+  display: flex;
   align-items: center;
   display: flex;
-  
+
   @include t {
     justify-content: space-between;
     justify-content: flex-end;
   }
-
 }
 
 .inputWrapper {
@@ -24,16 +23,17 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  
+
   @include t {
-    margin-right: 15px;    
+    margin-right: 15px;
   }
-    
+
   @include m {
     font-size: 14px;
     margin-right: 15px;
     grow: 1;
     width: 100%;
+    height: 32px;
   }
 
   @media (max-width: 536px) {
@@ -48,22 +48,26 @@
   border: none;
   outline: none;
   padding-inline: 5px;
-      
-  @include m {    
-    padding-inline: 1px;    
+
+  @include m {
+    padding-inline: 1px;
   }
 
-  @media (max-width: 536px) {  
+  @media (max-width: 536px) {
     padding-inline: 5px;
-  }  
+  }
 }
 
 .minusBtn {
   height: 40px;
   width: 100%;
-  text-align: center;  
+  text-align: center;
   height: 100%;
-  
+
+  @include m {
+    height: 32px;
+  }
+
   &:active {
     background: #E1E1E1;
   }
@@ -76,8 +80,12 @@
 
 .plusBtn {
   height: 40px;
-  width: 100%;  
-  text-align: center;  
+  width: 100%;
+  text-align: center;
+
+  @include m {
+    height: 32px;
+  }
 
   &:active {
     background: #E1E1E1;
@@ -92,5 +100,9 @@
 .toCartBtn {
   width: 58px;
   padding: 0;
-  height: 40px;  
+  height: 40px;
+
+  @include m {
+    height: 32px;
+  }
 }

@@ -8,9 +8,7 @@ const MobileFilterListBlock = ({filters, setIsMobileFiltersOpen }) => {
 
         <div className={s.wrapperScreenWidth}>
           {
-
-            filters.map((filter, i)=><MobileFilterListBlockItem key={i} filter={filter} setIsMobileFiltersOpen={setIsMobileFiltersOpen} />)             
-            
+            filters.map((filter, i)=><MobileFilterListBlockItem key={i} filter={filter} setIsMobileFiltersOpen={setIsMobileFiltersOpen} />)
           }
         </div>
       </div>

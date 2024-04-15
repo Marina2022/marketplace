@@ -1,5 +1,5 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import axiosInstance from "@/api/axiosInstance.js";
+//import axiosInstance from "@/api/axiosInstance.js";
 
 export const loadCart = createAsyncThunk('cart/loadCart', async () => {
   // Запрос на получение корзины с сервера.. 

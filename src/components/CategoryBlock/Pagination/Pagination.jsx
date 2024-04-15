@@ -11,13 +11,13 @@ const Pagination = ({pageCountTotal, setProducts, products, allFilters}) => {
 
   const [searchParams] = useSearchParams();
   const currentPage = searchParams.get('page')
-  
   const isMobile = useMobileScreen()
-
   let showFurther = pageCountTotal >= 9
-
-  if (isMobile) return <MobilePagination setProducts={setProducts} products={products} allFilters={allFilters} pageCountTotal={pageCountTotal}  />
-  
+  if (isMobile) return <MobilePagination 
+      setProducts={setProducts} 
+      products={products} 
+      allFilters={allFilters}            
+      pageCountTotal={pageCountTotal}/>
   if (currentPage < 5 || !showFurther) return <CurrentPageLessThanFive pageCountTotal={pageCountTotal}/>
   if ((pageCountTotal - currentPage) <= 2 && showFurther) return <CurrentCloseToTotal pageCountTotal={pageCountTotal}/>
   if (currentPage >= 5 || showFurther) return <CurrentPageMoreThanFive pageCountTotal={pageCountTotal}/>

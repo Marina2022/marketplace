@@ -7,7 +7,7 @@ import axios from "axios";
 axios.defaults.baseURL = 'https://i-rif.com/api/'
 axios.interceptors.request.use((request) => {
   
-  // потом если  появится токен
+  // если  появится токен
   // const { auth, profile } = store.getState();
   // const token = auth.token;
   // if (auth?.token !== null) {
@@ -24,7 +24,7 @@ axios.interceptors.response.use(
     },
     (error) => {
       
-      // Обработка ошибок будет потом
+      // Обработка ошибок 
       // if (!error.message) {
       //   console.log(errorMessage);
       //   return Promise.reject("Something went wrong");

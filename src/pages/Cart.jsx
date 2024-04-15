@@ -2,10 +2,7 @@ import {useSelector} from "react-redux";
 import {getCart} from "@/store/cartSlice.js";
 
 const Cart = () => {
-  
-  const cart = useSelector(getCart)
-  
-  
+  const cart = useSelector(getCart)    
   return (
       <div className='container'>
         {

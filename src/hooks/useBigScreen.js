@@ -1,9 +1,7 @@
 import {useEffect, useState} from "react";
 
 const useBigScreen = () => {
-
   const [isBigScreen, setIsBigScreen] = useState(window.innerWidth > 1720)
-
 
   useEffect(() => {
     const onWindowResize = () => {
@@ -13,9 +11,7 @@ const useBigScreen = () => {
         setIsBigScreen(true)
       }
     }
-
     window.addEventListener('resize', onWindowResize)
-
     return () => {
       window.removeEventListener('resize', onWindowResize)
     }

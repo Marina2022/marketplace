@@ -4,19 +4,18 @@ import star from '@/assets/img/star.svg'
 import {getRightWord} from "@/utils/reviews.js";
 import Button from "@/components/ui/Button/Button.jsx";
 import CartInput from "@/components/ui/CartInput/CartInput.jsx";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import ProductImage from "@/components/ProductCard/ProductImage/ProductImage.jsx";
 
 const ProductCardHorizontal = ({product, quantity, onFavClick, onAddToCartClick}) => {
-
-  // const base_url = 'https://i-rif.com/'
+  
   const isInCart = quantity > 0
+  const navigate = useNavigate()
   
   return (
       <div className={s.productCardHorizontal}>
-        <div className={s.imgWrapper}>
-          <ProductImage product={product} orientation="horizontal" />
-          {/*<img className={s.imgCardHor} src={`${base_url}${product.images[0]?.imageUrl}`} alt=""/>*/}
+        <div className={s.imgWrapper} onClick={()=>navigate(`/product/${product.productHandle}`)} >
+          <ProductImage product={product} orientation="horizontal" />          
         </div>
 
         <div className={s.desc}>
@@ -31,7 +30,6 @@ const ProductCardHorizontal = ({product, quantity, onFavClick, onAddToCartClick}
               {product.reviewsRating} ({getRightWord(product.reviewsCount)})
             </div>
           </div>
-
           {
               product.features.length > 0 && <ul className={s.features}>
                 {
@@ -56,9 +54,7 @@ const ProductCardHorizontal = ({product, quantity, onFavClick, onAddToCartClick}
             }
           </p>
           <p className={s.vendor}>{product.vendorName}</p>
-
           <div className={s.btnWrapper}>
-
             {
                 isInCart && (
                     <CartInput product={product} value={quantity} />

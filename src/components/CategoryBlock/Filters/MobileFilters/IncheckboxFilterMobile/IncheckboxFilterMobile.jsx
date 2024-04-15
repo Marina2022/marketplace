@@ -8,14 +8,9 @@ import IncheckboxFilterMobileItem
 import IncheckboxFilterMobileItemFull
   from "@/components/CategoryBlock/Filters/MobileFilters/IncheckboxFilterMobile/IncheckboxFilterMobileItemFull/IncheckboxFilterMobileItemFull.jsx";
 
-
 const IncheckboxFilterMobile = ({filter, currentFilters, setCurrentFilters}) => {
 
-  console.log('currentFilters', currentFilters)
-
   const {filterName, filterSettings, nameHandle} = filter
-
-  console.log('filterSettings', filterSettings)
 
   // сортировка - вначале идут selected
   const filterSettingsSorted = [...filterSettings]
@@ -71,11 +66,9 @@ const IncheckboxFilterMobile = ({filter, currentFilters, setCurrentFilters}) => 
 
 
         {/* модалка "Показать все "*/}
-
         {
           <ShowMoreModal setIsOpen={setShowMoreIsOpen} isOpen={showMoreIsOpen} title={filter.filterName}
                          filterSettings={filterSettingsSorted}>
-
             <>
 
               {
@@ -104,7 +97,6 @@ const IncheckboxFilterMobile = ({filter, currentFilters, setCurrentFilters}) => 
                     }
                   </ul>
               }
-
               <ul>
                 {
                   filterSettingsSorted.map((value, i) => <IncheckboxFilterMobileItemFull
@@ -115,16 +107,12 @@ const IncheckboxFilterMobile = ({filter, currentFilters, setCurrentFilters}) => 
                   />)
                 }
               </ul>
-
               <Button className={s.readyBtn} onClick={() => setShowMoreIsOpen(false)}>Готово</Button>
-
             </>
           </ShowMoreModal>
-
         }
       </li>
   )
 }
-
 
 export default IncheckboxFilterMobile;

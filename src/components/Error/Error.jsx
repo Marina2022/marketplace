@@ -1,6 +1,5 @@
 import s from './Error.module.scss';
 import {Link} from "react-router-dom";
-
 const Error = ({children}) => {
   return (
       <div className='container'>

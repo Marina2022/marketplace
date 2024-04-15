@@ -1,11 +1,8 @@
 import s from './IncheckboxFilterItem.module.scss';
 import {useSearchParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {setScroll} from "@/store/catalogSlice.js";
 
-const IncheckboxFilterItem = ({item, filterNameHandle}) => {
-
-  const dispatch = useDispatch()
+const IncheckboxFilterItem = ({item, filterNameHandle}) => { 
   const {value, valueHandle} = item
   const tempArray = valueHandle.split('-')
 
@@ -47,7 +44,6 @@ const IncheckboxFilterItem = ({item, filterNameHandle}) => {
       searchParams.set('page', 1)
       setSearchParams(searchParams)
     }
-
   }
 
   return (

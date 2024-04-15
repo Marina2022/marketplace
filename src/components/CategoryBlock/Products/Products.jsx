@@ -1,7 +1,7 @@
 import s from './Products.module.scss';
 import ProductCard from "@/components/ProductCard/ProductCard.jsx";
 import {useSelector} from "react-redux";
-import {getCartView, getScroll} from "@/store/catalogSlice.js";
+import {getCartView} from "@/store/catalogSlice.js";
 import {useParams, useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
@@ -23,17 +23,11 @@ const Products = ({isBigScreen, allFilters, rightPartRef}) => {
   const [products, setProducts] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
-
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false)
-
   const {category} = useParams()
-
    
   // useEffect - загрузка списка товаров
-  useEffect(() => {
-    // window.scrollTo(0, scroll)
-    // console.log('allFilters', allFilters)
-
+  useEffect(() => {    
     if (allFilters.length === 0) return
     const getData = async () => {
 
@@ -70,8 +64,7 @@ const Products = ({isBigScreen, allFilters, rightPartRef}) => {
         let maxPrice = searchParams.get('maxPrice')
         if (minPrice && maxPrice) {
           queryString = `${queryString}&minPrice=${minPrice}&maxPrice=${maxPrice}`  
-        }
-        
+        }        
         
         // запрос
         const productsResponse = await axiosInstance(`category/${category}/products?pageSize=${PAGE_SIZE}${queryString}`)
@@ -81,8 +74,7 @@ const Products = ({isBigScreen, allFilters, rightPartRef}) => {
         setPageCountTotal(productsResponse.data.meta.pages.totalCount)
         
       } catch (err) {
-        setProducts([])
-        //setAllFilters([])
+        setProducts([])        
 
         // это будет работать, если статус 405 приходит только! в случае, если не найдена страница
         if (err.response.status === '405') {
@@ -108,16 +100,14 @@ const Products = ({isBigScreen, allFilters, rightPartRef}) => {
   }, [products]);
   
   const cardView = useSelector(getCartView)
-
+  
   if (isLoading) return <Spinner/>
   if (error) return <Error>Нет такой страницы</Error>
 
   return (
-
       <>
         <div className={s.sortAndView}>
           <Sort/>
-
           {
               isBigScreen && <CardView/>
           }

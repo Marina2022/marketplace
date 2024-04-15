@@ -6,12 +6,13 @@ import {sortOptions} from "@/consts/sortOptions.js";
 const BigScreenSort = () => {
   return (
       <ul className={s.sortList}>
-
         {
-          sortOptions.map((option, i) => <BigScreenSortItem key={i} sortColumn={option.sortColumn} label={option.label}
-                                                            defaultOrder={option.defaultOrder}/>)
+          sortOptions.map((option, i) => <BigScreenSortItem 
+              key={i} 
+              sortColumn={option.sortColumn} 
+              label={option.label}
+              defaultOrder={option.defaultOrder}/>)
         }
-
       </ul>
   );
 };

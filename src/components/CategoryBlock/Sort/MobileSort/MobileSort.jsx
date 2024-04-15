@@ -6,7 +6,7 @@ import MobileSortItem from "@/components/CategoryBlock/Sort/MobileSort/MobileSor
 
 const MobileSort = () => {
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [isOpen, setIsOpen] = useState(false)
 
 
@@ -65,7 +65,6 @@ const MobileSort = () => {
           }          
         </span>
         </button>
-
         {
             isOpen && <div>
               <div onClick={() => setIsOpen(false)} className={s.overlay}>

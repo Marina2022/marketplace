@@ -1,13 +1,11 @@
 import s from './CurrentPageMoreThanFive.module.scss';
 import PageNumber from "@/components/CategoryBlock/Pagination/PageNumber/PageNumber.jsx";
 import {useSearchParams} from "react-router-dom";
-
 const CurrentPageMoreThanFive = () => {
   
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = searchParams.get('page') || 1
-  
-  const onStartClick = () => {
+    const onStartClick = () => {
     searchParams.set('page', 1)
     setSearchParams(searchParams)
     window.scrollTo(0, scroll)

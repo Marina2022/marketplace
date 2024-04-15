@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Catalog = () => {
   return (
       <div>
@@ -7,5 +5,4 @@ const Catalog = () => {
       </div>
   );
 };
-
 export default Catalog;

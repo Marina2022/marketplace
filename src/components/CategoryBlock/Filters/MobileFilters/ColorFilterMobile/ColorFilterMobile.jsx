@@ -9,9 +9,7 @@ import ColorFilterMobileItem
   from "@/components/CategoryBlock/Filters/MobileFilters/ColorFilterMobile/ColorFilterMobileItem/ColorFilterMobileItem.jsx";
 
 const ColorFilterMobile = ({filter, currentFilters, setCurrentFilters}) => {
-
   const {filterName, filterSettings, nameHandle} = filter
-
   // сортировка - вначале идут selected
   const filterSettingsSorted = [...filterSettings]
   sortFilterValues(filterSettingsSorted, nameHandle, currentFilters)
@@ -110,7 +108,6 @@ const ColorFilterMobile = ({filter, currentFilters, setCurrentFilters}) => {
 
             </>
           </ShowMoreModal>
-
         }
       </li>
   )

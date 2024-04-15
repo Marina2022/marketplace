@@ -1,6 +1,5 @@
 import s from './Badges.module.scss';
 import Badge from "@/components/ui/Badge/Badge.jsx";
-
 const Badges = ({product}) => {
   return (
       <div className={s.badgeContainer}>

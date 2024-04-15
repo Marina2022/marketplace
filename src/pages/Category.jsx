@@ -2,20 +2,11 @@ import {useEffect, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import {useLocation, useParams, useSearchParams} from "react-router-dom";
 import CategoryBlock from "@/components/CategoryBlock/CategoryBlock.jsx";
-import Spinner from "@/components/ui/Spinner/Spinner.jsx";
-import Error from "@/components/Error/Error.jsx";
-import {PAGE_SIZE} from "@/consts/pageSize.js";
-
+import Error from '@/components/Error/Error.jsx'
 const Category = () => {
-
   const {category} = useParams()
-  const [searchParams] = useSearchParams();
-
-  const [products, setProducts] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [path, setPath] = useState([])
-  const [error, setError] = useState(null)
-  
+  const [products, setProducts] = useState(null)  
+  const [error, setError] = useState(null)  
   const [isFiltersLoading, setIsFiltersLoading] = useState(true)
 
   const [allFilters, setAllFilters] = useState([])
@@ -42,16 +33,14 @@ const Category = () => {
     getFilters()
   }, [location]);
   
+  if (error) return <Error></Error>
+  
   return (
       <CategoryBlock
           products={products}
-          setProducts={setProducts}
-          path={path}
-          
+          setProducts={setProducts}                    
           allFilters={allFilters}
       />
-      
-      
   );
 };
 

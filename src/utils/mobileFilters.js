@@ -3,7 +3,6 @@ export const sortFilterValues = (filterSettingsSorted, nameHandle, currentFilter
   const foundInState = currentFilters.find(stateItem => stateItem.nameHandle === nameHandle)
 
   if (foundInState) {
-
     filterSettingsSorted.sort((a, b) => {
       const arrayOfValues = foundInState.selectedValue.split(',')
       let result = 0

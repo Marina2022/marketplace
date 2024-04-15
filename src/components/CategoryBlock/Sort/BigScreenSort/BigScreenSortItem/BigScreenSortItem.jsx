@@ -1,15 +1,9 @@
 import s from './BigScreenSortItem.module.scss'
 import {useSearchParams} from "react-router-dom";
-import {setScroll} from "@/store/catalogSlice.js";
-import {useDispatch} from "react-redux";
-
 const BigScreenSortItem = ({label, sortColumn, defaultOrder}) => {
-
-  const dispatch = useDispatch()
+  
   let status = 'notSelected'  // notSelected, asc, desc
-
   const [searchParams, setSearchParams] = useSearchParams();
-
   const valueFromAddressBar = searchParams.get('sortColumn')
 
   if (valueFromAddressBar === sortColumn) {
@@ -35,10 +29,7 @@ const BigScreenSortItem = ({label, sortColumn, defaultOrder}) => {
     searchParams.set('sortOrder', valueToSet)
     searchParams.set('sortColumn', sortColumn)
     searchParams.set('page', 1)
-    setSearchParams(searchParams)
-
-    //dispatch(setScroll(window.scrollY))
-    
+    setSearchParams(searchParams)   
   }
 
   return (
@@ -53,7 +44,6 @@ const BigScreenSortItem = ({label, sortColumn, defaultOrder}) => {
             <rect width="10" height="2" transform="translate(0 6)" fill="#E32636"/>
             <rect width="13" height="2" transform="translate(0 10)" fill="#E32636"/>
           </svg>
-
         }
       </li>
   );

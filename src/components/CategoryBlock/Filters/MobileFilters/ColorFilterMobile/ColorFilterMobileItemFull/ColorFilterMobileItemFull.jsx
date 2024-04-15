@@ -1,19 +1,13 @@
 import s from './ColorFilterMobileItemFull.module.scss';
-
 const ColorFilterMobileItemFull = ({valueObject, currentFilters, filter, setCurrentFilters}) => {
 
-
   const {value, valueHandle, exparam} = valueObject
-
-  // const [isActive, setIsActive] = useState(false)
 
   let isActive = false
   const {nameHandle} = filter
   const filterFromAddressBar =  currentFilters.find(filterItem=>filterItem.nameHandle === nameHandle )
 
   if (filterFromAddressBar) {
-
-
     if (filterFromAddressBar.selectedValue.split(',').includes(valueHandle)) {
       isActive = true
     }
@@ -88,10 +82,9 @@ const ColorFilterMobileItemFull = ({valueObject, currentFilters, filter, setCurr
 
           }
         </li>
-
         {value}
       </li>
-  );
-};
+  )
+}
 
 export default ColorFilterMobileItemFull;

@@ -1,27 +1,20 @@
 import s from './IncheckboxFilterMobileItemFull.module.scss';
 
 const IncheckboxFilterMobileItemFull = ({valueObject, currentFilters, filter, setCurrentFilters}) => {
-
-
   const {value, valueHandle} = valueObject
-
   const arr = valueHandle.split('-')
   const formattedValueHandle = `minValue:${arr[0]};maxValue:${arr[1]}`
-  
-  
   let isActive = false
   const {nameHandle} = filter
   const filterFromAddressBar =  currentFilters.find(filterItem=>filterItem.nameHandle === nameHandle )
 
   if (filterFromAddressBar) {
-
     const newString = filterFromAddressBar.selectedValue.replaceAll('minValue:', '').replaceAll('maxValue:', '').replaceAll(';', '-')
 
     if (newString.split(',').includes(valueHandle)) {
       isActive = true
     }
   }
-
   const onFilterItemClick = () => {
 
     // добавляем в стейт

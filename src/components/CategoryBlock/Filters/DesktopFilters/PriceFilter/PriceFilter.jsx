@@ -67,8 +67,6 @@ const PriceFilter = ({filter, filtersWrapper, rightPartRef}) => {
         setFromValue(inputFromValue)
       }
     }
-
-
   }
 
   const onInputToBlur = (e) => {
@@ -79,47 +77,36 @@ const PriceFilter = ({filter, filtersWrapper, rightPartRef}) => {
       if (+inputFromValue > +inputToValue) return
       if (+inputToValue > +max.value) {
         setToValue(max.value)
-
       } else {
         setToValue(inputToValue)
       }
     }
   }
-
-
   const onInputFromEnter = (e) => {
     console.log(e.keyCode)
     if (e.keyCode === 13) {
       onInputFromBlur()
     }
   }
-
   const onInputToEnter = (e) => {
     console.log(e.keyCode)
     if (e.keyCode === 13) {
       onInputToBlur()
     }
   }
-
   const onFromChangeRange = (e) => {
 
     if (e.target.value >= +toValue) return
 
     if (e.target.value === '') e.target.value = +min.value
 
-
     setFromValue(e.target.value)
     setInputFromValue(e.target.value)
-
   }
 
   const onToChangeRange = (e) => {
-
-
     if (e.target.value <= +fromValue) return
-
     if (e.target.value === '') e.target.value = +max.value
-
     if (e.target.value.match(/\D/)) {
       e.target.value = e.target.value.replace(/\D/, '');
     }
@@ -129,7 +116,6 @@ const PriceFilter = ({filter, filtersWrapper, rightPartRef}) => {
       e.target.value = max.value
     }
     setToValue(e.target.value)
-
     setInputToValue(e.target.value)
   }
 
@@ -158,7 +144,6 @@ const PriceFilter = ({filter, filtersWrapper, rightPartRef}) => {
           ></div>
         </div>
 
-
         <div className={s.inputWrapper}>
 
           <input value={inputFromValue} onChange={onInputFromChange} className={s.input} type="text"
@@ -167,7 +152,6 @@ const PriceFilter = ({filter, filtersWrapper, rightPartRef}) => {
                  type="text"
                  placeholder="до" onBlur={onInputToBlur}/>
         </div>
-
 
       </FiltersDropdown>
   );

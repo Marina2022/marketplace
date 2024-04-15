@@ -5,17 +5,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {getIsAuthenticated} from "@/store/userSlice.js";
 import {addToCart, getCart} from "@/store/cartSlice.js";
 import {getCartView} from "@/store/catalogSlice.js";
-
-
 const ProductCard = ({isBigScreen, product}) => {
-  
   const cardView = useSelector(getCartView) 
-
   const isAuthenticated = useSelector(getIsAuthenticated)
-  const productsInCart = useSelector(getCart)
-    
-  const productInCart = productsInCart.find(item=>item.id === product.productVariantId)
-  
+  const productsInCart = useSelector(getCart)    
+  const productInCart = productsInCart.find(item=>item.id === product.productVariantId)  
   let quantity
   if (productInCart) { 
     quantity = productInCart.count
@@ -25,7 +19,6 @@ const ProductCard = ({isBigScreen, product}) => {
     
   const dispatch = useDispatch()
   const onAddToCartClick = (id, quantity)=>dispatch(addToCart({id, quantity}))
-
   const navigate = useNavigate()
   const onFavClick = (id) => {
     if (!isAuthenticated) {
@@ -36,7 +29,6 @@ const ProductCard = ({isBigScreen, product}) => {
   }
 
     return (
-
         <>
           {
               (!isBigScreen || cardView === 'vertical') &&

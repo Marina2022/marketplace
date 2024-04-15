@@ -5,18 +5,12 @@ import IncheckboxFilter
 import PriceFilter from "@/components/CategoryBlock/Filters/DesktopFilters/PriceFilter/PriceFilter.jsx";
 import ColorFilter from "@/components/CategoryBlock/Filters/DesktopFilters/ColorFilter/ColorFilter.jsx";
 import {useEffect, useRef} from "react";
-import {useSelector} from "react-redux";
-import {getScroll} from "@/store/catalogSlice.js";
-
 
 const DesktopFilters = ({allFilters, rightPartRef}) => {
 
   useEffect(() => {
-
-
         let scrollY  = window.scrollY ;
         let isRelative = false
-
 
         const scrollHandler = () => {
 
@@ -86,11 +80,8 @@ const DesktopFilters = ({allFilters, rightPartRef}) => {
 
             if (!isRelative) {
               isRelative = true
-
-              let topValue = window.scrollY  + filtersWrapper.current.getBoundingClientRect().y - 225
-              // if (topValue < 0) topValue = 0
-              filtersWrapper.current.style = `position: relative; top: ${topValue}px`
-              
+              let topValue = window.scrollY  + filtersWrapper.current.getBoundingClientRect().y - 225              
+              filtersWrapper.current.style = `position: relative; top: ${topValue}px`              
             }
 
             // Если фильтры доехали до верха экрана

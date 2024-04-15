@@ -5,7 +5,6 @@ import ColorFilterItem
   from "@/components/CategoryBlock/Filters/DesktopFilters/ColorFilter/ColorFilterItem/ColorFilterItem.jsx";
 import {useState} from "react";
 
-
 const ColorFilter = ({filter, filtersWrapper, rightPartRef}) => {
   const {filterName, filterSettings, nameHandle} = filter
 
@@ -24,7 +23,6 @@ const ColorFilter = ({filter, filtersWrapper, rightPartRef}) => {
         {
             !(isShowAll || filterSettings.length <=5) && <button onClick={() => setIsShowAll(true)} className={s.showAllBtn}>Показать все</button>
         }
-
 
       </FiltersDropdown>
   );

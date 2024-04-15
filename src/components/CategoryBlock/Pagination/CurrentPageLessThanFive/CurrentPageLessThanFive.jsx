@@ -1,15 +1,12 @@
 import s from './CurrentPageLessThanFive.module.scss';
 import PageNumber from "@/components/CategoryBlock/Pagination/PageNumber/PageNumber.jsx";
 import {useSearchParams} from "react-router-dom";
-
 const CurrentPageLessThanFive = ({pageCountTotal}) => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   let currentPage = searchParams.get('page') || 1 
-  
-  
+    
   let pageArray
-
   let showFurther = true
 
   if (pageCountTotal < 9) {
@@ -18,7 +15,6 @@ const CurrentPageLessThanFive = ({pageCountTotal}) => {
   } else {
     pageArray = Array.from({length: 8}, (_, i) => i + 1)
   }
-
   const onNextClick = () => {
     searchParams.set('page', +currentPage + 1)
     setSearchParams(searchParams)
@@ -34,8 +30,7 @@ const CurrentPageLessThanFive = ({pageCountTotal}) => {
         {
             showFurther && <PageNumber number="..."/>
         }
-        {
-            // showFurther && <button onClick={onNextClick} className={s.btn}>Дальше</button>
+        {            
             pageCountTotal !== +currentPage &&  <button onClick={onNextClick} className={s.btn}>Дальше</button>
         }
       </ul>

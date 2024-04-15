@@ -3,14 +3,11 @@ import FiltersDropdown from "@/components/CategoryBlock/Filters/FiltersDropdown/
 import IncheckboxFilterItem
   from "@/components/CategoryBlock/Filters/DesktopFilters/IncheckboxFilter/IncheckboxFilterItem/IncheckboxFilterItem.jsx";
 import {useState} from "react";
-
-
 const IncheckboxFilter = ({filter, filtersWrapper, rightPartRef}) => {
   const {filterName, filterSettings, nameHandle} = filter
 
   const [isShowAll, setIsShowAll] = useState(false)
   const newFilterSettings = isShowAll || filterSettings.length <=5 ? [...filterSettings] : filterSettings.slice(0, 5)
-
   
   return (
   <FiltersDropdown title={filterName} filtersWrapper={filtersWrapper} rightPartRef={rightPartRef} filter={nameHandle}>

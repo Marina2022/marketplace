@@ -9,14 +9,7 @@ import Category from "@/pages/Category.jsx";
 import Favorites from "@/pages/Favorites.jsx";
 import Cart from "@/pages/Cart.jsx";
 import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute.jsx";
-import {useDispatch} from "react-redux";
-import {loadCart} from "@/store/cartSlice.js";
-
-
 function App() {
-
-   
-
   return (
       <Router>
         <Routes>

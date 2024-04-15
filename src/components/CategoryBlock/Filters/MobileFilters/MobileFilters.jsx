@@ -13,11 +13,8 @@ import {useSearchParams} from "react-router-dom";
 import Button from "@/components/ui/Button/Button.jsx";
 import {useEffect, useState} from "react";
 
-
 const MobileFilters = ({isMobileFiltersOpen, setIsMobileFiltersOpen, allFilters}) => {
   const [searchParams, setSearchParams] = useSearchParams();
-
-
   const [currentFilters, setCurrentFilters] = useState([])
 
   useEffect(() => {
@@ -31,7 +28,6 @@ const MobileFilters = ({isMobileFiltersOpen, setIsMobileFiltersOpen, allFilters}
         }
     )
     const minPrice = searchParams.get('minPrice')
-
     const priceFilter =  allFilters.find(filter => filter.nameHandle === 'priceRange')
     
     // если цены нет в адресной строке, устанавливаем значение в '' (это будте state для инпута)
@@ -65,22 +61,18 @@ const MobileFilters = ({isMobileFiltersOpen, setIsMobileFiltersOpen, allFilters}
       selectedValue: maxPrice,
       filterSettings: priceFilter.filterSettings
     })
-    
-    
+        
     setCurrentFilters(filtersFromAddressBar)
   }, []);
 
   const onSubmitClick = () => {
-    console.log('currentFilters', currentFilters)
-
     allFilters.forEach(filterItem => {
       searchParams.delete(filterItem.nameHandle)
     })
     searchParams.delete('minPrice')
     searchParams.delete('maxPrice')
 
-    currentFilters.forEach(filterItem => {
-      
+    currentFilters.forEach(filterItem => {      
       if(filterItem.nameHandle === 'minPrice') {
         if (filterItem.selectedValue === '') {
           searchParams.set(filterItem.nameHandle, filterItem.filterSettings[0].value)          
@@ -98,13 +90,14 @@ const MobileFilters = ({isMobileFiltersOpen, setIsMobileFiltersOpen, allFilters}
         }
       }
       
-      
+      if (filterItem.nameHandle !== 'minPrice' && filterItem.nameHandle !== 'maxPrice' ) {
+        searchParams.set(filterItem.nameHandle, filterItem.selectedValue)
+      }
     })
 
     setSearchParams(searchParams)
     setIsMobileFiltersOpen(false)
   }
-
 
   return (
       <div className={s.globalWrapper}>
@@ -160,7 +153,6 @@ const MobileFilters = ({isMobileFiltersOpen, setIsMobileFiltersOpen, allFilters}
             }
           </ul>
           <Button onClick={onSubmitClick} className={s.submitBtn}>Показать товары</Button>
-
         </MobileFiltersPopup>
       </div>
   );

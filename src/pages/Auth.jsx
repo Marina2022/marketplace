@@ -1,8 +1,7 @@
 const Auth = () => {
   return (
       <div className='container'>
-        Auth
-        
+        Auth        
       </div>
   );
 };

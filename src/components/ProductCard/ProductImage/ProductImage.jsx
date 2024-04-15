@@ -2,15 +2,12 @@ import s from './ProductImage.module.scss';
 import Badges from "@/components/ProductCard/ProductImage/Badges/Badges.jsx";
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import useBigScreen from "@/hooks/useBigScreen.js";
-
-// import { Pagination } from 'swiper/modules';
-// import 'swiper/css/pagination';
 
 const ProductImage = ({product, orientation}) => {
   const isBigScreen = useBigScreen()
-  
+
   const [currentSlide, setCurrentSlide] = useState(0)
 
   const base_url = 'https://i-rif.com/'
@@ -18,12 +15,12 @@ const ProductImage = ({product, orientation}) => {
   const hoverHandler = (index) => {
     if (swiperRef.current !== null) {
       swiperRef.current.swiper.slideTo(index);
-    }   
+    }
   }
-    const mouseLeaveHandler = () => {
-    swiperRef.current.swiper.slideTo(0);    
+  const mouseLeaveHandler = () => {
+    swiperRef.current.swiper.slideTo(0);
   }
-  
+
   if (product.images.length === 0) {
     return (
         <div className={orientation === "vertical" ? s.imgCardVer : s.imgCardHor}>
@@ -36,14 +33,14 @@ const ProductImage = ({product, orientation}) => {
   }
 
   return (
-      <div className={orientation === "vertical" ? s.imgCardVer : s.imgCardHor} onMouseLeave={mouseLeaveHandler} >
+      <div className={orientation === "vertical" ? s.imgCardVer : s.imgCardHor} onMouseLeave={mouseLeaveHandler}>
 
         <Swiper
             ref={swiperRef}
             className={s.slider}
             slidesPerView={1}
             onSlideChange={() => setCurrentSlide(swiperRef.current.swiper.activeIndex)}
-            loop            
+            loop
             speed={isBigScreen ? 0 : 300}
         >
 
@@ -56,28 +53,28 @@ const ProductImage = ({product, orientation}) => {
               )
             })
           }
-
         </Swiper>
 
         {
             isBigScreen && <div className={s.overlay}>
               {
-              product.images.map((image, i) => <div onMouseEnter={()=>hoverHandler(i)} className={s.tile} key={i}></div>)
+                product.images.map((image, i) => <div onMouseEnter={() => hoverHandler(i)} className={s.tile}
+                                                      key={i}></div>)
               }
-          
+
             </div>
         }
 
         {
-            <div className={s.pagination}>
-              {
-                product.images.map((image, i) => <div 
-                    onMouseEnter={()=>hoverHandler(i)} 
-                    className={currentSlide === i ? s.paginationItemActive : s.paginationItem} key={i}>                
-                  
-                </div>)
-              }
-            </div>
+          <div className={s.pagination}>
+            {
+              product.images.map((image, i) => <div
+                  onMouseEnter={() => hoverHandler(i)}
+                  className={currentSlide === i ? s.paginationItemActive : s.paginationItem} key={i}>
+
+              </div>)
+            }
+          </div>
         }
 
         <Badges product={product}/>
