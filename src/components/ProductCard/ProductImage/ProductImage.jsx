@@ -32,6 +32,8 @@ const ProductImage = ({product, orientation}) => {
     )
   }
 
+  console.log('currentSlide', currentSlide)
+
   return (
       <div className={orientation === "vertical" ? s.imgCardVer : s.imgCardHor} onMouseLeave={mouseLeaveHandler}>
 
@@ -39,7 +41,9 @@ const ProductImage = ({product, orientation}) => {
             ref={swiperRef}
             className={s.slider}
             slidesPerView={1}
-            onSlideChange={() => setCurrentSlide(swiperRef.current.swiper.activeIndex)}
+            onSlideChange={() => {
+              setCurrentSlide(swiperRef.current.swiper.realIndex)
+            }}
             loop
             speed={isBigScreen ? 0 : 300}
         >
