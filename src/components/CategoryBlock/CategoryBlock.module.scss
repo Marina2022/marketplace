@@ -4,7 +4,11 @@
   display: flex;
   flex:1;
   margin-bottom: 150px;
-  align-items: flex-start;  
+  align-items: flex-start;
+  
+  @include m {
+    margin-bottom: 50px;
+  }
 }
 
 .rightPartWrapper {
