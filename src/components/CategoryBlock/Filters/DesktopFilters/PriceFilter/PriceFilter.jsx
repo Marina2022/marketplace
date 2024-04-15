@@ -1,6 +1,6 @@
 import s from './PriceFilter.module.scss';
 import FiltersDropdown from "@/components/CategoryBlock/Filters/FiltersDropdown/FiltersDropdown.jsx";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 import 'nouislider/dist/nouislider.css';
 import {useSearchParams} from "react-router-dom";
@@ -12,8 +12,11 @@ const PriceFilter = ({filter, filtersWrapper, rightPartRef}) => {
 
   const [min, max] = filterSettings
 
+  
   const [fromValue, setFromValue] = useState(+min.value)
   const [toValue, setToValue] = useState(+max.value)
+  
+  
 
   const debouncedFromValue = useDebounce(fromValue, 300);
   const debouncedToValue = useDebounce(toValue, 300);
@@ -23,7 +26,15 @@ const PriceFilter = ({filter, filtersWrapper, rightPartRef}) => {
   const [inputFromValue, setInputFromValue] = useState('')
   const [inputToValue, setInputToValue] = useState('')
 
+
+  const firstPageLoad = useRef(true)
+  
   useEffect(() => {
+    
+    if (firstPageLoad.current) {
+      firstPageLoad.current = false
+      return
+    }
     searchParams.set('minPrice', debouncedFromValue)
     searchParams.set('maxPrice', debouncedToValue)
     setSearchParams(searchParams)
@@ -69,8 +80,7 @@ const PriceFilter = ({filter, filtersWrapper, rightPartRef}) => {
     }
   }
 
-  const onInputToBlur = (e) => {
-
+  const onInputToBlur = () => {
     if (inputToValue === '') {
       setToValue(max.value)
     } else {
@@ -82,37 +92,34 @@ const PriceFilter = ({filter, filtersWrapper, rightPartRef}) => {
       }
     }
   }
-  const onInputFromEnter = (e) => {
-    console.log(e.keyCode)
+  const onInputFromEnter = (e) => {    
     if (e.keyCode === 13) {
       onInputFromBlur()
     }
   }
-  const onInputToEnter = (e) => {
-    console.log(e.keyCode)
+  const onInputToEnter = (e) => {    
     if (e.keyCode === 13) {
       onInputToBlur()
     }
   }
-  const onFromChangeRange = (e) => {
-
+  
+    
+  const onFromChangeRange = (e) => {  
     if (e.target.value >= +toValue) return
-
     if (e.target.value === '') e.target.value = +min.value
 
     setFromValue(e.target.value)
     setInputFromValue(e.target.value)
   }
 
-  const onToChangeRange = (e) => {
+  const onToChangeRange = (e) => {    
     if (e.target.value <= +fromValue) return
     if (e.target.value === '') e.target.value = +max.value
     if (e.target.value.match(/\D/)) {
       e.target.value = e.target.value.replace(/\D/, '');
     }
 
-    if (+e.target.value > max.value) {
-      console.log('больше разве?')
+    if (+e.target.value > max.value) {      
       e.target.value = max.value
     }
     setToValue(e.target.value)

@@ -35,7 +35,7 @@ const ProductCardHorizontal = ({product, quantity, onFavClick, onAddToCartClick}
                 {
                   product.features.map((feature, i) => (
                       <li className={s.featureItem} key={i}>
-                        <span className={s.featureName}>{feature.name}</span>
+                        <span className={s.featureName}>{feature.name}:</span>
                         <span className={s.featureValue}>{feature.value}</span>
                       </li>)
                   )

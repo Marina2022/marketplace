@@ -32,8 +32,6 @@ const ProductImage = ({product, orientation}) => {
     )
   }
 
-  console.log('currentSlide', currentSlide)
-
   return (
       <div className={orientation === "vertical" ? s.imgCardVer : s.imgCardHor} onMouseLeave={mouseLeaveHandler}>
 

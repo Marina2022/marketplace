@@ -40,7 +40,7 @@ const MobilePagination = ({products, setProducts, allFilters, pageCountTotal}) =
       if (queryParam) queryString = `${queryString}&${filter.nameHandle}=${queryParam}`
     })
 
-    // добавляем сортировку в строку запроса на АПИ 
+    // добавляем сортировку в строку запроса на АПИ    
     const sortColumn = searchParams.get('sortColumn')
     let sortOrder = searchParams.get('sortOrder')
     if (!sortOrder) {
@@ -49,6 +49,9 @@ const MobilePagination = ({products, setProducts, allFilters, pageCountTotal}) =
       } else {
         sortOrder = 'desc'
       }
+    }
+    if (sortColumn) {
+      queryString = `${queryString}&sortColumn=${sortColumn}&sortOrder=${sortOrder}`
     }
 
     // добавляем страницу в строку запроса на АПИ 

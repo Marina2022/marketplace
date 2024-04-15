@@ -21,6 +21,9 @@ const CurrentPageLessThanFive = ({pageCountTotal}) => {
     window.scrollTo(0, scroll)
   }
 
+  if (pageCountTotal === 1) return <></>
+  
+  
   return (
       <ul className={s.pagination}>
 
