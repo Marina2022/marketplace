@@ -81,3 +81,5 @@ const ProductCardVertical = ({product, quantity, onFavClick, onAddToCartClick}) 
 };
 
 export default ProductCardVertical;
+
+

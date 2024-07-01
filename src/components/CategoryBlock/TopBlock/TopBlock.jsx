@@ -16,11 +16,11 @@ const TopBlock = () => {
     const getData = async () => {
       setIsLoading(true)
       setError(false)
-      try {        
+      try {
         const productsResponse = await axiosInstance(`category/${category}/products`)
-         setPath(productsResponse.data.meta.path)
-      } catch (err) {        
-        setPath([])        
+        setPath(productsResponse.data.meta.path)
+      } catch (err) {
+        setPath([])
 
         // это будет работать, если статус 405 приходит только! в случае, если не найдена страница
         if (err.response.status === '405') {
@@ -36,14 +36,22 @@ const TopBlock = () => {
 
     getData()
   }, [location]);
-  
+
   if (isLoading) return <p className={s.placeholder}></p>
-  if (error) return <Error>Нет такой страницы</Error>
+  if (error) return <>
+
+    <BreadCrumbs path={path}/>
+    {/*<Error>Нет такой страницы</Error>*/}
+  </> 
   
+  
+  
+   
+
   return (
       <>
         <BreadCrumbs path={path}/>
-        <h1 className={s.title}>{path[0].name}</h1> 
+        <h1 className={s.title}>{path[0].name}</h1>
       </>
   );
 };

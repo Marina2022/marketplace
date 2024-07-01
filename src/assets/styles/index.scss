@@ -48,3 +48,19 @@ a {
     padding-inline: 16px;
   }
 }
+.sliderBlock {
+  border: green 1px solid;
+  display: flex;
+  gap: 15px;
+}
+
+.bigPicture {
+  background: white;
+  width: 544px;
+  height: 544px;
+  
+  @include t {
+    width: 314px;
+    height: 314px;
+  }
+}

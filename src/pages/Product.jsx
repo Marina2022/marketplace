@@ -1,10 +1,9 @@
-import {useParams} from "react-router-dom";
+import ProductPage from "@/components/ProductPage/ProductPage.jsx";
+
 const Product = () => {
-  const {slug} = useParams()  
+
   return (
-      <div className='container'>
-        Product - {slug}
-      </div>
+      <ProductPage/>
   );
 };
 
