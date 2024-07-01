@@ -5,7 +5,7 @@ import CategoryBlock from "@/components/CategoryBlock/CategoryBlock.jsx";
 import Error from '@/components/Error/Error.jsx'
 const Category = () => {
   const {category} = useParams()
-  const [products, setProducts] = useState(null)  
+  // const [products, setProducts] = useState(null)  
   const [error, setError] = useState(null)  
   const [isFiltersLoading, setIsFiltersLoading] = useState(true)
 
@@ -36,9 +36,7 @@ const Category = () => {
   if (error) return <Error></Error>
   
   return (
-      <CategoryBlock
-          products={products}
-          setProducts={setProducts}                    
+      <CategoryBlock                   
           allFilters={allFilters}
       />
   );

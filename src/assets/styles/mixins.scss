@@ -18,19 +18,3 @@
     @content;
   }
 }
-
-
-.container--product {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 1440px;
-
-  @include t {
-    max-width: 920px;
-  }
-
-  @include m {
-    max-width: unset;
-    padding-inline: 16px;
-  }
-}

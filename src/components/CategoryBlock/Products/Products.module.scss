@@ -15,9 +15,11 @@
   align-items: stretch;
   
   @include t {
-    width: 698px;
+    //width: 698px;
+    width: 683px;
     row-gap: 22px;
     column-gap: 22px;
+    column-gap: 19px;
     grid-template-columns: repeat(3, 1fr);
   }
   

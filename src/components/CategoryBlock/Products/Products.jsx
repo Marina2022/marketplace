@@ -74,7 +74,7 @@ const Products = ({isBigScreen, allFilters, rightPartRef}) => {
         
         // запрос
         const productsResponse = await axiosInstance(`category/${category}/products?pageSize=${PAGE_SIZE}${queryString}`)
-        // console.log('products', productsResponse.data.products)
+        //console.log('products', productsResponse.data.products)
         // console.log('productsResponse', productsResponse)
         setProducts(productsResponse.data.products)
         setPageCountTotal(productsResponse.data.meta.pages.totalCount)
@@ -110,6 +110,8 @@ const Products = ({isBigScreen, allFilters, rightPartRef}) => {
   if (isLoading) return <Spinner/>
   if (error) return <Error>Нет такой страницы</Error>
 
+  //const manyProducts  = [...products, ...products, ...products, ...products, ...products, ...products, ...products, ...products, ...products] //todo убрать
+  
   return (
       <>
         <div className={s.sortAndView}>
@@ -129,7 +131,8 @@ const Products = ({isBigScreen, allFilters, rightPartRef}) => {
             className={`${s.productsWrapper} ${(cardView === 'vertical' || !isBigScreen) && s.verticalViewCardWrapper}`}>
          
           {
-            products.map((product, i) => {
+             products.map((product, i) => {
+              // manyProducts.map((product, i) => {  // для тестирование - много карточек
               return <ProductCard key={i} isBigScreen={isBigScreen} product={product}/>
             })
           }

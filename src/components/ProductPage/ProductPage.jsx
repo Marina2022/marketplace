@@ -59,7 +59,7 @@ const ProductPage = () => {
 
 
   return (
-      <div className='container--product'>
+      <div className='container'>
         <BreadCrumbs path={path} productBreadCrumbs={true}/>
 
         <div className={s.productMain}>

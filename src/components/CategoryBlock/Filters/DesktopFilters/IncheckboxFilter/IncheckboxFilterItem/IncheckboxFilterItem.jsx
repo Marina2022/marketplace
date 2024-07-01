@@ -22,7 +22,7 @@ const IncheckboxFilterItem = ({item, filterNameHandle}) => {
   if (valuesArray.includes(valueHandleForWork)) isSelected = true
   const onCheck = () => {
 
-    // Убираем значение из searchParams - todo
+    // Убираем значение из searchParams 
     if (isSelected) {
 
       const filteredArray = valuesArray.filter(item => item !== valueHandleForWork)

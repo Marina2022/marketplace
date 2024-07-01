@@ -34,33 +34,33 @@ a {
   font-family: inherit;
 }
 
+//.container {
+//  margin: 0 auto;
+//  width: 100%;
+//  max-width: 1440px;
+//  
+//  @include t {
+//    max-width: 980px;
+//  }
+//  
+//  @include m {
+//    max-width: unset;
+//    padding-inline: 16px;
+//  }
+//}
+
+
 .container {
   margin: 0 auto;
   width: 100%;
   max-width: 1440px;
-  
+
   @include t {
-    max-width: 980px;
+    max-width: 920px;
   }
-  
+
   @include m {
     max-width: unset;
     padding-inline: 16px;
-  }
-}
-.sliderBlock {
-  border: green 1px solid;
-  display: flex;
-  gap: 15px;
-}
-
-.bigPicture {
-  background: white;
-  width: 544px;
-  height: 544px;
-  
-  @include t {
-    width: 314px;
-    height: 314px;
   }
 }
