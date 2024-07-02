@@ -1,0 +1,51 @@
+@import '@/assets/styles/mixins';
+
+.sliderBlock {
+  //border: green 3px solid;
+  display: flex;
+  gap: 15px;
+
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column-start: 1;
+  grid-column-end: 2;
+
+  @include t {
+    grid-row-start: 2;
+    grid-row-end: 3;
+  }
+
+  @include m {
+    width: 100%;
+    order: 1;
+  }
+}
+
+
+.bigPicture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  width: 544px;
+  min-height: 544px;
+
+  @include t {
+    width: 314px;
+    min-height: 314px;
+  }
+
+  @include m {
+    width: 100%;
+    min-height: 360px;
+  }
+}
+
+.image {
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.spinner {
+  height: 544px!important;
+}

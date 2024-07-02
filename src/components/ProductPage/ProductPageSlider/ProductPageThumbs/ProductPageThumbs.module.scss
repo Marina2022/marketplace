@@ -1,0 +1,44 @@
+@import '@/assets/styles/mixins';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.thumbnails {
+  width: 80px;  
+  display: flex;
+  flex-direction: column;
+
+  @include t {
+    display: none;
+  }
+}
+
+.thumbnail {  
+  width: 80px;
+  height: 80px;
+  margin-bottom: 8px;  
+  border: 1px solid #F0F1F1;
+  cursor: pointer;
+}
+
+.currentThumbnail {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 8px;
+  border: 2px solid #E32636;
+  cursor: pointer;
+}
+
+.thumbnailImage {  
+  max-width: 100%;
+  object-fit: cover;
+}
+
+.more {
+ color: #0093FD;
+  text-transform: uppercase;
+  font-size: 12px;
+}

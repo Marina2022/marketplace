@@ -11,6 +11,7 @@ const ProductCard = ({isBigScreen, product}) => {
   const productsInCart = useSelector(getCart)    
   const productInCart = productsInCart.find(item=>item.id === product.productVariantId)  
   let quantity
+  
   if (productInCart) { 
     quantity = productInCart.count
   } else {

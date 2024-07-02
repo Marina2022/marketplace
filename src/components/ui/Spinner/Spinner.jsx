@@ -1,6 +1,6 @@
 import s from './Spinner.module.scss'
 import {TailSpin } from 'react-loader-spinner';
-const Spinner = ({className}) => {
+const Spinner = ({className}) => {  
   return (
       <div className={`${s.spinner} ${className}`}>
          <TailSpin
