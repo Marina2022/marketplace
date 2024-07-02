@@ -4,20 +4,17 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #F9F9FB;
-  
+  background: #F9F9FB;  
 }
 
-.slider {
-  
-  //width: 870px;
-  //min-height: 870px;
+.slider {  
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  
+  transform: translate(-50%, -50%);  
+ 
 }
+
 
 .closeBtn {
   position: absolute;
@@ -28,7 +25,6 @@
 
   &:hover {
     transform: scale(1.05);
-    transition: ease-out .3s all;
+    transition: all .3s ease-out;
   }
 }
-

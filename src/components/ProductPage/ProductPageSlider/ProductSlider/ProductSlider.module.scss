@@ -1,3 +1,13 @@
+//.globalWrapper {
+//  //pointer-events: none;
+//  width: 100vw;
+//  height: 100vh;
+//  top: 0;
+//  position: fixed;
+//  //inset: 0;
+//  border: #3fb8af 2px solid;
+//}
+
 .slideImage {
   max-width: 100%;
   object-fit: contain;
@@ -5,8 +15,10 @@
 
 .mainSlider {
   cursor: pointer;
-  max-width: 800px;
-  max-height: 800px;  
+  //max-width: 700px;
+  max-width: 71.5vh;
+  //max-height: 700px;  
+  max-height: 71.5vh;  
   margin-bottom: 30px;
   background: white;
 }
@@ -16,16 +28,61 @@
   width: 80px;
   height: 80px;
   cursor: pointer;
+  border: 1px solid #F0F1F1;
 }
 
 .thumbSlider {
   height: 80px;
   width: 520px;
+  
 }
 
 .thumbnailSlideActive {
   width: 80px;
   height: 80px;
   cursor: pointer;
-  border: 3px solid #ff0000; /* Красная рамка вокруг активного слайда */
+  border: 3px solid #ff0000; 
+}
+
+.swiperWrapper {
+  justify-content: center;
+}
+
+.sliderBtnNext {
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  position: absolute;  
+  top: calc(50% - 55px);  // 55px  = нижний слайдер с марджином (80px + 30px = 110px)/2
+  transform: translateY(-50%); 
+
+  img {
+    max-width: 100%;
+  }
+}
+
+.sliderBtnPrev {
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  position: absolute;
+  top: calc(50% - 55px);  // 55px  = нижний слайдер с марджином (80px + 30px = 110px)/2
+  transform: translateY(-50%) rotate(180deg);  
+
+  img {
+    max-width: 100%;
+  }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 29px;
+  width: 30px;
+  height: 30px;
+
+  &:hover {
+    transform: scale(1.05);
+    transition: all .3s ease-out;
+  }
 }
