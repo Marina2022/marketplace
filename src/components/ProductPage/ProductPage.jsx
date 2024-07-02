@@ -66,8 +66,6 @@ const ProductPage = () => {
           </div>
           <div className={s.rightSidebar}>right sidebar</div>
         </div>
-
-
       </div>
   );
 };

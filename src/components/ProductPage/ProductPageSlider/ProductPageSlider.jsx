@@ -6,6 +6,8 @@ import {useEffect, useState} from "react";
 import {BASE_URL} from "@/consts/baseURL.js";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import ProductSliderPopup from "@/components/ProductPage/ProductPageSlider/ProductSliderPopup/ProductSliderPopup.jsx";
+import ProductMobileSlider
+  from "@/components/ProductPage/ProductPageSlider/ProductMobileSlider/ProductMobileSlider.jsx";
 
 
 // imageName: "6699585044"
@@ -43,21 +45,20 @@ const ProductPageSlider = ({images}) => {
           sliderPopupIsOpen && <ProductSliderPopup  setSliderPopupIsOpen={setSliderPopupIsOpen} images={images} currentImage={currentImage} />
         }
         
-      </>
-  
+      </>  
   );
 
   if (!isBigScreen) return (
       <>
         <div className={s.sliderBlock}>
-          <div className={s.bigPicture}>Slider - для планшета и мобайла</div>
-          {/*todo - сюда нужно еще setSliderPopupIsOpen отправить, чтобы по клику на картинку (не на кнопки навигации) открывалось */}
+          <div className={s.bigPicture}  >            
+            <ProductMobileSlider images={images} setSliderPopupIsOpen={setSliderPopupIsOpen} setCurrentImage={setCurrentImage} />            
+          </div>          
         </div>
         {
           !isMobile && sliderPopupIsOpen && <ProductSliderPopup setSliderPopupIsOpen={setSliderPopupIsOpen} images={images} currentImage={currentImage} />          
         } 
       </>
-
   )
 };
 

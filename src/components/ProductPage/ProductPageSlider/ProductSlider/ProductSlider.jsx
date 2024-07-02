@@ -36,17 +36,14 @@ const ProductSlider = ({images, currentImage}) => {
 
       <Swiper
         className={s.mainSlider}
-        modules={[Thumbs]} thumbs={{swiper: thumbsSwiper}}
-        spaceBetween={50}
-        slidesPerView={1}
-        loop
+        modules={[Thumbs]} thumbs={{swiper: thumbsSwiper}}        
+        slidesPerView={1}        
         initialSlide={currentImage}
         onSwiper={setMainSwiper}
         onSlideChange={() => {
           if (mainSwiper) {
             setActiveIndex(mainSwiper.realIndex)
           }
-
         }}
       >
 
