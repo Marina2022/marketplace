@@ -1,6 +1,6 @@
 import s from './ProductPageThumbs.module.scss';
 import {BASE_URL} from "@/consts/baseURL.js";
-const ProductPageThumbs = ({images, currentImage, setCurrentImage}) => {
+const ProductPageThumbs = ({images, currentImage, setCurrentImage, setSliderPopupIsOpen}) => {
 
   const imagesToShow = images.slice(0, 6)
   const thumbnailClickHandler = (index) => {
@@ -22,7 +22,7 @@ const ProductPageThumbs = ({images, currentImage, setCurrentImage}) => {
           }
         </ul>
         {
-            rest > 0 && <div className={s.more}>
+            rest > 0 && <div className={s.more} onClick={()=>setSliderPopupIsOpen(true)}  >
               Еще {rest}
             </div>
         }

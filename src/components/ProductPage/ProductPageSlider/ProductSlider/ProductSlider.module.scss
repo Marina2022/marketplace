@@ -1,0 +1,31 @@
+.slideImage {
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.mainSlider {
+  cursor: pointer;
+  max-width: 800px;
+  max-height: 800px;  
+  margin-bottom: 30px;
+  background: white;
+}
+
+
+.thumbnailSlide {
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+}
+
+.thumbSlider {
+  height: 80px;
+  width: 520px;
+}
+
+.thumbnailSlideActive {
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  border: 3px solid #ff0000; /* Красная рамка вокруг активного слайда */
+}

@@ -1,7 +1,6 @@
 @import '@/assets/styles/mixins';
 
-.sliderBlock {
-  //border: green 3px solid;
+.sliderBlock {  
   display: flex;
   gap: 15px;
 
@@ -21,8 +20,9 @@
   }
 }
 
-
 .bigPicture {
+  cursor: pointer;
+  border: #F0F1F1 1px solid;
   display: flex;
   align-items: center;
   justify-content: center;
