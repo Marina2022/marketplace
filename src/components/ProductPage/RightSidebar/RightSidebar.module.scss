@@ -1,0 +1,14 @@
+@import '@/assets/styles/mixins';
+
+.rightSidebar {
+  //border: red 1px solid;
+  width: 300px;
+
+  @include t {
+    width: 213px;
+  }
+
+  @include m {
+    width: 100%;
+  }
+}

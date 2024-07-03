@@ -1,0 +1,11 @@
+@import '@/assets/styles/mixins';
+
+.details {
+  grid-row-start: 2;
+  grid-row-end: 3;
+
+  @include m {
+    width: 100%;
+    order: 3;
+  }
+}

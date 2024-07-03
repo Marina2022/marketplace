@@ -30,7 +30,7 @@ const ProductMobileSlider = ({images, setSliderPopupIsOpen, setCurrentImage}) =>
         {
           images.map((image, i) => {
               return (
-                <SwiperSlide key={i}>
+                <SwiperSlide key={i} className={s.slide}>
                   <img className={s.slideImage} src={`${BASE_URL}${image.imageUrl}`} alt=""/>
                 </SwiperSlide>
               )

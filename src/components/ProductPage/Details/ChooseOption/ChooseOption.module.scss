@@ -1,0 +1,17 @@
+@import '@/assets/styles/mixins';
+
+.wrapper {
+  min-height: 64px;
+  margin-bottom: 20px;
+  border: green 1px solid;
+
+  @include t {
+    min-height: 54px;    
+    margin-bottom: 15px;
+  }
+
+  @include m {
+    min-height: 45px;    
+    margin-bottom: 14px;
+  }
+}

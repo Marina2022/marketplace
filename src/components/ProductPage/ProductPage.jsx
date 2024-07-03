@@ -4,13 +4,17 @@ import BreadCrumbs from "@/components/CategoryBlock/BreadCrumbs/BreadCrumbs.jsx"
 import {useEffect, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import ProductPageSlider from "@/components/ProductPage/ProductPageSlider/ProductPageSlider.jsx";
+import ProductHeader from "@/components/ProductPage/ProductHeader/ProductHeader.jsx";
+import Details from "@/components/ProductPage/Details/Details.jsx";
+import Spinner from "@/components/ui/Spinner/Spinner.jsx";
+import RightSidebar from "@/components/ProductPage/RightSidebar/RightSidebar.jsx";
 
 const ProductPage = () => {
 
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   const [path, setPath] = useState([])
-  const [product, setProduct] = useState([])
+  const [product, setProduct] = useState(null)
   const {slug: productHandle} = useParams()
 
   useEffect(() => {
@@ -52,21 +56,26 @@ const ProductPage = () => {
     breadCrumbsPath[0].handle = breadCrumbsPath[0].handle + '?' + `brand=${product.brand.toLowerCase()}`
   }
 
+  if (!product)
+    return <Spinner className={s.spinner}/>
+  
+
   return (
-      <div className='container'>
-        <BreadCrumbs path={path} productBreadCrumbs={true}/>
-        <div className={s.productMain}>
-          <div className={s.productWrapper}>
-            <div className={s.header}>
-              <h1>Смартфон Xiaomi Redmi A2+ 3/64 Gb</h1>
-            </div>
-            <ProductPageSlider images={product.productImages} />
-            <div className={s.details}>details</div>
-            <div className={s.tabs}>Компонент с табами или с аккордеоном</div>
-          </div>
-          <div className={s.rightSidebar}>right sidebar</div>
+    <div className='container'>
+      <BreadCrumbs path={path} productBreadCrumbs={true}/>
+      <div className={s.productMain}>
+        <div className={s.productWrapper}>
+
+          <ProductHeader product={product}/>
+          <ProductPageSlider images={product.productImages} productId={product.productVariantId}
+                             isFavourite={product.isFavourite}/>
+          <Details product={product}/>
+          <div className={s.tabs}>Компонент с табами или с аккордеоном</div>
         </div>
+        <RightSidebar product={product} />
+        
       </div>
+    </div>
   );
 };
 

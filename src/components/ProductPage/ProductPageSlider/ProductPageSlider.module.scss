@@ -3,11 +3,11 @@
 .sliderBlock {  
   display: flex;
   gap: 15px;
-
   grid-row-start: 1;
   grid-row-end: 3;
   grid-column-start: 1;
   grid-column-end: 2;
+  position: relative;
 
   @include t {
     grid-row-start: 2;
@@ -29,6 +29,7 @@
   background: white;
   width: 544px;
   min-height: 544px;
+  position: relative;
 
   @include t {
     width: 314px;
@@ -51,3 +52,29 @@
   height: 544px!important;
 }
 
+
+
+.favBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.favBtnMobile {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  
+  width: 16px;
+  height: auto;
+  z-index: 2;
+  
+  svg {
+    max-width: 100%;
+  }
+  
+  @include m {
+    top: unset;
+    bottom: 15px;
+  }
+}

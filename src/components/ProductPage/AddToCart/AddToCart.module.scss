@@ -1,0 +1,62 @@
+@import '@/assets/styles/mixins';
+
+.addToCart {
+  padding: 20px;
+  background: #fff;
+
+  @include t {
+    padding: 20px 16px;
+  }
+
+  @include m {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+.regularPrice {
+  color: rgb(101, 128, 146);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  margin-bottom: 5px;
+  text-decoration-line: line-through;
+
+  @include m {
+    margin-bottom: 0;
+  }
+
+}
+
+.price {
+  color: rgb(19, 29, 42);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 34px;
+  margin-bottom: 24px;
+
+  @include m {
+    margin-bottom: 0;
+  }
+}
+
+.toCartBtn {
+  width: 100% !important;
+  height: 44px!important;
+}
+
+
+.priceWrapper {
+  display: flex;
+  flex-direction: column;
+
+  @include m {
+    flex-direction: row-reverse;
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-bottom: 16px;
+  }
+}

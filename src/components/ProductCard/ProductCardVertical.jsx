@@ -1,6 +1,6 @@
 import s from "@/components/ProductCard/ProductCard.module.scss";
 import star from "@/assets/img/star.svg";
-import {getRightWord} from "@/utils/reviews.js";
+import {getReviewsString} from "@/utils/reviews.js";
 import Button from "@/components/ui/Button/Button.jsx";
 import CartInput from "@/components/ui/CartInput/CartInput.jsx";
 import {Link, useNavigate} from "react-router-dom";
@@ -51,7 +51,7 @@ const ProductCardVertical = ({product, quantity, onFavClick, onAddToCartClick}) 
             <div className={s.rating}>
               <img className={s.star} src={star} alt="star"/>
               <div className={s.reviews}>
-                {product.reviewsRating} ({getRightWord(product.reviewsCount)})
+                {product.reviewsRating} ({getReviewsString(product.reviewsCount)})
               </div>
             </div>
           </div>
