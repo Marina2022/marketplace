@@ -1,7 +1,7 @@
 import s from './AddToCart.module.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {addToCart, getCart} from "@/store/cartSlice.js";
-// import CartInput from "@/components/ui/CartInput/CartInput.jsx";
+ import CartInput from "@/components/ui/CartInput/CartInput.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
 
 
@@ -36,19 +36,19 @@ const AddToCart = ({product}) => {
       </div>
       
       
-      {/*<div className={s.btnWrapper}>*/}
-      {/*  {*/}
-      {/*    isInCart && (*/}
-      {/*      <CartInput product={product} value={quantity}/>*/}
-      {/*    )*/}
-      {/*  }*/}
+      <div className={s.btnWrapper}>
+        {
+          isInCart && (
+            <CartInput product={product} value={quantity} className={s.cartInput} />
+          )
+        }
       
         {
           !isInCart && <Button className={s.toCartBtn}
                                onClick={() => onAddToCartClick(product.productVariantId, 1)}>Добавить&nbsp;в&nbsp;корзину</Button>
         }
       
-      {/*</div>*/}
+      </div>
     </div>
   );
 };

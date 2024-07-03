@@ -1,14 +1,18 @@
 @import '@/assets/styles/mixins';
 
 .rightSidebar {
-  //border: red 1px solid;
   width: 300px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 24px;
 
   @include t {
     width: 213px;
+    gap: 16px;
   }
 
   @include m {
-    width: 100%;
+    width: 100%;    
   }
 }

@@ -98,11 +98,11 @@
 }
 
 .toCartBtn {
-  width: 58px;
-  padding: 0;
+  width: 58px!important;
+  padding: 0!important;
   height: 40px;
 
   @include m {
-    height: 32px;
+    height: 32px!important;
   }
 }

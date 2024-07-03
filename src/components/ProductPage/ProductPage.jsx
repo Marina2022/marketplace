@@ -8,6 +8,7 @@ import ProductHeader from "@/components/ProductPage/ProductHeader/ProductHeader.
 import Details from "@/components/ProductPage/Details/Details.jsx";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import RightSidebar from "@/components/ProductPage/RightSidebar/RightSidebar.jsx";
+import MobileBottomMenu from "@/components/ProductPage/MobileBottomMenu/MobileBottomMenu.jsx";
 
 const ProductPage = () => {
 
@@ -58,21 +59,25 @@ const ProductPage = () => {
 
   if (!product)
     return <Spinner className={s.spinner}/>
-  
+
 
   return (
-    <div className='container'>
-      <BreadCrumbs path={path} productBreadCrumbs={true}/>
-      <div className={s.productMain}>
-        <div className={s.productWrapper}>
+    <div className={s.productPageWrapper}>
+      <div className='container'>
+        <BreadCrumbs path={path} productBreadCrumbs={true}/>
+        <div className={s.productMain}>
+          <div className={s.productWrapper}>
 
-          <ProductHeader product={product}/>
-          <ProductPageSlider images={product.productImages} productId={product.productVariantId}
-                             isFavourite={product.isFavourite}/>
-          <Details product={product}/>
-          <div className={s.tabs}>Компонент с табами или с аккордеоном</div>
+            <ProductHeader product={product}/>
+            <ProductPageSlider images={product.productImages} productId={product.productVariantId}
+                               isFavourite={product.isFavourite}/>
+            <Details product={product}/>
+            <div className={s.tabs}>Компонент с табами или с аккордеоном</div>
+          </div>
+          <RightSidebar product={product}/>
         </div>
-        <RightSidebar product={product} />
+
+        <MobileBottomMenu />
         
       </div>
     </div>

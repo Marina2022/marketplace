@@ -1,5 +1,11 @@
 @import '@/assets/styles/mixins';
 
+.productPageWrapper {
+  @include m {
+    padding-bottom: 297px;
+  }
+}
+
 .productMain {
   display: flex;
   gap: 20px;

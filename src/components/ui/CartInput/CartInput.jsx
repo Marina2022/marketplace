@@ -4,6 +4,7 @@ import {useDispatch} from "react-redux";
 import {addToCart} from "@/store/cartSlice.js";
 import {useNavigate} from "react-router-dom";
 const CartInput = ({className, value, product}) => {
+  
   const navigate = useNavigate()
   const dispatch = useDispatch()  
   const onPlusClick = () => {     
