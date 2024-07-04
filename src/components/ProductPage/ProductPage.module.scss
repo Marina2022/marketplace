@@ -1,6 +1,7 @@
 @import '@/assets/styles/mixins';
 
 .productPageWrapper {
+  padding-bottom: 50px;
   @include m {
     padding-bottom: 297px;
   }
@@ -9,6 +10,7 @@
 .productMain {
   display: flex;
   gap: 20px;
+  align-items: flex-start;
 
   @include t {
     gap: 8px;
@@ -24,7 +26,6 @@
   display: grid;
   grid-template-columns: 639px 1fr;
   grid-template-rows:    min-content 1fr min-content;
-  //border: #0093FD 2px solid;
   gap: 15px;
   
   @include t {

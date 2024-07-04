@@ -13,7 +13,7 @@ const RightSidebar = ({product}) => {
       }     
       
       {
-        product.productVendor.isSideInfoShown && <VendorInfo seller={product.productVendor} />
+        product.productVendor.isSideInfoShown && <VendorInfo vendor={product.productVendor} />
       }
       
       

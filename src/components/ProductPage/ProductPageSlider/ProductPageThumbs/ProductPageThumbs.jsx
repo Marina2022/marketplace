@@ -10,7 +10,7 @@ const ProductPageThumbs = ({images, currentImage, setCurrentImage, setSliderPopu
   const rest = images.length - 6;
 
   return (
-      <div className={s.wrapper}>
+      <div className={s.thumbsWrapper}>
         <ul className={s.thumbnails}>
           {
             imagesToShow.map((image, i) => (
