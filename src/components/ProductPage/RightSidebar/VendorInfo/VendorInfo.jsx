@@ -2,18 +2,14 @@ import s from './VendorInfo.module.scss';
 import {BASE_URL} from "@/consts/baseURL.js";
 import star from "@/assets/img/star.svg"
 import check from "@/assets/img/blue-check.svg"
-
 const VendorInfo = ({vendor}) => {
-  console.log(vendor)
-
   const startOnMarketDate = new Date(vendor.startOnMarketDate)
-  const startOnMarketYear = startOnMarketDate.getFullYear()
-  
+  const startOnMarketYear = startOnMarketDate.getFullYear() 
+  const foundationDate = new Date(vendor.foundationDate).toLocaleDateString('ru')
 
   vendor.shopRating = 4.5
   return (
-    <div className={s.wrapper}>
-
+    <div className={s.wrapper}>      
       <div className={s.header}>
         <img className={s.logo} src={`${BASE_URL}${vendor.shopProfileImageUrl}`} alt="company logo"/>
         <div>
@@ -45,8 +41,7 @@ const VendorInfo = ({vendor}) => {
             <span className={s.infoValue}>начиная с {startOnMarketYear}</span>
           </div>
         </div>
-
-
+        
         {
           vendor.isCompanySideSectionShown && (
             <div className={s.additionalBlock}>
@@ -60,17 +55,12 @@ const VendorInfo = ({vendor}) => {
               <div className={s.additionalInfoRow}>
                 <img className={s.check} src={check} alt="check"/>
                 <span className={s.additionalInfoLabel}>Год основания:</span>
-                <span className={s.additionalInfoValue}> {new Date(vendor.foundationDate).getFullYear()} </span>
-
+                <span className={s.additionalInfoValue}> {foundationDate} </span>
               </div>
-
             </div>
           )
-        }
-
-
+        }        
       </div>
-
     </div>
   );
 };

@@ -9,6 +9,7 @@ import Details from "@/components/ProductPage/Details/Details.jsx";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import RightSidebar from "@/components/ProductPage/RightSidebar/RightSidebar.jsx";
 import MobileBottomMenu from "@/components/ProductPage/MobileBottomMenu/MobileBottomMenu.jsx";
+import DetailedInfo from "@/components/ProductPage/DetailedInfo/DetailedInfo.jsx";
 
 const ProductPage = () => {
 
@@ -64,7 +65,7 @@ const ProductPage = () => {
   return (
     <div className={s.productPageWrapper}>
       <div className='container'>
-        <BreadCrumbs path={path} productBreadCrumbs={true}/>
+        <BreadCrumbs path={path} productBreadCrumbs={true} className={s.breadCrumbs}/>
         <div className={s.productMain}>
           <div className={s.productWrapper}>
 
@@ -72,7 +73,7 @@ const ProductPage = () => {
             <ProductPageSlider images={product.productImages} productId={product.productVariantId}
                                isFavourite={product.isFavourite}/>
             <Details product={product}/>
-            <div className={s.tabs}>Компонент с табами или с аккордеоном</div>
+            <DetailedInfo product={product} />
           </div>
           <RightSidebar product={product}/>
         </div>

@@ -1,0 +1,85 @@
+@import '@/assets/styles/mixins';
+
+.characteristics {
+  background: white;
+  padding: 30px;
+}
+
+.table {
+  margin-bottom: 40px;
+}
+
+.row {
+  display: flex;
+  border: #E7F0F2 1px solid;
+}
+
+.label {
+  width: 50%;
+  border-right: #E7F0F2 1px solid;
+  padding: 10px;
+
+  color: rgb(138, 135, 132);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 18px;
+
+  @include t {
+    width: 47%;
+  }
+}
+
+.value {
+  width: 50%;
+  padding: 10px;
+  background: #fcfcfc;
+  color: rgb(0, 0, 0);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 18px;
+  
+  @include t {
+    width: 53%;
+  } 
+  
+}
+
+.title {
+  color: rgb(19, 29, 42);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 29px;
+  margin-bottom: 24px;
+}
+
+.circle {
+  display: block;
+  width: 29px;
+  height: 29px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid rgb(240, 241, 241);
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
+  background: rgb(255, 255, 255);
+}
+
+.docUpload {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  color: rgb(101, 128, 146);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 140%;
+  
+  &:hover {
+    color: rgb(19, 29, 42);
+  }
+}
+
+.docItem {
+  margin-bottom: 9px;
+}

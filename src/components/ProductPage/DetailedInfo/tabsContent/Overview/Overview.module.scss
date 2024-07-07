@@ -1,0 +1,60 @@
+@import '@/assets/styles/mixins';
+
+.overview {
+  padding: 30px 33px;
+  background: white;
+  border: 1px solid rgb(240, 241, 241);
+  
+  @include t {
+    padding: 30px;
+  }
+}
+
+.text {
+  margin-bottom: 27px;
+
+  @include t {
+    margin-bottom: 15px;
+  }
+}
+
+.paragraph {
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 140%;
+  color: #658092;
+
+  @include t {
+    margin-bottom: 16px;
+    font-size: 12px;
+  }
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.readFull {
+  color: rgb(0, 147, 253);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;  
+  text-decoration-line: underline;
+  margin-bottom: 42px;
+  
+  @include t {
+    font-size: 12px;
+    margin-bottom: 29px;
+  }
+}
+
+.images {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.image {
+  width: 100%;
+}

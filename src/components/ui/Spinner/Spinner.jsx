@@ -8,7 +8,6 @@ const Spinner = ({className}) => {
             height="60"
             width="60"
          />        
-            {/*color="#E32636"/>*/}
       </div>
   );
 };

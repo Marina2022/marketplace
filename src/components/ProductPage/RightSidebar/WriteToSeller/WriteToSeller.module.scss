@@ -1,8 +1,10 @@
 @import '@/assets/styles/mixins';
 
-.writeToSeller {
+.writeToSeller {  
   background: white;
   padding: 20px;
+  border: 1px solid rgb(245, 245, 245);
+  border-radius: 2px;
   
   @include t {
     padding: 20px 16px;

@@ -3,6 +3,8 @@
 .addToCart {
   padding: 20px;
   background: #fff;
+  border: 1px solid rgb(245, 245, 245);
+  border-radius: 2px;
 
   @include t {
     padding: 20px 16px;

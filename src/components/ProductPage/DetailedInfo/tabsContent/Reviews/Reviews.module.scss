@@ -1,0 +1,43 @@
+@import '@/assets/styles/mixins';
+
+.noReviews {
+  color: rgb(19, 29, 42);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 29px;
+  margin-bottom: 24px;
+}
+
+.spinner {
+  height: 100px;
+}
+
+.globalWrapper {
+  display: flex;
+  gap: 31px;
+  
+  @include t {    
+    flex-direction: column;
+  }
+}
+
+
+.sideBlock {
+  @include t {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.averageRating {
+  color: rgb(19, 29, 42);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 34px;
+}
+
+.ratingWrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}

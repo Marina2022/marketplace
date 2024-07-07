@@ -1,11 +1,11 @@
 import s from './BreadCrumbs.module.scss'
 import {Link} from "react-router-dom";
 
-const BreadCrumbs = ({path, productBreadCrumbs=false}) => {
+const BreadCrumbs = ({path, productBreadCrumbs=false, className}) => {
   const newPath = [...path].reverse()
 
   return (
-      <ul className={s.breadcrumbs}>
+      <ul className={`${s.breadcrumbs} ${className}`}>
         {
           newPath.map((item, i) => {
             return (

@@ -6,9 +6,6 @@ import Button from "@/components/ui/Button/Button.jsx";
 
 
 const AddToCart = ({product}) => {
-
-  console.log('product.productVariantId', product.productVariantId)
-
   const dispatch = useDispatch()
   const onAddToCartClick = (id, quantity) => dispatch(addToCart({id, quantity}))
   const productsInCart = useSelector(getCart)
