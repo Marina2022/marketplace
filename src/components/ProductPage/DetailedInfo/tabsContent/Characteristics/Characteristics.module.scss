@@ -18,12 +18,10 @@
   width: 50%;
   border-right: #E7F0F2 1px solid;
   padding: 10px;
-
   color: rgb(138, 135, 132);
   font-size: 15px;
   font-weight: 500;
   line-height: 18px;
-
   @include t {
     width: 47%;
   }

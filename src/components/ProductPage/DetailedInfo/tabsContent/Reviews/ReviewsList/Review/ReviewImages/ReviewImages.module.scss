@@ -1,0 +1,19 @@
+@import '@/assets/styles/mixins';
+
+.images {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;  
+  
+  @include t {
+    gap: 29px;
+  }
+}
+
+.image {
+  width: 200px;
+  height: 200px;
+  object-position: center;
+  object-fit: cover;
+}

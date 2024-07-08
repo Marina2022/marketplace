@@ -3,6 +3,13 @@ import {useEffect, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
+import Rating from "@/components/ui/Rating/Rating.jsx";
+import {getReviewsString} from "@/utils/reviews.js";
+import ReviewsSort from "@/components/ProductPage/DetailedInfo/tabsContent/Reviews/ReviewSort/ReviewSort.jsx";
+import ReviewsList from "@/components/ProductPage/DetailedInfo/tabsContent/Reviews/ReviewsList/ReviewsList.jsx";
+import {getReviews, setReviews} from "@/store/reviewsSlice.js";
+import {useDispatch, useSelector} from "react-redux";
+
 
 
 const Reviews = ({product}) => {
@@ -11,10 +18,14 @@ const Reviews = ({product}) => {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  const [reviews, setReviews] = useState([])
+  
+  // const [reviews, setReviews] = useState([])
   const [cursor, setCursor] = useState(null)
 
-
+  const dispatch = useDispatch()
+  const reviews = useSelector(getReviews)
+  
+  
   useEffect(() => {
     const getData = async () => {
 
@@ -36,10 +47,9 @@ const Reviews = ({product}) => {
         //   return setTimeout(()=>res(), 1000)
         // })
 
-
         const productResponse = await axiosInstance(requestString)
         if (productResponse.status === 200) {
-          setReviews(productResponse.data.reviews)
+          dispatch(setReviews(productResponse.data.reviews))
           setCursor(productResponse.data.cursor)
         } else throw new Error('response status not equal 200')
         console.log(productResponse)
@@ -59,7 +69,9 @@ const Reviews = ({product}) => {
     }
     getData()
   }, []);
-
+  
+  const [sort, setSort] = useState('date')
+  
   console.log(reviews.length)
   console.log(reviews)
   console.log('product- ', product)
@@ -67,7 +79,8 @@ const Reviews = ({product}) => {
   if (isLoading) return <Spinner className={s.spinner}/>
 
   if (error) return <div className={s.noReviews}>{error}</div>
-
+    
+  
   return (
     <div className={s.reviews}>
       <div className={s.globalWrapper}>
@@ -76,16 +89,19 @@ const Reviews = ({product}) => {
             <div className={s.averageRating}>{product.reviewsRating}</div>
 
             <div className={s.ratingWrapper}>
-              <div>*****</div>
-              <div>{product.reviewsCount}</div>
+              <Rating rating={product.reviewsRating} />
+              <div>{ getReviewsString(product.reviewsCount)}</div>
             </div>
           </div>
-          <Button>Написать&nbsp;отзыв</Button>
-
-
+          <Button className={s.writeReviewBtn}>Написать&nbsp;отзыв</Button>          
         </div>
-
-
+        
+        <div className={s.mainBlock}>          
+          <ReviewsSort  sort={sort} setSort={setSort} />
+          <ReviewsList reviews={reviews}  />
+        </div>
+        
+        
       </div>
 
     </div>

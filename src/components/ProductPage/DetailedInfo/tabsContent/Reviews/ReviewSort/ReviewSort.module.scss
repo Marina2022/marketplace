@@ -1,0 +1,21 @@
+@import '@/assets/styles/mixins';
+
+.sortList {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 16px;
+  border-bottom: #F0F1F1 1px solid;
+}
+
+.sortItem {
+  font-weight: 500;
+  font-size: 14px;
+  color: #658092;
+  cursor: pointer;
+}
+.activeSortItem {
+  font-weight: 500;
+  font-size: 14px;
+  color: #131D2A;
+  cursor: pointer;
+}

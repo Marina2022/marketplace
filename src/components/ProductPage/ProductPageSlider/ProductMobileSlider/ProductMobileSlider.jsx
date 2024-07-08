@@ -10,14 +10,19 @@ const ProductMobileSlider = ({images, setSliderPopupIsOpen, setCurrentImage}) =>
 
   const [swiper, setSwiper] = useState(null)
   const [activeIndex, setActiveIndex] = useState(0);
+  const onSliderClick = () => {
+    if (window.innerWidth > 960) {
+      setSliderPopupIsOpen(true)
+    }
+  }
 
   return (
-     <div className={s.wrapper}>
+    <div className={s.wrapper}>
       <Swiper
-        onClick={()=>setSliderPopupIsOpen(true)}
+        onClick={onSliderClick}
         className={s.slider}
         slidesPerView={1}
-        loop                
+        loop
         onSwiper={setSwiper}
         onSlideChange={() => {
           if (swiper) {
@@ -40,18 +45,17 @@ const ProductMobileSlider = ({images, setSliderPopupIsOpen, setCurrentImage}) =>
 
       </Swiper>
 
-       <ul className={s.pagination}>
-         {
-           images.map((image, i) => {
-             return <li
-             onClick={()=>swiper.slideTo(i)}  
-               key={i} className={ activeIndex === i ? s.pagItemActive : s.pagItem}>               
-             </li>
-           })
-         }
-       </ul>       
-      </div>
-
+      <ul className={s.pagination}>
+        {
+          images.map((image, i) => {
+            return <li
+              onClick={() => swiper.slideTo(i)}
+              key={i} className={activeIndex === i ? s.pagItemActive : s.pagItem}>
+            </li>
+          })
+        }
+      </ul>
+    </div>
 
 
   )

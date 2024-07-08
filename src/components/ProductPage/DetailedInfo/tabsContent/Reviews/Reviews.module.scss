@@ -9,7 +9,7 @@
 }
 
 .spinner {
-  height: 100px;
+  height: 500px;
 }
 
 .globalWrapper {
@@ -37,7 +37,22 @@
 }
 
 .ratingWrapper {
+  width: 250px;
   display: flex;
   justify-content: space-between;
   gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.writeReviewBtn {
+  width: 100%;
+  
+  @include t {
+    width: 250px;
+  }
+}
+
+.mainBlock {
+  flex:1;
 }

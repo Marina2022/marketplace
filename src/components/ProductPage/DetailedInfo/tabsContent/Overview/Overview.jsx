@@ -7,9 +7,9 @@ const Overview = ({product}) => {
   const TEXT_SIZE = 1000
   //const TEXT_SIZE = 380
 
-  
+
   const textFullParagraphs = product.productDescription.split(`\r\n`)
-  
+
   const textCutParagraphs = (product.productDescription.slice(0, TEXT_SIZE) + '...').split(`\r\n`)
 
 
@@ -31,15 +31,14 @@ const Overview = ({product}) => {
                 return <p className={s.paragraph} key={i}>{par}</p>
               })
             )
-
         }
       </div>
 
       {!showAll && <button className={s.readFull} onClick={() => setShowAll(true)}>Читать полностью</button>}
-      
+
       <div className={s.images}>
         {
-          product.overviewImages.map((image, i)=>{
+          product.overviewImages.map((image, i) => {
             return <img className={s.image} key={i} src={`${BASE_URL}${image.imageUrl}`} alt={image.imageName}/>
           })
         }

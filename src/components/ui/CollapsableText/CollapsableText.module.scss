@@ -1,0 +1,17 @@
+@import '@/assets/styles/mixins';
+
+.readFull {
+  color: rgb(0, 147, 253);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  text-decoration-line: underline;
+
+  @include t {
+    font-size: 12px;
+  }
+}
+
+.wrapper {
+  margin-bottom: 25px;
+}
