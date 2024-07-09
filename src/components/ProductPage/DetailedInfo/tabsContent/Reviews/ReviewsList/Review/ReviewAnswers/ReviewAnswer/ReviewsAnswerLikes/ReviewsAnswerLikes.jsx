@@ -49,9 +49,12 @@ const ReviewsAnswerLikes = ({answer, productId}) => {
   const handleLikeClick = async () => {
     let newLikesObj = {...likesObj}
 
-    if (userLikesIt) return // Второй лайк не принимаем
+    if (userLikesIt) {
+      newLikesObj.answerLikes = newLikesObj.answerLikes.filter(item => item !== answer.answerId)
+      opinionApiObj.likes--
+    }
 
-    if (userDislikesIt) {
+    else if (userDislikesIt) {
       // апдейт объекта - убрать айди Отзыва из массива дизлайков, добавить в массив лайков     
 
       newLikesObj.answerDislikes = newLikesObj.answerDislikes.filter(item => item !== answer.answerId)
@@ -72,11 +75,14 @@ const ReviewsAnswerLikes = ({answer, productId}) => {
   }
 
   const handleDislikeClick = async () => {
-    if (userDislikesIt) return // Второй дизлайк не принимаем
-
     let newLikesObj = {...likesObj}
 
-    if (userLikesIt) {
+    if (userDislikesIt) {
+      newLikesObj.answerDislikes = newLikesObj.answerDislikes.filter(item => item !== answer.answerId)
+      opinionApiObj.dislikes--
+    }
+    
+    else if (userLikesIt) {
       // апдейт объекта - убрать айди Отзыва из массива лайков, добавить в массив дизлайков
       newLikesObj.answerLikes = newLikesObj.answerLikes.filter(item => item !== answer.answerId)
       newLikesObj.answerDislikes = [...newLikesObj.answerDislikes, answer.answerId]

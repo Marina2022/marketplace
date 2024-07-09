@@ -21,7 +21,7 @@ export const updateLikes = createAsyncThunk('reviews/updateLikes', async (params
 
   if (state.user.isAuthenticated) {
     // посылаем информацию о лайках/дизлайках пользователя (включая айди самого пользователя..?) на сервер, 
-    // должны обновиться данные как по лайкам отзыва, так и по лайкам конкрю. юзера для этого отзыва 
+    // должны обновиться данные как по лайкам отзыва, так и по лайкам конкр. юзера для этого отзыва 
     // (т.е. то, что я сейчас делаю через два запроса - один к АПИ, другой к LS, будет делаться в одном запросе) 
     //
     // ** При регистрации/авторизации, если были данные о лайках в LS, надо их смержить с данными о лайках с сервера и по новой отправить.
@@ -38,8 +38,7 @@ export const updateLikes = createAsyncThunk('reviews/updateLikes', async (params
       throw new Error('status !== 200')
     } else {
       // в LS в любом случае сетаем, даже если авторизован (пока так)  
-      localStorage.setItem('reviewLikes', JSON.stringify(likesFromParams));
-      
+      localStorage.setItem('reviewLikes', JSON.stringify(likesFromParams));      
     }
   }
 
@@ -56,8 +55,7 @@ export const updateLikes = createAsyncThunk('reviews/updateLikes', async (params
     localStorage.setItem('reviewLikes', JSON.stringify(likesFromParams));    
   }
 
-  // запрос за новыми отзывами
-
+  // request - updated reviews
   let requestString
 
   if (state.reviews.cursor) {
@@ -76,8 +74,6 @@ export const updateLikes = createAsyncThunk('reviews/updateLikes', async (params
     // setCursor(productResponse.data.cursor)
   } else throw new Error('response status not equal 200')
 
-
-  // return {likesFromParams, opinionApiObj}
   return {likesFromParams}
 })
 
@@ -110,15 +106,7 @@ export const reviewsSlice = createSlice({
     .addCase(updateLikes.fulfilled, (state, action) => {
       state.isLoading = 'success'
       state.likesObject = action.payload.likesFromParams
-      
-      
-      //
-      // const obj = state.reviews.find(item => item.reviewId === action.payload.opinionApiObj.reviewId)
-      // obj.likes = action.payload.opinionApiObj.likes
-      // obj.dislikes = action.payload.opinionApiObj.dislikes
-
-
-    })
+    })    
     .addCase(updateLikes.rejected, (state, action) => {
       state.isLoading = 'error'
       console.log('ошибка', action.error.message)
