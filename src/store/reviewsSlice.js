@@ -1,6 +1,7 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axiosInstance.js";
 
+
 //import axiosInstance from "@/api/axiosInstance.js";
 
 export const loadReviewLikes = createAsyncThunk('reviews/loadReviewLikes', async () => {
@@ -66,7 +67,10 @@ export const reviewsSlice = createSlice({
     })
     .addCase(updateLikes.fulfilled, (state, action) => {
       state.isLoading = 'success'
-      state.likesObject = action.payload.likesObject
+
+
+      console.log('action.payload = ', action.payload)
+      state.likesObject = action.payload.likesFromParams
       
       const obj = state.reviews.find(item => item.reviewId === action.payload.opinionApiObj.reviewId)
       obj.likes = action.payload.opinionApiObj.likes
