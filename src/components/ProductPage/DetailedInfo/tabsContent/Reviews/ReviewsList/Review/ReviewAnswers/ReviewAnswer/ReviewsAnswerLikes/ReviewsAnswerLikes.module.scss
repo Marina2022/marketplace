@@ -1,0 +1,33 @@
+@import '@/assets/styles/mixins';
+
+.wrapper {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.likesGroup {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.text {
+  font-size: 16px;
+  color: #3E5067;
+}
+
+.like {
+  width: 24px;
+  height: 24px;
+}
+
+.likeActive {
+  width: 24px;
+  height: 24px;
+  fill: #E32636;
+}
+
+.likeBtn {
+  cursor: pointer;
+}

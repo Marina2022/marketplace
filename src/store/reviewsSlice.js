@@ -10,13 +10,14 @@ export const loadReviewLikes = createAsyncThunk('reviews/loadReviewLikes', async
   const LSstring = localStorage.getItem('reviewLikes')
   if (!LSstring) return null
   return JSON.parse(LSstring)
-
 })
 
 export const updateLikes = createAsyncThunk('reviews/updateLikes', async (params, thunkAPI) => {
 
+  console.log('params', params)
+  
   const state = thunkAPI.getState()
-  const {newLikesObj: likesFromParams, opinionApiObj} = params
+  const {newLikesObj: likesFromParams, opinionApiObj, productId} = params
 
   if (state.user.isAuthenticated) {
     // посылаем информацию о лайках/дизлайках пользователя (включая айди самого пользователя..?) на сервер, 
@@ -38,15 +39,53 @@ export const updateLikes = createAsyncThunk('reviews/updateLikes', async (params
     } else {
       // в LS в любом случае сетаем, даже если авторизован (пока так)  
       localStorage.setItem('reviewLikes', JSON.stringify(likesFromParams));
+      
     }
   }
-  return {likesFromParams, opinionApiObj}
+
+  if (opinionApiObj.type === 'answersLikes') {
+    const resp = await axiosInstance.put('/reviews/answers/opinion', {
+      reviewAnswerId: opinionApiObj.answerId,
+      likeCount: opinionApiObj.likes,
+      dislikeCount: opinionApiObj.dislikes
+    })
+
+    if (resp.status !== 200) {
+      throw new Error('status !== 200')
+    }
+    localStorage.setItem('reviewLikes', JSON.stringify(likesFromParams));    
+  }
+
+  // запрос за новыми отзывами
+
+  let requestString
+
+  if (state.reviews.cursor) {
+    requestString = `products/${productId}/reviews?cursor=${state.reviews.cursor}`
+  } else {
+    requestString = `products/${productId}/reviews`
+  }
+
+  const productResponse = await axiosInstance(requestString)
+
+  console.log('ответ', productResponse)
+
+  if (productResponse.status === 200) {
+    thunkAPI.dispatch(setReviews(productResponse.data.reviews))
+    // thunkAPI.dispatch(setCursor(productResponse.data.reviews))
+    // setCursor(productResponse.data.cursor)
+  } else throw new Error('response status not equal 200')
+
+
+  // return {likesFromParams, opinionApiObj}
+  return {likesFromParams}
 })
 
 const initialState = {
   likesObject: null,
   isLoading: false,
-  reviews: []
+  reviews: [],
+  cursor: null
 }
 
 export const reviewsSlice = createSlice({
@@ -58,6 +97,9 @@ export const reviewsSlice = createSlice({
     },
     setReviews: (state, action) => {
       state.reviews = action.payload
+    },
+    setCursor: (state, action) => {
+      state.cursor = action.payload
     }
   },
 
@@ -67,15 +109,15 @@ export const reviewsSlice = createSlice({
     })
     .addCase(updateLikes.fulfilled, (state, action) => {
       state.isLoading = 'success'
-
-
-      console.log('action.payload = ', action.payload)
       state.likesObject = action.payload.likesFromParams
       
-      const obj = state.reviews.find(item => item.reviewId === action.payload.opinionApiObj.reviewId)
-      obj.likes = action.payload.opinionApiObj.likes
-      obj.dislikes = action.payload.opinionApiObj.dislikes
       
+      //
+      // const obj = state.reviews.find(item => item.reviewId === action.payload.opinionApiObj.reviewId)
+      // obj.likes = action.payload.opinionApiObj.likes
+      // obj.dislikes = action.payload.opinionApiObj.dislikes
+
+
     })
     .addCase(updateLikes.rejected, (state, action) => {
       state.isLoading = 'error'
@@ -97,11 +139,14 @@ export const reviewsSlice = createSlice({
   ,
 })
 
-export const {setLikes, setReviews} = reviewsSlice.actions
+export const {setLikes, setReviews, setCursor} = reviewsSlice.actions
 export const getLikes = (state) => {
   return state.reviews.likesObject
 }
 export const getReviews = (state) => {
   return state.reviews.reviews
+}
+export const getCursor = (state) => {
+  return state.reviews.cursor
 }
 export default reviewsSlice.reducer

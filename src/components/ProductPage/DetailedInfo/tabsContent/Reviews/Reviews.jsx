@@ -7,7 +7,7 @@ import Rating from "@/components/ui/Rating/Rating.jsx";
 import {getReviewsString} from "@/utils/reviews.js";
 import ReviewsSort from "@/components/ProductPage/DetailedInfo/tabsContent/Reviews/ReviewSort/ReviewSort.jsx";
 import ReviewsList from "@/components/ProductPage/DetailedInfo/tabsContent/Reviews/ReviewsList/ReviewsList.jsx";
-import {getReviews, setReviews} from "@/store/reviewsSlice.js";
+import {getCursor, getReviews, setCursor, setReviews} from "@/store/reviewsSlice.js";
 import {useDispatch, useSelector} from "react-redux";
 
 
@@ -20,7 +20,10 @@ const Reviews = ({product}) => {
 
   
   // const [reviews, setReviews] = useState([])
-  const [cursor, setCursor] = useState(null)
+  
+  // const [cursor, setCursor] = useState(null)
+  
+  const cursor = useSelector(getCursor)
 
   const dispatch = useDispatch()
   const reviews = useSelector(getReviews)
@@ -98,7 +101,7 @@ const Reviews = ({product}) => {
         
         <div className={s.mainBlock}>          
           <ReviewsSort  sort={sort} setSort={setSort} />
-          <ReviewsList reviews={reviews}  />
+          <ReviewsList reviews={reviews} productId={product.productId}  />
         </div>
         
         

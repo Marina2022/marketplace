@@ -1,14 +1,13 @@
-import s from './ReviewLikes.module.scss';
+import s from './ReviewsAnswerLikes.module.scss';
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getLikes, updateLikes} from "@/store/reviewsSlice.js";
-
-const ReviewLikes = ({review, productId}) => {
+const ReviewsAnswerLikes = ({answer, productId}) => {
 
   const dispatch = useDispatch()
 
-  const likesCount = review.likes
-  const dislikesCount = review.dislikes
+  const likesCount = answer.likes
+  const dislikesCount = answer.dislikes
 
   const [userLikesIt, setUserLikesIt] = useState(null)
   const [userDislikesIt, setUserDislikesIt] = useState(null)
@@ -23,50 +22,52 @@ const ReviewLikes = ({review, productId}) => {
     answerDislikes: [],
   }
 
-// объект будет отправлен на api opinion
+  // объект будет отправлен на api opinion
   let opinionApiObj = {
-    type: 'reviewLikes',
-    reviewId: review.reviewId,
-    likes: review.likes,
-    dislikes: review.dislikes
+    type: 'answersLikes',
+    answerId: answer.answerId,
+    likes: answer.likes,
+    dislikes: answer.dislikes
   }
+//  console.log('likesObj = ', likesObj)
 
   useEffect(() => {
-    if (likesObj.reviewLikes.includes(review.reviewId)) {
+    if (likesObj.answerLikes.includes(answer.answerId)) {
       setUserLikesIt(true)
     } else {
       setUserLikesIt(false)
     }
 
-    if (likesObj.reviewDislikes.includes(review.reviewId)) {
+    if (likesObj.answerDislikes.includes(answer.answerId)) {
       setUserDislikesIt(true)
     } else {
       setUserDislikesIt(false)
     }
   }, [likesObj]);
 
+
   const handleLikeClick = async () => {
     let newLikesObj = {...likesObj}
-    
+
     if (userLikesIt) return // Второй лайк не принимаем
-            
+
     if (userDislikesIt) {
       // апдейт объекта - убрать айди Отзыва из массива дизлайков, добавить в массив лайков     
-      
-      newLikesObj.reviewDislikes = newLikesObj.reviewDislikes.filter(item => item !== review.reviewId)
-      newLikesObj.reviewLikes = [...newLikesObj.reviewLikes, review.reviewId]
+
+      newLikesObj.answerDislikes = newLikesObj.answerDislikes.filter(item => item !== answer.answerId)
+      newLikesObj.answerLikes = [...newLikesObj.answerLikes, answer.answerId]
 
       opinionApiObj.likes++
       opinionApiObj.dislikes--
-    
+
 
     } else {
       // апдейт объекта - добавить айди Отзыва в массив лайков
-      
-      newLikesObj.reviewLikes = [...newLikesObj.reviewLikes, review.reviewId]
-      opinionApiObj.likes++     
+
+      newLikesObj.answerLikes = [...newLikesObj.answerLikes, answer.answerId]
+      opinionApiObj.likes++
     }
-    
+
     dispatch(updateLikes({newLikesObj, opinionApiObj, productId}))
   }
 
@@ -74,11 +75,11 @@ const ReviewLikes = ({review, productId}) => {
     if (userDislikesIt) return // Второй дизлайк не принимаем
 
     let newLikesObj = {...likesObj}
-    
+
     if (userLikesIt) {
       // апдейт объекта - убрать айди Отзыва из массива лайков, добавить в массив дизлайков
-      newLikesObj.reviewLikes = newLikesObj.reviewLikes.filter(item => item !== review.reviewId)
-      newLikesObj.reviewDislikes = [...newLikesObj.reviewDislikes, review.reviewId]
+      newLikesObj.answerLikes = newLikesObj.answerLikes.filter(item => item !== answer.answerId)
+      newLikesObj.answerDislikes = [...newLikesObj.answerDislikes, answer.answerId]
 
       opinionApiObj.dislikes++
       opinionApiObj.likes--
@@ -86,13 +87,13 @@ const ReviewLikes = ({review, productId}) => {
     } else {
 
       // апдейт объекта - добавить айди Отзыва в массив дизлайков
-      newLikesObj.reviewDislikes = [...newLikesObj.reviewDislikes, review.reviewId]
+      newLikesObj.answerDislikes = [...newLikesObj.answerDislikes, answer.answerId]
       opinionApiObj.dislikes++
     }
 
     dispatch(updateLikes({newLikesObj, opinionApiObj, productId}))
   }
-
+  
   return (
     <div className={s.wrapper}>
       <div className={s.likesGroup}>
@@ -128,4 +129,4 @@ const ReviewLikes = ({review, productId}) => {
   );
 };
 
-export default ReviewLikes;
+export default ReviewsAnswerLikes;

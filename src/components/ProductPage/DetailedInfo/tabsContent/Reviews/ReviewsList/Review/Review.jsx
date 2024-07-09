@@ -5,8 +5,10 @@ import ReviewImages
 import CollapsableText from "@/components/ui/CollapsableText/CollapsableText.jsx";
 import ReviewLikes
   from "@/components/ProductPage/DetailedInfo/tabsContent/Reviews/ReviewsList/Review/ReviewLikes/ReviewLikes.jsx";
+import ReviewAnswers
+  from "@/components/ProductPage/DetailedInfo/tabsContent/Reviews/ReviewsList/Review/ReviewAnswers/ReviewAnswers.jsx";
 
-const Review = ({review}) => {
+const Review = ({review, productId}) => {
   return (
     <li className={s.reviewWrapper}>
       <div className={s.reviewHeader}>
@@ -53,7 +55,11 @@ const Review = ({review}) => {
         )
       }
 
-      <ReviewLikes likes={review.likes} dislikes={review.dislikes} review={review} />
+      <ReviewLikes review={review} productId={productId} />
+
+      {
+        review. reviewAnswers.length > 0 && <ReviewAnswers answers={review.reviewAnswers} productId={productId} />
+      }      
 
     </li>
   );
