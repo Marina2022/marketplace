@@ -29,7 +29,6 @@
   }
 }
 
-
 .writeQuestionBtn {
   width: 100%;
   display: flex;
@@ -44,4 +43,18 @@
 
 .mainBlock {
   flex:1;
+}
+
+.moreBtn {
+  border: #E1E1E1 1px solid;
+  height: 41px;
+  width: 100%;
+  margin-top: 35px;
+
+  &:hover {
+    box-shadow: 0px 3px 7px 0px rgba(62, 80, 103, 0.08);
+  }
+  &:active {
+    box-shadow: 0px 6px 7px 0px rgba(62, 80, 103, 0.08);
+  }
 }

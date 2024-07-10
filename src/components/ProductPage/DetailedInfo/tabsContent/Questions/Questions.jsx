@@ -5,15 +5,26 @@ import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
 import penIcon from '@/assets/img/penIcon.svg'
 import QuestionList from "@/components/ProductPage/DetailedInfo/tabsContent/Questions/QuestionList/QuestionList.jsx";
+import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 
 const Questions = ({product}) => {
 
+  const PAGE_SIZE = 10
 
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
-
-  const [cursor, setCursor] = useState(null)
+  
   const [questions, setQuestions] = useState(null)
+
+  const [cursorPaging, setCursorPaging] = useState(null)
+  const [cursor, setCursor] = useState(0)
+  const [pagesCount, setPagesCount] = useState(0)
+  
+  let showMoreBtn = false
+
+  if (cursorPaging) {
+    showMoreBtn = cursorPaging.cursorLimit  >  pagesCount * PAGE_SIZE
+  }
 
   useEffect(() => {
     const getData = async () => {
@@ -30,23 +41,18 @@ const Questions = ({product}) => {
       }
 
       try {
-
-        // задержка, чтобы на спиннер посмотреть
-        // await new Promise((res)=>{
-        //   return setTimeout(()=>res(), 1000)
-        // })
-
         const productResponse = await axiosInstance(requestString)
-
-        console.log(productResponse)
         if (productResponse.status === 200) {
           setQuestions(productResponse.data.productQuestions)
-          setCursor(productResponse.data.cursor)
+          setCursorPaging(productResponse.data.cursorPaging)
+
+          setPagesCount(prev=>prev+1)
+
         } else throw new Error('response status not equal 200')
       } catch (err) {
         console.log('err = ', err)
 
-        if (err.response.status === 400) {  // message в ошибке не приходит, как для Отзывов
+        if (err.response.status === 400) {  // description в ошибке не приходит, как для Отзывов
           setError('Ответов пока еще нет')
         } else {
           setError('Произошла ошибка')
@@ -58,10 +64,13 @@ const Questions = ({product}) => {
     }
 
     getData()
-  }, []);
+  }, [cursor]);
 
+  const showMoreHandler = ()=>{
+    setCursor((pagesCount+1)*PAGE_SIZE)    
+  }
 
-  if (isLoading) return <Spinner className={s.spinner}/>
+  if (isLoading && pagesCount === 0) return <Spinner className={s.spinner}/>
   if (error) return <div className={s.noQuestions}>{error}</div>
 
   return (
@@ -77,6 +86,15 @@ const Questions = ({product}) => {
         <div className={s.mainBlock}>
           <QuestionList questions={questions} productId ={product.productId} />
         </div>
+
+        {
+          showMoreBtn && <button className={s.moreBtn} onClick={showMoreHandler}>
+            {
+              isLoading && (pagesCount > 0) ? <MiniSpinner /> : 'Показать еще'  
+            }  
+            
+          </button>
+        }
       </div>
     </div>
   );

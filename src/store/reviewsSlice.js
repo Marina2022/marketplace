@@ -68,7 +68,6 @@ const initialState = {
   likesObject: null,
   isLoading: false,
   reviews: [],
-  cursor: null,
   requestString: null
 }
 
@@ -81,9 +80,6 @@ export const reviewsSlice = createSlice({
     },
     setReviews: (state, action) => {
       state.reviews = action.payload
-    },
-    setCursor: (state, action) => {
-      state.cursor = action.payload
     },
     setRequestString: (state, action) => {
       state.requestString = action.payload
@@ -119,17 +115,13 @@ export const reviewsSlice = createSlice({
   ,
 })
 
-export const {setLikes, setReviews, setCursor, setRequestString} = reviewsSlice.actions
+export const {setLikes, setReviews, setRequestString} = reviewsSlice.actions
 export const getLikes = (state) => {
   return state.reviews.likesObject
 }
 export const getReviews = (state) => {
   return state.reviews.reviews
 }
-export const getCursor = (state) => {
-  return state.reviews.cursor
-}
-
 export const getRequestString = (state) => {
   return state.reviews.requestString
 }

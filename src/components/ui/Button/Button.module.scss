@@ -8,9 +8,12 @@
   align-items: center;
   justify-content: center;
   transition: all .2s ease-in-out;
-  
-  &:hover {
-    background: #c31a24;   
     
+  &:hover {
+    background: #c31a24;    
+  }
+
+  &:active {
+    background: #b21820;
   }
 }
