@@ -1,7 +1,7 @@
 import s from './CollapsableText.module.scss';
 import {useState} from "react";
 
-const CollapsableText = ({text, className, maxLength}) => {
+const CollapsableText = ({text, className, maxLength, buttonClassName}) => {
 
 
   const textFullParagraphs = text.split(`\r\n`)
@@ -27,7 +27,7 @@ const CollapsableText = ({text, className, maxLength}) => {
         }
       </div>
 
-      {!showAll && <button className={s.readFull} onClick={() => setShowAll(true)}>Читать полностью</button>}
+      {!showAll && <button className={`${s.readFull} ${buttonClassName}`} onClick={() => setShowAll(true)}>Читать полностью</button>}
     </div>
   );
 };

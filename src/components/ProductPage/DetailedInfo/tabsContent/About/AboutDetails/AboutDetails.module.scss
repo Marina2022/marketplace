@@ -1,42 +1,20 @@
 @import '@/assets/styles/mixins';
 
-.wrapper {
-  max-width: 100%;
-  overflow: auto;
-  margin-top: 24px;
-  
-  
-  @include t {
-    margin-top: 15px;
-  }
-
-  @include m {
-    margin-top: 14px;
-  }
-}
-
-.title {
-  color: #131D2A;
-  font-size: 14px;
-  margin-bottom: 15px;
-  
-  @include m {
-    margin-bottom: 6px;
-  }
-}
 
 .row {
-  font-size: 14px;
   display: flex;
+  gap: 11px;
   margin-bottom: 10px;
 }
 
-.left, .right {
-  flex: 0 0 auto;
-}
+.leftPart {
+  display: flex;
+  width: 358px;
+  flex-shrink: 0;
 
-.left {
-  color: #658092;
+  @include t {
+    width: 372px;
+  }
 }
 
 .dots {
@@ -44,8 +22,6 @@
   text-align: center;
   justify-content: flex-end;
   position: relative;
-  top: -2px;
-  left: 1px;
   min-width: 10px;
 }
 
@@ -63,6 +39,21 @@
                   #658092 4px
   );
   position: absolute;
-  bottom: 0;
+  bottom: 0px;
   transform: translateX(-50%);
+}
+
+.label {
+  color: rgb(101, 128, 146);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  flex: 0 0 auto;
+}
+
+.value {
+  color: rgb(19, 29, 42);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
 }

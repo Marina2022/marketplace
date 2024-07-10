@@ -1,0 +1,51 @@
+@import '@/assets/styles/mixins';
+
+
+.title {
+  color: rgb(19, 29, 42);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 29px;
+  margin-bottom: 34px;
+}
+
+.topBlock {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 24px;
+  
+  @include t {
+    flex-direction: column;
+    gap: 34px;
+  }
+}
+
+.imgWrapper {
+  width: 360px;
+  min-height: 240px;  
+  
+  @include t {
+    width: 100%;
+  }
+}
+
+
+.profileImage {
+  width: 100%;
+  object-position: center;
+  object-fit: cover;
+}
+
+.certTitle {
+  color: rgb(19, 29, 42);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 140%;
+  margin-bottom: 28px;
+}
+
+.certImg {
+  width: 100%;
+  margin-bottom: 20px;
+}
+

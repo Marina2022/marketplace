@@ -91,7 +91,6 @@ const Reviews = ({product}) => {
   }
 
   if (isLoading && pagesCount === 0) return <Spinner className={s.spinner}/>
-
   if (error) return <div className={s.noReviews}>{error}</div>
 
   return (

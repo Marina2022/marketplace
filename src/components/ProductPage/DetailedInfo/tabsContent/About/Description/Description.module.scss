@@ -1,0 +1,36 @@
+@import '@/assets/styles/mixins';
+
+.text {color: rgb(101, 128, 146);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 140%;
+
+  margin-bottom: 15px;
+}
+
+
+.readFull {
+  color: rgb(0, 147, 253);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  text-decoration-line: underline;
+
+  @include t {
+    font-size: 12px;
+  }
+}
+
+.wrapper {
+  margin-bottom: 25px;
+}
+
+.textBlock {
+  margin-bottom: 20px;
+}
+
+.img {
+  max-width: 100%;
+  //object-fit: cover;
+  margin-top: 25px;
+}
