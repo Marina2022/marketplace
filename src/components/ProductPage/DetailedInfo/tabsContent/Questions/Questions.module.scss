@@ -1,0 +1,47 @@
+@import '@/assets/styles/mixins';
+
+.noQuestions {
+  color: rgb(19, 29, 42);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 29px;
+  margin-bottom: 24px;
+}
+
+.spinner {
+  height: 500px;
+}
+
+.globalWrapper {
+  display: flex;
+  gap: 31px;
+
+  @include t {
+    flex-direction: column;
+  }
+}
+
+
+.sideBlock {
+  @include t {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+
+.writeQuestionBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+
+  @include t {
+    width: 250px;
+  }
+}
+
+.mainBlock {
+  flex:1;
+}

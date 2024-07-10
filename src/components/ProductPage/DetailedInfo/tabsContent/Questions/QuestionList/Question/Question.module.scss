@@ -1,45 +1,28 @@
-@import '@/assets/styles/mixins';
-
-.reviewWrapper {
+.questionWrapper {
   padding: 17px 11px 30px 11px;
   border-bottom: #E1E1E1 1px solid;
 }
 
-.reviewHeader {
+.questionHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 25px;
 }
 
-
-.reviewerName {
+.name {
   color: rgb(0, 0, 0);
   font-size: 18px;
   font-weight: 600;
   line-height: 140%;
 }
 
-.rightHeaderPart {
-  display:  flex;
-  gap: 18px;
-  align-items: center;
-}
-
-.reviewDate {
+.date {
   color: rgb(101, 128, 146);
   font-family: Inter;
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
-}
-
-.subtitle {
-  margin-bottom: 6px;
-  color: rgb(62, 80, 103);
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 19px;  
 }
 
 .text {
@@ -48,13 +31,4 @@
   font-weight: 400;
   line-height: 15px;
   margin-bottom: 15px;
-}
-
-
-.collapsableText {
-  color: rgb(101, 128, 146);
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
-  margin-bottom: 6px;
 }

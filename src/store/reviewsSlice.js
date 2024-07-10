@@ -1,7 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axiosInstance.js";
 
-
 //import axiosInstance from "@/api/axiosInstance.js";
 
 export const loadReviewLikes = createAsyncThunk('reviews/loadReviewLikes', async () => {
@@ -14,8 +13,6 @@ export const loadReviewLikes = createAsyncThunk('reviews/loadReviewLikes', async
 
 export const updateLikes = createAsyncThunk('reviews/updateLikes', async (params, thunkAPI) => {
 
-  console.log('params', params)
-  
   const state = thunkAPI.getState()
   const {newLikesObj: likesFromParams, opinionApiObj, productId} = params
 
@@ -38,7 +35,7 @@ export const updateLikes = createAsyncThunk('reviews/updateLikes', async (params
       throw new Error('status !== 200')
     } else {
       // в LS в любом случае сетаем, даже если авторизован (пока так)  
-      localStorage.setItem('reviewLikes', JSON.stringify(likesFromParams));      
+      localStorage.setItem('reviewLikes', JSON.stringify(likesFromParams));
     }
   }
 
@@ -52,26 +49,16 @@ export const updateLikes = createAsyncThunk('reviews/updateLikes', async (params
     if (resp.status !== 200) {
       throw new Error('status !== 200')
     }
-    localStorage.setItem('reviewLikes', JSON.stringify(likesFromParams));    
+    localStorage.setItem('reviewLikes', JSON.stringify(likesFromParams));
   }
 
   // request - updated reviews
-  let requestString
-
-  if (state.reviews.cursor) {
-    requestString = `products/${productId}/reviews?cursor=${state.reviews.cursor}`
-  } else {
-    requestString = `products/${productId}/reviews`
-  }
+  const requestString = state.reviews.requestString
 
   const productResponse = await axiosInstance(requestString)
 
-  console.log('ответ', productResponse)
-
   if (productResponse.status === 200) {
     thunkAPI.dispatch(setReviews(productResponse.data.reviews))
-    // thunkAPI.dispatch(setCursor(productResponse.data.reviews))
-    // setCursor(productResponse.data.cursor)
   } else throw new Error('response status not equal 200')
 
   return {likesFromParams}
@@ -81,7 +68,8 @@ const initialState = {
   likesObject: null,
   isLoading: false,
   reviews: [],
-  cursor: null
+  cursor: null,
+  requestString: null
 }
 
 export const reviewsSlice = createSlice({
@@ -96,7 +84,11 @@ export const reviewsSlice = createSlice({
     },
     setCursor: (state, action) => {
       state.cursor = action.payload
+    },
+    setRequestString: (state, action) => {
+      state.requestString = action.payload
     }
+
   },
 
   extraReducers: builder => builder
@@ -106,7 +98,7 @@ export const reviewsSlice = createSlice({
     .addCase(updateLikes.fulfilled, (state, action) => {
       state.isLoading = 'success'
       state.likesObject = action.payload.likesFromParams
-    })    
+    })
     .addCase(updateLikes.rejected, (state, action) => {
       state.isLoading = 'error'
       console.log('ошибка', action.error.message)
@@ -127,7 +119,7 @@ export const reviewsSlice = createSlice({
   ,
 })
 
-export const {setLikes, setReviews, setCursor} = reviewsSlice.actions
+export const {setLikes, setReviews, setCursor, setRequestString} = reviewsSlice.actions
 export const getLikes = (state) => {
   return state.reviews.likesObject
 }
@@ -137,4 +129,10 @@ export const getReviews = (state) => {
 export const getCursor = (state) => {
   return state.reviews.cursor
 }
+
+export const getRequestString = (state) => {
+  return state.reviews.requestString
+}
+
+
 export default reviewsSlice.reducer

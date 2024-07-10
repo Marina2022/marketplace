@@ -12,6 +12,10 @@
   font-size: 14px;
   color: #658092;
   cursor: pointer;
+  
+  &:hover {
+    color: black;    
+  }
 }
 .activeSortItem {
   font-weight: 500;

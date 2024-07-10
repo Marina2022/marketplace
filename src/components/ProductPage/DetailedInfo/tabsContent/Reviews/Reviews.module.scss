@@ -47,6 +47,10 @@
 
 .writeReviewBtn {
   width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
   
   @include t {
     width: 250px;

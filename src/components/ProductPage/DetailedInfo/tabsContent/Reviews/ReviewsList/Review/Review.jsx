@@ -58,7 +58,7 @@ const Review = ({review, productId}) => {
       <ReviewLikes review={review} productId={productId} />
 
       {
-        review. reviewAnswers.length > 0 && <ReviewAnswers answers={review.reviewAnswers} productId={productId} />
+        review.reviewAnswers.length > 0 && <ReviewAnswers answers={review.reviewAnswers} productId={productId} />
       }      
 
     </li>

@@ -29,7 +29,6 @@ const ReviewsAnswerLikes = ({answer, productId}) => {
     likes: answer.likes,
     dislikes: answer.dislikes
   }
-//  console.log('likesObj = ', likesObj)
 
   useEffect(() => {
     if (likesObj.answerLikes.includes(answer.answerId)) {
