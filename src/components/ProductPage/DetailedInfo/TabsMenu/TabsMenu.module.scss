@@ -33,8 +33,11 @@
   flex-grow: 1;
   text-align: center;
   user-select: none;
+  
+  &:hover {
+    color: rgb(19, 29, 42);
+  }
 }
-
 
 .tabsItemActive {
   text-align: center;
