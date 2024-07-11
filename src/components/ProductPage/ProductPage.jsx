@@ -18,6 +18,7 @@ const ProductPage = () => {
   const [path, setPath] = useState([])
   const [product, setProduct] = useState(null)
   const {slug: productHandle} = useParams()
+  const [sku, setSku] = useState(null)
 
   useEffect(() => {
     const getData = async () => {
@@ -26,9 +27,16 @@ const ProductPage = () => {
       setError(false)
 
       try {
+        // с sku будет примерно так:
+        // const productResponse = await axiosInstance(`products/${productHandle}?sku=58745220`)
         const productResponse = await axiosInstance(`products/${productHandle}`)
         setPath(productResponse.data.meta.path)
         setProduct(productResponse.data)
+
+        if (!sku) {
+          setSku(productResponse.data.options[0].sku)
+        }
+
       } catch (err) {
 
         console.log('err = ', err.response.status)
@@ -46,10 +54,25 @@ const ProductPage = () => {
         setIsLoading(false)
       }
     }
-    getData()
-  }, [location]);
 
-  console.log(product)
+    getData()
+
+
+  }, []);
+
+  // console.log(product)
+
+  let currentOption
+
+  if (product) {
+    console.log(product.options)
+
+    currentOption = product.options.find(item => item.sku === sku)
+    console.log('currentOption - ', currentOption)
+    console.log('sku = ', sku)
+
+  }
+
 
   const breadCrumbsPath = [...path]
 
@@ -72,14 +95,14 @@ const ProductPage = () => {
             <ProductHeader product={product}/>
             <ProductPageSlider images={product.productImages} productId={product.productVariantId}
                                isFavourite={product.isFavourite}/>
-            <Details product={product}/>
-            <DetailedInfo product={product} />
+            <Details product={product} sku={sku}/>
+            <DetailedInfo product={product}/>
           </div>
           <RightSidebar product={product}/>
         </div>
 
-        <MobileBottomMenu />
-        
+        <MobileBottomMenu/>
+
       </div>
     </div>
   );

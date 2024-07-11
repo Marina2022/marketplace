@@ -3,7 +3,6 @@
 .wrapper {
   min-height: 64px;
   margin-bottom: 20px;
-  border: green 1px solid;
 
   @include t {
     min-height: 54px;    
@@ -14,4 +13,49 @@
     min-height: 45px;    
     margin-bottom: 14px;
   }
+}
+
+.title {
+  color: #131D2A;
+  font-size: 14px;
+  margin-bottom: 15px;
+  font-weight: 400;
+
+  @include m {
+    margin-bottom: 6px;
+  }
+}
+
+.optionList {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.optionItem {
+  cursor: pointer;
+  padding: 8px 16px;
+  border: 1px solid rgb(170, 183, 191);
+  border-radius: 5px;
+  color: rgb(0, 0, 0);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.optionItemActive {
+  cursor: pointer;
+  padding: 8px 16px;
+  border: 1px solid #C30202;
+  border-radius: 5px;
+  color: rgb(0, 0, 0);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

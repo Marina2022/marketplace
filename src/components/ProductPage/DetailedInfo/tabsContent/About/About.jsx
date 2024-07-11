@@ -25,7 +25,8 @@ const About = ({product}) => {
 
 
       try {
-        // const productResponse = await axiosInstance(`companies/${product.companyId}/about`)
+        // todo поменять урл запроса на закомментированный
+        //const productResponse = await axiosInstance(`companies/${product.companyId}/about`)
         const productResponse = await axiosInstance(`company/${product.companyId}/about`)
 
         if (productResponse.status === 200) {
@@ -40,9 +41,6 @@ const About = ({product}) => {
     }
     getData()
   }, []);
-
-
-  console.log(company)
 
   if (isLoading) return <Spinner className={s.spinner}/>
   if (error) return <div className={s.noReviews}>{error}</div>

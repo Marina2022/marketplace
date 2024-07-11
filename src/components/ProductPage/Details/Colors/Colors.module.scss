@@ -3,17 +3,51 @@
 .wrapper {
   min-height: 64px;
   margin-bottom: 20px;
-  border: orange 1px solid;
   margin-top: 9px;
-  
+
   @include t {
     min-height: 52px;
     margin-top: 0px;
-    margin-bottom: 10px;    
+    margin-bottom: 10px;
   }
-  
+
   @include m {
     margin-top: 0px;
     margin-bottom: 12px;
+  }
+}
+
+.colorList {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.colorItem {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: #AAB7BF 1px solid;
+  cursor: pointer;
+}
+
+.colorItemActive {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  outline: 1px solid rgb(196, 2, 2);
+  outline-offset: 1px;
+}
+
+
+.title {
+  color: #131D2A;
+  font-size: 14px;
+  margin-bottom: 15px;
+  font-weight: 400;
+
+  @include m {
+    margin-bottom: 6px;
   }
 }

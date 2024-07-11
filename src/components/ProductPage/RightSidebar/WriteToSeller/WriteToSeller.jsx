@@ -5,8 +5,7 @@ import Button from "@/components/ui/Button/Button.jsx";
 const WriteToSeller = ({seller}) => {
   return (
     <div className={s.writeToSeller}>
-      <h3 className={s.title}>Написать продавцу</h3>
-      
+      <h3 className={s.title}>Написать продавцу</h3>      
       <div className={s.sellerDesc}>
         <img className={s.avatar} src={`${BASE_URL}${seller.contactImageUrl}`} alt="seller avatar"/>
         <div>
