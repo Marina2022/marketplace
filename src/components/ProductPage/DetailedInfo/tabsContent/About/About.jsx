@@ -25,10 +25,8 @@ const About = ({product}) => {
 
 
       try {
-        // todo поменять урл запроса на закомментированный
-        //const productResponse = await axiosInstance(`companies/${product.companyId}/about`)
-        const productResponse = await axiosInstance(`company/${product.companyId}/about`)
-
+        
+        const productResponse = await axiosInstance(`companies/${product.companyId}/about`)    
         if (productResponse.status === 200) {
           setCompany(productResponse.data)
         } else throw new Error('response status not equal 200')
