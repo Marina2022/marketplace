@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {useParams, useSearchParams} from "react-router-dom";
 import s from './ProductPage.module.scss'
 import BreadCrumbs from "@/components/CategoryBlock/BreadCrumbs/BreadCrumbs.jsx";
 import {useEffect, useState} from "react";
@@ -51,6 +51,8 @@ function findClosestOption(options, targetValues, requiredOptionHandle) {
 
 const ProductPage = () => {
 
+  const [searchParams, setSearchParams] = useSearchParams()
+
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   const [path, setPath] = useState([])
@@ -69,16 +71,31 @@ const ProductPage = () => {
       setError(false)
 
       try {
-        // с sku будет примерно так:
-        // const productResponse = await axiosInstance(`products/${productHandle}?sku=58745220`)
-        const productResponse = await axiosInstance(`products/${productHandle}`)
-        setPath(productResponse.data.meta.path)
+
+        let requestString = `products/${productHandle}`
+        const mySku = searchParams.get('sku')
+
+        if (mySku) {
+          requestString += `?sku=${mySku}`
+        }
+
+        const productResponse = await axiosInstance(requestString)
+        
+        const breadCrumbsPath = productResponse.data.meta.path
+      
         setProduct(productResponse.data)
+
+        if (breadCrumbsPath) {
+
+           breadCrumbsPath[0].name = breadCrumbsPath[0].name + ' ' + productResponse.data.brand
+           breadCrumbsPath[0].handle = breadCrumbsPath[0].handle + '?' + `brand=${productResponse.data.brand.toLowerCase()}`
+        }
+
+        setPath(breadCrumbsPath)
+        
 
         if (!sku) {
           setSku(productResponse.data.options[0].sku)
-          // setSku('58745221')
-
         }
 
       } catch (err) {
@@ -100,19 +117,13 @@ const ProductPage = () => {
     }
 
     getData()
-  }, []);
+  }, [searchParams]);
 
-  const breadCrumbsPath = [...path]
-
-  if (breadCrumbsPath[0]) {
-    breadCrumbsPath[0].name = breadCrumbsPath[0].name + ' ' + product.brand
-    breadCrumbsPath[0].handle = breadCrumbsPath[0].handle + '?' + `brand=${product.brand.toLowerCase()}`
-  }
 
   const handleOptionClick = ({optionName, optionValue, optionLabel}) => {
-    
+
     const currentOptionValues = product.options.find(item => item.sku === sku).values
-    
+
     const wantedOptionValues = JSON.parse(JSON.stringify(currentOptionValues))
 
     const wantedItemToChange = wantedOptionValues.find(item => item.optionHandle === optionName)
@@ -120,44 +131,23 @@ const ProductPage = () => {
 
     wantedItemToChange.value.label = optionLabel
 
-     
-    
+
     // // хотим получить комбинацию максимально близкую к этой: 
     // //console.log('wantedOptionValues', wantedOptionValues)
 
     const newSku = findClosestOption(product.options, wantedOptionValues, optionName)
     console.log("новый sku будет таким: ", newSku)
-    
+    console.log("новый sku sku будет таким: ", newSku.sku)
+
+
     // после засета подкгрузка пойдет, пока не сетай
     // setSku(newSku)
+
+
+    setSearchParams({sku: newSku.sku})
+    setSku(newSku.sku)
+    // setPath([])
   }
-
-  // const targetValues = [
-  //   {
-  //     "optionName": "Цвет",
-  //     "optionHandle": "color",
-  //     "optionType": "ccolor",
-  //     "value": {
-  //       "label": "Синий",
-  //       "val": "#0000FF"
-  //     }
-  //   },
-  //   {
-  //     "optionName": "Встроенная память",
-  //     "optionHandle": "embeddedmemory",
-  //     "optionType": "vbox",
-  //     "value": {
-  //       "label": "256 Гб",
-  //       "val": "256"
-  //     }
-  //   }
-  // ];
-
-  // const requiredOptionHandle = "color";
-
-  // if (product) {
-  //   console.log(findClosestOption(product.options, targetValues, requiredOptionHandle));
-  // }
 
 
   if (!product)
@@ -168,7 +158,11 @@ const ProductPage = () => {
 
     <div className={s.productPageWrapper}>
       <div className='container'>
-        <BreadCrumbs path={path} productBreadCrumbs={true} className={s.breadCrumbs}/>
+
+
+        <BreadCrumbs path={path} productBreadCrumbs={true} className={s.breadCrumbs} loading={isLoading}/>
+
+
         <div className={s.productMain}>
           <div className={s.productWrapper}>
 
