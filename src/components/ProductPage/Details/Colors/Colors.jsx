@@ -1,14 +1,16 @@
 import s from './Colors.module.scss';
 
-const Colors = ({options, sku}) => {
-  
+const Colors = ({options, sku, handleOptionClick}) => {
+    
   const currentOption = options.find(item=>item.sku === sku)
   const currentColor = currentOption.values.find(item=>item.optionHandle === 'color').value.val   
 
   const colorSet = new Set();
   const uniqueColors = [];
 
-  options.forEach(option => {
+  const optionsNew = [...options]
+
+  optionsNew.forEach(option => {
     option.values
       .filter(value => value.optionHandle === 'color')
       .forEach(value => {
@@ -26,7 +28,11 @@ const Colors = ({options, sku}) => {
       <ul className={s.colorList}>        {
           uniqueColors.map((color) => {
             return (              
-              <li className={ color.val === currentColor ? s.colorItemActive : s.colorItem} key={color.val} style={{background: color.val}}></li>
+              <li
+                onClick={()=>handleOptionClick({optionName: 'color', optionValue:color.val, optionLabel: color.label})}
+                className={ color.val === currentColor ? s.colorItemActive : s.colorItem} 
+                key={color.val} 
+                style={{background: color.val}}></li>
             )
           })
         }

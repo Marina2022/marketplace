@@ -1,16 +1,15 @@
 import s from './ChooseOption.module.scss';
 
-const ChooseOption = ({options, sku, optionType}) => {
-
-  const currentOption = options.find(item=>item.sku === sku)
-  const currentValue = currentOption.values.find(item=>item.optionHandle === optionType.name).value.val
+const ChooseOption = ({options, sku, optionType, handleOptionClick}) => {
     
-  console.log(optionType)
+  const optionsNew = [...options]
+  const currentOption = options.find(item => item.sku === sku)
+  const currentValue = currentOption.values.find(item => item.optionHandle === optionType.name).value.val
 
   const optionSet = new Set();
   const uniqueOptions = [];
-  
-  options.forEach(option => {
+
+  optionsNew.forEach(option => {
     option.values
       .filter(value => value.optionHandle === optionType.name)
       .forEach(value => {
@@ -22,17 +21,21 @@ const ChooseOption = ({options, sku, optionType}) => {
       });
   });
 
-  console.log(uniqueOptions)
-  
   return (
     <div className={s.wrapper}>
       <h2 className={s.title}>{optionType.label}:</h2>
       <ul className={s.optionList}>
         {
-          uniqueOptions.map(item=> <div key={item.val}><div className={ currentValue === item.val ? s.optionItemActive : s.optionItem}>{item.label}</div></div> )
+          uniqueOptions.map(item => <div
+            key={item.val}
+            className={currentValue === item.val ? s.optionItemActive : s.optionItem}
+            onClick={()=>handleOptionClick({optionName: optionType.name, optionValue:item.val, optionLabel: item.label})}
+          >            
+            {item.label}
+          </div>)
         }
       </ul>
-      
+
     </div>
   );
 };

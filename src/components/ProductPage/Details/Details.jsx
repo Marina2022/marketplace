@@ -4,24 +4,19 @@ import ChooseOption from "@/components/ProductPage/Details/ChooseOption/ChooseOp
 import BriefAbout from "@/components/ProductPage/Details/BriefAbout/BriefAbout.jsx";
 
 
-const Details = ({product, sku}) => {
-  console.log(product)
-
+const Details = ({product, sku, handleOptionClick}) => {
   const optionsWithoutColor = product.optionTypes.filter(item => item.name !== 'color')
-
-  // console.log('optionsWithoutColor = ', optionsWithoutColor)
-
-
+  
   const colorOptionIsPresent = product.optionTypes.find(item => item.name === 'color')
 
   return (
     <div className={s.details}>
       {
-        colorOptionIsPresent && <Colors options={product.options} sku={sku}/>
+        colorOptionIsPresent && <Colors options={[...product.options]} sku={sku} handleOptionClick={handleOptionClick} />
       }
 
       {
-        optionsWithoutColor.map(option => <ChooseOption key={option.name} options={product.options} sku={sku} optionType={option} />)
+        optionsWithoutColor.map(option => <ChooseOption key={option.name} options={[...product.options]} sku={sku} optionType={option} handleOptionClick={handleOptionClick} />)
       }
 
 

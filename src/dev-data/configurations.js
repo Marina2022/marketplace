@@ -14,7 +14,7 @@ export const optionTypes = [
 ]
 export const options = [
   {
-    "sku": "58745219",
+    "sku": "58745220",
     "values": [
       {
         "optionName": "Цвет",
@@ -60,7 +60,7 @@ export const options = [
     ]
   },
   {
-    "sku": "58745220",
+    "sku": "58745221",
     "values": [
       {
         "optionName": "Встроенная память",
@@ -106,4 +106,3 @@ export const options = [
     ]
   }
 ]
-
