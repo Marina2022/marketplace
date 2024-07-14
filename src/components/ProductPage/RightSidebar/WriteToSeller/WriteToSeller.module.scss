@@ -9,6 +9,10 @@
   @include t {
     padding: 20px 16px;
   }
+  
+  @include m {
+    margin-inline: 16px;
+  }
 }
 
 .title {

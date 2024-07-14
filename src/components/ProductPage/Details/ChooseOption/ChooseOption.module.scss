@@ -5,13 +5,14 @@
   margin-bottom: 20px;
 
   @include t {
-    min-height: 54px;    
+    min-height: 54px;
     margin-bottom: 15px;
   }
 
   @include m {
-    min-height: 45px;    
-    margin-bottom: 14px;
+    min-height: 45px;
+    margin-bottom: 14px;    
+    margin-inline: 16px;
   }
 }
 

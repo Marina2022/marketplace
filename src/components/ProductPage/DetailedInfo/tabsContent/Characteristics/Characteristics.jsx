@@ -4,6 +4,7 @@ import {BASE_URL} from "@/consts/baseURL.js";
 const Characteristics = ({product}) => {
   return (
     <div className={s.characteristics}>
+      <div className={s.titleMobile}>Характеристики</div>
       <h3 className={s.title}>Основные характеристики</h3>
 
       <div className={s.table}>
@@ -22,7 +23,7 @@ const Characteristics = ({product}) => {
       <h3 className={s.title}>Документация</h3>
       <ul className={s.docs}>
         {
-          product.documents.map((doc,i)=>{
+          product.documents.map((doc, i) => {
             return (
               <li className={s.docItem} key={i}>
                 <a target="_blank" href={`${BASE_URL}${doc.documentPath}`} className={s.docUpload} download>
@@ -30,7 +31,6 @@ const Characteristics = ({product}) => {
                     <img src={docImg} alt="doc icon"/>
                   </span>
                   <span>{doc.documentName}</span>
-
                 </a>
               </li>
             )

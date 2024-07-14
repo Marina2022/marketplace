@@ -6,12 +6,26 @@
   font-weight: 600;
   line-height: 29px;
   margin-bottom: 24px;
+  
+  @include m {
+    padding: 16px;
+    font-size: 16px;
+    background: white;
+    line-height: unset;
+    border: 1px solid rgb(240, 241, 241);
+    margin-bottom: 0px;
+  }
 }
 
 .spinner {
   height: 1000px;
   align-items: flex-start;
   padding-top: 150px;
+  
+  @include m {
+    height: 52px!important;
+    padding-top: 0!important;
+  }
 }
 
 .globalWrapper {
@@ -21,6 +35,10 @@
   @include t {    
     flex-direction: column;
   }
+  
+  @include m {
+    gap: 8px;
+  }
 }
 
 
@@ -28,6 +46,12 @@
   @include t {
     display: flex;
     justify-content: space-between;
+  }
+  
+  @include m {
+    flex-direction: column;
+    background: white;
+    padding: 16px;
   }
 }
 
@@ -45,6 +69,10 @@
   gap: 10px;
   align-items: center;
   margin-bottom: 20px;
+  
+  @include m {
+    width: 100%;
+  }
 }
 
 .writeReviewBtn {
@@ -56,6 +84,10 @@
   
   @include t {
     width: 250px;
+  }
+  
+  @include m {
+    width: 100%;
   }
 }
 
@@ -74,5 +106,18 @@
   }
   &:active {
     box-shadow: 0px 6px 7px 0px rgba(62, 80, 103, 0.08);
+  }
+}
+
+.overviewTitleMobile {
+  display: none;
+
+  @include m {
+    display: block;
+    color: rgb(19, 29, 42);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    margin-bottom: 8px;
   }
 }

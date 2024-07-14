@@ -3,7 +3,7 @@
 .addToCart {
   padding: 20px;
   background: #fff;
-  border: 1px solid rgb(245, 245, 245);
+  border: 2px solid rgb(245, 245, 245);
   border-radius: 2px;
 
   @include t {
@@ -15,6 +15,7 @@
     bottom: 71px;
     left: 16px;
     right: 16px;    
+    z-index: 5;
   }
 }
 

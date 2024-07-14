@@ -53,7 +53,7 @@ const Questions = ({product}) => {
         console.log('err = ', err)
 
         if (err.response.status === 400) {  // description в ошибке не приходит, как для Отзывов
-          setError('Ответов пока еще нет')
+          setError('Вопросов пока еще нет')
         } else {
           setError('Произошла ошибка')
         }

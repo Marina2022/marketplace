@@ -98,6 +98,7 @@ const Reviews = ({product}) => {
       <div className={s.globalWrapper}>
         <div className={s.sideBlock}>
           <div className={s.forTabletLeftBlock}>
+            <h3 className={s.overviewTitleMobile}>Отзывы</h3>
             <div className={s.averageRating}>{product.reviewsRating}</div>
             <div className={s.ratingWrapper}>
               <Rating rating={product.reviewsRating}/>

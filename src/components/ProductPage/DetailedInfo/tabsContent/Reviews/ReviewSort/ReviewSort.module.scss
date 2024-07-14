@@ -5,6 +5,23 @@
   gap: 20px;
   padding-bottom: 16px;
   border-bottom: #F0F1F1 1px solid;
+  
+  @include m {
+    padding: 16px;
+    background: white;
+    border-bottom: none;
+    position: relative;
+    
+    &:after {
+      content: '';
+      position: absolute;
+      background: #F0F1F1;
+      left: 16px;
+      right: 16px;
+      bottom: 0;
+      height: 1px;
+    }
+  }
 }
 
 .sortItem {

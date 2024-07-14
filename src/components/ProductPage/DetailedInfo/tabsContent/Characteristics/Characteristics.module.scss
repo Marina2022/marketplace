@@ -3,15 +3,30 @@
 .characteristics {
   background: white;
   padding: 30px;
+  
+  @include m {
+    margin-bottom: 8px;
+    padding: 16px;
+
+  }
 }
 
 .table {
   margin-bottom: 40px;
+  
+  @include m {
+    margin-bottom: 10px;
+  }
+  
 }
 
 .row {
   display: flex;
   border: #E7F0F2 1px solid;
+  
+  @include m {
+    border:none;    
+  }
 }
 
 .label {
@@ -22,8 +37,17 @@
   font-size: 15px;
   font-weight: 500;
   line-height: 18px;
+  
   @include t {
     width: 47%;
+  }
+  @include m {
+    border:none;
+    color: rgb(101, 128, 146);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 13px;
+    padding: 4px;
   }
 }
 
@@ -38,7 +62,16 @@
   
   @include t {
     width: 53%;
-  } 
+  }
+  
+  @include m {
+    background: white;
+    color: rgb(19, 29, 42);
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 13px;
+    padding: 4px;
+  }
   
 }
 
@@ -48,6 +81,12 @@
   font-weight: 600;
   line-height: 29px;
   margin-bottom: 24px;
+  
+  @include m {    
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+  }
 }
 
 .circle {
@@ -61,17 +100,21 @@
   border: 1px solid rgb(240, 241, 241);
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
   background: rgb(255, 255, 255);
+  flex-shrink: 0;
 }
 
 .docUpload {
   display: flex;
   gap: 10px;
   align-items: center;
-
   color: rgb(101, 128, 146);
   font-size: 14px;
   font-weight: 400;
   line-height: 140%;
+  
+  @include m {
+    font-size: 12px;
+  }
   
   &:hover {
     color: rgb(19, 29, 42);
@@ -81,3 +124,17 @@
 .docItem {
   margin-bottom: 9px;
 }
+
+.titleMobile {
+  display: none;
+
+  @include m {
+    display: block;
+    color: rgb(19, 29, 42);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    margin-bottom: 8px;
+  }
+}
+  

@@ -5,35 +5,34 @@ import useMobileScreen from "@/hooks/useMobileScreen.js";
 
 const ProductHeader = ({product}) => {
   const isMobile = useMobileScreen()
-  
-  return (
-    <div className={s.header}>
-      <h1 className={s.title}>{product.productName}</h1>
-      <div className={s.info}>
-        <div className={s.rating}>
-          <img className={s.star} src={star} alt="star"/>
-          {
-            product.reviewsRating
-          }
-        </div>
-        <div>
-          
-          {
-            isMobile ?
-            <span>(
-              {
-                getReviewsString(product.reviewsCount)
-              }
-              )</span>  
-              :
-            getReviewsString(product.reviewsCount)}
-        </div>
-        <div className={s.questions}>
-          {getQuestionsString(product.questionCount)}
-        </div>
 
-      </div>
-    </div>
+  return (    
+      <div className={s.header}>
+        <h1 className={s.title}>{product.productName}</h1>
+        <div className={s.info}>
+          <div className={s.rating}>
+            <img className={s.star} src={star} alt="star"/>
+            {
+              product.reviewsRating
+            }
+          </div>
+          <div>
+
+            {
+              isMobile ?
+                <span>(
+                  {
+                    getReviewsString(product.reviewsCount)
+                  }
+                  )</span>
+                :
+                getReviewsString(product.reviewsCount)}
+          </div>
+          <div className={s.questions}>
+            {getQuestionsString(product.questionCount)}
+          </div>
+        </div>
+      </div>    
   );
 };
 

@@ -157,15 +157,10 @@ const ProductPage = () => {
   return (
 
     <div className={s.productPageWrapper}>
-      <div className='container'>
-
-
+      <div className='containerProductPage'>
         <BreadCrumbs path={path} productBreadCrumbs={true} className={s.breadCrumbs} loading={isLoading}/>
-
-
         <div className={s.productMain}>
           <div className={s.productWrapper}>
-
             <ProductHeader product={product}/>
             <ProductPageSlider images={product.productImages} productId={product.productVariantId}
                                isFavourite={product.isFavourite}/>
@@ -174,9 +169,7 @@ const ProductPage = () => {
           </div>
           <RightSidebar product={product}/>
         </div>
-
         <MobileBottomMenu/>
-
       </div>
     </div>
   );

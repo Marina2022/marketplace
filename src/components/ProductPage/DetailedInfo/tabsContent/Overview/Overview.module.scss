@@ -8,6 +8,14 @@
   @include t {
     padding: 30px;
   }
+  
+  @include m {
+    background: white;
+    padding: 0;
+    border: none;
+    margin-bottom: 32px;
+    padding: 16px;
+  }
 }
 
 .text {
@@ -15,6 +23,10 @@
 
   @include t {
     margin-bottom: 15px;
+  }
+  
+  @include m {
+    margin-bottom: 5px;
   }
 }
 
@@ -30,8 +42,15 @@
     font-size: 12px;
   }
   
+  @include m {
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+  
   &:last-child {
     margin-bottom: 0;
+    
+    
   }
 }
 
@@ -46,6 +65,9 @@
   @include t {
     font-size: 12px;
     margin-bottom: 29px;
+  }  
+  @include m {
+    margin-bottom: 0;
   }
 }
 
@@ -53,8 +75,27 @@
   display: flex;
   flex-direction: column;
   gap: 18px;
+  
+  @include m {
+    display: none;
+  }
 }
 
 .image {
   width: 100%;
+}
+
+.overviewTitleMobile {
+  display: none; 
+  
+  @include m {
+    display:  block;
+    color: rgb(19, 29, 42);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    margin-bottom: 8px;    
+  }
+  
+
 }

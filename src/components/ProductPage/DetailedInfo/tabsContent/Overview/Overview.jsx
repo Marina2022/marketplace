@@ -2,24 +2,20 @@ import s from './Overview.module.scss';
 import {useState} from "react";
 import {BASE_URL} from "@/consts/baseURL.js";
 
-const Overview = ({product}) => {
-
-  const TEXT_SIZE = 1000
-  //const TEXT_SIZE = 380
-
-
+const Overview = ({product, textSize = 1000}) => {
+  
   const textFullParagraphs = product.productDescription.split(`\r\n`)
+  const textCutParagraphs = (product.productDescription.slice(0, textSize) + '...').split(`\r\n`)
 
-  const textCutParagraphs = (product.productDescription.slice(0, TEXT_SIZE) + '...').split(`\r\n`)
+  const [showAll, setShowAll] = useState(product.productDescription.length <= textSize)
 
-
-  //1380 символов 
-
-  // если текст <= 1380 символов - showAll = true
-  const [showAll, setShowAll] = useState(product.productDescription.length <= TEXT_SIZE)
-
+  const handleClick = ()=>{
+    setShowAll(true)
+  }
+  
   return (
     <div className={s.overview}>
+      <h3 className={s.overviewTitleMobile}>Обзор</h3>
       <div className={s.text}>
         {
           showAll ?
@@ -34,7 +30,7 @@ const Overview = ({product}) => {
         }
       </div>
 
-      {!showAll && <button className={s.readFull} onClick={() => setShowAll(true)}>Читать полностью</button>}
+      {!showAll && <button className={s.readFull} onClick={handleClick}>Читать полностью</button>}
 
       <div className={s.images}>
         {
@@ -43,8 +39,6 @@ const Overview = ({product}) => {
           })
         }
       </div>
-
-
     </div>
   );
 };
