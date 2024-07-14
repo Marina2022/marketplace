@@ -3,7 +3,7 @@ import Review from "@/components/ProductPage/DetailedInfo/tabsContent/Reviews/Re
 
 const ReviewsList = ({reviews, productId}) => {
   return (
-    <ul>
+    <ul className={s.reviewsList}>
       {
         reviews.map((review, i) => {
           return <Review key={i} review={review} productId={productId}/>

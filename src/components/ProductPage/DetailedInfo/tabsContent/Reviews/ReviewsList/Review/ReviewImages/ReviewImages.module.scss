@@ -9,6 +9,12 @@
   @include t {
     gap: 29px;
   }
+  
+  @include m {   
+    flex-wrap: nowrap;
+    overflow: scroll;
+    gap: 8px
+  }
 }
 
 .image {
@@ -20,5 +26,7 @@
   @include m {
     width: 150px;
     height: 150px;
+    
+    flex-shrink: 0;
   }
 }

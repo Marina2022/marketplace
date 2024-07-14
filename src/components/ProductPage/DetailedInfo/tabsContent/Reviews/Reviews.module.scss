@@ -6,7 +6,7 @@
   font-weight: 600;
   line-height: 29px;
   margin-bottom: 24px;
-  
+
   @include m {
     padding: 16px;
     font-size: 16px;
@@ -21,21 +21,21 @@
   height: 1000px;
   align-items: flex-start;
   padding-top: 150px;
-  
+
   @include m {
-    height: 52px!important;
-    padding-top: 0!important;
+    height: 52px !important;
+    padding-top: 0 !important;
   }
 }
 
 .globalWrapper {
   display: flex;
   gap: 31px;
-  
-  @include t {    
+
+  @include t {
     flex-direction: column;
   }
-  
+
   @include m {
     gap: 8px;
   }
@@ -47,7 +47,7 @@
     display: flex;
     justify-content: space-between;
   }
-  
+
   @include m {
     flex-direction: column;
     background: white;
@@ -69,7 +69,7 @@
   gap: 10px;
   align-items: center;
   margin-bottom: 20px;
-  
+
   @include m {
     width: 100%;
   }
@@ -81,18 +81,18 @@
   align-items: center;
   gap: 10px;
   height: 44px;
-  
+
   @include t {
     width: 250px;
   }
-  
+
   @include m {
     width: 100%;
   }
 }
 
 .mainBlock {
-  flex:1;
+  flex: 1;
 }
 
 .moreBtn {
@@ -100,12 +100,19 @@
   height: 41px;
   width: 100%;
   margin-top: 35px;
-  
+
   &:hover {
-    box-shadow: 0px 3px 7px 0px rgba(62, 80, 103, 0.08);    
+    box-shadow: 0px 3px 7px 0px rgba(62, 80, 103, 0.08);
   }
+
   &:active {
     box-shadow: 0px 6px 7px 0px rgba(62, 80, 103, 0.08);
+  }
+
+  @include m {
+    width: calc(100% - 32px);
+    display: block;
+    margin-inline: auto;
   }
 }
 

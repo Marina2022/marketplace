@@ -1,3 +1,5 @@
+@import '@/assets/styles/mixins';
+
 .answer {
   margin-left: 30px;
   border-left: #E1E1E1 3px solid;
@@ -17,7 +19,12 @@
   font-weight: 600;
   line-height: 140%;
   
+  @include m {
+    font-size: 16px;
+    line-height: unset;
+  }  
 }
+
 .date {
   margin-left: auto;
   color: rgb(101, 128, 146);

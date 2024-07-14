@@ -2,10 +2,16 @@
 
 .reviewWrapper {
   padding: 17px 11px 30px 11px;
-  border-bottom: #E1E1E1 1px solid;
+  border-bottom: rgb(240, 241, 241) 1px solid;
   
   @include m {
     background: white;
+    padding: 16px;
+    border-top: rgb(240, 241, 241) 1px solid;
+    
+    &:first-child {
+      border-top: none;
+    }
   }
 }
 
