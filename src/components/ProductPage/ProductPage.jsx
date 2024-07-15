@@ -10,6 +10,7 @@ import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import RightSidebar from "@/components/ProductPage/RightSidebar/RightSidebar.jsx";
 import MobileBottomMenu from "@/components/ProductPage/MobileBottomMenu/MobileBottomMenu.jsx";
 import DetailedInfo from "@/components/ProductPage/DetailedInfo/DetailedInfo.jsx";
+import ViewedProducts from "@/components/ViewedProducts/ViewedProducts.jsx";
 
 function findClosestOption(options, targetValues, requiredOptionHandle) {
 
@@ -63,12 +64,12 @@ const ProductPage = () => {
 
   // const [tabIsOpen, setTabIsOpen] = useState(null)
   const [currentTab, setCurrentTab] = useState(0)
-      
-  const [mobileAllTabIsOpen, setMobileAllTabisOpen] = useState(false) 
-  const [mobileReviewsTabIsOpen, setMobileReviewsTabIsOpen] = useState(false) 
-  const [mobileQuestionsTabIsOpen, setMobileQuestionsTabIsOpen] = useState(false) 
-    
-  
+
+  const [mobileAllTabIsOpen, setMobileAllTabisOpen] = useState(false)
+  const [mobileReviewsTabIsOpen, setMobileReviewsTabIsOpen] = useState(false)
+  const [mobileQuestionsTabIsOpen, setMobileQuestionsTabIsOpen] = useState(false)
+
+
   useEffect(() => {
     const getData = async () => {
 
@@ -85,19 +86,19 @@ const ProductPage = () => {
         }
 
         const productResponse = await axiosInstance(requestString)
-        
+
         const breadCrumbsPath = productResponse.data.meta.path
-      
+
         setProduct(productResponse.data)
 
         if (breadCrumbsPath) {
 
-           breadCrumbsPath[0].name = breadCrumbsPath[0].name + ' ' + productResponse.data.brand
-           breadCrumbsPath[0].handle = breadCrumbsPath[0].handle + '?' + `brand=${productResponse.data.brand.toLowerCase()}`
+          breadCrumbsPath[0].name = breadCrumbsPath[0].name + ' ' + productResponse.data.brand
+          breadCrumbsPath[0].handle = breadCrumbsPath[0].handle + '?' + `brand=${productResponse.data.brand.toLowerCase()}`
         }
 
         setPath(breadCrumbsPath)
-        
+
 
         if (!sku) {
           setSku(productResponse.data.options[0].sku)
@@ -124,7 +125,7 @@ const ProductPage = () => {
     getData()
   }, [searchParams]);
 
-    
+
   const handleOptionClick = ({optionName, optionValue, optionLabel}) => {
     const currentOptionValues = product.options.find(item => item.sku === sku).values
     const wantedOptionValues = JSON.parse(JSON.stringify(currentOptionValues))
@@ -132,21 +133,20 @@ const ProductPage = () => {
     wantedItemToChange.value.val = optionValue
 
     wantedItemToChange.value.label = optionLabel
-        
+
     const newSku = findClosestOption(product.options, wantedOptionValues, optionName)
-    
+
     setSearchParams({sku: newSku.sku})
     setSku(newSku.sku)
   }
 
   const reviewsRef = useRef()
   const questionsRef = useRef()
-  
+
   if (!product)
     return <Spinner className={s.spinner}/>
 
-  
-  
+
   return (
 
     <div className={s.productPageWrapper}>
@@ -155,21 +155,21 @@ const ProductPage = () => {
         <div className={s.productMain}>
           <div className={s.productWrapper}>
             <ProductHeader
-              reviewsRef = {reviewsRef} questionsRef={questionsRef}
-              product={product} 
-              setCurrentTab={setCurrentTab}                   
-              setMobileAllTabisOpen={setMobileAllTabisOpen}              
-              setMobileReviewsTabIsOpen={setMobileReviewsTabIsOpen}              
+              reviewsRef={reviewsRef} questionsRef={questionsRef}
+              product={product}
+              setCurrentTab={setCurrentTab}
+              setMobileAllTabisOpen={setMobileAllTabisOpen}
+              setMobileReviewsTabIsOpen={setMobileReviewsTabIsOpen}
               setMobileQuestionsTabIsOpen={setMobileQuestionsTabIsOpen}
             />
             <ProductPageSlider images={product.productImages} productId={product.productVariantId}
                                isFavourite={product.isFavourite}/>
-            <Details product={product} sku={sku} handleOptionClick={handleOptionClick}   />
-            <DetailedInfo 
-              product={product} 
-              currentTab={currentTab} 
+            <Details product={product} sku={sku} handleOptionClick={handleOptionClick}/>
+            <DetailedInfo
+              product={product}
+              currentTab={currentTab}
               setCurrentTab={setCurrentTab}
-              reviewsRef = {reviewsRef} questionsRef={questionsRef}
+              reviewsRef={reviewsRef} questionsRef={questionsRef}
               mobileAllTabIsOpen={mobileAllTabIsOpen}
               setMobileAllTabisOpen={setMobileAllTabisOpen}
               mobileReviewsTabIsOpen={mobileReviewsTabIsOpen}
@@ -181,6 +181,10 @@ const ProductPage = () => {
           <RightSidebar product={product}/>
         </div>
         <MobileBottomMenu/>
+
+        <div className={s.viewed}>
+          {/*<ViewedProducts/>*/}
+        </div>
       </div>
     </div>
   );

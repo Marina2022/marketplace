@@ -13,13 +13,20 @@ const CollapsableTab = ({
                           setMobileReviewsTabIsOpen,
                           setMobileQuestionsTabIsOpen
                         }) => {
-
   const ref = useRef(null)
 
   useEffect(() => {
-    if (tabIsOpen && ref.current && !ifAllTab) {
-      ref.current.scrollIntoView({behavior: 'smooth'});
-      ref.current.scrollIntoView({behavior: 'smooth'});
+    if (tabIsOpen && ref.current && !ifAllTab) {      
+        //ref.current.scrollIntoView({behavior: 'smooth'});
+
+      const top = ref.current.getBoundingClientRect().top;
+
+      window.scrollBy({
+        top: top - 100,
+        behavior: 'smooth' 
+      });
+        
+        
     }
   }, [tabIsOpen, ref.current]);
 

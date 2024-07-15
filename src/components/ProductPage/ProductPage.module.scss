@@ -48,3 +48,10 @@
 .breadCrumbs {
   margin-block: 9px!important;
 }
+
+.viewed {
+  
+  @include m {
+    padding-inline: 16px;
+  }
+}

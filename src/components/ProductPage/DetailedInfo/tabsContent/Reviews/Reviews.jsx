@@ -87,12 +87,21 @@ const Reviews = ({product, reviewsRef}) => {
   }, [sortColumn, sortOrder, cursor]);
 
 
+  // useEffect(() => {
+  //
+  //   console.log('юз эффект reviews')
+  //
+  //   if (reviewsRef.current) {
+  //     reviewsRef.current.scrollIntoView({behavior: "smooth"})
+  //   }
+  // }, [reviewsRef.current])
+
   const showMoreHandler = () => {
     setCursor((pagesCount + 1) * PAGE_SIZE)
   }
 
   if (isLoading && pagesCount === 0) return <Spinner className={s.spinner}/>
-  if (error) return <div className={s.globalWrapper} ref={reviewsRef} >
+  if (error) return <div className={s.globalWrapper} ref={reviewsRef}>
     <div className={s.sideBlock}>
       <h3 className={s.mobileHeader}>Отзывы</h3>
       <Button className={s.writeReviewBtn}>
@@ -107,7 +116,7 @@ const Reviews = ({product, reviewsRef}) => {
 
 
   return (
-    <div className={s.reviews} >
+    <div className={s.reviews}>
       <div className={s.globalWrapper}>
         <div className={s.sideBlock}>
           <div className={s.forTabletLeftBlock}>
