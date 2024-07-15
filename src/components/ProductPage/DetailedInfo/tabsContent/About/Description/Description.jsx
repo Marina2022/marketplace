@@ -4,7 +4,7 @@ import {BASE_URL} from "@/consts/baseURL.js";
 
 const Description = ({text, images}) => {
 
-  const MAX_LENGTH = 694
+  const MAX_LENGTH = window.innerWidth > 960 ?  694 : 550
 
   const textFullParagraphs = text.split(`\r\n`)
   const textCutParagraphs = (text.slice(0, MAX_LENGTH) + '...').split(`\r\n`)

@@ -21,13 +21,23 @@
   @include t {
     flex-direction: column;
   }
+  
+  @include m {
+    gap: 8px;
+  }
 }
-
 
 .sideBlock {
   @include t {
     display: flex;
     justify-content: space-between;
+  }
+  
+  @include m {
+    background: white;
+    padding: 16px;    
+    flex-direction: column;
+    gap: 16px;
   }
 }
 
@@ -40,6 +50,10 @@
 
   @include t {
     width: 250px;
+  }
+  
+  @include m {    
+      width: 100%;    
   }
 }
 
@@ -58,5 +72,22 @@
   }
   &:active {
     box-shadow: 0px 6px 7px 0px rgba(62, 80, 103, 0.08);
+  }
+  
+  @include m {
+    margin-bottom: 35px;
+  }
+}
+
+.mobileTitle {
+  display: none;
+
+  @include m {
+    display: block;
+    color: rgb(19, 29, 42);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    margin-bottom: 8px;
   }
 }

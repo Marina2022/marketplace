@@ -1,5 +1,11 @@
 @import '@/assets/styles/mixins';
 
+.details {
+  
+  @include m {
+    display: none;
+  }
+}
 
 .row {
   display: flex;

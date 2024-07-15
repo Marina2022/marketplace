@@ -1,6 +1,21 @@
+@import '@/assets/styles/mixins';
+
 .questionWrapper {
   padding: 17px 11px 30px 11px;
-  border-bottom: #E1E1E1 1px solid;
+  border-bottom: rgb(240, 241, 241) 1px solid;
+  
+  @include m {
+    background: white;
+    padding: 16px;
+    margin-bottom: 8px;
+    border-top: rgb(240, 241, 241) 1px solid;
+    
+    &:last-child {
+      margin-bottom: 12px;
+    }
+
+    
+  }
 }
 
 .questionHeader {

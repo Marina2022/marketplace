@@ -24,6 +24,10 @@
 .wrapper {
   margin-bottom: 25px;
   padding-bottom: 20px;
+  
+  @include m {
+    margin-bottom: 0;
+  }
 }
 
 .textBlock {

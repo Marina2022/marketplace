@@ -5,6 +5,8 @@ import CollapsableTab from "@/components/ProductPage/DetailedInfo/MobileAccordio
 import Overview from "@/components/ProductPage/DetailedInfo/tabsContent/Overview/Overview.jsx";
 import Characteristics from "@/components/ProductPage/DetailedInfo/tabsContent/Characteristics/Characteristics.jsx";
 import MobileReviews from "@/components/ProductPage/DetailedInfo/MobileAccordion/MobileReviews/MobileReviews.jsx";
+import MobileQuestions from "@/components/ProductPage/DetailedInfo/MobileAccordion/MobileQuestions/MobileQuestions.jsx";
+import About from "@/components/ProductPage/DetailedInfo/tabsContent/About/About.jsx";
 
 const AllCharacteristics = ({product}) => {
   return (
@@ -13,6 +15,11 @@ const AllCharacteristics = ({product}) => {
       <Characteristics product={product} />
 
       <MobileReviews product={product} />
+      <MobileQuestions product={product} />
+
+      {
+        product.productVendor.isCompanyAboutShown && <About product={product}/>
+      }
       
     </CollapsableTab>
   );

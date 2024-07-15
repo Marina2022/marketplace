@@ -77,6 +77,7 @@ const Questions = ({product}) => {
     <div className={s.reviews}>
       <div className={s.globalWrapper}>
         <div className={s.sideBlock}>
+          <h3 className={s.mobileTitle}>Вопросы</h3>
           <Button className={s.writeQuestionBtn}>
             <img src={penIcon} alt="icon"/>
             <span>Задать&nbsp;вопрос</span>

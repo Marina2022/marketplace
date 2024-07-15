@@ -1,3 +1,5 @@
+@import '@/assets/styles/mixins';
+
 .answers {
   margin-top: 40px;
 }
@@ -6,6 +8,10 @@
   margin-left: 30px;
   border-left: #E1E1E1 3px solid;
   padding-left: 20px;
+  
+  @include m {
+    margin-left: 10px;
+  }
 }
 
 .answerHeader {

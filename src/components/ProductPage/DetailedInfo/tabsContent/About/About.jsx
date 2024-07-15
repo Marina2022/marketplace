@@ -1,6 +1,5 @@
 import s from './About.module.scss';
 import {useEffect, useState} from "react";
-import {setRequestString, setReviews} from "@/store/reviewsSlice.js";
 import axiosInstance from "@/api/axiosInstance.js";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import {BASE_URL} from "@/consts/baseURL.js";
@@ -13,7 +12,7 @@ const About = ({product}) => {
   const [error, setError] = useState(null)
   const [company, setCompany] = useState(null)
 
-
+  
   useEffect(() => {
     const getData = async () => {
 
@@ -22,7 +21,6 @@ const About = ({product}) => {
 
       setIsLoading(true)
       setError(false)
-
 
       try {
         
@@ -47,7 +45,6 @@ const About = ({product}) => {
     <div className={s.about}>
       <h2 className={s.title}>О компании</h2>
       <div className={s.topBlock}>
-
         <div className={s.imgWrapper}>
           <img className={s.profileImage} src={`${BASE_URL}${company.galery[1].images[0].imageUrl}`}
                alt={company.galery[1].images[0].imageName}/>
@@ -60,7 +57,7 @@ const About = ({product}) => {
       
       <h3 className={s.certTitle}>Сертификаты</h3>
       
-      <ul>
+      <ul className={s.certList}>
         {
 
           company.galery[2].images.map((img,i)=> <img key={i} className={s.certImg} src={`${BASE_URL}${img.imageUrl}`} alt={img.imageName}/>)

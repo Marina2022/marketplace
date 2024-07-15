@@ -1,12 +1,11 @@
 .wrapper {
-  display: flex;
+  //display: flex;
   gap: 8px;
   align-items: center;
   padding: 16px;
   border-top: 1px #F0F1F1 solid;
   border-bottom: 1px #F0F1F1 solid;
-  background: white;
-  
+  background: white;  
 }
 
 .title {
@@ -14,4 +13,26 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 19px;
+  margin-bottom: 8px;
+}
+
+.headerDetails {
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  color: #131D2A;
+  flex:1;
+  gap: 3px;
+  align-items: center;
+}
+
+.averageRating {
+  margin-right: 1px;
+}
+
+.ratingWrapper {
+  display: flex;
+  flex:1;
+  justify-content: space-between;
+  align-items: center;
 }

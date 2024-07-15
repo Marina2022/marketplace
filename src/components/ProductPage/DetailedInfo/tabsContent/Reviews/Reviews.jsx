@@ -114,7 +114,6 @@ const Reviews = ({product}) => {
           <ReviewsSort sortColumn={sortColumn} setSortColumn={setSortColumn} sortOrder={sortOrder}
                        setSortOrder={setSortOrder}/>
           <ReviewsList reviews={reviews} productId={product.productId}/>
-
           {
             showMoreBtn && <button className={s.moreBtn} onClick={showMoreHandler}>
               {
@@ -122,7 +121,6 @@ const Reviews = ({product}) => {
               }
             </button>
           }
-
         </div>
       </div>
     </div>

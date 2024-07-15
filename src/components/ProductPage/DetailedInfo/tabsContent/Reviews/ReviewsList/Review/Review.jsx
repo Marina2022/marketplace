@@ -9,6 +9,9 @@ import ReviewAnswers
   from "@/components/ProductPage/DetailedInfo/tabsContent/Reviews/ReviewsList/Review/ReviewAnswers/ReviewAnswers.jsx";
 
 const Review = ({review, productId}) => {
+  
+  const MAX_LENGTH = 268  
+  
   return (
     <li className={s.reviewWrapper}>
       <div className={s.reviewHeader}>
@@ -30,7 +33,7 @@ const Review = ({review, productId}) => {
         review.advantages && (
           <>
             <h3 className={s.subtitle}>Достоинства</h3>
-            <CollapsableText className={s.collapsableText} text={review.advantages} maxLength={268}/>
+            <CollapsableText className={s.collapsableText} text={review.advantages} maxLength={MAX_LENGTH}/>
           </>
         )
       }
@@ -40,7 +43,7 @@ const Review = ({review, productId}) => {
         review.disadvantages && (
           <>
             <h3 className={s.subtitle}>Недостатки</h3>
-            <CollapsableText className={s.collapsableText} text={review.disadvantages} maxLength={268}/>
+            <CollapsableText className={s.collapsableText} text={review.disadvantages} maxLength={MAX_LENGTH}/>
           </>
         )
       }
@@ -50,7 +53,7 @@ const Review = ({review, productId}) => {
         review.comment && (
           <>
             <h3 className={s.subtitle}>Комментарий</h3>
-            <CollapsableText className={s.collapsableText} text={review.comment} maxLength={268}/>
+            <CollapsableText className={s.collapsableText} text={review.comment} maxLength={MAX_LENGTH}/>
           </>
         )
       }

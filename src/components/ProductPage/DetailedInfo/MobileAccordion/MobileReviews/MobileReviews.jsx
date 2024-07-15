@@ -5,10 +5,8 @@ import ReviewsHeaderComponent
 
 const MobileReviews = ({product}) => {
   return (
-    <CollapsableTab ClosedStateComponent={ReviewsHeaderComponent}>
-
-      <Reviews product={product}  />     
-
+    <CollapsableTab ClosedStateComponent={ReviewsHeaderComponent} product={product} >
+      <Reviews product={product}/>     
     </CollapsableTab>
   );
 };

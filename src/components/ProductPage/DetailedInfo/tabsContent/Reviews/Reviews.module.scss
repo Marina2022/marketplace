@@ -38,6 +38,7 @@
 
   @include m {
     gap: 8px;
+    margin-bottom: 12px;
   }
 }
 
@@ -112,7 +113,8 @@
   @include m {
     width: calc(100% - 32px);
     display: block;
-    margin-inline: auto;
+    margin-inline: auto;    
+    margin-bottom: 27px;
   }
 }
 
