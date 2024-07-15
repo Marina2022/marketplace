@@ -1,3 +1,9 @@
+@import '@/assets/styles/mixins';
+
 .answers {
   margin-top: 40px;
+  
+  @include m {
+    margin-top: 20px;
+  }
 }

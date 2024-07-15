@@ -1,7 +1,7 @@
 import {useParams, useSearchParams} from "react-router-dom";
 import s from './ProductPage.module.scss'
 import BreadCrumbs from "@/components/CategoryBlock/BreadCrumbs/BreadCrumbs.jsx";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import ProductPageSlider from "@/components/ProductPage/ProductPageSlider/ProductPageSlider.jsx";
 import ProductHeader from "@/components/ProductPage/ProductHeader/ProductHeader.jsx";
@@ -59,11 +59,16 @@ const ProductPage = () => {
   const [product, setProduct] = useState(null)
   const {slug: productHandle} = useParams()
 
-
   const [sku, setSku] = useState(null)
-  // const [sku, setSku] = useState('58745219')
 
-
+  // const [tabIsOpen, setTabIsOpen] = useState(null)
+  const [currentTab, setCurrentTab] = useState(0)
+      
+  const [mobileAllTabIsOpen, setMobileAllTabisOpen] = useState(false) 
+  const [mobileReviewsTabIsOpen, setMobileReviewsTabIsOpen] = useState(false) 
+  const [mobileQuestionsTabIsOpen, setMobileQuestionsTabIsOpen] = useState(false) 
+    
+  
   useEffect(() => {
     const getData = async () => {
 
@@ -119,41 +124,29 @@ const ProductPage = () => {
     getData()
   }, [searchParams]);
 
-
+    
   const handleOptionClick = ({optionName, optionValue, optionLabel}) => {
-
     const currentOptionValues = product.options.find(item => item.sku === sku).values
-
     const wantedOptionValues = JSON.parse(JSON.stringify(currentOptionValues))
-
     const wantedItemToChange = wantedOptionValues.find(item => item.optionHandle === optionName)
     wantedItemToChange.value.val = optionValue
 
     wantedItemToChange.value.label = optionLabel
-
-
-    // // хотим получить комбинацию максимально близкую к этой: 
-    // //console.log('wantedOptionValues', wantedOptionValues)
-
+        
     const newSku = findClosestOption(product.options, wantedOptionValues, optionName)
-    console.log("новый sku будет таким: ", newSku)
-    console.log("новый sku sku будет таким: ", newSku.sku)
-
-
-    // после засета подкгрузка пойдет, пока не сетай
-    // setSku(newSku)
-
-
+    
     setSearchParams({sku: newSku.sku})
     setSku(newSku.sku)
-    // setPath([])
   }
 
-
+  const reviewsRef = useRef()
+  const questionsRef = useRef()
+  
   if (!product)
     return <Spinner className={s.spinner}/>
 
-
+  
+  
   return (
 
     <div className={s.productPageWrapper}>
@@ -161,11 +154,29 @@ const ProductPage = () => {
         <BreadCrumbs path={path} productBreadCrumbs={true} className={s.breadCrumbs} loading={isLoading}/>
         <div className={s.productMain}>
           <div className={s.productWrapper}>
-            <ProductHeader product={product}/>
+            <ProductHeader
+              reviewsRef = {reviewsRef} questionsRef={questionsRef}
+              product={product} 
+              setCurrentTab={setCurrentTab}                   
+              setMobileAllTabisOpen={setMobileAllTabisOpen}              
+              setMobileReviewsTabIsOpen={setMobileReviewsTabIsOpen}              
+              setMobileQuestionsTabIsOpen={setMobileQuestionsTabIsOpen}
+            />
             <ProductPageSlider images={product.productImages} productId={product.productVariantId}
                                isFavourite={product.isFavourite}/>
-            <Details product={product} sku={sku} handleOptionClick={handleOptionClick}/>
-            <DetailedInfo product={product}/>
+            <Details product={product} sku={sku} handleOptionClick={handleOptionClick}   />
+            <DetailedInfo 
+              product={product} 
+              currentTab={currentTab} 
+              setCurrentTab={setCurrentTab}
+              reviewsRef = {reviewsRef} questionsRef={questionsRef}
+              mobileAllTabIsOpen={mobileAllTabIsOpen}
+              setMobileAllTabisOpen={setMobileAllTabisOpen}
+              mobileReviewsTabIsOpen={mobileReviewsTabIsOpen}
+              setMobileReviewsTabIsOpen={setMobileReviewsTabIsOpen}
+              mobileQuestionsTabIsOpen={mobileQuestionsTabIsOpen}
+              setMobileQuestionsTabIsOpen={setMobileQuestionsTabIsOpen}
+            />
           </div>
           <RightSidebar product={product}/>
         </div>

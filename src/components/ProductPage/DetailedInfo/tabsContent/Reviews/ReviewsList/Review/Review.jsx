@@ -26,8 +26,12 @@ const Review = ({review, productId}) => {
         review.reviewImages.length > 0 && <ReviewImages images={review.reviewImages}/>
       }
 
-      <h3 className={s.subtitle}>Опыт использования</h3>
-      <div className={s.text}>{review.experience}</div>
+      {
+        review.experience && <>
+          <h3 className={s.subtitle}>Опыт использования</h3>
+          <div className={s.text}>{review.experience}</div>
+        </>
+      }
 
       {
         review.advantages && (
@@ -38,7 +42,6 @@ const Review = ({review, productId}) => {
         )
       }
       
-
       {
         review.disadvantages && (
           <>
@@ -48,7 +51,6 @@ const Review = ({review, productId}) => {
         )
       }
 
-
       {
         review.comment && (
           <>
@@ -57,8 +59,10 @@ const Review = ({review, productId}) => {
           </>
         )
       }
-
-      <ReviewLikes review={review} productId={productId} />
+      
+      {
+        (review.advantages || review.disadvantages || review.comment) &&  <ReviewLikes review={review} productId={productId} /> 
+      }     
 
       {
         review.reviewAnswers.length > 0 && <ReviewAnswers answers={review.reviewAnswers} productId={productId} />

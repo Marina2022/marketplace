@@ -2,10 +2,11 @@
 
 .noReviews {
   color: rgb(19, 29, 42);
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 500;
   line-height: 29px;
   margin-bottom: 24px;
+  min-height: 400px;
 
   @include m {
     padding: 16px;
@@ -44,7 +45,10 @@
 
 
 .sideBlock {
+  width: 250px;
+  
   @include t {
+    width: unset;
     display: flex;
     justify-content: space-between;
   }
@@ -114,7 +118,8 @@
     width: calc(100% - 32px);
     display: block;
     margin-inline: auto;    
-    margin-bottom: 27px;
+    margin-bottom: 0px;
+    margin-top: 24px;
   }
 }
 
@@ -128,5 +133,18 @@
     font-weight: 500;
     line-height: 19px;
     margin-bottom: 8px;
+  }
+}
+
+.mobileHeader {
+  display:  none;
+  
+  @include m {
+    display: block;
+    color: rgb(19, 29, 42);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    margin-bottom: 20px;
   }
 }

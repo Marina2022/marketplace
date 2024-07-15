@@ -11,9 +11,6 @@ const Rating = ({rating, gap=5}) => {
           return <img src={rating >= i+1 ? starFull : starEmpty} key={i} /> 
         })    
       }
-    
-      
-      
     </div>
   );
 };

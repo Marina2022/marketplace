@@ -67,3 +67,11 @@
     display: none;
   }
 }
+
+.noRating {
+  cursor: pointer;
+  
+  &:hover {
+    color: black;
+  }
+}

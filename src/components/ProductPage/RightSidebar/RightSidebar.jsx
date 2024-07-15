@@ -14,9 +14,7 @@ const RightSidebar = ({product}) => {
       
       {
         product.productVendor.isSideInfoShown && <VendorInfo vendor={product.productVendor} />
-      }
-      
-      
+      }            
     </div>
   );
 };

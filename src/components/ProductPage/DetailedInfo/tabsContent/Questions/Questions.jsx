@@ -7,7 +7,7 @@ import penIcon from '@/assets/img/penIcon.svg'
 import QuestionList from "@/components/ProductPage/DetailedInfo/tabsContent/Questions/QuestionList/QuestionList.jsx";
 import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 
-const Questions = ({product}) => {
+const Questions = ({product, questionsRef}) => {
 
   const PAGE_SIZE = 10
 
@@ -71,10 +71,24 @@ const Questions = ({product}) => {
   }
 
   if (isLoading && pagesCount === 0) return <Spinner className={s.spinner}/>
-  if (error) return <div className={s.noQuestions}>{error}</div>
+
+
+  if (error) return <div className={s.globalWrapper} ref={questionsRef} >
+    <div className={s.sideBlock}>
+      <h3 className={s.mobileHeader}>Вопросы</h3>
+      <Button className={s.writeQuestionBtn}>
+        <img src={penIcon} alt="icon"/>
+        <span>Задать&nbsp;вопрос</span>
+      </Button>
+    </div>
+    {
+      window.innerWidth > 960 && !(questions?.length > 0)  && <div className={s.noQuestions}>{error}</div>
+    }
+  </div>
+   
 
   return (
-    <div className={s.reviews}>
+    <div className={s.reviews}  >
       <div className={s.globalWrapper}>
         <div className={s.sideBlock}>
           <h3 className={s.mobileTitle}>Вопросы</h3>

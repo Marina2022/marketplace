@@ -3,10 +3,10 @@ import QuestionsHeaderComponent
   from "@/components/ProductPage/DetailedInfo/MobileAccordion/MobileQuestions/QuestionsHeaderComponent/QuestionsHeaderComponent.jsx";
 import Questions from "@/components/ProductPage/DetailedInfo/tabsContent/Questions/Questions.jsx";
 
-const MobileQuestions = ({product}) => {
+const MobileQuestions = ({product, mobileQuestionsTabIsOpen, setMobileQuestionsTabIsOpen, questionsRef}) => {
   return (
-    <CollapsableTab ClosedStateComponent={QuestionsHeaderComponent} product={product}>
-      <Questions product={product}/>
+    <CollapsableTab ClosedStateComponent={QuestionsHeaderComponent} product={product} tabIsOpen={mobileQuestionsTabIsOpen} setTabIsOpen={setMobileQuestionsTabIsOpen}>
+      <Questions product={product} questionsRef={questionsRef}/>
     </CollapsableTab>
   );
 };

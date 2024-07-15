@@ -3,10 +3,14 @@ import Reviews from "@/components/ProductPage/DetailedInfo/tabsContent/Reviews/R
 import ReviewsHeaderComponent
   from "@/components/ProductPage/DetailedInfo/MobileAccordion/MobileReviews/ReviewsHeaderComponent/ReviewsHeaderComponent.jsx";
 
-const MobileReviews = ({product}) => {
+const MobileReviews = ({product, mobileReviewsTabIsOpen, setMobileReviewsTabIsOpen, reviewsRef}) => {
   return (
-    <CollapsableTab ClosedStateComponent={ReviewsHeaderComponent} product={product} >
-      <Reviews product={product}/>     
+    <CollapsableTab 
+      ClosedStateComponent={ReviewsHeaderComponent} 
+      product={product} 
+      tabIsOpen={mobileReviewsTabIsOpen} 
+      setTabIsOpen={setMobileReviewsTabIsOpen} >
+      <Reviews product={product} reviewsRef={reviewsRef}/>     
     </CollapsableTab>
   );
 };

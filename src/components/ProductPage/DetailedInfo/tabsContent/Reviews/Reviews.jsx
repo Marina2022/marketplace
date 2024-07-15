@@ -13,7 +13,7 @@ import penIcon from '@/assets/img/penIcon.svg'
 import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 
 
-const Reviews = ({product}) => {
+const Reviews = ({product, reviewsRef}) => {
 
   const PAGE_SIZE = 10
 
@@ -86,15 +86,28 @@ const Reviews = ({product}) => {
     getData()
   }, [sortColumn, sortOrder, cursor]);
 
+
   const showMoreHandler = () => {
     setCursor((pagesCount + 1) * PAGE_SIZE)
   }
 
   if (isLoading && pagesCount === 0) return <Spinner className={s.spinner}/>
-  if (error) return <div className={s.noReviews}>{error}</div>
+  if (error) return <div className={s.globalWrapper} ref={reviewsRef} >
+    <div className={s.sideBlock}>
+      <h3 className={s.mobileHeader}>Отзывы</h3>
+      <Button className={s.writeReviewBtn}>
+        <img src={penIcon} alt="icon"/>
+        <span>Написать&nbsp;отзыв</span>
+      </Button>
+    </div>
+    {
+      window.innerWidth > 960 && !(reviews.length > 0) && <div className={s.noReviews}>{error}</div>
+    }
+  </div>
+
 
   return (
-    <div className={s.reviews}>
+    <div className={s.reviews} >
       <div className={s.globalWrapper}>
         <div className={s.sideBlock}>
           <div className={s.forTabletLeftBlock}>

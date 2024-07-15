@@ -1,23 +1,54 @@
 import dropdownBtn from '@/assets/img/dropdownBtn.svg'
 
 import s from './CollapsableTab.module.scss';
-import {useState} from "react";
+import {useEffect, useRef} from "react";
 
-const CollapsableTab = ({children, ClosedStateComponent, product}) => {
-  const [tabIsOpen, setTabIsOpen] = useState(false)
+const CollapsableTab = ({
+                          children,
+                          ClosedStateComponent,
+                          product,
+                          setTabIsOpen,
+                          tabIsOpen,
+                          ifAllTab,
+                          setMobileReviewsTabIsOpen,
+                          setMobileQuestionsTabIsOpen
+                        }) => {
+
+  const ref = useRef(null)
+
+  useEffect(() => {
+    if (tabIsOpen && ref.current && !ifAllTab) {
+      ref.current.scrollIntoView({behavior: 'smooth'});
+    }
+  }, [tabIsOpen, ref.current]);
 
   const toggleBtnHandler = () => {
-    setTabIsOpen(prev => !prev)
+    if (ifAllTab) {
+
+      if (!tabIsOpen) {
+        setTabIsOpen(true)
+      } else {
+        setMobileReviewsTabIsOpen(false)
+        setMobileQuestionsTabIsOpen(false)
+        setTabIsOpen(false)
+      }
+
+
+    } else {
+      setTabIsOpen(prev => !prev)
+    }
+
   }
-  
+
   return (
-    <div className={s.wrapper}>
+    <div className={s.wrapper} ref={ref}>
       <div>
-        <button onClick={toggleBtnHandler} className={tabIsOpen ? s.openBtnActive : s.openBtn}><img src={dropdownBtn} alt="dropdown button"/>
+        <button onClick={toggleBtnHandler} className={tabIsOpen ? s.openBtnActive : s.openBtn}><img src={dropdownBtn}
+                                                                                                    alt="dropdown button"/>
         </button>
         {
           // !tabIsOpen && <ClosedStateComponent  />
-          !tabIsOpen && ClosedStateComponent({product: product})  
+          !tabIsOpen && ClosedStateComponent({product: product})
         }
       </div>
 
