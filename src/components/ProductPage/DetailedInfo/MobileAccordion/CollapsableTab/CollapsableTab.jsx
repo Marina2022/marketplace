@@ -2,7 +2,6 @@ import dropdownBtn from '@/assets/img/dropdownBtn.svg'
 
 import s from './CollapsableTab.module.scss';
 import {useEffect, useRef} from "react";
-
 const CollapsableTab = ({
                           children,
                           ClosedStateComponent,
@@ -17,18 +16,13 @@ const CollapsableTab = ({
 
   useEffect(() => {
     if (tabIsOpen && ref.current && !ifAllTab) {      
-        //ref.current.scrollIntoView({behavior: 'smooth'});
-
-      const top = ref.current.getBoundingClientRect().top;
-
-      window.scrollBy({
-        top: top - 100,
-        behavior: 'smooth' 
-      });
-        
-        
+        const top = ref.current.getBoundingClientRect().top;
+        window.scrollBy({
+          top: top,
+          behavior: 'smooth'
+        });        
     }
-  }, [tabIsOpen, ref.current]);
+  }, [tabIsOpen]);
 
   const toggleBtnHandler = () => {
     if (ifAllTab) {
