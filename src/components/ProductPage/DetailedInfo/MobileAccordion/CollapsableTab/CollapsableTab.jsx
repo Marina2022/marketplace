@@ -19,6 +19,7 @@ const CollapsableTab = ({
   useEffect(() => {
     if (tabIsOpen && ref.current && !ifAllTab) {
       ref.current.scrollIntoView({behavior: 'smooth'});
+      ref.current.scrollIntoView({behavior: 'smooth'});
     }
   }, [tabIsOpen, ref.current]);
 
