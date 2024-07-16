@@ -46,7 +46,7 @@ const Questions = ({product, questionsRef}) => {
       } catch (err) {
         console.log('err = ', err)
 
-        if (err.response.status === 400) {  // description в ошибке не приходит, как для Отзывов
+        if (err.response.data.error.description === "No found product questions") {  // description в ошибке не приходит, как для Отзывов
           setError('Вопросов пока еще нет')
         } else {
           setError('Произошла ошибка')
