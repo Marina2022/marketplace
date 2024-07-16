@@ -19,17 +19,17 @@
   }
 }
 
-
 .title {
   font-size: 28px;
   font-weight: 600;
   line-height: 34px;
   color: rgb(19, 29, 42);
-  margin-bottom: 5px;
+  margin-bottom: 15px;  
 
   @include t {
     margin-bottom: 8px;
-
+    margin-top: 15px;
+    
   }
 
   @include m {

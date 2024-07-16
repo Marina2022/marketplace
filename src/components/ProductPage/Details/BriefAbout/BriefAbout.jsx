@@ -4,7 +4,6 @@ const BriefAbout = ({features}) => {
   return (
     <div className={s.wrapper}>
       <h2 className={s.title}>Коротко о товаре</h2>
-
       {
         features.map((feature, i) => {
           return <div key={i} className={s.row}>
@@ -14,8 +13,6 @@ const BriefAbout = ({features}) => {
           </div>
         })
       }
-
-
     </div>
   );
 };

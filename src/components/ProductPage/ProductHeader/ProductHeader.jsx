@@ -9,8 +9,7 @@ const ProductHeader = ({
                          setMobileAllTabisOpen,
                          setMobileReviewsTabIsOpen,
                          setMobileQuestionsTabIsOpen,
-                         reviewsRef, questionsRef
-  
+                         reviewsRef, questionsRef  
                        }) => {
   const isMobile = useMobileScreen()
   const noRatingClickHandler = () => {
@@ -28,10 +27,8 @@ const ProductHeader = ({
         reviewsRef.current.scrollIntoView({behavior: "smooth"})
       }
     }
-
     setCurrentTab(2)
   }
-
   const noQuestionsClickHandler = () => {
     if (window.innerWidth > 960) {
       window.scrollTo({
@@ -45,12 +42,10 @@ const ProductHeader = ({
 
       if (questionsRef.current) {
         questionsRef.current.scrollIntoView({behavior: "smooth"})
-      }
-      
+      }      
     }
     setCurrentTab(3)
   }
-
 
   return (
     <div className={s.header}>
@@ -92,8 +87,6 @@ const ProductHeader = ({
         {
           !product.questionCount && <div onClick={noQuestionsClickHandler} className={s.noRating}>Задать вопрос</div>
         }
-
-
       </div>
     </div>
   );

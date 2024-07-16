@@ -41,13 +41,16 @@
   outline-offset: 1px;
 }
 
-
 .title {
   color: #131D2A;
   font-size: 14px;
   margin-bottom: 15px;
   font-weight: 400;
 
+  @include t {
+    margin-bottom: 8px;
+  }
+  
   @include m {
     margin-bottom: 6px;
   }

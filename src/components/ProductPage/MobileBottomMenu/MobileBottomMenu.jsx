@@ -9,7 +9,6 @@ const MobileBottomMenu = () => {
   return (
     <div className={s.menuWrapper}>
       <div className={s.gray}>
-
       </div>
       <ul className={s.menu}>
         <li>

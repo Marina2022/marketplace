@@ -1,7 +1,7 @@
 @import '@/assets/styles/mixins';
 
 .slider {
-  width: 314px;
+  width: 312px;
   height: 314px;
   
   @include m {    
@@ -15,7 +15,7 @@
   display: flex;
 }
 
-.slideImage {
+.slideImage {  
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;  
@@ -24,7 +24,8 @@
 
 .wrapper {
   position: relative;
-  width: 100%;  
+  width: 100%;
+  //max-width: calc(100% - 4px);
 }
 
 .pagination {
@@ -32,8 +33,7 @@
   gap: 5px;  
   z-index: 2;  
   margin-block: 11px;
-  justify-content: center;
-  
+  justify-content: center;  
 }
 
 .pagItem {

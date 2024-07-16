@@ -3,7 +3,7 @@
 .productPageWrapper {
   padding-bottom: 50px;
   @include m {
-    padding-bottom: 220px;
+    padding-bottom: 224px;
   }
 }
 
@@ -50,8 +50,10 @@
 }
 
 .viewed {
-  
+  margin-top: 66px;
   @include m {
+
+    margin-top: 0px;
     padding-inline: 16px;
   }
 }

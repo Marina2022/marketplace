@@ -1,6 +1,5 @@
 import s from './ReviewsList.module.scss';
 import Review from "@/components/ProductPage/DetailedInfo/tabsContent/Reviews/ReviewsList/Review/Review.jsx";
-
 const ReviewsList = ({reviews, productId}) => {
   return (
     <ul className={s.reviewsList}>
@@ -10,7 +9,6 @@ const ReviewsList = ({reviews, productId}) => {
         })
       }
     </ul>
-  );
-};
-
+  )
+}
 export default ReviewsList;

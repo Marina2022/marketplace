@@ -50,6 +50,10 @@
 .infoBlock {
   padding: 24px 14px;
   background: white;  
+  
+  @include t {
+    padding: 20px 14px;
+  }
 }
 
 .row {
@@ -101,6 +105,15 @@
   margin-top: 15px;
   border-top: 1px #F0F1F1 solid;
   padding-top: 15px;
+  
+  @include t {
+    padding-top: 10px;
+  }
+
+  @include m {
+    padding-top: 16px;
+    margin-top: 20px;
+  }
 }
 
 .businessType {
@@ -141,10 +154,28 @@
 
 .additionalInfoLabel {
   color: rgb(19, 29, 42);  
+  
+  @include t {
+    font-size: 10px;
+  }
+  
+  @include m {
+    font-size: 14px;
+  }
 }
 
 .additionalInfoValue {
   color: #658092;
+
+  @include t {
+    font-size: 10px;
+    margin-left: auto;
+  }
+
+  @include m {
+    font-size: 14px;
+    margin-left: 10px;
+  }
 }
 
 .check {

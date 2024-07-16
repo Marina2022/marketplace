@@ -1,13 +1,10 @@
 import s from './Question.module.scss';
-import ReviewAnswers
-  from "@/components/ProductPage/DetailedInfo/tabsContent/Reviews/ReviewsList/Review/ReviewAnswers/ReviewAnswers.jsx";
 import QuestionAnswers
   from "@/components/ProductPage/DetailedInfo/tabsContent/Questions/QuestionList/Question/QuestionAnswer/QuestionAnswers.jsx";
 
 const Question = ({question, productId}) => {
 
   //productId - потом для запроса на добавление нового вопроса понадобится
-
   return (
     <li className={s.questionWrapper}>
       <div className={s.questionHeader}>

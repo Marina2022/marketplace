@@ -7,27 +7,38 @@ import MobileReviews from "@/components/ProductPage/DetailedInfo/MobileAccordion
 import MobileQuestions from "@/components/ProductPage/DetailedInfo/MobileAccordion/MobileQuestions/MobileQuestions.jsx";
 import About from "@/components/ProductPage/DetailedInfo/tabsContent/About/About.jsx";
 
-const AllCharacteristics = ({product, mobileAllTabIsOpen, setMobileAllTabisOpen, mobileReviewsTabIsOpen,
+const AllCharacteristics = ({
+                              product, mobileAllTabIsOpen, setMobileAllTabisOpen, mobileReviewsTabIsOpen,
                               setMobileReviewsTabIsOpen, mobileQuestionsTabIsOpen, setMobileQuestionsTabIsOpen,
                               reviewsRef, questionsRef
                             }) => {
-
   return (
-    <CollapsableTab 
-      ClosedStateComponent={CharsHeaderComponent} 
-                    setTabIsOpen={setMobileAllTabisOpen} tabIsOpen={mobileAllTabIsOpen} ifAllTab={true}
-      setMobileReviewsTabIsOpen={setMobileReviewsTabIsOpen} setMobileQuestionsTabIsOpen={setMobileQuestionsTabIsOpen}
-    >      
-      <Overview product={product} textSize={554} />
-      <Characteristics product={product} />
+    <CollapsableTab
+      ClosedStateComponent={CharsHeaderComponent}
+      setTabIsOpen={setMobileAllTabisOpen}
+      tabIsOpen={mobileAllTabIsOpen}
+      ifAllTab={true}
+      setMobileReviewsTabIsOpen={setMobileReviewsTabIsOpen}
+      setMobileQuestionsTabIsOpen={setMobileQuestionsTabIsOpen}
+    >
+      <Overview product={product} textSize={554}/>
+      <Characteristics product={product}/>
 
-      <MobileReviews product={product} mobileReviewsTabIsOpen={mobileReviewsTabIsOpen} setMobileReviewsTabIsOpen={setMobileReviewsTabIsOpen} reviewsRef={reviewsRef} />
-      <MobileQuestions product={product} mobileQuestionsTabIsOpen={mobileQuestionsTabIsOpen} setMobileQuestionsTabIsOpen={setMobileQuestionsTabIsOpen} questionsRef={questionsRef} />
+      <MobileReviews
+        product={product}
+        mobileReviewsTabIsOpen={mobileReviewsTabIsOpen}
+        setMobileReviewsTabIsOpen={setMobileReviewsTabIsOpen} r
+        eviewsRef={reviewsRef}/>
+      <MobileQuestions
+        product={product}
+        mobileQuestionsTabIsOpen={mobileQuestionsTabIsOpen}
+        setMobileQuestionsTabIsOpen={setMobileQuestionsTabIsOpen}
+        questionsRef={questionsRef}/>
 
       {
         product.productVendor.isCompanyAboutShown && <About product={product}/>
       }
-      
+
     </CollapsableTab>
   );
 };

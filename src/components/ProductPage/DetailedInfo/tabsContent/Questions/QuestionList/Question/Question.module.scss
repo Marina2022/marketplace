@@ -1,8 +1,12 @@
 @import '@/assets/styles/mixins';
 
 .questionWrapper {
-  padding: 17px 11px 30px 11px;
+  padding: 31px 11px 30px 11px;
   border-bottom: rgb(240, 241, 241) 1px solid;
+  
+  &:first-child {
+    padding-top: 0;    
+  }
   
   @include m {
     background: white;
@@ -12,9 +16,7 @@
     
     &:last-child {
       margin-bottom: 12px;
-    }
-
-    
+    }   
   }
 }
 

@@ -1,4 +1,3 @@
-import Review from "@/components/ProductPage/DetailedInfo/tabsContent/Reviews/ReviewsList/Review/Review.jsx";
 import Question from "@/components/ProductPage/DetailedInfo/tabsContent/Questions/QuestionList/Question/Question.jsx";
 
 const QuestionList = ({questions, productId }) => {

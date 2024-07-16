@@ -1,7 +1,6 @@
 import s from './ReviewAnswers.module.scss';
 import ReviewAnswer
   from "@/components/ProductPage/DetailedInfo/tabsContent/Reviews/ReviewsList/Review/ReviewAnswers/ReviewAnswer/ReviewAnswer.jsx";
-
 const ReviewAnswers = ({answers, productId}) => {
   return (
     <ul className={s.answers}>
@@ -11,5 +10,4 @@ const ReviewAnswers = ({answers, productId}) => {
     </ul>
   );
 };
-
 export default ReviewAnswers;

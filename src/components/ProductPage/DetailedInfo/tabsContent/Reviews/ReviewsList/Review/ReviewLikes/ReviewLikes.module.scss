@@ -2,8 +2,13 @@
 
 .wrapper {
   display: flex;
-  gap: 12px;
+  gap: 24px;
   align-items: center;
+  
+  @include m {
+    margin-top: 25px;
+  }
+  
 }
 
 .likesGroup {

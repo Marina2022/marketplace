@@ -23,7 +23,7 @@ const ReviewLikes = ({review, productId}) => {
     answerDislikes: [],
   }
 
-// объект будет отправлен на api opinion
+// этот объект будет отправлен на api opinion
   let opinionApiObj = {
     type: 'reviewLikes',
     reviewId: review.reviewId,
@@ -52,33 +52,25 @@ const ReviewLikes = ({review, productId}) => {
       newLikesObj.reviewLikes = newLikesObj.reviewLikes.filter(item => item !== review.reviewId)
       opinionApiObj.likes--
     }  
-      
-     // return // Второй лайк не принимаем
-            
+                      
     else if (userDislikesIt) {
-      // апдейт объекта - убрать айди Отзыва из массива дизлайков, добавить в массив лайков     
-      
+      // апдейт объекта - убрать айди Отзыва из массива дизлайков, добавить в массив лайков
       newLikesObj.reviewDislikes = newLikesObj.reviewDislikes.filter(item => item !== review.reviewId)
       newLikesObj.reviewLikes = [...newLikesObj.reviewLikes, review.reviewId]
 
       opinionApiObj.likes++
       opinionApiObj.dislikes--
     
-
     } else {
-      // апдейт объекта - добавить айди Отзыва в массив лайков
-      
+      // апдейт объекта - добавить айди Отзыва в массив лайков      
       newLikesObj.reviewLikes = [...newLikesObj.reviewLikes, review.reviewId]
       opinionApiObj.likes++     
-    }
-    
+    }    
     dispatch(updateLikes({newLikesObj, opinionApiObj, productId}))
   }
-
   const handleDislikeClick = async () => {
-
     let newLikesObj = {...likesObj}
-    
+   
     if (userDislikesIt) {
       newLikesObj.reviewDislikes = newLikesObj.reviewDislikes.filter(item => item !== review.reviewId)
       opinionApiObj.dislikes--
@@ -93,7 +85,6 @@ const ReviewLikes = ({review, productId}) => {
       opinionApiObj.likes--
 
     } else {
-
       // апдейт объекта - добавить айди Отзыва в массив дизлайков
       newLikesObj.reviewDislikes = [...newLikesObj.reviewDislikes, review.reviewId]
       opinionApiObj.dislikes++

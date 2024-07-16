@@ -56,8 +56,6 @@ const ProductMobileSlider = ({images, setSliderPopupIsOpen, setCurrentImage}) =>
         }
       </ul>
     </div>
-
-
   )
 }
 

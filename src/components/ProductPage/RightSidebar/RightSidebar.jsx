@@ -7,7 +7,6 @@ const RightSidebar = ({product}) => {
   return (
     <div className={s.rightSidebar}>
       <AddToCart product={product} />
-
       {
         product.productVendor.isContactShown && <WriteToSeller seller={product.productVendor} />
       }     

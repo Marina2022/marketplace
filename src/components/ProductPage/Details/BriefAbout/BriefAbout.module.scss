@@ -1,10 +1,9 @@
 @import '@/assets/styles/mixins';
 
 .wrapper {
-  max-width: 100%;
+  max-width: 447px;
   overflow: auto;
   margin-top: 24px;
-
 
   @include t {
     margin-top: 15px;
@@ -21,11 +20,14 @@
   font-size: 14px;
   margin-bottom: 15px;
   font-weight: 500;
+  
+  @include t {
+    margin-bottom: 15px;
+  }
 
   @include m {
     margin-bottom: 6px;
     font-size: 16px;
-
   }
 }
 
@@ -33,6 +35,11 @@
   font-size: 14px;
   display: flex;
   margin-bottom: 10px;
+  
+  @include t {
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
 
   @include m {
     margin-bottom: 5px;

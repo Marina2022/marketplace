@@ -6,16 +6,12 @@ import Button from "@/components/ui/Button/Button.jsx";
 import penIcon from '@/assets/img/penIcon.svg'
 import QuestionList from "@/components/ProductPage/DetailedInfo/tabsContent/Questions/QuestionList/QuestionList.jsx";
 import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
-
 const Questions = ({product, questionsRef}) => {
 
   const PAGE_SIZE = 10
-
   const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState(null)
-  
+  const [error, setError] = useState(null)  
   const [questions, setQuestions] = useState(null)
-
   const [cursorPaging, setCursorPaging] = useState(null)
   const [cursor, setCursor] = useState(0)
   const [pagesCount, setPagesCount] = useState(0)
@@ -45,9 +41,7 @@ const Questions = ({product, questionsRef}) => {
         if (productResponse.status === 200) {
           setQuestions(productResponse.data.productQuestions)
           setCursorPaging(productResponse.data.cursorPaging)
-
           setPagesCount(prev=>prev+1)
-
         } else throw new Error('response status not equal 200')
       } catch (err) {
         console.log('err = ', err)
@@ -62,7 +56,6 @@ const Questions = ({product, questionsRef}) => {
         setIsLoading(false)
       }
     }
-
     getData()
   }, [cursor]);
 
@@ -71,7 +64,6 @@ const Questions = ({product, questionsRef}) => {
   }
 
   if (isLoading && pagesCount === 0) return <Spinner className={s.spinner}/>
-
 
   if (error) return <div className={s.globalWrapper} ref={questionsRef} >
     <div className={s.sideBlock}>
@@ -84,8 +76,7 @@ const Questions = ({product, questionsRef}) => {
     {
       window.innerWidth > 960 && !(questions?.length > 0)  && <div className={s.noQuestions}>{error}</div>
     }
-  </div>
-   
+  </div>   
 
   return (
     <div className={s.reviews}  >
@@ -97,11 +88,9 @@ const Questions = ({product, questionsRef}) => {
             <span>Задать&nbsp;вопрос</span>
           </Button>
         </div>
-
         <div className={s.mainBlock}>
           <QuestionList questions={questions} productId ={product.productId} />
         </div>
-
         {
           showMoreBtn && <button className={s.moreBtn} onClick={showMoreHandler}>
             {

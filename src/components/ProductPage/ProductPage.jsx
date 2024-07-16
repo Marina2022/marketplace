@@ -183,7 +183,7 @@ const ProductPage = () => {
         <MobileBottomMenu/>
 
         <div className={s.viewed}>
-          {/*<ViewedProducts/>*/}
+          <ViewedProducts/>
         </div>
       </div>
     </div>

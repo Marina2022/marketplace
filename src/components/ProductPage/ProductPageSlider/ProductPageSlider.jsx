@@ -13,7 +13,6 @@ import FavButton from "@/components/ui/FavButton/FavButton.jsx";
 const ProductPageSlider = ({images, productId, isFavourite}) => {
 
   const [currentImage, setCurrentImage] = useState(undefined)
-
   const [sliderPopupIsOpen, setSliderPopupIsOpen] = useState(false)
 
   useEffect(() => {
@@ -30,19 +29,29 @@ const ProductPageSlider = ({images, productId, isFavourite}) => {
   if (isBigScreen) return (
     <>
       <div className={s.sliderBlock}>
-        <ProductPageThumbs images={images} currentImage={currentImage} setCurrentImage={setCurrentImage}
-                           setSliderPopupIsOpen={setSliderPopupIsOpen}/>
-        <div className={s.bigPicture} onClick={() => setSliderPopupIsOpen(true)}>
-          <FavButton className={s.favBtn} productId={productId} isFavourite ={isFavourite} />
+        <ProductPageThumbs
+          images={images}
+          currentImage={currentImage}
+          setCurrentImage={setCurrentImage}
+          setSliderPopupIsOpen={setSliderPopupIsOpen}/>
+        <div
+          className={s.bigPicture}
+          onClick={() => setSliderPopupIsOpen(true)}>
+          
+          <FavButton
+            className={s.favBtn}
+            productId={productId}
+            isFavourite={isFavourite}/>
           <img className={s.image} src={`${BASE_URL}${images[currentImage].imageUrl}`}
-               alt={images[currentImage].imageName}/>
+               alt={images[currentImage].imageName}
+          />
+          
         </div>
       </div>
       {
         sliderPopupIsOpen &&
         <ProductSliderPopup setSliderPopupIsOpen={setSliderPopupIsOpen} images={images} currentImage={currentImage}/>
       }
-
     </>
   );
 
@@ -50,14 +59,22 @@ const ProductPageSlider = ({images, productId, isFavourite}) => {
     <>
       <div className={s.sliderBlock}>
         <div className={s.bigPicture}>
-          <ProductMobileSlider images={images} setSliderPopupIsOpen={setSliderPopupIsOpen}
-                               setCurrentImage={setCurrentImage}/>
+          <ProductMobileSlider
+            images={images}
+            setSliderPopupIsOpen={setSliderPopupIsOpen}
+            setCurrentImage={setCurrentImage}/>
         </div>
-        <FavButton className={s.favBtnMobile} productId={productId} isFavourite ={isFavourite} />
+        <FavButton
+          className={s.favBtnMobile}
+          productId={productId}
+          isFavourite={isFavourite}/>
       </div>
       {
         !isMobile && sliderPopupIsOpen &&
-        <ProductSliderPopup setSliderPopupIsOpen={setSliderPopupIsOpen} images={images} currentImage={currentImage}/>
+        <ProductSliderPopup
+          setSliderPopupIsOpen={setSliderPopupIsOpen}
+          images={images}
+          currentImage={currentImage}/>
       }
     </>
   )

@@ -29,7 +29,6 @@
   }
 }
 
-
 .reviewerName {
   color: rgb(0, 0, 0);
   font-size: 18px;
@@ -62,6 +61,10 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 19px;  
+  
+  @include m {
+    font-size: 14px;
+  }
 }
 
 .text {
@@ -71,7 +74,6 @@
   line-height: 15px;
   margin-bottom: 15px;
 }
-
 
 .collapsableText {
   color: rgb(101, 128, 146);

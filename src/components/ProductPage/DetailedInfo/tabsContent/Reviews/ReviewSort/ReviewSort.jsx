@@ -1,15 +1,12 @@
 import s from './ReviewSort.module.scss';
 
-const ReviewsSort = ({sortColumn, setSortColumn, sortOrder, setSortOrder}) => {
-  
-  const dateClickHandler = ()=>{
-    
+const ReviewsSort = ({sortColumn, setSortColumn, setSortOrder}) => {
+    const dateClickHandler = ()=>{
+   
     if (sortColumn !== 'date') {
       setSortColumn('date')
-      setSortOrder('asc')
-            
-    } else {
-      // если кликаем по активному пункту сортировки
+      setSortOrder('asc')            
+    } else {      
       setSortOrder(prev=>prev === 'asc' ? 'desc' : 'asc' )
     }   
   }
@@ -20,8 +17,7 @@ const ReviewsSort = ({sortColumn, setSortColumn, sortOrder, setSortOrder}) => {
       setSortColumn('rating')
       setSortOrder('desc')
 
-    } else {
-      // если кликаем по активному пункту сортировки
+    } else {      
       setSortOrder(prev=>prev === 'asc' ? 'desc' : 'asc' )
     }
   }

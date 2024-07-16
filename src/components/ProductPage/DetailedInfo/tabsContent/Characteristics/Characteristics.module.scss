@@ -4,6 +4,10 @@
   background: white;
   padding: 30px;
   
+  @include t {
+    padding: 20px;
+  }
+  
   @include m {
     margin-bottom: 20px;
     padding: 16px;
@@ -15,8 +19,7 @@
   
   @include m {
     margin-bottom: 10px;
-  }
-  
+  }  
 }
 
 .row {
@@ -29,7 +32,7 @@
 }
 
 .label {
-  width: 50%;
+  width: 470px;
   border-right: #E7F0F2 1px solid;
   padding: 10px;
   color: rgb(138, 135, 132);
@@ -47,11 +50,14 @@
     font-weight: 500;
     line-height: 13px;
     padding: 4px;
+    padding-inline: 0;
+    width: 42%;
+    
   }
 }
 
 .value {
-  width: 50%;
+  width: 470px;
   padding: 10px;
   background: #fcfcfc;
   color: rgb(0, 0, 0);
@@ -70,8 +76,9 @@
     font-weight: 400;
     line-height: 13px;
     padding: 4px;
-  }
-  
+    padding-inline: 0;
+    width: 58%;
+  }  
 }
 
 .title {
@@ -85,6 +92,7 @@
     font-size: 14px;
     font-weight: 500;
     line-height: 17px;
+    margin-bottom: 14px;
   }
 }
 
@@ -133,7 +141,7 @@
     font-size: 16px;
     font-weight: 500;
     line-height: 19px;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
   }
 }
   

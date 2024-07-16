@@ -1,7 +1,6 @@
 import s from './WriteToSeller.module.scss';
 import {BASE_URL} from "@/consts/baseURL.js";
 import Button from "@/components/ui/Button/Button.jsx";
-
 const WriteToSeller = ({seller}) => {
   return (
     <div className={s.writeToSeller}>

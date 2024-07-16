@@ -12,7 +12,6 @@ import {useDispatch, useSelector} from "react-redux";
 import penIcon from '@/assets/img/penIcon.svg'
 import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 
-
 const Reviews = ({product, reviewsRef}) => {
 
   const PAGE_SIZE = 10
@@ -41,9 +40,6 @@ const Reviews = ({product, reviewsRef}) => {
 
   useEffect(() => {
     const getData = async () => {
-
-      // тестим задержку загрузки
-      // await new Promise(res=>setTimeout(()=>res(),700))
 
       setIsLoading(true)
       setError(false)
@@ -85,17 +81,6 @@ const Reviews = ({product, reviewsRef}) => {
     }
     getData()
   }, [sortColumn, sortOrder, cursor]);
-
-
-  // useEffect(() => {
-  //
-  //   console.log('юз эффект reviews')
-  //
-  //   if (reviewsRef.current) {
-  //     reviewsRef.current.scrollIntoView({behavior: "smooth"})
-  //   }
-  // }, [reviewsRef.current])
-
   const showMoreHandler = () => {
     setCursor((pagesCount + 1) * PAGE_SIZE)
   }
@@ -113,7 +98,6 @@ const Reviews = ({product, reviewsRef}) => {
       window.innerWidth > 960 && !(reviews.length > 0) && <div className={s.noReviews}>{error}</div>
     }
   </div>
-
 
   return (
     <div className={s.reviews}>

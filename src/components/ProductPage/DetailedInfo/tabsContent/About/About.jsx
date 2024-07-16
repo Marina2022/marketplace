@@ -12,19 +12,14 @@ const About = ({product}) => {
   const [error, setError] = useState(null)
   const [company, setCompany] = useState(null)
 
-  
   useEffect(() => {
     const getData = async () => {
-
-      // тестим задержку загрузки
-      // await new Promise(res=>setTimeout(()=>res(),700))
-
       setIsLoading(true)
       setError(false)
 
       try {
-        
-        const productResponse = await axiosInstance(`companies/${product.companyId}/about`)    
+
+        const productResponse = await axiosInstance(`companies/${product.companyId}/about`)
         if (productResponse.status === 200) {
           setCompany(productResponse.data)
         } else throw new Error('response status not equal 200')
@@ -49,18 +44,17 @@ const About = ({product}) => {
           <img className={s.profileImage} src={`${BASE_URL}${company.galery[1].images[0].imageUrl}`}
                alt={company.galery[1].images[0].imageName}/>
         </div>
-
-        <AboutDetails company={company} />
+        <AboutDetails company={company}/>
       </div>
-
       <Description text={company.companyDescription} images={company.galery[0].images}/>
-      
       <h3 className={s.certTitle}>Сертификаты</h3>
-      
       <ul className={s.certList}>
         {
-
-          company.galery[2].images.map((img,i)=> <img key={i} className={s.certImg} src={`${BASE_URL}${img.imageUrl}`} alt={img.imageName}/>)
+          company.galery[2].images.map((img, i) => <img 
+            key={i} 
+            className={s.certImg} 
+            src={`${BASE_URL}${img.imageUrl}`}                                                        
+            alt={img.imageName}/>)
         }
       </ul>
     </div>

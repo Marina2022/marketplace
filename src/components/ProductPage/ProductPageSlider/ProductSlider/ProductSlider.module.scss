@@ -1,7 +1,6 @@
 
-.slideImage {
-  max-width: 99%;
-  max-width: 100%;
+.slideImage {  
+  max-width: calc(100% - 2px);  // 2px - это border
   object-fit: contain;
 }
 

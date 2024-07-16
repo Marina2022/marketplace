@@ -6,7 +6,6 @@
   font-weight: 500;
   line-height: 29px;
   margin-bottom: 24px;
-  //min-height: 400px;
 }
 
 .spinner {
@@ -20,26 +19,31 @@
   gap: 31px;
 
   @include t {
+    gap: 21px;
+    flex-direction: column;
+    padding: 14px 5px;
     flex-direction: column;
   }
   
   @include m {
     gap: 8px;
+    margin-bottom: 12px;
+    padding: 0;
   }
 }
 
 .sideBlock {
   width: 250px;
-  
+
   @include t {
     width: unset;
     display: flex;
     justify-content: space-between;
   }
-  
+
   @include m {
     background: white;
-    padding: 16px;    
+    padding: 16px;
     flex-direction: column;
     gap: 16px;
   }
@@ -55,14 +59,14 @@
   @include t {
     width: 250px;
   }
-  
-  @include m {    
-      width: 100%;    
+
+  @include m {
+    width: 100%;
   }
 }
 
 .mainBlock {
-  flex:1;
+  flex: 1;
 }
 
 .moreBtn {
@@ -74,10 +78,11 @@
   &:hover {
     box-shadow: 0px 3px 7px 0px rgba(62, 80, 103, 0.08);
   }
+
   &:active {
     box-shadow: 0px 6px 7px 0px rgba(62, 80, 103, 0.08);
   }
-  
+
   @include m {
     margin-bottom: 35px;
   }
@@ -97,7 +102,7 @@
 }
 
 .mobileHeader {
-  display:  none;
+  display: none;
 
   @include m {
     display: block;

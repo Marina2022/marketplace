@@ -2,8 +2,7 @@
 
 .details {
   grid-row-start: 2;
-  grid-row-end: 3;
-  
+  grid-row-end: 3;  
 
   @include m {
     width: 100%;

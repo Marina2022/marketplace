@@ -5,9 +5,9 @@
 }
 
 .answer {
-  margin-left: 30px;
+  margin-left: 20px;
   border-left: #E1E1E1 3px solid;
-  padding-left: 20px;
+  padding-left: 16px;
   
   @include m {
     margin-left: 10px;
@@ -42,5 +42,4 @@
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
-  margin-bottom: 24px;
 }

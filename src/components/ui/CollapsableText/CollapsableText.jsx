@@ -1,18 +1,16 @@
 import s from './CollapsableText.module.scss';
 import {useState} from "react";
 
-const CollapsableText = ({text, className, maxLength, buttonClassName}) => {
-
+const CollapsableText = ({text, className, maxLength, buttonClassName, wrapperClassName}) => {
 
   const textFullParagraphs = text.split(`\r\n`)
-
   const textCutParagraphs = (text.slice(0, maxLength) + '...').split(`\r\n`)
 
   // если текст <= maxLength, showAll = true
   const [showAll, setShowAll] = useState(text.length <= maxLength)
   
   return (
-    <div className={s.wrapper}>
+    <div className={`${s.wrapper} ${wrapperClassName}` }>
       <div>
         {
           showAll ?

@@ -5,8 +5,7 @@
   padding: 30px;
   
   @include m {
-    padding: 16px; 
-    
+    padding: 16px;    
   }
 }
 
@@ -22,6 +21,7 @@
     font-size: 16px;
     font-weight: 500;
     line-height: 19px;
+    margin-bottom: 10px;
   }
 }
 
@@ -45,7 +45,6 @@
     min-height: unset;
   }
 }
-
 
 .profileImage {
   width: 100%;

@@ -6,9 +6,7 @@ const Overview = ({product, textSize = 1000}) => {
   
   const textFullParagraphs = product.productDescription.split(`\r\n`)
   const textCutParagraphs = (product.productDescription.slice(0, textSize) + '...').split(`\r\n`)
-
   const [showAll, setShowAll] = useState(product.productDescription.length <= textSize)
-
   const handleClick = ()=>{
     setShowAll(true)
   }

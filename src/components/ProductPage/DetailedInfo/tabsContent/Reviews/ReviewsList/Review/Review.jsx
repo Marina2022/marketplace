@@ -37,7 +37,7 @@ const Review = ({review, productId}) => {
         review.advantages && (
           <>
             <h3 className={s.subtitle}>Достоинства</h3>
-            <CollapsableText className={s.collapsableText} text={review.advantages} maxLength={MAX_LENGTH}/>
+            <CollapsableText className={s.collapsableText} text={review.advantages} maxLength={MAX_LENGTH}  wrapperClassName={s.wrapperClassName} />
           </>
         )
       }

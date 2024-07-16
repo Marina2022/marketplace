@@ -4,7 +4,7 @@
   padding: 20px;
   background: #fff;
   border: 2px solid rgb(245, 245, 245);
-  border-radius: 2px;
+  border-radius: 2px;  
 
   @include t {
     padding: 20px 16px;
@@ -30,7 +30,6 @@
   @include m {
     margin-bottom: 0;
   }
-
 }
 
 .price {
@@ -39,6 +38,10 @@
   font-weight: 600;
   line-height: 34px;
   margin-bottom: 24px;
+  
+  @include t {
+    margin-bottom: 16px;
+  }
 
   @include m {
     margin-bottom: 0;
@@ -59,6 +62,7 @@
   
   @include m {
     font-size: 16px!important;;
+    height: 44px!important;
   }
 }
 
@@ -83,5 +87,29 @@
   @include m {
     max-width: 350px;
     margin: 0 auto;
+  }
+  
+  & > div {
+    height: 44px!important;
+
+    @include t {
+      height: 40px!important;
+    }
+
+    @include m {
+      height: 44px!important;
+    }    
+  }
+  
+  button {
+    height: 44px!important;
+    
+    @include t {
+      height: 40px!important;
+    }
+
+    @include m {
+      height: 44px!important;
+    }    
   }
 }

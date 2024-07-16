@@ -4,7 +4,6 @@ import {useEffect} from "react";
 import ProductSlider from "@/components/ProductPage/ProductPageSlider/ProductSlider/ProductSlider.jsx";
 
 const ProductSliderPopup = ({setSliderPopupIsOpen, images, currentImage}) => {
-
   useEffect(() => {
     const escHandler = (e) => {
       if (e.keyCode === 27) {
@@ -12,17 +11,16 @@ const ProductSliderPopup = ({setSliderPopupIsOpen, images, currentImage}) => {
       }
     }
     window.addEventListener('keydown', escHandler)
-
     return () => {
       window.removeEventListener('keydown', escHandler)
     }
-
   }, []);
 
   return (
     <div className={s.wrapper}>
-      <button className={s.closeBtn}><img src={closeBtn} alt="close button"
-                                          onClick={() => setSliderPopupIsOpen(false)}/></button>
+      <button className={s.closeBtn}>
+        <img src={closeBtn} alt="close button" onClick={() => setSliderPopupIsOpen(false)}/>
+      </button>
       <div className={s.slider}>
         <ProductSlider images={images} currentImage={currentImage}/>
       </div>

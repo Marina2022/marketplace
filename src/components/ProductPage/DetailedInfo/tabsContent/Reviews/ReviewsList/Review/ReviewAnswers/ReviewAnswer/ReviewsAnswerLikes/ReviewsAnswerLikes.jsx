@@ -5,13 +5,10 @@ import {getLikes, updateLikes} from "@/store/reviewsSlice.js";
 const ReviewsAnswerLikes = ({answer, productId}) => {
 
   const dispatch = useDispatch()
-
   const likesCount = answer.likes
   const dislikesCount = answer.dislikes
-
   const [userLikesIt, setUserLikesIt] = useState(null)
   const [userDislikesIt, setUserDislikesIt] = useState(null)
-
   let likesObj = useSelector(getLikes)
 
   // если объект пришел null (в LS ничего не найдено)
@@ -44,7 +41,6 @@ const ReviewsAnswerLikes = ({answer, productId}) => {
     }
   }, [likesObj]);
 
-
   const handleLikeClick = async () => {
     let newLikesObj = {...likesObj}
 
@@ -55,24 +51,19 @@ const ReviewsAnswerLikes = ({answer, productId}) => {
 
     else if (userDislikesIt) {
       // апдейт объекта - убрать айди Отзыва из массива дизлайков, добавить в массив лайков     
-
       newLikesObj.answerDislikes = newLikesObj.answerDislikes.filter(item => item !== answer.answerId)
       newLikesObj.answerLikes = [...newLikesObj.answerLikes, answer.answerId]
-
       opinionApiObj.likes++
       opinionApiObj.dislikes--
 
-
     } else {
       // апдейт объекта - добавить айди Отзыва в массив лайков
-
       newLikesObj.answerLikes = [...newLikesObj.answerLikes, answer.answerId]
       opinionApiObj.likes++
     }
 
     dispatch(updateLikes({newLikesObj, opinionApiObj, productId}))
   }
-
   const handleDislikeClick = async () => {
     let newLikesObj = {...likesObj}
 
@@ -85,7 +76,6 @@ const ReviewsAnswerLikes = ({answer, productId}) => {
       // апдейт объекта - убрать айди Отзыва из массива лайков, добавить в массив дизлайков
       newLikesObj.answerLikes = newLikesObj.answerLikes.filter(item => item !== answer.answerId)
       newLikesObj.answerDislikes = [...newLikesObj.answerDislikes, answer.answerId]
-
       opinionApiObj.dislikes++
       opinionApiObj.likes--
 
@@ -115,7 +105,6 @@ const ReviewsAnswerLikes = ({answer, productId}) => {
         </button>
         <span className={s.text}>{likesCount}</span>
       </div>
-
       <div className={s.likesGroup}>
         <button onClick={handleDislikeClick} className={s.likeBtn}>
           <svg className={userDislikesIt ? s.likeActive : s.like} width="24" height="24" viewBox="0 0 24 24"

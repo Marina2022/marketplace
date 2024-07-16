@@ -6,6 +6,10 @@
   padding-bottom: 16px;
   border-bottom: #F0F1F1 1px solid;
   
+  @include t {
+    padding-inline: 10px;
+  }
+  
   @include m {
     padding: 16px;
     background: white;

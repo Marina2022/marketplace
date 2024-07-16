@@ -5,7 +5,6 @@ const ChooseOption = ({options, sku, optionType, handleOptionClick}) => {
   const optionsNew = [...options]
   const currentOption = options.find(item => item.sku === sku)
   const currentValue = currentOption.values.find(item => item.optionHandle === optionType.name).value.val
-
   const optionSet = new Set();
   const uniqueOptions = [];
 
@@ -35,7 +34,6 @@ const ChooseOption = ({options, sku, optionType, handleOptionClick}) => {
           </div>)
         }
       </ul>
-
     </div>
   );
 };

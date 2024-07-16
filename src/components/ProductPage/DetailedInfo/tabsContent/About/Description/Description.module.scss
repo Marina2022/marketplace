@@ -4,10 +4,12 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 140%;
-
   margin-bottom: 15px;
+  
+  @include m {
+    font-size: 12px;
+  }
 }
-
 
 .readFull {
   color: rgb(0, 147, 253);
@@ -15,18 +17,22 @@
   font-weight: 400;
   line-height: 17px;
   text-decoration-line: underline;
+  display: flex;
+  gap: 15px;
+  align-items: center;
 
-  @include t {
+  @include m {
     font-size: 12px;
+    
   }
 }
 
 .wrapper {
-  margin-bottom: 25px;
   padding-bottom: 20px;
   
   @include m {
     margin-bottom: 0;
+    padding-bottom: 6px;
   }
 }
 
@@ -36,6 +42,5 @@
 
 .img {
   max-width: 100%;
-  //object-fit: cover;
   margin-top: 25px;
 }

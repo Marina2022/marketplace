@@ -6,7 +6,6 @@ const Characteristics = ({product}) => {
     <div className={s.characteristics}>
       <div className={s.titleMobile}>Характеристики</div>
       <h3 className={s.title}>Основные характеристики</h3>
-
       <div className={s.table}>
         {
           product.characteristics.map((item, i) => {
@@ -35,9 +34,7 @@ const Characteristics = ({product}) => {
               </li>
             )
           })
-
         }
-
       </ul>
     </div>
   );

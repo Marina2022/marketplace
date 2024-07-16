@@ -1,7 +1,7 @@
 @import '@/assets/styles/mixins';
 
-.menu {  
-
+.menu { 
+  
   @include m {
     display: flex;
     justify-content: space-between;
@@ -12,6 +12,7 @@
 }
 
 .menuWrapper {
+  z-index: 10;
   display: none;
   height: 71px;
   position: fixed;

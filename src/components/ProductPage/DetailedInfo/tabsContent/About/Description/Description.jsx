@@ -1,17 +1,13 @@
 import s from './Description.module.scss';
 import {useState} from "react";
 import {BASE_URL} from "@/consts/baseURL.js";
+import showMoreArrow from '@/assets/img/showMoreArrow.svg'
 
 const Description = ({text, images}) => {
-
-  const MAX_LENGTH = window.innerWidth > 960 ?  694 : 550
-
+  const MAX_LENGTH = window.innerWidth > 960 ? 694 : 550
   const textFullParagraphs = text.split(`\r\n`)
   const textCutParagraphs = (text.slice(0, MAX_LENGTH) + '...').split(`\r\n`)
-
-  // если текст <= maxLength, showAll = true
   const [showAll, setShowAll] = useState(text.length <= MAX_LENGTH)
-
 
   return (
     <div className={s.wrapper}>
@@ -19,7 +15,6 @@ const Description = ({text, images}) => {
         {
           showAll ?
             <>
-
               {
                 textFullParagraphs.map((par, i) => {
                   return <p className={s.text} key={i}>{par}</p>
@@ -35,43 +30,21 @@ const Description = ({text, images}) => {
                 }
               </div>
             </>
-
-          
-          : (
-          textCutParagraphs.map((par, i) => {
-          return <p className={s.text} key={i}>{par}</p>
-      })
-      )
+            : (
+              textCutParagraphs.map((par, i) => {
+                return <p className={s.text} key={i}>{par}</p>
+              })
+            )
+        }
+      </div>
+      {
+        !showAll && <button className={s.readFull} onClick={() => setShowAll(true)}>
+          <span>Показать&nbsp;полностью</span>
+          <img src={showMoreArrow} alt="arrow"/>
+        </button>
       }
     </div>
-
-{/*<div className={s.images}>*/
+  )
 }
-{/*  {*/
-}
-{/*    images.map((image, i) => {*/
-}
-{/*      return (*/
-}
-{/*        <img className={s.img} key={i} src={`${BASE_URL}${image.imageUrl}`} alt={image.imageName}/>*/
-}
-{/*      )*/
-}
-{/*    })*/
-}
-{/*  }*/
-}
-
-{/*</div>*/
-}
-
-
-{
-  !showAll && <button className={s.readFull} onClick={() => setShowAll(true)}>Читать полностью</button>
-}
-</div>
-)
-  ;
-};
 
 export default Description;
