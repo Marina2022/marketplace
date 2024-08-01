@@ -52,7 +52,8 @@ export const addToCart = createAsyncThunk('cart/sendCart', async (params, thunkA
 
 const initialState = {
   productsInCart: [],
-  isLoading: false
+  isLoading: false,
+  cartSearchTerm: ''
 }
 
 export const cartSlice = createSlice({
@@ -62,6 +63,9 @@ export const cartSlice = createSlice({
 
     setCart: (state, action) => {
       state.productsInCart = action.payload
+    },
+    setCartSearchTerm: (state, action) => {
+      state.cartSearchTerm = action.payload
     },
   },
 
@@ -92,8 +96,9 @@ export const cartSlice = createSlice({
   ,
 })
 
-export const {clearProducts, addProduct, plus, minus, removeProduct, setCart} = cartSlice.actions
+export const {clearProducts, addProduct, plus, minus, removeProduct, setCart, setCartSearchTerm} = cartSlice.actions
 
 export const getCart = (state) => state.cart.productsInCart
+export const getCartSearchTerm = (state) => state.cart.cartSearchTerm
 
 export default cartSlice.reducer

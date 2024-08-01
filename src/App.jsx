@@ -1,7 +1,6 @@
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import MainLayout from "@/components/layout/MainLayout.jsx";
 import Home from "@/pages/Home.jsx";
-import Catalog from "@/pages/Catalog.jsx";
 import Auth from "@/pages/Auth.jsx";
 import Product from "@/pages/Product.jsx";
 import NotFound from "@/pages/NotFound.jsx";
@@ -14,8 +13,7 @@ function App() {
       <Router>
         <Routes>
           <Route element={<MainLayout/>}>
-            <Route path='/' index element={<Home/>}/>
-            <Route path='/category' element={<Catalog/>}/>
+            <Route path='/' index element={<Home/>}/>            
             <Route path='/category/:category' element={<Category/>}/>
             <Route path='/login' element={<Auth/>}/>
             <Route path='/product/:slug' element={<Product/>}/>

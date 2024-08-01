@@ -1,0 +1,36 @@
+@import '@/assets/styles/mixins';
+
+.searchInput {
+  border: #F0F1F1 solid 1px;
+  outline: none;
+  padding: 10px 15px;
+  color: #658092;
+  width: 100%;
+  
+  
+  &::placeholder {
+    font-size: 12px;
+  }
+  
+}
+
+
+.searchInputWrapper {
+  position: relative;
+  width: 670px;
+
+  @include t {
+    width: 458px;
+  }
+
+  @include m {
+    width: 100%;
+  }
+}
+
+.searchIconWrapper {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
