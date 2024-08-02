@@ -1,9 +1,9 @@
 @import '@/assets/styles/mixins';
 
-.headerWrapper {  
+.headerWrapper {
   display: flex;
   gap: 10px;
-  align-items: baseline;  
+  align-items: baseline;
 }
 
 .mainTitle {
@@ -24,7 +24,7 @@
   gap: 15px;
   margin-bottom: 50px;
   align-items: flex-start;
-  
+
   @include t {
     gap: 8px;
     flex-direction: column;
@@ -35,10 +35,11 @@
   min-height: 100px;
   flex: 1;
   background: white;
-  
+  border: #F0F1F1 1px solid;
+
   @include t {
     width: 100%;
-  }  
+  }
 }
 
 .checkoutWrapper {
@@ -47,7 +48,8 @@
   padding: 20px;
   position: sticky;
   top: 20px;
-  
+  border: #F0F1F1 1px solid;
+
   @include t {
     width: 100%;
     position: static;
@@ -56,15 +58,15 @@
 }
 
 .topBlock {
-  display:  flex;
+  display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 12px 15px;
   border-bottom: 1px solid #F0F1F1;
-  
+
   @include m {
     flex-direction: column;
-    gap: 5px;    
+    gap: 5px;
   }
 }
 
@@ -75,14 +77,31 @@
   gap: 10px;
   align-items: center;
   justify-content: center;
-  
+  transition: box-shadow 0.3s ease;
+  padding-block: 9px;
+  height: 35px;
+  font-weight: 500;
+
   @include m {
     width: 100%;
     border: #F0F1F1 solid 1px;
-    height: 35px;
-    padding-block: 9px;
-    font-weight: 500;
-    
   }
-  
+
+  &:active {
+    color: #cc2230;
+  }
+}
+
+.subtitle {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 24px 24px 15px 24px;
+  border-bottom: 1px solid #F0F1F1;
+
+  @include m {
+    font-size: 14px;
+    border-bottom: none;
+  }
+
+
 }

@@ -1,15 +1,27 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-//import axiosInstance from "@/api/axiosInstance.js";
+import axios from "@/api/axiosInstance.js";
 
-export const loadCart = createAsyncThunk('cart/loadCart', async () => {
+export const loadCart = createAsyncThunk('cart/getCart', async (_, thunkAPI) => {
   // Запрос на получение корзины с сервера.. 
-  // Может, она вместе с пользователем будет приходить при авторизации, тогда эту санку потом уберем?
-
-  // .. давай пока так, потом, возможно, перепишем: Запрос на авторизацию, если юзер не авторизован, то корзину в санке из ЛС подгрузим
-  // а сейчс просто из LS
-  const LSstring = localStorage.getItem('cart')
-  if (!LSstring) return []
-  return JSON.parse(LSstring)
+  
+  // в парамсах еще можно слово для поиска принять, но это потом
+  
+  const state = thunkAPI.getState()
+  
+  // задержка загрузки
+  // await new Promise((resolve)=>{
+  //   setTimeout(resolve, 1000)
+  // })
+  
+  if (state.user.isAuthenticated) {
+    const resp = await axios('carts')
+    return(resp.data)
+  } else {
+    const LSstring = localStorage.getItem('cart')
+    if (!LSstring) return []
+    return JSON.parse(LSstring)  
+  }
+  
 })
 
 export const addToCart = createAsyncThunk('cart/sendCart', async (params, thunkAPI) => {
@@ -52,7 +64,7 @@ export const addToCart = createAsyncThunk('cart/sendCart', async (params, thunkA
 
 const initialState = {
   productsInCart: [],
-  isLoading: false,
+  status: 'loading',
   cartSearchTerm: ''
 }
 
@@ -71,26 +83,26 @@ export const cartSlice = createSlice({
 
   extraReducers: builder => builder
       .addCase(addToCart.pending, (state, action) => {
-        state.isLoading = 'loading'
+        state.status = 'loading'
       })
       .addCase(addToCart.fulfilled, (state, action) => {
-        state.isLoading = 'success'
+        state.status = 'success'
         state.productsInCart = action.payload
       })
       .addCase(addToCart.rejected, (state, action) => {
-        state.isLoading = 'error'
-        console.log('ошибка', action.error.message)
+        state.status = 'error'
+        console.log('Не удалось добавить в корзину', action.error.message)
       })
 
       .addCase(loadCart.pending, (state, action) => {
-        state.isLoading = 'loading'
+        state.status = 'loading'
       })
       .addCase(loadCart.fulfilled, (state, action) => {
-        state.isLoading = 'success'
+        state.status = 'success'
         state.productsInCart = action.payload
       })
       .addCase(loadCart.rejected, (state, action) => {
-        state.isLoading = 'error'
+        state.status = 'error'
         console.log('ошибка', action.error.message)
       })
   ,
@@ -100,5 +112,6 @@ export const {clearProducts, addProduct, plus, minus, removeProduct, setCart, se
 
 export const getCart = (state) => state.cart.productsInCart
 export const getCartSearchTerm = (state) => state.cart.cartSearchTerm
+export const getCartStatus = (state) => state.cart.status
 
 export default cartSlice.reducer

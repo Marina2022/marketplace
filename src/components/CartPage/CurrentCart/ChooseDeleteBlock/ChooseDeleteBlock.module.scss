@@ -1,0 +1,33 @@
+@import '@/assets/styles/mixins';
+
+.chooseDeleteBlock {
+  display: flex;
+  border-bottom: #F0F1F1 1px solid;
+  padding: 12px 15px;
+  color: #658092;
+  font-size: 12px;
+  gap: 24px;
+  align-items: center;
+  
+  @include m {
+    justify-content: space-between;
+  }
+}
+
+.chooseAll {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  cursor:pointer;
+}
+
+.deleteChosen {
+  color: #658092;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  
+  &:active {
+    color: #28333A;
+  }
+}

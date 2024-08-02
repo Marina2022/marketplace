@@ -3,13 +3,15 @@ import {getCartSearchTerm, setCartSearchTerm} from "@/store/cartSlice.js";
 import {useDispatch, useSelector} from "react-redux";
 import searchGlassIcon from "@/assets/img/cart/seachGlass.svg"
 import searchClose from "@/assets/img/cart/closeSearch.svg"
+import useMobileScreen from "@/hooks/useMobileScreen.js";
 
 const CartSearch = () => {
+  
+  const isMobile = useMobileScreen()
+  
   const dispatch = useDispatch()
 
   const cartSearchTerm = useSelector(getCartSearchTerm)
-
-  console.log('cartSearchTerm = ', cartSearchTerm)
   const inputChangeHandler = (e) => {
     dispatch(setCartSearchTerm(e.target.value))
   }
@@ -26,7 +28,7 @@ const CartSearch = () => {
         value={cartSearchTerm}
         type="text"
         onChange={inputChangeHandler}
-        placeholder={window.innerWidth > 960 ? "Быстрый поиск: введите наименование товара или артикул" : "Быстрый поиск"}
+        placeholder={isMobile ? "Быстрый поиск" : "Быстрый поиск: введите наименование товара или артикул" }
       />
 
       <div className={s.searchIconWrapper}>
