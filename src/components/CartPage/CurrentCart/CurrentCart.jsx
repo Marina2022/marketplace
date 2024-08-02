@@ -18,6 +18,13 @@ const CurrentCart = () => {
   
   console.log('cart--', cart)
   
+  let productsTotal
+  if (cart.cartItems) {
+    productsTotal = cart.cartItems.reduce((sum, item)=>sum+item.quantity, 0)  
+  }
+  
+  console.log(productsTotal)
+  
   if (cartStatus === 'loading') {
     return <div>Loading...</div>
   }
@@ -31,7 +38,7 @@ const CurrentCart = () => {
       <div className={s.headerWrapper}>
         <h1 className={s.mainTitle}>Ваша корзина</h1>
         {/*функцию для падежа товаров потом добавить*/}
-        <p className={s.productsQuantity}>{getProductQuantityString(cart.cartItems.length)}</p>
+        <p className={s.productsQuantity}>{getProductQuantityString(productsTotal)}</p>
       </div>
 
       <div className={s.mainWrapper}>
