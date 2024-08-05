@@ -32,10 +32,38 @@ const CartItem = ({cartItem}) => {
           </svg>
         }        
       </div>
-
       <img className={s.img} src={`${BASE_URL}${cartItem.productImageUrl}`} alt="product"/>
-      <div>main content</div>
-      
+
+      <div className={s.cardMainContent}>
+        <div className={s.nameBlock}>
+          <div>Название</div>
+          <div className={s.noInStock}>Нет в наличии</div>
+          <div className={s.seller}>Продавец</div>
+
+        </div>
+        <div className={s.smallStockDesktop}>Осталось мало</div>
+        <div className={s.actionBlock}>
+          <div className={s.buttonsBlock}>
+            <button>-</button>
+            <button>+</button>
+          </div>
+
+          <div className={s.smallStockMobile}>Осталось мало</div>
+
+          <div className={s.priceBlock}>
+
+            цена 1 - цена 2
+          </div>
+
+          <div className={s.iconButtons}>
+            иконки
+          </div>
+
+        </div>
+
+
+      </div>
+
     </div>
   );
 };

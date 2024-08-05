@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   
+  
   @include m {
     align-items: flex-start;
   }
@@ -36,4 +37,109 @@
     width: 70px;
     height: 70px;  
   }
+}
+
+.cardMainContent {  
+  display: flex;
+  gap: 17px;
+  flex: 1;
+  border: greenyellow 1px solid;
+  align-self: stretch;
+  position: relative;
+  
+  @include m {
+    flex-direction: column;
+    gap: 0;
+    margin-right: 25px;
+  }  
+}
+
+.nameBlock {
+  flex: 1;
+  border: red 1px solid;
+  
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.buttonsBlock {
+  width: 159px;
+  background: #D1D1D1;
+  margin-right: 17px;
+  
+  
+  @include m {
+    width: 84px;
+    margin-right: 0;
+  align-self: flex-end;  
+  }
+}
+
+.iconButtons {
+  position: absolute;
+  border: #3fb8af 1px solid;
+  top: 0;
+  right: 0;
+  
+  @include m {
+    bottom: 0;
+    top: unset;
+    left: 0;
+    }
+}
+
+
+.priceBlock {  
+  width: 150px;
+  align-self: flex-end;
+  position: relative;
+  
+  @include m {
+    width: 100%;
+  }
+}
+
+.smallStockMobile {
+  
+  display: none;
+  @include m {
+    display: block;
+    color: red;
+    position:  static;
+  }
+}
+
+.smallStockDesktop {
+  color: red;
+  position: absolute;
+  bottom: 0px;
+  right: 0;
+
+  @include m {
+    display: none;
+  }
+}
+
+
+.actionBlock {
+  position: relative;  
+  display: flex;
+  align-self: center;
+  border: orange 2px solid;
+  min-height: 49px;
+  
+  @include m {
+    flex-direction: column-reverse;
+    align-self: flex-start;
+  }
+}
+
+.noInStock {
+  color: red;
+  margin-top: 10px;
+}
+
+.seller {
+  margin-top: auto;
 }
