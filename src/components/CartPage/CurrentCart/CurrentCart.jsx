@@ -7,6 +7,8 @@ import ChooseDeleteBlock from "@/components/CartPage/CurrentCart/ChooseDeleteBlo
 import {getIsAuthenticated} from "@/store/userSlice.js";
 import CartItem from "@/components/CartPage/CurrentCart/CartItem/CartItem.jsx";
 import {getProductQuantityString} from "@/utils/cart.js";
+import Checkout from "@/components/CartPage/CurrentCart/Checkout/Checkout.jsx";
+import DownloadBlock from "@/components/CartPage/DownloadBlock/DownloadBlock.jsx";
 
 const CurrentCart = () => {
 
@@ -14,22 +16,18 @@ const CurrentCart = () => {
   const cart = useSelector(getCart)
   const cartStatus = useSelector(getCartStatus)
 
-  console.log('cartStatus = ', cartStatus )
-  
   console.log('cart--', cart)
-  
+
   let productsTotal
-  if (cart.cartItems) {
-    productsTotal = cart.cartItems.reduce((sum, item)=>sum+item.quantity, 0)  
+  if (cart?.cartItems) {
+    productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
   }
-  
-  console.log(productsTotal)
-  
+
   if (cartStatus === 'loading') {
     return <div>Loading...</div>
   }
-  
-  if (cartStatus === 'success' && cart.cartItems.length === 0) {
+
+  if (cartStatus === 'success' && cart?.cartItems?.length === 0) {
     return <div>Пустая страница</div> // todo - сделать компонент для страницы пустой корзины 
   }
 
@@ -58,17 +56,24 @@ const CurrentCart = () => {
 
           <ul className={s.cartItemsList}>
             {
-              cart.cartItems.map((cartItem) => <CartItem cartItem={cartItem} key={cartItem.cartItemId}/>)
+              cart?.cartItems.map((cartItem) => <CartItem cartItem={cartItem} key={cartItem.cartItemId}/>)
             }
           </ul>
 
 
         </div>
-        <div className={s.checkoutWrapper}>
-          checkoutWrapper
+        
+        
+
+        <div className={s.rightPartWrapper}>
+          <Checkout/>
+          <DownloadBlock links={cart.cartLinks} />
         </div>
+
+
       </div>
 
+      
 
     </div>
   );

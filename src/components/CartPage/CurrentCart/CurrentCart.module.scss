@@ -42,21 +42,6 @@
   }
 }
 
-.checkoutWrapper {
-  width: 301px;
-  background: white;
-  padding: 20px;
-  position: sticky;
-  top: 20px;
-  border: #F0F1F1 1px solid;
-
-  @include t {
-    width: 100%;
-    position: static;
-    top: unset;
-  }
-}
-
 .topBlock {
   display: flex;
   align-items: center;
@@ -102,6 +87,16 @@
     font-size: 14px;
     border-bottom: none;
   }
+}
 
+.rightPartWrapper {
+  position: sticky;
+  top: 20px;
+  width: 301px;
 
+  @include t {
+    width: 100%;
+    position: static;
+    top: unset;
+  }
 }

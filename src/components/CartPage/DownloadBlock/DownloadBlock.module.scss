@@ -1,0 +1,44 @@
+@import '@/assets/styles/mixins';
+
+.downloadBlock {
+  margin-top: 8px;
+  width: 301px;
+  background: white;
+  padding: 20px;  
+  border: #F0F1F1 1px solid;
+
+  @include t {
+    width: 100%;
+    position: static;
+    top: unset;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+  }  
+  
+  @include m {
+    display: block;
+  }
+}
+
+.downloadCart {
+  margin-bottom: 11px;
+  
+  @include t {
+    margin-bottom: 0;
+  }
+
+  @include m {
+    margin-bottom: 11px;
+  }
+}
+
+.downloadSpecs, .downloadCart {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #658092;
+  font-size: 12px;
+}
+
+

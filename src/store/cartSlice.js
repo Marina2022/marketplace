@@ -3,25 +3,43 @@ import axios from "@/api/axiosInstance.js";
 
 export const loadCart = createAsyncThunk('cart/getCart', async (_, thunkAPI) => {
   // Запрос на получение корзины с сервера.. 
-  
+
   // в парамсах еще можно слово для поиска принять, но это потом
-  
+
   const state = thunkAPI.getState()
-  
+
   // задержка загрузки
   // await new Promise((resolve)=>{
   //   setTimeout(resolve, 1000)
   // })
-  
+
   if (state.user.isAuthenticated) {
     const resp = await axios('carts')
-    return(resp.data)
+    return (resp.data)
   } else {
     const LSstring = localStorage.getItem('cart')
     if (!LSstring) return []
-    return JSON.parse(LSstring)  
+    return JSON.parse(LSstring)
   }
-  
+})
+
+export const loadCheckout = createAsyncThunk('cart/getCheckout', async ({cartId}, thunkAPI) => {
+
+  const state = thunkAPI.getState()
+
+  // задержка загрузки
+  // await new Promise((resolve)=>{
+  //   setTimeout(resolve, 1000)
+  // })
+
+  if (state.user.isAuthenticated) {
+    const resp = await axios(`carts/${cartId}/checkout`)    
+    return (resp.data)
+  } else {
+    const LSstring = localStorage.getItem('cart')
+    if (!LSstring) return []
+    return JSON.parse(LSstring)
+  }
 })
 
 export const addToCart = createAsyncThunk('cart/sendCart', async (params, thunkAPI) => {
@@ -52,7 +70,7 @@ export const addToCart = createAsyncThunk('cart/sendCart', async (params, thunkA
         cart.splice(productIndex, 1, newProduct)
       }
 
-    } else {      
+    } else {
       // add new item to cart
       cart.push({id: id, count: 1})
     }
@@ -65,7 +83,9 @@ export const addToCart = createAsyncThunk('cart/sendCart', async (params, thunkA
 const initialState = {
   productsInCart: [],
   status: 'loading',
-  cartSearchTerm: ''
+  cartSearchTerm: '',
+  checkout: null,
+  checkoutStatus: 'loading'
 }
 
 export const cartSlice = createSlice({
@@ -82,30 +102,46 @@ export const cartSlice = createSlice({
   },
 
   extraReducers: builder => builder
-      .addCase(addToCart.pending, (state, action) => {
-        state.status = 'loading'
-      })
-      .addCase(addToCart.fulfilled, (state, action) => {
-        state.status = 'success'
-        state.productsInCart = action.payload
-      })
-      .addCase(addToCart.rejected, (state, action) => {
-        state.status = 'error'
-        console.log('Не удалось добавить в корзину', action.error.message)
-      })
+    .addCase(addToCart.pending, (state, action) => {
+      state.status = 'loading'
+    })
+    .addCase(addToCart.fulfilled, (state, action) => {
+      state.status = 'success'
+      state.productsInCart = action.payload
+    })
+    .addCase(addToCart.rejected, (state, action) => {
+      state.status = 'error'
+      console.log('Не удалось добавить в корзину', action.error.message)
+    })
 
-      .addCase(loadCart.pending, (state, action) => {
-        state.status = 'loading'
-      })
-      .addCase(loadCart.fulfilled, (state, action) => {
-        state.status = 'success'
-        state.productsInCart = action.payload
-      })
-      .addCase(loadCart.rejected, (state, action) => {
-        state.status = 'error'
-        console.log('ошибка', action.error.message)
-      })
+    .addCase(loadCart.pending, (state, action) => {
+      state.status = 'loading'
+    })
+    .addCase(loadCart.fulfilled, (state, action) => {
+      state.status = 'success'
+      state.productsInCart = action.payload
+    })
+    .addCase(loadCart.rejected, (state, action) => {
+      state.status = 'error'
+      console.log('ошибка', action.error.message)
+    })
+    
+    .addCase(loadCheckout.pending, (state, action) => {
+      state.checkoutStatus = 'loading'
+    })
+    .addCase(loadCheckout.fulfilled, (state, action) => {
+      state.checkoutStatus = 'success'
+      state.checkout = action.payload
+    })
+    .addCase(loadCheckout.rejected, (state, action) => {
+      state.checkoutStatus = 'error'
+      console.log('ошибка', action.error.message)
+    })
+
   ,
+
+
+  //loadCheckout
 })
 
 export const {clearProducts, addProduct, plus, minus, removeProduct, setCart, setCartSearchTerm} = cartSlice.actions
@@ -113,5 +149,7 @@ export const {clearProducts, addProduct, plus, minus, removeProduct, setCart, se
 export const getCart = (state) => state.cart.productsInCart
 export const getCartSearchTerm = (state) => state.cart.cartSearchTerm
 export const getCartStatus = (state) => state.cart.status
+export const getCheckoutStatus = (state) => state.cart.checkoutStatus
+export const getCheckout = (state) => state.cart.checkout
 
 export default cartSlice.reducer

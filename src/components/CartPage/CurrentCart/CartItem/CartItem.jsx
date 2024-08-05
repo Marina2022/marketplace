@@ -9,7 +9,7 @@ const CartItem = ({cartItem}) => {
   console.log(cartItem)
   const chooseItemHandler = () => {
   }
-
+  
   const isSelected = false
 
   return (
