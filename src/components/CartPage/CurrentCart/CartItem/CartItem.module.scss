@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
 
+
   @include m {
     align-items: flex-start;
   }
@@ -160,11 +161,12 @@
   font-weight: 600;
   font-size: 12px;
   font-family: "Exo 2";
+  margin-bottom: 8px;
 
   @include m {
     font-size: 10px;
     margin-top: 4px;
-    margin-bottom: 8px;
+
   }
 }
 
@@ -207,7 +209,7 @@
     padding: 6px;
     margin-top: 10px;
   }
-  
+
   //@media(max-width: 359px) {
   //  margin-left: auto;
   //}
@@ -221,6 +223,11 @@
   background: transparent;
   font-size: 14px;
   font-family: "Exo 2";
+
+  &:disabled {
+    color: #93A6B2;
+
+  }
 
   @include m {
     font-size: 10px;
@@ -242,11 +249,11 @@
 
   &:disabled {
     svg {
-      fill: #658092;
+      fill: #93A6B2;
     }
   }
 
-  &:active {
+  &:active:not(:disabled) {
     svg {
       fill: #212b37;
     }
@@ -265,7 +272,13 @@
     }
   }
 
-  &:active {
+  &:disabled {
+    svg {
+      fill: #93A6B2;
+    }
+  }
+
+  &:active:not(:disabled) {
     svg {
       fill: #212b37;
     }
@@ -273,12 +286,17 @@
 }
 
 .priceBlock {
-  min-width: 150px;
+
+  width: 235px;
+
   align-self: flex-end;
   position: relative;
   display: flex;
   align-items: center;
   gap: 21px;
+  flex-shrink: 0;
+  justify-content: flex-end;
+
 
   @include m {
     width: 100%;
@@ -304,3 +322,4 @@
   font-weight: 500;
   font-size: 20px;
 }
+

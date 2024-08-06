@@ -14,7 +14,7 @@ export const loadCart = createAsyncThunk('cart/getCart', async (_, thunkAPI) => 
   // })
 
   if (state.user.isAuthenticated) {
-    const resp = await axios('carts')
+    const resp = await axios('carts')        
     return (resp.data)
   } else {
     const LSstring = localStorage.getItem('cart')
@@ -39,6 +39,29 @@ export const loadCheckout = createAsyncThunk('cart/getCheckout', async ({cartId}
     const LSstring = localStorage.getItem('cart')
     if (!LSstring) return []
     return JSON.parse(LSstring)
+  }
+})
+
+
+export const checkCartStatus = createAsyncThunk('cart/checkCartStatus', async (param, thunkAPI) => {
+
+  const cartId = param.cartId
+  if (!cartId) return
+  const state = thunkAPI.getState()
+
+  // задержка загрузки
+  // await new Promise((resolve)=>{
+  //   setTimeout(resolve, 1000)
+  // })
+
+  if (state.user.isAuthenticated) {
+    const resp = await axios(`carts/${cartId}/currentStatus`)
+    thunkAPI.dispatch(loadCart())
+    thunkAPI.dispatch(loadCheckout({cartId}))
+    return (resp.data)
+  } else {
+    // без авторизации ничего не будет происходить
+    return
   }
 })
 
@@ -85,7 +108,9 @@ const initialState = {
   status: 'loading',
   cartSearchTerm: '',
   checkout: null,
-  checkoutStatus: 'loading'
+  checkoutStatus: 'loading',
+  gettingCartStatus: 'loading',
+  cartStatus: null
 }
 
 export const cartSlice = createSlice({
@@ -138,10 +163,19 @@ export const cartSlice = createSlice({
       console.log('ошибка', action.error.message)
     })
 
+    .addCase(checkCartStatus.pending, (state, action) => {
+      state.gettingCartStatus = 'loading'
+    })
+    .addCase(checkCartStatus.fulfilled, (state, action) => {
+      state.gettingCartStatus = 'success'
+      state.cartStatus = action.payload
+    })
+    .addCase(checkCartStatus.rejected, (state, action) => {
+      state.gettingCartStatus = 'error'
+      console.log('ошибка', action.error.message)
+    })
   ,
-
-
-  //loadCheckout
+  
 })
 
 export const {clearProducts, addProduct, plus, minus, removeProduct, setCart, setCartSearchTerm} = cartSlice.actions

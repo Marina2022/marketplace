@@ -1,7 +1,7 @@
 import s from './CurrentCart.module.scss';
 import CartSearch from "@/components/CartPage/CurrentCart/CartSearch/CartSearch.jsx";
-import {useSelector} from "react-redux";
-import {getCart, getCartStatus} from "@/store/cartSlice.js";
+import {useDispatch, useSelector} from "react-redux";
+import {checkCartStatus, getCart, getCartStatus} from "@/store/cartSlice.js";
 import saveCartIcon from "@/assets/img/cart/saveCartIcon.svg"
 import ChooseDeleteBlock from "@/components/CartPage/CurrentCart/ChooseDeleteBlock/ChooseDeleteBlock.jsx";
 import {getIsAuthenticated} from "@/store/userSlice.js";
@@ -9,15 +9,23 @@ import CartItem from "@/components/CartPage/CurrentCart/CartItem/CartItem.jsx";
 import {getProductQuantityString} from "@/utils/cart.js";
 import Checkout from "@/components/CartPage/CurrentCart/Checkout/Checkout.jsx";
 import DownloadBlock from "@/components/CartPage/DownloadBlock/DownloadBlock.jsx";
+import {useEffect} from "react";
 
 const CurrentCart = () => {
+
+  const dispatch = useDispatch()
 
   const isAuthenticated = useSelector(getIsAuthenticated)
   const cart = useSelector(getCart)
   const cartStatus = useSelector(getCartStatus)
+  
+  useEffect(() => {        
+    dispatch(checkCartStatus({cartId: cart.cartId}))    
+  }, [cart.cartId]);
+  
 
   console.log('cart--', cart)
-
+      
   let productsTotal
   if (cart?.cartItems) {
     productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
@@ -34,8 +42,7 @@ const CurrentCart = () => {
   return (
     <div>
       <div className={s.headerWrapper}>
-        <h1 className={s.mainTitle}>Ваша корзина</h1>
-        {/*функцию для падежа товаров потом добавить*/}
+        <h1 className={s.mainTitle}>Ваша корзина</h1>        
         <p className={s.productsQuantity}>{getProductQuantityString(productsTotal)}</p>
       </div>
 
