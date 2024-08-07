@@ -1,7 +1,7 @@
 import s from './CurrentCart.module.scss';
 import CartSearch from "@/components/CartPage/CurrentCart/CartSearch/CartSearch.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {checkCartStatus, getCart, getCartStatus} from "@/store/cartSlice.js";
+import {checkCartStatus, getCart, getCartSearchTerm, getCartStatus, loadCart} from "@/store/cartSlice.js";
 import saveCartIcon from "@/assets/img/cart/saveCartIcon.svg"
 import ChooseDeleteBlock from "@/components/CartPage/CurrentCart/ChooseDeleteBlock/ChooseDeleteBlock.jsx";
 import {getIsAuthenticated} from "@/store/userSlice.js";
@@ -10,6 +10,7 @@ import {getProductQuantityString} from "@/utils/cart.js";
 import Checkout from "@/components/CartPage/CurrentCart/Checkout/Checkout.jsx";
 import DownloadBlock from "@/components/CartPage/DownloadBlock/DownloadBlock.jsx";
 import {useEffect} from "react";
+import {useDebounce} from "@uidotdev/usehooks";
 
 const CurrentCart = () => {
 
@@ -17,14 +18,23 @@ const CurrentCart = () => {
 
   const isAuthenticated = useSelector(getIsAuthenticated)
   const cartStatus = useSelector(getCartStatus)
+  const cartSearchTerm = useSelector(getCartSearchTerm)
 
+  const debouncedSearchTerm = useDebounce(cartSearchTerm, 500)
+
+  console.log({cartStatus})
+  
   const cart = useSelector(getCart)
-  console.log('cart--', cart)
+  // console.log('cart--', cart)
+
+  useEffect(()=>{
+    dispatch(loadCart())
+  }, [debouncedSearchTerm])
   
   useEffect(() => {            
     dispatch(checkCartStatus({cartId: cart.cartId}))    
   }, [cart.cartId]);
-  
+
   
     
   // todo - если в корзине нет товаров, т.е. сняты галочки у них, выводим сообщение (надо выбрать товары)
@@ -34,9 +44,8 @@ const CurrentCart = () => {
   if (cart?.cartItems) {
     productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
   }
-
-
-  if (cartStatus === 'success' && cart?.cartItems?.length === 0) {
+ 
+  if (cartStatus === 'success' && cart?.cartItems?.length === 0 && !debouncedSearchTerm ) {
     return <div>Пустая страница</div> // todo - сделать компонент для страницы пустой корзины 
   }
   return (

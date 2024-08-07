@@ -29,7 +29,7 @@ const CartItem = ({cartItem, cartId, index}) => {
   }, [debouncedQuantity]);
 
   useEffect(() => {
-    if (currentQuantity >= 999) setCurrentQuantity(999)
+    // if (currentQuantity >= 999) setCurrentQuantity(999)
     if (currentQuantity < 1) setCurrentQuantity(1)
     setInputValue(currentQuantity)
   }, [currentQuantity])

@@ -1,7 +1,8 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "@/api/axiosInstance.js";
+import {MAX_QUANTITY_TO_ADD} from "@/consts/maxQuantityToAddToCart.js";
 
-export const loadCart = createAsyncThunk('cart/getCart', async (_, thunkAPI) => {
+export const loadCart = createAsyncThunk('cart/getCart', async (param, thunkAPI) => {
   // Запрос на получение корзины с сервера.. 
 
   // в парамсах еще можно слово для поиска принять, но это потом
@@ -12,14 +13,21 @@ export const loadCart = createAsyncThunk('cart/getCart', async (_, thunkAPI) => 
   // await new Promise((resolve)=>{
   //   setTimeout(resolve, 1000)
   // })
+  
+  let urlString = 'carts'
+  
+  if (state.cart.cartSearchTerm) {
+    urlString+= '?searchTerms=' + state.cart.cartSearchTerm
+  }
 
   if (state.user.isAuthenticated) {
-    const resp = await axios('carts')
+    const resp = await axios(urlString)
     return (resp.data)
   } else {
-    const LSstring = localStorage.getItem('cart')
-    if (!LSstring) return []
-    return JSON.parse(LSstring)
+    // const LSstring = localStorage.getItem('cart')
+    // if (!LSstring) return []
+    // return JSON.parse(LSstring)
+    return []
   }
 })
 
@@ -107,12 +115,15 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunk
 
   if (state.user.isAuthenticated) {
 
-    console.log('я пришел в санку', {count})
-
-   
+       
     const isAvailable = await axios.post(`carts/productAvailable`, {cartItemId, quantity: count})
     
     if (isAvailable.data.requestedQuantity > isAvailable.data.inventoryLevel) quantityToSend = isAvailable.data.inventoryLevel
+
+    // число не может быть больше 999, MAX_QUANTITY_TO_ADD = 999, можно поменять в папке consts
+    if (quantityToSend > MAX_QUANTITY_TO_ADD ) {
+      quantityToSend = MAX_QUANTITY_TO_ADD
+    }
 
     const itemsToAdd = [{productVriantId, count: quantityToSend}]
     

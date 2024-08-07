@@ -1,9 +1,10 @@
 import s from './CartSearch.module.scss';
-import {getCartSearchTerm, setCartSearchTerm} from "@/store/cartSlice.js";
+import {getCartSearchTerm, loadCart, setCartSearchTerm} from "@/store/cartSlice.js";
 import {useDispatch, useSelector} from "react-redux";
 import searchGlassIcon from "@/assets/img/cart/seachGlass.svg"
 import searchClose from "@/assets/img/cart/closeSearch.svg"
 import useMobileScreen from "@/hooks/useMobileScreen.js";
+import {useEffect} from "react";
 
 const CartSearch = () => {
   
@@ -12,7 +13,10 @@ const CartSearch = () => {
   const dispatch = useDispatch()
 
   const cartSearchTerm = useSelector(getCartSearchTerm)
-  const inputChangeHandler = (e) => {
+  
+
+  
+  const inputChangeHandler = (e) => {            
     dispatch(setCartSearchTerm(e.target.value))
   }
   

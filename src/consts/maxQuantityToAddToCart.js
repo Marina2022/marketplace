@@ -1,0 +1,1 @@
+export const MAX_QUANTITY_TO_ADD = 999
