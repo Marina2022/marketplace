@@ -20,25 +20,24 @@ const CurrentCart = () => {
   const cartStatus = useSelector(getCartStatus)
   
   useEffect(() => {        
-    dispatch(checkCartStatus({cartId: cart.cartId}))    
+    //todo - верни
+    // dispatch(checkCartStatus({cartId: cart.cartId}))    
   }, [cart.cartId]);
   
-
   console.log('cart--', cart)
+    
+  // todo - если в корзине нет товаров, т.е. сняты галочки у них, выводим сообщение (надо выбрать товары)
+  // todo - если нет вообще товаров, в т.ч. не чекнутых - то страница "Здесь пусто"
       
   let productsTotal
   if (cart?.cartItems) {
     productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
   }
 
-  if (cartStatus === 'loading') {
-    return <div>Loading...</div>
-  }
 
   if (cartStatus === 'success' && cart?.cartItems?.length === 0) {
     return <div>Пустая страница</div> // todo - сделать компонент для страницы пустой корзины 
   }
-
   return (
     <div>
       <div className={s.headerWrapper}>
@@ -58,30 +57,25 @@ const CurrentCart = () => {
             </div>
           }
 
-          <ChooseDeleteBlock/>
+          <ChooseDeleteBlock cartId={cart.cartId} />
           <h2 className={s.subtitle}>Ваши товары</h2>
 
-          <ul className={s.cartItemsList}>
-            {
-              cart?.cartItems.map((cartItem) => <CartItem cartItem={cartItem} key={cartItem.cartItemId}/>)
-            }
-          </ul>
-
-
+          {
+            cart?.cartItems && <ul className={s.cartItemsList}>
+              {
+                cart?.cartItems.map((cartItem) => <CartItem cartItem={cartItem} key={cartItem.cartItemId}
+                                                            cartId={cart.cartId}/>)
+              }
+            </ul>
+          }
         </div>
-        
-        
-
         <div className={s.rightPartWrapper}>
           <Checkout/>
-          <DownloadBlock links={cart.cartLinks} />
+          {
+            cart?.cartItems && <DownloadBlock links={cart.cartLinks}/> 
+          }                    
         </div>
-
-
       </div>
-
-      
-
     </div>
   );
 };

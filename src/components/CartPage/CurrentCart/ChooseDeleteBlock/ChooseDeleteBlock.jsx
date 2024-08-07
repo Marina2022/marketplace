@@ -1,27 +1,37 @@
 import s from './ChooseDeleteBlock.module.scss';
-import {useState} from "react";
-import {useSelector} from "react-redux";
-import {getCart} from "@/store/cartSlice.js";
+
+import {useDispatch, useSelector} from "react-redux";
+import {chooseAll, getCart} from "@/store/cartSlice.js";
 import deleteChosen from "@/assets/img/cart/deleteChosen.svg"
 
-const ChooseDeleteBlock = () => {
+const ChooseDeleteBlock = ({cartId}) => {
 
   const cart = useSelector(getCart)
+  
+  const dispatch = useDispatch()
+  
+  let isSelected = false
+  
+  
+  if (cart?.cartItems) {
+    isSelected = cart.cartItems
+      .filter(item => item.inventoryLevel !== 0)
+      .every(item => item.checked === true);
+  }
+  
 
-  //let isSelected = false
+  let someItemsAreChosen
 
-  // делаем проверку: если все позиции в cart checked, то isChecked = true
-  // а стейт потом убираем
-
-  let someItemsAreChosen = true
-
-  // делаем проверку: если в cart есть checked айтемы, то someItemsAreChosen = true
-
-  const [isSelected, setIsSelected] = useState(false) // потом уберем
-
-  const checkHandler = () => {
-    setIsSelected(prev => !prev)  // это тоже потом уберем
-    // Это заглушка для проверки верстки. Потом здесь будет диспатч экшна, который будет запрос отправлять или ЛС менять. И все обновится        
+  if (cart?.cartItems) {
+    someItemsAreChosen = cart.cartItems
+      .filter(item => item.inventoryLevel !== 0)
+      .some(item => item.checked === true);
+  }
+  
+  
+  const selectAllHandler = () => {
+    dispatch(chooseAll({select: isSelected ? "unselect" : "select", cartId}))
+    
   }
 
   const deleteChosenHandler = () => {
@@ -31,7 +41,7 @@ const ChooseDeleteBlock = () => {
   return (
     <div className={s.chooseDeleteBlock}>
 
-      <div onClick={checkHandler} className={s.chooseAll}>
+      <div onClick={selectAllHandler} className={s.chooseAll}>
 
         {
           !isSelected &&

@@ -14,7 +14,7 @@ export const loadCart = createAsyncThunk('cart/getCart', async (_, thunkAPI) => 
   // })
 
   if (state.user.isAuthenticated) {
-    const resp = await axios('carts')        
+    const resp = await axios('carts')
     return (resp.data)
   } else {
     const LSstring = localStorage.getItem('cart')
@@ -33,7 +33,7 @@ export const loadCheckout = createAsyncThunk('cart/getCheckout', async ({cartId}
   // })
 
   if (state.user.isAuthenticated) {
-    const resp = await axios(`carts/${cartId}/checkout`)    
+    const resp = await axios(`carts/${cartId}/checkout`)
     return (resp.data)
   } else {
     const LSstring = localStorage.getItem('cart')
@@ -44,26 +44,61 @@ export const loadCheckout = createAsyncThunk('cart/getCheckout', async ({cartId}
 
 
 export const checkCartStatus = createAsyncThunk('cart/checkCartStatus', async (param, thunkAPI) => {
-
   const cartId = param.cartId
   if (!cartId) return
   const state = thunkAPI.getState()
 
-  // задержка загрузки
-  // await new Promise((resolve)=>{
-  //   setTimeout(resolve, 1000)
-  // })
-
   if (state.user.isAuthenticated) {
     const resp = await axios(`carts/${cartId}/currentStatus`)
-    thunkAPI.dispatch(loadCart())
-    thunkAPI.dispatch(loadCheckout({cartId}))
+    console.log(resp)
+    if (resp.status === 200) {
+      thunkAPI.dispatch(loadCart())
+      thunkAPI.dispatch(loadCheckout({cartId}))
+    }
     return (resp.data)
   } else {
     // без авторизации ничего не будет происходить
     return
   }
 })
+
+export const sendCheckbox = createAsyncThunk('cart/sendCheckbox', async ({cartItemId, select, cartId}, thunkAPI) => {
+
+  const state = thunkAPI.getState()
+
+  if (state.user.isAuthenticated) {
+    const resp = await axios.post(`carts/cartItems/select`, {cartItemId, action: select})
+
+    if (resp.status === 200) {
+      thunkAPI.dispatch(loadCart())
+      thunkAPI.dispatch(loadCheckout({cartId}))
+    }
+    return (resp.data)
+  } else {
+    // todo - посылаем чекбокс в LS
+    return
+  }
+})
+
+export const chooseAll = createAsyncThunk('cart/chooseAll', async ({select, cartId}, thunkAPI) => {
+
+  const state = thunkAPI.getState()
+
+  if (state.user.isAuthenticated) {
+    const resp = await axios.post(`carts/cartItems/selectAll`, {action: select})
+
+    if (resp.status === 200) {
+      thunkAPI.dispatch(loadCart())
+      thunkAPI.dispatch(loadCheckout({cartId}))
+    }
+    return (resp.data)
+  } else {
+    // todo - посылаем chooseAll в LS
+    return
+  }
+})
+
+
 
 export const addToCart = createAsyncThunk('cart/sendCart', async (params, thunkAPI) => {
   const state = thunkAPI.getState()
@@ -74,7 +109,7 @@ export const addToCart = createAsyncThunk('cart/sendCart', async (params, thunkA
     // const data = await axiosInstance(`https://cart`)
     // return data.data // возвращаем корзину, которая, наверное, придет в ответе от сервере
 
-    // потом, при авторизации, корзину из LS прибавляем к корзине с сервера и по новой отправляем. 
+    // потом, при авторизации корзину из LS (т.е. все товары) просто добавим к корзине с сервера, и перезапросим все опять 
 
   } else {
 
@@ -110,6 +145,8 @@ const initialState = {
   checkout: null,
   checkoutStatus: 'loading',
   gettingCartStatus: 'loading',
+  sendSelectStatus: 'success',
+  chooseAllStatus: 'success',
   cartStatus: null
 }
 
@@ -150,7 +187,7 @@ export const cartSlice = createSlice({
       state.status = 'error'
       console.log('ошибка', action.error.message)
     })
-    
+
     .addCase(loadCheckout.pending, (state, action) => {
       state.checkoutStatus = 'loading'
     })
@@ -174,8 +211,31 @@ export const cartSlice = createSlice({
       state.gettingCartStatus = 'error'
       console.log('ошибка', action.error.message)
     })
+    
+    .addCase(sendCheckbox.pending, (state, action) => {
+      state.sendSelectStatus = 'loading'
+    })
+    .addCase(sendCheckbox.fulfilled, (state, action) => {
+      state.sendSelectStatus = 'success'      
+    })
+    .addCase(sendCheckbox.rejected, (state, action) => {
+      state.sendSelectStatus = 'error'
+      console.log('ошибка', action.error.message)
+    })
+
+
+    .addCase(chooseAll.pending, (state, action) => {
+      state.chooseAllStatus = 'loading'
+    })
+    .addCase(chooseAll.fulfilled, (state, action) => {
+      state.chooseAllStatus = 'success'
+    })
+    .addCase(chooseAll.rejected, (state, action) => {
+      state.chooseAllStatus = 'error'
+      console.log('ошибка', action.error.message)
+    })
   ,
-  
+
 })
 
 export const {clearProducts, addProduct, plus, minus, removeProduct, setCart, setCartSearchTerm} = cartSlice.actions

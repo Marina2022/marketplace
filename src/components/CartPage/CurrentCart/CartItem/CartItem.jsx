@@ -3,30 +3,31 @@ import {BASE_URL} from "@/consts/baseURL.js";
 import heartBtn from '@/assets/img/cart/cart-card/heart.svg'
 import heartActiveBtn from '@/assets/img/cart/cart-card/heart-active.svg'
 import trashBtn from '@/assets/img/cart/cart-card/trash.svg'
+import {useDispatch} from "react-redux";
+import {sendCheckbox} from "@/store/cartSlice.js";
 
-const CartItem = ({cartItem}) => {
+const CartItem = ({cartItem, cartId}) => {
 
+  const dispatch = useDispatch()
   console.log(cartItem)
   const chooseItemHandler = () => {
-    
+
     if (cartItem.inventoryLevel === 0) return
-    console.log('check')
+
+    dispatch(sendCheckbox({cartItemId: cartItem.cartItemId, select: cartItem.checked ? "unselect" : "select", cartId}))
+
   }
 
-  // const isSelected = cartItem.inventoryLevel === 0 ? false :  cartItem.checked
   const isSelected = cartItem.checked
-
-  
-  
 
   return (
     <div className={s.cartItem}>
-      <div className={s.cartItemCheck} onClick={chooseItemHandler} >
+      <div className={s.cartItemCheck} onClick={chooseItemHandler}>
         {
           !isSelected &&
           <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0.6" y="1.1" width="14.8" height="14.8" 
-                  stroke={ cartItem.inventoryLevel === 0 ? "#DDE2E5" : "#AAB7BF"} 
+            <rect x="0.6" y="1.1" width="14.8" height="14.8"
+                  stroke={cartItem.inventoryLevel === 0 ? "#DDE2E5" : "#AAB7BF"}
                   strokeWidth="1.2"/>
           </svg>
         }
@@ -62,7 +63,7 @@ const CartItem = ({cartItem}) => {
         <div className={s.actionBlock}>
           <div className={s.buttonsBlock}>
             {/*disabled если кол-во == 0 или 1 */}
-            <button className={s.minusBtn} disabled={cartItem.inventoryLevel === 0} >
+            <button className={s.minusBtn} disabled={cartItem.inventoryLevel === 0 || cartItem.quantity === 1}>
               <svg width="24" height="25" viewBox="0 0 24 25" fill="#3E5067" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M11.9199 23.25C5.99992 23.25 1.16992 18.43 1.16992 12.5C1.16992 6.57 5.99992 1.75 11.9199 1.75C17.8399 1.75 22.6699 6.57 22.6699 12.5C22.6699 18.43 17.8499 23.25 11.9199 23.25ZM11.9199 3.25C6.81992 3.25 2.66992 7.4 2.66992 12.5C2.66992 17.6 6.81992 21.75 11.9199 21.75C17.0199 21.75 21.1699 17.6 21.1699 12.5C21.1699 7.4 17.0199 3.25 11.9199 3.25Z"
@@ -72,7 +73,8 @@ const CartItem = ({cartItem}) => {
                 />
               </svg>
             </button>
-            <input className={s.input} type="text" defaultValue={cartItem.quantity} disabled={cartItem.inventoryLevel === 0} />
+            <input className={s.input} type="text" defaultValue={cartItem.quantity}
+                   disabled={cartItem.inventoryLevel <= cartItem.quantity}/>
             <button className={s.plusBtn} disabled={cartItem.inventoryLevel === 0}>
               <svg width="24" height="25" viewBox="0 0 24 25" fill="#3E5067" xmlns="http://www.w3.org/2000/svg">
                 <path
