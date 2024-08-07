@@ -21,9 +21,8 @@ const CurrentCart = () => {
   const cart = useSelector(getCart)
   console.log('cart--', cart)
   
-  useEffect(() => {        
-    //todo - верни
-    //dispatch(checkCartStatus({cartId: cart.cartId}))    
+  useEffect(() => {            
+    dispatch(checkCartStatus({cartId: cart.cartId}))    
   }, [cart.cartId]);
   
   
@@ -72,7 +71,7 @@ const CurrentCart = () => {
           }
         </div>
         <div className={s.rightPartWrapper}>
-          <Checkout/>
+          <Checkout cart={cart} />
           {
             cart?.cartItems && <DownloadBlock links={cart.cartLinks}/> 
           }                    

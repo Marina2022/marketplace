@@ -27,11 +27,9 @@ const ChooseDeleteBlock = ({cartId}) => {
       .filter(item => item.inventoryLevel !== 0)
       .some(item => item.checked === true);
   }
-  
-  
+   
   const selectAllHandler = () => {
-    dispatch(chooseAll({select: isSelected ? "unselect" : "select", cartId}))
-    
+    dispatch(chooseAll({select: isSelected ? "unselect" : "select", cartId}))    
   }
 
   const deleteChosenHandler = () => {

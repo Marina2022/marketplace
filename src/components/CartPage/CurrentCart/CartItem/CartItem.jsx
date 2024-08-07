@@ -8,15 +8,13 @@ import {addToCart, sendCheckbox} from "@/store/cartSlice.js";
 import {useEffect, useState} from "react";
 import {useDebounce} from '@uidotdev/usehooks';
 
-
 const CartItem = ({cartItem, cartId, index}) => {
   // console.log('cartItem', index, " = ", cartItem)
 
   const [currentQuantity, setCurrentQuantity] = useState(cartItem.quantity)
   const [inputValue, setInputValue] = useState(cartItem.quantity)
 
-
-  const debouncedQuantity = useDebounce(currentQuantity, 300);
+  const debouncedQuantity = useDebounce(currentQuantity, 500);
 
   useEffect(() => {
     if (debouncedQuantity !== cartItem.quantity) {
@@ -28,8 +26,6 @@ const CartItem = ({cartItem, cartId, index}) => {
         cartItemId: cartItem.cartItemId
       }))
     }
-
-
   }, [debouncedQuantity]);
 
   useEffect(() => {
@@ -54,19 +50,18 @@ const CartItem = ({cartItem, cartId, index}) => {
 
   const plusHandler = () => {
     if (currentQuantity >= 999) return
-    setCurrentQuantity(prev => +prev + 1)    
+    setCurrentQuantity(prev => +prev + 1)
   }
 
   const minusHandler = () => {
     setCurrentQuantity(prev => +prev - 1)
-    
   }
 
   const inputChangeHandler = (e) => {
     setInputValue(+e.target.value.replace(/\D/g, ''))
   }
 
-  const inputBlurHandler = () => {    
+  const inputBlurHandler = () => {
     if (cartItem.inventoryLevel <= inputValue) {
       setCurrentQuantity(cartItem.inventoryLevel)
       setInputValue(cartItem.inventoryLevel)
@@ -76,7 +71,7 @@ const CartItem = ({cartItem, cartId, index}) => {
   }
 
   const inputEnterHandler = (e) => {
-    if (e.key === 'Enter') {      
+    if (e.key === 'Enter') {
       if (cartItem.inventoryLevel <= inputValue) {
         setCurrentQuantity(cartItem.inventoryLevel)
         setInputValue(cartItem.inventoryLevel)
@@ -85,7 +80,6 @@ const CartItem = ({cartItem, cartId, index}) => {
       }
     }
   }
-
 
   return (
     <div className={s.cartItem}>
