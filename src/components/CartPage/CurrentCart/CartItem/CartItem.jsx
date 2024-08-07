@@ -4,25 +4,47 @@ import heartBtn from '@/assets/img/cart/cart-card/heart.svg'
 import heartActiveBtn from '@/assets/img/cart/cart-card/heart-active.svg'
 import trashBtn from '@/assets/img/cart/cart-card/trash.svg'
 import {useDispatch} from "react-redux";
-import {sendCheckbox} from "@/store/cartSlice.js";
+import {addToCart, sendCheckbox} from "@/store/cartSlice.js";
 import {useEffect, useState} from "react";
+import {useDebounce} from '@uidotdev/usehooks';
 
-const CartItem = ({cartItem, cartId}) => {
+
+const CartItem = ({cartItem, cartId, index}) => {
+  // console.log('cartItem', index, " = ", cartItem)
 
   const [currentQuantity, setCurrentQuantity] = useState(cartItem.quantity)
-  
-  useEffect(()=>{
+  const [inputValue, setInputValue] = useState(cartItem.quantity)
+
+
+  const debouncedQuantity = useDebounce(currentQuantity, 300);
+
+  useEffect(() => {
+    if (debouncedQuantity !== cartItem.quantity) {
+      dispatch(addToCart({
+        productVriantId: cartItem.productVariantId,
+        count: debouncedQuantity,
+        cartId,
+        inventoryLevel: cartItem.inventoryLevel,
+        cartItemId: cartItem.cartItemId
+      }))
+    }
+
+
+  }, [debouncedQuantity]);
+
+  useEffect(() => {
     if (currentQuantity >= 999) setCurrentQuantity(999)
-    if (currentQuantity <1) setCurrentQuantity(1)
+    if (currentQuantity < 1) setCurrentQuantity(1)
+    setInputValue(currentQuantity)
   }, [currentQuantity])
 
-  useEffect(()=>{
+  useEffect(() => {
     setCurrentQuantity(cartItem.quantity)
   }, [cartItem.quantity])
-  
-  
+
+
   const dispatch = useDispatch()
-  // console.log(cartItem)
+
   const chooseItemHandler = () => {
     if (cartItem.inventoryLevel === 0) return
     dispatch(sendCheckbox({cartItemId: cartItem.cartItemId, select: cartItem.checked ? "unselect" : "select", cartId}))
@@ -30,20 +52,40 @@ const CartItem = ({cartItem, cartId}) => {
 
   const isSelected = cartItem.checked
 
-
-
-  const plusHandler = () => {    
+  const plusHandler = () => {
     if (currentQuantity >= 999) return
-    setCurrentQuantity(prev => +prev + 1)
+    setCurrentQuantity(prev => +prev + 1)    
   }
 
   const minusHandler = () => {
     setCurrentQuantity(prev => +prev - 1)
+    
   }
 
-  const inputChangeHandler = (e) => {  
-    setCurrentQuantity(+e.target.value.replace(/\D/g, ''))
+  const inputChangeHandler = (e) => {
+    setInputValue(+e.target.value.replace(/\D/g, ''))
   }
+
+  const inputBlurHandler = () => {    
+    if (cartItem.inventoryLevel <= inputValue) {
+      setCurrentQuantity(cartItem.inventoryLevel)
+      setInputValue(cartItem.inventoryLevel)
+    } else {
+      setCurrentQuantity(inputValue)
+    }
+  }
+
+  const inputEnterHandler = (e) => {
+    if (e.key === 'Enter') {      
+      if (cartItem.inventoryLevel <= inputValue) {
+        setCurrentQuantity(cartItem.inventoryLevel)
+        setInputValue(cartItem.inventoryLevel)
+      } else {
+        setCurrentQuantity(inputValue)
+      }
+    }
+  }
+
 
   return (
     <div className={s.cartItem}>
@@ -98,15 +140,16 @@ const CartItem = ({cartItem, cartId}) => {
                 />
               </svg>
             </button>
-            
-            {/*<input value={currentQuantity} className={s.input} type="text" defaultValue={cartItem.quantity}*/}
-            <input value={currentQuantity}
+
+            <input value={inputValue}
                    onChange={inputChangeHandler}
+                   onBlur={inputBlurHandler}
+                   onKeyDown={inputEnterHandler}
                    className={s.input}
                    type="text"
-                   disabled={cartItem.inventoryLevel <= cartItem.quantity}/>
-            
-            <button onClick={plusHandler} className={s.plusBtn} disabled={cartItem.inventoryLevel === 0}>
+                   disabled={cartItem.inventoryLevel === 0}/>
+
+            <button onClick={plusHandler} className={s.plusBtn} disabled={cartItem.inventoryLevel <= cartItem.quantity}>
               <svg width="24" height="25" viewBox="0 0 24 25" fill="#3E5067" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 23.25C6.07 23.25 1.25 18.43 1.25 12.5C1.25 6.57 6.07 1.75 12 1.75C17.93 1.75 22.75 6.57 22.75 12.5C22.75 18.43 17.93 23.25 12 23.25ZM12 3.25C6.9 3.25 2.75 7.4 2.75 12.5C2.75 17.6 6.9 21.75 12 21.75C17.1 21.75 21.25 17.6 21.25 12.5C21.25 7.4 17.1 3.25 12 3.25Z"

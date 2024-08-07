@@ -16,15 +16,17 @@ const CurrentCart = () => {
   const dispatch = useDispatch()
 
   const isAuthenticated = useSelector(getIsAuthenticated)
-  const cart = useSelector(getCart)
   const cartStatus = useSelector(getCartStatus)
+
+  const cart = useSelector(getCart)
+  console.log('cart--', cart)
   
   useEffect(() => {        
     //todo - верни
-    // dispatch(checkCartStatus({cartId: cart.cartId}))    
+    //dispatch(checkCartStatus({cartId: cart.cartId}))    
   }, [cart.cartId]);
   
-  console.log('cart--', cart)
+  
     
   // todo - если в корзине нет товаров, т.е. сняты галочки у них, выводим сообщение (надо выбрать товары)
   // todo - если нет вообще товаров, в т.ч. не чекнутых - то страница "Здесь пусто"
@@ -63,7 +65,7 @@ const CurrentCart = () => {
           {
             cart?.cartItems && <ul className={s.cartItemsList}>
               {
-                cart?.cartItems.map((cartItem) => <CartItem cartItem={cartItem} key={cartItem.cartItemId}
+                cart?.cartItems.map((cartItem, i) => <CartItem index={i} cartItem={cartItem} key={cartItem.cartItemId}
                                                             cartId={cart.cartId}/>)
               }
             </ul>

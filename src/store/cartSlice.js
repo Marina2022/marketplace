@@ -98,44 +98,61 @@ export const chooseAll = createAsyncThunk('cart/chooseAll', async ({select, cart
   }
 })
 
-
-
-export const addToCart = createAsyncThunk('cart/sendCart', async (params, thunkAPI) => {
+export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunkAPI) => {
   const state = thunkAPI.getState()
-  const {id, quantity} = params
-  let cart = state.cart.productsInCart.slice()
-  if (state.user.isAuthenticated) {
-    // посылаем корзину на сервер  
-    // const data = await axiosInstance(`https://cart`)
-    // return data.data // возвращаем корзину, которая, наверное, придет в ответе от сервере
+  const {productVriantId, count, cartId, inventoryLevel, cartItemId} = params
+  
+  let quantityToSend = count
 
-    // потом, при авторизации корзину из LS (т.е. все товары) просто добавим к корзине с сервера, и перезапросим все опять 
+
+  if (state.user.isAuthenticated) {
+
+    console.log('я пришел в санку', {count})
+
+   
+    const isAvailable = await axios.post(`carts/productAvailable`, {cartItemId, quantity: count})
+    
+    if (isAvailable.data.requestedQuantity > isAvailable.data.inventoryLevel) quantityToSend = isAvailable.data.inventoryLevel
+
+    const itemsToAdd = [{productVriantId, count: quantityToSend}]
+    
+    const resp = await axios.post(`carts/cartItems`, itemsToAdd)
+
+    if (resp.status === 200) {
+      thunkAPI.dispatch(loadCart())
+      thunkAPI.dispatch(loadCheckout({cartId}))
+    }
+    return (resp.data)
 
   } else {
+    //  let cart = state.cart.productsInCart.slice()  // тут, видимо, будем полностью корзину апдейтить и заменять
+    // пока ничего не делаем
 
-    const productIndex = cart.findIndex((item) => {
-      return item.id == id
-    })
-
-    if (productIndex >= 0) {
-
-      if (cart[productIndex].count + quantity === 0) {
-        //remove
-        cart = cart.filter(product => product.id !== id)
-      } else {
-        // add quantity to count
-        const newProduct = {...cart[productIndex], count: cart[productIndex].count + quantity}
-        cart.splice(productIndex, 1, newProduct)
-      }
-
-    } else {
-      // add new item to cart
-      cart.push({id: id, count: 1})
-    }
+    // const productIndex = cart.findIndex((item) => {
+    //   return item.id == id
+    // })
+    //
+    // if (productIndex >= 0) {
+    //
+    //   if (cart[productIndex].count + quantity === 0) {
+    //     //remove
+    //     cart = cart.filter(product => product.id !== id)
+    //   } else {
+    //     // add quantity to count
+    //     const newProduct = {...cart[productIndex], count: cart[productIndex].count + quantity}
+    //     cart.splice(productIndex, 1, newProduct)
+    //   }
+    //
+    // } else {
+    //   // add new item to cart
+    //   cart.push({id: id, count: 1})
+    // }
   }
 
-  localStorage.setItem('cart', JSON.stringify(cart));
-  return cart
+  // localStorage.setItem('cart', JSON.stringify(cart));
+
+  // return cart
+  return 1
 })
 
 const initialState = {
@@ -147,6 +164,7 @@ const initialState = {
   gettingCartStatus: 'loading',
   sendSelectStatus: 'success',
   chooseAllStatus: 'success',
+  cartUpdateStatus: 'success',
   cartStatus: null
 }
 
@@ -165,14 +183,14 @@ export const cartSlice = createSlice({
 
   extraReducers: builder => builder
     .addCase(addToCart.pending, (state, action) => {
-      state.status = 'loading'
+      state.cartUpdateStatus = 'loading'
     })
     .addCase(addToCart.fulfilled, (state, action) => {
-      state.status = 'success'
-      state.productsInCart = action.payload
+      state.cartUpdateStatus = 'success'
+      // state.productsInCart = action.payload
     })
     .addCase(addToCart.rejected, (state, action) => {
-      state.status = 'error'
+      state.cartUpdateStatus = 'error'
       console.log('Не удалось добавить в корзину', action.error.message)
     })
 
@@ -211,12 +229,12 @@ export const cartSlice = createSlice({
       state.gettingCartStatus = 'error'
       console.log('ошибка', action.error.message)
     })
-    
+
     .addCase(sendCheckbox.pending, (state, action) => {
       state.sendSelectStatus = 'loading'
     })
     .addCase(sendCheckbox.fulfilled, (state, action) => {
-      state.sendSelectStatus = 'success'      
+      state.sendSelectStatus = 'success'
     })
     .addCase(sendCheckbox.rejected, (state, action) => {
       state.sendSelectStatus = 'error'

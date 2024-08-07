@@ -6,7 +6,7 @@ import Button from "@/components/ui/Button/Button.jsx";
 const Checkout = () => {
 
   const checkout = useSelector(getCheckout)
-  console.log(checkout)
+  //console.log(checkout)
     
   return (
     <div className={s.checkout}>
