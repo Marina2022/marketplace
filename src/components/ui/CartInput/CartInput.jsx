@@ -1,14 +1,18 @@
 import s from './CartInput.module.scss'
 import Button from "@/components/ui/Button/Button.jsx";
-import {useDispatch} from "react-redux";
-import {addToCart} from "@/store/cartSlice.js";
+import {useDispatch, useSelector} from "react-redux";
+import {addToCart, getCart} from "@/store/cartSlice.js";
 import {useNavigate} from "react-router-dom";
-const CartInput = ({className, value, product}) => {
+const CartInput = ({className, value, product, cartItemId}) => {
+  
+  // todo cartItemId - доделай
+  
+  const cart = useSelector(getCart)
   
   const navigate = useNavigate()
   const dispatch = useDispatch()  
   const onPlusClick = () => {     
-    dispatch(addToCart({id: product.productVariantId, quantity: 1}))
+    dispatch(addToCart({productVriantId: product.productVariantId, count: value + 1, cartId: cart.cartId, cartItemId}))
   }
   const onMinusClick = () => {
     dispatch(addToCart({id: product.productVariantId, quantity: -1}))

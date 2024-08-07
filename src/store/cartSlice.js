@@ -57,8 +57,7 @@ export const checkCartStatus = createAsyncThunk('cart/checkCartStatus', async (p
   const state = thunkAPI.getState()
 
   if (state.user.isAuthenticated) {
-    const resp = await axios(`carts/${cartId}/currentStatus`)
-    console.log(resp)
+    const resp = await axios(`carts/${cartId}/currentStatus`)    
     if (resp.status === 200) {
       thunkAPI.dispatch(loadCart())
       thunkAPI.dispatch(loadCheckout({cartId}))
@@ -108,17 +107,25 @@ export const chooseAll = createAsyncThunk('cart/chooseAll', async ({select, cart
 
 export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunkAPI) => {
   const state = thunkAPI.getState()
-  const {productVriantId, count, cartId, inventoryLevel, cartItemId} = params
+  const {productVriantId, count, cartId, cartItemId} = params
+  
   
   let quantityToSend = count
 
-
   if (state.user.isAuthenticated) {
-
        
-    const isAvailable = await axios.post(`carts/productAvailable`, {cartItemId, quantity: count})
+    if (cartItemId) {
+
+      console.log('hello')
+      // если из каталога впервые в корзину добавляем, cartItemId будет undefined, проверку не делаем    
+      const isAvailable = await axios.post(`carts/productAvailable`, {cartItemId, quantity: quantityToSend})
+
+      if (isAvailable.data.requestedQuantity > isAvailable.data.inventoryLevel) quantityToSend = isAvailable.data.inventoryLevel
+      
+    }
     
-    if (isAvailable.data.requestedQuantity > isAvailable.data.inventoryLevel) quantityToSend = isAvailable.data.inventoryLevel
+    
+    
 
     // число не может быть больше 999, MAX_QUANTITY_TO_ADD = 999, можно поменять в папке consts
     if (quantityToSend > MAX_QUANTITY_TO_ADD ) {

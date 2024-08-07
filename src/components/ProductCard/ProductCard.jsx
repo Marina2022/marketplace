@@ -5,21 +5,39 @@ import {useDispatch, useSelector} from "react-redux";
 import {getIsAuthenticated} from "@/store/userSlice.js";
 import {addToCart, getCart} from "@/store/cartSlice.js";
 import {getCartView} from "@/store/catalogSlice.js";
+
 const ProductCard = ({isBigScreen, product}) => {
-  const cardView = useSelector(getCartView) 
+  const cardView = useSelector(getCartView)
   const isAuthenticated = useSelector(getIsAuthenticated)
-  const productsInCart = useSelector(getCart)    
-  const productInCart = productsInCart.find(item=>item.id === product.productVariantId)  
-  let quantity
+
+  const cart = useSelector(getCart)
+
+  // console.log('cart from category', cart.cartItems)
+
+  let productInCart = false
+
+  if (cart?.cartItems) {
+    productInCart = cart.cartItems.find(item => {
+      return item.productVariantId === product.productVariantId
+    })
+  }
+
   
-  if (productInCart) { 
-    quantity = productInCart.count
+  
+  let quantity
+
+  if (productInCart) {
+    quantity = productInCart.quantity
   } else {
     quantity = 0
   }
-    
+
   const dispatch = useDispatch()
-  const onAddToCartClick = (id, quantity)=>dispatch(addToCart({id, quantity}))
+  const onAddToCartClick = (id, quantity) => {
+    //dispatch(addToCart({id, quantity}))
+  }
+
+
   const navigate = useNavigate()
   const onFavClick = (id) => {
     if (!isAuthenticated) {
@@ -29,20 +47,22 @@ const ProductCard = ({isBigScreen, product}) => {
     }
   }
 
-    return (
-        <>
-          {
-              (!isBigScreen || cardView === 'vertical') &&
-              <ProductCardVertical onAddToCartClick={onAddToCartClick} onFavClick={onFavClick} product={product} quantity={quantity}/>
-          }
+  return (
+    <>
+      {
+        (!isBigScreen || cardView === 'vertical') &&
+        <ProductCardVertical onAddToCartClick={onAddToCartClick} onFavClick={onFavClick} product={product}
+                             quantity={quantity} cartItemId={productInCart?.cartItemId} />
+      }
 
-          {
-              (isBigScreen && cardView === 'horizontal') &&
-              <ProductCardHorizontal onAddToCartClick={onAddToCartClick} onFavClick={onFavClick} product={product} quantity={quantity}/>
-          }
-        < />
-    )
-  }
+      {
+        (isBigScreen && cardView === 'horizontal') &&
+        <ProductCardHorizontal onAddToCartClick={onAddToCartClick} onFavClick={onFavClick} product={product}
+                               quantity={quantity} cartItemId={productInCart?.cartItemId}/>
+      }
+    < />
+  )
+}
 
 
-  export default ProductCard;
+export default ProductCard;

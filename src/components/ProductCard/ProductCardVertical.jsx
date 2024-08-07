@@ -6,7 +6,7 @@ import CartInput from "@/components/ui/CartInput/CartInput.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import ProductImage from "@/components/ProductCard/ProductImage/ProductImage.jsx";
 
-const ProductCardVertical = ({product, quantity, onFavClick, onAddToCartClick}) => {
+const ProductCardVertical = ({product, quantity, onFavClick, onAddToCartClick, cartItemId}) => {
   const isInCart = quantity > 0
   const navigate = useNavigate()
   
@@ -67,7 +67,7 @@ const ProductCardVertical = ({product, quantity, onFavClick, onAddToCartClick}) 
         </div>
             {
                 isInCart && (
-                    <CartInput className={s.cartInputVertical} value={quantity} product={product}/>
+                    <CartInput className={s.cartInputVertical} value={quantity} product={product} cartItemId={cartItemId}/>
                 )
             }
 

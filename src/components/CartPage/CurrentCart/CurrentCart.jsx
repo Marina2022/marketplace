@@ -21,11 +21,9 @@ const CurrentCart = () => {
   const cartSearchTerm = useSelector(getCartSearchTerm)
 
   const debouncedSearchTerm = useDebounce(cartSearchTerm, 500)
-
-  console.log({cartStatus})
-  
+    
   const cart = useSelector(getCart)
-  // console.log('cart--', cart)
+  console.log('cart--', cart)
 
   useEffect(()=>{
     dispatch(loadCart())

@@ -7,7 +7,7 @@ import CartInput from "@/components/ui/CartInput/CartInput.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import ProductImage from "@/components/ProductCard/ProductImage/ProductImage.jsx";
 
-const ProductCardHorizontal = ({product, quantity, onFavClick, onAddToCartClick}) => {
+const ProductCardHorizontal = ({product, quantity, onFavClick, onAddToCartClick, cartItemId}) => {
   
   const isInCart = quantity > 0
   const navigate = useNavigate()
@@ -57,7 +57,7 @@ const ProductCardHorizontal = ({product, quantity, onFavClick, onAddToCartClick}
           <div className={s.btnWrapper}>
             {
                 isInCart && (
-                    <CartInput product={product} value={quantity} />
+                    <CartInput product={product} value={quantity} cartItemId={cartItemId} />
                 )
             }
 

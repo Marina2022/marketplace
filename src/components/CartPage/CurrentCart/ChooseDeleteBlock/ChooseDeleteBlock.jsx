@@ -11,13 +11,16 @@ const ChooseDeleteBlock = ({cartId}) => {
   const dispatch = useDispatch()
   
   let isSelected = false
-  
-  
+    
   if (cart?.cartItems) {
     isSelected = cart.cartItems
       .filter(item => item.inventoryLevel !== 0)
       .every(item => item.checked === true);
+
+   if (cart.cartItems.length === 0 ) isSelected = false
   }
+  
+  
   
 
   let someItemsAreChosen

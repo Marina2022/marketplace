@@ -21,15 +21,13 @@ const CartItem = ({cartItem, cartId, index}) => {
       dispatch(addToCart({
         productVriantId: cartItem.productVariantId,
         count: debouncedQuantity,
-        cartId,
-        inventoryLevel: cartItem.inventoryLevel,
+        cartId,        
         cartItemId: cartItem.cartItemId
       }))
     }
   }, [debouncedQuantity]);
 
-  useEffect(() => {
-    // if (currentQuantity >= 999) setCurrentQuantity(999)
+  useEffect(() => {    
     if (currentQuantity < 1) setCurrentQuantity(1)
     setInputValue(currentQuantity)
   }, [currentQuantity])
