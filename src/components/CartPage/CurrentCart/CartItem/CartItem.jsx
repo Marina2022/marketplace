@@ -5,20 +5,45 @@ import heartActiveBtn from '@/assets/img/cart/cart-card/heart-active.svg'
 import trashBtn from '@/assets/img/cart/cart-card/trash.svg'
 import {useDispatch} from "react-redux";
 import {sendCheckbox} from "@/store/cartSlice.js";
+import {useEffect, useState} from "react";
 
 const CartItem = ({cartItem, cartId}) => {
 
+  const [currentQuantity, setCurrentQuantity] = useState(cartItem.quantity)
+  
+  useEffect(()=>{
+    if (currentQuantity >= 999) setCurrentQuantity(999)
+    if (currentQuantity <1) setCurrentQuantity(1)
+  }, [currentQuantity])
+
+  useEffect(()=>{
+    setCurrentQuantity(cartItem.quantity)
+  }, [cartItem.quantity])
+  
+  
   const dispatch = useDispatch()
-  console.log(cartItem)
+  // console.log(cartItem)
   const chooseItemHandler = () => {
-
     if (cartItem.inventoryLevel === 0) return
-
     dispatch(sendCheckbox({cartItemId: cartItem.cartItemId, select: cartItem.checked ? "unselect" : "select", cartId}))
-
   }
 
   const isSelected = cartItem.checked
+
+
+
+  const plusHandler = () => {    
+    if (currentQuantity >= 999) return
+    setCurrentQuantity(prev => +prev + 1)
+  }
+
+  const minusHandler = () => {
+    setCurrentQuantity(prev => +prev - 1)
+  }
+
+  const inputChangeHandler = (e) => {  
+    setCurrentQuantity(+e.target.value.replace(/\D/g, ''))
+  }
 
   return (
     <div className={s.cartItem}>
@@ -62,8 +87,8 @@ const CartItem = ({cartItem, cartId}) => {
 
         <div className={s.actionBlock}>
           <div className={s.buttonsBlock}>
-            {/*disabled если кол-во == 0 или 1 */}
-            <button className={s.minusBtn} disabled={cartItem.inventoryLevel === 0 || cartItem.quantity === 1}>
+            <button onClick={minusHandler} className={s.minusBtn}
+                    disabled={currentQuantity <= 1}>
               <svg width="24" height="25" viewBox="0 0 24 25" fill="#3E5067" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M11.9199 23.25C5.99992 23.25 1.16992 18.43 1.16992 12.5C1.16992 6.57 5.99992 1.75 11.9199 1.75C17.8399 1.75 22.6699 6.57 22.6699 12.5C22.6699 18.43 17.8499 23.25 11.9199 23.25ZM11.9199 3.25C6.81992 3.25 2.66992 7.4 2.66992 12.5C2.66992 17.6 6.81992 21.75 11.9199 21.75C17.0199 21.75 21.1699 17.6 21.1699 12.5C21.1699 7.4 17.0199 3.25 11.9199 3.25Z"
@@ -73,9 +98,15 @@ const CartItem = ({cartItem, cartId}) => {
                 />
               </svg>
             </button>
-            <input className={s.input} type="text" defaultValue={cartItem.quantity}
+            
+            {/*<input value={currentQuantity} className={s.input} type="text" defaultValue={cartItem.quantity}*/}
+            <input value={currentQuantity}
+                   onChange={inputChangeHandler}
+                   className={s.input}
+                   type="text"
                    disabled={cartItem.inventoryLevel <= cartItem.quantity}/>
-            <button className={s.plusBtn} disabled={cartItem.inventoryLevel === 0}>
+            
+            <button onClick={plusHandler} className={s.plusBtn} disabled={cartItem.inventoryLevel === 0}>
               <svg width="24" height="25" viewBox="0 0 24 25" fill="#3E5067" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 23.25C6.07 23.25 1.25 18.43 1.25 12.5C1.25 6.57 6.07 1.75 12 1.75C17.93 1.75 22.75 6.57 22.75 12.5C22.75 18.43 17.93 23.25 12 23.25ZM12 3.25C6.9 3.25 2.75 7.4 2.75 12.5C2.75 17.6 6.9 21.75 12 21.75C17.1 21.75 21.25 17.6 21.25 12.5C21.25 7.4 17.1 3.25 12 3.25Z"
@@ -89,10 +120,17 @@ const CartItem = ({cartItem, cartId}) => {
               </svg>
             </button>
           </div>
-          <div className={s.smallStockMobile}>Осталось мало</div>
+          {
+            cartItem.inventoryLevel > 0 && cartItem.inventoryLevel < 3 &&
+            <div className={s.smallStockMobile}>Осталось мало</div>
+          }
           <div className={s.priceBlock}>
-            <div className={s.oldPrice}>{cartItem.regularPrice.toLocaleString()}&nbsp;₽</div>
-            <div className={s.currentPrice}>{cartItem.price.toLocaleString()}&nbsp;₽</div>
+            <div
+              className={s.oldPrice}>{(cartItem.regularPrice * (cartItem.quantity !== 0 ? cartItem.quantity : 1)).toLocaleString()}&nbsp;₽
+            </div>
+            <div
+              className={s.currentPrice}>{(cartItem.price * (cartItem.quantity !== 0 ? cartItem.quantity : 1)).toLocaleString()}&nbsp;₽
+            </div>
           </div>
           <div className={s.iconButtons}>
             <button><img className={s.heartImg} src={cartItem.isFavourite ? heartActiveBtn : heartBtn} alt="heart"/>
