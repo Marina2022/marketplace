@@ -11,6 +11,8 @@ import Checkout from "@/components/CartPage/CurrentCart/Checkout/Checkout.jsx";
 import DownloadBlock from "@/components/CartPage/DownloadBlock/DownloadBlock.jsx";
 import {useEffect} from "react";
 import {useDebounce} from "@uidotdev/usehooks";
+import Button from "@/components/ui/Button/Button.jsx";
+import {useNavigate} from "react-router-dom";
 
 const CurrentCart = () => {
 
@@ -21,35 +23,39 @@ const CurrentCart = () => {
   const cartSearchTerm = useSelector(getCartSearchTerm)
 
   const debouncedSearchTerm = useDebounce(cartSearchTerm, 500)
-    
+
+  const navigate = useNavigate()
   const cart = useSelector(getCart)
   console.log('cart--', cart)
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(loadCart())
   }, [debouncedSearchTerm])
-  
-  useEffect(() => {            
-    dispatch(checkCartStatus({cartId: cart.cartId}))    
+
+  useEffect(() => {
+    dispatch(checkCartStatus({cartId: cart.cartId}))
   }, [cart.cartId]);
 
-  
-    
-  // todo - если в корзине нет товаров, т.е. сняты галочки у них, выводим сообщение (надо выбрать товары)
-  // todo - если нет вообще товаров, в т.ч. не чекнутых - то страница "Здесь пусто"
-      
+
   let productsTotal
   if (cart?.cartItems) {
     productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
   }
- 
-  if (cartStatus === 'success' && cart?.cartItems?.length === 0 && !debouncedSearchTerm ) {
-    return <div>Пустая страница</div> // todo - сделать компонент для страницы пустой корзины 
+
+  if (cart?.cartItems?.length === 6 && !debouncedSearchTerm) {
+    return <div className={s.emptyPage}>
+      <h2 className={s.emptyPageTitle}>Здесь пусто :(</h2>
+      <p className={s.emptyPageText}>Ваша корзина пуста!<br/>
+        Начните покупки и сложите товары в корзину.</p>
+      <Button onClick={() => navigate('/category/smartfoni-781001bc-3a72-4e5b-8d2a-ee22e0ea7b0a')}
+              className={s.emptyPageButton}>Начать&nbsp;покупки</Button>
+    </div>
   }
+
   return (
-    <div>
+    cart?.cartItems && <div>
       <div className={s.headerWrapper}>
-        <h1 className={s.mainTitle}>Ваша корзина</h1>        
+        <h1 className={s.mainTitle}>Ваша корзина</h1>
         <p className={s.productsQuantity}>{getProductQuantityString(productsTotal)}</p>
       </div>
 
@@ -65,27 +71,28 @@ const CurrentCart = () => {
             </div>
           }
 
-          <ChooseDeleteBlock />
+          <ChooseDeleteBlock/>
           <h2 className={s.subtitle}>Ваши товары</h2>
 
           {
             cart?.cartItems && <ul className={s.cartItemsList}>
               {
                 cart?.cartItems.map((cartItem, i) => <CartItem index={i} cartItem={cartItem} key={cartItem.cartItemId}
-                                                            cartId={cart.cartId}/>)
+                                                               cartId={cart.cartId}/>)
               }
             </ul>
           }
         </div>
         <div className={s.rightPartWrapper}>
-          <Checkout cart={cart} />
+          <Checkout cart={cart}/>
           {
-            cart?.cartItems && <DownloadBlock links={cart.cartLinks}/> 
-          }                    
+            cart?.cartItems && <DownloadBlock links={cart.cartLinks}/>
+          }
         </div>
       </div>
     </div>
   );
-};
+}
+
 
 export default CurrentCart;
