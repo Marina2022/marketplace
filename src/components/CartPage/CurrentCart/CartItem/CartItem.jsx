@@ -4,7 +4,7 @@ import heartBtn from '@/assets/img/cart/cart-card/heart.svg'
 import heartActiveBtn from '@/assets/img/cart/cart-card/heart-active.svg'
 import trashBtn from '@/assets/img/cart/cart-card/trash.svg'
 import {useDispatch} from "react-redux";
-import {addToCart, sendCheckbox} from "@/store/cartSlice.js";
+import {addToCart, deleteCartItem, sendCheckbox} from "@/store/cartSlice.js";
 import {useEffect, useState} from "react";
 import {useDebounce} from '@uidotdev/usehooks';
 
@@ -77,6 +77,10 @@ const CartItem = ({cartItem, cartId, index}) => {
         setCurrentQuantity(inputValue)
       }
     }
+  }
+  
+  const deleteItemHandler = () => {
+    dispatch(deleteCartItem({cartItemId: cartItem.cartItemId, cartId}))
   }
 
   return (
@@ -170,7 +174,7 @@ const CartItem = ({cartItem, cartId, index}) => {
           <div className={s.iconButtons}>
             <button><img className={s.heartImg} src={cartItem.isFavourite ? heartActiveBtn : heartBtn} alt="heart"/>
             </button>
-            <button><img className={s.trashImg} src={trashBtn} alt="trash"/></button>
+            <button onClick={deleteItemHandler}><img className={s.trashImg} src={trashBtn} alt="trash"/></button>
           </div>
         </div>
       </div>

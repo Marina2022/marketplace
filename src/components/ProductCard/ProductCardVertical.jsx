@@ -67,7 +67,7 @@ const ProductCardVertical = ({product, quantity, onFavClick, onAddToCartClick, c
         </div>
             {
                 isInCart && (
-                    <CartInput className={s.cartInputVertical} value={quantity} product={product} cartItemId={cartItemId}/>
+                    <CartInput className={s.cartInputVertical} quantity={quantity} product={product} cartItemId={cartItemId}/>
                 )
             }
 

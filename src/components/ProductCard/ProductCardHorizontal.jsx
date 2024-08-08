@@ -57,7 +57,7 @@ const ProductCardHorizontal = ({product, quantity, onFavClick, onAddToCartClick,
           <div className={s.btnWrapper}>
             {
                 isInCart && (
-                    <CartInput product={product} value={quantity} cartItemId={cartItemId} />
+                    <CartInput product={product} quantity={quantity} cartItemId={cartItemId} />
                 )
             }
 

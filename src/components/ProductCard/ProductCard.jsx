@@ -33,8 +33,13 @@ const ProductCard = ({isBigScreen, product}) => {
   }
 
   const dispatch = useDispatch()
-  const onAddToCartClick = (id, quantity) => {
-    //dispatch(addToCart({id, quantity}))
+  const onAddToCartClick = (productVariantId, quantity) => {    
+    dispatch(addToCart({
+      productVriantId: productVariantId,
+      count: quantity,
+      cartId: cart.cartId,    
+    }))
+    
   }
 
 

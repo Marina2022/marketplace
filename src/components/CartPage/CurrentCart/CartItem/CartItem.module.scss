@@ -95,21 +95,22 @@
     top: unset;
     left: 0;
     gap: 15px;
-    margin-bottom: 6px;
+    margin-bottom: 6px;    
+    width: 50px;
   }
 }
 
 .heartImg {
   @include m {
-    width: 11px;
-    height: 11px;
+    width: 14px;
+    height: 14px;
   }
 }
 
 .trashImg {
   @include m {
-    width: 12px;
-    height: 12px;
+    width: 15px;
+    height: 15px;
   }
 }
 
@@ -203,11 +204,11 @@
 
   @include m {
     width: 84px;
-    height: 24px;
-    margin-right: 0;
-    align-self: flex-end;
+    height: 30px;
+    margin-right: 0;    
     padding: 6px;
     margin-top: 10px;
+    margin-left: 70px;
   }
 }
 
@@ -226,8 +227,8 @@
   }
 
   @include m {
-    font-size: 10px;
-    width: 20px;
+    font-size: 12px;
+    width: 22px;
   }
 }
 
@@ -237,8 +238,8 @@
     display: flex;
     align-items: center;
     svg {
-      width: 12px;
-      height: 12px;
+      width: 16px;
+      height: 16px;
       object-fit: contain;
     }
   }
@@ -262,8 +263,8 @@
 
   @include m {
     svg {
-      width: 12px;
-      height: 12px;
+      width: 16px;
+      height: 16px;
       object-fit: contain;
     }
   }

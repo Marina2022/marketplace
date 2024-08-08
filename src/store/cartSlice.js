@@ -115,8 +115,6 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunk
   if (state.user.isAuthenticated) {
        
     if (cartItemId) {
-
-      console.log('hello')
       // если из каталога впервые в корзину добавляем, cartItemId будет undefined, проверку не делаем    
       const isAvailable = await axios.post(`carts/productAvailable`, {cartItemId, quantity: quantityToSend})
 
@@ -124,16 +122,12 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunk
       
     }
     
-    
-    
-
     // число не может быть больше 999, MAX_QUANTITY_TO_ADD = 999, можно поменять в папке consts
     if (quantityToSend > MAX_QUANTITY_TO_ADD ) {
       quantityToSend = MAX_QUANTITY_TO_ADD
     }
 
-    const itemsToAdd = [{productVriantId, count: quantityToSend}]
-    
+    const itemsToAdd = [{productVriantId, count: quantityToSend}]    
     const resp = await axios.post(`carts/cartItems`, itemsToAdd)
 
     if (resp.status === 200) {
@@ -172,6 +166,26 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunk
   // return cart
   return 1
 })
+
+export const deleteCartItem  = createAsyncThunk('cart/deleteCartItem', async ({cartItemId, cartId}, thunkAPI) => {
+
+  const state = thunkAPI.getState()
+
+  if (state.user.isAuthenticated) {
+    const resp = await axios.delete(`carts/cartItem/${cartItemId}`)
+
+    if (resp.status === 200) {
+      thunkAPI.dispatch(loadCart())
+      thunkAPI.dispatch(loadCheckout({cartId}))
+    }
+    return (resp.data)
+  } else {
+    // todo - delete в LS
+    return
+  }
+})
+
+
 
 const initialState = {
   productsInCart: [],
