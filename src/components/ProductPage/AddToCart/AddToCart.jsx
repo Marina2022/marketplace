@@ -4,20 +4,38 @@ import {addToCart, getCart} from "@/store/cartSlice.js";
  import CartInput from "@/components/ui/CartInput/CartInput.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
 const AddToCart = ({product}) => {
+  
   const dispatch = useDispatch()
-  const onAddToCartClick = (id, quantity) => dispatch(addToCart({id, quantity}))
-  const productsInCart = useSelector(getCart)
-  const productInCart = productsInCart.find(item => item.id === product.productVariantId)
+    
+  const cart = useSelector(getCart)
+
+  let productInCart = false
+
+  if (cart?.cartItems) {
+    productInCart = cart.cartItems.find(item => {
+      return item.productVariantId === product.productVariantId
+    })
+  }
+
   let quantity
 
-  const isInCart = quantity > 0
-  
   if (productInCart) {
-    quantity = productInCart.count
+    quantity = productInCart.quantity
   } else {
     quantity = 0
   }
-  
+
+  //const onAddToCartClick = (id, quantity) => dispatch(addToCart({id, quantity}))
+  const onAddToCartClick = (productVariantId, quantity) => {
+    dispatch(addToCart({
+      productVriantId: productVariantId,
+      count: quantity,
+      cartId: cart.cartId,
+    }))
+  }
+
+  const isInCart = quantity > 0
+
   return (
     <div className={s.addToCart}>
       <div className={s.priceWrapper}>
@@ -32,12 +50,12 @@ const AddToCart = ({product}) => {
       <div className={s.btnWrapper}>
         {
           isInCart && (
-            <CartInput product={product} value={quantity} className={s.cartInput} />
+            <CartInput product={product} quantity={quantity} className={s.cartInput} cartItemId={productInCart.cartItemId} />
           )
         }
       
         {
-          !isInCart && <Button className={s.toCartBtn}
+          !isInCart && <Button className={s.toCartBtn} disabled={product.inventoryQuantity === 0}
                                onClick={() => onAddToCartClick(product.productVariantId, 1)}>Добавить&nbsp;в&nbsp;корзину</Button>
         }
       

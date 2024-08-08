@@ -12,8 +12,6 @@ const ProductCard = ({isBigScreen, product}) => {
 
   const cart = useSelector(getCart)
 
-  // console.log('cart from category', cart.cartItems)
-
   let productInCart = false
 
   if (cart?.cartItems) {
@@ -21,8 +19,6 @@ const ProductCard = ({isBigScreen, product}) => {
       return item.productVariantId === product.productVariantId
     })
   }
-
-  
   
   let quantity
 
@@ -38,8 +34,7 @@ const ProductCard = ({isBigScreen, product}) => {
       productVriantId: productVariantId,
       count: quantity,
       cartId: cart.cartId,    
-    }))
-    
+    }))    
   }
 
 

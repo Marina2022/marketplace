@@ -60,6 +60,8 @@ const ProductPage = () => {
   const [product, setProduct] = useState(null)
   const {slug: productHandle} = useParams()
 
+  console.log('product = ', product)
+  
   const [sku, setSku] = useState(null)
 
   // const [tabIsOpen, setTabIsOpen] = useState(null)
