@@ -185,6 +185,23 @@ export const deleteCartItem  = createAsyncThunk('cart/deleteCartItem', async ({c
   }
 })
 
+export const deleteCartItemsRange  = createAsyncThunk('cart/deleteCartItemsRange', async ({cartItemsArray, cartId}, thunkAPI) => {
+
+  const state = thunkAPI.getState()
+
+  if (state.user.isAuthenticated) {
+    const resp = await axios.post(`carts/removeCartItems`, cartItemsArray)
+    if (resp.status === 200) {
+      thunkAPI.dispatch(loadCart())
+      thunkAPI.dispatch(loadCheckout({cartId}))
+    }
+    return (resp.data)
+  } else {
+    // todo - delete range в LS
+    return
+  }
+})
+
 
 
 const initialState = {

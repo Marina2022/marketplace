@@ -14,7 +14,7 @@ const CartItem = ({cartItem, cartId, index}) => {
   const [currentQuantity, setCurrentQuantity] = useState(cartItem.quantity)
   const [inputValue, setInputValue] = useState(cartItem.quantity)
 
-  const debouncedQuantity = useDebounce(currentQuantity, 500);
+  const debouncedQuantity = useDebounce(currentQuantity, 400);
 
   useEffect(() => {
     if (debouncedQuantity !== cartItem.quantity) {

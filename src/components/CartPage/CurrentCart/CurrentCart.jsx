@@ -65,7 +65,7 @@ const CurrentCart = () => {
             </div>
           }
 
-          <ChooseDeleteBlock cartId={cart.cartId} />
+          <ChooseDeleteBlock />
           <h2 className={s.subtitle}>Ваши товары</h2>
 
           {

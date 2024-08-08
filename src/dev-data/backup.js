@@ -1,6 +1,6 @@
 // Отзывы в АПИ приходят такие:
 
-export const testReviews =  [
+export const testReviews = [
   {
     "reviewId": "0a59835c-1bcc-4ef3-adba-f369ec2af2ad",
     "userId": "2e9db524-e273-423a-b829-a07f6cd4ecad",
@@ -506,4 +506,23 @@ const response = {
     "nextCursor": 14,
     "cursorLimit": 14
   }
+}
+
+const cartItem = {
+  article: 24941315,
+  cartItemId: "71f241c8-64de-4231-8c3a-dee9b34a02c7",
+  checked: false,
+  createDate: "2024-08-07T06:56:51.30151Z",
+  inventoryLevel: 2,
+  isAvailable: true,
+  isFavourite: false,
+  price: 10261,
+  productHandle: "Смартфон-Redmi-Note-12-5f3778dd-9284-48dc-a8fe-52dc41577373",
+  productImageUrl: "Data/products/5f3778dd-9284-48dc-a8fe-52dc41577373/images/main/6699585060.png",
+  productName: "Смартфон Xiaomi Redmi 12",
+  productVariantId: "1c2cb05c-f950-4d40-a6b6-b6678e6d5b08",
+  quantity: 2,
+  regularPrice: 17990,
+  seller: "MWInformTech",
+  sku: "58745220",
 }

@@ -1,10 +1,10 @@
 import s from './ChooseDeleteBlock.module.scss';
 
 import {useDispatch, useSelector} from "react-redux";
-import {chooseAll, getCart} from "@/store/cartSlice.js";
+import {chooseAll, deleteCartItemsRange, getCart} from "@/store/cartSlice.js";
 import deleteChosen from "@/assets/img/cart/deleteChosen.svg"
 
-const ChooseDeleteBlock = ({cartId}) => {
+const ChooseDeleteBlock = () => {
 
   const cart = useSelector(getCart)
   
@@ -20,8 +20,7 @@ const ChooseDeleteBlock = ({cartId}) => {
    if (cart.cartItems.length === 0 ) isSelected = false
   }
   
-  
-  
+   
 
   let someItemsAreChosen
 
@@ -32,11 +31,22 @@ const ChooseDeleteBlock = ({cartId}) => {
   }
    
   const selectAllHandler = () => {
-    dispatch(chooseAll({select: isSelected ? "unselect" : "select", cartId}))    
+    dispatch(chooseAll({select: isSelected ? "unselect" : "select", cartId: cart.cartId}))    
   }
 
-  const deleteChosenHandler = () => {
-    // Запрос на удаление выбранных позиций
+  const deleteChosenHandler = () => {    
+    const arrayToSend = []
+    cart.cartItems.forEach((item)=>{
+      if (item.checked) {
+        arrayToSend.push({cartItemId: item.cartItemId})
+      }
+    })
+    
+    
+    dispatch(deleteCartItemsRange({cartItemsArray:arrayToSend, cartId: cart.cartId}))
+
+    console.log('arrayToSend = ', arrayToSend)
+    
   }
 
   return (
