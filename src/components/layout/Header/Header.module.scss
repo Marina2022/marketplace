@@ -12,4 +12,26 @@
 .wrapper {
   padding-top: 16px;
   padding-bottom: 19px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.loginWrapper {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.loginBtn {
+  border: #3fb8af solid 1px;
+  border-radius: 8px;
+  padding: 10px;
+  
+  &:hover {
+    background: #ebf7f7;
+  }
+
+  &:active {
+    background: #d8f0ef;
+  }
 }

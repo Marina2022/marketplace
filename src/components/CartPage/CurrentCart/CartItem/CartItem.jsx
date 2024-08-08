@@ -8,9 +8,8 @@ import {addToCart, deleteCartItem, sendCheckbox} from "@/store/cartSlice.js";
 import {useEffect, useState} from "react";
 import {useDebounce} from '@uidotdev/usehooks';
 
-const CartItem = ({cartItem, cartId, index}) => {
-  // console.log('cartItem', index, " = ", cartItem)
-
+const CartItem = ({cartItem, cartId}) => {
+  
   const [currentQuantity, setCurrentQuantity] = useState(cartItem.quantity)
   const [inputValue, setInputValue] = useState(cartItem.quantity)
 
@@ -20,9 +19,9 @@ const CartItem = ({cartItem, cartId, index}) => {
     if (debouncedQuantity !== cartItem.quantity) {
       dispatch(addToCart({
         productVriantId: cartItem.productVariantId,
-        count: debouncedQuantity,
-        cartId,        
-        cartItemId: cartItem.cartItemId
+        count: debouncedQuantity,            
+        cartItemId: cartItem.cartItemId,
+        item: cartItem
       }))
     }
   }, [debouncedQuantity]);
@@ -41,7 +40,7 @@ const CartItem = ({cartItem, cartId, index}) => {
 
   const chooseItemHandler = () => {
     if (cartItem.inventoryLevel === 0) return
-    dispatch(sendCheckbox({cartItemId: cartItem.cartItemId, select: cartItem.checked ? "unselect" : "select", cartId}))
+    dispatch(sendCheckbox({cartItemId: cartItem.cartItemId, select: cartItem.checked ? "unselect" : "select"}))
   }
 
   const isSelected = cartItem.checked
@@ -80,7 +79,7 @@ const CartItem = ({cartItem, cartId, index}) => {
   }
   
   const deleteItemHandler = () => {
-    dispatch(deleteCartItem({cartItemId: cartItem.cartItemId, cartId}))
+    dispatch(deleteCartItem({cartItemId: cartItem.cartItemId}))
   }
 
   return (

@@ -31,7 +31,7 @@ const ChooseDeleteBlock = () => {
   }
    
   const selectAllHandler = () => {
-    dispatch(chooseAll({select: isSelected ? "unselect" : "select", cartId: cart.cartId}))    
+    dispatch(chooseAll({select: isSelected ? "unselect" : "select"}))    
   }
 
   const deleteChosenHandler = () => {    
@@ -43,7 +43,7 @@ const ChooseDeleteBlock = () => {
     })
     
     
-    dispatch(deleteCartItemsRange({cartItemsArray:arrayToSend, cartId: cart.cartId}))
+    dispatch(deleteCartItemsRange({cartItemsArray:arrayToSend}))
 
     console.log('arrayToSend = ', arrayToSend)
     

@@ -3,10 +3,7 @@ import axios from "@/api/axiosInstance.js";
 import {MAX_QUANTITY_TO_ADD} from "@/consts/maxQuantityToAddToCart.js";
 
 export const loadCart = createAsyncThunk('cart/getCart', async (param, thunkAPI) => {
-  // Запрос на получение корзины с сервера.. 
-
-  // в парамсах еще можно слово для поиска принять, но это потом
-
+  
   const state = thunkAPI.getState()
 
   // задержка загрузки
@@ -21,7 +18,9 @@ export const loadCart = createAsyncThunk('cart/getCart', async (param, thunkAPI)
   }
 
   if (state.user.isAuthenticated) {
-    const resp = await axios(urlString)
+    const resp = await axios(urlString)    
+    thunkAPI.dispatch(loadCheckout({cartId: resp.data.cartId}))
+    
     return (resp.data)
   } else {
     // const LSstring = localStorage.getItem('cart')
@@ -34,19 +33,19 @@ export const loadCart = createAsyncThunk('cart/getCart', async (param, thunkAPI)
 export const loadCheckout = createAsyncThunk('cart/getCheckout', async ({cartId}, thunkAPI) => {
 
   const state = thunkAPI.getState()
-
-  // задержка загрузки
-  // await new Promise((resolve)=>{
-  //   setTimeout(resolve, 1000)
-  // })
-
+  
   if (state.user.isAuthenticated) {
     const resp = await axios(`carts/${cartId}/checkout`)
     return (resp.data)
   } else {
-    const LSstring = localStorage.getItem('cart')
-    if (!LSstring) return []
-    return JSON.parse(LSstring)
+    
+    // считаем и сетаем чекаут сами
+    
+    // const LSstring = localStorage.getItem('cart')
+    // if (!LSstring) return []
+    // return JSON.parse(LSstring)
+
+    return []
   }
 })
 
@@ -59,8 +58,7 @@ export const checkCartStatus = createAsyncThunk('cart/checkCartStatus', async (p
   if (state.user.isAuthenticated) {
     const resp = await axios(`carts/${cartId}/currentStatus`)    
     if (resp.status === 200) {
-      thunkAPI.dispatch(loadCart())
-      thunkAPI.dispatch(loadCheckout({cartId}))
+      thunkAPI.dispatch(loadCart())      
     }
     return (resp.data)
   } else {
@@ -69,7 +67,7 @@ export const checkCartStatus = createAsyncThunk('cart/checkCartStatus', async (p
   }
 })
 
-export const sendCheckbox = createAsyncThunk('cart/sendCheckbox', async ({cartItemId, select, cartId}, thunkAPI) => {
+export const sendCheckbox = createAsyncThunk('cart/sendCheckbox', async ({cartItemId, select}, thunkAPI) => {
 
   const state = thunkAPI.getState()
 
@@ -77,8 +75,7 @@ export const sendCheckbox = createAsyncThunk('cart/sendCheckbox', async ({cartIt
     const resp = await axios.post(`carts/cartItems/select`, {cartItemId, action: select})
 
     if (resp.status === 200) {
-      thunkAPI.dispatch(loadCart())
-      thunkAPI.dispatch(loadCheckout({cartId}))
+      thunkAPI.dispatch(loadCart())      
     }
     return (resp.data)
   } else {
@@ -87,7 +84,7 @@ export const sendCheckbox = createAsyncThunk('cart/sendCheckbox', async ({cartIt
   }
 })
 
-export const chooseAll = createAsyncThunk('cart/chooseAll', async ({select, cartId}, thunkAPI) => {
+export const chooseAll = createAsyncThunk('cart/chooseAll', async ({select}, thunkAPI) => {
 
   const state = thunkAPI.getState()
 
@@ -95,8 +92,7 @@ export const chooseAll = createAsyncThunk('cart/chooseAll', async ({select, cart
     const resp = await axios.post(`carts/cartItems/selectAll`, {action: select})
 
     if (resp.status === 200) {
-      thunkAPI.dispatch(loadCart())
-      thunkAPI.dispatch(loadCheckout({cartId}))
+      thunkAPI.dispatch(loadCart())     
     }
     return (resp.data)
   } else {
@@ -104,12 +100,10 @@ export const chooseAll = createAsyncThunk('cart/chooseAll', async ({select, cart
     return
   }
 })
-
 export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunkAPI) => {
   const state = thunkAPI.getState()
-  const {productVriantId, count, cartId, cartItemId} = params
-  
-  
+  const {productVriantId, count, cartItemId, item} = params
+    
   let quantityToSend = count
 
   if (state.user.isAuthenticated) {
@@ -131,12 +125,13 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunk
     const resp = await axios.post(`carts/cartItems`, itemsToAdd)
 
     if (resp.status === 200) {
-      thunkAPI.dispatch(loadCart())
-      thunkAPI.dispatch(loadCheckout({cartId}))
+      thunkAPI.dispatch(loadCart())     
     }
     return (resp.data)
 
   } else {
+
+    console.log('посылать в LS будем айтем', item)
     //  let cart = state.cart.productsInCart.slice()  // тут, видимо, будем полностью корзину апдейтить и заменять
     // пока ничего не делаем
 
@@ -167,7 +162,7 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunk
   return 1
 })
 
-export const deleteCartItem  = createAsyncThunk('cart/deleteCartItem', async ({cartItemId, cartId}, thunkAPI) => {
+export const deleteCartItem  = createAsyncThunk('cart/deleteCartItem', async ({cartItemId}, thunkAPI) => {
 
   const state = thunkAPI.getState()
 
@@ -175,8 +170,7 @@ export const deleteCartItem  = createAsyncThunk('cart/deleteCartItem', async ({c
     const resp = await axios.delete(`carts/cartItem/${cartItemId}`)
 
     if (resp.status === 200) {
-      thunkAPI.dispatch(loadCart())
-      thunkAPI.dispatch(loadCheckout({cartId}))
+      thunkAPI.dispatch(loadCart())      
     }
     return (resp.data)
   } else {
@@ -185,7 +179,7 @@ export const deleteCartItem  = createAsyncThunk('cart/deleteCartItem', async ({c
   }
 })
 
-export const deleteCartItemsRange  = createAsyncThunk('cart/deleteCartItemsRange', async ({cartItemsArray, cartId}, thunkAPI) => {
+export const deleteCartItemsRange  = createAsyncThunk('cart/deleteCartItemsRange', async ({cartItemsArray}, thunkAPI) => {
 
   const state = thunkAPI.getState()
 
@@ -193,7 +187,6 @@ export const deleteCartItemsRange  = createAsyncThunk('cart/deleteCartItemsRange
     const resp = await axios.post(`carts/removeCartItems`, cartItemsArray)
     if (resp.status === 200) {
       thunkAPI.dispatch(loadCart())
-      thunkAPI.dispatch(loadCheckout({cartId}))
     }
     return (resp.data)
   } else {

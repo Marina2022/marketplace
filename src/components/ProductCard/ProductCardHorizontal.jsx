@@ -62,7 +62,13 @@ const ProductCardHorizontal = ({product, quantity, onFavClick, onAddToCartClick,
             }
 
             {
-                !isInCart && <Button className={s.toCartBtn}  onClick={()=>onAddToCartClick(product.productVariantId, 1)} >В&nbsp;корзину</Button>
+                !isInCart && <Button 
+                className={s.toCartBtn} 
+                onClick={()=>onAddToCartClick(product.productVariantId, 1)}
+                disabled={product.inventoryQuantity === 0}
+              >
+                В&nbsp;корзину
+                </Button>
             }
             <button className={s.favBtn} onClick={()=>onFavClick(product.id)}>
              

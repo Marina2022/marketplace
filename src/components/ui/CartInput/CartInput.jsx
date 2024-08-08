@@ -20,9 +20,9 @@ const CartInput = ({className, quantity, product, cartItemId}) => {
 
       dispatch(addToCart({
         productVriantId: product.productVariantId,
-        count: debouncedQuantity,
-        cartId: cart.cartId,
-        cartItemId
+        count: debouncedQuantity,        
+        cartItemId,
+        item: product
       }))
 
     }
@@ -34,9 +34,7 @@ const CartInput = ({className, quantity, product, cartItemId}) => {
   }, [quantity])
 
   const onPlusClick = () => {
-
     setInputValue(prev => +prev + 1)
-
   }
   const onMinusClick = () => {
 

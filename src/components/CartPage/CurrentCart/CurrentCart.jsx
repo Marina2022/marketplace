@@ -77,7 +77,7 @@ const CurrentCart = () => {
           {
             cart?.cartItems && <ul className={s.cartItemsList}>
               {
-                cart?.cartItems.map((cartItem, i) => <CartItem index={i} cartItem={cartItem} key={cartItem.cartItemId}
+                cart?.cartItems.map((cartItem) => <CartItem cartItem={cartItem} key={cartItem.cartItemId}
                                                                cartId={cart.cartId}/>)
               }
             </ul>

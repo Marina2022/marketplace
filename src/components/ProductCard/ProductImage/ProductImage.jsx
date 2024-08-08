@@ -10,8 +10,7 @@ const ProductImage = ({product, orientation}) => {
   const isBigScreen = useBigScreen()
 
   const [currentSlide, setCurrentSlide] = useState(0)
-
-  // const base_url = 'https://i-rif.com/'
+  
   const base_url = BASE_URL
   const swiperRef = useRef(null)
   const hoverHandler = (index) => {
