@@ -42,7 +42,7 @@ const CurrentCart = () => {
     productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
   }
 
-  if (cart?.cartItems?.length === 6 && !debouncedSearchTerm) {
+  if (cart?.cartItems?.length === 0 && !debouncedSearchTerm) {
     return <div className={s.emptyPage}>
       <h2 className={s.emptyPageTitle}>Здесь пусто :(</h2>
       <p className={s.emptyPageText}>Ваша корзина пуста!<br/>
