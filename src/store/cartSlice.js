@@ -16,17 +16,22 @@ export const loadCart = createAsyncThunk('cart/getCart', async (param, thunkAPI)
   if (state.cart.cartSearchTerm) {
     urlString+= '?searchTerms=' + state.cart.cartSearchTerm
   }
-
+  
   if (state.user.isAuthenticated) {
     const resp = await axios(urlString)    
     thunkAPI.dispatch(loadCheckout({cartId: resp.data.cartId}))
+
+    if (state.cart.editingSearchTerm) {
+      thunkAPI.dispatch(setEditingSearchTerm(false))
+    }
+
     
     return (resp.data)
   } else {
     // const LSstring = localStorage.getItem('cart')
     // if (!LSstring) return []
     // return JSON.parse(LSstring)
-    return []
+     return {cartId: null, cartItems: []}
   }
 })
 
@@ -63,7 +68,7 @@ export const checkCartStatus = createAsyncThunk('cart/checkCartStatus', async (p
     return (resp.data)
   } else {
     // без авторизации ничего не будет происходить
-    return
+    return {cartItems: []}
   }
 })
 
@@ -198,9 +203,10 @@ export const deleteCartItemsRange  = createAsyncThunk('cart/deleteCartItemsRange
 
 
 const initialState = {
-  productsInCart: [],
+  productsInCart: {cartId: null, cartItems: []},
   status: 'loading',
   cartSearchTerm: '',
+  editingSearchTerm: false, 
   checkout: null,
   checkoutStatus: 'loading',
   gettingCartStatus: 'loading',
@@ -221,6 +227,10 @@ export const cartSlice = createSlice({
     setCartSearchTerm: (state, action) => {
       state.cartSearchTerm = action.payload
     },
+
+    setEditingSearchTerm: (state, action) => {
+      state.editingSearchTerm = action.payload
+    },
   },
 
   extraReducers: builder => builder
@@ -228,8 +238,7 @@ export const cartSlice = createSlice({
       state.cartUpdateStatus = 'loading'
     })
     .addCase(addToCart.fulfilled, (state, action) => {
-      state.cartUpdateStatus = 'success'
-      // state.productsInCart = action.payload
+      state.cartUpdateStatus = 'success'      
     })
     .addCase(addToCart.rejected, (state, action) => {
       state.cartUpdateStatus = 'error'
@@ -298,12 +307,13 @@ export const cartSlice = createSlice({
 
 })
 
-export const {clearProducts, addProduct, plus, minus, removeProduct, setCart, setCartSearchTerm} = cartSlice.actions
+export const {clearProducts, addProduct, plus, minus, removeProduct, setCart, setCartSearchTerm, setEditingSearchTerm} = cartSlice.actions
 
 export const getCart = (state) => state.cart.productsInCart
 export const getCartSearchTerm = (state) => state.cart.cartSearchTerm
 export const getCartStatus = (state) => state.cart.status
 export const getCheckoutStatus = (state) => state.cart.checkoutStatus
 export const getCheckout = (state) => state.cart.checkout
+export const getEditingSearchTerm = (state) => state.cart.editingSearchTerm
 
 export default cartSlice.reducer

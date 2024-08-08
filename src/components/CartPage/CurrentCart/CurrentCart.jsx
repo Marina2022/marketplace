@@ -1,7 +1,14 @@
 import s from './CurrentCart.module.scss';
 import CartSearch from "@/components/CartPage/CurrentCart/CartSearch/CartSearch.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {checkCartStatus, getCart, getCartSearchTerm, getCartStatus, loadCart} from "@/store/cartSlice.js";
+import {
+  checkCartStatus,
+  getCart,
+  getCartSearchTerm,
+  getCartStatus,
+  getEditingSearchTerm,
+  loadCart
+} from "@/store/cartSlice.js";
 import saveCartIcon from "@/assets/img/cart/saveCartIcon.svg"
 import ChooseDeleteBlock from "@/components/CartPage/CurrentCart/ChooseDeleteBlock/ChooseDeleteBlock.jsx";
 import {getIsAuthenticated} from "@/store/userSlice.js";
@@ -26,6 +33,8 @@ const CurrentCart = () => {
 
   const navigate = useNavigate()
   const cart = useSelector(getCart)
+  const editingSearchTerm = useSelector(getEditingSearchTerm)
+  
   console.log('cart--', cart)
 
   useEffect(() => {
@@ -33,16 +42,19 @@ const CurrentCart = () => {
   }, [debouncedSearchTerm])
 
   useEffect(() => {
-    dispatch(checkCartStatus({cartId: cart.cartId}))
-  }, [cart.cartId]);
+    
+    if (isAuthenticated) {
+      dispatch(checkCartStatus({cartId: cart.cartId})) 
+    }    
+  }, [cart?.cartId]);
 
 
   let productsTotal
   if (cart?.cartItems) {
     productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
   }
-
-  if (cart?.cartItems?.length === 0 && !debouncedSearchTerm) {
+   
+  if (cart?.cartItems?.length === 0 && !debouncedSearchTerm  && !editingSearchTerm ) {
     return <div className={s.emptyPage}>
       <h2 className={s.emptyPageTitle}>Здесь пусто :(</h2>
       <p className={s.emptyPageText}>Ваша корзина пуста!<br/>
