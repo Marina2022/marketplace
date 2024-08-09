@@ -1,15 +1,21 @@
 import s from './CartPage.module.scss'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getIsAuthenticated} from "@/store/userSlice.js";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import CurrentCart from "@/components/CartPage/CurrentCart/CurrentCart.jsx";
 import SavedCarts from "@/components/CartPage/SavedCarts/SavedCarts.jsx";
+import {loadSavedCarts} from "@/store/cartSlice.js";
 
 const CartPage = () => {
 
   const isAuthenticated = useSelector(getIsAuthenticated)
   const [currentTab, setCurrentTab] = useState('currentCart')
-
+  
+  const dispatch = useDispatch()
+  
+  useEffect(() => {
+    dispatch(loadSavedCarts())
+  }, []);
 
   return (
     <div className={s.cartPage}>

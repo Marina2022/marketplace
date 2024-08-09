@@ -19,15 +19,24 @@ export const loadCart = createAsyncThunk('cart/getCart', async (param, thunkAPI)
   }
 
   if (state.user.isAuthenticated) {
-    const resp = await axios(urlString)
-    thunkAPI.dispatch(loadCheckout({cartId: resp.data.cartId}))
 
-    if (state.cart.editingSearchTerm) {
-      thunkAPI.dispatch(setEditingSearchTerm(false))
+    let resp
+    try {
+      resp = await axios(urlString)
+
+      thunkAPI.dispatch(loadCheckout({cartId: resp.data.cartId}))
+      if (state.cart.editingSearchTerm) {
+        thunkAPI.dispatch(setEditingSearchTerm(false))
+      }
+      return (resp.data)
+
+    } catch (err) {
+      if (err.response.data.description === 'No cart items in cart') {
+        return {cartId: null, cartItems: []}
+      } else {
+        thunkAPI.rejectWithValue(err.response.data)
+      }
     }
-
-
-    return (resp.data)
   } else {
 
     const cartInLS = localStorage.getItem('cart')
@@ -204,7 +213,7 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunk
     localStorage.setItem('cart', JSON.stringify(cart))
     thunkAPI.dispatch(loadCart())
   }
-  return 
+  return
 })
 
 export const deleteCartItem = createAsyncThunk('cart/deleteCartItem', async ({cartItemId}, thunkAPI) => {
@@ -222,13 +231,13 @@ export const deleteCartItem = createAsyncThunk('cart/deleteCartItem', async ({ca
     // пользователь не авторизован, работаем с LS
     const cart = JSON.parse(JSON.stringify(state.cart.cart))
 
-    const newItems = cart.cartItems.filter(cartItem=>cartItem.cartItemId !== cartItemId)
-    cart.cartItems = newItems 
+    const newItems = cart.cartItems.filter(cartItem => cartItem.cartItemId !== cartItemId)
+    cart.cartItems = newItems
 
     localStorage.setItem('cart', JSON.stringify(cart))
     thunkAPI.dispatch(loadCart())
     return
-  }    
+  }
 })
 
 export const deleteCartItemsRange = createAsyncThunk('cart/deleteCartItemsRange', async ({cartItemsArray}, thunkAPI) => {
@@ -245,12 +254,44 @@ export const deleteCartItemsRange = createAsyncThunk('cart/deleteCartItemsRange'
     // пользователь не авторизован, работаем с LS
     const cart = JSON.parse(JSON.stringify(state.cart.cart))
 
-    const newItems = cart.cartItems.filter(cartItem=>!cartItem.checked)
+    const newItems = cart.cartItems.filter(cartItem => !cartItem.checked)
     cart.cartItems = newItems
 
     localStorage.setItem('cart', JSON.stringify(cart))
     thunkAPI.dispatch(loadCart())
-    
+
+    return
+  }
+})
+
+export const saveCart = createAsyncThunk('cart/saveCart', async ({cartId}, thunkAPI) => {
+
+  const state = thunkAPI.getState()
+
+  if (state.user.isAuthenticated) {
+    const resp = await axios.post(`carts/${cartId}/saveCart`)
+
+    if (resp.status === 200) {
+      thunkAPI.dispatch(loadSavedCarts())
+      thunkAPI.dispatch(loadCart())
+    }
+    return
+
+  } else {
+    // пользователь не авторизован
+    return
+  }
+})
+
+export const loadSavedCarts = createAsyncThunk('cart/loadSavedCarts', async (_, thunkAPI) => {
+
+  const state = thunkAPI.getState()
+
+  if (state.user.isAuthenticated) {
+    const resp = await axios(`carts/savedCarts`)
+    return (resp.data)
+  } else {
+    // пользователь не авторизован
     return
   }
 })
@@ -267,7 +308,10 @@ const initialState = {
   sendSelectStatus: 'success',
   chooseAllStatus: 'success',
   cartUpdateStatus: 'success',
-  cartStatus: null
+  saveCartStatus: 'success',
+  loadSavedCartsStatus: 'success',
+  cartStatus: null,
+  savedCarts: null
 }
 
 export const cartSlice = createSlice({
@@ -307,6 +351,7 @@ export const cartSlice = createSlice({
       state.cart = action.payload
     })
     .addCase(loadCart.rejected, (state, action) => {
+      console.log('sdfdsf', action)
       state.status = 'error'
       console.log('ошибка', action.error.message)
     })
@@ -357,6 +402,32 @@ export const cartSlice = createSlice({
       state.chooseAllStatus = 'error'
       console.log('ошибка', action.error.message)
     })
+
+    .addCase(saveCart.pending, (state, action) => {
+      state.saveCartStatus = 'loading'
+    })
+    .addCase(saveCart.fulfilled, (state, action) => {
+      state.saveCartStatus = 'success'
+    })
+    .addCase(saveCart.rejected, (state, action) => {
+      state.saveCartStatus = 'error'
+      console.log('ошибка', action.error.message)
+    })
+
+
+    .addCase(loadSavedCarts.pending, (state, action) => {
+      state.loadSavedCartsStatus = 'loading'
+    })
+    .addCase(loadSavedCarts.fulfilled, (state, action) => {
+      console.log('loadSavedCarts', action.payload)
+
+      state.loadSavedCartsStatus = 'success'
+      state.savedCarts = action.payload
+    })
+    .addCase(loadSavedCarts.rejected, (state, action) => {
+      state.loadSavedCartsStatus = 'error'
+      console.log('ошибка', action.error.message)
+    })
   ,
 
 })
@@ -379,5 +450,6 @@ export const getCartUpdatingStatus = (state) => state.cart.cartUpdateStatus
 export const getCheckoutStatus = (state) => state.cart.checkoutStatus
 export const getCheckout = (state) => state.cart.checkout
 export const getEditingSearchTerm = (state) => state.cart.editingSearchTerm
+export const getSavedCarts = (state) => state.cart.savedCarts
 
 export default cartSlice.reducer

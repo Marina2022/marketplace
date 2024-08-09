@@ -6,8 +6,8 @@ import {
   getCart,
   getCartSearchTerm,
   getCartStatus,
-  getEditingSearchTerm,
-  loadCart
+  getEditingSearchTerm, getSavedCarts,
+  loadCart, saveCart
 } from "@/store/cartSlice.js";
 import saveCartIcon from "@/assets/img/cart/saveCartIcon.svg"
 import ChooseDeleteBlock from "@/components/CartPage/CurrentCart/ChooseDeleteBlock/ChooseDeleteBlock.jsx";
@@ -47,13 +47,21 @@ const CurrentCart = () => {
       dispatch(checkCartStatus({cartId: cart.cartId})) 
     }    
   }, [cart?.cartId]);
+  
+  const savedCarts = useSelector(getSavedCarts)
 
+  console.log('savedCarts', savedCarts)
+  
+  const saveCartHandler = () => {
+    dispatch(saveCart({cartId: cart.cartId}))
+  }
 
   let productsTotal
   if (cart?.cartItems) {
     productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
   }
-   
+     
+  
   if (cart?.cartItems?.length === 0 && !debouncedSearchTerm  && !editingSearchTerm && cartStatus !== 'loading'  ) {
     return <div className={s.emptyPage}>
       <h2 className={s.emptyPageTitle}>Здесь пусто :(</h2>
@@ -65,7 +73,7 @@ const CurrentCart = () => {
   }
 
   return (
-    cart?.cartItems && <div>
+    cart?.cartItems.length >0 && <div>
       <div className={s.headerWrapper}>
         <h1 className={s.mainTitle}>Ваша корзина</h1>
         <p className={s.productsQuantity}>{getProductQuantityString(productsTotal)}</p>
@@ -76,7 +84,7 @@ const CurrentCart = () => {
           {
             isAuthenticated && <div className={s.topBlock}>
               <CartSearch/>
-              <button className={s.saveCartBtn}>
+              <button onClick={saveCartHandler} className={s.saveCartBtn}>
                 <img src={saveCartIcon} alt="save icon"/>
                 <span>Сохранить корзину</span>
               </button>
