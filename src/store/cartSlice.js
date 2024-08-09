@@ -37,7 +37,6 @@ export const loadCart = createAsyncThunk('cart/getCart', async (param, thunkAPI)
     } else {
       return {cartId: null, cartItems: []}
     }
-
   }
 })
 
@@ -99,9 +98,9 @@ export const sendCheckbox = createAsyncThunk('cart/sendCheckbox', async ({cartIt
       thunkAPI.dispatch(loadCart())
     }
     return (resp.data)
-    
+
   } else {
-    
+
     // пользователь не авторизован, работаем с LS:
 
     const cart = JSON.parse(JSON.stringify(state.cart.cart))
@@ -131,19 +130,16 @@ export const chooseAll = createAsyncThunk('cart/chooseAll', async ({select}, thu
     }
     return (resp.data)
   } else {
-    
+
     // пользователь не авторизован, работаем с LS
 
     const cart = JSON.parse(JSON.stringify(state.cart.cart))
 
-    cart.cartItems.forEach(cartItem=>cartItem.checked = select === 'select' ? true: false )
-    
+    cart.cartItems.forEach(cartItem => cartItem.checked = select === 'select' ? true : false)
+
     localStorage.setItem('cart', JSON.stringify(cart))
     thunkAPI.dispatch(loadCart())
-
     return
-   
-   
   }
 })
 export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunkAPI) => {
@@ -175,21 +171,15 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunk
     return (resp.data)
 
   } else {
-    
     // пользователь не авторизован, работаем с LS
 
     const inventoryLevel = item.inventoryLevel || item.inventoryQuantity
-    
+
     if (quantityToSend > inventoryLevel)
       quantityToSend = inventoryLevel
 
     const cart = JSON.parse(JSON.stringify(state.cart.cart))
-    console.log('cart =', cart)
-
-    console.log('посылать в LS будем айтем', item, ' -', quantityToSend, 'шт')
     const itemFoundInCart = cart.cartItems.find(cartItem => cartItem.productVariantId === item.productVariantId)
-
-    console.log('itemFoundInCart = ', itemFoundInCart)
 
     if (!itemFoundInCart) {
       cart.cartItems.push({
@@ -213,35 +203,8 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunk
     console.log('cart =', cart)
     localStorage.setItem('cart', JSON.stringify(cart))
     thunkAPI.dispatch(loadCart())
-
-    //  let cart = state.cart.cart.slice()  // тут, видимо, будем полностью корзину апдейтить и заменять
-    // пока ничего не делаем
-
-    // const productIndex = cart.findIndex((item) => {
-    //   return item.id == id
-    // })
-    //
-    // if (productIndex >= 0) {
-    //
-    //   if (cart[productIndex].count + quantity === 0) {
-    //     //remove
-    //     cart = cart.filter(product => product.id !== id)
-    //   } else {
-    //     // add quantity to count
-    //     const newProduct = {...cart[productIndex], count: cart[productIndex].count + quantity}
-    //     cart.splice(productIndex, 1, newProduct)
-    //   }
-    //
-    // } else {
-    //   // add new item to cart
-    //   cart.push({id: id, count: 1})
-    // }
   }
-
-  // localStorage.setItem('cart', JSON.stringify(cart));
-
-  // return cart
-  return 1
+  return 
 })
 
 export const deleteCartItem = createAsyncThunk('cart/deleteCartItem', async ({cartItemId}, thunkAPI) => {
@@ -256,9 +219,16 @@ export const deleteCartItem = createAsyncThunk('cart/deleteCartItem', async ({ca
     }
     return (resp.data)
   } else {
-    // todo - delete в LS
+    // пользователь не авторизован, работаем с LS
+    const cart = JSON.parse(JSON.stringify(state.cart.cart))
+
+    const newItems = cart.cartItems.filter(cartItem=>cartItem.cartItemId !== cartItemId)
+    cart.cartItems = newItems 
+
+    localStorage.setItem('cart', JSON.stringify(cart))
+    thunkAPI.dispatch(loadCart())
     return
-  }
+  }    
 })
 
 export const deleteCartItemsRange = createAsyncThunk('cart/deleteCartItemsRange', async ({cartItemsArray}, thunkAPI) => {
@@ -272,7 +242,15 @@ export const deleteCartItemsRange = createAsyncThunk('cart/deleteCartItemsRange'
     }
     return (resp.data)
   } else {
-    // todo - delete range в LS
+    // пользователь не авторизован, работаем с LS
+    const cart = JSON.parse(JSON.stringify(state.cart.cart))
+
+    const newItems = cart.cartItems.filter(cartItem=>!cartItem.checked)
+    cart.cartItems = newItems
+
+    localStorage.setItem('cart', JSON.stringify(cart))
+    thunkAPI.dispatch(loadCart())
+    
     return
   }
 })
