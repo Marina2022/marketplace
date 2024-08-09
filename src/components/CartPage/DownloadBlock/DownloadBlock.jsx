@@ -3,7 +3,7 @@ import docIcon from '@/assets/img/cart/doc.svg'
 import {BASE_URL} from "@/consts/baseURL.js";
 const DownloadBlock = ({links}) => {
   return (
-    <div className={s.downloadBlock}>
+    links?.summaryUrl && <div className={s.downloadBlock}>
       <a href={`${BASE_URL}${links.summaryUrl}`} className={s.downloadCart}>
         <img src={docIcon} alt="download cart"/>
         <span>Скачать корзину exel</span>
