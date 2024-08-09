@@ -51,7 +51,7 @@ export const loadCheckout = createAsyncThunk('cart/getCheckout', async (param, t
     return (resp.data)
   } else {
 
-    // считаем и сетаем чекаут сами
+    // считаем и сетаем чекаут:
     const cart = JSON.parse(localStorage.getItem('cart'))
 
     const productCountInCart = cart.cartItems.reduce((acc, current) => {
@@ -59,20 +59,17 @@ export const loadCheckout = createAsyncThunk('cart/getCheckout', async (param, t
     }, 0)
 
     const totalRegularPrice = cart.cartItems.reduce((acc, current) => {
-      return acc += current.checked ?  current.regularPrice * current.quantity : 0
+      return acc += current.checked ? current.regularPrice * current.quantity : 0
     }, 0)
 
     const totalPrice = cart.cartItems.reduce((acc, current) => {
-      return acc += current.checked ?  current.price * current.quantity : 0
+      return acc += current.checked ? current.price * current.quantity : 0
     }, 0)
 
     const savings = totalRegularPrice - totalPrice
-
-
     return {productCountInCart, totalRegularPrice, totalPrice, savings}
   }
 })
-
 
 export const checkCartStatus = createAsyncThunk('cart/checkCartStatus', async (param, thunkAPI) => {
   const cartId = param.cartId
@@ -102,8 +99,22 @@ export const sendCheckbox = createAsyncThunk('cart/sendCheckbox', async ({cartIt
       thunkAPI.dispatch(loadCart())
     }
     return (resp.data)
+    
   } else {
-    // todo - посылаем чекбокс в LS
+    
+    // пользователь не авторизован, работаем с LS:
+
+    const cart = JSON.parse(JSON.stringify(state.cart.cart))
+
+    const itemInCart = cart.cartItems.find(cartItem => cartItem.cartItemId === cartItemId)
+    if (itemInCart) {
+      itemInCart.checked = select === 'select' ? true : false
+    } else {
+      throw new Error('Из LS пропал данный товар из корзины, поменять чекбокс не могу')
+    }
+    localStorage.setItem('cart', JSON.stringify(cart))
+    thunkAPI.dispatch(loadCart())
+
     return
   }
 })
@@ -120,8 +131,19 @@ export const chooseAll = createAsyncThunk('cart/chooseAll', async ({select}, thu
     }
     return (resp.data)
   } else {
-    // todo - посылаем chooseAll в LS
+    
+    // пользователь не авторизован, работаем с LS
+
+    const cart = JSON.parse(JSON.stringify(state.cart.cart))
+
+    cart.cartItems.forEach(cartItem=>cartItem.checked = select === 'select' ? true: false )
+    
+    localStorage.setItem('cart', JSON.stringify(cart))
+    thunkAPI.dispatch(loadCart())
+
     return
+   
+   
   }
 })
 export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunkAPI) => {
@@ -142,7 +164,6 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunk
       const isAvailable = await axios.post(`carts/productAvailable`, {cartItemId, quantity: quantityToSend})
 
       if (isAvailable.data.requestedQuantity > isAvailable.data.inventoryLevel) quantityToSend = isAvailable.data.inventoryLevel
-
     }
 
     const itemsToAdd = [{productVriantId, count: quantityToSend}]
@@ -154,6 +175,14 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunk
     return (resp.data)
 
   } else {
+    
+    // пользователь не авторизован, работаем с LS
+
+    const inventoryLevel = item.inventoryLevel || item.inventoryQuantity
+    
+    if (quantityToSend > inventoryLevel)
+      quantityToSend = inventoryLevel
+
     const cart = JSON.parse(JSON.stringify(state.cart.cart))
     console.log('cart =', cart)
 
