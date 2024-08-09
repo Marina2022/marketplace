@@ -3,7 +3,7 @@ import ProductCardHorizontal from "@/components/ProductCard/ProductCardHorizonta
 import ProductCardVertical from "@/components/ProductCard/ProductCardVertical.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {getIsAuthenticated} from "@/store/userSlice.js";
-import {addToCart, getCart} from "@/store/cartSlice.js";
+import {addToCart, getCart, getCartUpdatingStatus} from "@/store/cartSlice.js";
 import {getCartView} from "@/store/catalogSlice.js";
 
 const ProductCard = ({isBigScreen, product}) => {
@@ -11,7 +11,8 @@ const ProductCard = ({isBigScreen, product}) => {
   const isAuthenticated = useSelector(getIsAuthenticated)
 
   const cart = useSelector(getCart)
-
+  const cartUpdatingStatus = useSelector(getCartUpdatingStatus)
+  
   let productInCart = false
 
   if (cart?.cartItems) {
@@ -29,7 +30,10 @@ const ProductCard = ({isBigScreen, product}) => {
   }
 
   const dispatch = useDispatch()
-  const onAddToCartClick = (productVariantId, quantity) => {    
+  const onAddToCartClick = (productVariantId, quantity) => {
+
+    if (cartUpdatingStatus === 'loading') return
+    
     dispatch(addToCart({
       productVriantId: productVariantId,
       count: quantity,

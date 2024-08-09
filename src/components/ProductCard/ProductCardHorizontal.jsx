@@ -6,12 +6,13 @@ import Button from "@/components/ui/Button/Button.jsx";
 import CartInput from "@/components/ui/CartInput/CartInput.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import ProductImage from "@/components/ProductCard/ProductImage/ProductImage.jsx";
+import {useSelector} from "react-redux";
 
 const ProductCardHorizontal = ({product, quantity, onFavClick, onAddToCartClick, cartItemId}) => {
   
   const isInCart = quantity > 0
   const navigate = useNavigate()
-  
+    
   return (
       <div className={s.productCardHorizontal}>
         <div className={s.imgWrapper} onClick={()=>navigate(`/product/${product.productHandle}`)} >
@@ -62,13 +63,12 @@ const ProductCardHorizontal = ({product, quantity, onFavClick, onAddToCartClick,
             }
 
             {
-                !isInCart && <Button 
-                className={s.toCartBtn} 
-                onClick={()=>onAddToCartClick(product.productVariantId, 1)}
+                !isInCart && <Button
+                className={s.toCartBtn}
+                onClick={() => onAddToCartClick(product.productVariantId, 1)}
                 disabled={product.inventoryQuantity === 0}
-              >
-                В&nbsp;корзину
-                </Button>
+              >В&nbsp;корзину                
+              </Button>
             }
             <button className={s.favBtn} onClick={()=>onFavClick(product.id)}>
              

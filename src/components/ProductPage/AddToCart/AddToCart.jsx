@@ -1,14 +1,16 @@
 import s from './AddToCart.module.scss';
 import {useDispatch, useSelector} from "react-redux";
-import {addToCart, getCart} from "@/store/cartSlice.js";
+import {addToCart, getCart, getCartUpdatingStatus} from "@/store/cartSlice.js";
  import CartInput from "@/components/ui/CartInput/CartInput.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
 const AddToCart = ({product}) => {
   
+  
   const dispatch = useDispatch()
     
   const cart = useSelector(getCart)
-
+  const cartUpdatingStatus = useSelector(getCartUpdatingStatus)
+  
   let productInCart = false
 
   if (cart?.cartItems) {
@@ -27,6 +29,9 @@ const AddToCart = ({product}) => {
 
   //const onAddToCartClick = (id, quantity) => dispatch(addToCart({id, quantity}))
   const onAddToCartClick = (productVariantId, quantity) => {
+    
+    if (cartUpdatingStatus === 'loading') return
+    
     dispatch(addToCart({
       productVriantId: productVariantId,
       count: quantity,
@@ -56,13 +61,17 @@ const AddToCart = ({product}) => {
         }
       
         {
-          !isInCart && <Button className={s.toCartBtn} disabled={product.inventoryQuantity === 0}
-                               onClick={() => onAddToCartClick(product.productVariantId, 1)}>Добавить&nbsp;в&nbsp;корзину</Button>
+          !isInCart && <Button className={s.toCartBtn} disabled={product.inventoryQuantity === 0 }
+                               onClick={() => onAddToCartClick(product.productVariantId, 1)}>
+            
+            Добавить&nbsp;в&nbsp;корзину
+          
+          </Button>
         }
       
       </div>
     </div>
   );
 };
-
+s
 export default AddToCart;
