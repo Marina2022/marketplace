@@ -31,6 +31,7 @@ const AddToCart = ({product}) => {
       productVriantId: productVariantId,
       count: quantity,
       cartId: cart.cartId,
+      item: product
     }))
   }
 

@@ -1,56 +1,75 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "@/api/axiosInstance.js";
 import {MAX_QUANTITY_TO_ADD} from "@/consts/maxQuantityToAddToCart.js";
+import {v4 as uuidv4} from 'uuid';
 
 export const loadCart = createAsyncThunk('cart/getCart', async (param, thunkAPI) => {
-  
+
   const state = thunkAPI.getState()
 
   // задержка загрузки
   // await new Promise((resolve)=>{
   //   setTimeout(resolve, 1000)
   // })
-  
+
   let urlString = 'carts'
-  
+
   if (state.cart.cartSearchTerm) {
-    urlString+= '?searchTerms=' + state.cart.cartSearchTerm
+    urlString += '?searchTerms=' + state.cart.cartSearchTerm
   }
-  
+
   if (state.user.isAuthenticated) {
-    const resp = await axios(urlString)    
+    const resp = await axios(urlString)
     thunkAPI.dispatch(loadCheckout({cartId: resp.data.cartId}))
 
     if (state.cart.editingSearchTerm) {
       thunkAPI.dispatch(setEditingSearchTerm(false))
     }
 
-    
+
     return (resp.data)
   } else {
-    // const LSstring = localStorage.getItem('cart')
-    // if (!LSstring) return []
-    // return JSON.parse(LSstring)
-     return {cartId: null, cartItems: []}
+
+    const cartInLS = localStorage.getItem('cart')
+    if (cartInLS) {
+      thunkAPI.dispatch(loadCheckout())
+      return JSON.parse(cartInLS)
+    } else {
+      return {cartId: null, cartItems: []}
+    }
+
   }
 })
 
-export const loadCheckout = createAsyncThunk('cart/getCheckout', async ({cartId}, thunkAPI) => {
+export const loadCheckout = createAsyncThunk('cart/getCheckout', async (param, thunkAPI) => {
 
+  const cartId = param?.cartId
   const state = thunkAPI.getState()
-  
+
   if (state.user.isAuthenticated) {
     const resp = await axios(`carts/${cartId}/checkout`)
     return (resp.data)
   } else {
-    
-    // считаем и сетаем чекаут сами
-    
-    // const LSstring = localStorage.getItem('cart')
-    // if (!LSstring) return []
-    // return JSON.parse(LSstring)
 
-    return []
+    // считаем и сетаем чекаут сами
+    const cart = JSON.parse(localStorage.getItem('cart'))
+
+    const productCountInCart = cart.cartItems.reduce((acc, current) => {
+      return acc += current.checked ? current.quantity : 0
+    }, 0)
+
+    const totalRegularPrice = cart.cartItems.reduce((acc, current) => {
+      return acc += current.checked ?  current.regularPrice * current.quantity : 0
+    }, 0)
+
+    const totalPrice = cart.cartItems.reduce((acc, current) => {
+      return acc += current.checked ?  current.price * current.quantity : 0
+    }, 0)
+
+    const savings = totalRegularPrice - totalPrice
+
+
+    return {productCountInCart, totalRegularPrice, totalPrice, savings}
   }
 })
 
@@ -61,9 +80,9 @@ export const checkCartStatus = createAsyncThunk('cart/checkCartStatus', async (p
   const state = thunkAPI.getState()
 
   if (state.user.isAuthenticated) {
-    const resp = await axios(`carts/${cartId}/currentStatus`)    
+    const resp = await axios(`carts/${cartId}/currentStatus`)
     if (resp.status === 200) {
-      thunkAPI.dispatch(loadCart())      
+      thunkAPI.dispatch(loadCart())
     }
     return (resp.data)
   } else {
@@ -80,7 +99,7 @@ export const sendCheckbox = createAsyncThunk('cart/sendCheckbox', async ({cartIt
     const resp = await axios.post(`carts/cartItems/select`, {cartItemId, action: select})
 
     if (resp.status === 200) {
-      thunkAPI.dispatch(loadCart())      
+      thunkAPI.dispatch(loadCart())
     }
     return (resp.data)
   } else {
@@ -97,7 +116,7 @@ export const chooseAll = createAsyncThunk('cart/chooseAll', async ({select}, thu
     const resp = await axios.post(`carts/cartItems/selectAll`, {action: select})
 
     if (resp.status === 200) {
-      thunkAPI.dispatch(loadCart())     
+      thunkAPI.dispatch(loadCart())
     }
     return (resp.data)
   } else {
@@ -108,36 +127,65 @@ export const chooseAll = createAsyncThunk('cart/chooseAll', async ({select}, thu
 export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunkAPI) => {
   const state = thunkAPI.getState()
   const {productVriantId, count, cartItemId, item} = params
-    
+
   let quantityToSend = count
 
+  // число не может быть больше 999, MAX_QUANTITY_TO_ADD = 999, можно поменять в папке consts
+  if (quantityToSend > MAX_QUANTITY_TO_ADD) {
+    quantityToSend = MAX_QUANTITY_TO_ADD
+  }
+
   if (state.user.isAuthenticated) {
-       
+
     if (cartItemId) {
       // если из каталога впервые в корзину добавляем, cartItemId будет undefined, проверку не делаем    
       const isAvailable = await axios.post(`carts/productAvailable`, {cartItemId, quantity: quantityToSend})
 
       if (isAvailable.data.requestedQuantity > isAvailable.data.inventoryLevel) quantityToSend = isAvailable.data.inventoryLevel
-      
-    }
-    
-    // число не может быть больше 999, MAX_QUANTITY_TO_ADD = 999, можно поменять в папке consts
-    if (quantityToSend > MAX_QUANTITY_TO_ADD ) {
-      quantityToSend = MAX_QUANTITY_TO_ADD
+
     }
 
-    const itemsToAdd = [{productVriantId, count: quantityToSend}]    
+    const itemsToAdd = [{productVriantId, count: quantityToSend}]
     const resp = await axios.post(`carts/cartItems`, itemsToAdd)
 
     if (resp.status === 200) {
-      thunkAPI.dispatch(loadCart())     
+      thunkAPI.dispatch(loadCart())
     }
     return (resp.data)
 
   } else {
+    const cart = JSON.parse(JSON.stringify(state.cart.cart))
+    console.log('cart =', cart)
 
-    console.log('посылать в LS будем айтем', item)
-    //  let cart = state.cart.productsInCart.slice()  // тут, видимо, будем полностью корзину апдейтить и заменять
+    console.log('посылать в LS будем айтем', item, ' -', quantityToSend, 'шт')
+    const itemFoundInCart = cart.cartItems.find(cartItem => cartItem.productVariantId === item.productVariantId)
+
+    console.log('itemFoundInCart = ', itemFoundInCart)
+
+    if (!itemFoundInCart) {
+      cart.cartItems.push({
+        cartItemId: uuidv4(),
+        inventoryLevel: item.inventoryLevel || item.inventoryQuantity,
+        productImageUrl: item.productImageUrl || item.images?.[0].imageUrl || item.productImages?.[0].imageUrl,
+        seller: item.seller || item.vendorName,
+        productVariantId: item.productVariantId,
+        regularPrice: item.regularPrice,
+        price: item.price,
+        isFavourite: item.isFavourite,
+        productName: item.productName,
+        productHandle: item.productHandle,
+        checked: true,
+        quantity: quantityToSend
+      })
+    } else {
+      itemFoundInCart.quantity = quantityToSend
+    }
+
+    console.log('cart =', cart)
+    localStorage.setItem('cart', JSON.stringify(cart))
+    thunkAPI.dispatch(loadCart())
+
+    //  let cart = state.cart.cart.slice()  // тут, видимо, будем полностью корзину апдейтить и заменять
     // пока ничего не делаем
 
     // const productIndex = cart.findIndex((item) => {
@@ -167,7 +215,7 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunk
   return 1
 })
 
-export const deleteCartItem  = createAsyncThunk('cart/deleteCartItem', async ({cartItemId}, thunkAPI) => {
+export const deleteCartItem = createAsyncThunk('cart/deleteCartItem', async ({cartItemId}, thunkAPI) => {
 
   const state = thunkAPI.getState()
 
@@ -175,7 +223,7 @@ export const deleteCartItem  = createAsyncThunk('cart/deleteCartItem', async ({c
     const resp = await axios.delete(`carts/cartItem/${cartItemId}`)
 
     if (resp.status === 200) {
-      thunkAPI.dispatch(loadCart())      
+      thunkAPI.dispatch(loadCart())
     }
     return (resp.data)
   } else {
@@ -184,7 +232,7 @@ export const deleteCartItem  = createAsyncThunk('cart/deleteCartItem', async ({c
   }
 })
 
-export const deleteCartItemsRange  = createAsyncThunk('cart/deleteCartItemsRange', async ({cartItemsArray}, thunkAPI) => {
+export const deleteCartItemsRange = createAsyncThunk('cart/deleteCartItemsRange', async ({cartItemsArray}, thunkAPI) => {
 
   const state = thunkAPI.getState()
 
@@ -201,12 +249,11 @@ export const deleteCartItemsRange  = createAsyncThunk('cart/deleteCartItemsRange
 })
 
 
-
 const initialState = {
-  productsInCart: {cartId: null, cartItems: []},
+  cart: {cartId: null, cartItems: []},
   status: 'loading',
   cartSearchTerm: '',
-  editingSearchTerm: false, 
+  editingSearchTerm: false,
   checkout: null,
   checkoutStatus: 'loading',
   gettingCartStatus: 'loading',
@@ -222,7 +269,7 @@ export const cartSlice = createSlice({
   reducers: {
 
     setCart: (state, action) => {
-      state.productsInCart = action.payload
+      state.cart = action.payload
     },
     setCartSearchTerm: (state, action) => {
       state.cartSearchTerm = action.payload
@@ -238,7 +285,7 @@ export const cartSlice = createSlice({
       state.cartUpdateStatus = 'loading'
     })
     .addCase(addToCart.fulfilled, (state, action) => {
-      state.cartUpdateStatus = 'success'      
+      state.cartUpdateStatus = 'success'
     })
     .addCase(addToCart.rejected, (state, action) => {
       state.cartUpdateStatus = 'error'
@@ -250,7 +297,7 @@ export const cartSlice = createSlice({
     })
     .addCase(loadCart.fulfilled, (state, action) => {
       state.status = 'success'
-      state.productsInCart = action.payload
+      state.cart = action.payload
     })
     .addCase(loadCart.rejected, (state, action) => {
       state.status = 'error'
@@ -307,9 +354,18 @@ export const cartSlice = createSlice({
 
 })
 
-export const {clearProducts, addProduct, plus, minus, removeProduct, setCart, setCartSearchTerm, setEditingSearchTerm} = cartSlice.actions
+export const {
+  clearProducts,
+  addProduct,
+  plus,
+  minus,
+  removeProduct,
+  setCart,
+  setCartSearchTerm,
+  setEditingSearchTerm
+} = cartSlice.actions
 
-export const getCart = (state) => state.cart.productsInCart
+export const getCart = (state) => state.cart.cart
 export const getCartSearchTerm = (state) => state.cart.cartSearchTerm
 export const getCartStatus = (state) => state.cart.status
 export const getCheckoutStatus = (state) => state.cart.checkoutStatus

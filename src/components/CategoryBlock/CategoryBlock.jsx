@@ -23,7 +23,9 @@ const CategoryBlock = ({allFilters}) => {
             <div className={s.rightPart} ref={rightPartRef}>
               <Products isBigScreen={isBigScreen} allFilters={allFilters} rightPartRef={rightPartRef}/>
             </div>
-            <ViewedProducts />
+            
+            {/*todo  Верни потом блок на место: */}
+            {/*<ViewedProducts />*/}
           </div>
         </div>
       </div>
