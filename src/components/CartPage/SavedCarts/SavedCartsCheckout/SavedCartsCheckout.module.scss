@@ -1,0 +1,123 @@
+@import '@/assets/styles/mixins';
+
+.checkout {
+  width: 100%;
+  background: white;
+  padding: 20px;
+  border: #F0F1F1 1px solid;
+}
+
+.title {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.productsRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  color: #3E5067;
+  font-weight: 500;
+  padding-bottom: 10px;
+  border-bottom: #F0F1F1 solid 1px;
+}
+
+.products {
+  font-size: 14px;
+}
+
+.totalPrice {
+  font-size: 16px;
+}
+
+
+
+.total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 15px;
+  border-bottom: #F0F1F1 solid 1px;
+  margin-bottom: 24px;
+
+  @include t {
+    padding-block: 10px;
+    width: 260px;
+    margin-bottom: 0;
+  }
+
+  @include m {
+    width: 100%;
+  }
+}
+
+.totalLabel {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.totalNumber {
+  font-size: 24px;
+  font-weight: 500;
+  
+}
+
+
+.btn {
+  width: 100%;
+  height: 44px;
+
+  @include t {
+    width: unset;
+  }
+
+  @include m {
+    width: 100%;
+  }
+}
+
+.bottomPart {
+  @include t {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  @include m {
+    display: block;
+  }
+}
+
+.topPart {
+
+  @include t {
+    width: 261px;
+  }
+
+  @include m {
+    width: 100%;
+  }
+}
+
+.noProductsMessage {
+  
+  margin-bottom: 20px;
+  color: #3E5067;
+  font-size: 14px;
+  line-height: 1.4;
+  border-bottom: #F0F1F1 solid 1px;
+  padding-bottom: 10px;
+  
+  @include t {
+    width: 261px;
+  }
+
+  @include m {
+    line-height: 1.3;
+    margin-bottom: 14px;    
+    width: 100%;
+    
+  }
+}

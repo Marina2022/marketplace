@@ -1,47 +1,19 @@
-import s from './ChooseDeleteBlock.module.scss';
+import s from './ChooseDeleteSavedCarts.module.scss';
+import deleteChosen from "@/assets/img/cart/deleteChosen.svg";
 
-import {useDispatch, useSelector} from "react-redux";
-import {chooseAll, deleteCartItemsRange, getCart} from "@/store/cartSlice.js";
-import deleteChosen from "@/assets/img/cart/deleteChosen.svg"
-
-const ChooseDeleteBlock = () => {
-
-  const cart = useSelector(getCart)
-  
-  const dispatch = useDispatch()
+const ChooseDeleteSavedCarts = () => { 
   
   let isSelected = false
-    
-  if (cart?.cartItems) {
-    isSelected = cart.cartItems
-      .filter(item => item.inventoryLevel !== 0)
-      .every(item => item.checked === true);
 
-   if (cart.cartItems.length === 0 ) isSelected = false
-  }
-  
-   
+  let someItemsAreChosen = true
 
-  let someItemsAreChosen
-
-  if (cart?.cartItems) {
-    someItemsAreChosen = cart.cartItems
-      .filter(item => item.inventoryLevel !== 0)
-      .some(item => item.checked === true);
-  }
-   
   const selectAllHandler = () => {
-    dispatch(chooseAll({select: isSelected ? "unselect" : "select"}))    
+    //dispatch(chooseAll({select: isSelected ? "unselect" : "select"}))
+    console.log('выбрать всех!')
   }
 
-  const deleteChosenHandler = () => {    
-    const arrayToSend = []
-    cart.cartItems.forEach((item)=>{
-      if (item.checked) {
-        arrayToSend.push({cartItemId: item.cartItemId})
-      }
-    })       
-    dispatch(deleteCartItemsRange({cartItemsArray:arrayToSend}))        
+  const deleteChosenHandler = () => {
+    console.log('удалить всех!')
   }
 
   return (
@@ -77,6 +49,7 @@ const ChooseDeleteBlock = () => {
       }
     </div>
   );
+
 };
 
-export default ChooseDeleteBlock;
+export default ChooseDeleteSavedCarts;

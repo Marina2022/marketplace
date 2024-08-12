@@ -47,22 +47,18 @@ const CurrentCart = () => {
       dispatch(checkCartStatus({cartId: cart.cartId})) 
     }    
   }, [cart?.cartId]);
-  
-  const savedCarts = useSelector(getSavedCarts)
-
-  console.log('savedCarts', savedCarts)
-  
+     
   const saveCartHandler = () => {
     dispatch(saveCart({cartId: cart.cartId}))
   }
 
+  
   let productsTotal
   if (cart?.cartItems) {
     productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
   }
-     
   
-  if (cart?.cartItems?.length === 0 && !debouncedSearchTerm  && !editingSearchTerm && cartStatus !== 'loading'  ) {
+  if (cart?.cartItems?.length ===0 && !debouncedSearchTerm  && !editingSearchTerm && cartStatus !== 'loading'  ) {
     return <div className={s.emptyPage}>
       <h2 className={s.emptyPageTitle}>Здесь пусто :(</h2>
       <p className={s.emptyPageText}>Ваша корзина пуста!<br/>
@@ -73,7 +69,7 @@ const CurrentCart = () => {
   }
 
   return (
-    cart?.cartItems.length >0 && <div>
+    !(cart?.cartItems.length  <= 0 && !debouncedSearchTerm) && <div>
       <div className={s.headerWrapper}>
         <h1 className={s.mainTitle}>Ваша корзина</h1>
         <p className={s.productsQuantity}>{getProductQuantityString(productsTotal)}</p>

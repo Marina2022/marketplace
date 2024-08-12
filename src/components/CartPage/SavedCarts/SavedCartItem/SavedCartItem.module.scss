@@ -1,0 +1,83 @@
+@import '@/assets/styles/mixins';
+
+.savedCartItem {
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  
+  @include m {
+    flex-direction: column;
+    
+  }
+  
+
+}
+
+.name {
+  width: 294px;
+  
+  @include m {
+    width: unset;
+  }
+}
+
+.namePriceBlock {
+  width: 585px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  //border: green 1px solid;
+
+  @include t {
+    width: 492px;
+  }
+
+  @include m {
+    width: 100%;
+  }
+}
+
+.pictureDropdownBlock {
+  //border: orange 1px solid;
+  width: 376px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  @include t {
+    width: 330px;
+  }
+
+  @include m {
+    width: 100%;
+  }
+}
+
+.chooseAll {
+  cursor: pointer;
+  
+  @include m {
+    order: 1;
+  }
+}
+
+.productList {
+  padding: 24px;
+  background: white;
+  margin-bottom: 5px;
+  
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  border-bottom: #F0F1F1 1px solid;
+  &:last-child {
+    border-bottom: none;
+  }
+  
+}

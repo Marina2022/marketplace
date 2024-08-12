@@ -296,6 +296,20 @@ export const loadSavedCarts = createAsyncThunk('cart/loadSavedCarts', async (_, 
   }
 })
 
+export const loadSavedCartsCheckout = createAsyncThunk('cart/loadSavedCartsCheckout', async ({cartIds}, thunkAPI) => {
+
+  console.log('из санки - ', cartIds)
+  const state = thunkAPI.getState()
+
+  if (state.user.isAuthenticated) {
+    const resp = await axios.post(`carts/savedCheckout`, cartIds)
+    return (resp.data)
+  } else {
+    // пользователь не авторизован
+    return
+  }
+})
+
 
 const initialState = {
   cart: {cartId: null, cartItems: []},
@@ -311,7 +325,8 @@ const initialState = {
   saveCartStatus: 'success',
   loadSavedCartsStatus: 'success',
   cartStatus: null,
-  savedCarts: null
+  savedCarts: null,
+  savedCartsCheckout: null
 }
 
 export const cartSlice = createSlice({
@@ -428,6 +443,20 @@ export const cartSlice = createSlice({
       state.loadSavedCartsStatus = 'error'
       console.log('ошибка', action.error.message)
     })
+
+
+    .addCase(loadSavedCartsCheckout.pending, (state, action) => {
+      state.loadSavedCartsCheckout = 'loading'
+    })
+    .addCase(loadSavedCartsCheckout.fulfilled, (state, action) => {
+      console.log('loadSavedCartsCheckout', action.payload)
+      state.loadSavedCartsCheckoutStatus = 'success'
+      state.savedCartsCheckout = action.payload
+    })
+    .addCase(loadSavedCartsCheckout.rejected, (state, action) => {
+      state.loadSavedCartsCheckoutStatus = 'error'
+      console.log('ошибка', action.error.message)
+    })
   ,
 
 })
@@ -451,5 +480,7 @@ export const getCheckoutStatus = (state) => state.cart.checkoutStatus
 export const getCheckout = (state) => state.cart.checkout
 export const getEditingSearchTerm = (state) => state.cart.editingSearchTerm
 export const getSavedCarts = (state) => state.cart.savedCarts
+export const getSavedCartsStatus = (state) => state.cart.loadSavedCartsStatus
+export const getSavedCartsCheckout = (state) => state.cart.savedCartsCheckout
 
 export default cartSlice.reducer
