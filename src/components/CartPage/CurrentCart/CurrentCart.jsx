@@ -47,12 +47,12 @@ const CurrentCart = () => {
       dispatch(checkCartStatus({cartId: cart.cartId})) 
     }    
   }, [cart?.cartId]);
-     
+  
+    
   const saveCartHandler = () => {
     dispatch(saveCart({cartId: cart.cartId}))
   }
 
-  
   let productsTotal
   if (cart?.cartItems) {
     productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)

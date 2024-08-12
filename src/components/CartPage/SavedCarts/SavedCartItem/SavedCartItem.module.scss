@@ -15,11 +15,34 @@
 
 }
 
-.name {
+.nameBlock {
   width: 294px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   
   @include m {
     width: unset;
+  }
+}
+
+.name {
+  color: #131D2A;
+  font-size: 18px;
+  font-weight: 600;
+  
+  @include m {
+    font-size: 14px;
+  }
+}
+
+.date {
+  color: #3E5067;
+  font-size: 16px;
+  
+  @include m {
+    font-size: 10px;
+    margin-bottom: 8px;
   }
 }
 
@@ -39,11 +62,10 @@
   }
 }
 
-.pictureDropdownBlock {
-  //border: orange 1px solid;
+.pictureDropdownBlock {  
   width: 376px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between;  
   align-items: center;
   
   @include t {
@@ -57,6 +79,9 @@
 
 .chooseAll {
   cursor: pointer;
+  svg {
+    display: block;
+  }
   
   @include m {
     order: 1;
@@ -64,7 +89,7 @@
 }
 
 .productList {
-  padding: 24px;
+  //padding: 24px;
   background: white;
   margin-bottom: 5px;
   
@@ -80,4 +105,46 @@
     border-bottom: none;
   }
   
+}
+
+.price {
+  color: #09213D;
+  font-size: 20px;
+  font-weight: 600;
+  
+  @include m {
+    font-size: 18px;
+    
+  }
+}
+
+.picturesAndMore {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  
+  @include m {
+    align-items: flex-start;
+  }
+}
+
+.pictureList {
+  display: flex;
+  gap: 19px;
+}
+
+.image {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border: 1px solid #F0F1F1;
+}
+
+.oneMore {
+  color: #658092;
+  font-size: 14px;
+  
+  @include m {
+    font-size: 12px;
+  }
 }

@@ -20,6 +20,12 @@
   display: flex;
   gap: 30px;
   align-items: center;
+  
+  @include m {
+    gap: 12px;
+    margin-left: 14px;
+    font-size: 14px;
+  }
 }
 
 .loginBtn {

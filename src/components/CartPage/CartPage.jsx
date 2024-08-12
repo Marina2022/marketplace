@@ -19,7 +19,7 @@ const CartPage = () => {
   
   return (
     <div className={s.cartPage}>
-      <div className="container">
+      <div className="containerCart">
         {
           isAuthenticated && <div className={s.tabButtons}>
             <button

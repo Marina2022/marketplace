@@ -1,10 +1,22 @@
 import s from './SavedCartItem.module.scss';
 import {useState} from "react";
+import dropdown from '@/assets/img/cart/dropdown.svg'
+import dropdownOpen from '@/assets/img/cart/dropdownOpen.svg'
+import {getProductQuantityString} from "@/utils/cart.js";
+import {BASE_URL} from "@/consts/baseURL.js";
+import ProductCardInSavedCart from "@/components/CartPage/SavedCarts/ProductCardInSavedCart/ProductCardInSavedCart.jsx";
 
 const SavedCartItem = ({savedCart}) => {
 
   const [isSelected, setIsSelected] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+
+  const date = new Date(savedCart.createDate)
+  const formattedDate = `${date.toLocaleDateString('ru-RU', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })}`;
 
   return (
     <div className={s.wrapper}>
@@ -30,19 +42,41 @@ const SavedCartItem = ({savedCart}) => {
             }
           </div>
 
-          <div className={s.name}>Название, дата</div>
-          <div>цена</div>
+          <div className={s.nameBlock}>
+            <div className={s.name}>Корзина №{savedCart.cartNumber}</div>
+            <div className={s.date}>от {formattedDate}</div>
+          </div>
+          <div className={s.price}>{savedCart.cartPrice.toLocaleString()} ₽</div>
         </div>
 
         <div className={s.pictureDropdownBlock}>
-          <div>Картинки + Еще</div>
-          <button onClick={() => setIsOpen(prev => !prev)}>дропдаун</button>
+          <div className={s.picturesAndMore}>
+
+            <ul className={s.pictureList}>
+              {
+                savedCart.shortCartItemImagesPreview.map((image, i)=> <img key={i} className={s.image} src={`${BASE_URL}${image.imageUrl}`} alt=""/>)
+              }
+              
+            </ul>
+
+            {
+              savedCart.hiddenItemImagesCount > 0 && !isOpen && <div onClick={()=>setIsOpen(prev=>!prev)} className={s.oneMore}>еще {getProductQuantityString(savedCart.hiddenItemImagesCount)}</div>
+            }
+
+          </div>
+
+          <button onClick={() => setIsOpen(prev => !prev)}>
+            <img src={isOpen ? dropdownOpen : dropdown} alt="dropdown"/>
+          </button>
         </div>
 
       </div>
       {
         isOpen && <ul className={s.productList}>
-          productList
+          {
+            savedCart.cartItems.map((product)=><ProductCardInSavedCart key={product.cartItemId} product={product} />)
+          }
+            
         </ul>
       }
     </div>
