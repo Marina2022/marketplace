@@ -55,7 +55,7 @@ const SavedCartItem = ({savedCart, checkedItems, setCheckedItems}) => {
             }
           </div>
 
-          <div className={s.nameBlock}>
+          <div className={s.nameBlock} onClick={() => setIsSelected()} >
             <div className={s.name}>Корзина №{savedCart.cartNumber}</div>
             <div className={s.date}>от {formattedDate}</div>
           </div>

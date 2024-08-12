@@ -15,7 +15,7 @@ const SavedCartsCheckout = () => {
         {
           savedCartsCheckout.totalProductCount > 0
             ? <div className={s.topPart}>
-              <h3 className={s.title}>Ваш заказ:</h3>
+              <h3 className={s.title}>Ваша корзина:</h3>
               <div className={s.productsRow}>
                 <p className={s.products}>Товары ({savedCartsCheckout?.totalProductCount})</p>
                 <p className={s.totalPrice}>{savedCartsCheckout?.totalPrice.toLocaleString()}&nbsp;₽</p>
@@ -27,16 +27,16 @@ const SavedCartsCheckout = () => {
         }
 
         <div className={s.bottomPart}>
-          {
-            savedCartsCheckout?.totalProductCount > 0 && <div className={s.total}>
-              <p className={s.totalLabel}>Итого:</p>
-              <p className={s.totalNumber}>{savedCartsCheckout?.totalPrice.toLocaleString()}&nbsp;₽</p>
-            </div>
-          }
+          {/*{*/}
+          {/*  savedCartsCheckout?.totalProductCount > 0 && <div className={s.total}>*/}
+          {/*    <p className={s.totalLabel}>Итого:</p>*/}
+          {/*    <p className={s.totalNumber}>{savedCartsCheckout?.totalPrice.toLocaleString()}&nbsp;₽</p>*/}
+          {/*  </div>*/}
+          {/*}*/}
 
           
 
-          <Button className={s.btn} disabled={savedCartsCheckout.totalProductCount === 0}>Перейти&nbsp;к&nbsp;оформлению</Button>
+          <Button className={s.btn} disabled={savedCartsCheckout.totalProductCount === 0}>Перейти&nbsp;к&nbsp;редактированию</Button>
         </div>
       </div>
     

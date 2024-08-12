@@ -297,12 +297,30 @@ export const loadSavedCarts = createAsyncThunk('cart/loadSavedCarts', async (_, 
 })
 
 export const loadSavedCartsCheckout = createAsyncThunk('cart/loadSavedCartsCheckout', async ({cartIds}, thunkAPI) => {
-
-  console.log('из санки - ', cartIds)
   const state = thunkAPI.getState()
 
   if (state.user.isAuthenticated) {
     const resp = await axios.post(`carts/savedCheckout`, cartIds)
+    return (resp.data)
+  } else {
+    // пользователь не авторизован
+    return
+  }
+})
+
+export const deleteSavedCart = createAsyncThunk('cart/deleteSavedCart', async ({cartIds}, thunkAPI) => {
+
+  console.log('cartIds из редакса = ', cartIds)
+  
+  const state = thunkAPI.getState()
+
+  if (state.user.isAuthenticated) {
+    const resp = await axios.delete(`carts/removeSavedCarts`, {data: cartIds})
+    
+    // потом надо исправить на
+    // const resp = await axios.post(`carts/removeSavedCarts`, cartIds)
+    thunkAPI.dispatch(loadSavedCarts())
+    thunkAPI.dispatch(loadSavedCartsCheckout([]))
     return (resp.data)
   } else {
     // пользователь не авторизован
@@ -324,6 +342,7 @@ const initialState = {
   cartUpdateStatus: 'success',
   saveCartStatus: 'success',
   loadSavedCartsStatus: 'success',
+  deleteSavedCartStatus: 'success',
   cartStatus: null,
   savedCarts: null,
   savedCartsCheckout: null
@@ -455,6 +474,18 @@ export const cartSlice = createSlice({
     })
     .addCase(loadSavedCartsCheckout.rejected, (state, action) => {
       state.loadSavedCartsCheckoutStatus = 'error'
+      console.log('ошибка', action.error.message)
+    })
+    
+    .addCase(deleteSavedCart.pending, (state, action) => {
+      state.deleteSavedCart = 'loading'
+    })
+    .addCase(deleteSavedCart.fulfilled, (state, action) => {
+      console.log('deleteSavedCart', action.payload)
+      state.deleteSavedCartStatus = 'success'      
+    })
+    .addCase(deleteSavedCart.rejected, (state, action) => {
+      state.deleteSavedCartStatus = 'error'
       console.log('ошибка', action.error.message)
     })
   ,

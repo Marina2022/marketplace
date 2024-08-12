@@ -1,5 +1,7 @@
 import s from './ChooseDeleteSavedCarts.module.scss';
 import deleteChosen from "@/assets/img/cart/deleteChosen.svg";
+import {deleteSavedCart} from "@/store/cartSlice.js";
+import {useDispatch} from "react-redux";
 
 const ChooseDeleteSavedCarts = ({checkedItems, setCheckedItems, savedCarts}) => {
 
@@ -17,13 +19,15 @@ const ChooseDeleteSavedCarts = ({checkedItems, setCheckedItems, savedCarts}) => 
       const newCheckedItems = savedCarts.map(item =>item.cartId)
       console.log('newCheckedItems', newCheckedItems)
       setCheckedItems(newCheckedItems)  
-    }
-    
+    }   
     
   }
 
+  const dispatch = useDispatch()
   const deleteChosenHandler = () => {
-    console.log('удалить всех!')
+    
+    const ids = checkedItems.map(item=>({cartId: item}))    
+    dispatch(deleteSavedCart({cartIds: ids}))
   }
 
   return (
