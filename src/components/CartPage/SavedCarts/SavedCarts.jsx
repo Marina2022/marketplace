@@ -60,7 +60,7 @@ const SavedCarts = () => {
       <div className={s.mainWrapper}>
         <div className={s.cartWrapper}>
 
-          <ChooseDeleteSavedCarts/>  
+          <ChooseDeleteSavedCarts checkedItems={checkedItems} setCheckedItems={setCheckedItems} savedCarts={savedCarts} />  
           <h2 className={s.subtitle}>Ваши товары</h2>
           {
             savedCarts.map(savedCart=><SavedCartItem key={savedCart.cartId} savedCart={savedCart} checkedItems={checkedItems} setCheckedItems={setCheckedItems}  /> )

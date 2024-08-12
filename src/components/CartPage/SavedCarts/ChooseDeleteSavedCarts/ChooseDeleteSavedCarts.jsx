@@ -1,15 +1,25 @@
 import s from './ChooseDeleteSavedCarts.module.scss';
 import deleteChosen from "@/assets/img/cart/deleteChosen.svg";
 
-const ChooseDeleteSavedCarts = () => { 
-  
-  let isSelected = false
+const ChooseDeleteSavedCarts = ({checkedItems, setCheckedItems, savedCarts}) => {
 
-  let someItemsAreChosen = true
+    
+  let isSelected = savedCarts.every(cart => checkedItems.includes(cart.cartId));
 
-  const selectAllHandler = () => {
-    //dispatch(chooseAll({select: isSelected ? "unselect" : "select"}))
-    console.log('выбрать всех!')
+
+  const someItemsAreChosen = checkedItems.length > 0
+
+  const selectAllHandler = () => {    
+    if (isSelected) {
+      setCheckedItems([])
+        
+    } else {
+      const newCheckedItems = savedCarts.map(item =>item.cartId)
+      console.log('newCheckedItems', newCheckedItems)
+      setCheckedItems(newCheckedItems)  
+    }
+    
+    
   }
 
   const deleteChosenHandler = () => {
