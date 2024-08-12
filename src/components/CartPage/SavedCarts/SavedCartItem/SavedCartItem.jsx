@@ -6,9 +6,20 @@ import {getProductQuantityString} from "@/utils/cart.js";
 import {BASE_URL} from "@/consts/baseURL.js";
 import ProductCardInSavedCart from "@/components/CartPage/SavedCarts/ProductCardInSavedCart/ProductCardInSavedCart.jsx";
 
-const SavedCartItem = ({savedCart}) => {
+const SavedCartItem = ({savedCart, checkedItems, setCheckedItems}) => {
 
-  const [isSelected, setIsSelected] = useState(false)
+  console.log('checkedItems = ', checkedItems)
+  const isSelected = checkedItems.find(item=>item === savedCart.cartId)
+  const setIsSelected = () => {
+    if (isSelected) {
+      setCheckedItems(checkedItems.filter(item=>item !==savedCart.cartId))
+    } else {
+      const newCheckedItems = checkedItems.slice()
+      newCheckedItems.push(savedCart.cartId)      
+      setCheckedItems(newCheckedItems)
+    }
+  }
+  
   const [isOpen, setIsOpen] = useState(false)
 
   const date = new Date(savedCart.createDate)
@@ -18,12 +29,14 @@ const SavedCartItem = ({savedCart}) => {
     year: 'numeric',
   })}`;
 
+  
+  
   return (
     <div className={s.wrapper}>
       <div className={s.savedCartItem}>
 
         <div className={s.namePriceBlock}>
-          <div onClick={() => setIsSelected(prev => !prev)} className={s.chooseAll}>
+          <div onClick={() => setIsSelected()} className={s.chooseAll}>
             {
               !isSelected &&
               <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,6 +1,6 @@
 import s from './SavedCarts.module.scss';
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {getSavedCarts, getSavedCartsStatus, loadSavedCarts, loadSavedCartsCheckout} from "@/store/cartSlice.js";
 import Button from "@/components/ui/Button/Button.jsx";
 import {getProductQuantityString} from "@/utils/cart.js";
@@ -20,11 +20,19 @@ const SavedCarts = () => {
   const dispatch = useDispatch()
   const loadSavedCartsStatus = useSelector(getSavedCartsStatus)
   const navigate = useNavigate()
+
+  const [checkedItems, setCheckedItems] = useState([])
+  
   
   useEffect(() => {
-    dispatch(loadSavedCarts())
-    dispatch(loadSavedCartsCheckout({cartIds:[]}))
+    dispatch(loadSavedCarts())    
   }, []);
+
+  useEffect(() => {
+    
+    const cartIds = checkedItems.map(item=>({cartId: item}))       
+    dispatch(loadSavedCartsCheckout({cartIds}))
+  }, [checkedItems]);
     
   const savedCarts = useSelector(getSavedCarts)
   console.log('savedCarts', savedCarts)
@@ -55,7 +63,7 @@ const SavedCarts = () => {
           <ChooseDeleteSavedCarts/>  
           <h2 className={s.subtitle}>Ваши товары</h2>
           {
-            savedCarts.map(savedCart=><SavedCartItem key={savedCart.cartId} savedCart={savedCart} /> )
+            savedCarts.map(savedCart=><SavedCartItem key={savedCart.cartId} savedCart={savedCart} checkedItems={checkedItems} setCheckedItems={setCheckedItems}  /> )
           }
 
 

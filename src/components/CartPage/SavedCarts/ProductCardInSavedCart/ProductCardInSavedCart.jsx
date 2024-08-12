@@ -1,5 +1,4 @@
 import s from './ProductCardInSavedCart.module.scss';
-import {Bars} from "react-loader-spinner";
 import {BASE_URL} from "@/consts/baseURL.js";
 
 const ProductCardInSavedCart = ({product}) => {
