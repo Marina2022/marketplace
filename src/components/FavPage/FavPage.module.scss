@@ -1,0 +1,44 @@
+@import '@/assets/styles/mixins';
+
+.wrapper {
+  display: flex;
+  flex: 1;
+  margin-bottom: 150px;
+  align-items: flex-start;
+
+  @include m {
+    margin-bottom: 50px;
+  }
+}
+
+.rightPartWrapper {
+  flex: 1;
+  margin-left: 22px;
+
+  @include t {
+    margin-left: 19px;
+  }
+
+  @include m {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+.mainTitle {
+  color: #131D2A;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 35px;
+  margin-top: 20px;
+  
+  @include t {
+    margin-bottom: 20px;
+  }
+
+  @include t {
+    font-size: 18px;
+    margin-top: 17px;
+    margin-bottom: 15px;
+  }
+}

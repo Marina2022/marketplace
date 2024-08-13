@@ -3,12 +3,11 @@ import App from './App.jsx'
 import './assets/styles/index.scss'
 import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
-import cartSlice, {getCart, loadCart, loadCheckout} from "@/store/cartSlice.js";
+import cartSlice, {loadCart} from "@/store/cartSlice.js";
 import userSlice, {setToken} from "@/store/userSlice.js";
 import catalogSlice from "@/store/catalogSlice.js";
-import {loadReviewLikes} from "@/store/reviewsSlice.js";
-import reviewsSlice from "@/store/reviewsSlice.js";
-
+import reviewsSlice, {loadReviewLikes} from "@/store/reviewsSlice.js";
+import favSlice, {loadFavs} from "@/store/favSlice.js";
 
 
 export const store = configureStore({
@@ -16,13 +15,15 @@ export const store = configureStore({
         cart: cartSlice,
         user: userSlice,
         catalog: catalogSlice,
-        reviews: reviewsSlice
+        reviews: reviewsSlice,
+        favs: favSlice
       }
     }
 )
 
 store.dispatch(loadCart())
 store.dispatch(loadReviewLikes())
+store.dispatch(loadFavs())
 
 const token = localStorage.getItem('token')
 if (token) store.dispatch(setToken(token))

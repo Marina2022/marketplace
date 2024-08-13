@@ -3,7 +3,7 @@ import s from "@/components/ProductPage/ProductPageSlider/ProductPageSlider.modu
 import {getIsAuthenticated} from "@/store/userSlice.js";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-const FavButton = ({productId, isFavourite,  className}) => {
+const FavButton = ({productId, isFavourite, className}) => {
 
   const isAuthenticated = useSelector(getIsAuthenticated)
   const navigate = useNavigate()

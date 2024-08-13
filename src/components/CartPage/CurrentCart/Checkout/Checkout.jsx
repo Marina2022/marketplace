@@ -1,12 +1,12 @@
 import s from './Checkout.module.scss';
 import {useSelector} from "react-redux";
-import {getCheckout, getCheckoutStatus} from "@/store/cartSlice.js";
+import {getCheckout} from "@/store/cartSlice.js";
 import Button from "@/components/ui/Button/Button.jsx";
 
 const Checkout = ({cart}) => {
 
   const checkout = useSelector(getCheckout)
-  console.log(checkout)
+  
 
   let someItemsAreChosen
 

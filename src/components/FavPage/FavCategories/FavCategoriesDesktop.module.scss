@@ -1,0 +1,17 @@
+@import '@/assets/styles/mixins';
+
+.wrapper {
+  background: white;
+  padding: 26px;
+  width: 300px;
+  flex-shrink: 0;
+
+  @include t {
+    //width: 260px;
+    width: 216px;
+  }
+
+  @include m {
+    display: none;
+  }
+}

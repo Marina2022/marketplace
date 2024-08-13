@@ -5,7 +5,7 @@ import Auth from "@/pages/Auth.jsx";
 import Product from "@/pages/Product.jsx";
 import NotFound from "@/pages/NotFound.jsx";
 import Category from "@/pages/Category.jsx";
-import Favorites from "@/pages/Favorites.jsx";
+import Favourites from "@/pages/Favourites.jsx";
 import Cart from "@/pages/Cart.jsx";
 import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute.jsx";
 function App() {
@@ -17,7 +17,7 @@ function App() {
             <Route path='/category/:category' element={<Category/>}/>
             <Route path='/login' element={<Auth/>}/>
             <Route path='/product/:slug' element={<Product/>}/>
-            <Route path='/favorites' element={<ProtectedRoute> <Favorites/> </ProtectedRoute>}/>
+            <Route path='/favourites' element={<ProtectedRoute> <Favourites/> </ProtectedRoute>}/>
             <Route path='/cart' element={<Cart/>}/>
             <Route path='*' element={<NotFound/>}/>
           </Route>

@@ -6,8 +6,9 @@ import {
   getCart,
   getCartSearchTerm,
   getCartStatus,
-  getEditingSearchTerm, getSavedCarts,
-  loadCart, saveCart
+  getEditingSearchTerm,
+  loadCart,
+  saveCart
 } from "@/store/cartSlice.js";
 import saveCartIcon from "@/assets/img/cart/saveCartIcon.svg"
 import ChooseDeleteBlock from "@/components/CartPage/CurrentCart/ChooseDeleteBlock/ChooseDeleteBlock.jsx";
@@ -21,6 +22,7 @@ import {useDebounce} from "@uidotdev/usehooks";
 import Button from "@/components/ui/Button/Button.jsx";
 import {useNavigate} from "react-router-dom";
 
+
 const CurrentCart = () => {
 
   const dispatch = useDispatch()
@@ -28,7 +30,7 @@ const CurrentCart = () => {
   const isAuthenticated = useSelector(getIsAuthenticated)
   const cartStatus = useSelector(getCartStatus)
   const cartSearchTerm = useSelector(getCartSearchTerm)
-
+  
   const debouncedSearchTerm = useDebounce(cartSearchTerm, 500)
 
   const navigate = useNavigate()
