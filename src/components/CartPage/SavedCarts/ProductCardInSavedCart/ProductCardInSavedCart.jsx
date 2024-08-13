@@ -1,5 +1,6 @@
 import s from './ProductCardInSavedCart.module.scss';
 import {BASE_URL} from "@/consts/baseURL.js";
+import {Link} from "react-router-dom";
 
 const ProductCardInSavedCart = ({product}) => {
   console.log('product = ', product)
@@ -8,7 +9,7 @@ const ProductCardInSavedCart = ({product}) => {
       <img className={s.productImage} src={`${BASE_URL}${product.productImageUrl}`} alt="product.productName"/>
       <div className={s.content}>
         <div className={s.nameBlock}>
-          <div className={s.name}>{product.productName}</div>
+          <Link to={`/product/${product.productHandle}?sku=${product.sku}`} className={s.name}>{product.productName}</Link>
           <div><span className={s.sellerLabel}>Продавец: </span> <span
             className={s.sellerValue}>  {product.seller}</span></div>
         </div>

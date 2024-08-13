@@ -6,7 +6,7 @@ import Button from "@/components/ui/Button/Button.jsx";
 const Checkout = ({cart}) => {
 
   const checkout = useSelector(getCheckout)
-  //console.log(checkout)
+  console.log(checkout)
 
   let someItemsAreChosen
 

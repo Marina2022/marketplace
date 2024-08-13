@@ -32,6 +32,9 @@ export const loadCart = createAsyncThunk('cart/getCart', async (param, thunkAPI)
 
     } catch (err) {
       if (err.response.data.description === 'No cart items in cart') {
+        console.log('я в load cart санке')
+        thunkAPI.dispatch(setCheckout(null))
+        
         return {cartId: null, cartItems: []}
       } else {
         thunkAPI.rejectWithValue(err.response.data)
@@ -55,8 +58,18 @@ export const loadCheckout = createAsyncThunk('cart/getCheckout', async (param, t
   const state = thunkAPI.getState()
 
   if (state.user.isAuthenticated) {
-    const resp = await axios(`carts/${cartId}/checkout`)
-    return (resp.data)
+    
+    try {
+      const resp = await axios(`carts/${cartId}/checkout`)
+      return (resp.data)  
+    } catch(err) {
+      if (err.response.data.description === 'No cart items in cart') {
+        return null
+      } else {
+        thunkAPI.rejectWithValue(err.response.data)
+      }
+    }
+    
   } else {
 
     // считаем и сетаем чекаут:
@@ -284,12 +297,20 @@ export const saveCart = createAsyncThunk('cart/saveCart', async ({cartId}, thunk
 })
 
 export const loadSavedCarts = createAsyncThunk('cart/loadSavedCarts', async (_, thunkAPI) => {
-
   const state = thunkAPI.getState()
-
   if (state.user.isAuthenticated) {
-    const resp = await axios(`carts/savedCarts`)
-    return (resp.data)
+    
+    try {
+      const resp = await axios(`carts/savedCarts`)  
+      return resp.data
+    } catch(err) {
+      if (err.response.data.description === 'Cart not found for the given user ID') {
+        return []
+      } else {
+        thunkAPI.rejectWithValue(err.response.data)
+      }
+    }    
+    
   } else {
     // пользователь не авторизован
     return
@@ -300,8 +321,18 @@ export const loadSavedCartsCheckout = createAsyncThunk('cart/loadSavedCartsCheck
   const state = thunkAPI.getState()
 
   if (state.user.isAuthenticated) {
-    const resp = await axios.post(`carts/savedCheckout`, cartIds)
-    return (resp.data)
+    
+    try {
+      const resp = await axios.post(`carts/savedCheckout`, cartIds)
+      return (resp.data)  
+    } catch (err) {
+      if (err.response.data.description === 'No cart items in cart') {
+        return []
+      } else {
+        thunkAPI.rejectWithValue(err.response.data)
+      }
+    }
+    
   } else {
     // пользователь не авторизован
     return
@@ -310,17 +341,28 @@ export const loadSavedCartsCheckout = createAsyncThunk('cart/loadSavedCartsCheck
 
 export const deleteSavedCart = createAsyncThunk('cart/deleteSavedCart', async ({cartIds}, thunkAPI) => {
 
-  console.log('cartIds из редакса = ', cartIds)
+  const state = thunkAPI.getState()
+
+  if (state.user.isAuthenticated) {
+    const resp = await axios.post(`carts/removeSavedCarts`, cartIds)
+    thunkAPI.dispatch(loadSavedCarts())
+    thunkAPI.dispatch(loadSavedCartsCheckout({cartIds: []}))
+    return 
+  } else {
+    // пользователь не авторизован
+    return
+  }
+})
+
+export const restoreSaved = createAsyncThunk('cart/restoreSaved', async ({cartIds}, thunkAPI) => {
   
   const state = thunkAPI.getState()
 
   if (state.user.isAuthenticated) {
-    const resp = await axios.delete(`carts/removeSavedCarts`, {data: cartIds})
-    
-    // потом надо исправить на
-    // const resp = await axios.post(`carts/removeSavedCarts`, cartIds)
+    const resp = await axios.post(`carts/savedRestore`, cartIds)
+    thunkAPI.dispatch(loadCart())
     thunkAPI.dispatch(loadSavedCarts())
-    thunkAPI.dispatch(loadSavedCartsCheckout([]))
+    thunkAPI.dispatch(loadSavedCartsCheckout([]))    
     return (resp.data)
   } else {
     // пользователь не авторизован
@@ -343,6 +385,7 @@ const initialState = {
   saveCartStatus: 'success',
   loadSavedCartsStatus: 'success',
   deleteSavedCartStatus: 'success',
+  restoreSavedStatus: 'success',
   cartStatus: null,
   savedCarts: null,
   savedCartsCheckout: null
@@ -362,6 +405,10 @@ export const cartSlice = createSlice({
 
     setEditingSearchTerm: (state, action) => {
       state.editingSearchTerm = action.payload
+    },
+    setCheckout: (state, action) => {
+      console.log('hello, я в редьюсере, action.payload = ', action.payload)
+      state.checkout = action.payload
     },
   },
 
@@ -385,7 +432,6 @@ export const cartSlice = createSlice({
       state.cart = action.payload
     })
     .addCase(loadCart.rejected, (state, action) => {
-      console.log('sdfdsf', action)
       state.status = 'error'
       console.log('ошибка', action.error.message)
     })
@@ -453,8 +499,6 @@ export const cartSlice = createSlice({
       state.loadSavedCartsStatus = 'loading'
     })
     .addCase(loadSavedCarts.fulfilled, (state, action) => {
-      console.log('loadSavedCarts', action.payload)
-
       state.loadSavedCartsStatus = 'success'
       state.savedCarts = action.payload
     })
@@ -467,8 +511,7 @@ export const cartSlice = createSlice({
     .addCase(loadSavedCartsCheckout.pending, (state, action) => {
       state.loadSavedCartsCheckout = 'loading'
     })
-    .addCase(loadSavedCartsCheckout.fulfilled, (state, action) => {
-      console.log('loadSavedCartsCheckout', action.payload)
+    .addCase(loadSavedCartsCheckout.fulfilled, (state, action) => {      
       state.loadSavedCartsCheckoutStatus = 'success'
       state.savedCartsCheckout = action.payload
     })
@@ -476,16 +519,28 @@ export const cartSlice = createSlice({
       state.loadSavedCartsCheckoutStatus = 'error'
       console.log('ошибка', action.error.message)
     })
-    
+
     .addCase(deleteSavedCart.pending, (state, action) => {
       state.deleteSavedCart = 'loading'
     })
     .addCase(deleteSavedCart.fulfilled, (state, action) => {
       console.log('deleteSavedCart', action.payload)
-      state.deleteSavedCartStatus = 'success'      
+      state.deleteSavedCartStatus = 'success'
     })
     .addCase(deleteSavedCart.rejected, (state, action) => {
       state.deleteSavedCartStatus = 'error'
+      console.log('ошибка', action.error.message)
+    })
+    
+    .addCase(restoreSaved.pending, (state, action) => {
+      state.restoreSaved = 'loading'
+    })
+    .addCase(restoreSaved.fulfilled, (state, action) => {
+      console.log('restoreSaved', action.payload)
+      state.restoreSavedStatus = 'success'
+    })
+    .addCase(restoreSaved.rejected, (state, action) => {
+      state.restoreSavedStatus = 'error'
       console.log('ошибка', action.error.message)
     })
   ,
@@ -500,7 +555,8 @@ export const {
   removeProduct,
   setCart,
   setCartSearchTerm,
-  setEditingSearchTerm
+  setEditingSearchTerm,
+  setCheckout
 } = cartSlice.actions
 
 export const getCart = (state) => state.cart.cart

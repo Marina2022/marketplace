@@ -7,6 +7,7 @@ import {useDispatch} from "react-redux";
 import {addToCart, deleteCartItem, sendCheckbox} from "@/store/cartSlice.js";
 import {useEffect, useState} from "react";
 import {useDebounce} from '@uidotdev/usehooks';
+import {Link} from "react-router-dom";
 
 const CartItem = ({cartItem, cartId}) => {
   
@@ -107,7 +108,7 @@ const CartItem = ({cartItem, cartId}) => {
       <img className={s.img} src={`${BASE_URL}${cartItem.productImageUrl}`} alt="product"/>
       <div className={s.cardMainContent}>
         <div className={s.nameBlock}>
-          <div className={s.name}>{cartItem.productName}</div>
+          <Link to={`/product/${cartItem.productHandle}?sku=${cartItem.sku}`} className={s.name}>{cartItem.productName}</Link>
           {
             cartItem.inventoryLevel === 0 && <div className={s.noInStock}>Нет в наличии</div>
           }

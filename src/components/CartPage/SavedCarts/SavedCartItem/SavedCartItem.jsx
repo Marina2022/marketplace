@@ -7,8 +7,6 @@ import {BASE_URL} from "@/consts/baseURL.js";
 import ProductCardInSavedCart from "@/components/CartPage/SavedCarts/ProductCardInSavedCart/ProductCardInSavedCart.jsx";
 
 const SavedCartItem = ({savedCart, checkedItems, setCheckedItems}) => {
-
-  console.log('checkedItems = ', checkedItems)
   const isSelected = checkedItems.find(item=>item === savedCart.cartId)
   const setIsSelected = () => {
     if (isSelected) {

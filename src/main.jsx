@@ -22,7 +22,6 @@ export const store = configureStore({
 )
 
 store.dispatch(loadCart())
-store.dispatch(loadCheckout({cartId: 'cbd90aef-8adc-4f82-8b25-285e85e40b37'}))
 store.dispatch(loadReviewLikes())
 
 const token = localStorage.getItem('token')
