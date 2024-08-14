@@ -1,14 +1,14 @@
 .catsMobile {  
   padding-block: 20px;
   width: 100%;
-  position: relative;
-  
+  position: relative;  
 }
 
 .inside {
   position: absolute;
-  width: calc(100% + 16px);
-  left: 0;
+  width: calc(100% + 32px);
+  left: -16px;
+  padding-left: 16px;
   top: 0;
   padding-top: 10px;
   padding-bottom: 16px;

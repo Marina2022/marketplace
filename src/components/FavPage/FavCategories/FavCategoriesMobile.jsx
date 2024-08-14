@@ -7,7 +7,7 @@ const FavCategoriesMobile = ({cats, productCategoryId, setProductCategoryId}) =>
         <li className={s.item} onClick={()=>setProductCategoryId(null)}>Все категории</li>
 
         {
-          cats.map((cat, i) => <li onClick={()=>setProductCategoryId(cat.categoryId)} key={i} className={s.item}>{cat.categoryName}</li>)
+          cats?.map((cat, i) => <li onClick={()=>setProductCategoryId(cat.categoryId)} key={i} className={s.item}>{cat.categoryName}</li>)
         }
         
       </ul>
