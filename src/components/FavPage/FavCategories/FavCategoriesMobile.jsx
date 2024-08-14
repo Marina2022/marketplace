@@ -1,9 +1,16 @@
 import s from './FavCategoriesMobile.module.scss';
 
-const FavCategoriesMobile = () => {
+const FavCategoriesMobile = ({cats, productCategoryId, setProductCategoryId}) => {
   return (
-    <div>
-      
+    <div className={s.catsMobile}>
+      <ul className={s.inside}>
+        <li className={s.item} onClick={()=>setProductCategoryId(null)}>Все категории</li>
+
+        {
+          cats.map((cat, i) => <li onClick={()=>setProductCategoryId(cat.categoryId)} key={i} className={s.item}>{cat.categoryName}</li>)
+        }
+        
+      </ul>
     </div>
   );
 };

@@ -1,12 +1,7 @@
 @import "@/assets/styles/mixins";
 
 .header {
-  //height: 122px;
   background: white;
-  
-  @include m {
-    height: 101px;
-  }
 }
 
 .wrapper {
@@ -47,6 +42,7 @@
   font-size:16px ;
   display: flex;
   gap: 5px;
+  color: inherit;
   
   @include m {
     font-size:12px ;

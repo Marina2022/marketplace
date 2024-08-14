@@ -8,6 +8,7 @@
 
   @include m {
     margin-bottom: 50px;
+    flex-direction: column;
   }
 }
 
@@ -42,3 +43,5 @@
     margin-bottom: 15px;
   }
 }
+
+

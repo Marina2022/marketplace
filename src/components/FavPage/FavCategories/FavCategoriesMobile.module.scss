@@ -1,0 +1,44 @@
+.catsMobile {  
+  padding-block: 20px;
+  width: 100%;
+  position: relative;
+  
+}
+
+.inside {
+  position: absolute;
+  width: calc(100% + 16px);
+  left: 0;
+  top: 0;
+  padding-top: 10px;
+  padding-bottom: 16px;
+  
+  display: flex;
+  overflow: auto;
+  padding-right: 16px;
+  gap: 4px;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+  }
+
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.item {
+  height: 100%;
+  background: #3fb8af;  
+  flex-shrink: 0;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  border: 1px solid #F0F1F1;
+  padding: 5px 10px;
+  background: white;
+  font-size: 11px;
+  color: #000;
+}

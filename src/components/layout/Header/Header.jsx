@@ -23,7 +23,7 @@ const Header = () => {
             <span>Header</span>
           </div>
           
-          <div className={s.fav}><img src={heartActiveBtn} alt=""/> <span> {favs?.length} </span> </div>
+          <Link to="/favourites" className={s.fav}><img src={heartActiveBtn} alt=""/> <span> {favs?.length} </span> </Link>
           <div className={s.loginWrapper}>
             {
               isAuthenticated
@@ -36,15 +36,11 @@ const Header = () => {
                   <button onClick={()=>dispatch(login())}  className={s.loginBtn}>Войти</button>
                 </>
             }
-
-
           </div>
-
         </div>
       </div>
     </header>
-  )
-    ;
-};
+  )    
+}
 
 export default Header;
