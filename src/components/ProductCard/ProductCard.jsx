@@ -49,12 +49,6 @@ const ProductCard = ({isBigScreen, product}) => {
     ? product.isFavourite 
     : favs.find(item=>item.productVariantId === product.productVariantId) )  // todo - не тестила 
   
-  // let isFavourite = false
-  // if (isAuthenticated) {
-  //   isFavourite = product.isFavourite
-  // }  else {  
-  //   isFavourite = favs.find(item=>item.productVariantId === product.productVariantId)
-  // }
 
   const onFavClick = () => {    
     if (isFavourite) {      

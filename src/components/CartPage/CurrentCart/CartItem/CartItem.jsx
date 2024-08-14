@@ -3,11 +3,13 @@ import {BASE_URL} from "@/consts/baseURL.js";
 import heartBtn from '@/assets/img/cart/cart-card/heart.svg'
 import heartActiveBtn from '@/assets/img/cart/cart-card/heart-active.svg'
 import trashBtn from '@/assets/img/cart/cart-card/trash.svg'
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {addToCart, deleteCartItem, sendCheckbox} from "@/store/cartSlice.js";
 import {useEffect, useState} from "react";
 import {useDebounce} from '@uidotdev/usehooks';
 import {Link} from "react-router-dom";
+import {getFavs, updateFavs} from "@/store/favSlice.js";
+import {getIsAuthenticated} from "@/store/userSlice.js";
 
 const CartItem = ({cartItem, cartId}) => {
   
@@ -81,6 +83,21 @@ const CartItem = ({cartItem, cartId}) => {
   
   const deleteItemHandler = () => {
     dispatch(deleteCartItem({cartItemId: cartItem.cartItemId}))
+  }
+
+  const isAuthenticated = useSelector(getIsAuthenticated)
+  const favs = useSelector(getFavs)
+  
+  const [isFavourite, setIsFavourite] = useState(isAuthenticated
+    ? cartItem.isFavourite
+    : favs.find(item=>item.productVariantId === cartItem.productVariantId) )  // todo - не тестила 
+  const onFavClick = () => {
+    if (isFavourite) {
+      dispatch(updateFavs({updateType:'remove', productVariantId: cartItem.productVariantId}))
+    } else {
+      dispatch(updateFavs({updateType:'add', productVariantId: cartItem.productVariantId}))
+    }
+    setIsFavourite(prev=>!prev)
   }
 
   return (
@@ -172,7 +189,7 @@ const CartItem = ({cartItem, cartId}) => {
             </div>
           </div>
           <div className={s.iconButtons}>
-            <button><img className={s.heartImg} src={cartItem.isFavourite ? heartActiveBtn : heartBtn} alt="heart"/>
+            <button onClick={onFavClick}><img className={s.heartImg} src={isFavourite ? heartActiveBtn : heartBtn} alt="heart"/>
             </button>
             <button onClick={deleteItemHandler}><img className={s.trashImg} src={trashBtn} alt="trash"/></button>
           </div>

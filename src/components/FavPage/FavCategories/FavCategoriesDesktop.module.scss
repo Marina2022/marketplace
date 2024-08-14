@@ -5,6 +5,10 @@
   padding: 26px;
   width: 300px;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
 
   @include t {
     //width: 260px;
@@ -14,4 +18,27 @@
   @include m {
     display: none;
   }
+}
+
+.firstCategoryItem {
+  color: #658092;
+  font-size: 16px;
+  display: flex;
+  gap: 15px;
+}
+
+.categoryItem {
+  color: #658092;
+  font-size: 14px;
+}
+
+.activeItem {
+  color: #131D2A;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.arrow {
+  position: relative;
+  top: 1px;
 }

@@ -1,23 +1,10 @@
-
 import s from "@/components/ProductPage/ProductPageSlider/ProductPageSlider.module.scss";
-import {getIsAuthenticated} from "@/store/userSlice.js";
-import {useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
-const FavButton = ({productId, isFavourite, className}) => {
 
-  const isAuthenticated = useSelector(getIsAuthenticated)
-  const navigate = useNavigate()
+const FavButton = ({isFavourite, className, onClick}) => {
 
-  const onFavClick = (id) => {
-    if (!isAuthenticated) {
-      navigate('/login')
-    } else {
-      console.log('Поместить в Избранное товар ', id)
-    }
-  }  
-  
+   
   return (
-    <button className={`${s.favBtn} ${className}`} onClick={() => onFavClick(productId)} >
+    <button className={`${s.favBtn} ${className}`} onClick={onClick} >
       {
         isFavourite &&  <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path

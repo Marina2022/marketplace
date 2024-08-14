@@ -26,7 +26,7 @@ const ProductCardVertical = ({product, quantity, onFavClick, onAddToCartClick, c
                 {product.productName}
               </Link>
             </h3>
-            <button className={s.favBtn} onClick={() => onFavClick()}>
+            <button className={s.favBtn} onClick={onFavClick}>
 
               {
                 isFavourite &&

@@ -10,7 +10,7 @@ import ProductMobileSlider
   from "@/components/ProductPage/ProductPageSlider/ProductMobileSlider/ProductMobileSlider.jsx";
 import FavButton from "@/components/ui/FavButton/FavButton.jsx";
 
-const ProductPageSlider = ({images, productId, isFavourite}) => {
+const ProductPageSlider = ({images, productId, isFavourite, onFavClick}) => {
 
   const [currentImage, setCurrentImage] = useState(undefined)
   const [sliderPopupIsOpen, setSliderPopupIsOpen] = useState(false)
@@ -39,6 +39,7 @@ const ProductPageSlider = ({images, productId, isFavourite}) => {
           onClick={() => setSliderPopupIsOpen(true)}>
           
           <FavButton
+            onClick={onFavClick}
             className={s.favBtn}
             productId={productId}
             isFavourite={isFavourite}/>

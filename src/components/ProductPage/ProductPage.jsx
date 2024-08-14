@@ -11,6 +11,9 @@ import RightSidebar from "@/components/ProductPage/RightSidebar/RightSidebar.jsx
 import MobileBottomMenu from "@/components/ProductPage/MobileBottomMenu/MobileBottomMenu.jsx";
 import DetailedInfo from "@/components/ProductPage/DetailedInfo/DetailedInfo.jsx";
 import ViewedProducts from "@/components/ViewedProducts/ViewedProducts.jsx";
+import {getFavs, updateFavs} from "@/store/favSlice.js";
+import {useDispatch, useSelector} from "react-redux";
+import {getIsAuthenticated} from "@/store/userSlice.js";
 
 function findClosestOption(options, targetValues, requiredOptionHandle) {
 
@@ -61,7 +64,7 @@ const ProductPage = () => {
   const {slug: productHandle} = useParams()
 
   console.log('product = ', product)
-  
+
   const [sku, setSku] = useState(null)
 
   // const [tabIsOpen, setTabIsOpen] = useState(null)
@@ -145,6 +148,26 @@ const ProductPage = () => {
   const reviewsRef = useRef()
   const questionsRef = useRef()
 
+  const favs = useSelector(getFavs)
+  const isAuthenticated = useSelector(getIsAuthenticated)
+  const dispatch=useDispatch()
+
+  
+  const [isFavourite, setIsFavourite] = useState(isAuthenticated
+    ? product?.isFavourite
+    : favs.find(item => item.productVariantId === product?.productVariantId))  // todo - не тестила 
+
+
+  const onFavClick = (e) => {
+    e.stopPropagation()
+    if (isFavourite) {
+      dispatch(updateFavs({updateType: 'remove', productVariantId: product.productVariantId}))
+    } else {
+      dispatch(updateFavs({updateType: 'add', productVariantId: product.productVariantId}))
+    }
+    setIsFavourite(prev => !prev)
+  }
+
   if (!product)
     return <Spinner className={s.spinner}/>
 
@@ -165,7 +188,7 @@ const ProductPage = () => {
               setMobileQuestionsTabIsOpen={setMobileQuestionsTabIsOpen}
             />
             <ProductPageSlider images={product.productImages} productId={product.productVariantId}
-                               isFavourite={product.isFavourite}/>
+                               isFavourite={isFavourite} onFavClick={onFavClick} />
             <Details product={product} sku={sku} handleOptionClick={handleOptionClick}/>
             <DetailedInfo
               product={product}

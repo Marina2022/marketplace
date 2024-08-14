@@ -1,15 +1,12 @@
 import s from './FavPage.module.scss';
-import {useSelector} from "react-redux";
-import {getFavCategories, getFavs} from "@/store/favSlice.js";
-import TopBlock from "@/components/CategoryBlock/TopBlock/TopBlock.jsx";
-import DesktopFilters from "@/components/CategoryBlock/Filters/DesktopFilters/DesktopFilters.jsx";
-import Products from "@/components/CategoryBlock/Products/Products.jsx";
+import {useDispatch, useSelector} from "react-redux";
+import {getFavCategories, getFavs, loadFavs} from "@/store/favSlice.js";
 import ViewedProducts from "@/components/ViewedProducts/ViewedProducts.jsx";
-import useBigScreen from "@/hooks/useBigScreen.js";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
-import Favourites from "@/pages/Favourites.jsx";
 import FavList from "@/components/FavPage/FavList/FavList.jsx";
 import FavCategoriesDesktop from "@/components/FavPage/FavCategories/FavCategoriesDesktop.jsx";
+import FavCategoriesMobile from "@/components/FavPage/FavCategories/FavCategoriesMobile.jsx";
+import {useEffect, useState} from "react";
 
 
 const FavPage = () => {
@@ -31,20 +28,40 @@ const FavPage = () => {
 
   const isMobile = useMobileScreen()
 
+  const [productCategoryId, setProductCategoryId] = useState(null)
+
+  const dispatch = useDispatch()
+  
+  useEffect(() => {
+    dispatch(loadFavs(productCategoryId))
+  }, [productCategoryId]);
+
+
   return (
     <div className='container'>
       <h1 className={s.mainTitle}>Избранное</h1>
       <div className={s.wrapper}>
         {
-          !isMobile && <FavCategoriesDesktop/>
+          !isMobile && <FavCategoriesDesktop
+            cats={cats}
+            productCategoryId={productCategoryId}
+            setProductCategoryId={setProductCategoryId}/>
         }
+
+        {
+          isMobile && <FavCategoriesMobile
+            cats={cats}
+            productCategoryId={productCategoryId}
+            setProductCategoryId={setProductCategoryId}/>
+        }
+
         <div className={s.rightPartWrapper}>
           <div className={s.rightPart}>
             {
               favsToShow && <FavList products={favsToShow}/>
             }
           </div>
-          {/*<ViewedProducts/>*/}
+          <ViewedProducts/>
         </div>
       </div>
     </div>

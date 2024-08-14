@@ -3,11 +3,14 @@ import logo from '@/assets/img/header/logo.svg'
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getIsAuthenticated, login, logout} from "@/store/userSlice.js";
-
+import {getFavs} from "@/store/favSlice.js";
+import heartActiveBtn from '@/assets/img/cart/cart-card/heart-active.svg'
 const Header = () => {
 
   const isAuthenticated = useSelector(getIsAuthenticated)
   const dispatch = useDispatch()
+  
+  const favs = useSelector(getFavs)
 
   return (
     <header className={s.header}>
@@ -15,10 +18,12 @@ const Header = () => {
         <div className={s.wrapper}>
           <div>
             <Link to="/">
-              <img src={logo} alt="logo"/>
+              <img className={s.logo} src={logo} alt="logo"/>
             </Link>
             <span>Header</span>
           </div>
+          
+          <div className={s.fav}><img src={heartActiveBtn} alt=""/> <span> {favs?.length} </span> </div>
           <div className={s.loginWrapper}>
             {
               isAuthenticated

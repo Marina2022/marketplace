@@ -3,14 +3,16 @@ import axios from "@/api/axiosInstance.js";
 
 //import axiosInstance from "@/api/axiosInstance.js";
 
-export const loadFavs = createAsyncThunk('favs/loadFavs', async (param, thunkAPI) => {  
+export const loadFavs = createAsyncThunk('favs/loadFavs', async (productCategoryId, thunkAPI) => {  
 
     const state = thunkAPI.getState()
 
     if (state.user.isAuthenticated) {
 
       try {
-        const resp = await axios(`favourites`)        
+        const url = productCategoryId ? `favourites?productCategoryId=${productCategoryId}` : `favourites`
+        
+        const resp = await axios(url)        
         return (resp.data)
       } catch(err) {
         if (err.response.data.description === 'No favourite product for the given User ID') {
@@ -41,7 +43,9 @@ export const updateFavs = createAsyncThunk('favs/updateFavs', async (params, thu
     } else {
       resp = await axios.delete(`favourites/favourite/${productVariantId}`)
     }
-    // надо перезапросить каталог. Корзину, savedCarts, favs    
+    // надо перезапросить каталог. Корзину, savedCarts, favs   
+
+    thunkAPI.dispatch(loadFavs())
 
     return
     

@@ -69,7 +69,7 @@ const ProductCardHorizontal = ({product, quantity, onFavClick, onAddToCartClick,
               >В&nbsp;корзину                
               </Button>
             }
-            <button className={s.favBtn} onClick={()=>onFavClick()}>
+            <button className={s.favBtn} onClick={onFavClick}>
              
               {
                 isFavourite &&  <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
