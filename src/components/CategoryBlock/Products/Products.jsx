@@ -56,9 +56,6 @@ const Products = ({isBigScreen, allFilters, rightPartRef}) => {
         if (sortColumn) {
           queryString = `${queryString}&sortColumn=${sortColumn}&sortOrder=${sortOrder}`  
         }
-
-        
-
         
         // добавляем в строку запроса на АПИ - page
         let page = searchParams.get('page')

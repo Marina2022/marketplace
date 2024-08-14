@@ -8,21 +8,23 @@ import Category from "@/pages/Category.jsx";
 import Favourites from "@/pages/Favourites.jsx";
 import Cart from "@/pages/Cart.jsx";
 import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute.jsx";
+
 function App() {
   return (
-      <Router>
-        <Routes>
-          <Route element={<MainLayout/>}>
-            <Route path='/' index element={<Home/>}/>            
-            <Route path='/category/:category' element={<Category/>}/>
-            <Route path='/login' element={<Auth/>}/>
-            <Route path='/product/:slug' element={<Product/>}/>
-            <Route path='/favourites' element={<ProtectedRoute> <Favourites/> </ProtectedRoute>}/>
-            <Route path='/cart' element={<Cart/>}/>
-            <Route path='*' element={<NotFound/>}/>
-          </Route>
-        </Routes>
-      </Router>
+    <Router>
+      <Routes>
+        <Route element={<MainLayout/>}>
+          <Route path='/' index element={<Home/>}/>
+          <Route path='/category/:category' element={<Category/>}/>
+          <Route path='/login' element={<Auth/>}/>
+          <Route path='/product/:slug' element={<Product/>}/>
+          {/*<Route path='/favourites' element={<ProtectedRoute> <Favourites/> </ProtectedRoute>}/>*/}
+          <Route path='/favourites' element={<Favourites/>}/>
+          <Route path='/cart' element={<Cart/>}/>
+          <Route path='*' element={<NotFound/>}/>
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 

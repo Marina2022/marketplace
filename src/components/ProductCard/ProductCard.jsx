@@ -1,17 +1,20 @@
-import {useNavigate} from "react-router-dom";
 import ProductCardHorizontal from "@/components/ProductCard/ProductCardHorizontal.jsx";
 import ProductCardVertical from "@/components/ProductCard/ProductCardVertical.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {getIsAuthenticated} from "@/store/userSlice.js";
 import {addToCart, getCart, getCartUpdatingStatus} from "@/store/cartSlice.js";
 import {getCartView} from "@/store/catalogSlice.js";
+import {getFavs, updateFavs} from "@/store/favSlice.js";
+import {useState} from "react";
 
 const ProductCard = ({isBigScreen, product}) => {
+  
   const cardView = useSelector(getCartView)
   const isAuthenticated = useSelector(getIsAuthenticated)
 
   const cart = useSelector(getCart)
   const cartUpdatingStatus = useSelector(getCartUpdatingStatus)
+  const favs = useSelector(getFavs)
   
   let productInCart = false
 
@@ -41,29 +44,39 @@ const ProductCard = ({isBigScreen, product}) => {
       item: product
     }))    
   }
+  
+  const [isFavourite, setIsFavourite] = useState(isAuthenticated 
+    ? product.isFavourite 
+    : favs.find(item=>item.productVariantId === product.productVariantId) )  // todo - не тестила 
+  
+  // let isFavourite = false
+  // if (isAuthenticated) {
+  //   isFavourite = product.isFavourite
+  // }  else {  
+  //   isFavourite = favs.find(item=>item.productVariantId === product.productVariantId)
+  // }
 
-
-  const navigate = useNavigate()
-  const onFavClick = (id) => {
-    if (!isAuthenticated) {
-      navigate('/login')
+  const onFavClick = () => {    
+    if (isFavourite) {      
+      dispatch(updateFavs({updateType:'remove', productVariantId: product.productVariantId}))      
     } else {
-      console.log('Поместить в Избранное товар ', id)
+      dispatch(updateFavs({updateType:'add', productVariantId: product.productVariantId}))
     }
+    setIsFavourite(prev=>!prev)
   }
 
   return (
-    <>
+    <>      
       {
         (!isBigScreen || cardView === 'vertical') &&
         <ProductCardVertical onAddToCartClick={onAddToCartClick} onFavClick={onFavClick} product={product}
-                             quantity={quantity} cartItemId={productInCart?.cartItemId} />
+                             quantity={quantity} cartItemId={productInCart?.cartItemId} isFavourite={isFavourite} />
       }
 
       {
         (isBigScreen && cardView === 'horizontal') &&
         <ProductCardHorizontal onAddToCartClick={onAddToCartClick} onFavClick={onFavClick} product={product}
-                               quantity={quantity} cartItemId={productInCart?.cartItemId}/>
+                               quantity={quantity} cartItemId={productInCart?.cartItemId} isFavourite={isFavourite} />
       }
     < />
   )

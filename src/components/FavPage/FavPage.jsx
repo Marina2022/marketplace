@@ -13,26 +13,38 @@ import FavCategoriesDesktop from "@/components/FavPage/FavCategories/FavCategori
 
 
 const FavPage = () => {
+  const favs = useSelector(getFavs)
+  const cats = useSelector(getFavCategories)
 
-  const favs = useSelector(getFavs) 
-  const cats = useSelector(getFavCategories) 
+  let favsToShow
+  if (favs) {
+    favsToShow = favs.map(fav => {
+      const newFav = {...fav}
+      newFav.isFavourite = true
+      return newFav
+    })
+  }
+
   console.log('favs', favs)
+  console.log('favsToShow', favsToShow)
   console.log('cats', cats)
 
   const isMobile = useMobileScreen()
-  
+
   return (
     <div className='container'>
       <h1 className={s.mainTitle}>Избранное</h1>
       <div className={s.wrapper}>
         {
-          !isMobile && <FavCategoriesDesktop />
+          !isMobile && <FavCategoriesDesktop/>
         }
         <div className={s.rightPartWrapper}>
-          <div className={s.rightPart} >
-            <FavList />
+          <div className={s.rightPart}>
+            {
+              favsToShow && <FavList products={favsToShow}/>
+            }
           </div>
-          <ViewedProducts/>
+          {/*<ViewedProducts/>*/}
         </div>
       </div>
     </div>

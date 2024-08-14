@@ -1,11 +1,21 @@
 import s from './FavList.module.scss';
+import ProductCard from "@/components/ProductCard/ProductCard.jsx";
 
-const FavList = () => {
+const FavList = ({products}) => {
+  console.log('hello from FavList', products)
+
   return (
-    <div>
-      FavList
-    </div>
-  );
-};
+    <ul className={s.list}>
+      {
+        products.map((product, i) => {
+            // manyProducts.map((product, i) => {  // для тестирование - много карточек
+            return <ProductCard key={i} isBigScreen={false} product={product}/>
+          }
+        )
+      }
+    </ul>
+  )
+
+}
 
 export default FavList;

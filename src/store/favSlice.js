@@ -29,16 +29,26 @@ export const loadFavs = createAsyncThunk('favs/loadFavs', async (param, thunkAPI
 
 export const updateFavs = createAsyncThunk('favs/updateFavs', async (params, thunkAPI) => {
 
+  const {updateType, productVariantId} = params
+  
   const state = thunkAPI.getState()
   
   if (state.user.isAuthenticated) {
-    //посылаем запрос на сервер
+    
+    let resp
+    if (updateType === 'add') {
+      resp = await axios.post(`favourites/favourite/${productVariantId}`)      
+    } else {
+      resp = await axios.delete(`favourites/favourite/${productVariantId}`)
+    }
+    // надо перезапросить каталог. Корзину, savedCarts, favs    
+
+    return
+    
   
   } else {
     // посылаем в LS (или удаляем)
   }
-
-
 })
 
 const initialState = {
