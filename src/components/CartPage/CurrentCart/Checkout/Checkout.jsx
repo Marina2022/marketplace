@@ -8,7 +8,7 @@ import useMobileScreen from "@/hooks/useMobileScreen.js";
 const Checkout = ({cart}) => {
 
   const isMobile = useMobileScreen()
-  const [isMiniCheckoutVisible, setIsMiniCheckoutVisible] = useState(false)
+  const [isMiniCheckoutVisible, setIsMiniCheckoutVisible] = useState(true)
 
   const checkoutRef = useRef(null);
 

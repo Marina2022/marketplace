@@ -11,8 +11,8 @@ const SavedCartsCheckout = ({submitHandler}) => {
   
 
   const isMobile = useMobileScreen()
-  const [isMiniCheckoutVisible, setIsMiniCheckoutVisible] = useState(false)
-  const checkoutRef = useRef(null);
+  const [isMiniCheckoutVisible, setIsMiniCheckoutVisible] = useState(true)
+  const savedCheckoutRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -33,13 +33,13 @@ const SavedCartsCheckout = ({submitHandler}) => {
       }
     );
 
-    if (checkoutRef.current) {
-      observer.observe(checkoutRef.current);
+    if (savedCheckoutRef.current) {
+      observer.observe(savedCheckoutRef.current);
     }
     
     return () => {
-      if (checkoutRef.current) {
-        observer.unobserve(checkoutRef.current);
+      if (savedCheckoutRef.current) {
+        observer.unobserve(savedCheckoutRef.current);
       }
     };
   }, []);
@@ -47,7 +47,7 @@ const SavedCartsCheckout = ({submitHandler}) => {
   if (!savedCartsCheckout) return <></>
   return (
     <>
-      <div className={s.checkout} ref={checkoutRef} >
+      <div className={s.checkout} ref={savedCheckoutRef} >
         {
           savedCartsCheckout.totalProductCount > 0
             ? <div className={s.topPart}>
