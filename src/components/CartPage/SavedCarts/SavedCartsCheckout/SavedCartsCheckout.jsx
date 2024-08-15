@@ -11,7 +11,7 @@ const SavedCartsCheckout = ({submitHandler}) => {
   
 
   const isMobile = useMobileScreen()
-  const [isMiniCheckoutVisible, setIsMiniCheckoutVisible] = useState(true)
+  const [isMiniCheckoutVisible, setIsMiniCheckoutVisible] = useState(null)
   const savedCheckoutRef = useRef(null);
 
   useEffect(() => {
@@ -45,6 +45,7 @@ const SavedCartsCheckout = ({submitHandler}) => {
   }, []);
 
   if (!savedCartsCheckout) return <></>
+  
   return (
     <>
       <div className={s.checkout} ref={savedCheckoutRef} >
