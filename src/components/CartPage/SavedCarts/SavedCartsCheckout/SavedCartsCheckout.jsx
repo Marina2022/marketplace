@@ -46,14 +46,48 @@ const SavedCartsCheckout = ({submitHandler}) => {
   // }, []);
 
 
-  useEffect(() => {
+  // useEffect(() => {
+  //
+  //   console.log('step 1')
+  //  
+  //  
+  //   if (typeof window !== 'undefined') {
+  //     console.log('step 2')
+  //     console.log('ref = ', savedCheckoutRef.current)
+  //     const observer = new IntersectionObserver(
+  //       ([entry]) => {
+  //         if (entry.isIntersecting) {
+  //           console.log('Checkout вошел во вьюпорт');
+  //           setIsMiniCheckoutVisible(false);
+  //         } else {
+  //           console.log('Checkout вышел из вьюпорта');
+  //           setIsMiniCheckoutVisible(true);
+  //         }
+  //       },
+  //       {
+  //         root: null,
+  //         rootMargin: '0px',
+  //         threshold: 0.35,
+  //       }
+  //     );
+  //
+  //     if (savedCheckoutRef.current) {
+  //       observer.observe(savedCheckoutRef.current);
+  //     }
+  //
+  //     return () => {
+  //       if (savedCheckoutRef.current) {
+  //         observer.unobserve(savedCheckoutRef.current);
+  //       }
+  //     };
+  //   }
+  // }, []);
 
-    console.log('step 1')
-    
-    
-    if (typeof window !== 'undefined') {
-      console.log('step 2')
-      console.log('ref = ', savedCheckoutRef.current)
+
+  useEffect(() => {
+    const ref = savedCheckoutRef.current;
+    if (ref) {
+      console.log('ref = ', ref);
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
@@ -71,18 +105,17 @@ const SavedCartsCheckout = ({submitHandler}) => {
         }
       );
 
-      if (savedCheckoutRef.current) {
-        observer.observe(savedCheckoutRef.current);
-      }
+      observer.observe(ref);
 
       return () => {
-        if (savedCheckoutRef.current) {
-          observer.unobserve(savedCheckoutRef.current);
+        if (ref) {
+          observer.unobserve(ref);
         }
       };
     }
-  }, [savedCheckoutRef.current]);
-
+  }, []); // Теперь без зависимости от ref
+  
+  
   if (!savedCartsCheckout) return <></>
   
   return (
