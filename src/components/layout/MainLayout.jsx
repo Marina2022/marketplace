@@ -1,5 +1,6 @@
 import Header from "@/components/layout/Header/Header.jsx";
 import {Outlet} from "react-router-dom";
+import MobileBottomMenu from "@/components/layout/MobileBottomMenu/MobileBottomMenu.jsx";
 
 const MainLayout = () => {
   return (
@@ -9,6 +10,7 @@ const MainLayout = () => {
           <Outlet/>
         </main>
         {/*<Footer />*/}
+        <MobileBottomMenu />
       </div>
   );
 };

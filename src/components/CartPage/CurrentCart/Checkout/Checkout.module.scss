@@ -4,10 +4,8 @@
   //width: 301px;
   width: 100%;
   background: white;
-  padding: 20px;
-  
+  padding: 20px;  
   border: #F0F1F1 1px solid;
-
 }
 
 .title {
@@ -164,4 +162,50 @@
     margin-bottom: 14px;
     width: 100%;
   }
+}
+
+.miniCheckout {
+  position: fixed;
+  align-items: flex-end;
+  bottom: 56px;
+  left: 0;
+  right: 0;
+  height: 45px;
+  background: white;
+  border-top: #F0F1F1 solid 1px;
+  padding: 5px 20px;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;  
+}
+
+.miniCheckoutSavings {
+  color: #3E5067;
+  margin-bottom: 5px;
+  min-width: 118px;
+  
+}
+
+.miniCheckoutSavingLabel {
+  font-size: 10px;
+  margin-right: 5px;
+}
+
+.miniCheckoutSavingValue {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.miniCheckoutSavingSummary {
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+}
+
+.miniCheckoutBtn {
+  width: 190px;
+  height: 30px;
+  font-size: 12px;
+  font-weight: 500;
 }

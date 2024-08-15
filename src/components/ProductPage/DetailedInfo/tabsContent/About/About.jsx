@@ -41,22 +41,33 @@ const About = ({product}) => {
       <h2 className={s.title}>О компании</h2>
       <div className={s.topBlock}>
         <div className={s.imgWrapper}>
-          <img className={s.profileImage} src={`${BASE_URL}${company.galery[1].images[0].imageUrl}`}
-               alt={company.galery[1].images[0].imageName}/>
+          {
+            company.galery.length > 0 &&
+            <img className={s.profileImage} src={`${BASE_URL}${company.galery[1].images[0].imageUrl}`}
+                 alt={company.galery[1].images[0].imageName}/>
+          }
+
         </div>
         <AboutDetails company={company}/>
       </div>
-      <Description text={company.companyDescription} images={company.galery[0].images}/>
-      <h3 className={s.certTitle}>Сертификаты</h3>
-      <ul className={s.certList}>
-        {
-          company.galery[2].images.map((img, i) => <img 
-            key={i} 
-            className={s.certImg} 
-            src={`${BASE_URL}${img.imageUrl}`}                                                        
-            alt={img.imageName}/>)
-        }
-      </ul>
+      <Description text={company.companyDescription} images={company.galery[0]?.images}/>
+      
+      {
+        company.galery.length > 0 &&
+
+        <>
+          <h3 className={s.certTitle}>Сертификаты</h3>
+          <ul className={s.certList}>
+            {
+              company.galery[2].images.map((img, i) => <img
+                key={i}
+                className={s.certImg}
+                src={`${BASE_URL}${img.imageUrl}`}
+                alt={img.imageName}/>)
+            }
+          </ul>
+        </>
+      }
     </div>
   );
 };

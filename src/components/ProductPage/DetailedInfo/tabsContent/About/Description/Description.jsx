@@ -20,15 +20,19 @@ const Description = ({text, images}) => {
                   return <p className={s.text} key={i}>{par}</p>
                 })
               }
-              <div className={s.images}>
-                {
-                  images.map((image, i) => {
-                    return (
-                      <img className={s.img} key={i} src={`${BASE_URL}${image.imageUrl}`} alt={image.imageName}/>
-                    )
-                  })
-                }
-              </div>
+
+              {
+                images && <div className={s.images}>
+                  {
+                    images.map((image, i) => {
+                      return (
+                        <img className={s.img} key={i} src={`${BASE_URL}${image.imageUrl}`} alt={image.imageName}/>
+                      )
+                    })
+                  }
+                </div>
+              }
+
             </>
             : (
               textCutParagraphs.map((par, i) => {

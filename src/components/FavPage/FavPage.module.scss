@@ -7,7 +7,7 @@
   align-items: flex-start;
 
   @include m {
-    margin-bottom: 50px;
+    margin-bottom: 80px;
     flex-direction: column;
   }
 }
@@ -97,3 +97,11 @@
   }
 }
 
+.inlineHeart {
+  @include m {
+    width: 13px;
+    height: 13px;
+    object-fit: contain;
+    
+  }
+}

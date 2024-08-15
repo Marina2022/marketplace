@@ -8,7 +8,7 @@ import ProductHeader from "@/components/ProductPage/ProductHeader/ProductHeader.
 import Details from "@/components/ProductPage/Details/Details.jsx";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import RightSidebar from "@/components/ProductPage/RightSidebar/RightSidebar.jsx";
-import MobileBottomMenu from "@/components/ProductPage/MobileBottomMenu/MobileBottomMenu.jsx";
+import MobileBottomMenu from "@/components/layout/MobileBottomMenu/MobileBottomMenu.jsx";
 import DetailedInfo from "@/components/ProductPage/DetailedInfo/DetailedInfo.jsx";
 import ViewedProducts from "@/components/ViewedProducts/ViewedProducts.jsx";
 import {getFavs, updateFavs} from "@/store/favSlice.js";
@@ -215,10 +215,10 @@ const ProductPage = () => {
           </div>
           <RightSidebar product={product}/>
         </div>
-        <MobileBottomMenu/>
+        {/*<MobileBottomMenu/>*/}
 
         <div className={s.viewed}>
-          <ViewedProducts/>
+          <ViewedProducts fullSize={true}/>
         </div>
       </div>
     </div>

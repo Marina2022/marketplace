@@ -49,14 +49,14 @@ const FavPage = () => {
 
       <div className={s.wrapper}>
         {
-          !isMobile && favs.length !== 0  && favsLoadingStatus !=='loading' &&  <FavCategoriesDesktop
+          !isMobile && favs?.length !== 0  && favsLoadingStatus !=='loading' &&  <FavCategoriesDesktop
             cats={cats}
             productCategoryId={productCategoryId}
             setProductCategoryId={setProductCategoryId}/>
         }
 
         {
-          isMobile && favs.length !== 0 && favsLoadingStatus !=='loading' &&  <FavCategoriesMobile
+          isMobile && favs?.length !== 0 && favsLoadingStatus !=='loading' &&  <FavCategoriesMobile
             cats={cats}
             productCategoryId={productCategoryId}
             setProductCategoryId={setProductCategoryId}/>
@@ -73,7 +73,7 @@ const FavPage = () => {
               <h2 className={s.emptyPageTitle}>Здесь пусто :(</h2>
               <p className={s.emptyPageText}>
                 <span>Нажимайте</span>
-                <img src={inlineHeart} alt="heart"/>
+                <img className={s.inlineHeart} src={inlineHeart} alt="heart"/>
                 <span>и добавляйте товары!</span>
               </p>
               <p className={s.emptyPageText}>

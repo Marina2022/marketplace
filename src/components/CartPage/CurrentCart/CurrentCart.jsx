@@ -21,6 +21,7 @@ import {useEffect} from "react";
 import {useDebounce} from "@uidotdev/usehooks";
 import Button from "@/components/ui/Button/Button.jsx";
 import {useNavigate} from "react-router-dom";
+import useMobileScreen from "@/hooks/useMobileScreen.js";
 
 
 const CurrentCart = () => {
@@ -37,6 +38,7 @@ const CurrentCart = () => {
   const cart = useSelector(getCart)
   const editingSearchTerm = useSelector(getEditingSearchTerm)
    
+  const isMobile = useMobileScreen()
 
   useEffect(() => {
     dispatch(loadCart())
@@ -103,7 +105,7 @@ const CurrentCart = () => {
         <div className={s.rightPartWrapper}>
           <Checkout cart={cart}/>
           {
-            cart?.cartItems && <DownloadBlock links={cart.cartLinks}/>
+            cart?.cartItems && !isMobile && <DownloadBlock links={cart.cartLinks}/>
           }
         </div>
       </div>
