@@ -26,10 +26,8 @@ export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
   if (resp.status === 200) {
     thunkAPI.dispatch(setIsAuthenticated(false))
     thunkAPI.dispatch(loadCart())
-    thunkAPI.dispatch(loadFavs())
-    
+    thunkAPI.dispatch(loadFavs())    
   }
-
   return true
 })
 

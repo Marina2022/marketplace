@@ -66,6 +66,7 @@ const ProductPageSlider = ({images, productId, isFavourite, onFavClick}) => {
             setCurrentImage={setCurrentImage}/>
         </div>
         <FavButton
+          onClick={onFavClick}
           className={s.favBtnMobile}
           productId={productId}
           isFavourite={isFavourite}/>
