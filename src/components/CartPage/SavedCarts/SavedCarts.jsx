@@ -18,6 +18,7 @@ const SavedCarts = ({setCurrentTab}) => {
 
   const dispatch = useDispatch()
   const loadSavedCartsStatus = useSelector(getSavedCartsStatus)
+  console.log({loadSavedCartsStatus})
   
   const [checkedItems, setCheckedItems] = useState([])
   const cartIds = checkedItems.map(item => ({cartId: item}))
@@ -41,6 +42,7 @@ const SavedCarts = ({setCurrentTab}) => {
 
   if (!savedCarts) return <></>
 
+  
   if (loadSavedCartsStatus === 'loading') return 'Loading...'
 
   if (savedCarts.length === 0 && loadSavedCartsStatus !== 'loading') {

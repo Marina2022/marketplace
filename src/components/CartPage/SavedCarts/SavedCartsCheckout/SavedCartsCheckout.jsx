@@ -13,35 +13,67 @@ const SavedCartsCheckout = ({submitHandler}) => {
   const isMobile = useMobileScreen()
   const [isMiniCheckoutVisible, setIsMiniCheckoutVisible] = useState(null)
   const savedCheckoutRef = useRef(null);
+  //
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(
+  //     ([entry]) => {
+  //       if (entry.isIntersecting) {
+  //         console.log('Checkout вошел во вьюпорт');
+  //         setIsMiniCheckoutVisible(false)
+  //
+  //       } else {
+  //         console.log('Checkout вышел из вьюпорта');
+  //         setIsMiniCheckoutVisible(true)
+  //       }
+  //     },
+  //     {
+  //       root: null, 
+  //       rootMargin: '0px',
+  //       threshold: 0, 
+  //     }
+  //   );
+  //
+  //   if (savedCheckoutRef.current) {
+  //     observer.observe(savedCheckoutRef.current);
+  //   }
+  //  
+  //   return () => {
+  //     if (savedCheckoutRef.current) {
+  //       observer.unobserve(savedCheckoutRef.current);
+  //     }
+  //   };
+  // }, []);
+
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          console.log('Checkout вошел во вьюпорт');
-          setIsMiniCheckoutVisible(false)
-
-        } else {
-          console.log('Checkout вышел из вьюпорта');
-          setIsMiniCheckoutVisible(true)
+    if (typeof window !== 'undefined') {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            console.log('Checkout вошел во вьюпорт');
+            setIsMiniCheckoutVisible(false);
+          } else {
+            console.log('Checkout вышел из вьюпорта');
+            setIsMiniCheckoutVisible(true);
+          }
+        },
+        {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.35,
         }
-      },
-      {
-        root: null, 
-        rootMargin: '0px',
-        threshold: 0, 
-      }
-    );
+      );
 
-    if (savedCheckoutRef.current) {
-      observer.observe(savedCheckoutRef.current);
-    }
-    
-    return () => {
       if (savedCheckoutRef.current) {
-        observer.unobserve(savedCheckoutRef.current);
+        observer.observe(savedCheckoutRef.current);
       }
-    };
+
+      return () => {
+        if (savedCheckoutRef.current) {
+          observer.unobserve(savedCheckoutRef.current);
+        }
+      };
+    }
   }, []);
 
   if (!savedCartsCheckout) return <></>
