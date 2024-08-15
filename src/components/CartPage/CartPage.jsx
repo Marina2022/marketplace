@@ -10,7 +10,8 @@ import useMobileScreen from "@/hooks/useMobileScreen.js";
 const CartPage = () => {
 
   const isAuthenticated = useSelector(getIsAuthenticated)
-  const [currentTab, setCurrentTab] = useState('currentCart')
+  // const [currentTab, setCurrentTab] = useState('currentCart')
+  const [currentTab, setCurrentTab] = useState('savedCarts')
   const isMobile = useMobileScreen()
 
   
