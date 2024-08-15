@@ -26,6 +26,20 @@
   }
 }
 
+.rightPartWrapperNoCats {
+  flex: 1;
+  
+
+  @include t {
+  
+  }
+
+  @include m {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
 .mainTitle {
   color: #131D2A;
   font-size: 28px;
@@ -37,11 +51,49 @@
     margin-bottom: 20px;
   }
 
-  @include t {
+  @include m {
     font-size: 18px;
     margin-top: 17px;
     margin-bottom: 15px;
   }
 }
 
+
+.emptyPage {
+  min-height: 445px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.emptyPageTitle {
+  color: #3E5067;
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 13px;
+
+  @include m {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+}
+
+.emptyPageText {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #658092;
+  font-size: 18px;
+  line-height: 1.3;
+  margin-bottom: 6px;
+
+  @include m {
+    font-size: 12px;
+    margin-bottom: 18px;
+  }
+}
 

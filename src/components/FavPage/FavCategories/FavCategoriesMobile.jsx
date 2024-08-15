@@ -1,6 +1,9 @@
 import s from './FavCategoriesMobile.module.scss';
 
 const FavCategoriesMobile = ({cats, productCategoryId, setProductCategoryId}) => {
+  
+  if (!cats) return <></>
+  
   return (
     <div className={s.catsMobile}>
       <ul className={s.inside}>

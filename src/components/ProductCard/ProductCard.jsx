@@ -52,9 +52,9 @@ const ProductCard = ({isBigScreen, product}) => {
 
   const onFavClick = () => {    
     if (isFavourite) {      
-      dispatch(updateFavs({updateType:'remove', productVariantId: product.productVariantId}))      
+      dispatch(updateFavs({updateType:'remove', productVariantId: product.productVariantId, product}))      
     } else {
-      dispatch(updateFavs({updateType:'add', productVariantId: product.productVariantId}))
+      dispatch(updateFavs({updateType:'add', productVariantId: product.productVariantId, product}))
     }
     setIsFavourite(prev=>!prev)
   }

@@ -66,7 +66,7 @@ export const loadCheckout = createAsyncThunk('cart/getCheckout', async (param, t
       if (err.response.data.description === 'No cart items in cart') {
         return null
       } else {
-        thunkAPI.rejectWithValue(err.response.data)
+        return thunkAPI.rejectWithValue(err.response.data)
       }
     }
     
@@ -216,7 +216,13 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunk
         productName: item.productName,
         productHandle: item.productHandle,
         checked: true,
-        quantity: quantityToSend
+        quantity: quantityToSend,
+        
+        discount: item.discount,
+        isAvailable: item.isAvailable,
+        isDiscounted: item.isDiscounted,
+        isSecondHand: item.isSecondHand
+        
       })
     } else {
       itemFoundInCart.quantity = quantityToSend

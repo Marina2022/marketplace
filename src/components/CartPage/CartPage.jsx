@@ -8,8 +8,7 @@ import SavedCarts from "@/components/CartPage/SavedCarts/SavedCarts.jsx";
 const CartPage = () => {
 
   const isAuthenticated = useSelector(getIsAuthenticated)
-  const [currentTab, setCurrentTab] = useState('currentCart')  // todo - верни на место потом
-  //const [currentTab, setCurrentTab] = useState('savedCarts')
+  const [currentTab, setCurrentTab] = useState('currentCart')  
 
   
   useEffect(() => {

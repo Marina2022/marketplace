@@ -150,20 +150,30 @@ const ProductPage = () => {
 
   const favs = useSelector(getFavs)
   const isAuthenticated = useSelector(getIsAuthenticated)
-  const dispatch=useDispatch()
+  const dispatch = useDispatch()
 
   
+
   const [isFavourite, setIsFavourite] = useState(isAuthenticated
     ? product?.isFavourite
     : favs.find(item => item.productVariantId === product?.productVariantId))  // todo - не тестила 
 
+  useEffect(() => {
+    if (product) {
+      const newFavState = isAuthenticated
+        ? product.isFavourite
+        : favs.find(item => item.productVariantId === product?.productVariantId)
+
+      setIsFavourite(newFavState)
+    }
+  }, [product])
 
   const onFavClick = (e) => {
     e.stopPropagation()
     if (isFavourite) {
-      dispatch(updateFavs({updateType: 'remove', productVariantId: product.productVariantId}))
+      dispatch(updateFavs({updateType: 'remove', productVariantId: product.productVariantId, product}))
     } else {
-      dispatch(updateFavs({updateType: 'add', productVariantId: product.productVariantId}))
+      dispatch(updateFavs({updateType: 'add', productVariantId: product.productVariantId, product}))
     }
     setIsFavourite(prev => !prev)
   }
@@ -188,7 +198,7 @@ const ProductPage = () => {
               setMobileQuestionsTabIsOpen={setMobileQuestionsTabIsOpen}
             />
             <ProductPageSlider images={product.productImages} productId={product.productVariantId}
-                               isFavourite={isFavourite} onFavClick={onFavClick} />
+                               isFavourite={isFavourite} onFavClick={onFavClick}/>
             <Details product={product} sku={sku} handleOptionClick={handleOptionClick}/>
             <DetailedInfo
               product={product}

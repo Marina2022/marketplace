@@ -10,8 +10,7 @@
   gap: 10px;
   cursor: pointer;
 
-  @include t {
-    //width: 260px;
+  @include t {    
     width: 216px;
   }
 
@@ -41,4 +40,12 @@
 .arrow {
   position: relative;
   top: 1px;
+}
+
+.placeholder {
+  width: 140px;
+  
+  @include t {
+    width: 98px;
+  }
 }

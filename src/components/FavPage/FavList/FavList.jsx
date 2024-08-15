@@ -1,8 +1,7 @@
 import s from './FavList.module.scss';
 import ProductCard from "@/components/ProductCard/ProductCard.jsx";
 
-const FavList = ({products}) => {
-  console.log('hello from FavList', products)
+const FavList = ({products}) => {  
 
   return (
     <ul className={s.list}>

@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "@/api/axiosInstance.js";
 import {loadCart} from "@/store/cartSlice.js";
+import {loadFavs} from "@/store/favSlice.js";
 
 export const login = createAsyncThunk('cart/login', async (_, thunkAPI) => {
   // const resp = Запрос авторизации
@@ -10,6 +11,7 @@ export const login = createAsyncThunk('cart/login', async (_, thunkAPI) => {
   if (resp.status === 200) {
     thunkAPI.dispatch(setIsAuthenticated(true))
     thunkAPI.dispatch(loadCart())
+    thunkAPI.dispatch(loadFavs())
     
   }
 
@@ -23,7 +25,8 @@ export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
 
   if (resp.status === 200) {
     thunkAPI.dispatch(setIsAuthenticated(false))
-    thunkAPI.dispatch(loadCart())    
+    thunkAPI.dispatch(loadCart())
+    thunkAPI.dispatch(loadFavs())
     
   }
 
@@ -33,7 +36,7 @@ export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
 const initialState = {
   user: {name: 'Marina'},
   isLoading: false,
-  isAuthenticated: true,
+  isAuthenticated: false, // todo верну в true
   token: null,
   loginStatus: 'loading',
   logoutStatus: 'loading',

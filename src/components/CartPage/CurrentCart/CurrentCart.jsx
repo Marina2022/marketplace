@@ -36,9 +36,7 @@ const CurrentCart = () => {
   const navigate = useNavigate()
   const cart = useSelector(getCart)
   const editingSearchTerm = useSelector(getEditingSearchTerm)
-  
-  console.log('cart--', cart)
-  
+   
 
   useEffect(() => {
     dispatch(loadCart())

@@ -14,6 +14,7 @@ import CardView from "@/components/CategoryBlock/CardView/CardView.jsx";
 import MobileFilters from "@/components/CategoryBlock/Filters/MobileFilters/MobileFilters.jsx";
 import MobileFilterListBlock
   from "@/components/CategoryBlock/Filters/MobileFilters/MobileFilterListBlock/MobileFilterListBlock.jsx";
+import {getIsAuthenticated} from "@/store/userSlice.js";
 
 const Products = ({isBigScreen, allFilters, rightPartRef}) => {
 
@@ -25,6 +26,8 @@ const Products = ({isBigScreen, allFilters, rightPartRef}) => {
   const [error, setError] = useState(null)
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false)
   const {category} = useParams()
+  
+  const isAuthenticated = useSelector(getIsAuthenticated)
    
   // useEffect - загрузка списка товаров
   useEffect(() => {    
@@ -71,8 +74,7 @@ const Products = ({isBigScreen, allFilters, rightPartRef}) => {
         
         // запрос
         const productsResponse = await axiosInstance(`category/${category}/products?pageSize=${PAGE_SIZE}${queryString}`)
-        //console.log('products', productsResponse.data.products)
-        // console.log('productsResponse', productsResponse)
+        
         setProducts(productsResponse.data.products)
         setPageCountTotal(productsResponse.data.meta.pages.totalCount)
         
@@ -92,7 +94,7 @@ const Products = ({isBigScreen, allFilters, rightPartRef}) => {
     }
 
     getData()
-  }, [searchParams, location, allFilters]);
+  }, [searchParams, location, allFilters, isAuthenticated]);
 
 
   useEffect(() => {

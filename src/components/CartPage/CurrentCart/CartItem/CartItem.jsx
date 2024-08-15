@@ -90,15 +90,25 @@ const CartItem = ({cartItem, cartId}) => {
   
   const [isFavourite, setIsFavourite] = useState(isAuthenticated
     ? cartItem.isFavourite
-    : favs.find(item=>item.productVariantId === cartItem.productVariantId) )  // todo - не тестила 
+    : favs.find(item=>item.productVariantId === cartItem.productVariantId) )  // todo - не тестила
+  
   const onFavClick = () => {
     if (isFavourite) {
-      dispatch(updateFavs({updateType:'remove', productVariantId: cartItem.productVariantId}))
+      dispatch(updateFavs({updateType:'remove', productVariantId: cartItem.productVariantId, product: cartItem}))
     } else {
-      dispatch(updateFavs({updateType:'add', productVariantId: cartItem.productVariantId}))
+      dispatch(updateFavs({updateType:'add', productVariantId: cartItem.productVariantId, product: cartItem}))
     }
     setIsFavourite(prev=>!prev)
   }
+  
+  let linkURL 
+  
+  if (isAuthenticated) {
+    linkURL = `/product/${cartItem.productHandle}?sku=${ cartItem.sku}`
+  }  else {
+    linkURL = `/product/${cartItem.productHandle}`
+  }
+    
 
   return (
     <div className={s.cartItem}>
@@ -125,7 +135,8 @@ const CartItem = ({cartItem, cartId}) => {
       <img className={s.img} src={`${BASE_URL}${cartItem.productImageUrl}`} alt="product"/>
       <div className={s.cardMainContent}>
         <div className={s.nameBlock}>
-          <Link to={`/product/${cartItem.productHandle}?sku=${cartItem.sku}`} className={s.name}>{cartItem.productName}</Link>
+          {/*<Link to={`/product/${cartItem.productHandle}?sku=${ cartItem.sku}`} className={s.name}>{cartItem.productName}</Link>*/}
+          <Link to={linkURL} className={s.name}>{cartItem.productName}</Link>
           {
             cartItem.inventoryLevel === 0 && <div className={s.noInStock}>Нет в наличии</div>
           }
