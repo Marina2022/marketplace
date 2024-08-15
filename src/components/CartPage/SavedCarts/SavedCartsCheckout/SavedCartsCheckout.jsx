@@ -80,7 +80,7 @@ const SavedCartsCheckout = ({submitHandler}) => {
         }
       };
     }
-  }, []);
+  }, [savedCheckoutRef.current]);
 
   if (!savedCartsCheckout) return <></>
   
