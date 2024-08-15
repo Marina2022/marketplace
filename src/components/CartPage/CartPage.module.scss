@@ -1,5 +1,16 @@
+@import '@/assets/styles/mixins';
+
 .cartPage {
   margin-top: 12px;
+  padding-bottom: 80px;
+  
+  @include t {
+    padding-bottom: 50px;
+  }
+
+  @include m {
+    padding-bottom: 0;
+  }
 }
 
 .tabButtons {

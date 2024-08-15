@@ -4,11 +4,14 @@ import {getIsAuthenticated} from "@/store/userSlice.js";
 import {useEffect, useState} from "react";
 import CurrentCart from "@/components/CartPage/CurrentCart/CurrentCart.jsx";
 import SavedCarts from "@/components/CartPage/SavedCarts/SavedCarts.jsx";
+import ViewedProducts from "@/components/ViewedProducts/ViewedProducts.jsx";
+import useMobileScreen from "@/hooks/useMobileScreen.js";
 
 const CartPage = () => {
 
   const isAuthenticated = useSelector(getIsAuthenticated)
-  const [currentTab, setCurrentTab] = useState('currentCart')  
+  const [currentTab, setCurrentTab] = useState('currentCart')
+  const isMobile = useMobileScreen()
 
   
   useEffect(() => {
@@ -41,6 +44,13 @@ const CartPage = () => {
         }
 
 
+        
+      </div>
+      <div className='container'>
+        {
+          !isMobile && <ViewedProducts fullSize={true} />
+        }
+        
       </div>
     </div>
   );

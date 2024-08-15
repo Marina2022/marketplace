@@ -4,13 +4,20 @@ import {v4 as uuidv4} from "uuid";
 
 //import axiosInstance from "@/api/axiosInstance.js";
 
-export const loadFavs = createAsyncThunk('favs/loadFavs', async (productCategoryId, thunkAPI) => {  
+export const loadFavs = createAsyncThunk('favs/loadFavs', async (productCategoryId, thunkAPI) => {
+
 
     const state = thunkAPI.getState()
 
     if (state.user.isAuthenticated) {
 
       try {
+
+        // задержка загрузки  
+        // await new Promise((resolve)=>{
+        //   setTimeout(resolve, 1000)
+        // })
+        
         const url = productCategoryId ? `favourites?productCategoryId=${productCategoryId}` : `favourites`
         
         const resp = await axios(url)        

@@ -43,20 +43,20 @@ const FavPage = () => {
   return (
     <div className='container'>
       {
-        favs?.length !== 0 && favsLoadingStatus === 'success' &&
+        favs?.length !== 0 && favsLoadingStatus !=='loading' && favsLoadingStatus === 'success' &&
         <h1 className={s.mainTitle}>Избранное</h1>
       }
 
       <div className={s.wrapper}>
         {
-          !isMobile && favs.length !== 0  &&  <FavCategoriesDesktop
+          !isMobile && favs.length !== 0  && favsLoadingStatus !=='loading' &&  <FavCategoriesDesktop
             cats={cats}
             productCategoryId={productCategoryId}
             setProductCategoryId={setProductCategoryId}/>
         }
 
         {
-          isMobile && favs.length !== 0  && <FavCategoriesMobile
+          isMobile && favs.length !== 0 && favsLoadingStatus !=='loading' &&  <FavCategoriesMobile
             cats={cats}
             productCategoryId={productCategoryId}
             setProductCategoryId={setProductCategoryId}/>
@@ -65,7 +65,7 @@ const FavPage = () => {
         <div className={ !cats ? s.rightPartWrapperNoCats : s.rightPartWrapper}>
 
           {
-            favsLoadingStatus === 'loading' && <div>Loading...</div>
+            favsLoadingStatus === 'loading' && <div></div>
           }
           
           {
@@ -79,7 +79,6 @@ const FavPage = () => {
               <p className={s.emptyPageText}>
                 А чтобы найти любимые товары, начните покупки.
               </p>
-
             </div>
           }
 
@@ -87,7 +86,7 @@ const FavPage = () => {
 
           favs?.length !== 0 && favsLoadingStatus === 'success' && <div className={s.rightPart}>              
               {
-                favsToShow && <FavList products={favsToShow}/>
+                favsToShow && <FavList products={favsToShow} fullSize={cats ? false : true} />
               }
             </div>
           }
