@@ -53,6 +53,7 @@ const SavedCartsCheckout = ({submitHandler}) => {
     
     if (typeof window !== 'undefined') {
       console.log('step 2')
+      console.log('ref = ', savedCheckoutRef.current)
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
