@@ -7,8 +7,8 @@ import {useEffect, useRef, useState} from "react";
 
 
 const SavedCartsCheckout = ({submitHandler}) => {
-  const savedCartsCheckout = useSelector(getSavedCartsCheckout)
   
+  const savedCartsCheckout = useSelector(getSavedCartsCheckout)  
 
   const isMobile = useMobileScreen()
   const [isMiniCheckoutVisible, setIsMiniCheckoutVisible] = useState(null)

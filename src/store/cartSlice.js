@@ -389,7 +389,7 @@ const initialState = {
   chooseAllStatus: 'success',
   cartUpdateStatus: 'success',
   saveCartStatus: 'success',
-  loadSavedCartsStatus: 'success',
+  loadSavedCartsStatus: 'loading',
   deleteSavedCartStatus: 'success',
   restoreSavedStatus: 'success',
   cartStatus: null,
