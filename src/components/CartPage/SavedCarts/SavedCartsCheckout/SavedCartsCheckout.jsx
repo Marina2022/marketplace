@@ -2,39 +2,90 @@ import s from "./SavedCartsCheckout.module.scss";
 import Button from "@/components/ui/Button/Button.jsx";
 import {useSelector} from "react-redux";
 import {getSavedCartsCheckout} from "@/store/cartSlice.js";
+import useMobileScreen from "@/hooks/useMobileScreen.js";
+import {useEffect, useRef, useState} from "react";
 
 
 const SavedCartsCheckout = ({submitHandler}) => {
-  const savedCartsCheckout = useSelector(getSavedCartsCheckout)  
-  if (!savedCartsCheckout) return <></>
+  const savedCartsCheckout = useSelector(getSavedCartsCheckout)
+  
 
-  return (
+  const isMobile = useMobileScreen()
+  const [isMiniCheckoutVisible, setIsMiniCheckoutVisible] = useState(false)
+  const checkoutRef = useRef(null);
 
-    <div className={s.checkout}>
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          console.log('Checkout вошел во вьюпорт');
+          setIsMiniCheckoutVisible(false)
+
+        } else {
+          console.log('Checkout вышел из вьюпорта');
+          setIsMiniCheckoutVisible(true)
+        }
+      },
       {
-        savedCartsCheckout.totalProductCount > 0
-          ? <div className={s.topPart}>
-            <h3 className={s.title}>Ваша корзина:</h3>
-            <div className={s.productsRow}>
-              <p className={s.products}>Товары ({savedCartsCheckout?.totalProductCount})</p>
-              <p className={s.totalPrice}>{savedCartsCheckout?.totalPrice.toLocaleString()}&nbsp;₽</p>
+        root: null, 
+        rootMargin: '0px',
+        threshold: 0.35, 
+      }
+    );
+
+    if (checkoutRef.current) {
+      observer.observe(checkoutRef.current);
+    }
+    
+    return () => {
+      if (checkoutRef.current) {
+        observer.unobserve(checkoutRef.current);
+      }
+    };
+  }, []);
+
+  if (!savedCartsCheckout) return <></>
+  return (
+    <>
+      <div className={s.checkout} ref={checkoutRef} >
+        {
+          savedCartsCheckout.totalProductCount > 0
+            ? <div className={s.topPart}>
+              <h3 className={s.title}>Ваша корзина:</h3>
+              <div className={s.productsRow}>
+                <p className={s.products}>Товары ({savedCartsCheckout?.totalProductCount})</p>
+                <p className={s.totalPrice}>{savedCartsCheckout?.totalPrice.toLocaleString()}&nbsp;₽</p>
+              </div>
+            </div>
+            : <div className={s.noProductsMessage}>
+              <h3 className={s.title}>Ваша корзина:</h3>
+              Корзины не выбраны
+            </div>
+        }
+
+        <div className={s.bottomPart}>
+          <Button
+            className={s.btn}
+            onClick={submitHandler}
+            disabled={savedCartsCheckout.totalProductCount === 0}>
+            Перейти&nbsp;к&nbsp;редактированию
+          </Button>
+        </div>
+      </div>
+
+      {
+        isMiniCheckoutVisible && isMobile && <div className={s.miniCheckout}>
+
+          <div>            
+            <div className={s.miniCheckoutSummary}>
+              <div>Товары({savedCartsCheckout.totalProductCount}): </div>
+              <div className={s.miniCheckoutSummaryValue}>{savedCartsCheckout.totalPrice.toLocaleString()}&nbsp;₽</div>
             </div>
           </div>
-          : <div className={s.noProductsMessage}>
-            <h3 className={s.title}>Ваша корзина:</h3>
-            Корзины не выбраны
-          </div>
+          <Button className={s.miniCheckoutBtn}>Перейти&nbsp;к&nbsp;редактированию</Button>
+        </div>
       }
-
-      <div className={s.bottomPart}>
-        <Button          
-          className={s.btn}
-          onClick={submitHandler}
-          disabled={savedCartsCheckout.totalProductCount === 0}>
-          Перейти&nbsp;к&nbsp;редактированию
-        </Button>
-      </div>
-    </div>
+    </>
 
   );
 };

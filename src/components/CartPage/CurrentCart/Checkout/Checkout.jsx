@@ -25,17 +25,17 @@ const Checkout = ({cart}) => {
         }
       },
       {
-        root: null, // Использует viewport как контейнер
+        root: null, 
         rootMargin: '0px',
-        threshold: 0.35, // Частичное пересечение 10%
+        threshold: 0.35, 
       }
     );
 
     if (checkoutRef.current) {
       observer.observe(checkoutRef.current);
     }
-
-    // Очистка наблюдателя при размонтировании компонента
+    
+    
     return () => {
       if (checkoutRef.current) {
         observer.unobserve(checkoutRef.current);
@@ -106,13 +106,9 @@ const Checkout = ({cart}) => {
               <div>{checkout?.totalPrice.toLocaleString()}&nbsp;₽</div>
             </div>
           </div>
-
           <Button className={s.miniCheckoutBtn}>Перейти&nbsp;к&nbsp;оформлению</Button>
-
-
         </div>
       }
-
     </>
   );
 };
