@@ -4,6 +4,7 @@ import {useSelector} from "react-redux";
 import {getSavedCartsCheckout} from "@/store/cartSlice.js";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
 import {useEffect, useRef, useState} from "react";
+import {login} from "@/store/userSlice.js";
 
 
 const SavedCartsCheckout = ({submitHandler}) => {
@@ -46,8 +47,12 @@ const SavedCartsCheckout = ({submitHandler}) => {
 
 
   useEffect(() => {
+
+    console.log('step 1')
+    
     
     if (typeof window !== 'undefined') {
+      console.log('step 2')
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
@@ -75,7 +80,7 @@ const SavedCartsCheckout = ({submitHandler}) => {
         }
       };
     }
-  }, [typeof window]);
+  }, []);
 
   if (!savedCartsCheckout) return <></>
   
