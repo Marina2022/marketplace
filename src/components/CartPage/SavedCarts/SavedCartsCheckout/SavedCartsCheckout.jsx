@@ -46,6 +46,7 @@ const SavedCartsCheckout = ({submitHandler}) => {
 
 
   useEffect(() => {
+    
     if (typeof window !== 'undefined') {
       const observer = new IntersectionObserver(
         ([entry]) => {
@@ -74,7 +75,7 @@ const SavedCartsCheckout = ({submitHandler}) => {
         }
       };
     }
-  }, []);
+  }, [typeof window]);
 
   if (!savedCartsCheckout) return <></>
   
