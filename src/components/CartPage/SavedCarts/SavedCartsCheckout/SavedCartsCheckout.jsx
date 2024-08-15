@@ -29,7 +29,7 @@ const SavedCartsCheckout = ({submitHandler}) => {
       {
         root: null, 
         rootMargin: '0px',
-        threshold: 0.35, 
+        threshold: 0, 
       }
     );
 
