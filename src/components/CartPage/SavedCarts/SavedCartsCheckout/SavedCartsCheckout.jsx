@@ -3,7 +3,7 @@ import Button from "@/components/ui/Button/Button.jsx";
 import {useSelector} from "react-redux";
 import {getSavedCartsCheckout} from "@/store/cartSlice.js";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {login} from "@/store/userSlice.js";
 
 
@@ -84,7 +84,7 @@ const SavedCartsCheckout = ({submitHandler}) => {
   // }, []);
 
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const ref = savedCheckoutRef.current;
     if (ref) {
       console.log('ref = ', ref);
