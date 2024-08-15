@@ -84,36 +84,38 @@ const SavedCartsCheckout = ({submitHandler}) => {
   // }, []);
 
 
-  useLayoutEffect(() => {
-    const ref = savedCheckoutRef.current;
-    if (ref) {
-      console.log('ref = ', ref);
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            console.log('Checkout вошел во вьюпорт');
-            setIsMiniCheckoutVisible(false);
-          } else {
-            console.log('Checkout вышел из вьюпорта');
-            setIsMiniCheckoutVisible(true);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      const ref = savedCheckoutRef.current;
+      console.log('ref = ', ref); // Добавляем логирование для проверки
+      if (ref) {
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              console.log('Checkout вошел во вьюпорт');
+              setIsMiniCheckoutVisible(false);
+            } else {
+              console.log('Checkout вышел из вьюпорта');
+              setIsMiniCheckoutVisible(true);
+            }
+          },
+          {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.35,
           }
-        },
-        {
-          root: null,
-          rootMargin: '0px',
-          threshold: 0.35,
-        }
-      );
+        );
 
-      observer.observe(ref);
+        observer.observe(ref);
 
-      return () => {
-        if (ref) {
+        return () => {
           observer.unobserve(ref);
-        }
-      };
-    }
-  }, []); // Теперь без зависимости от ref
+        };
+      }
+    }, 100); // 100 мс задержка
+
+    return () => clearTimeout(timeoutId);
+  }, []);
   
   
   if (!savedCartsCheckout) return <></>
