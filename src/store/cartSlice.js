@@ -335,7 +335,7 @@ export const loadSavedCartsCheckout = createAsyncThunk('cart/loadSavedCartsCheck
       if (err.response.data.description === 'No cart items in cart') {
         return []
       } else {
-        thunkAPI.rejectWithValue(err.response.data)
+        return thunkAPI.rejectWithValue(err.response.data)
       }
     }
     
@@ -391,7 +391,8 @@ const initialState = {
   saveCartStatus: 'success',
   loadSavedCartsStatus: 'loading',
   deleteSavedCartStatus: 'success',
-  restoreSavedStatus: 'success',
+  restoreSavedStatus: 'success',  
+  loadSavedCartsCheckoutStatus: 'loading',
   cartStatus: null,
   savedCarts: null,
   savedCartsCheckout: null
@@ -518,7 +519,7 @@ export const cartSlice = createSlice({
       state.loadSavedCartsCheckout = 'loading'
     })
     .addCase(loadSavedCartsCheckout.fulfilled, (state, action) => {      
-      state.loadSavedCartsCheckoutStatus = 'success'
+      state.loadSavedCartsCheckoutStatus = 'success'      
       state.savedCartsCheckout = action.payload
     })
     .addCase(loadSavedCartsCheckout.rejected, (state, action) => {
@@ -575,5 +576,6 @@ export const getEditingSearchTerm = (state) => state.cart.editingSearchTerm
 export const getSavedCarts = (state) => state.cart.savedCarts
 export const getSavedCartsStatus = (state) => state.cart.loadSavedCartsStatus
 export const getSavedCartsCheckout = (state) => state.cart.savedCartsCheckout
+export const getSavedCartsCheckoutStatus = (state) => state.cart.loadSavedCartsCheckoutStatus
 
 export default cartSlice.reducer

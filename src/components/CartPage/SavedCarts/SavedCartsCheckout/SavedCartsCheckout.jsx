@@ -1,93 +1,59 @@
 import s from "./SavedCartsCheckout.module.scss";
 import Button from "@/components/ui/Button/Button.jsx";
 import {useSelector} from "react-redux";
-import {getSavedCartsCheckout} from "@/store/cartSlice.js";
+import {getSavedCartsCheckout, getSavedCartsCheckoutStatus} from "@/store/cartSlice.js";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
-import {useEffect, useLayoutEffect, useRef, useState} from "react";
-import {login} from "@/store/userSlice.js";
+import {useEffect, useRef, useState} from "react";
 
 
 const SavedCartsCheckout = ({submitHandler}) => {
-  
-  const savedCartsCheckout = useSelector(getSavedCartsCheckout)  
-
+  const savedCartsCheckout = useSelector(getSavedCartsCheckout)
   const isMobile = useMobileScreen()
   const [isMiniCheckoutVisible, setIsMiniCheckoutVisible] = useState(null)
   const savedCheckoutRef = useRef(null);
-  //
-  // useEffect(() => {
-  //   const observer = new IntersectionObserver(
-  //     ([entry]) => {
-  //       if (entry.isIntersecting) {
-  //         console.log('Checkout вошел во вьюпорт');
-  //         setIsMiniCheckoutVisible(false)
-  //
-  //       } else {
-  //         console.log('Checkout вышел из вьюпорта');
-  //         setIsMiniCheckoutVisible(true)
-  //       }
-  //     },
-  //     {
-  //       root: null, 
-  //       rootMargin: '0px',
-  //       threshold: 0, 
-  //     }
-  //   );
-  //
-  //   if (savedCheckoutRef.current) {
-  //     observer.observe(savedCheckoutRef.current);
-  //   }
-  //  
-  //   return () => {
-  //     if (savedCheckoutRef.current) {
-  //       observer.unobserve(savedCheckoutRef.current);
-  //     }
-  //   };
-  // }, []);
-
+  const savedCheckoutLoadingStatus = useSelector(getSavedCartsCheckoutStatus)
 
   // useEffect(() => {
-  //
-  //   console.log('step 1')
-  //  
-  //  
-  //   if (typeof window !== 'undefined') {
-  //     console.log('step 2')
-  //     console.log('ref = ', savedCheckoutRef.current)
-  //     const observer = new IntersectionObserver(
-  //       ([entry]) => {
-  //         if (entry.isIntersecting) {
-  //           console.log('Checkout вошел во вьюпорт');
-  //           setIsMiniCheckoutVisible(false);
-  //         } else {
-  //           console.log('Checkout вышел из вьюпорта');
-  //           setIsMiniCheckoutVisible(true);
+  //      
+  //   const timeoutId = setTimeout(() => {
+  //     const ref = savedCheckoutRef.current;
+  //    
+  //     if (ref) {
+  //       const observer = new IntersectionObserver(
+  //         ([entry]) => {
+  //           if (entry.isIntersecting) {
+  //             console.log('Checkout вошел во вьюпорт');
+  //             setIsMiniCheckoutVisible(false);
+  //           } else {
+  //             console.log('Checkout вышел из вьюпорта');
+  //             setIsMiniCheckoutVisible(true);
+  //           }
+  //         },
+  //         {
+  //           root: null,
+  //           rootMargin: '0px',
+  //           threshold: 0.35,
   //         }
-  //       },
-  //       {
-  //         root: null,
-  //         rootMargin: '0px',
-  //         threshold: 0.35,
-  //       }
-  //     );
+  //       );
   //
-  //     if (savedCheckoutRef.current) {
-  //       observer.observe(savedCheckoutRef.current);
+  //       observer.observe(ref);
+  //
+  //       return () => {
+  //         observer.unobserve(ref);
+  //       };
   //     }
+  //    
+  //   }, 100); // 100 мс задержка
   //
-  //     return () => {
-  //       if (savedCheckoutRef.current) {
-  //         observer.unobserve(savedCheckoutRef.current);
-  //       }
-  //     };
-  //   }
-  // }, []);
-
+  //   return () => clearTimeout(timeoutId);
+  // }, [checkoutLoadingStatus]);
+  //
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
+
+    if (savedCheckoutLoadingStatus === 'success') {
       const ref = savedCheckoutRef.current;
-      console.log('ref = ', ref); // Добавляем логирование для проверки
+
       if (ref) {
         const observer = new IntersectionObserver(
           ([entry]) => {
@@ -112,17 +78,18 @@ const SavedCartsCheckout = ({submitHandler}) => {
           observer.unobserve(ref);
         };
       }
-    }, 100); // 100 мс задержка
+    }
 
-    return () => clearTimeout(timeoutId);
-  }, []);
-  
-  
-  if (!savedCartsCheckout) return <></>
-  
+
+  }, [savedCheckoutLoadingStatus]);
+
+
+  console.log({savedCheckoutLoadingStatus})
+  if (savedCheckoutLoadingStatus === 'loading') return <>Loading...</>
+
   return (
     <>
-      <div className={s.checkout} ref={savedCheckoutRef} >
+      <div className={s.checkout} ref={savedCheckoutRef}>
         {
           savedCartsCheckout.totalProductCount > 0
             ? <div className={s.topPart}>
@@ -151,9 +118,9 @@ const SavedCartsCheckout = ({submitHandler}) => {
       {
         isMiniCheckoutVisible && isMobile && <div className={s.miniCheckout}>
 
-          <div>            
+          <div>
             <div className={s.miniCheckoutSummary}>
-              <div>Товары({savedCartsCheckout.totalProductCount}): </div>
+              <div>Товары({savedCartsCheckout.totalProductCount}):</div>
               <div className={s.miniCheckoutSummaryValue}>{savedCartsCheckout.totalPrice.toLocaleString()}&nbsp;₽</div>
             </div>
           </div>
