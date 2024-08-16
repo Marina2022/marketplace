@@ -1,25 +1,24 @@
 import s from './SavedCartItem.module.scss';
 import {useState} from "react";
-import dropdown from '@/assets/img/cart/dropdown.svg'
 import dropdownOpen from '@/assets/img/cart/dropdownOpen.svg'
 import {getProductQuantityString} from "@/utils/cart.js";
-import {BASE_URL} from "@/consts/baseURL.js";
 import ProductCardInSavedCart from "@/components/CartPage/SavedCarts/ProductCardInSavedCart/ProductCardInSavedCart.jsx";
+import dropdown from '@/assets/img/cart/dropdown.svg'
+import {BASE_URL} from "@/consts/baseURL.js";
 
 const SavedCartItem = ({savedCart, checkedItems, setCheckedItems}) => {
-  const isSelected = checkedItems.find(item=>item === savedCart.cartId)
+  const isSelected = checkedItems.find(item => item === savedCart.cartId)
   const setIsSelected = () => {
     if (isSelected) {
-      setCheckedItems(checkedItems.filter(item=>item !==savedCart.cartId))
+      setCheckedItems(checkedItems.filter(item => item !== savedCart.cartId))
     } else {
       const newCheckedItems = checkedItems.slice()
-      newCheckedItems.push(savedCart.cartId)      
+      newCheckedItems.push(savedCart.cartId)
       setCheckedItems(newCheckedItems)
     }
   }
-  
-  const [isOpen, setIsOpen] = useState(false)
 
+  const [isOpen, setIsOpen] = useState(false)
   const date = new Date(savedCart.createDate)
   const formattedDate = `${date.toLocaleDateString('ru-RU', {
     day: 'numeric',
@@ -27,8 +26,6 @@ const SavedCartItem = ({savedCart, checkedItems, setCheckedItems}) => {
     year: 'numeric',
   })}`;
 
-  
-  
   return (
     <div className={s.wrapper}>
       <div className={s.savedCartItem}>
@@ -52,47 +49,43 @@ const SavedCartItem = ({savedCart, checkedItems, setCheckedItems}) => {
               </svg>
             }
           </div>
-
-          <div className={s.nameBlock} onClick={() => setIsSelected()} >
+          <div className={s.nameBlock} onClick={() => setIsSelected()}>
             <div className={s.name}>Корзина №{savedCart.cartNumber}</div>
             <div className={s.date}>от {formattedDate}</div>
           </div>
           <div className={s.price}>{savedCart.cartPrice.toLocaleString()} ₽</div>
         </div>
-
         <div className={s.pictureDropdownBlock}>
           <div className={s.picturesAndMore}>
 
             <ul className={s.pictureList}>
               {
-                savedCart.shortCartItemImagesPreview.map((image, i)=> <img key={i} className={s.image} src={`${BASE_URL}${image.imageUrl}`} alt=""/>)
+                savedCart.shortCartItemImagesPreview.map((image, i) => <img key={i} className={s.image}
+                                                                            src={`${BASE_URL}${image.imageUrl}`}
+                                                                            alt=""/>)
               }
-              
             </ul>
 
             {
-              savedCart.hiddenItemImagesCount > 0 && !isOpen && <div onClick={()=>setIsOpen(prev=>!prev)} className={s.oneMore}>еще {getProductQuantityString(savedCart.hiddenItemImagesCount)}</div>
+              savedCart.hiddenItemImagesCount > 0 && !isOpen && <div
+                onClick={() => setIsOpen(prev => !prev)}
+                className={s.oneMore}>еще {getProductQuantityString(savedCart.hiddenItemImagesCount)}</div>
             }
-
           </div>
-
           <button onClick={() => setIsOpen(prev => !prev)}>
             <img src={isOpen ? dropdownOpen : dropdown} alt="dropdown"/>
           </button>
         </div>
-
       </div>
       {
         isOpen && <ul className={s.productList}>
           {
-            savedCart.cartItems.map((product)=><ProductCardInSavedCart key={product.cartItemId} product={product} />)
+            savedCart.cartItems.map((product) => <ProductCardInSavedCart key={product.cartItemId} product={product}/>)
           }
-            
+
         </ul>
       }
     </div>
-
-
   );
 };
 

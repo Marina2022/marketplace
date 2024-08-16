@@ -4,13 +4,7 @@ import {MAX_QUANTITY_TO_ADD} from "@/consts/maxQuantityToAddToCart.js";
 import {v4 as uuidv4} from 'uuid';
 
 export const loadCart = createAsyncThunk('cart/getCart', async (param, thunkAPI) => {
-
   const state = thunkAPI.getState()
-
-  // задержка загрузки
-  // await new Promise((resolve)=>{
-  //   setTimeout(resolve, 1000)
-  // })
 
   let urlString = 'carts'
 
@@ -23,7 +17,6 @@ export const loadCart = createAsyncThunk('cart/getCart', async (param, thunkAPI)
     let resp
     try {
       resp = await axios(urlString)
-
       thunkAPI.dispatch(loadCheckout({cartId: resp.data.cartId}))
       if (state.cart.editingSearchTerm) {
         thunkAPI.dispatch(setEditingSearchTerm(false))
@@ -31,17 +24,14 @@ export const loadCart = createAsyncThunk('cart/getCart', async (param, thunkAPI)
       return (resp.data)
 
     } catch (err) {
-      if (err.response.data.description === 'No cart items in cart') {
-        console.log('я в load cart санке')
+      if (err.response.data.description === 'No cart items in cart') {        
         thunkAPI.dispatch(setCheckout(null))
-
         return {cartId: null, cartItems: []}
       } else {
         thunkAPI.rejectWithValue(err.response.data)
       }
     }
   } else {
-
     const cartInLS = localStorage.getItem('cart')
     if (cartInLS) {
       thunkAPI.dispatch(loadCheckout())
@@ -58,7 +48,6 @@ export const loadCheckout = createAsyncThunk('cart/getCheckout', async (param, t
   const state = thunkAPI.getState()
 
   if (state.user.isAuthenticated) {
-
     try {
       const resp = await axios(`carts/${cartId}/checkout`)
       return (resp.data)
@@ -110,12 +99,9 @@ export const checkCartStatus = createAsyncThunk('cart/checkCartStatus', async (p
 })
 
 export const sendCheckbox = createAsyncThunk('cart/sendCheckbox', async ({cartItemId, select}, thunkAPI) => {
-
   const state = thunkAPI.getState()
-
   if (state.user.isAuthenticated) {
     const resp = await axios.post(`carts/cartItems/select`, {cartItemId, action: select})
-
     if (resp.status === 200) {
       thunkAPI.dispatch(loadCart())
     }
@@ -124,9 +110,7 @@ export const sendCheckbox = createAsyncThunk('cart/sendCheckbox', async ({cartIt
   } else {
 
     // пользователь не авторизован, работаем с LS:
-
     const cart = JSON.parse(JSON.stringify(state.cart.cart))
-
     const itemInCart = cart.cartItems.find(cartItem => cartItem.cartItemId === cartItemId)
     if (itemInCart) {
       itemInCart.checked = select === 'select' ? true : false
@@ -135,15 +119,12 @@ export const sendCheckbox = createAsyncThunk('cart/sendCheckbox', async ({cartIt
     }
     localStorage.setItem('cart', JSON.stringify(cart))
     thunkAPI.dispatch(loadCart())
-
     return
   }
 })
 
 export const chooseAll = createAsyncThunk('cart/chooseAll', async ({select}, thunkAPI) => {
-
   const state = thunkAPI.getState()
-
   if (state.user.isAuthenticated) {
     const resp = await axios.post(`carts/cartItems/selectAll`, {action: select})
 
@@ -152,13 +133,9 @@ export const chooseAll = createAsyncThunk('cart/chooseAll', async ({select}, thu
     }
     return (resp.data)
   } else {
-
     // пользователь не авторизован, работаем с LS
-
     const cart = JSON.parse(JSON.stringify(state.cart.cart))
-
     cart.cartItems.forEach(cartItem => cartItem.checked = select === 'select' ? true : false)
-
     localStorage.setItem('cart', JSON.stringify(cart))
     thunkAPI.dispatch(loadCart())
     return
@@ -194,7 +171,6 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunk
 
   } else {
     // пользователь не авторизован, работаем с LS
-
     const inventoryLevel = item.inventoryLevel || item.inventoryQuantity
 
     if (quantityToSend > inventoryLevel)
@@ -217,12 +193,10 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunk
         productHandle: item.productHandle,
         checked: true,
         quantity: quantityToSend,
-
         discount: item.discount,
         isAvailable: item.isAvailable,
         isDiscounted: item.isDiscounted,
         isSecondHand: item.isSecondHand
-
       })
     } else {
       itemFoundInCart.quantity = quantityToSend
@@ -236,9 +210,7 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunk
 })
 
 export const deleteCartItem = createAsyncThunk('cart/deleteCartItem', async ({cartItemId}, thunkAPI) => {
-
   const state = thunkAPI.getState()
-
   if (state.user.isAuthenticated) {
     const resp = await axios.delete(`carts/cartItem/${cartItemId}`)
 
@@ -260,9 +232,7 @@ export const deleteCartItem = createAsyncThunk('cart/deleteCartItem', async ({ca
 })
 
 export const deleteCartItemsRange = createAsyncThunk('cart/deleteCartItemsRange', async ({cartItemsArray}, thunkAPI) => {
-
   const state = thunkAPI.getState()
-
   if (state.user.isAuthenticated) {
     const resp = await axios.post(`carts/removeCartItems`, cartItemsArray)
     if (resp.status === 200) {
@@ -272,30 +242,23 @@ export const deleteCartItemsRange = createAsyncThunk('cart/deleteCartItemsRange'
   } else {
     // пользователь не авторизован, работаем с LS
     const cart = JSON.parse(JSON.stringify(state.cart.cart))
-
     const newItems = cart.cartItems.filter(cartItem => !cartItem.checked)
     cart.cartItems = newItems
-
     localStorage.setItem('cart', JSON.stringify(cart))
     thunkAPI.dispatch(loadCart())
-
     return
   }
 })
 
 export const saveCart = createAsyncThunk('cart/saveCart', async ({cartId}, thunkAPI) => {
-
   const state = thunkAPI.getState()
-
   if (state.user.isAuthenticated) {
     const resp = await axios.post(`carts/${cartId}/saveCart`)
-
     if (resp.status === 200) {
       thunkAPI.dispatch(loadSavedCarts())
       thunkAPI.dispatch(loadCart())
     }
     return
-
   } else {
     // пользователь не авторизован
     return
@@ -316,13 +279,11 @@ export const loadSavedCarts = createAsyncThunk('cart/loadSavedCarts', async (_, 
         thunkAPI.rejectWithValue(err.response.data)
       }
     }
-
   } else {
     // пользователь не авторизован
     return
   }
 })
-
 export const loadSavedCartsCheckout = createAsyncThunk('cart/loadSavedCartsCheckout', async ({cartIds}, thunkAPI) => {
   const state = thunkAPI.getState()
 
@@ -338,7 +299,6 @@ export const loadSavedCartsCheckout = createAsyncThunk('cart/loadSavedCartsCheck
         return thunkAPI.rejectWithValue(err.response.data)
       }
     }
-
   } else {
     // пользователь не авторизован
     return
@@ -348,9 +308,8 @@ export const loadSavedCartsCheckout = createAsyncThunk('cart/loadSavedCartsCheck
 export const deleteSavedCart = createAsyncThunk('cart/deleteSavedCart', async ({cartIds}, thunkAPI) => {
 
   const state = thunkAPI.getState()
-
   if (state.user.isAuthenticated) {
-    const resp = await axios.post(`carts/removeSavedCarts`, cartIds)
+    await axios.post(`carts/removeSavedCarts`, cartIds)
     thunkAPI.dispatch(loadSavedCarts())
     thunkAPI.dispatch(loadSavedCartsCheckout({cartIds: []}))
     return
@@ -361,9 +320,7 @@ export const deleteSavedCart = createAsyncThunk('cart/deleteSavedCart', async ({
 })
 
 export const restoreSaved = createAsyncThunk('cart/restoreSaved', async ({cartIds}, thunkAPI) => {
-
   const state = thunkAPI.getState()
-
   if (state.user.isAuthenticated) {
     const resp = await axios.post(`carts/savedRestore`, cartIds)
     thunkAPI.dispatch(loadCart())
@@ -375,7 +332,6 @@ export const restoreSaved = createAsyncThunk('cart/restoreSaved', async ({cartId
     return
   }
 })
-
 
 const initialState = {
   cart: {cartId: null, cartItems: []},
@@ -554,7 +510,6 @@ export const cartSlice = createSlice({
       console.log('ошибка', action.error.message)
     })
   ,
-
 })
 
 export const {

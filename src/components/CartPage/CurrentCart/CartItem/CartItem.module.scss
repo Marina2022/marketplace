@@ -6,7 +6,6 @@
   display: flex;
   align-items: center;
 
-
   @include m {
     align-items: flex-start;
   }
@@ -21,8 +20,12 @@
 }
 
 .cartItemCheck {
-  margin-right: 18px;
+  margin-right: 70px;
   cursor: pointer;
+  
+  @include t {
+    margin-right: 18px;
+  }
 
   @include m {
     order: 1;
@@ -223,7 +226,6 @@
 
   &:disabled {
     color: #93A6B2;
-
   }
 
   @include m {
@@ -292,16 +294,18 @@
   flex-shrink: 0;
   justify-content: flex-end;
 
+  @include t {
+    width: 170px;
+    gap: 10px;
+  }
 
   @include m {
     width: 100%;
     min-width: unset;
   }
 
-  @media(max-width: 359px) {
-    flex-direction: column;
-    gap: 0px;
-    align-items: flex-start;
+  @media(max-width: 359px) {    
+    justify-content: flex-start;
   }
 }
 

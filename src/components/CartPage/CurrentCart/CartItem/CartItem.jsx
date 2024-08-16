@@ -11,25 +11,24 @@ import {Link} from "react-router-dom";
 import {getFavs, updateFavs} from "@/store/favSlice.js";
 import {getIsAuthenticated} from "@/store/userSlice.js";
 
-const CartItem = ({cartItem, cartId}) => {
-  
+const CartItem = ({cartItem}) => {
+
   const [currentQuantity, setCurrentQuantity] = useState(cartItem.quantity)
   const [inputValue, setInputValue] = useState(cartItem.quantity)
-
   const debouncedQuantity = useDebounce(currentQuantity, 400);
 
   useEffect(() => {
     if (debouncedQuantity !== cartItem.quantity) {
       dispatch(addToCart({
         productVriantId: cartItem.productVariantId,
-        count: debouncedQuantity,            
+        count: debouncedQuantity,
         cartItemId: cartItem.cartItemId,
         item: cartItem
       }))
     }
   }, [debouncedQuantity]);
 
-  useEffect(() => {    
+  useEffect(() => {
     if (currentQuantity < 1) setCurrentQuantity(1)
     setInputValue(currentQuantity)
   }, [currentQuantity])
@@ -38,29 +37,23 @@ const CartItem = ({cartItem, cartId}) => {
     setCurrentQuantity(cartItem.quantity)
   }, [cartItem.quantity])
 
-
   const dispatch = useDispatch()
-
   const chooseItemHandler = () => {
     if (cartItem.inventoryLevel === 0) return
     dispatch(sendCheckbox({cartItemId: cartItem.cartItemId, select: cartItem.checked ? "unselect" : "select"}))
   }
 
   const isSelected = cartItem.checked
-
   const plusHandler = () => {
     if (currentQuantity >= 999) return
     setCurrentQuantity(prev => +prev + 1)
   }
-
   const minusHandler = () => {
     setCurrentQuantity(prev => +prev - 1)
   }
-
   const inputChangeHandler = (e) => {
     setInputValue(+e.target.value.replace(/\D/g, ''))
   }
-
   const inputBlurHandler = () => {
     if (cartItem.inventoryLevel <= inputValue) {
       setCurrentQuantity(cartItem.inventoryLevel)
@@ -69,7 +62,6 @@ const CartItem = ({cartItem, cartId}) => {
       setCurrentQuantity(inputValue)
     }
   }
-
   const inputEnterHandler = (e) => {
     if (e.key === 'Enter') {
       if (cartItem.inventoryLevel <= inputValue) {
@@ -80,35 +72,33 @@ const CartItem = ({cartItem, cartId}) => {
       }
     }
   }
-  
   const deleteItemHandler = () => {
     dispatch(deleteCartItem({cartItemId: cartItem.cartItemId}))
   }
 
   const isAuthenticated = useSelector(getIsAuthenticated)
   const favs = useSelector(getFavs)
-  
+
   const [isFavourite, setIsFavourite] = useState(isAuthenticated
     ? cartItem.isFavourite
-    : favs.find(item=>item.productVariantId === cartItem.productVariantId) )  // todo - не тестила
-  
+    : favs.find(item => item.productVariantId === cartItem.productVariantId))  // todo - не тестила
+
   const onFavClick = () => {
     if (isFavourite) {
-      dispatch(updateFavs({updateType:'remove', productVariantId: cartItem.productVariantId, product: cartItem}))
+      dispatch(updateFavs({updateType: 'remove', productVariantId: cartItem.productVariantId, product: cartItem}))
     } else {
-      dispatch(updateFavs({updateType:'add', productVariantId: cartItem.productVariantId, product: cartItem}))
+      dispatch(updateFavs({updateType: 'add', productVariantId: cartItem.productVariantId, product: cartItem}))
     }
-    setIsFavourite(prev=>!prev)
+    setIsFavourite(prev => !prev)
   }
-  
-  let linkURL 
-  
+
+  let linkURL
+
   if (isAuthenticated) {
-    linkURL = `/product/${cartItem.productHandle}?sku=${ cartItem.sku}`
-  }  else {
+    linkURL = `/product/${cartItem.productHandle}?sku=${cartItem.sku}`
+  } else {
     linkURL = `/product/${cartItem.productHandle}`
   }
-    
 
   return (
     <div className={s.cartItem}>
@@ -200,7 +190,10 @@ const CartItem = ({cartItem, cartId}) => {
             </div>
           </div>
           <div className={s.iconButtons}>
-            <button onClick={onFavClick}><img className={s.heartImg} src={isFavourite ? heartActiveBtn : heartBtn} alt="heart"/>
+            <button onClick={onFavClick}><img
+              className={s.heartImg}
+              src={isFavourite ? heartActiveBtn : heartBtn}
+              alt="heart"/>
             </button>
             <button onClick={deleteItemHandler}><img className={s.trashImg} src={trashBtn} alt="trash"/></button>
           </div>

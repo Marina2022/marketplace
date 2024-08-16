@@ -1,7 +1,6 @@
 @import '@/assets/styles/mixins';
 
 .checkout {
-  //width: 301px;
   width: 100%;
   background: white;
   padding: 20px;  
@@ -124,6 +123,7 @@
 }
 
 .bottomPart {
+  
   @include t {
     display: flex;
     align-items: flex-start;
@@ -147,7 +147,6 @@
 }
 
 .noProductsMessage {
-
   margin-bottom: 20px;
   color: #3E5067;
   font-size: 14px;
@@ -165,18 +164,29 @@
 }
 
 .miniCheckout {
-  position: fixed;
-  align-items: flex-end;
-  bottom: 56px;
-  left: 0;
-  right: 0;
-  height: 45px;
-  background: white;
-  border-top: #F0F1F1 solid 1px;
-  padding: 5px 20px;
-  display: flex;
-  gap: 12px;
-  justify-content: space-between;  
+  
+  @include t {
+    position: fixed;
+    align-items: flex-end;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: white;
+    border-top: #F0F1F1 solid 1px;
+    padding: 10px 20px;
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+  }
+  
+  @include m {
+    padding: 5px 20px;
+    bottom: 56px;
+    height: 45px;
+    justify-content: space-between;
+    gap: 12px;
+  }  
 }
 
 .miniCheckoutSavings {
@@ -186,25 +196,46 @@
 }
 
 .miniCheckoutSavingLabel {
-  font-size: 10px;
+  font-size: 14px;
   margin-right: 5px;
+  
+  @include m {
+    font-size: 10px;    
+  }  
 }
 
 .miniCheckoutSavingValue {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
+  @include m {
+    font-size: 12px;    
+  }
 }
 
 .miniCheckoutSavingSummary {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
-  display: flex;
+  display: flex;  
   justify-content: space-between;
+  
+  @include m {
+    font-size: 12px;  
+  }
 }
 
 .miniCheckoutBtn {
-  width: 190px;
-  height: 30px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
+  max-width: 230px;  
+  height: 40px;
+  
+  @include m {
+    height: 30px;
+    font-size: 12px;
+    max-width: 190px;
+  }    
+  
+  @include xs {
+    max-width: 160px;
+  }
 }

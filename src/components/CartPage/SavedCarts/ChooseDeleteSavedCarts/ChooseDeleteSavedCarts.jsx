@@ -5,43 +5,33 @@ import {useDispatch} from "react-redux";
 
 const ChooseDeleteSavedCarts = ({checkedItems, setCheckedItems, savedCarts}) => {
 
-    
   let isSelected = savedCarts.every(cart => checkedItems.includes(cart.cartId));
-
-
   const someItemsAreChosen = checkedItems.length > 0
-
-  const selectAllHandler = () => {    
+  const selectAllHandler = () => {
     if (isSelected) {
       setCheckedItems([])
-        
     } else {
-      const newCheckedItems = savedCarts.map(item =>item.cartId)
+      const newCheckedItems = savedCarts.map(item => item.cartId)
       console.log('newCheckedItems', newCheckedItems)
-      setCheckedItems(newCheckedItems)  
-    }   
-    
+      setCheckedItems(newCheckedItems)
+    }
   }
 
   const dispatch = useDispatch()
   const deleteChosenHandler = () => {
-    
-    const ids = checkedItems.map(item=>({cartId: item}))    
+    const ids = checkedItems.map(item => ({cartId: item}))
     dispatch(deleteSavedCart({cartIds: ids}))
   }
 
   return (
     <div className={s.chooseDeleteBlock}>
-
       <div onClick={selectAllHandler} className={s.chooseAll}>
-
         {
           !isSelected &&
           <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="0.6" y="1.1" width="14.8" height="14.8" stroke="#AAB7BF" strokeWidth="1.2"/>
           </svg>
         }
-
         {
           isSelected &&
           <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,8 +43,6 @@ const ChooseDeleteSavedCarts = ({checkedItems, setCheckedItems, savedCarts}) => 
         }
         Выбрать все
       </div>
-
-
       {
         someItemsAreChosen && <button onClick={deleteChosenHandler} className={s.deleteChosen}>
           <img src={deleteChosen} alt="delete button"/>
@@ -63,7 +51,6 @@ const ChooseDeleteSavedCarts = ({checkedItems, setCheckedItems, savedCarts}) => 
       }
     </div>
   );
-
 };
 
 export default ChooseDeleteSavedCarts;

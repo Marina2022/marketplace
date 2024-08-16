@@ -28,11 +28,6 @@
 
 .rightPartWrapperNoCats {
   flex: 1;
-  
-
-  @include t {
-  
-  }
 
   @include m {
     width: 100%;
@@ -58,7 +53,6 @@
   }
 }
 
-
 .emptyPage {
   min-height: 445px;
   display: flex;
@@ -77,7 +71,6 @@
     font-size: 16px;
     margin-bottom: 5px;
   }
-
 }
 
 .emptyPageText {
@@ -101,7 +94,6 @@
   @include m {
     width: 13px;
     height: 13px;
-    object-fit: contain;
-    
+    object-fit: contain;    
   }
 }

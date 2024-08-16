@@ -30,7 +30,7 @@
   justify-content: center;
   font-size: 14px;
   width: 585px;
-  margin-right: 120px;
+  margin-right: 36px;
 
   @include t {
     width: 417px;
@@ -41,8 +41,6 @@
     margin-right: 0;
     gap: 5px;
   }
-
-
 }
 
 .name {

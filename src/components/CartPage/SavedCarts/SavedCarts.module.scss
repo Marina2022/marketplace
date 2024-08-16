@@ -15,6 +15,7 @@
   
   @include m {
     padding-inline: 16px;
+    font-size: 18px;
   }
 }
 
@@ -38,9 +39,7 @@
 
 .cartWrapper {
   min-height: 100px;
-  flex: 1;
-  //background: white;
-  //border: #F0F1F1 1px solid;
+  flex: 1;  
 
   @include t {
     width: 100%;
@@ -107,7 +106,6 @@
   }
 }
 
-
 .emptyPage {
   min-height: 445px;
   display: flex;
@@ -125,8 +123,7 @@
   @include m {
     font-size: 16px;
     margin-bottom: 5px;
-  }
-  
+  }  
 }
 
 .emptyPageText {

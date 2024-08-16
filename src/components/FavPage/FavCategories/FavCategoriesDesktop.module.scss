@@ -7,11 +7,12 @@
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   cursor: pointer;
 
   @include t {    
     width: 216px;
+    gap: 10px;
   }
 
   @include m {
@@ -28,13 +29,21 @@
 
 .categoryItem {
   color: #658092;
-  font-size: 14px;
+  font-size: 16px;
+  
+  @include t {
+    font-size: 14px;
+  }
 }
 
 .activeItem {
   color: #131D2A;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
+
+  @include t {
+    font-size: 16px;
+  }
 }
 
 .arrow {

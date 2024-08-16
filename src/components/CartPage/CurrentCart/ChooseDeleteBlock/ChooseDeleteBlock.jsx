@@ -7,20 +7,16 @@ import deleteChosen from "@/assets/img/cart/deleteChosen.svg"
 const ChooseDeleteBlock = () => {
 
   const cart = useSelector(getCart)
-  
   const dispatch = useDispatch()
-  
   let isSelected = false
-    
+
   if (cart?.cartItems) {
     isSelected = cart.cartItems
       .filter(item => item.inventoryLevel !== 0)
       .every(item => item.checked === true);
 
-   if (cart.cartItems.length === 0 ) isSelected = false
+    if (cart.cartItems.length === 0) isSelected = false
   }
-  
-   
 
   let someItemsAreChosen
 
@@ -29,26 +25,22 @@ const ChooseDeleteBlock = () => {
       .filter(item => item.inventoryLevel !== 0)
       .some(item => item.checked === true);
   }
-   
   const selectAllHandler = () => {
-    dispatch(chooseAll({select: isSelected ? "unselect" : "select"}))    
+    dispatch(chooseAll({select: isSelected ? "unselect" : "select"}))
   }
-
-  const deleteChosenHandler = () => {    
+  const deleteChosenHandler = () => {
     const arrayToSend = []
-    cart.cartItems.forEach((item)=>{
+    cart.cartItems.forEach((item) => {
       if (item.checked) {
         arrayToSend.push({cartItemId: item.cartItemId})
       }
-    })       
-    dispatch(deleteCartItemsRange({cartItemsArray:arrayToSend}))        
+    })
+    dispatch(deleteCartItemsRange({cartItemsArray: arrayToSend}))
   }
 
   return (
     <div className={s.chooseDeleteBlock}>
-
       <div onClick={selectAllHandler} className={s.chooseAll}>
-
         {
           !isSelected &&
           <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -67,8 +59,6 @@ const ChooseDeleteBlock = () => {
         }
         Выбрать все
       </div>
-
-
       {
         someItemsAreChosen && <button onClick={deleteChosenHandler} className={s.deleteChosen}>
           <img src={deleteChosen} alt="delete button"/>

@@ -2,53 +2,18 @@ import s from "./SavedCartsCheckout.module.scss";
 import Button from "@/components/ui/Button/Button.jsx";
 import {useSelector} from "react-redux";
 import {getSavedCartsCheckout, getSavedCartsCheckoutStatus} from "@/store/cartSlice.js";
-import useMobileScreen from "@/hooks/useMobileScreen.js";
 import {useEffect, useRef, useState} from "react";
-
+import useBigScreen from "@/hooks/useBigScreen.js";
 
 const SavedCartsCheckout = ({submitHandler}) => {
   const savedCartsCheckout = useSelector(getSavedCartsCheckout)
-  const isMobile = useMobileScreen()
+  const isBigScreen = useBigScreen()
+  
   const [isMiniCheckoutVisible, setIsMiniCheckoutVisible] = useState(null)
   const savedCheckoutRef = useRef(null);
   const savedCheckoutLoadingStatus = useSelector(getSavedCartsCheckoutStatus)
 
-  // useEffect(() => {
-  //      
-  //   const timeoutId = setTimeout(() => {
-  //     const ref = savedCheckoutRef.current;
-  //    
-  //     if (ref) {
-  //       const observer = new IntersectionObserver(
-  //         ([entry]) => {
-  //           if (entry.isIntersecting) {
-  //             console.log('Checkout вошел во вьюпорт');
-  //             setIsMiniCheckoutVisible(false);
-  //           } else {
-  //             console.log('Checkout вышел из вьюпорта');
-  //             setIsMiniCheckoutVisible(true);
-  //           }
-  //         },
-  //         {
-  //           root: null,
-  //           rootMargin: '0px',
-  //           threshold: 0.35,
-  //         }
-  //       );
-  //
-  //       observer.observe(ref);
-  //
-  //       return () => {
-  //         observer.unobserve(ref);
-  //       };
-  //     }
-  //    
-  //   }, 100); // 100 мс задержка
-  //
-  //   return () => clearTimeout(timeoutId);
-  // }, [checkoutLoadingStatus]);
-  //
-
+  
   useEffect(() => {
 
     if (savedCheckoutLoadingStatus === 'success') {
@@ -79,12 +44,9 @@ const SavedCartsCheckout = ({submitHandler}) => {
         };
       }
     }
-
-
   }, [savedCheckoutLoadingStatus]);
 
-
-  console.log({savedCheckoutLoadingStatus})
+  
   if (savedCheckoutLoadingStatus === 'loading') return <></>
 
   return (
@@ -116,7 +78,7 @@ const SavedCartsCheckout = ({submitHandler}) => {
       </div>
 
       {
-        isMiniCheckoutVisible && isMobile && <div className={s.miniCheckout}>
+        isMiniCheckoutVisible && !isBigScreen && <div className={s.miniCheckout}>
 
           <div>
             <div className={s.miniCheckoutSummary}>
@@ -124,7 +86,7 @@ const SavedCartsCheckout = ({submitHandler}) => {
               <div className={s.miniCheckoutSummaryValue}>{savedCartsCheckout.totalPrice.toLocaleString()}&nbsp;₽</div>
             </div>
           </div>
-          <Button className={s.miniCheckoutBtn}>Перейти&nbsp;к&nbsp;редактированию</Button>
+          <Button onClick={submitHandler} className={s.miniCheckoutBtn}>Перейти&nbsp;к&nbsp;редактированию</Button>
         </div>
       }
     </>

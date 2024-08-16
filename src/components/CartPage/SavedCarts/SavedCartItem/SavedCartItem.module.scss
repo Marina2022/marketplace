@@ -49,7 +49,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  //border: green 1px solid;
 
   @include t {
     width: 492px;
@@ -88,7 +87,6 @@
 }
 
 .productList {
-  //padding: 24px;
   background: white;
   margin-bottom: 5px;
 
@@ -98,13 +96,11 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
-
   border-bottom: #F0F1F1 1px solid;
 
   &:last-child {
     border-bottom: none;
   }
-
 }
 
 .price {
@@ -114,7 +110,6 @@
 
   @include m {
     font-size: 18px;
-
   }
 }
 

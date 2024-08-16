@@ -1,6 +1,5 @@
 import s from './FavList.module.scss';
 import ProductCard from "@/components/ProductCard/ProductCard.jsx";
-
 const FavList = ({products, fullSize=false}) => {  
 
   return (
@@ -14,7 +13,6 @@ const FavList = ({products, fullSize=false}) => {
       }
     </ul>
   )
-
 }
 
 export default FavList;

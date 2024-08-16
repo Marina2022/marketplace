@@ -6,7 +6,7 @@ import CurrentCart from "@/components/CartPage/CurrentCart/CurrentCart.jsx";
 import SavedCarts from "@/components/CartPage/SavedCarts/SavedCarts.jsx";
 import ViewedProducts from "@/components/ViewedProducts/ViewedProducts.jsx";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
-import {getCart, getCartStatus, getSavedCartsStatus} from "@/store/cartSlice.js";
+import {getCartStatus, getSavedCartsStatus} from "@/store/cartSlice.js";
 
 const CartPage = () => {
 
@@ -16,8 +16,7 @@ const CartPage = () => {
   const isMobile = useMobileScreen()
   const cartStatus = useSelector(getCartStatus)
   const savedCartStatus = useSelector(getSavedCartsStatus)
-  const cart = useSelector(getCart)
-  
+    
   useEffect(() => {
     if (!isAuthenticated) setCurrentTab('currentCart')
   }, [isAuthenticated]);
@@ -46,13 +45,13 @@ const CartPage = () => {
         {
           currentTab === 'savedCarts' && <SavedCarts setCurrentTab={setCurrentTab} />
         }
-
-
         
       </div>
       <div className='container'>
         {
-          !isMobile &&  !(cartStatus === 'loading')  && !(savedCartStatus === 'loading' ) && <ViewedProducts fullSize={true} />
+          !isMobile 
+          && (currentTab==="currentCart" && cartStatus !== 'loading' ||  currentTab==="savedCarts" && savedCartStatus !== 'loading' )  
+          && <ViewedProducts fullSize={true} />
         }        
       </div>
     </div>

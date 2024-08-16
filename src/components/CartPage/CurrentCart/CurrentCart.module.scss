@@ -14,7 +14,9 @@
   margin-bottom: 24px;
 
   @include m {
-    padding-inline: 16px;
+    padding-left: 16px;
+    font-size: 18px;
+    margin-bottom: 16px;
   }
 }
 
@@ -22,6 +24,10 @@
   color: #658092;
   font-size: 12px;
   font-weight: 500;
+  
+  @include m {
+    font-size: 14px;
+  }
 }
 
 .mainWrapper {
@@ -87,6 +93,10 @@
   font-weight: 500;
   padding: 24px 24px 15px 24px;
   border-bottom: 1px solid #F0F1F1;
+  
+  @include t {
+    padding: 15px 24px 15px 24px;
+  }
 
   @include m {
     font-size: 14px;
@@ -106,7 +116,6 @@
   }
 }
 
-
 .emptyPage {
   min-height: 445px;
   display: flex;
@@ -124,8 +133,7 @@
   @include m {
     font-size: 16px;
     margin-bottom: 5px;
-  }
-  
+  }  
 }
 
 .emptyPageText {
@@ -156,6 +164,5 @@
 .loadingBlock {
   height: calc(100vh - 150px);
   background: #3fb8af;
-  width: 100%;
-  
+  width: 100%;  
 }

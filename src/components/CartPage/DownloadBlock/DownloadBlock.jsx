@@ -15,5 +15,4 @@ const DownloadBlock = ({links}) => {
     </div>
   );
 };
-
 export default DownloadBlock;

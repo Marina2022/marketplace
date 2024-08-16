@@ -1,25 +1,11 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "@/api/axiosInstance.js";
-import {v4 as uuidv4} from "uuid";
-
-//import axiosInstance from "@/api/axiosInstance.js";
 
 export const loadFavs = createAsyncThunk('favs/loadFavs', async (productCategoryId, thunkAPI) => {
-
-
     const state = thunkAPI.getState()
-
     if (state.user.isAuthenticated) {
-
-      try {
-
-        // задержка загрузки  
-        // await new Promise((resolve)=>{
-        //   setTimeout(resolve, 1000)
-        // })
-        
-        const url = productCategoryId ? `favourites?productCategoryId=${productCategoryId}` : `favourites`
-        
+      try {     
+        const url = productCategoryId ? `favourites?productCategoryId=${productCategoryId}` : `favourites`       
         const resp = await axios(url)        
         return (resp.data)
       } catch(err) {
@@ -33,8 +19,7 @@ export const loadFavs = createAsyncThunk('favs/loadFavs', async (productCategory
 
     } else {
       // Пользователь не авторизован,      
-      // подгружаем Избранное из LS
-      
+      // подгружаем Избранное из LS      
       const favs = JSON.parse(localStorage.getItem('favs'))
       if (favs) {
         return {favourites: favs}
@@ -45,33 +30,25 @@ export const loadFavs = createAsyncThunk('favs/loadFavs', async (productCategory
 })
 
 export const updateFavs = createAsyncThunk('favs/updateFavs', async (params, thunkAPI) => {
-
-  const {updateType, productVariantId, product} = params
-  
-  const state = thunkAPI.getState()
-  
-  if (state.user.isAuthenticated) {
-        
+  const {updateType, productVariantId, product} = params  
+  const state = thunkAPI.getState()  
+  if (state.user.isAuthenticated) {        
     if (updateType === 'add') {
       await axios.post(`favourites/favourite/${productVariantId}`)      
     } else {
       await axios.delete(`favourites/favourite/${productVariantId}`)
-    }
-    // надо перезапросить каталог. Корзину, savedCarts, favs   
+    }      
 
     thunkAPI.dispatch(loadFavs())
-
-    return
-    
+    return    
   
   } else {
-    // посылаем в LS (или удаляем)
+    // update в LS 
         
     let favs
     favs = JSON.parse(localStorage.getItem('favs'))
     if (!favs) favs = [] 
-    
-        
+            
     if (updateType === 'add') {
       const newFav = {
         discount: product.discount,
@@ -96,8 +73,7 @@ export const updateFavs = createAsyncThunk('favs/updateFavs', async (params, thu
       const newFavs =  favs.filter(item => item.productVariantId !== product.productVariantId)
       localStorage.setItem('favs', JSON.stringify(newFavs))
     }
-    thunkAPI.dispatch(loadFavs())
-    
+    thunkAPI.dispatch(loadFavs())    
   }
 })
 
@@ -137,7 +113,6 @@ export const favSlice = createSlice({
       console.log('ошибка', action.error.message)
     })
 
-
     .addCase(updateFavs.pending, (state) => {
       state.updateFavsStatus = 'loading'
     })
@@ -156,12 +131,10 @@ export const {setFavs} = favSlice.actions
 export const getFavs = (state) => {
   return state.favs.favs
 }
-
 export const getFavsLoadingStatus = (state) => {
   return state.favs.status  
 }
 export const getFavCategories = (state) => {
   return state.favs.categories
 }
-
 export default favSlice.reducer

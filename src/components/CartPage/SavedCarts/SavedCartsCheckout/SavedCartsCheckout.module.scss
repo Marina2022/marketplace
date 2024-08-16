@@ -33,8 +33,6 @@
   font-size: 16px;
 }
 
-
-
 .total {
   display: flex;
   align-items: center;
@@ -61,10 +59,8 @@
 
 .totalNumber {
   font-size: 24px;
-  font-weight: 500;
-  
+  font-weight: 500;  
 }
-
 
 .btn {
   width: 100%;
@@ -102,8 +98,7 @@
   }
 }
 
-.noProductsMessage {
-  
+.noProductsMessage {  
   margin-bottom: 20px;
   color: #3E5067;
   font-size: 14px;
@@ -118,33 +113,47 @@
   @include m {
     line-height: 1.3;
     margin-bottom: 14px;    
-    width: 100%;
-    
+    width: 100%;    
   }
 }
 
 .miniCheckout {
-  position: fixed;
-  align-items: flex-end;
-  bottom: 56px;
-  left: 0;
-  right: 0;
-  height: 45px;
-  background: white;
-  border-top: #F0F1F1 solid 1px;
-  padding: 5px 20px;
-  display: flex;
-  gap: 12px;
-  justify-content: space-between;
+  
+  @include t {
+    position: fixed;
+    align-items: flex-end;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: white;
+    border-top: #F0F1F1 solid 1px;
+    padding: 10px 20px;
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+  }
+
+  @include m {
+    padding: 5px 20px;
+    bottom: 56px;
+    height: 45px;
+    justify-content: space-between;
+    gap: 12px;
+  }
 }
 
 .miniCheckoutSummary {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   display: flex;
   gap: 5px;
   justify-content: space-between;
-  color: #3E5067
+  color: #3E5067;
+  
+  @include m {
+    font-size: 12px;  
+  }  
 }
 
 .miniCheckoutSummaryValue {
@@ -153,8 +162,18 @@
 }
 
 .miniCheckoutBtn {
-  width: 190px;
-  height: 30px;
-  font-size: 12px;
+  width: 230px;
+  height: 40px;
   font-weight: 500;
+  font-size: 14px;
+  
+  @include m {
+    font-size: 12px;
+    max-width: 210px;
+    height: 30px;
+  }
+
+  @include xs {
+    max-width: 210px;
+  }
 }

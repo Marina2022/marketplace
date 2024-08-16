@@ -13,7 +13,6 @@ import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 const FavPage = () => {
   const favs = useSelector(getFavs)
   const cats = useSelector(getFavCategories)
-
   const favsLoadingStatus = useSelector(getFavsLoadingStatus)
 
   let favsToShow
@@ -25,23 +24,14 @@ const FavPage = () => {
     })
   }
 
-  console.log('favs', favs)
-  console.log('favsToShow', favsToShow)
-  console.log('cats', cats)
-  console.log(favsLoadingStatus)
-
   const isMobile = useMobileScreen()
-
   const [productCategoryId, setProductCategoryId] = useState(null)
-
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(loadFavs(productCategoryId))
-  }, [productCategoryId]);
-  
+  }, [productCategoryId]);  
   if (favsLoadingStatus =='loading' && !favs ) return <Spinner/>
-
 
   return (
     <div className='container'>

@@ -13,8 +13,7 @@
   padding-left: 16px;
   top: 0;
   padding-top: 10px;
-  padding-bottom: 16px;
-  
+  padding-bottom: 16px;  
   display: flex;
   overflow: auto;
   padding-right: 16px;
@@ -25,8 +24,8 @@
     height: 0px;
   }
 
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
 }
 
 .item {

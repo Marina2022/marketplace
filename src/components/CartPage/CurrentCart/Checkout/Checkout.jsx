@@ -1,41 +1,39 @@
 import s from './Checkout.module.scss';
-import {useSelector} from "react-redux";
-import {getCheckout} from "@/store/cartSlice.js";
+import {useDispatch, useSelector} from "react-redux";
+import {checkCartStatus, getCheckout} from "@/store/cartSlice.js";
 import Button from "@/components/ui/Button/Button.jsx";
 import {useEffect, useRef, useState} from "react";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
+import {getIsAuthenticated} from "@/store/userSlice.js";
+import useBigScreen from "@/hooks/useBigScreen.js";
 
 const Checkout = ({cart}) => {
 
-  const isMobile = useMobileScreen()
+  const isBigScreen = useBigScreen()
   const [isMiniCheckoutVisible, setIsMiniCheckoutVisible] = useState(null)
-
   const checkoutRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          console.log('Checkout вошел во вьюпорт');
           setIsMiniCheckoutVisible(false)
 
         } else {
-          console.log('Checkout вышел из вьюпорта');
           setIsMiniCheckoutVisible(true)
         }
       },
       {
-        root: null, 
+        root: null,
         rootMargin: '0px',
-        threshold: 0.35, 
+        threshold: 0.35,
       }
     );
 
     if (checkoutRef.current) {
       observer.observe(checkoutRef.current);
     }
-    
-    
+
     return () => {
       if (checkoutRef.current) {
         observer.unobserve(checkoutRef.current);
@@ -44,6 +42,13 @@ const Checkout = ({cart}) => {
   }, []);
 
   const checkout = useSelector(getCheckout)
+  const isAuthenticated = useSelector(getIsAuthenticated)
+  const dispatch = useDispatch()
+  const checkoutHandler = () => {
+    if (isAuthenticated) {
+      dispatch(checkCartStatus({cartId: cart.cartId}))
+    }
+  }
 
   let someItemsAreChosen
 
@@ -53,11 +58,9 @@ const Checkout = ({cart}) => {
       .some(item => item.checked === true);
   }
 
-
   return (
     <>
       <div className={s.checkout} ref={checkoutRef}>
-
         {
           someItemsAreChosen
             ? <div className={s.topPart}>
@@ -75,8 +78,6 @@ const Checkout = ({cart}) => {
               Выберите товары, чтобы перейти к оформлению заказа
             </div>
         }
-
-
         <div className={s.bottomPart}>
           {
             someItemsAreChosen && <div className={s.total}>
@@ -88,14 +89,12 @@ const Checkout = ({cart}) => {
           {
             someItemsAreChosen && <input className={s.promocode} type="text" placeholder="Промокод"/>
           }
-
-          <Button className={s.btn} disabled={!someItemsAreChosen}>Перейти&nbsp;к&nbsp;оформлению</Button>
+          <Button onClick={checkoutHandler} className={s.btn}
+                  disabled={!someItemsAreChosen}>Перейти&nbsp;к&nbsp;оформлению</Button>
         </div>
       </div>
-
       {
-        isMiniCheckoutVisible && isMobile && <div className={s.miniCheckout}>
-
+        isMiniCheckoutVisible && !isBigScreen && <div className={s.miniCheckout}>
           <div>
             <div className={s.miniCheckoutSavings}>
               <span className={s.miniCheckoutSavingLabel}>Вы экономите:</span>
@@ -106,7 +105,7 @@ const Checkout = ({cart}) => {
               <div>{checkout?.totalPrice.toLocaleString()}&nbsp;₽</div>
             </div>
           </div>
-          <Button className={s.miniCheckoutBtn}>Перейти&nbsp;к&nbsp;оформлению</Button>
+          <Button onClick={checkoutHandler} className={s.miniCheckoutBtn}>Перейти&nbsp;к&nbsp;оформлению</Button>
         </div>
       }
     </>

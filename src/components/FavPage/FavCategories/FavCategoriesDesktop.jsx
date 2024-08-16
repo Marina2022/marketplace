@@ -1,6 +1,5 @@
 import s from './FavCategoriesDesktop.module.scss';
 import arrow from '@/assets/img/cart/fav-category-arrow.svg'
-
 const FavCategoriesDesktop = ({cats, setProductCategoryId, productCategoryId}) => {
 
   if (!cats) return <></> 
@@ -22,7 +21,6 @@ const FavCategoriesDesktop = ({cats, setProductCategoryId, productCategoryId}) =
           )
         })
       }
-
     </ul>
   );
 };
