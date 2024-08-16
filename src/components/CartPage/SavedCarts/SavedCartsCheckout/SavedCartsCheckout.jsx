@@ -22,11 +22,9 @@ const SavedCartsCheckout = ({submitHandler}) => {
       if (ref) {
         const observer = new IntersectionObserver(
           ([entry]) => {
-            if (entry.isIntersecting) {
-              console.log('Checkout вошел во вьюпорт');
+            if (entry.isIntersecting) {              
               setIsMiniCheckoutVisible(false);
             } else {
-              console.log('Checkout вышел из вьюпорта');
               setIsMiniCheckoutVisible(true);
             }
           },

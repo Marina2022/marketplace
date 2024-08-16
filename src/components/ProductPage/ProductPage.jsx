@@ -63,13 +63,8 @@ const ProductPage = () => {
   const [product, setProduct] = useState(null)
   const {slug: productHandle} = useParams()
 
-  console.log('product = ', product)
-
   const [sku, setSku] = useState(null)
-
-  // const [tabIsOpen, setTabIsOpen] = useState(null)
   const [currentTab, setCurrentTab] = useState(0)
-
   const [mobileAllTabIsOpen, setMobileAllTabisOpen] = useState(false)
   const [mobileReviewsTabIsOpen, setMobileReviewsTabIsOpen] = useState(false)
   const [mobileQuestionsTabIsOpen, setMobileQuestionsTabIsOpen] = useState(false)
@@ -91,9 +86,7 @@ const ProductPage = () => {
         }
 
         const productResponse = await axiosInstance(requestString)
-
         const breadCrumbsPath = productResponse.data.meta.path
-
         setProduct(productResponse.data)
 
         if (breadCrumbsPath) {
@@ -214,8 +207,7 @@ const ProductPage = () => {
             />
           </div>
           <RightSidebar product={product}/>
-        </div>
-        {/*<MobileBottomMenu/>*/}
+        </div>        
 
         <div className={s.viewed}>
           <ViewedProducts fullSize={true}/>

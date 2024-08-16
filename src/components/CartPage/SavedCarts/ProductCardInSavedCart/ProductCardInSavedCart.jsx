@@ -1,9 +1,7 @@
 import s from './ProductCardInSavedCart.module.scss';
 import {BASE_URL} from "@/consts/baseURL.js";
 import {Link} from "react-router-dom";
-
-const ProductCardInSavedCart = ({product}) => {
-  console.log('product = ', product)
+const ProductCardInSavedCart = ({product}) => { 
   return (
     <div className={s.product}>
       <img className={s.productImage} src={`${BASE_URL}${product.productImageUrl}`} alt="product.productName"/>

@@ -28,7 +28,6 @@ const SavedCarts = ({setCurrentTab}) => {
   }, [checkedItems]);
 
   const savedCarts = useSelector(getSavedCarts)
-  console.log('savedCarts', savedCarts)
   const submitHandler = () => {
     dispatch(restoreSaved({cartIds}))
     setCurrentTab("currentCart")

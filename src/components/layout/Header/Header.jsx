@@ -8,8 +8,7 @@ import heartActiveBtn from '@/assets/img/cart/cart-card/heart-active.svg'
 const Header = () => {
 
   const isAuthenticated = useSelector(getIsAuthenticated)
-  const dispatch = useDispatch()
-  
+  const dispatch = useDispatch()  
   const favs = useSelector(getFavs)
 
   return (
@@ -21,8 +20,7 @@ const Header = () => {
               <img className={s.logo} src={logo} alt="logo"/>
             </Link>
             <span>Header</span>
-          </div>
-          
+          </div>          
           <Link to="/favourites" className={s.fav}><img src={heartActiveBtn} alt=""/> <span> {favs?.length} </span> </Link>
           <div className={s.loginWrapper}>
             {
