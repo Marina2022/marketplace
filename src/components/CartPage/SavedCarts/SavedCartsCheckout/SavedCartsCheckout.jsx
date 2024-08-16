@@ -85,7 +85,7 @@ const SavedCartsCheckout = ({submitHandler}) => {
 
 
   console.log({savedCheckoutLoadingStatus})
-  if (savedCheckoutLoadingStatus === 'loading') return <>Loading...</>
+  if (savedCheckoutLoadingStatus === 'loading') return <></>
 
   return (
     <>

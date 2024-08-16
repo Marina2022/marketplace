@@ -34,7 +34,7 @@ export const loadCart = createAsyncThunk('cart/getCart', async (param, thunkAPI)
       if (err.response.data.description === 'No cart items in cart') {
         console.log('я в load cart санке')
         thunkAPI.dispatch(setCheckout(null))
-        
+
         return {cartId: null, cartItems: []}
       } else {
         thunkAPI.rejectWithValue(err.response.data)
@@ -58,18 +58,18 @@ export const loadCheckout = createAsyncThunk('cart/getCheckout', async (param, t
   const state = thunkAPI.getState()
 
   if (state.user.isAuthenticated) {
-    
+
     try {
       const resp = await axios(`carts/${cartId}/checkout`)
-      return (resp.data)  
-    } catch(err) {
+      return (resp.data)
+    } catch (err) {
       if (err.response.data.description === 'No cart items in cart') {
         return null
       } else {
         return thunkAPI.rejectWithValue(err.response.data)
       }
     }
-    
+
   } else {
 
     // считаем и сетаем чекаут:
@@ -217,12 +217,12 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunk
         productHandle: item.productHandle,
         checked: true,
         quantity: quantityToSend,
-        
+
         discount: item.discount,
         isAvailable: item.isAvailable,
         isDiscounted: item.isDiscounted,
         isSecondHand: item.isSecondHand
-        
+
       })
     } else {
       itemFoundInCart.quantity = quantityToSend
@@ -305,18 +305,18 @@ export const saveCart = createAsyncThunk('cart/saveCart', async ({cartId}, thunk
 export const loadSavedCarts = createAsyncThunk('cart/loadSavedCarts', async (_, thunkAPI) => {
   const state = thunkAPI.getState()
   if (state.user.isAuthenticated) {
-    
+
     try {
-      const resp = await axios(`carts/savedCarts`)  
+      const resp = await axios(`carts/savedCarts`)
       return resp.data
-    } catch(err) {
+    } catch (err) {
       if (err.response.data.description === 'Cart not found for the given user ID') {
         return []
       } else {
         thunkAPI.rejectWithValue(err.response.data)
       }
-    }    
-    
+    }
+
   } else {
     // пользователь не авторизован
     return
@@ -327,10 +327,10 @@ export const loadSavedCartsCheckout = createAsyncThunk('cart/loadSavedCartsCheck
   const state = thunkAPI.getState()
 
   if (state.user.isAuthenticated) {
-    
+
     try {
       const resp = await axios.post(`carts/savedCheckout`, cartIds)
-      return (resp.data)  
+      return (resp.data)
     } catch (err) {
       if (err.response.data.description === 'No cart items in cart') {
         return []
@@ -338,7 +338,7 @@ export const loadSavedCartsCheckout = createAsyncThunk('cart/loadSavedCartsCheck
         return thunkAPI.rejectWithValue(err.response.data)
       }
     }
-    
+
   } else {
     // пользователь не авторизован
     return
@@ -353,7 +353,7 @@ export const deleteSavedCart = createAsyncThunk('cart/deleteSavedCart', async ({
     const resp = await axios.post(`carts/removeSavedCarts`, cartIds)
     thunkAPI.dispatch(loadSavedCarts())
     thunkAPI.dispatch(loadSavedCartsCheckout({cartIds: []}))
-    return 
+    return
   } else {
     // пользователь не авторизован
     return
@@ -361,14 +361,14 @@ export const deleteSavedCart = createAsyncThunk('cart/deleteSavedCart', async ({
 })
 
 export const restoreSaved = createAsyncThunk('cart/restoreSaved', async ({cartIds}, thunkAPI) => {
-  
+
   const state = thunkAPI.getState()
 
   if (state.user.isAuthenticated) {
     const resp = await axios.post(`carts/savedRestore`, cartIds)
     thunkAPI.dispatch(loadCart())
     thunkAPI.dispatch(loadSavedCarts())
-    thunkAPI.dispatch(loadSavedCartsCheckout([]))    
+    thunkAPI.dispatch(loadSavedCartsCheckout([]))
     return (resp.data)
   } else {
     // пользователь не авторизован
@@ -391,7 +391,7 @@ const initialState = {
   saveCartStatus: 'success',
   loadSavedCartsStatus: 'loading',
   deleteSavedCartStatus: 'success',
-  restoreSavedStatus: 'success',  
+  restoreSavedStatus: 'success',
   loadSavedCartsCheckoutStatus: 'loading',
   cartStatus: null,
   savedCarts: null,
@@ -424,7 +424,7 @@ export const cartSlice = createSlice({
       state.cartUpdateStatus = 'loading'
     })
     .addCase(addToCart.fulfilled, (state, action) => {
-      state.cartUpdateStatus = 'success'
+      //state.cartUpdateStatus = 'success'
     })
     .addCase(addToCart.rejected, (state, action) => {
       state.cartUpdateStatus = 'error'
@@ -437,6 +437,9 @@ export const cartSlice = createSlice({
     .addCase(loadCart.fulfilled, (state, action) => {
       state.status = 'success'
       state.cart = action.payload
+      
+      // перенесла из addToCart сюда, чтобы success происходил после обновления корзины (иначе успевает мелькнуть кнопка)
+      state.cartUpdateStatus = 'success'
     })
     .addCase(loadCart.rejected, (state, action) => {
       state.status = 'error'
@@ -518,8 +521,8 @@ export const cartSlice = createSlice({
     .addCase(loadSavedCartsCheckout.pending, (state, action) => {
       state.loadSavedCartsCheckout = 'loading'
     })
-    .addCase(loadSavedCartsCheckout.fulfilled, (state, action) => {      
-      state.loadSavedCartsCheckoutStatus = 'success'      
+    .addCase(loadSavedCartsCheckout.fulfilled, (state, action) => {
+      state.loadSavedCartsCheckoutStatus = 'success'
       state.savedCartsCheckout = action.payload
     })
     .addCase(loadSavedCartsCheckout.rejected, (state, action) => {
@@ -538,7 +541,7 @@ export const cartSlice = createSlice({
       state.deleteSavedCartStatus = 'error'
       console.log('ошибка', action.error.message)
     })
-    
+
     .addCase(restoreSaved.pending, (state, action) => {
       state.restoreSaved = 'loading'
     })

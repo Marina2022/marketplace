@@ -8,6 +8,7 @@ import FavCategoriesDesktop from "@/components/FavPage/FavCategories/FavCategori
 import FavCategoriesMobile from "@/components/FavPage/FavCategories/FavCategoriesMobile.jsx";
 import {useEffect, useState} from "react";
 import inlineHeart from '@/assets/img/cart/inlineHeart.svg'
+import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 
 const FavPage = () => {
   const favs = useSelector(getFavs)
@@ -38,6 +39,8 @@ const FavPage = () => {
   useEffect(() => {
     dispatch(loadFavs(productCategoryId))
   }, [productCategoryId]);
+  
+  if (favsLoadingStatus =='loading' && !favs ) return <Spinner/>
 
 
   return (
@@ -63,11 +66,7 @@ const FavPage = () => {
         }
 
         <div className={ !cats ? s.rightPartWrapperNoCats : s.rightPartWrapper}>
-
-          {
-            favsLoadingStatus === 'loading' && <div></div>
-          }
-          
+                    
           {
             favs?.length === 0 && favsLoadingStatus === 'success' && <div className={s.emptyPage}>
               <h2 className={s.emptyPageTitle}>Здесь пусто :(</h2>
@@ -90,7 +89,11 @@ const FavPage = () => {
               }
             </div>
           }
-          <ViewedProducts fullSize={cats ? false : true} />
+
+          {
+            favsLoadingStatus !=='loading' && <ViewedProducts fullSize={cats ? false : true} />
+          }         
+          
         </div>
       </div>
     </div>
