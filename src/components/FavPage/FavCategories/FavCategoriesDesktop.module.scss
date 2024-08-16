@@ -26,6 +26,9 @@
   display: flex;
   gap: 15px;
   
+  &:hover {
+    color: #131D2A;
+  }
   @include m {
     font-size: 16px;
   }
@@ -34,6 +37,10 @@
 .categoryItem {
   color: #658092;
   font-size: 16px;
+  
+  &:hover {
+    color: #131D2A;
+  }
   
   @include t {
     font-size: 14px;
