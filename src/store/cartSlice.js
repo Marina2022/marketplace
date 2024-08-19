@@ -64,6 +64,8 @@ export const loadCheckout = createAsyncThunk('cart/getCheckout', async (param, t
     // считаем и сетаем чекаут:
     const cart = JSON.parse(localStorage.getItem('cart'))
 
+    console.log('cart from LS = ', )
+
     const productCountInCart = cart.cartItems.reduce((acc, current) => {
       return acc += current.checked ? current.quantity : 0
     }, 0)
