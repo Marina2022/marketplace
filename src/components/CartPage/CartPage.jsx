@@ -43,17 +43,19 @@ const CartPage = () => {
           currentTab === 'currentCart' && <CurrentCart/>
         }
         {
-          currentTab === 'savedCarts' && <SavedCarts setCurrentTab={setCurrentTab} />
+          currentTab === 'savedCarts' && <SavedCarts setCurrentTab={setCurrentTab}/>
         }
-        
+
       </div>
+      
       <div className='container'>
         {
-          !isMobile 
-          && (currentTab==="currentCart" && cartStatus !== 'loading' ||  currentTab==="savedCarts" && savedCartStatus !== 'loading' )  
-          && <ViewedProducts fullSize={true} />
-        }        
+          !isMobile
+          && (currentTab === "currentCart" && cartStatus !== 'loading' || currentTab === "savedCarts" && savedCartStatus !== 'loading')
+          && <ViewedProducts fullSize={true}/>
+        }
       </div>
+      
     </div>
   );
 };
