@@ -67,7 +67,7 @@ const CurrentCart = () => {
   }
 
   return (
-    !(cart?.cartItems.length <= 0 && !debouncedSearchTerm) && <div>
+    !(cart?.cartItems?.length <= 0 && !debouncedSearchTerm) && <div>
       <div className={s.headerWrapper}>
         <h1 className={s.mainTitle}>Ваша корзина</h1>
         <p className={s.productsQuantity}>{getProductQuantityString(productsTotal)}</p>

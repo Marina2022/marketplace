@@ -35,7 +35,7 @@ const SavedCarts = ({setCurrentTab}) => {
 
   if (!savedCarts) return <></>
 
-  if (savedCarts.length === 0 && loadSavedCartsStatus !== 'loading') {
+  if (savedCarts?.length === 0 && loadSavedCartsStatus !== 'loading') {
     return <div className={s.emptyPage}>
       <h2 className={s.emptyPageTitle}>Здесь пусто :(</h2>
       <p className={s.emptyPageText}>Вы не сохранили ни одной корзины!</p>
@@ -43,7 +43,7 @@ const SavedCarts = ({setCurrentTab}) => {
   }
 
   return (
-    savedCarts && savedCarts.length > 0 && <div>
+    savedCarts && savedCarts?.length > 0 && <div>
       <div className={s.headerWrapper}>
         <h1 className={s.mainTitle}>Сохраненные корзины</h1>
       </div>
