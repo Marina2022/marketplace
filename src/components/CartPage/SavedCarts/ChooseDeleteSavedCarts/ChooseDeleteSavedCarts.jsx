@@ -11,8 +11,7 @@ const ChooseDeleteSavedCarts = ({checkedItems, setCheckedItems, savedCarts}) => 
     if (isSelected) {
       setCheckedItems([])
     } else {
-      const newCheckedItems = savedCarts.map(item => item.cartId)
-      console.log('newCheckedItems', newCheckedItems)
+      const newCheckedItems = savedCarts.map(item => item.cartId)      
       setCheckedItems(newCheckedItems)
     }
   }
