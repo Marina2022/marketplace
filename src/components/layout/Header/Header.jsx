@@ -2,43 +2,109 @@ import s from './Header.module.scss'
 import logo from '@/assets/img/header/logo.svg'
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getIsAuthenticated, login, logout} from "@/store/userSlice.js";
+import {getIsAuthenticated} from "@/store/userSlice.js";
 import {getFavs} from "@/store/favSlice.js";
-import heartActiveBtn from '@/assets/img/cart/cart-card/heart-active.svg'
+import catalogBtnIcon from '@/assets/img/header/catalogBtnIcon.svg'
+import heartIcon from '@/assets/img/header/userMenu/heart.svg'
+import orderIcon from '@/assets/img/header/userMenu/orders.svg'
+import cartIcon from '@/assets/img/header/userMenu/cart.svg'
+import userIcon from '@/assets/img/header/userMenu/user.svg'
+import hamburger from '@/assets/img/header/hamburger.svg'
+import {getCart} from "@/store/cartSlice.js";
+import HeaderSearch from "@/components/layout/Header/HeaderSearch/HeaderSearch.jsx";
+
 const Header = () => {
 
   const isAuthenticated = useSelector(getIsAuthenticated)
-  const dispatch = useDispatch()  
+  const dispatch = useDispatch()
+
   const favs = useSelector(getFavs)
+  const cart = useSelector(getCart)
 
   return (
     <header className={s.header}>
       <div className='container'>
         <div className={s.wrapper}>
-          <div>
-            <Link to="/">
-              <img className={s.logo} src={logo} alt="logo"/>
-            </Link>
-            <span>Header</span>
-          </div>          
-          <Link to="/favourites" className={s.fav}><img src={heartActiveBtn} alt=""/> <span> {favs?.length} </span> </Link>
-          <div className={s.loginWrapper}>
-            {
-              isAuthenticated
-                ? <>
-                  <div>Пользователь авторизован</div>
-                  <button onClick={()=>dispatch(logout())} className={s.loginBtn}>Выйти</button>
-                </>
-                : <>
-                  <div>Пользователь не авторизован</div>
-                  <button onClick={()=>dispatch(login())}  className={s.loginBtn}>Войти</button>
-                </>
-            }
-          </div>
+
+          <button className={s.mobileMenuBtn}><img src={hamburger} alt="menu"/></button>
+          
+          <Link className={s.logoLink} to="/">
+            <img className={s.logo} src={logo} alt="logo"/>
+          </Link>
+          <Link to="/category/smartfoni-781001bc-3a72-4e5b-8d2a-ee22e0ea7b0a" className={s.catalogBtn}><img
+            className={s.catalogBtnIcon} src={catalogBtnIcon}/><span>Каталог</span></Link>
+
+          <HeaderSearch/>
+
+          <ul className={s.userMenu}>
+
+            <li className={s.userMenuItem}>
+              <Link className={s.menuItemLink} to="/favourites">
+                <div className={s.menuItemImgWrapper}>
+                  <img className={s.menuItemImg} src={heartIcon} alt="favourites"/>
+                  {
+                    favs && <div className={s.menuItemBadge}>{favs.length}</div>
+                  }
+                </div>
+                <div className={s.menuItemLabel}>Избранное</div>
+              </Link>
+            </li>
+
+            <li className={s.userMenuItem}>
+              <Link className={s.menuItemLink} to="/orders">
+                <div className={s.menuItemImgWrapper}>
+                  <img className={s.menuItemImg} src={orderIcon} alt="orders"/>
+                  <div className={s.menuItemBadge}>2</div>
+                </div>
+                <div className={s.menuItemLabel}>Заказы</div>
+              </Link>
+            </li>
+
+            <li className={s.userMenuItem}>
+              <Link className={s.menuItemLink} to="/cart">
+                <div className={s.menuItemImgWrapper}>
+                  <img className={s.menuItemImg} src={cartIcon} alt="cart"/>
+                  {
+                    cart?.cartItems?.length > 0 && <div className={s.menuItemBadge}> {cart?.cartItems?.length} </div>
+                  }
+                </div>
+                <div className={s.menuItemLabel}>Корзина</div>
+              </Link>
+            </li>
+
+            <li className={s.userMenuItem}>
+              <button className={s.menuItemLink}>
+                <div className={s.menuItemImgWrapper}>
+                  <img className={s.menuItemImg} src={userIcon} alt="cart"/>
+                </div>
+                <div className={s.menuItemLabel}>Войти</div>
+              </button>
+            </li>
+          </ul>
+
+          <Link className={s.cartBtnOnMobile} to="/cart">
+            <img className={s.menuItemImg} src={cartIcon} alt="cart"/>
+          </Link>
+
+
+          {/*<div className={s.loginWrapper}>*/}
+          {/*  {*/}
+          {/*    isAuthenticated*/}
+          {/*      ? <>*/}
+          {/*        <div>Пользователь авторизован</div>*/}
+          {/*        <button onClick={()=>dispatch(logout())} className={s.loginBtn}>Выйти</button>*/}
+          {/*      </>*/}
+          {/*      : <>*/}
+          {/*        <div>Пользователь не авторизован</div>*/}
+          {/*        <button onClick={()=>dispatch(login())}  className={s.loginBtn}>Войти</button>*/}
+          {/*      </>*/}
+          {/*  }*/}
+          {/*</div>*/}
+
         </div>
       </div>
     </header>
-  )    
+  )
 }
 
 export default Header;

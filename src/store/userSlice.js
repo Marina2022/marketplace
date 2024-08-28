@@ -11,10 +11,8 @@ export const login = createAsyncThunk('cart/login', async (_, thunkAPI) => {
   if (resp.status === 200) {
     thunkAPI.dispatch(setIsAuthenticated(true))
     thunkAPI.dispatch(loadCart())
-    thunkAPI.dispatch(loadFavs())
-    
+    thunkAPI.dispatch(loadFavs())    
   }
-
   return true
 })
 

@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
-import {useLocation, useParams, useSearchParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import CategoryBlock from "@/components/CategoryBlock/CategoryBlock.jsx";
 import Error from '@/components/Error/Error.jsx'
+
 const Category = () => {
   const {category} = useParams()
   // const [products, setProducts] = useState(null)  

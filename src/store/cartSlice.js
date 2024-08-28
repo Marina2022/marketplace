@@ -201,8 +201,6 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunk
     } else {
       itemFoundInCart.quantity = quantityToSend
     }
-
-    console.log('cart =', cart)
     localStorage.setItem('cart', JSON.stringify(cart))
     thunkAPI.dispatch(loadCart())
   }
@@ -512,12 +510,7 @@ export const cartSlice = createSlice({
   ,
 })
 
-export const {
-  clearProducts,
-  addProduct,
-  plus,
-  minus,
-  removeProduct,
+export const {  
   setCart,
   setCartSearchTerm,
   setEditingSearchTerm,

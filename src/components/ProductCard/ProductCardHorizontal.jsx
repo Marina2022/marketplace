@@ -48,7 +48,6 @@ const ProductCardHorizontal = ({product, quantity, onFavClick, onAddToCartClick,
         }
       </div>
 
-
       <div className={s.priceAndCartBlock}>
         <p className={s.priceWrapper}>
           <span className={s.price}>{product.price.toLocaleString()} ₽</span>
