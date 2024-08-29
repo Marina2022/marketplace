@@ -18,9 +18,10 @@ axios.interceptors.response.use(
     },
     (error) => {
 
-      // console.log('из интерсептора ошибка', error.response?.status)
+      console.log('из интерсептора ошибка', error.response?.status)
       
-      if (error.response?.status === '401') {
+      if (error.response?.status === 401) {
+        console.log('должен быть логаут')
         store.dispatch(logout())  
       }
 
