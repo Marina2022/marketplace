@@ -1,5 +1,6 @@
 import axios from "axios";
 import {store} from "@/main.jsx";
+import {logout} from "@/store/userSlice.js";
 
 axios.defaults.baseURL = 'https://i-rif.com/api/'
 axios.interceptors.request.use((request) => {
@@ -16,6 +17,14 @@ axios.interceptors.response.use(
       return response;
     },
     (error) => {
+
+      // console.log('из интерсептора ошибка', error.response?.status)
+      
+      if (error.response?.status === '401') {
+        store.dispatch(logout())  
+      }
+
+      
       
       // Обработка ошибок 
       // if (!error.message) {
@@ -35,6 +44,9 @@ axios.interceptors.response.use(
       //   //    store.dispatch(refreshAuthTokenAsync());
       //   // }, 2000);
       // }
+      
+      
+      
       return Promise.reject(error);
     }
 );

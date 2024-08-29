@@ -14,7 +14,7 @@ import {
   loadCart,
   saveCart
 } from "@/store/cartSlice.js";
-import {getIsAuthenticated} from "@/store/userSlice.js";
+import {getIsAuthenticated, getUserStatus} from "@/store/userSlice.js";
 
 import CartSearch from "@/components/CartPage/CurrentCart/CartSearch/CartSearch.jsx";
 import ChooseDeleteBlock from "@/components/CartPage/CurrentCart/ChooseDeleteBlock/ChooseDeleteBlock.jsx";
@@ -37,28 +37,33 @@ const CurrentCart = () => {
   const cart = useSelector(getCart)
   const editingSearchTerm = useSelector(getEditingSearchTerm)
   const isMobile = useMobileScreen()
-
+  const userLoadingStatus = useSelector(getUserStatus)
+  
   useEffect(() => {
+    if (userLoadingStatus !== 'success') return
     dispatch(loadCart())
   }, [debouncedSearchTerm])
 
   useEffect(() => {
+    if (userLoadingStatus !== 'success') return
 
     if (isAuthenticated && cart?.cartItems?.length > 0) {
       dispatch(checkCartStatus({cartId: cart.cartId}))
     }
-  }, [cart?.cartId]);
+  }, [cart?.cartId, userLoadingStatus]);
   
   const saveCartHandler = () => {
     dispatch(saveCart({cartId: cart.cartId}))
   }
+
+  
 
   let productsTotal
   if (cart?.cartItems) {
     productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
   }
   
-  if (cart?.cartItems?.length === 0 && !debouncedSearchTerm && !editingSearchTerm && cartStatus !== 'loading') {
+  if (cart?.cartItems?.length === 0 && !debouncedSearchTerm && !editingSearchTerm && cartStatus !== 'loading' && userLoadingStatus !== 'loading' ) {
     
     return <div className={s.emptyPage}>
       <h2 className={s.emptyPageTitle}>Здесь пусто :(</h2>
@@ -69,8 +74,10 @@ const CurrentCart = () => {
     </div>
   }
 
+  console.log({userLoadingStatus})
+
   return (
-    !(cart?.cartItems?.length <= 0 && !debouncedSearchTerm && favsLoadingStatus !=='loading'  ) && <div>
+    !(cart?.cartItems?.length <= 0 && !debouncedSearchTerm && favsLoadingStatus !=='loading' && userLoadingStatus !== 'loading'   ) && <div>
       <div className={s.headerWrapper}>
         <h1 className={s.mainTitle}>Ваша корзина</h1>
         <p className={s.productsQuantity}>{getProductQuantityString(productsTotal)}</p>

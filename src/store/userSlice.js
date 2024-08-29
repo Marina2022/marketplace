@@ -29,14 +29,17 @@ export const getUser = createAsyncThunk('cart/getUser', async (_, thunkAPI) => {
       return resp.data
     }  
   } catch(err) {
-    console.log('err из кэча юзера', err)
-    if (err.message === 'Request failed with status code 401') {
-      console.log('зашли в catch 401')
-      thunkAPI.dispatch(logout())
-      throw new Error("Unauthorized")
-    } else {
-      thunkAPI.rejectWithValue(err.response.data)
-    }
+    // console.log('err из кэча юзера', err)
+    
+    // if (err.message === 'Request failed with status code 401') {
+    //   console.log('зашли в catch 401')
+    //   thunkAPI.dispatch(logout())
+    //   throw new Error("Unauthorized")
+    // } else {
+    //   thunkAPI.rejectWithValue(err.response.data)
+    // }
+
+    thunkAPI.rejectWithValue(err.response.data)
   }
   
   
@@ -58,7 +61,7 @@ export const getUserProfiles = createAsyncThunk('cart/getUserProfiles', async (_
 
 
 export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
-
+  console.log('Случился logout')
   thunkAPI.dispatch(setUser(null))
   thunkAPI.dispatch(setUserProfiles(null))  
   thunkAPI.dispatch(setIsAuthenticated(false))
@@ -74,7 +77,7 @@ export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
 const initialState = {
   user: null,
   isLoading: false,
-  isAuthenticated: false,
+  isAuthenticated: true,
   token: null,
   userProfiles: null,
   loginStatus: 'loading',
@@ -163,4 +166,5 @@ const userSlice = createSlice({
 export const {setUser, setToken, setIsAuthenticated, setUserProfiles} = userSlice.actions
 export const getIsAuthenticated = state => state.user.isAuthenticated
 export const getUserData = state => state.user.user
+export const getUserStatus = state => state.user.getUserStatus
 export default userSlice.reducer
