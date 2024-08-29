@@ -3,10 +3,10 @@ import AddToCart from "@/components/ProductPage/AddToCart/AddToCart.jsx";
 import WriteToSeller from "@/components/ProductPage/RightSidebar/WriteToSeller/WriteToSeller.jsx";
 import VendorInfo from "@/components/ProductPage/RightSidebar/VendorInfo/VendorInfo.jsx";
 
-const RightSidebar = ({product}) => {
+const RightSidebar = ({product, sku}) => {
   return (
     <div className={s.rightSidebar}>
-      <AddToCart product={product} />
+      <AddToCart product={product} sku={sku} />
       {
         product.productVendor.isContactShown && <WriteToSeller seller={product.productVendor} />
       }     

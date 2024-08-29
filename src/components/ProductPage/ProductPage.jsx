@@ -69,7 +69,6 @@ const ProductPage = () => {
   const [mobileReviewsTabIsOpen, setMobileReviewsTabIsOpen] = useState(false)
   const [mobileQuestionsTabIsOpen, setMobileQuestionsTabIsOpen] = useState(false)
 
-
   useEffect(() => {
     const getData = async () => {
 
@@ -83,6 +82,7 @@ const ProductPage = () => {
 
         if (mySku) {
           requestString += `?sku=${mySku}`
+          setSku(mySku)
         }
 
         const productResponse = await axiosInstance(requestString)
@@ -98,7 +98,7 @@ const ProductPage = () => {
         setPath(breadCrumbsPath)
 
 
-        if (!sku) {
+        if (!mySku) {          
           setSku(productResponse.data.options[0].sku)
         }
 
@@ -144,7 +144,6 @@ const ProductPage = () => {
   const favs = useSelector(getFavs)
   const isAuthenticated = useSelector(getIsAuthenticated)
   const dispatch = useDispatch()
-
   
 
   const [isFavourite, setIsFavourite] = useState(isAuthenticated
@@ -164,9 +163,9 @@ const ProductPage = () => {
   const onFavClick = (e) => {
     e.stopPropagation()
     if (isFavourite) {
-      dispatch(updateFavs({updateType: 'remove', productVariantId: product.productVariantId, product}))
+      dispatch(updateFavs({updateType: 'remove', productVariantId: product.productVariantId, product, sku}))
     } else {
-      dispatch(updateFavs({updateType: 'add', productVariantId: product.productVariantId, product}))
+      dispatch(updateFavs({updateType: 'add', productVariantId: product.productVariantId, product, sku}))
     }
     setIsFavourite(prev => !prev)
   }
@@ -206,7 +205,7 @@ const ProductPage = () => {
               setMobileQuestionsTabIsOpen={setMobileQuestionsTabIsOpen}
             />
           </div>
-          <RightSidebar product={product}/>
+          <RightSidebar product={product} sku={sku}/>
         </div>        
 
         <div className={s.viewed}>

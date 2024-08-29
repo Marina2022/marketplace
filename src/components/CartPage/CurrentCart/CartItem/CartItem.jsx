@@ -22,7 +22,7 @@ const CartItem = ({cartItem}) => {
       dispatch(addToCart({
         productVriantId: cartItem.productVariantId,
         count: debouncedQuantity,
-        cartItemId: cartItem.cartItemId,
+        cartItemId: cartItem.cartItemId,        
         item: cartItem
       }))
     }
@@ -81,8 +81,9 @@ const CartItem = ({cartItem}) => {
 
   const [isFavourite, setIsFavourite] = useState(isAuthenticated
     ? cartItem.isFavourite
-    : favs.find(item => item.productVariantId === cartItem.productVariantId))  // todo - не тестила
+    : favs.find(item => item.productVariantId === cartItem.productVariantId))
 
+  
   const onFavClick = () => {
     if (isFavourite) {
       dispatch(updateFavs({updateType: 'remove', productVariantId: cartItem.productVariantId, product: cartItem}))
@@ -94,7 +95,7 @@ const CartItem = ({cartItem}) => {
 
   let linkURL
 
-  if (isAuthenticated) {
+  if (cartItem.sku) {
     linkURL = `/product/${cartItem.productHandle}?sku=${cartItem.sku}`
   } else {
     linkURL = `/product/${cartItem.productHandle}`

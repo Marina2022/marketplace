@@ -22,9 +22,9 @@ export const loadCart = createAsyncThunk('cart/getCart', async (param, thunkAPI)
         thunkAPI.dispatch(setEditingSearchTerm(false))
       }
       return (resp.data)
-
+      
     } catch (err) {
-      if (err.response.data.description === 'No cart items in cart') {        
+      if (err.response.data.description === 'Cart not found for the given user ID' ||  err.response.data.description === 'No cart items in cart' ) {        
         thunkAPI.dispatch(setCheckout(null))
         return {cartId: null, cartItems: []}
       } else {
@@ -143,7 +143,7 @@ export const chooseAll = createAsyncThunk('cart/chooseAll', async ({select}, thu
 })
 export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunkAPI) => {
   const state = thunkAPI.getState()
-  const {productVriantId, count, cartItemId, item} = params
+  const {productVriantId, count, cartItemId, item, sku} = params
 
   let quantityToSend = count
 
@@ -196,7 +196,8 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (params, thunk
         discount: item.discount,
         isAvailable: item.isAvailable,
         isDiscounted: item.isDiscounted,
-        isSecondHand: item.isSecondHand
+        isSecondHand: item.isSecondHand,
+        sku: sku || item.sku
       })
     } else {
       itemFoundInCart.quantity = quantityToSend

@@ -1,7 +1,8 @@
 import s from './Colors.module.scss';
 
-const Colors = ({options, sku, handleOptionClick}) => {
 
+const Colors = ({options, sku, handleOptionClick}) => {
+  
   const currentOption = options.find(item => item.sku === sku)
   const currentColor = currentOption.values.find(item => item.optionHandle === 'color').value.val
   const colorSet = new Set();

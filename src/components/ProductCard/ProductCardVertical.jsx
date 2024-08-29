@@ -11,22 +11,30 @@ import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 
 const ProductCardVertical = ({product, quantity, onFavClick, onAddToCartClick, cartItemId, isFavourite}) => {
 
+  
   const isInCart = quantity > 0
   const navigate = useNavigate()
   const cartUpdatingStatus = useSelector(getCartUpdatingStatus)
 
+  let productLink
+  if (product.sku) {    
+    productLink = `/product/${product.productHandle}?sku=${product.sku}`
+  } else {
+    productLink = `/product/${product.productHandle}`
+  }
+  
   return (
     <div
       className={s.productCardVertical}>
       <div className={s.moveOnHover}>
-        <div className={s.imgWrapper} onClick={() => navigate(`/product/${product.productHandle}`)}>
+        <div className={s.imgWrapper} onClick={() => navigate(productLink)}>
           <ProductImage product={product} orientation="vertical"/>
         </div>
 
         <div className={s.desc}>
           <div className={s.topVerticalCardWrapper}>
             <h3 className={s.title}>
-              <Link className={s.cardLink} to={`/product/${product.productHandle}`}>
+              <Link className={s.cardLink} to={productLink}>
                 {product.productName}
               </Link>
             </h3>

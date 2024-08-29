@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {addToCart, getCart, getCartUpdatingStatus} from "@/store/cartSlice.js";
  import CartInput from "@/components/ui/CartInput/CartInput.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
-const AddToCart = ({product}) => {
+const AddToCart = ({product, sku}) => {
   
   
   const dispatch = useDispatch()
@@ -26,8 +26,7 @@ const AddToCart = ({product}) => {
   } else {
     quantity = 0
   }
-
-  //const onAddToCartClick = (id, quantity) => dispatch(addToCart({id, quantity}))
+  
   const onAddToCartClick = (productVariantId, quantity) => {
     
     if (cartUpdatingStatus === 'loading') return
@@ -35,8 +34,9 @@ const AddToCart = ({product}) => {
     dispatch(addToCart({
       productVriantId: productVariantId,
       count: quantity,
-      cartId: cart.cartId,
-      item: product
+      cartId: cart?.cartId || undefined,
+      item: product, 
+      sku
     }))
   }
 

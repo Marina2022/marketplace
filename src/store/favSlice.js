@@ -30,7 +30,7 @@ export const loadFavs = createAsyncThunk('favs/loadFavs', async (productCategory
 })
 
 export const updateFavs = createAsyncThunk('favs/updateFavs', async (params, thunkAPI) => {
-  const {updateType, productVariantId, product} = params  
+  const {updateType, productVariantId, product, sku} = params  
   const state = thunkAPI.getState()  
   if (state.user.isAuthenticated) {        
     if (updateType === 'add') {
@@ -63,7 +63,10 @@ export const updateFavs = createAsyncThunk('favs/updateFavs', async (params, thu
         productName: product.productName,
         productVariantId: product.productVariantId,
         regularPrice: product.regularPrice,
+        sku: sku || product.sku
       }
+
+      console.log('newFav - ', newFav)
       
       favs.push(newFav)
       localStorage.setItem('favs', JSON.stringify(favs))

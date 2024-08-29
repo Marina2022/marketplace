@@ -40,17 +40,17 @@ const ProductCard = ({isBigScreen, product}) => {
     dispatch(addToCart({
       productVriantId: productVariantId,
       count: quantity,
-      cartId: cart.cartId,
+      cartId: cart?.cartId || undefined,
       item: product
     }))    
   }
   
   const [isFavourite, setIsFavourite] = useState(isAuthenticated 
     ? product.isFavourite 
-    : favs.find(item=>item.productVariantId === product.productVariantId) )  // todo - не тестила 
-  
+    : favs.find(item=>item.productVariantId === product.productVariantId) )
 
-  const onFavClick = () => {    
+
+    const onFavClick = () => {    
     if (isFavourite) {      
       dispatch(updateFavs({updateType:'remove', productVariantId: product.productVariantId, product}))      
     } else {
