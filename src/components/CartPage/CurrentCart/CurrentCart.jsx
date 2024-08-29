@@ -24,11 +24,13 @@ import Checkout from "@/components/CartPage/CurrentCart/Checkout/Checkout.jsx";
 import DownloadBlock from "@/components/CartPage/DownloadBlock/DownloadBlock.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
 import saveCartIcon from "@/assets/img/cart/saveCartIcon.svg"
+import {getFavsLoadingStatus} from "@/store/favSlice.js";
 
 const CurrentCart = () => {
   const dispatch = useDispatch()
   const isAuthenticated = useSelector(getIsAuthenticated)
   const cartStatus = useSelector(getCartStatus)
+  const favsLoadingStatus = useSelector(getFavsLoadingStatus)
   const cartSearchTerm = useSelector(getCartSearchTerm)
   const debouncedSearchTerm = useDebounce(cartSearchTerm, 500)
   const navigate = useNavigate()
@@ -68,7 +70,7 @@ const CurrentCart = () => {
   }
 
   return (
-    !(cart?.cartItems?.length <= 0 && !debouncedSearchTerm) && <div>
+    !(cart?.cartItems?.length <= 0 && !debouncedSearchTerm && favsLoadingStatus !=='loading'  ) && <div>
       <div className={s.headerWrapper}>
         <h1 className={s.mainTitle}>Ваша корзина</h1>
         <p className={s.productsQuantity}>{getProductQuantityString(productsTotal)}</p>

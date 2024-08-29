@@ -4,7 +4,7 @@ import './assets/styles/index.scss'
 import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
 import cartSlice, {loadCart} from "@/store/cartSlice.js";
-import userSlice, {setToken} from "@/store/userSlice.js";
+import userSlice, {getUser, setToken} from "@/store/userSlice.js";
 import catalogSlice from "@/store/catalogSlice.js";
 import reviewsSlice, {loadReviewLikes} from "@/store/reviewsSlice.js";
 import favSlice, {loadFavs} from "@/store/favSlice.js";
@@ -21,9 +21,10 @@ export const store = configureStore({
     }
 )
 
-store.dispatch(loadCart())
+store.dispatch(getUser())
+// store.dispatch(loadCart())
 store.dispatch(loadReviewLikes())
-store.dispatch(loadFavs())
+// store.dispatch(loadFavs())
 
 const token = localStorage.getItem('token')
 if (token) store.dispatch(setToken(token))

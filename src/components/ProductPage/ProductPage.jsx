@@ -146,10 +146,24 @@ const ProductPage = () => {
   const dispatch = useDispatch()
   
 
-  const [isFavourite, setIsFavourite] = useState(isAuthenticated
-    ? product?.isFavourite
-    : favs.find(item => item.productVariantId === product?.productVariantId))  // todo - не тестила 
 
+  const [isFavourite, setIsFavourite] = useState(false)
+
+  useEffect(()=>{
+    
+    if (!product) return
+    
+    if (isAuthenticated ) {
+      setIsFavourite(product.isFavourite)
+    } else {
+      if (favs) {
+        setIsFavourite(favs.find(item => item.productVariantId === product.productVariantId))
+      }
+    }
+
+  }, [isAuthenticated, favs, product])
+  
+  
   useEffect(() => {
     if (product) {
       const newFavState = isAuthenticated

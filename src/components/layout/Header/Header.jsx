@@ -2,7 +2,7 @@ import s from './Header.module.scss'
 import logo from '@/assets/img/header/logo.svg'
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getIsAuthenticated} from "@/store/userSlice.js";
+import {getIsAuthenticated, getUser, getUserData} from "@/store/userSlice.js";
 import {getFavs} from "@/store/favSlice.js";
 import catalogBtnIcon from '@/assets/img/header/catalogBtnIcon.svg'
 import heartIcon from '@/assets/img/header/userMenu/heart.svg'
@@ -16,11 +16,14 @@ import HeaderSearch from "@/components/layout/Header/HeaderSearch/HeaderSearch.j
 const Header = () => {
 
   const isAuthenticated = useSelector(getIsAuthenticated)
+  const user = useSelector(getUserData)
   const dispatch = useDispatch()
 
   const favs = useSelector(getFavs)
   const cart = useSelector(getCart)
 
+  console.log('user из хедера', user)
+  
   return (
     <header className={s.header}>
       <div className='container'>
@@ -43,7 +46,7 @@ const Header = () => {
                 <div className={s.menuItemImgWrapper}>
                   <img className={s.menuItemImg} src={heartIcon} alt="favourites"/>
                   {
-                    favs && <div className={s.menuItemBadge}>{favs.length}</div>
+                    favs?.length > 0 && <div className={s.menuItemBadge}>{favs.length}</div>
                   }
                 </div>
                 <div className={s.menuItemLabel}>Избранное</div>
@@ -85,21 +88,6 @@ const Header = () => {
           <Link className={s.cartBtnOnMobile} to="/cart">
             <img className={s.menuItemImg} src={cartIcon} alt="cart"/>
           </Link>
-
-
-          {/*<div className={s.loginWrapper}>*/}
-          {/*  {*/}
-          {/*    isAuthenticated*/}
-          {/*      ? <>*/}
-          {/*        <div>Пользователь авторизован</div>*/}
-          {/*        <button onClick={()=>dispatch(logout())} className={s.loginBtn}>Выйти</button>*/}
-          {/*      </>*/}
-          {/*      : <>*/}
-          {/*        <div>Пользователь не авторизован</div>*/}
-          {/*        <button onClick={()=>dispatch(login())}  className={s.loginBtn}>Войти</button>*/}
-          {/*      </>*/}
-          {/*  }*/}
-          {/*</div>*/}
 
         </div>
       </div>

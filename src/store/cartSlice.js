@@ -368,8 +368,7 @@ export const cartSlice = createSlice({
     setEditingSearchTerm: (state, action) => {
       state.editingSearchTerm = action.payload
     },
-    setCheckout: (state, action) => {
-      console.log('hello, я в редьюсере, action.payload = ', action.payload)
+    setCheckout: (state, action) => {      
       state.checkout = action.payload
     },
   },

@@ -6,7 +6,7 @@ import useMobileScreen from "@/hooks/useMobileScreen.js";
 import FavList from "@/components/FavPage/FavList/FavList.jsx";
 import FavCategoriesDesktop from "@/components/FavPage/FavCategories/FavCategoriesDesktop.jsx";
 import FavCategoriesMobile from "@/components/FavPage/FavCategories/FavCategoriesMobile.jsx";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import inlineHeart from '@/assets/img/cart/inlineHeart.svg'
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 
@@ -27,10 +27,19 @@ const FavPage = () => {
   const isMobile = useMobileScreen()
   const [productCategoryId, setProductCategoryId] = useState(null)
   const dispatch = useDispatch()
+  
+  const firstTimeRef = useRef()
+  firstTimeRef.current = true
 
   useEffect(() => {
-    dispatch(loadFavs(productCategoryId))
+    
+    if (!firstTimeRef.current) {
+      dispatch(loadFavs(productCategoryId))  
+    }
+    firstTimeRef.current = false  
   }, [productCategoryId]);  
+  
+  
   if (favsLoadingStatus =='loading' && !favs ) return <Spinner/>
 
   return (

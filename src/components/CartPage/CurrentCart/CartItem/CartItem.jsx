@@ -79,10 +79,20 @@ const CartItem = ({cartItem}) => {
   const isAuthenticated = useSelector(getIsAuthenticated)
   const favs = useSelector(getFavs)
 
-  const [isFavourite, setIsFavourite] = useState(isAuthenticated
-    ? cartItem.isFavourite
-    : favs.find(item => item.productVariantId === cartItem.productVariantId))
 
+  const [isFavourite, setIsFavourite] = useState(false)
+  
+  useEffect(()=>{
+    if (isAuthenticated) {
+      setIsFavourite(cartItem.isFavourite)
+    } else {
+      if (favs) {
+        setIsFavourite(favs.find(item => item.productVariantId === cartItem.productVariantId))
+      }
+    }
+    
+  }, [isAuthenticated, favs])
+  
   
   const onFavClick = () => {
     if (isFavourite) {

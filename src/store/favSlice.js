@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "@/api/axiosInstance.js";
+import {loadCart} from "@/store/cartSlice.js";
 
 export const loadFavs = createAsyncThunk('favs/loadFavs', async (productCategoryId, thunkAPI) => {
     const state = thunkAPI.getState()
@@ -9,8 +10,7 @@ export const loadFavs = createAsyncThunk('favs/loadFavs', async (productCategory
         const resp = await axios(url)        
         return (resp.data)
       } catch(err) {
-        if (err.response.data.description === 'No favourite product for the given User ID') {
-          console.log('я тут')
+        if (err.response.data.description === 'No favourite product for the given User ID') {          
           return {favourites: []}
         } else {
           return thunkAPI.rejectWithValue(err.response.data)
@@ -40,6 +40,7 @@ export const updateFavs = createAsyncThunk('favs/updateFavs', async (params, thu
     }      
 
     thunkAPI.dispatch(loadFavs())
+    thunkAPI.dispatch(loadCart())
     return    
   
   } else {
@@ -65,9 +66,7 @@ export const updateFavs = createAsyncThunk('favs/updateFavs', async (params, thu
         regularPrice: product.regularPrice,
         sku: sku || product.sku
       }
-
-      console.log('newFav - ', newFav)
-      
+            
       favs.push(newFav)
       localStorage.setItem('favs', JSON.stringify(favs))
     } else {
