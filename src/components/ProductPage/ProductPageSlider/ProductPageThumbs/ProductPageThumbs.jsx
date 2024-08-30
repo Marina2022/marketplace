@@ -5,6 +5,7 @@ const ProductPageThumbs = ({images, currentImage, setCurrentImage, setSliderPopu
 
   const imagesToShow = images.slice(0, 6)
   const thumbnailClickHandler = (index) => {
+    console.log('клик и сет на image #', index)
     setCurrentImage(index)
   }
 
@@ -16,7 +17,9 @@ const ProductPageThumbs = ({images, currentImage, setCurrentImage, setSliderPopu
         {
           imagesToShow.map((image, i) => (
             <li className={i === currentImage ? s.currentThumbnail : s.thumbnail} key={i}
-                onClick={() => thumbnailClickHandler(i)}>
+                onClick={
+                  () => thumbnailClickHandler(i)                  
+                }>
               <img className={s.thumbnailImage} src={`${BASE_URL}${image.imageUrl}`} alt={image.imageName}/>
             </li>
           ))

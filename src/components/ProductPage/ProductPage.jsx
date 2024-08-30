@@ -94,9 +94,7 @@ const ProductPage = () => {
           breadCrumbsPath[0].name = breadCrumbsPath[0].name + ' ' + productResponse.data.brand
           breadCrumbsPath[0].handle = breadCrumbsPath[0].handle + '?' + `brand=${productResponse.data.brand.toLowerCase()}`
         }
-
         setPath(breadCrumbsPath)
-
 
         if (!mySku) {          
           setSku(productResponse.data.options[0].sku)
@@ -108,7 +106,6 @@ const ProductPage = () => {
 
         setPath([])
 
-        // это будет работать, если статус 405 приходит только! в случае, если не найдена страница
         if (err.response.status === '405') {
           setError('Товар не найден')
         } else {

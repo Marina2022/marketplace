@@ -12,18 +12,15 @@ import FavButton from "@/components/ui/FavButton/FavButton.jsx";
 
 const ProductPageSlider = ({images, productId, isFavourite, onFavClick}) => {
 
-  const [currentImage, setCurrentImage] = useState(undefined)
+  const [currentImage, setCurrentImage] = useState(0)
   const [sliderPopupIsOpen, setSliderPopupIsOpen] = useState(false)
-
-  useEffect(() => {
-    if (images) {
-      setCurrentImage(0)
-    }
-  }, [images]);
 
   const isBigScreen = useBigScreen()
   const isMobile = useMobileScreen()
 
+
+  
+  
   if (currentImage === undefined) return <Spinner className={s.spinner}/>
 
   if (isBigScreen) return (
@@ -34,6 +31,7 @@ const ProductPageSlider = ({images, productId, isFavourite, onFavClick}) => {
           currentImage={currentImage}
           setCurrentImage={setCurrentImage}
           setSliderPopupIsOpen={setSliderPopupIsOpen}/>
+        
         <div
           className={s.bigPicture}
           onClick={() => setSliderPopupIsOpen(true)}>
@@ -49,6 +47,8 @@ const ProductPageSlider = ({images, productId, isFavourite, onFavClick}) => {
           
         </div>
       </div>
+      
+      
       {
         sliderPopupIsOpen &&
         <ProductSliderPopup setSliderPopupIsOpen={setSliderPopupIsOpen} images={images} currentImage={currentImage}/>
