@@ -17,55 +17,54 @@ import {loadFavs} from "@/store/favSlice.js";
 // })
 
 export const getUser = createAsyncThunk('cart/getUser', async (_, thunkAPI) => {
-    
+
   try {
-    const resp = await axios('user', )
+    const resp = await axios('user',)
 
     if (resp.status === 200) {
       thunkAPI.dispatch(setIsAuthenticated(true))
       thunkAPI.dispatch(getUserProfiles())
       thunkAPI.dispatch(loadCart())
       thunkAPI.dispatch(loadFavs())
-           
+
       return resp.data
-    }  
-  } catch(err) {
+    }
+  } catch (err) {
     thunkAPI.rejectWithValue(err.response.data)
   }
-  return 
+  return
 })
 
 export const getUserProfiles = createAsyncThunk('cart/getUserProfiles', async (_, thunkAPI) => {
 
-  let resp = await axios('acc/profiles', )
+  let resp = await axios('acc/profiles',)
 
-  
-  
+
   if (resp.status === 200) {
 
     let activeProfile = localStorage.getItem("activeProfile")
     if (activeProfile) {
       thunkAPI.dispatch(setActiveProfileId(activeProfile))
-    } else {      
+    } else {
       thunkAPI.dispatch(setActiveProfileId(resp.data[0].profileId))
     }
     return resp.data
   }
-  
+
   return
-  
+
 })
 
 
-export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {  
+export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
   thunkAPI.dispatch(setUser(null))
-  thunkAPI.dispatch(setUserProfiles(null))  
+  thunkAPI.dispatch(setUserProfiles(null))
   thunkAPI.dispatch(setIsAuthenticated(false))
-  
+
   thunkAPI.dispatch(loadCart())
   thunkAPI.dispatch(loadFavs())
   thunkAPI.dispatch(setToken(null))
-  localStorage.removeItem('userProfile') 
+  localStorage.removeItem('userProfile')
 
   return true
 })
@@ -75,10 +74,11 @@ const initialState = {
   isLoading: false,
   isAuthenticated: true,
   token: null,
-  userProfiles: null,  
+  userProfiles: null,
   logoutStatus: 'loading',
   getUserStatus: 'loading',
   activeProfileId: null,
+  profilesInDropdownAreShown: false
 
   // loginStatus: 'loading',
 }
@@ -102,6 +102,9 @@ const userSlice = createSlice({
     setActiveProfileId: (state, action) => {
       state.activeProfileId = action.payload
     },
+    setProfilesInDropdownAreShown: (state, action) => {
+      state.profilesInDropdownAreShown = action.payload
+    },
   },
   extraReducers: builder => builder
 
@@ -119,12 +122,12 @@ const userSlice = createSlice({
     //   console.log('Не удалось залогиниться', action.error.message)
     // })
 
-    
+
     .addCase(logout.pending, (state) => {
       state.logoutStatus = 'loading'
     })
     .addCase(logout.fulfilled, (state, action) => {
-      state.logoutStatus = 'success'      
+      state.logoutStatus = 'success'
     })
     .addCase(logout.rejected, (state, action) => {
       state.logoutStatus = 'error'
@@ -161,13 +164,21 @@ const userSlice = createSlice({
       state.userProfilesLoadingStatus = 'error'
       console.log('Не удалось получить данные пользователя', action.error.message)
     })
-  
+
 })
-export const {setUser, setToken, setIsAuthenticated, setUserProfiles, setActiveProfileId} = userSlice.actions
+export const {
+  setUser,
+  setToken,
+  setIsAuthenticated,
+  setUserProfiles,
+  setActiveProfileId,
+  setProfilesInDropdownAreShown
+} = userSlice.actions
 export const getIsAuthenticated = state => state.user.isAuthenticated
 export const getUserData = state => state.user.user
 export const getUserStatus = state => state.user.getUserStatus
 export const getUserProfilesLoadingStatus = state => state.user.userProfilesLoadingStatus
 export const getUserProfilesData = state => state.user.userProfiles
 export const getActiveProfileId = state => state.user.activeProfileId
+export const getProfilesInDropdownAreShown = state => state.user.profilesInDropdownAreShown
 export default userSlice.reducer

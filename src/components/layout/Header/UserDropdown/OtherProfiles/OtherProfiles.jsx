@@ -1,15 +1,17 @@
 import s from './OtherProfiles.module.scss';
-import {useState} from "react";
 import showProfilesBtn from '@/assets/img/header/showProfilesBtn.svg'
 import HiddenBlockProfiles
   from "@/components/layout/Header/UserDropdown/OtherProfiles/HiddenBlockProfiles/HiddenBlockProfiles.jsx";
-import {useDispatch} from "react-redux";
-import {getUserProfiles} from "@/store/userSlice.js";
+import {useDispatch, useSelector} from "react-redux";
+import {getProfilesInDropdownAreShown, getUserProfiles, setProfilesInDropdownAreShown} from "@/store/userSlice.js";
 
-const OtherProfiles = ({activeProfile, userProfiles}) => {
+const OtherProfiles = ({activeProfile, userProfiles, setIsDropdownOpen}) => {
 
-  const [profilesAreShown, setProfilesAreShown] = useState(true)
+  
+  
+  const profilesAreShown = useSelector(getProfilesInDropdownAreShown)
 
+  
   console.log({profilesAreShown})
 
   const restProfiles = userProfiles.filter(item => item.profileId !== activeProfile.profileId)
@@ -65,6 +67,7 @@ const OtherProfiles = ({activeProfile, userProfiles}) => {
   const profileItemClickHandler = (profileId)=>{
     localStorage.setItem('activeProfile', profileId)
     dispatch(getUserProfiles())
+    setIsDropdownOpen(false)
   }
   
   return (
@@ -74,7 +77,7 @@ const OtherProfiles = ({activeProfile, userProfiles}) => {
         profilesAreShown && (
           <div>
 
-            <div onClick={() => setProfilesAreShown(false)} className={s.hideProfiles}>
+            <div onClick={() => dispatch(setProfilesInDropdownAreShown(false))} className={s.hideProfiles}>
               <div >Скрыть профили</div>
 
               <button className={s.showProfilesBtn}><img src={showProfilesBtn} alt="open button"/></button>
@@ -96,18 +99,15 @@ const OtherProfiles = ({activeProfile, userProfiles}) => {
                     </div>
                   </div>
                 ))
-              }
-              
+              }              
             </ul>
-
-
           </div>
         )
       }
 
       {
         !profilesAreShown && (
-          <div className={s.hiddenProfiles} onClick={() => setProfilesAreShown(true)}>
+          <div className={s.hiddenProfiles} onClick={() => dispatch(setProfilesInDropdownAreShown(true))}>
 
             <div className={s.showProfiles}>Показать профили</div>
             
