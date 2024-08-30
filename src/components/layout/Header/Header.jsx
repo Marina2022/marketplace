@@ -1,8 +1,8 @@
 import s from './Header.module.scss'
 import logo from '@/assets/img/header/logo.svg'
 import {Link} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {getIsAuthenticated, getUser, getUserData, getUserStatus} from "@/store/userSlice.js";
+import {useSelector} from "react-redux";
+import {getIsAuthenticated, getUserData, getUserStatus} from "@/store/userSlice.js";
 import {getFavs} from "@/store/favSlice.js";
 import catalogBtnIcon from '@/assets/img/header/catalogBtnIcon.svg'
 import heartIcon from '@/assets/img/header/userMenu/heart.svg'
@@ -12,16 +12,17 @@ import userIcon from '@/assets/img/header/userMenu/user.svg'
 import hamburger from '@/assets/img/header/hamburger.svg'
 import {getCart} from "@/store/cartSlice.js";
 import HeaderSearch from "@/components/layout/Header/HeaderSearch/HeaderSearch.jsx";
+import UserDropdown from "@/components/layout/Header/UserDropdown/UserDropdown.jsx";
 
 const Header = () => {
 
   const isAuthenticated = useSelector(getIsAuthenticated)
   const userLoadingStatus = useSelector(getUserStatus)
-  const user = useSelector(getUserData)
-  
+ 
   const favs = useSelector(getFavs)
   const cart = useSelector(getCart)
 
+  //const user = useSelector(getUserData)
   // console.log('user из хедера', user)
 
   return (
@@ -78,7 +79,7 @@ const Header = () => {
             <li className={s.userMenuItem}>
 
               {
-                isAuthenticated && userLoadingStatus !== 'loading' && <button className={s.userDropdownBtn}>М</button>
+                isAuthenticated && userLoadingStatus !== 'loading' && <UserDropdown />
               }
 
               {

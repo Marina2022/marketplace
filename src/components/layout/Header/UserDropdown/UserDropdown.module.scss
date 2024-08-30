@@ -1,0 +1,101 @@
+.userDropdownBtn {
+  background: #3E5067;
+  background: white;
+  border: #658092 2px solid;
+  color: #658092;
+  width: 48px;
+  height: 48px;
+  width: 30px;
+  height: 30px;
+  
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  margin-left: 8px;
+  font-size: 32px;
+  font-size: 25px;
+}
+
+
+.userDropdownWrapper {
+  position: relative;
+  background: white;
+  z-index: 1;
+}
+
+.dropdown {
+  position: absolute;
+  border: #F0F1F1 solid 1px;
+  padding: 6px;
+  background: white;
+  border-radius: 10px;
+  right: 0;
+  top: 66px;
+  min-width: 324px;
+}
+
+.activeProfile {
+  
+}
+
+.user {
+  min-height: 72px;
+  background: #F0F1F1;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px;
+}
+
+.letterInDropdown {
+  width: 48px;
+  height: 48px;
+  color: white;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #3E5067;
+  border-radius: 50%;
+}
+
+.letterInDropdownInactive {  
+  background: #658092;
+}
+
+.userName {
+  color: #131D2A;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.dropdownMenu {
+  margin-top: 15px;
+  padding-left: 76px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;  
+}
+
+.companiesLink {
+  padding-left: 76px;
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #131D2A!important;
+  display: block;
+}
+
+.logoutBtn {
+  padding-left: 76px;
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #131D2A;
+}

@@ -74,8 +74,6 @@ const CurrentCart = () => {
     </div>
   }
 
-  console.log({userLoadingStatus})
-
   return (
     !(cart?.cartItems?.length <= 0 && !debouncedSearchTerm && favsLoadingStatus !=='loading' && userLoadingStatus !== 'loading'   ) && <div>
       <div className={s.headerWrapper}>

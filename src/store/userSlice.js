@@ -3,18 +3,18 @@ import axios from "@/api/axiosInstance.js";
 import {loadCart} from "@/store/cartSlice.js";
 import {loadFavs} from "@/store/favSlice.js";
 
-export const login = createAsyncThunk('cart/login', async (_, thunkAPI) => {
-  // const resp = Запрос авторизации
-  let resp = {}
-  resp.status = 200
-
-  if (resp.status === 200) {
-    thunkAPI.dispatch(setIsAuthenticated(true))
-    thunkAPI.dispatch(loadCart())
-    thunkAPI.dispatch(loadFavs())
-  }
-  return true
-})
+// export const login = createAsyncThunk('cart/login', async (_, thunkAPI) => {
+//   // const resp = Запрос авторизации
+//   let resp = {}
+//   resp.status = 200
+//
+//   if (resp.status === 200) {
+//     thunkAPI.dispatch(setIsAuthenticated(true))
+//     thunkAPI.dispatch(loadCart())
+//     thunkAPI.dispatch(loadFavs())
+//   }
+//   return true
+// })
 
 export const getUser = createAsyncThunk('cart/getUser', async (_, thunkAPI) => {
     
@@ -26,32 +26,29 @@ export const getUser = createAsyncThunk('cart/getUser', async (_, thunkAPI) => {
       thunkAPI.dispatch(getUserProfiles())
       thunkAPI.dispatch(loadCart())
       thunkAPI.dispatch(loadFavs())
+           
       return resp.data
     }  
   } catch(err) {
-    // console.log('err из кэча юзера', err)
-    
-    // if (err.message === 'Request failed with status code 401') {
-    //   console.log('зашли в catch 401')
-    //   thunkAPI.dispatch(logout())
-    //   throw new Error("Unauthorized")
-    // } else {
-    //   thunkAPI.rejectWithValue(err.response.data)
-    // }
-
     thunkAPI.rejectWithValue(err.response.data)
   }
-  
-  
-  return
-  
+  return 
 })
 
 export const getUserProfiles = createAsyncThunk('cart/getUserProfiles', async (_, thunkAPI) => {
 
   let resp = await axios('acc/profiles', )
+
+  
   
   if (resp.status === 200) {
+
+    let activeProfile = localStorage.getItem("activeProfile")
+    if (activeProfile) {
+      thunkAPI.dispatch(setActiveProfileId(activeProfile))
+    } else {      
+      thunkAPI.dispatch(setActiveProfileId(resp.data[0].profileId))
+    }
     return resp.data
   }
   
@@ -60,8 +57,7 @@ export const getUserProfiles = createAsyncThunk('cart/getUserProfiles', async (_
 })
 
 
-export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
-  console.log('Случился logout')
+export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {  
   thunkAPI.dispatch(setUser(null))
   thunkAPI.dispatch(setUserProfiles(null))  
   thunkAPI.dispatch(setIsAuthenticated(false))
@@ -79,10 +75,12 @@ const initialState = {
   isLoading: false,
   isAuthenticated: true,
   token: null,
-  userProfiles: null,
-  loginStatus: 'loading',
+  userProfiles: null,  
   logoutStatus: 'loading',
-  getUserStatus: 'loading'
+  getUserStatus: 'loading',
+  activeProfileId: null,
+
+  // loginStatus: 'loading',
 }
 
 const userSlice = createSlice({
@@ -101,22 +99,25 @@ const userSlice = createSlice({
     setUserProfiles: (state, action) => {
       state.userProfiles = action.payload
     },
+    setActiveProfileId: (state, action) => {
+      state.activeProfileId = action.payload
+    },
   },
   extraReducers: builder => builder
 
-    // login - todo - нужна ли
-    
-    .addCase(login.pending, (state) => {
-      state.loginStatus = 'loading'
-    })
-    .addCase(login.fulfilled, (state, action) => {
-      state.loginStatus = 'success'
-      // state.isAuthenticated = true
-    })
-    .addCase(login.rejected, (state, action) => {
-      state.loginStatus = 'error'
-      console.log('Не удалось залогиниться', action.error.message)
-    })
+    // // login - todo - нужно ли
+    //
+    // .addCase(login.pending, (state) => {
+    //   state.loginStatus = 'loading'
+    // })
+    // .addCase(login.fulfilled, (state, action) => {
+    //   state.loginStatus = 'success'
+    //   // state.isAuthenticated = true
+    // })
+    // .addCase(login.rejected, (state, action) => {
+    //   state.loginStatus = 'error'
+    //   console.log('Не удалось залогиниться', action.error.message)
+    // })
 
     
     .addCase(logout.pending, (state) => {
@@ -129,7 +130,6 @@ const userSlice = createSlice({
       state.logoutStatus = 'error'
       console.log('Не удалось разлогиниться', action.error.message)
     })
-
 
     .addCase(getUser.pending, (state) => {
       state.getUserStatus = 'loading'
@@ -148,23 +148,26 @@ const userSlice = createSlice({
 
 
     .addCase(getUserProfiles.pending, (state) => {
-      state.getUserProfilesStatus = 'loading'
+      state.userProfilesLoadingStatus = 'loading'
     })
     .addCase(getUserProfiles.fulfilled, (state, action) => {
-      state.getUserProfilesStatus = 'success'
+      state.userProfilesLoadingStatus = 'success'
       state.isAuthenticated = true
       if (action.payload) {
         state.userProfiles = action.payload
       }
     })
     .addCase(getUserProfiles.rejected, (state, action) => {
-      state.getUserProfilesStatus = 'error'
+      state.userProfilesLoadingStatus = 'error'
       console.log('Не удалось получить данные пользователя', action.error.message)
     })
   
 })
-export const {setUser, setToken, setIsAuthenticated, setUserProfiles} = userSlice.actions
+export const {setUser, setToken, setIsAuthenticated, setUserProfiles, setActiveProfileId} = userSlice.actions
 export const getIsAuthenticated = state => state.user.isAuthenticated
 export const getUserData = state => state.user.user
 export const getUserStatus = state => state.user.getUserStatus
+export const getUserProfilesLoadingStatus = state => state.user.userProfilesLoadingStatus
+export const getUserProfilesData = state => state.user.userProfiles
+export const getActiveProfileId = state => state.user.activeProfileId
 export default userSlice.reducer
