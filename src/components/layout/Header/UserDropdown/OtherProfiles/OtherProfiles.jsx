@@ -3,6 +3,8 @@ import {useState} from "react";
 import showProfilesBtn from '@/assets/img/header/showProfilesBtn.svg'
 import HiddenBlockProfiles
   from "@/components/layout/Header/UserDropdown/OtherProfiles/HiddenBlockProfiles/HiddenBlockProfiles.jsx";
+import {useDispatch} from "react-redux";
+import {getUserProfiles} from "@/store/userSlice.js";
 
 const OtherProfiles = ({activeProfile, userProfiles}) => {
 
@@ -44,8 +46,8 @@ const OtherProfiles = ({activeProfile, userProfiles}) => {
     },
   ]
 
-  // const improvedRestProfiles = restProfiles.map(item => {
-  const improvedRestProfiles = testRestProfiles.map(item => {
+  const improvedRestProfiles = restProfiles.map(item => {
+  //const improvedRestProfiles = testRestProfiles.map(item => {
 
     let letter;
     if (item.type === 'company') {
@@ -59,6 +61,12 @@ const OtherProfiles = ({activeProfile, userProfiles}) => {
 
   console.log('restProfiles', restProfiles)
 
+  const dispatch = useDispatch()
+  const profileItemClickHandler = (profileId)=>{
+    localStorage.setItem('activeProfile', profileId)
+    dispatch(getUserProfiles())
+  }
+  
   return (
     <div className={s.wrapper}>
 
@@ -76,7 +84,7 @@ const OtherProfiles = ({activeProfile, userProfiles}) => {
             <ul>
               {
                 improvedRestProfiles.map((profile, i)=>(
-                  <div className={s.profileItem} key={i}>
+                  <div onClick={()=>profileItemClickHandler(profile.profileId)} className={s.profileItem} key={i}>
                     <div className={s.letterOtherProfiles}>{profile.letter}</div>
                     <div>
                       <div className={s.name}>{profile.profileName}</div>
