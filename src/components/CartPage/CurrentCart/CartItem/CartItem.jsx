@@ -4,7 +4,7 @@ import heartBtn from '@/assets/img/cart/cart-card/heart.svg'
 import heartActiveBtn from '@/assets/img/cart/cart-card/heart-active.svg'
 import trashBtn from '@/assets/img/cart/cart-card/trash.svg'
 import {useDispatch, useSelector} from "react-redux";
-import {addToCart, deleteCartItem, sendCheckbox} from "@/store/cartSlice.js";
+import {addToCart, cartSlice, deleteCartItem, sendCheckbox} from "@/store/cartSlice.js";
 import {useEffect, useState} from "react";
 import {useDebounce} from '@uidotdev/usehooks';
 import {Link} from "react-router-dom";
@@ -12,7 +12,7 @@ import {getFavs, updateFavs} from "@/store/favSlice.js";
 import {getIsAuthenticated} from "@/store/userSlice.js";
 
 const CartItem = ({cartItem}) => {
-
+   
   const [currentQuantity, setCurrentQuantity] = useState(cartItem.quantity)
   const [inputValue, setInputValue] = useState(cartItem.quantity)
   const debouncedQuantity = useDebounce(currentQuantity, 400);
@@ -79,7 +79,6 @@ const CartItem = ({cartItem}) => {
   const isAuthenticated = useSelector(getIsAuthenticated)
   const favs = useSelector(getFavs)
 
-
   const [isFavourite, setIsFavourite] = useState(false)
   
   useEffect(()=>{
@@ -91,7 +90,7 @@ const CartItem = ({cartItem}) => {
       }
     }
     
-  }, [isAuthenticated, favs])
+  }, [isAuthenticated, favs, cartItem])
   
   
   const onFavClick = () => {
@@ -99,8 +98,7 @@ const CartItem = ({cartItem}) => {
       dispatch(updateFavs({updateType: 'remove', productVariantId: cartItem.productVariantId, product: cartItem}))
     } else {
       dispatch(updateFavs({updateType: 'add', productVariantId: cartItem.productVariantId, product: cartItem}))
-    }
-    setIsFavourite(prev => !prev)
+    }    
   }
 
   let linkURL

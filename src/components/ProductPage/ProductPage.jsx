@@ -119,10 +119,8 @@ const ProductPage = () => {
         setIsLoading(false)
       }
     }
-
     getData()
-  }, [searchParams]);
-
+  }, [searchParams, product]);
 
   const handleOptionClick = ({optionName, optionValue, optionLabel}) => {
     const currentOptionValues = product.options.find(item => item.sku === sku).values
@@ -145,12 +143,11 @@ const ProductPage = () => {
   const isAuthenticated = useSelector(getIsAuthenticated)
   const dispatch = useDispatch()
   
-
-
   const [isFavourite, setIsFavourite] = useState(false)
 
   useEffect(()=>{
-    
+
+        
     if (!product) return
     
     if (isAuthenticated ) {
@@ -181,7 +178,7 @@ const ProductPage = () => {
     } else {
       dispatch(updateFavs({updateType: 'add', productVariantId: product.productVariantId, product, sku}))
     }
-    setIsFavourite(prev => !prev)
+    // setIsFavourite(prev => !prev)
   }
 
   if (!product)

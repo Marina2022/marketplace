@@ -22,7 +22,7 @@ const Header = () => {
   const favs = useSelector(getFavs)
   const cart = useSelector(getCart)
 
-  console.log('user из хедера', user)
+  // console.log('user из хедера', user)
 
   return (
     <header className={s.header}>
