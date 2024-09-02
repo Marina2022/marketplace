@@ -86,12 +86,10 @@ const Header = () => {
               }
 
               {
-                !isAuthenticated && userLoadingStatus !== 'loading' && <button className={`${s.menuItemLink} `}>
-                  <div className={s.menuItemImgWrapper}>
-                    <img className={s.menuItemImg} src={userIcon} alt="login"/>
-                  </div>                  
-                  <Login/>
-                </button>
+                !isAuthenticated && userLoadingStatus !== 'loading' && <Login/>
+                                    
+                  
+                
               }
             </li>
           </ul>

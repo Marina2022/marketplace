@@ -1,0 +1,56 @@
+.logo {
+  margin: 0 auto 70px;
+}
+
+.title {
+  color: #131D2A;
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 2px;
+  line-height: 140%;
+}
+
+.text {
+  color: #658092;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  line-height: 140%;
+}
+
+.input {
+  background: #F9FAFB;
+  width: 100%;
+  border: 1px solid #F0F1F1;
+  border-radius: 5px;
+  height: 48px;
+  padding: 13px 17px 14px;
+  margin-bottom: 12px;
+
+  &::placeholder {
+    color: #658092;
+    font-size: 15px;
+  }
+
+  &:focus {
+    outline: #d9dfe2 1px solid;    
+  }
+}
+
+.btn {
+  font-weight: 500;
+  font-size: 16px;
+  height: 40px;
+  width: 150px!important;
+  margin: 0 auto;
+}
+
+.wrapper {
+  
+}
+
+.backBtn {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+}

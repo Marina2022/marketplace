@@ -6,12 +6,16 @@
 .popup {
   background: white;
   width: 426px;
+  max-width: 90%;
   height: 626px;
+  max-height:90vh;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  
+  overflow: auto;  
+  border: 1px solid #F0F1F1;
+  padding: 51px 57px;
 }
 
 .underlay {
