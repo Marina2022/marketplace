@@ -54,9 +54,7 @@ const CurrentCart = () => {
   
   const saveCartHandler = () => {
     dispatch(saveCart({cartId: cart.cartId}))
-  }
-
-  
+  } 
 
   let productsTotal
   if (cart?.cartItems) {

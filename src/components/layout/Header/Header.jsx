@@ -13,7 +13,6 @@ import hamburger from '@/assets/img/header/hamburger.svg'
 import {getCart} from "@/store/cartSlice.js";
 import HeaderSearch from "@/components/layout/Header/HeaderSearch/HeaderSearch.jsx";
 import UserDropdown from "@/components/layout/Header/UserDropdown/UserDropdown.jsx";
-import {useState} from "react";
 
 const Header = () => {
 
@@ -25,10 +24,15 @@ const Header = () => {
 
   //const user = useSelector(getUserData)
   // console.log('user из хедера', user)
-  
+
+  let productsTotal
+  if (cart?.cartItems) {
+    productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
+  }
   
   return (
     <header className={s.header}>
+      <div className={s.topHeaderPart}></div>
       <div className='container'>
         <div className={s.wrapper}>
           <button className={s.mobileMenuBtn}><img src={hamburger} alt="menu"/></button>
@@ -66,7 +70,9 @@ const Header = () => {
                 <div className={s.menuItemImgWrapper}>
                   <img className={s.menuItemImg} src={cartIcon} alt="cart"/>
                   {
-                    cart?.cartItems?.length > 0 && <div className={s.menuItemBadge}> {cart?.cartItems?.length} </div>
+                    cart?.cartItems?.length > 0 && <div className={s.menuItemBadge}>
+                      {productsTotal}                                            
+                    </div>
                   }
                 </div>
                 <div className={s.menuItemLabel}>Корзина</div>

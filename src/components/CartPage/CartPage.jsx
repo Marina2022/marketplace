@@ -54,8 +54,7 @@ const CartPage = () => {
           && (currentTab === "currentCart" && cartStatus !== 'loading' || currentTab === "savedCarts" && savedCartStatus !== 'loading')
           && <ViewedProducts fullSize={true}/>
         }
-      </div>
-      
+      </div>      
     </div>
   );
 };

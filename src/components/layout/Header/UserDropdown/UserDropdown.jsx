@@ -11,7 +11,6 @@ const UserDropdown = () => {
   const activeProfileId = useSelector(getActiveProfileId);
 
   const location = useLocation();
-
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
@@ -51,8 +50,13 @@ const UserDropdown = () => {
     activeProfile = userProfiles.find(item => item.profileId === activeProfileId);
   }
 
-  const letter = activeProfile?.profileName.slice(0, 1);
-
+  let letter
+    if (activeProfile?.type === 'company') {
+      letter = 'K'
+    } else {
+      letter = activeProfile?.profileName.slice(0, 1); 
+    }
+        
   const openDropdownHandler = () => {
     setIsDropdownOpen(prev => !prev);
   };
@@ -75,10 +79,10 @@ const UserDropdown = () => {
               {userProfilesLoadingStatus === 'success' && <div className={s.userName}>{activeProfile.profileName}</div>}
             </div>
             <ul className={s.dropdownMenu}>
-              <li><Link to="/lk">Личный кабинет</Link></li>
-              <li><Link to="/orders">Заказы</Link></li>
-              <li><Link to="/favourites">Избранное</Link></li>
-              <li><Link to="/messages">Сообщения</Link></li>
+              <li><Link className={s.dropdownLink} to="/lk">Личный кабинет</Link></li>
+              <li><Link className={s.dropdownLink} to="/orders">Заказы</Link></li>
+              <li><Link className={s.dropdownLink} to="/favourites">Избранное</Link></li>
+              <li><Link className={s.dropdownLink} to="/messages">Сообщения</Link></li>
             </ul>
             <Link className={s.companiesLink} to="/lk">Мои организации</Link>
             <button className={s.logoutBtn}>Выход</button>

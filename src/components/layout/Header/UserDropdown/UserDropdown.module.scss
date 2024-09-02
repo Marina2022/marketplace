@@ -1,19 +1,18 @@
 .userDropdownBtn {
   background: white;
   border: #658092 2px solid;
-  color: #658092;  
+  color: #658092;
   width: 30px;
-  height: 30px;  
+  height: 30px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-transform: uppercase;
   margin-bottom: 10px;
-  margin-left: 8px;  
+  margin-left: 8px;
   font-size: 25px;
 }
-
 
 .userDropdownWrapper {
   position: relative;
@@ -30,10 +29,6 @@
   right: -1px;
   top: 64px;
   min-width: 324px;
-}
-
-.activeProfile {
-  
 }
 
 .user {
@@ -59,7 +54,6 @@
   border-radius: 50%;
 }
 
-
 .userName {
   color: #131D2A;
   font-weight: 600;
@@ -74,14 +68,6 @@
   gap: 8px;
   font-size: 14px;
   font-weight: 500;
-
-  a:hover {
-    color: black;
-  }
-  
-  a:active {
-    color: black;
-  }
 }
 
 .companiesLink {
@@ -89,7 +75,7 @@
   margin-top: 24px;
   font-size: 14px;
   font-weight: 500;
-  color: #131D2A!important;
+  color: #131D2A !important;
   display: block;
 }
 
@@ -100,4 +86,18 @@
   font-weight: 500;
   color: #131D2A;
   margin-bottom: 30px;
+}
+
+.dropdownLink {
+  color: #131D2A;
+  font-size: 14px;
+  font-weight: 500;
+
+  &:hover {
+    color: black;
+  }
+
+  &:active {
+    color: black;
+  }
 }

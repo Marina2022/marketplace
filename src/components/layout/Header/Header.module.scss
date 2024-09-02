@@ -66,7 +66,6 @@
   }
 }
 
-
 .catalogBtn {
   width: 130px !important;
   height: 40px !important;
@@ -113,11 +112,6 @@
   }
 }
 
-.userMenuItem {
-  
-  
-}
-
 .menuItemImgWrapper {
   display: inline-flex;
   justify-content: center;
@@ -144,8 +138,7 @@
 .menuItemLabel {
   color: #658092;
   font-size: 12px;
-  transition: color .3s ease-in-out;
-   
+  transition: color .3s ease-in-out;  
 }
 
 .menuItemLink {
@@ -188,3 +181,9 @@
   }
 }
 
+
+.topHeaderPart {
+  background: #3E5067;
+  height: 36px;
+  width: 100%;
+}
