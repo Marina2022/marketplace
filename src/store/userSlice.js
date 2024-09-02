@@ -50,9 +50,7 @@ export const getUserProfiles = createAsyncThunk('cart/getUserProfiles', async (_
     }
     return resp.data
   }
-
   return
-
 })
 
 

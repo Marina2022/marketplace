@@ -13,6 +13,7 @@ import hamburger from '@/assets/img/header/hamburger.svg'
 import {getCart} from "@/store/cartSlice.js";
 import HeaderSearch from "@/components/layout/Header/HeaderSearch/HeaderSearch.jsx";
 import UserDropdown from "@/components/layout/Header/UserDropdown/UserDropdown.jsx";
+import Login from "@/components/layout/Header/Login/Login.jsx";
 
 const Header = () => {
 
@@ -29,7 +30,7 @@ const Header = () => {
   if (cart?.cartItems) {
     productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
   }
-  
+
   return (
     <header className={s.header}>
       <div className={s.topHeaderPart}></div>
@@ -71,7 +72,7 @@ const Header = () => {
                   <img className={s.menuItemImg} src={cartIcon} alt="cart"/>
                   {
                     cart?.cartItems?.length > 0 && <div className={s.menuItemBadge}>
-                      {productsTotal}                                            
+                      {productsTotal}
                     </div>
                   }
                 </div>
@@ -81,15 +82,15 @@ const Header = () => {
             <li className={s.userMenuItem}>
 
               {
-                isAuthenticated && userLoadingStatus !== 'loading' && <UserDropdown />
+                isAuthenticated && userLoadingStatus !== 'loading' && <UserDropdown/>
               }
 
               {
                 !isAuthenticated && userLoadingStatus !== 'loading' && <button className={`${s.menuItemLink} `}>
                   <div className={s.menuItemImgWrapper}>
                     <img className={s.menuItemImg} src={userIcon} alt="login"/>
-                  </div>
-                  <div className={s.menuItemLabel}>Войти</div>
+                  </div>                  
+                  <Login/>
                 </button>
               }
             </li>

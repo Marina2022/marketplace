@@ -8,7 +8,6 @@ import ProductHeader from "@/components/ProductPage/ProductHeader/ProductHeader.
 import Details from "@/components/ProductPage/Details/Details.jsx";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import RightSidebar from "@/components/ProductPage/RightSidebar/RightSidebar.jsx";
-import MobileBottomMenu from "@/components/layout/MobileBottomMenu/MobileBottomMenu.jsx";
 import DetailedInfo from "@/components/ProductPage/DetailedInfo/DetailedInfo.jsx";
 import ViewedProducts from "@/components/ViewedProducts/ViewedProducts.jsx";
 import {getFavs, updateFavs} from "@/store/favSlice.js";
@@ -69,6 +68,9 @@ const ProductPage = () => {
   const [mobileReviewsTabIsOpen, setMobileReviewsTabIsOpen] = useState(false)
   const [mobileQuestionsTabIsOpen, setMobileQuestionsTabIsOpen] = useState(false)
 
+  
+  const [fav, setFav] = useState(false)
+  
   useEffect(() => {
     const getData = async () => {
 
@@ -116,8 +118,8 @@ const ProductPage = () => {
         setIsLoading(false)
       }
     }
-    getData()
-  }, [searchParams, product]);
+    getData()  
+  }, [searchParams, fav]);
 
   const handleOptionClick = ({optionName, optionValue, optionLabel}) => {
     const currentOptionValues = product.options.find(item => item.sku === sku).values
@@ -169,12 +171,14 @@ const ProductPage = () => {
   }, [product])
 
   const onFavClick = (e) => {
-    e.stopPropagation()
+    e.stopPropagation()    
     if (isFavourite) {
-      dispatch(updateFavs({updateType: 'remove', productVariantId: product.productVariantId, product, sku}))
+      dispatch(updateFavs({updateType: 'remove', productVariantId: product.productVariantId, product, sku}))      
     } else {
       dispatch(updateFavs({updateType: 'add', productVariantId: product.productVariantId, product, sku}))
     }
+    
+    setFav(prev=>!prev)
     // setIsFavourite(prev => !prev)
   }
 
