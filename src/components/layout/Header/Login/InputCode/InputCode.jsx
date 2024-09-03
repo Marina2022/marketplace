@@ -2,31 +2,104 @@ import s from './InputCode.module.scss';
 import backBtn from "@/assets/img/header/backArrow.svg";
 import logo from "@/assets/img/header/logo.svg";
 import Button from "@/components/ui/Button/Button.jsx";
-import {useState} from "react";
-import {formatPhone} from "@/utils/authDialog.js";
+import {useEffect, useRef, useState} from "react";
+import {formatPhone, formatTime} from "@/utils/authDialog.js";
 import axios from "@/api/axiosInstance.js";
+import {useDispatch} from "react-redux";
+import {getUser, setToken} from "@/store/userSlice.js";
 
+const INITIAL_TIME = 120
 
-const InputCode = ({setStep, phoneInputValue}) => {
+const InputCode = ({setStep, phoneInputValue, setIsPopupOpen}) => {
 
   const [value, setValue] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isInvalidOtp, setIsInvalidOtp] = useState(false)
+  const [timerTicking, setTimerTicking] = useState(true)
+  const [timerValue, setTimerValue] = useState(INITIAL_TIME)
+  const intervalIdRef = useRef(null)
+
+  useEffect(() => {
+    setTimerTicking(true)
+
+    intervalIdRef.current = setInterval(() => {
+      setTimerValue(prev => prev - 1)
+    }, 1000)
+
+    return () => clearInterval(intervalIdRef.current)
+  }, []);
+ 
+
+  useEffect(() => {
+
+    if (timerValue === 0) {
+      clearInterval(intervalIdRef.current)
+      setTimerTicking(false)
+    }
+
+  }, [timerValue]);
+
+  useEffect(() => {
+    if (value.length === 4) {
+      sendCode()
+    }
+  }, [value]);
 
   const handleChange = (e) => {
+
     let inputValue = e.target.value.replace(/\D/g, '');
-    if (inputValue.length > 4) return
-    setValue(inputValue)
+
+    if (value.length > 4) {
+      return
+    } else {
+      setValue(inputValue)
+    }
   }
-  const submitHandler = async() => {
-    console.log('code is', +value, ', phone is', phoneInputValue)
-    
+
+  const repeatCodeHandler = async ()=>{
     try {
+      await axios.post('auth/generate', {phoneNumber: value})
+      setTimerValue(INITIAL_TIME)
+      setTimerTicking(true)
+      intervalIdRef.current = setInterval(() => {
+        setTimerValue(prev => prev - 1)
+      }, 1000)
+
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  const focusHandler = () => {
+    setIsInvalidOtp(false)
+  }
+
+  const dispatch = useDispatch()
+  const sendCode = async () => {
+
+    try {
+      setIsSubmitting(true)
       const resp = await axios.post('auth/validate', {phoneNumber: phoneInputValue, code: value})
 
-      console.log(resp.data)
-      
-    } catch(err) {
-      console.log(err)
-    }   
+      localStorage.setItem('token', resp.data.token)
+      dispatch(setToken(resp.data.token))      
+      dispatch(getUser())
+      setIsPopupOpen(false)
+
+      // throw new Error('Invalid otp') // можно оставить для тестов (см. ниже)
+
+    } catch (err) {
+
+      //if (err.message == 'Invalid otp') { // - тестирование ошибки, кот. вручную создала выше throw new Error('Invalid otp')
+
+      if (err.response.data.description === 'Invalid otp') {
+        setIsInvalidOtp(true)
+        setValue("")
+      } else {
+        console.log(err.response.data)
+      }
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -37,15 +110,26 @@ const InputCode = ({setStep, phoneInputValue}) => {
       <h3 className={s.text}>Отправили код подтверждения на номер <br/> +7 {formatPhone(phoneInputValue)}</h3>
 
       <input
+        disabled={isSubmitting}
+        onFocus={focusHandler}
         type="password"
         value={value}
         onChange={handleChange}
         placeholder='Код'
         className={s.input}
       />
-      
 
-      <Button onClick={submitHandler} className={s.btn}>Войти</Button>
+      {
+        isInvalidOtp && <div className={s.invalidCode}>Неверный код, попробуйте еще раз</div>
+      }
+
+      <div>
+        {
+          timerTicking
+            ? <div className={s.timerString}>Запросить новый код через: {formatTime(timerValue)}</div>
+            : <Button onClick={repeatCodeHandler} className={s.btn}>Отправить код повторно</Button>
+        }
+      </div>
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import s from './UserDropdown.module.scss';
-import { useSelector } from "react-redux";
-import { getActiveProfileId, getUserProfilesData, getUserProfilesLoadingStatus } from "@/store/userSlice.js";
+import {useDispatch, useSelector} from "react-redux";
+import {getActiveProfileId, getUserProfilesData, getUserProfilesLoadingStatus, logout} from "@/store/userSlice.js";
 import OtherProfiles from "@/components/layout/Header/UserDropdown/OtherProfiles/OtherProfiles.jsx";
-import { Link, useLocation } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import {Link, useLocation} from "react-router-dom";
+import {useEffect, useState, useRef} from "react";
 
 const UserDropdown = () => {
   const userProfilesLoadingStatus = useSelector(getUserProfilesLoadingStatus);
@@ -20,11 +20,11 @@ const UserDropdown = () => {
   }, [location]);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {      
+    const handleClickOutside = (event) => {
       if (buttonRef.current && buttonRef.current.contains(event.target)) {
         return;
       }
-      
+
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
       }
@@ -51,15 +51,20 @@ const UserDropdown = () => {
   }
 
   let letter
-    if (activeProfile?.type === 'company') {
-      letter = 'K'
-    } else {
-      letter = activeProfile?.profileName.slice(0, 1); 
-    }
-        
+  if (activeProfile?.type === 'company') {
+    letter = 'K'
+  } else {
+    letter = activeProfile?.profileName?.slice(0, 1);
+  }
+
   const openDropdownHandler = () => {
     setIsDropdownOpen(prev => !prev);
   };
+    
+  const dispatch = useDispatch()
+  const logoutHandler = () => {
+    dispatch(logout())
+  }
 
   return (
     <div className={s.userDropdownWrapper}>
@@ -76,7 +81,8 @@ const UserDropdown = () => {
           <div className={s.activeProfile}>
             <div className={s.user}>
               {userProfilesLoadingStatus === 'success' && <div className={s.letterInDropdown}>{letter}</div>}
-              {userProfilesLoadingStatus === 'success' && <div className={s.userName}>{activeProfile.profileName}</div>}
+              {userProfilesLoadingStatus === 'success' &&
+                <div className={s.userName}>{activeProfile?.profileName}</div>}
             </div>
             <ul className={s.dropdownMenu}>
               <li><Link className={s.dropdownLink} to="/lk">Личный кабинет</Link></li>
@@ -85,10 +91,11 @@ const UserDropdown = () => {
               <li><Link className={s.dropdownLink} to="/messages">Сообщения</Link></li>
             </ul>
             <Link className={s.companiesLink} to="/lk">Мои организации</Link>
-            <button className={s.logoutBtn}>Выход</button>
+            <button onClick={logoutHandler} className={s.logoutBtn}>Выход</button>
           </div>
           {userProfilesLoadingStatus === 'success' && userProfiles.length > 1 && (
-            <OtherProfiles activeProfile={activeProfile} userProfiles={userProfiles} setIsDropdownOpen={setIsDropdownOpen} />
+            <OtherProfiles activeProfile={activeProfile} userProfiles={userProfiles}
+                           setIsDropdownOpen={setIsDropdownOpen}/>
           )}
         </div>
       )}

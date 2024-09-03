@@ -8,8 +8,8 @@ import InputMask from 'react-input-mask';
 
 const InputPhone = ({setIsPopupOpen, setStep, value, setValue}) => {
   // const [value, setValue] = useState('');
-  
-  
+
+
   const [placeholder, setPlaceholder] = useState('Телефон');
   const [isFocused, setIsFocused] = useState(false)
   const [isInvalid, setIsInvalid] = useState(false)
@@ -33,19 +33,19 @@ const InputPhone = ({setIsPopupOpen, setStep, value, setValue}) => {
     if (value.length === 10 && isInvalid) setIsInvalid(false)
   };
 
-  const submitHandler = async() => {
+  const submitHandler = async (e) => {
+    e.preventDefault()
     if (value.length < 10) {
       setIsInvalid(true)
       return
     } else {
-      
+
       try {
-        await axios.post('auth/generate', {phoneNumber: value})        
+        await axios.post('auth/generate', {phoneNumber: value})
         setStep(2)
-      } catch(err) {
+      } catch (err) {
         console.log(err)
       }
-      
     }
   }
 
@@ -57,33 +57,36 @@ const InputPhone = ({setIsPopupOpen, setStep, value, setValue}) => {
       <h3 className={s.text}>Введите номер телефона. Мы отправим код
         в СМС</h3>
 
-      <div className={s.inputWrapper}>
-        {
-          (isFocused || value !== '') && <div className={s.seven}>+ 7 </div>
-        }
+      <form>
 
-        <InputMask
-          value={value}
-          onChange={handleChange}
-          mask="999 999 99-99"
-          alwaysShowMask={false}
-          maskChar={null}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-        >
-          {(inputProps) => <input
-            placeholder={placeholder}
-            className={
-              `${s.input} 
+        <div className={s.inputWrapper}>
+          {
+            (isFocused || value !== '') && <div className={s.seven}>+ 7 </div>
+          }
+
+          <InputMask
+            value={value}
+            onChange={handleChange}
+            mask="999 999 99-99"
+            alwaysShowMask={false}
+            maskChar={null}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+          >
+            {(inputProps) => <input
+              placeholder={placeholder}
+              className={
+                `${s.input} 
           ${(isFocused || value !== '') ? '' : s.unfocused}
           ${isInvalid ? s.redBorder : 's.unfocused'}
           `}
-            {...inputProps}
-            type="text"/>}
-        </InputMask>
-      </div>
+              {...inputProps}
+              type="text"/>}
+          </InputMask>
+        </div>
 
-      <Button onClick={submitHandler} className={s.btn}>Войти</Button>
+        <Button onClick={submitHandler} className={s.btn}>Войти</Button>
+      </form>
     </div>
   );
 };

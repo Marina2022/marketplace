@@ -7,10 +7,8 @@ import InputCode from "@/components/layout/Header/Login/InputCode/InputCode.jsx"
 
 const Login = () => {
 
-  const [isPopupOpen, setIsPopupOpen] = useState(false)
-  
+  const [isPopupOpen, setIsPopupOpen] = useState(false)  
   const [step, setStep] = useState(1)  // 1,2
-
   const [phoneInputValue, setPhoneInputValue] = useState('');
   
   return (
@@ -23,19 +21,14 @@ const Login = () => {
       </button>
       {
         isPopupOpen && <Popup setIsPopupOpen={setIsPopupOpen}>
-
           {
             step === 1 && <InputPhone value={phoneInputValue} setValue={setPhoneInputValue} setIsPopupOpen={setIsPopupOpen} setStep={setStep}  />
           }
-
-
           {
-            step === 2 && <InputCode setStep={setStep} phoneInputValue={phoneInputValue}  />
+            step === 2 && <InputCode setStep={setStep} phoneInputValue={phoneInputValue} setIsPopupOpen={setIsPopupOpen} />
           }
-
         </Popup>
       }
-
     </div>
   );
 };
