@@ -70,7 +70,7 @@ export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
 const initialState = {
   user: null,
   isLoading: false,
-  isAuthenticated: true,
+  isAuthenticated: false,
   token: null,
   userProfiles: null,
   logoutStatus: 'loading',
