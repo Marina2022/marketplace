@@ -1,3 +1,4 @@
+import axios from "@/api/axiosInstance.js";
 import s from './InputPhone.module.scss';
 import logo from "@/assets/img/header/logo.svg"
 import backBtn from "@/assets/img/header/backArrow.svg"
@@ -5,8 +6,10 @@ import Button from "@/components/ui/Button/Button.jsx";
 import {useState} from "react";
 import InputMask from 'react-input-mask';
 
-const InputPhone = ({setIsPopupOpen}) => {
-  const [value, setValue] = useState('');
+const InputPhone = ({setIsPopupOpen, setStep, value, setValue}) => {
+  // const [value, setValue] = useState('');
+  
+  
   const [placeholder, setPlaceholder] = useState('Телефон');
   const [isFocused, setIsFocused] = useState(false)
   const [isInvalid, setIsInvalid] = useState(false)
@@ -30,12 +33,19 @@ const InputPhone = ({setIsPopupOpen}) => {
     if (value.length === 10 && isInvalid) setIsInvalid(false)
   };
 
-  const submitHandler = () => {
+  const submitHandler = async() => {
     if (value.length < 10) {
       setIsInvalid(true)
       return
     } else {
-      console.log('all ok')
+      
+      try {
+        await axios.post('auth/generate', {phoneNumber: value})        
+        setStep(2)
+      } catch(err) {
+        console.log(err)
+      }
+      
     }
   }
 
