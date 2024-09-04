@@ -1,16 +1,13 @@
-import {Link, NavLink, Outlet} from "react-router-dom";
+import {NavLink, Outlet} from "react-router-dom";
 import s from './Lk.module.scss'
 
 const Lk = () => {
-
 
   return (
 
     <div className='container'>
       <div className={s.wrapper}>
-
         <ul className={s.menu}>
-
           <li className={s.menuItem}>
             <NavLink className={({isActive}) => isActive ? s.menuItemLinkActive : s.menuItemLink}
                      to={'main'}>
@@ -25,7 +22,6 @@ const Lk = () => {
               <span>Личный кабинет</span>
             </NavLink>
           </li>
-
           <li className={s.menuItem}>
             <NavLink className={({isActive}) => isActive ? s.menuItemLinkActive : s.menuItemLink}
                      to={'shop'}>
@@ -88,10 +84,8 @@ const Lk = () => {
               <span>Чат</span>
             </NavLink>
           </li>
-        </ul>
-        
+        </ul>        
         <Outlet/>
-
       </div>
     </div>
 

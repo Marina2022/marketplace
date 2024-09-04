@@ -8,6 +8,7 @@ import userSlice, {getUser, setToken} from "@/store/userSlice.js";
 import catalogSlice from "@/store/catalogSlice.js";
 import reviewsSlice, {loadReviewLikes} from "@/store/reviewsSlice.js";
 import favSlice from "@/store/favSlice.js";
+import lkSlice from "@/store/lkSlice.js";
 
 export const store = configureStore({
       reducer: {        
@@ -15,7 +16,8 @@ export const store = configureStore({
         user: userSlice,
         catalog: catalogSlice,
         reviews: reviewsSlice,
-        favs: favSlice
+        favs: favSlice,
+        lk: lkSlice
       }
     }
 )

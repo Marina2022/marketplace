@@ -2,8 +2,9 @@ import s from './UserDropdown.module.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {getActiveProfileId, getUserProfilesData, getUserProfilesLoadingStatus, logout} from "@/store/userSlice.js";
 import OtherProfiles from "@/components/layout/Header/UserDropdown/OtherProfiles/OtherProfiles.jsx";
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
+import {setActiveTabInMain} from "@/store/lkSlice.js";
 
 const UserDropdown = () => {
   const userProfilesLoadingStatus = useSelector(getUserProfilesLoadingStatus);
@@ -40,6 +41,8 @@ const UserDropdown = () => {
   const logoutHandler = () => {
     dispatch(logout())
   }
+  
+  const navigate = useNavigate()
 
   return (
     <div className={s.userDropdownWrapper}
@@ -69,7 +72,19 @@ const UserDropdown = () => {
                 <li><Link className={s.dropdownLink} to="/favourites">Избранное</Link></li>
                 <li><Link className={s.dropdownLink} to="/messages">Сообщения</Link></li>
               </ul>
-              <Link className={s.companiesLink} to="/lk">Мои организации</Link>
+
+
+              <div
+                className={s.companiesLink}
+                
+                onClick={()=>{
+                  dispatch(setActiveTabInMain(1))
+                  navigate("/lk/main")                  
+                }}
+              >
+                Мои организации
+              </div>
+              
               <button onClick={logoutHandler} className={s.logoutBtn}>Выход</button>
             </div>
             {userProfilesLoadingStatus === 'success' && userProfiles.length > 1 && (
