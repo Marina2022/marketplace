@@ -1,8 +1,8 @@
+import LkMainPage from "@/components/lk-InnerPages/LkMainPage/LkMainPage.jsx";
+
 const LkMain = () => {
   return (
-    <div>
-      LkMain
-    </div>
+    <LkMainPage />
   );
 };
 
