@@ -10,30 +10,41 @@ export const getUser = createAsyncThunk('cart/getUser', async (_, thunkAPI) => {
 
     if (resp.status === 200) {
 
-      // объединение корзин, если в LS есть непустая корзина:
-      const lsCart = JSON.parse(localStorage.getItem('cart'))
+      try {
 
-      if (lsCart && lsCart.cartItems.length > 0) {
+        // объединение корзин, если в LS есть непустая корзина:
+        const lsCart = JSON.parse(localStorage.getItem('cart'))
 
-        const itemsToSend = lsCart.cartItems.map(item => {
-          return ({productVriantId: item.productVariantId, count: item.quantity})
-        })
+        if (lsCart && lsCart.cartItems.length > 0) {
 
-        await axios.post(`carts/cartItems`, itemsToSend)
-        localStorage.removeItem('cart')
+          const itemsToSend = lsCart.cartItems.map(item => {
+            return ({productVriantId: item.productVariantId, count: item.quantity})
+          })
+
+          await axios.post(`carts/cartItems`, itemsToSend)
+          localStorage.removeItem('cart')
+        }
+
+      } catch (err) {
+        console.log('Ошибка при обединении корзин')
       }
 
-      // объединение Избранного, если в LS есть непустой массив favs:
-      
-      // const lsFavs = JSON.parse(localStorage.getItem('favs')) todo
-      //
-      // if (lsFavs && lsFavs.length > 0) {
-      //   const favsToSend = lsFavs.map(fav => {
-      //     return ({productVariantId: fav.productVariantId})
-      //   })
-      //   await axios.post(`favourites/addRange`, favsToSend)
-      //   localStorage.removeItem('favs')
-      // }
+      try {
+        // объединение Избранного, если в LS есть непустой массив favs:
+
+        const lsFavs = JSON.parse(localStorage.getItem('favs'))
+
+        if (lsFavs && lsFavs.length > 0) {
+          const favsToSend = lsFavs.map(fav => {
+            return ({productVariantId: fav.productVariantId})
+          })
+          await axios.post(`favourites/addRange`, favsToSend)
+          localStorage.removeItem('favs')
+        }
+      } catch (err) {
+        console.log('Ошибка при обединении Избранного')
+      }
+
 
       thunkAPI.dispatch(setIsAuthenticated(true))
       thunkAPI.dispatch(getUserProfiles())
@@ -48,57 +59,6 @@ export const getUser = createAsyncThunk('cart/getUser', async (_, thunkAPI) => {
   return
 })
 
-//
-// export const uniteOnAuth = createAsyncThunk('user/uniteOnAuth', async (_, thunkAPI) => {
-//
-//   let favsUpdated = false
-//   let cartUpdated = false
-//
-//   try {
-//
-//     // объединение корзин
-//
-//     const lsCart = JSON.parse(localStorage.getItem('cart'))
-//
-//     if (lsCart && lsCart.cartItems.length > 0) {
-//
-//       const itemsToSend = lsCart.cartItems.map(item => {
-//         return ({productVriantId: item.productVariantId, count: item.quantity})
-//       })
-//
-//       await axios.post(`carts/cartItems`, itemsToSend)
-//       localStorage.removeItem('cart')
-//     }
-//
-//     const lsFavs = JSON.parse(localStorage.getItem('favs'))
-//
-//     if (lsFavs && lsFavs.length > 0) {
-//       const favsToSend = lsFavs.map(fav => {
-//         return ({productVariantId: fav.productVariantId})
-//       })
-//       await axios.post(`favourites/addRange`, favsToSend)
-//       localStorage.removeItem('favs')
-//     }
-//
-//
-//     if (!cartUpdated && !favsUpdated) return
-//
-//     if (cartUpdated && !favsUpdated) {
-//       thunkAPI.dispatch(loadCart())
-//       return
-//     } else {
-//       thunkAPI.dispatch(loadFavs())
-//       thunkAPI.dispatch(loadCart())
-//     }
-//
-//   } catch (err) {
-//     console.log
-//   }
-//
-//
-// })
-
-
 export const getUserProfiles = createAsyncThunk('cart/getUserProfiles', async (_, thunkAPI) => {
 
   let resp = await axios('acc/profiles',)
@@ -107,9 +67,9 @@ export const getUserProfiles = createAsyncThunk('cart/getUserProfiles', async (_
   if (resp.status === 200) {
 
     let lsProfile = localStorage.getItem("activeProfile")
-    
-    const lsProfileFoundInProfiles = resp.data.find(item=>item.profileId === lsProfile)
-    
+
+    const lsProfileFoundInProfiles = resp.data.find(item => item.profileId === lsProfile)
+
     if (lsProfileFoundInProfiles) {
       thunkAPI.dispatch(setActiveProfileId(lsProfile))
     } else {

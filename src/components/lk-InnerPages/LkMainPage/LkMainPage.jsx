@@ -11,8 +11,7 @@ const LkMainPage = () => {
   const [activeTab, setActiveTab] = useState(0)
   
   const tabs = ['Главная', 'Организации', 'Профиль пользователя', 'Настройки аккаунта']
- 
-  
+   
   
   return (
     <div>
