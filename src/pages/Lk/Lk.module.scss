@@ -1,0 +1,86 @@
+@import "@/assets/styles/mixins";
+
+.wrapper {  
+  display: flex;
+  gap: 20px;
+  padding-top: 18px;
+  
+  @include m {
+    flex-direction: column;
+    gap: 11px;
+    padding-top: 8px;
+  }
+}
+
+
+.menu {  
+  background: white;
+  padding: 20px;
+  width: 301px;
+  border: #F0F1F1 1px solid;
+
+  @include t {
+    width: 215px;
+  }
+  
+  @include m {
+    display: none;
+  }
+}
+
+.menuItem {
+
+}
+
+.menuItemLink {
+  height: 45px;  
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #658092;
+  font-weight: 600;
+  font-size: 18px;
+
+  @include t {
+    height: 44px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  &:hover, &:active {
+    color: #131D2A;
+    
+    svg {
+      fill: #131D2A;
+    }
+  }
+}
+
+.menuItemLinkActive {
+  height: 45px;
+  border: #F0F1F1 solid 1px;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: #F9FAFB;
+  color: #131D2A;
+  font-weight: 600;
+  font-size: 18px;  
+  
+  @include t {
+    height: 44px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  &:hover, &:active {
+    color: #131D2A;
+  }
+
+  svg {
+    fill: #131D2A;
+  }
+}
+

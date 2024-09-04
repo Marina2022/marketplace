@@ -1,7 +1,6 @@
 import s from './HiddenBlockProfiles.module.scss';
 
-const HiddenBlockProfiles = ({restProfiles}) => {
-  console.log('good restProfiles', restProfiles)
+const HiddenBlockProfiles = ({restProfiles}) => {  
 
   const restProfilesToShow = restProfiles.slice(0, 2)
 

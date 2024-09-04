@@ -28,15 +28,14 @@ const FavPage = () => {
   const [productCategoryId, setProductCategoryId] = useState(null)
   const dispatch = useDispatch()
   
-  const firstTimeRef = useRef()
-  firstTimeRef.current = true
-
-  useEffect(() => {
-    
+  const firstTimeRef = useRef(true)
+  
+  useEffect(() => {  
     if (!firstTimeRef.current) {
       dispatch(loadFavs(productCategoryId))  
     }
-    firstTimeRef.current = false  
+    firstTimeRef.current = false
+    
   }, [productCategoryId]);  
   
   

@@ -6,9 +6,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {getProfilesInDropdownAreShown, getUserProfiles, setProfilesInDropdownAreShown} from "@/store/userSlice.js";
 
 const OtherProfiles = ({activeProfile, userProfiles, setIsDropdownOpen}) => {
-
-  const profilesAreShown = useSelector(getProfilesInDropdownAreShown)
+  const profilesAreShown = useSelector(getProfilesInDropdownAreShown)  
   const restProfiles = userProfiles.filter(item => item.profileId !== activeProfile.profileId)
+  
 
   //
   // const testRestProfiles = [
@@ -54,8 +54,7 @@ const OtherProfiles = ({activeProfile, userProfiles, setIsDropdownOpen}) => {
     return {...item, letter}
   })
 
-  console.log('improvedRestProfiles', improvedRestProfiles)
-
+  
   const dispatch = useDispatch()
   const profileItemClickHandler = (profileId) => {
     localStorage.setItem('activeProfile', profileId)

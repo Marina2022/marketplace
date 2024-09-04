@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getActiveProfileId, getUserProfilesData, getUserProfilesLoadingStatus, logout} from "@/store/userSlice.js";
 import OtherProfiles from "@/components/layout/Header/UserDropdown/OtherProfiles/OtherProfiles.jsx";
 import {Link, useLocation} from "react-router-dom";
-import {useEffect, useState, useRef} from "react";
+import {useEffect, useState} from "react";
 
 const UserDropdown = () => {
   const userProfilesLoadingStatus = useSelector(getUserProfilesLoadingStatus);
@@ -13,36 +13,11 @@ const UserDropdown = () => {
   const location = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   // const dropdownRef = useRef(null);
-   const buttonRef = useRef(null);
+  //  const buttonRef = useRef(null);
 
   useEffect(() => {
     setIsDropdownOpen(false);
   }, [location]);
-
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (buttonRef.current && buttonRef.current.contains(event.target)) {
-  //       return;
-  //     }
-  //
-  //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-  //       setIsDropdownOpen(false);
-  //     }
-  //   };
-  //   const handleEscapeKey = (event) => {
-  //     if (event.key === 'Escape') {
-  //       setIsDropdownOpen(false);
-  //     }
-  //   };
-  //
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   document.addEventListener('keydown', handleEscapeKey);
-  //
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside);
-  //     document.removeEventListener('keydown', handleEscapeKey);
-  //   };
-  // }, []);
 
   let activeProfile;
 
@@ -57,9 +32,9 @@ const UserDropdown = () => {
     letter = activeProfile?.profileName?.slice(0, 1);
   }
 
-  const openDropdownHandler = () => {
-    setIsDropdownOpen(prev => !prev);
-  };
+  // const openDropdownHandler = () => {
+  //   setIsDropdownOpen(prev => !prev);
+  // };
 
   const dispatch = useDispatch()
   const logoutHandler = () => {
@@ -72,7 +47,7 @@ const UserDropdown = () => {
        onMouseLeave={()=>setIsDropdownOpen(false)}
     >
       <button
-        ref={buttonRef}
+        // ref={buttonRef}
         className={s.userDropdownBtn}
       >
         {letter}

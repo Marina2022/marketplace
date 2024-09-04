@@ -47,7 +47,7 @@ const ProductCard = ({isBigScreen, product}) => {
   
   const [isFavourite, setIsFavourite] = useState(isAuthenticated 
     ? product.isFavourite 
-    : favs.find(item=>item.productVariantId === product.productVariantId) )
+    : favs?.find(item=>item.productVariantId === product.productVariantId) )
 
 
     const onFavClick = () => {    

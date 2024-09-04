@@ -11,9 +11,35 @@ import {getReviews, setRequestString, setReviews} from "@/store/reviewsSlice.js"
 import {useDispatch, useSelector} from "react-redux";
 import penIcon from '@/assets/img/penIcon.svg'
 import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
+import {getIsAuthenticated} from "@/store/userSlice.js";
+import axios from "@/api/axiosInstance.js";
 
 const Reviews = ({product, reviewsRef}) => {
 
+  const isAuthenticated = useSelector(getIsAuthenticated)
+
+  const [canCreateReview, setCanCreateReview] = useState(false)
+  const [isEligibilityLoading, setIsEligibilityLoading] = useState(true)
+
+  useEffect(() => {
+
+    // запрос на eligible
+    const getEligibility = async () => {
+      if (isAuthenticated) {
+        try {
+          const resp = await axios.post('reviews/eligibility', {productId: product.productId})
+          setCanCreateReview(resp.data.isEligible)
+        } catch (err) {
+          console.log(err)
+        } finally {
+          setIsEligibilityLoading(false)
+        }
+      }      
+    }
+    getEligibility()
+  }, [isAuthenticated])
+
+  
   const PAGE_SIZE = 10
 
   const [isLoading, setIsLoading] = useState(true)
@@ -86,13 +112,21 @@ const Reviews = ({product, reviewsRef}) => {
   }
 
   if (isLoading && pagesCount === 0) return <Spinner className={s.spinner}/>
+  
   if (error) return <div className={s.globalWrapper} ref={reviewsRef}>
     <div className={s.sideBlock}>
       <h3 className={s.mobileHeader}>Отзывы</h3>
-      <Button className={s.writeReviewBtn}>
-        <img src={penIcon} alt="icon"/>
-        <span>Написать&nbsp;отзыв</span>
-      </Button>
+
+      {
+        !isEligibilityLoading && (
+          <Button disabled={!canCreateReview} className={s.writeReviewBtn}>
+            <img src={penIcon} alt="icon"/>
+            <span>Написать&nbsp;отзыв</span>
+          </Button>
+        )
+      }
+
+
     </div>
     {
       window.innerWidth > 960 && !(reviews.length > 0) && <div className={s.noReviews}>{error}</div>
@@ -111,10 +145,16 @@ const Reviews = ({product, reviewsRef}) => {
               <div>{getReviewsString(product.reviewsCount)}</div>
             </div>
           </div>
-          <Button className={s.writeReviewBtn}>
-            <img src={penIcon} alt="icon"/>
-            <span>Написать&nbsp;отзыв</span>
-          </Button>
+
+          {
+            !isEligibilityLoading && (
+              <Button disabled={!canCreateReview} className={s.writeReviewBtn}>
+                <img src={penIcon} alt="icon"/>
+                <span>Написать&nbsp;отзыв</span>
+              </Button>
+            )
+          }
+       
         </div>
         <div className={s.mainBlock}>
           <ReviewsSort sortColumn={sortColumn} setSortColumn={setSortColumn} sortOrder={sortOrder}
