@@ -2,7 +2,7 @@ import s from './LkMainPage.module.scss';
 import {useEffect} from "react";
 import MainTab from "@/components/lk-InnerPages/LkMainPage/MainTab/MainTab.jsx";
 import CompaniesTab from "@/components/lk-InnerPages/LkMainPage/CompaniesTab/CompaniesTab.jsx";
-import ProfilesTab from "@/components/lk-InnerPages/LkMainPage/ProfilesTab/ProfilesTab.jsx";
+import ProfileTab from "@/components/lk-InnerPages/LkMainPage/ProfileTab/ProfileTab.jsx";
 import SettingsTab from "@/components/lk-InnerPages/LkMainPage/SettingsTab/SettingsTab.jsx";
 import {getActiveTabInMain, setActiveTabInMain} from "@/store/lkSlice.js";
 import {useDispatch, useSelector} from "react-redux";
@@ -20,7 +20,7 @@ const LkMainPage = () => {
   const dispatch = useDispatch()
 
   return (
-    <div>
+    <div className={s.lkMain}>
 
       <div className={s.mobileTabsWrapper}>
         <ul className={s.mobileTabs}>
@@ -56,7 +56,7 @@ const LkMainPage = () => {
       }
 
       {
-        activeTab === 2 && <ProfilesTab/>
+        activeTab === 2 && <ProfileTab/>
       }
 
       {

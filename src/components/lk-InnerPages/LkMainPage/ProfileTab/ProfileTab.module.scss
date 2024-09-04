@@ -1,0 +1,16 @@
+@import "@/assets/styles/mixins";
+
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  gap: 15px;
+
+  @include m {
+    flex-direction: column;
+  }
+}
+
+
+
+
