@@ -1,3 +1,64 @@
+@import "@/assets/styles/mixins";
+
+
+.mobileTabsWrapper {
+  display: none;
+  position: relative;
+  
+  @include m {
+    display: block;
+    height: 24px;
+    width: 100%;
+    margin-bottom: 11px;
+    margin-top: 8px;
+   
+  }
+}
+
+.mobileTabs {
+  position: absolute;
+  top: 0;
+  left: -16px;
+  height: 100%;
+  width: calc(100% + 32px);
+  display: flex;
+  gap: 4px;
+  overflow: auto;
+  padding-inline: 16px;
+
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.mobileTabItem {
+  flex-shrink: 0;
+  color: #000;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #F0F1F1;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+}
+
+.mobileTabItemActive {
+  padding: 5px 10px;
+  flex-shrink: 0;
+  color: white;
+  background: #3E5067;
+  border-radius: 16px;
+  border: 1px solid #F0F1F1;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .tabs {
   display: flex;
   background: white;
@@ -9,6 +70,10 @@
   font-size: 12px;
   align-items: center;
   padding: 4px;
+  
+  @include m {
+    display: none;
+  }
   
 }
 

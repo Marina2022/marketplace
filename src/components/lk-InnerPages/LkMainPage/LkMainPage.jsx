@@ -22,6 +22,19 @@ const LkMainPage = () => {
   return (
     <div>
 
+      <div className={s.mobileTabsWrapper}>
+        <ul className={s.mobileTabs}>
+          {
+            tabs.map((tab, i) => <div
+              className={activeTab === i ? s.mobileTabItemActive : s.mobileTabItem}
+              key={i}
+              onClick={() => dispatch(setActiveTabInMain(i))}>
+              {tab}
+            </div>)
+          }
+        </ul>
+      </div>
+
       <ul className={s.tabs}>
         {
           tabs.map((tab, i) => <div
@@ -31,7 +44,6 @@ const LkMainPage = () => {
             {tab}
           </div>)
         }
-
       </ul>
 
 
