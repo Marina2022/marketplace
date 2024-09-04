@@ -3,12 +3,11 @@ import App from './App.jsx'
 import './assets/styles/index.scss'
 import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
-import cartSlice, {loadCart} from "@/store/cartSlice.js";
+import cartSlice from "@/store/cartSlice.js";
 import userSlice, {getUser, setToken} from "@/store/userSlice.js";
 import catalogSlice from "@/store/catalogSlice.js";
 import reviewsSlice, {loadReviewLikes} from "@/store/reviewsSlice.js";
-import favSlice, {loadFavs} from "@/store/favSlice.js";
-
+import favSlice from "@/store/favSlice.js";
 
 export const store = configureStore({
       reducer: {        

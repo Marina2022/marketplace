@@ -9,6 +9,7 @@ import Favourites from "@/pages/Favourites.jsx";
 import Cart from "@/pages/Cart.jsx";
 import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute.jsx";
 import Lk from "@/pages/Lk.jsx";
+import Orders from "@/pages/Orders.jsx";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           {/*<Route path='/favourites' element={<ProtectedRoute> <Favourites/> </ProtectedRoute>}/>*/}
           <Route path='/favourites' element={<Favourites/>}/>
           <Route path='/cart' element={<Cart/>}/>
+          <Route path='/orders' element={<Orders/>}/>
           <Route path='/lk' element={<Lk/>}/>
           <Route path='*' element={<NotFound/>}/>
         </Route>

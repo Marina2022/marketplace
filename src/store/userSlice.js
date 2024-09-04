@@ -3,19 +3,6 @@ import axios from "@/api/axiosInstance.js";
 import {loadCart} from "@/store/cartSlice.js";
 import {loadFavs} from "@/store/favSlice.js";
 
-// export const login = createAsyncThunk('cart/login', async (_, thunkAPI) => {
-//   // const resp = Запрос авторизации
-//   let resp = {}
-//   resp.status = 200
-//
-//   if (resp.status === 200) {
-//     thunkAPI.dispatch(setIsAuthenticated(true))
-//     thunkAPI.dispatch(loadCart())
-//     thunkAPI.dispatch(loadFavs())
-//   }
-//   return true
-// })
-
 export const getUser = createAsyncThunk('cart/getUser', async (_, thunkAPI) => {
 
   try {
@@ -55,17 +42,83 @@ export const getUserProfiles = createAsyncThunk('cart/getUserProfiles', async (_
 
 
 export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
+  thunkAPI.dispatch(setToken(null))
   thunkAPI.dispatch(setUser(null))
   thunkAPI.dispatch(setUserProfiles(null))
   thunkAPI.dispatch(setIsAuthenticated(false))
 
   thunkAPI.dispatch(loadCart())
   thunkAPI.dispatch(loadFavs())
-  thunkAPI.dispatch(setToken(null))
   localStorage.removeItem('userProfile')
-
   return true
 })
+
+export const uniteOnAuth = createAsyncThunk('user/uniteOnAuth', async (_, thunkAPI) => {
+
+  let favsUpdated = false
+  let cartUpdated = false
+
+  try {
+
+    // объединение корзин
+
+    const lsCart = JSON.parse(localStorage.getItem('cart'))
+
+    if (lsCart && lsCart.cartItems.length > 0) {
+      //post addToCart - todo
+      
+      const itemsToSend = lsCart.cartItems.map(item=>{
+        return ({productVriantId: item.productVariantId, count: item.quantity})
+      })
+
+      console.log('itemsToSend - ', itemsToSend)
+      
+      await axios.post(`carts/cartItems`, itemsToSend) 
+      
+      // если ошибка, то объединения не произойдет, все останется как было (до след.   авторизации)
+      localStorage.removeItem('cart') 
+      // если ошибки не было, удаляем cart из LS
+      
+      favsUpdated = true
+    }
+
+    const lsFavs = JSON.parse(localStorage.getItem('favs'))
+
+    if (lsFavs && lsFavs.length > 0) {
+                  
+      const favsToSend = lsFavs.map(fav=>{
+        return ({productVariantId: fav.productVariantId})
+      })
+
+      console.log("favsToSend - ", favsToSend)
+
+      await axios.post(`favourites/addRange`, favsToSend)
+      
+      // если ошибка, то объединения не произойдет, все останется как было (до след.    авторизации)
+       localStorage.removeItem('favs') 
+      // если ошибки не было, удаляем cart из LS 
+
+      cartUpdated = true
+    }
+
+
+    if (!cartUpdated && !favsUpdated) return
+
+    if (cartUpdated && !favsUpdated) {
+      thunkAPI.dispatch(loadCart())
+      return
+    } else {
+      thunkAPI.dispatch(loadFavs())
+      thunkAPI.dispatch(loadCart())
+    }
+
+  } catch (err) {
+    console.log
+  }
+
+
+})
+
 
 const initialState = {
   user: null,
@@ -105,21 +158,6 @@ const userSlice = createSlice({
     },
   },
   extraReducers: builder => builder
-
-    // // login - todo - нужно ли
-    //
-    // .addCase(login.pending, (state) => {
-    //   state.loginStatus = 'loading'
-    // })
-    // .addCase(login.fulfilled, (state, action) => {
-    //   state.loginStatus = 'success'
-    //   // state.isAuthenticated = true
-    // })
-    // .addCase(login.rejected, (state, action) => {
-    //   state.loginStatus = 'error'
-    //   console.log('Не удалось залогиниться', action.error.message)
-    // })
-
 
     .addCase(logout.pending, (state) => {
       state.logoutStatus = 'loading'
