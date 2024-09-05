@@ -20,6 +20,7 @@
   display: flex;
   gap: 24px;
   margin-bottom: 24px;
+  align-items: center;
 
   @include t {
     margin-bottom: 14px;
@@ -68,12 +69,12 @@
     font-size: 14px;
     font-weight: 500;
   }
-
 }
 
 .control {
   display: flex;
   border: #F0F1F1 1px solid;
+  border-bottom: none;
   font-weight: 500;
   font-size: 15px;
 
@@ -122,9 +123,6 @@
     width: 62%;
   }
 
-  &:focus {
-
-  }
 }
 
 .textarea {
@@ -146,8 +144,74 @@
     width: 62%;
   }
 
-  &:focus {
+}
 
+.fieldset {
+  border-bottom: #F0F1F1 1px solid;
+  margin-bottom: 40px;
+  
+  @include t {
+    margin-bottom: 16px;
+  }
+}
+
+.lastFieldset {
+  border-bottom: #F0F1F1 1px solid;  
+}
+
+.saveBtn {
+  font-size: 16px;
+  font-weight: 500;
+  width: 212px;
+  
+  @include m {
+    padding: 5px;
+    width: 100%;
+    max-width: 160px;
+    font-size: 12px;
+  }
+}
+
+.textareaDisabled {
+  height: 38px;
+  overflow: hidden;
+  width: 433px;
+  border: none;
+  outline: none;
+  padding: 10px;
+  resize: none;
+  background: #F7F7F9;
+
+  @include t {
+    height: 29px;
+    width: 204px;
+    padding: 7px 10px;
   }
 
+  @include m {
+    width: 62%;
+  }
+}
+
+
+.inputDisabled {
+  background: #F7F7F9;
+  width: 433px;
+  border: none;
+  outline: none;
+  padding: 10px;
+  height: 38px;
+  resize: none;
+  height: 100%;
+
+
+  @include t {
+    height: 29px;
+    width: 204px;
+    padding: 7px 10px;
+  }
+
+  @include m {
+    width: 62%;
+  }
 }
