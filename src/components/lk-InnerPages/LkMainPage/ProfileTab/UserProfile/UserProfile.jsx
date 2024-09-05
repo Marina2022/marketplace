@@ -10,6 +10,7 @@ const UserProfile = () => {
   const userData = useSelector(getUserData);
 
   const [textareaFio, setTextareaFio] = useState(null);
+  const [textareaAddress, setTextareaAddress] = useState(null);
 
   const adjustTextareaHeight = (event) => {
     const textarea = event.target;
@@ -22,6 +23,11 @@ const UserProfile = () => {
       if (textareaFio) {
         adjustTextareaHeight({target: textareaFio}, true);
       }
+
+      if (textareaAddress) {
+        adjustTextareaHeight({target: textareaAddress}, true);
+      }
+     
     }, 100)
 
 
@@ -44,10 +50,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     if (userData) {
-      // Преобразуем телефонный номер в формат с маской
-      const formattedPhone = `+7 (${userData.phoneNumber.slice(0, 3)}) ${userData.phoneNumber.slice(3, 6)}-${userData.phoneNumber.slice(6, 8)}-${userData.phoneNumber.slice(8)}`;
-      // setValue('name', userData.fullName ? userData.fullName.trim() : null);      
-      // setValue('name', 'Абдуль аглы коммио дылвоа длвлвл ');
+      const formattedPhone = `+7 (${userData.phoneNumber.slice(0, 3)}) ${userData.phoneNumber.slice(3, 6)}-${userData.phoneNumber.slice(6, 8)}-${userData.phoneNumber.slice(8)}`;      
       setValue('email', userData.email ? userData.email.trim() : null);
       setValue('phone', formattedPhone); // Устанавливаем отформатированный телефон
     }
@@ -58,7 +61,6 @@ const UserProfile = () => {
     const numericPhone = data.phone.replace(/\D/g, '');
     console.log("Отправляемый номер:", numericPhone);
     console.log(data);
-
     console.log('fio: ', textareaFio.value)
   };
 
@@ -77,10 +79,7 @@ const UserProfile = () => {
         {/* ФИО */}
         <div className={s.control}>
           <label
-
-
-            className={s.label} htmlFor="name">ФИО:</label>
-          
+            className={s.label} htmlFor="name">ФИО</label>        
           <textarea
             className={s.textarea}
             placeholder="Не заполнено"
@@ -97,7 +96,7 @@ const UserProfile = () => {
 
         {/* Телефон */}
         <div className={s.control}>
-          <label className={s.label} htmlFor="phone">Телефон:</label>
+          <label className={s.label} htmlFor="phone">Номер&nbsp;телефона</label>
           <InputMask
             className={s.input}
             mask="+7 (999) 999-99-99"
@@ -118,7 +117,7 @@ const UserProfile = () => {
 
         {/* Email */}
         <div className={s.control}>
-          <label className={s.label} htmlFor="email">Email:</label>
+          <label className={s.label} htmlFor="email">Email</label>
           <input
             className={s.input}
             placeholder="Не заполнено"
@@ -127,6 +126,25 @@ const UserProfile = () => {
             {...register('email')}
           />
           {errors.email && <p>{errors.email.message}</p>}
+        </div>
+
+
+        {/* Адрес */}
+        <div className={s.control}>
+          <label
+            className={s.label} htmlFor="name">Адрес</label>
+
+          <textarea
+            className={s.textarea}
+            placeholder="Не заполнено"
+            id="name"
+            spellCheck={false}
+            onChange ={(e) => adjustTextareaHeight(e)}
+            defaultValue={userData?.address}
+            ref={(el) => {
+              setTextareaAddress(el)
+            }}
+          ></textarea>          
         </div>
 
         <button type="submit">Отправить</button>

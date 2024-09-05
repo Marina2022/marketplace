@@ -1,0 +1,56 @@
+@import "@/assets/styles/mixins";
+
+.geoDiv {
+  height: 15px;
+  //margin-bottom: 8px;
+  color: #3E5067;
+  font-size: 12px;
+}
+
+.header {
+  background: white;
+  padding-bottom: 8px;
+}
+
+.wrapper {
+  padding-bottom: 13px;
+  padding-top: 14px;
+  display: flex;
+  align-items: center;
+}
+
+
+.logoLink {
+  margin-right: 62px;
+  display: flex;
+  align-items: center;
+
+  @include t {
+    margin-right: 30px;
+  }
+}
+
+.logo {
+  @include m {
+    width: 51px;
+  }
+}
+
+.mobileMenuBtn {
+  display: none;
+
+  @include m {
+    display: block;
+    margin-right: 17px;
+  }
+}
+
+.cartBtnOnMobile {
+  display: none;
+
+  @include m {
+    display: block;
+    margin-left: auto;
+  }
+}
+

@@ -2,9 +2,6 @@ import s from './HeaderSearch.module.scss';
 import searchClose from "@/assets/img/cart/closeSearch.svg";
 import searchGlassIcon from "@/assets/img/cart/seachGlass.svg";
 import {useState} from "react";
-import {setCartSearchTerm} from "@/store/cartSlice.js";
-
-
 const HeaderSearch = () => {
   
   const [searchTerm, setSearchTerm] = useState('')
@@ -13,7 +10,7 @@ const HeaderSearch = () => {
   }
 
   return (
-    <div className={s.searchInputWrapperDesktop}>
+    <div className={s.searchInputWrapper}>
       <input
         className={s.searchInput}
         value={searchTerm}

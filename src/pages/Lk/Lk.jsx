@@ -4,8 +4,7 @@ import s from './Lk.module.scss'
 const Lk = () => {
 
   return (
-
-    <div className='container'>
+    <div className='container-lk'>
       <div className={s.wrapper}>
         <ul className={s.menu}>
           <li className={s.menuItem}>
@@ -88,7 +87,6 @@ const Lk = () => {
         <Outlet/>
       </div>
     </div>
-
 
   );
 };

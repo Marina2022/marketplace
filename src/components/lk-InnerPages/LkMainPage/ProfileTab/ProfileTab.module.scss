@@ -5,9 +5,15 @@
   align-items: flex-start;
   width: 100%;
   gap: 15px;
-
+  padding-bottom: 50px;
+  
+  @include t {
+    padding-bottom: 30px;
+  }
+  
   @include m {
     flex-direction: column;
+    padding-bottom: 66px;
   }
 }
 

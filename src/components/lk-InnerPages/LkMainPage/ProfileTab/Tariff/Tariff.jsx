@@ -9,12 +9,16 @@ const Tariff = () => {
       <h2 className={s.tariffTitle}>Тарифный план</h2>
       <div className={s.tariffBottomWrapper}>
         <div className={s.something}>Не выбран</div>
-        <Button className={s.btn}>Выбрать&nbsp;тариф</Button>
+        <div className={s.btnWrapper}>
+          <Button className={s.btn}>Выбрать&nbsp;тариф</Button>
+          <div className={s.chooseTariff}>
+            <span className={s.chooseTariffText}>Подобрать тариф</span>
+            <img className={s.chooseTariffIcon} src={questionIcon} alt="icon"/>
+          </div>
+        </div>
+        
       </div>
-      <div className={s.chooseTariff}>
-        <span className={s.chooseTariffText}>Подобрать тариф</span>
-        <img className={s.chooseTariffIcon} src={questionIcon} alt="icon"/>
-      </div>
+
     </div>
   );
 };
