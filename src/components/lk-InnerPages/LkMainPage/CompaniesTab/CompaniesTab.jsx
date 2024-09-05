@@ -6,11 +6,11 @@ const CompaniesTab = () => {
   
   
   return (
-    <>
+    <div className={s.companiesTab}>
       
       <CompaniesGrid />
       
-    </>
+    </div>
   );
 };
 
