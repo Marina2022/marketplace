@@ -24,21 +24,5 @@
   }
 }
 
-.newCard {
-  border: #F0F1F1 1px solid;
-  border-radius: 2px;
-  min-height: 180px;
-  display: flex;  
-  align-items: center;
-  justify-content: center;
-  width: 263px;
-  
-  @include t {
-    width: 215px;   
-  }
 
-  @include m {
-    width: 100%;
-  }
-}
 

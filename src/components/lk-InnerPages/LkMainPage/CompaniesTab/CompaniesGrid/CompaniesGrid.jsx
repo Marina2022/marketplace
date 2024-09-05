@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import axios from "@/api/axiosInstance.js";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import GridCard from "@/components/lk-InnerPages/LkMainPage/CompaniesTab/CompaniesGrid/GridCard/GridCard.jsx";
+import NewCard from "@/components/lk-InnerPages/LkMainPage/CompaniesTab/CompaniesGrid/NewCard/NewCard.jsx";
 
 
 const CompaniesGrid = () => {
@@ -43,9 +44,7 @@ const CompaniesGrid = () => {
           </>
         )
       }
-      <li className={s.newCard}>
-        newCard
-      </li>
+      <NewCard />
     </ul>
   );
 };

@@ -1,0 +1,85 @@
+@import "@/assets/styles/mixins";
+
+.newCard {
+  cursor: pointer;
+  position: relative;
+  border: #F0F1F1 1px solid;
+  border-radius: 2px;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 263px;
+
+  @include t {
+    width: 215px;
+  }
+
+  @include m {
+    width: 100%;
+  }
+}
+
+.cornerOne {
+  width: 45px;
+  height: 45px;
+  border-left: #F0F1F1 1px solid;
+  border-top: #F0F1F1 1px solid;
+  position: absolute;
+  top: 16px;
+  left: 19px;
+
+  @include m {
+    width: 30px;
+    height: 30px;
+    left: 13px;
+  }
+}
+
+.cornerTwo {
+  width: 45px;
+  height: 45px;
+  border-right: #F0F1F1 1px solid;
+  border-top: #F0F1F1 1px solid;
+  position: absolute;
+  top: 16px;
+  right: 19px;
+
+  @include m {
+    width: 30px;
+    height: 30px;
+    right: 13px;
+  }
+}
+
+.cornerThree {
+  width: 45px;
+  height: 45px;
+  border-right: #F0F1F1 1px solid;
+  border-bottom: #F0F1F1 1px solid;
+  position: absolute;
+  bottom: 16px;
+  right: 19px;
+
+  @include m {
+    width: 30px;
+    height: 30px;
+    right: 13px;
+  }
+}
+
+.cornerFour {
+  width: 45px;
+  height: 45px;
+  border-left: #F0F1F1 1px solid;
+  border-bottom: #F0F1F1 1px solid;
+  position: absolute;
+  bottom: 16px;
+  left: 19px;
+
+  @include m {
+    width: 30px;
+    height: 30px;
+    left: 13px;
+  }
+}
