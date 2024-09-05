@@ -1,6 +1,7 @@
 @import "@/assets/styles/mixins";
 
 .lkMain {  
+  
   @include m {
     width: 100%;  
   }  
@@ -64,7 +65,7 @@
 }
 
 .tabs {  
-  display: flex;
+  display: inline-flex;  
   background: white;
   border: 1px solid #F0F1F1;
   margin-bottom: 24px;
@@ -74,6 +75,11 @@
   font-size: 12px;
   align-items: center;
   padding: 4px;
+  //width: 555px;
+  
+  @include m {
+    //width: 539px;
+  }
   
   @include m {
     display: none;
