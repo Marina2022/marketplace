@@ -1,20 +1,39 @@
 import s from './UserProfile.module.scss';
 import pencil from '@/assets/img/lk/lk-main/pencil.svg';
-import { useForm } from 'react-hook-form';
-import { useSelector } from "react-redux";
-import { getUserData } from "@/store/userSlice.js";
-import { useEffect } from "react";
+import {useForm} from 'react-hook-form';
+import {useSelector} from "react-redux";
+import {getUserData} from "@/store/userSlice.js";
+import {useEffect, useRef, useState} from "react";
 import InputMask from 'react-input-mask';
 
 const UserProfile = () => {
   const userData = useSelector(getUserData);
+
+  const [textareaFio, setTextareaFio] = useState(null);
+
+  const adjustTextareaHeight = (event) => {
+    const textarea = event.target;
+    textarea.style.height = `${textarea.scrollHeight}px`; // Устанавливаем новую высоту
+  };
+
+  useEffect(() => {
+
+    setTimeout(() => {
+      if (textareaFio) {
+        adjustTextareaHeight({target: textareaFio}, true);
+      }
+    }, 100)
+
+
+  }, [textareaFio]);
+
 
   const {
     register,
     reset,
     handleSubmit,
     setValue,
-    formState: { errors }
+    formState: {errors}
   } = useForm({
     defaultValues: {
       name: '',
@@ -27,8 +46,9 @@ const UserProfile = () => {
     if (userData) {
       // Преобразуем телефонный номер в формат с маской
       const formattedPhone = `+7 (${userData.phoneNumber.slice(0, 3)}) ${userData.phoneNumber.slice(3, 6)}-${userData.phoneNumber.slice(6, 8)}-${userData.phoneNumber.slice(8)}`;
-      setValue('name', userData.fullName);
-      setValue('email', userData.email);
+      // setValue('name', userData.fullName ? userData.fullName.trim() : null);      
+      // setValue('name', 'Абдуль аглы коммио дылвоа длвлвл ');
+      setValue('email', userData.email ? userData.email.trim() : null);
       setValue('phone', formattedPhone); // Устанавливаем отформатированный телефон
     }
   }, [userData, setValue]);
@@ -38,6 +58,8 @@ const UserProfile = () => {
     const numericPhone = data.phone.replace(/\D/g, '');
     console.log("Отправляемый номер:", numericPhone);
     console.log(data);
+
+    console.log('fio: ', textareaFio.value)
   };
 
   return (
@@ -51,23 +73,36 @@ const UserProfile = () => {
       <h2 className={s.subTitle}>Основная информация</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
+
         {/* ФИО */}
-        <div>
-          <label htmlFor="name">ФИО:</label>
-          <input
+        <div className={s.control}>
+          <label
+
+
+            className={s.label} htmlFor="name">ФИО:</label>
+          
+          <textarea
+            className={s.textarea}
+            placeholder="Не заполнено"
             id="name"
-            {...register('name', )}
-          />
+            spellCheck={false}
+            onChange ={(e) => adjustTextareaHeight(e)}
+            defaultValue={userData?.fullName}
+            ref={(el) => {
+              setTextareaFio(el)
+            }}
+          ></textarea>
           {errors.name && <p>{errors.name.message}</p>}
         </div>
 
         {/* Телефон */}
-        <div>
-          <label htmlFor="phone">Телефон:</label>
+        <div className={s.control}>
+          <label className={s.label} htmlFor="phone">Телефон:</label>
           <InputMask
+            className={s.input}
             mask="+7 (999) 999-99-99"
             {...register('phone', {
-              required: 'Поле телефон обязательно',              
+              required: 'Поле телефон обязательно',
             })}
             defaultValue={userData ? `+7 (${userData.phoneNumber.slice(0, 3)}) ${userData.phoneNumber.slice(3, 6)}-${userData.phoneNumber.slice(6, 8)}-${userData.phoneNumber.slice(8)}` : ''} // Начальное значение
           >
@@ -82,9 +117,11 @@ const UserProfile = () => {
         </div>
 
         {/* Email */}
-        <div>
-          <label htmlFor="email">Email:</label>
+        <div className={s.control}>
+          <label className={s.label} htmlFor="email">Email:</label>
           <input
+            className={s.input}
+            placeholder="Не заполнено"
             id="email"
             type="email"
             {...register('email')}

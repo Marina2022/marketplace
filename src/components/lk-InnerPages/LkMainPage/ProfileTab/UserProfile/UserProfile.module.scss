@@ -5,7 +5,7 @@
   border: 1px solid #F5F5F5;
   padding: 24px;
   width: 806px;
-  
+
   @include t {
     width: 454px;
   }
@@ -14,18 +14,17 @@
   }
 }
 
-
 .titleWrapper {
   display: flex;
   gap: 24px;
   margin-bottom: 24px;
-  
+
   @include t {
     margin-bottom: 14px;
     justify-content: space-between;
   }
-  
-  @include m {    
+
+  @include m {
     gap: 11px;
     justify-content: flex-start;
   }
@@ -35,7 +34,7 @@
   font-weight: 600;
   font-size: 24px;
   color: #131D2A;
-  
+
   @include t {
     font-weight: 500;
     font-size: 18px;
@@ -61,10 +60,92 @@
   color: #131D2A;
   font-weight: 600;
   margin-bottom: 24px;
-  
+
   @include t {
     margin-bottom: 10px;
     font-size: 14px;
     font-weight: 500;
   }
+
+}
+
+.control {
+  display: flex;  
+  border: #F0F1F1 1px solid;
+  //border-bottom: none;
+  font-weight: 500;
+  font-size: 15px;
+
+  @include t {
+    font-size: 12px;
+  }
+
+  @include m {
+    font-size: 11px;
+  }
+}
+
+.label {  
+  width: 320px;
+  padding: 10px;
+  border-right: #F0F1F1 1px solid;
+
+  @include t {
+    width: 165px;
+  }
+
+  @include m {
+    width: 38%;
+  }
+}
+
+.input {
+  width: 433px;
+  border: none;
+  outline: none;
+  padding: 10px;
+  min-height: 38px;
+  resize: none;
+  height: 100%;
+  
+
+  @include t {
+    width: 204px;
+    padding: 7px 10px;
+  }
+
+  @include m {
+    width: 62%;
+  }
+  
+  &:focus {
+
+  }
+}
+
+.textarea {
+  height: 38px;
+  overflow: hidden;
+  width: 433px;
+  border: none;
+  outline: none;
+  padding: 10px;
+  //min-height: 18px;
+  resize: none;
+  
+
+
+  @include t {
+    width: 204px;
+    padding: 7px 10px;
+  }
+
+  @include m {
+    width: 62%;
+  }
+
+  &:focus {
+
+  }
+
 }

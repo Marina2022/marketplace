@@ -1,7 +1,9 @@
 @import "@/assets/styles/mixins";
 
-.lkMain {
-  //width: 100%;
+.lkMain {  
+  @include m {
+    width: 100%;  
+  }  
 }
 
 .mobileTabsWrapper {  
