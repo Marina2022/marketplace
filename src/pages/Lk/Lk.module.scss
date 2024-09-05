@@ -13,13 +13,16 @@
   }
 }
 
-.menu {  
+.menu { 
+  
   background: white;
   padding: 20px;
   width: 301px;
+  min-width: 301px;
   border: #F0F1F1 1px solid;
 
   @include t {
+    min-width: 215px;
     width: 215px;
   }
   

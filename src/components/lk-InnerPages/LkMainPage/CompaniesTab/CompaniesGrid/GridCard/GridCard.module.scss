@@ -1,0 +1,34 @@
+@import "@/assets/styles/mixins";
+
+.gridCard {
+  background: #F9FAFB;
+  border: #F0F1F1 1px solid;
+  border-radius: 2px;
+  min-height: 180px;
+  width: 263px;
+
+  @include t {
+    width: 215px;
+  }
+
+  @include m {
+    width: 48%;
+  }
+  
+}
+
+.gridCardActive {
+  border: #F0F1F1 1px solid;
+  border-radius: 2px;
+  min-height: 180px;
+  width: 263px;
+
+  @include t {
+    width: 215px;
+  }
+
+  @include m {
+    width: 48%;
+  }
+  
+}

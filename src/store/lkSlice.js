@@ -4,7 +4,7 @@ import {createSlice} from "@reduxjs/toolkit";
 
 
 const initialState = {
-  activeTabInMain: 2,  
+  activeTabInMain: 1,  
 }
 
 const lkSlice = createSlice({

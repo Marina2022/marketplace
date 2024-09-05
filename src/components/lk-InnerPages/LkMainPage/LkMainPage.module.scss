@@ -1,6 +1,7 @@
 @import "@/assets/styles/mixins";
 
-.lkMain {  
+.lkMain {
+  width: 100%;
   
   @include m {
     width: 100%;  
@@ -75,11 +76,7 @@
   font-size: 12px;
   align-items: center;
   padding: 4px;
-  //width: 555px;
   
-  @include m {
-    //width: 539px;
-  }
   
   @include m {
     display: none;

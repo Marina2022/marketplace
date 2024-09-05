@@ -1,0 +1,41 @@
+@import "@/assets/styles/mixins";
+
+.gridList {
+  background: white;
+  border: #F0F1F1 1px solid;
+  padding: 20px;
+  display: inline-flex;
+  flex-wrap: wrap;  
+  column-gap: 6px;
+  row-gap: 11px;
+
+  @include t {
+    padding: 12px;
+    column-gap: 7px;
+  }
+
+  @include m {
+    padding: 16px;
+    column-gap: 10px;
+    row-gap: 14px;
+  }
+}
+
+.newCard {
+  border: #F0F1F1 1px solid;
+  border-radius: 2px;
+  min-height: 180px;
+  display: flex;  
+  align-items: center;
+  justify-content: center;
+  width: 263px;
+  
+  @include t {
+    width: 215px;   
+  }
+
+  @include m {
+    width: 48%;
+  }
+}
+
