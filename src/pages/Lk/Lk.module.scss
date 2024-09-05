@@ -2,6 +2,7 @@
 
 .wrapper {  
   display: flex;
+  align-items: flex-start;
   gap: 20px;
   padding-top: 18px;
   
@@ -11,7 +12,6 @@
     padding-top: 8px;
   }
 }
-
 
 .menu {  
   background: white;
@@ -61,7 +61,7 @@
   height: 45px;
   border: #F0F1F1 solid 1px;
   padding: 10px;
-  display: flex;
+  display: flex;  
   gap: 10px;
   align-items: center;
   background: #F9FAFB;

@@ -55,3 +55,16 @@
     display: none;
   }
 }
+
+.subTitle {
+  font-size: 18px;
+  color: #131D2A;
+  font-weight: 600;
+  margin-bottom: 24px;
+  
+  @include t {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
