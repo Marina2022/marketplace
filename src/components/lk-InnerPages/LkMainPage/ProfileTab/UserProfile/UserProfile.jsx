@@ -138,6 +138,20 @@ const UserProfile = () => {
             {errors.firstName && <p>{errors.firstName.message}</p>}
           </div>
 
+          {/* middleName */}
+          <div className={s.control}>
+            <label className={s.label} htmlFor="middleName">Отчество</label>
+            <input
+              disabled={!editing}
+              className={!editing ? s.inputDisabled : s.input}
+              placeholder="Не заполнено"
+              id="middleName"
+              type="text"
+              {...register('middleName')}
+            />
+            {errors.middleName && <p>{errors.middleName.message}</p>}
+          </div>
+
           {/* secondName */}
           <div className={s.control}>
             <label className={s.label} htmlFor="secondName">Фамилия</label>
@@ -152,19 +166,6 @@ const UserProfile = () => {
             {errors.secondName && <p>{errors.secondName.message}</p>}
           </div>
 
-          {/* middleName */}
-          <div className={s.control}>
-            <label className={s.label} htmlFor="middleName">Отчество</label>
-            <input
-              disabled={!editing}
-              className={!editing ? s.inputDisabled : s.input}
-              placeholder="Не заполнено"
-              id="middleName"
-              type="text"
-              {...register('middleName')}
-            />
-            {errors.middleName && <p>{errors.middleName.message}</p>}
-          </div>
           
           {/* Телефон */}
           <div className={s.control}>
