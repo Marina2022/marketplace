@@ -90,8 +90,7 @@
 .label {
   height: 38px;
   width: 320px;
-  padding: 10px;
-  border-right: #F0F1F1 1px solid;
+  padding: 10px;  
 
   @include t {
     height: 29px;
@@ -111,6 +110,7 @@
   height: 38px;
   resize: none;
   height: 100%;
+  border-left: #F0F1F1 1px solid;
 
 
   @include t {
@@ -133,6 +133,7 @@
   outline: none;
   padding: 10px;
   resize: none;
+  border-left: #F0F1F1 1px solid;
 
   @include t {
     height: 29px;
@@ -181,6 +182,7 @@
   padding: 10px;
   resize: none;
   background: #F7F7F9;
+  border-left: #F0F1F1 1px solid;
 
   @include t {
     height: 29px;
@@ -193,7 +195,6 @@
   }
 }
 
-
 .inputDisabled {
   background: #F7F7F9;
   width: 433px;
@@ -203,6 +204,7 @@
   height: 38px;
   resize: none;
   height: 100%;
+  border-left: #F0F1F1 1px solid;
 
 
   @include t {
