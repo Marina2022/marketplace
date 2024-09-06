@@ -13,9 +13,7 @@ const UserDropdown = () => {
 
   const location = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  // const dropdownRef = useRef(null);
-  //  const buttonRef = useRef(null);
-
+  
   useEffect(() => {
     setIsDropdownOpen(false);
   }, [location]);

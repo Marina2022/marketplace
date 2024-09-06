@@ -1,6 +1,11 @@
 import s from './Company.module.scss';
 
-const Company = () => {
+const Company = ({isCompanyDataLoading, activeCompanyData}) => {
+
+  console.log('activeCompanyData', activeCompanyData)
+  
+  
+  
   return (
     <div className={s.company}>
       Company

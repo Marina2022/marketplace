@@ -156,7 +156,7 @@ const initialState = {
   logoutStatus: 'loading',
   getUserStatus: 'loading',
   activeProfileId: null,
-  profilesInDropdownAreShown: false
+  profilesInDropdownAreShown: true
 
   // loginStatus: 'loading',
 }
