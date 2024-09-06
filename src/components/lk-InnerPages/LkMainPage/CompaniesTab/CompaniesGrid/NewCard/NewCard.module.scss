@@ -18,6 +18,11 @@
   @include m {
     width: 100%;
   }
+
+  &:hover {
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.04);
+  }
+  
 }
 
 .cornerOne {

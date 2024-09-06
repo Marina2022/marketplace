@@ -14,7 +14,12 @@
   @include m {
     width: 100%;
   }
-  
+
+  &:hover {
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.04);
+  }
+
+
 }
 
 .gridCardActive {
@@ -23,6 +28,7 @@
   min-height: 180px;
   width: 263px;
 
+
   @include t {
     width: 215px;
   }
@@ -30,5 +36,123 @@
   @include m {
     width: 100%;
   }
+
+  &:hover {
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.04);
+  }
+}
+
+.cardContent {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 21px 18px;
+  height: 100%;
+
+  @include t {
+    padding: 16px;
+  }
+
+  @include m {
+    padding: 8px 10px;
+  }
+}
+
+.title {
+  color: #131D2A;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 140%;
+  margin-bottom: 8px;
+
+  @include m {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+}
+
+.text {
+  color: #658092;
+  font-size: 12px;
+}
+
+.innKpp {
+  display: flex;
+  gap: 10px;
   
+  @include t {
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+.ogrn {
+  margin-top: 2px;
+  margin-bottom: 8px;
+  
+  @include m {
+    margin-bottom: 12px;
+  }
+}
+
+.balance {
+  margin-top: auto;
+  display: flex;
+  gap: 10px;  
+  margin-bottom: 0px;
+  align-items: flex-end;
+  
+  @include t {
+    margin-bottom: 4px;
+  }
+}
+
+.balanceLabel {
+  color: #658092;
+  font-size: 14px;
+}
+
+.balanceValue {
+  color: #131D2A;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.deleteBtn {
+  flex-shrink: 0;
+  position: absolute;
+  bottom: 15px;
+  bottom: 16px;
+  right: 15px;
+  
+  @include t {
+    bottom: 17px;
+    right: 12px;
+  }
+  
+  @include m {
+    margin-left: 6px;
+    position: static;
+    bottom: unset;
+    top: 11px;
+    right: 10px;
+  }
+  
+  &:hover {
+    svg {
+      fill: #E32636;
+    }
+  }
+}
+
+.titleWrapper {
+  @include m {
+    display: flex;  
+    align-items: flex-start;
+    justify-content: space-between;
+  }  
+}
+
+.address {
+  margin-bottom: 8px;
 }
