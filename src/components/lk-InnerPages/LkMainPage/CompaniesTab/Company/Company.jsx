@@ -3,10 +3,12 @@ import axios from "@/api/axiosInstance.js";
 import pencil from '@/assets/img/lk/lk-main/pencil.svg';
 import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from "react-redux";
-import {getUser, getUserData} from "@/store/userSlice.js";
+import {getUserData} from "@/store/userSlice.js";
 import {useEffect, useState} from "react";
 import InputMask from 'react-input-mask';
 import Button from "@/components/ui/Button/Button.jsx";
+import docIcon from '@/assets/img/lk/lk-main/docIcon.svg'
+import {BASE_URL} from "@/consts/baseURL.js";
 
 const Company = ({isCompanyDataLoading, company}) => {
 
@@ -105,7 +107,7 @@ const Company = ({isCompanyDataLoading, company}) => {
       accountType: data.accountType,
       title: data.title,
 
-      
+
     }
 
     // todo - все убрала пока
@@ -119,10 +121,37 @@ const Company = ({isCompanyDataLoading, company}) => {
     //   console.log(err)
     // }
 
-
     console.log('hello')
     console.log(body)
   };
+
+
+  const fileInputHandler = async (e) => {
+    console.log(e.target.files)
+    const files = e.target.files;
+    if (files.length === 0) return;
+
+    console.log(files)
+    const formData = new FormData();
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append('file', files[i]);
+    }
+
+
+    try {
+      const response = await axios.post(`companies/${company.companyId}/uploadFile`, formData)
+
+      if (response.status === 200) {
+        console.log('Файлы успешно загружены!');
+      } else {
+        console.error('Ошибка загрузки файлов:', response.status);
+      }
+    } catch (error) {
+      console.error('Ошибка при отправке запроса:', error);
+    }
+
+  }
 
   if (isCompanyDataLoading) return <div className={s.company}></div>
 
@@ -223,15 +252,18 @@ const Company = ({isCompanyDataLoading, company}) => {
           {/* Корр/сч */}
           <div className={s.control}>
             <label className={s.label} htmlFor="correspondentAccount">Корреспондентский счет</label>
-            <input
-              disabled={!editing}
-              className={!editing ? s.inputDisabled : s.input}
-              placeholder="Не указано"
-              id="correspondentAccount"
-              type="text"
-              {...register('correspondentAccount')}
-            />
-            {errors.bicorrespondentAccountc && <p>{errors.correspondentAccount.message}</p>}
+
+            <div className={!editing ? s.inputDisabled : s.input}>
+              <input
+                disabled={!editing}
+                className={s.correspondingAccInput}
+                placeholder="Не указано"
+                id="correspondentAccount"
+                type="text"
+                {...register('correspondentAccount')}
+              />
+              {errors.bicorrespondentAccountc && <p>{errors.correspondentAccount.message}</p>}
+            </div>
           </div>
 
           {/* Банк */}
@@ -368,19 +400,23 @@ const Company = ({isCompanyDataLoading, company}) => {
 
         <div className={s.filesBlock}>
           <ul className={s.fileList}>
-          {
-            
-            <div>files</div>
-            
-            // если они есть. Лучше бы сначала их добавить            
-          }
-          </ul>
-          <label className={s.fileLabelShown} htmlFor="fileIntput">Добавить файл</label> 
-          <input className={s.fileInputHidden} type="file" id="fileIntput" multiple/>
-          
-        </div>
+            {
+              company.documents.map((doc, i) => {
+                return <li key={i} className={s.docItem}>
+                  <a target="_blank" className={s.docItemLink} href={`${BASE_URL}${doc.docPath}`}>
+                    <img src={docIcon} alt="doc icon"/>
+                    <span className={s.docName}>{doc.docName}</span>
+                  </a>
+                </li>
+              })
 
-         
+
+            }
+          </ul>
+          <label className={s.fileLabelShown} htmlFor="fileIntput">Добавить файл</label>
+          <input onChange={fileInputHandler} className={s.fileInputHidden} type="file" id="fileIntput"/>
+
+        </div>
 
 
       </form>
