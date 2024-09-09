@@ -126,12 +126,12 @@ const UserProfile = () => {
           {
             !editing && (
               <div className={s.control}>
-                <label className={s.label} htmlFor="firstName">ФИО</label>
+                <label className={s.label} htmlFor="fio">ФИО</label>
                 <input
                   disabled
                   className={!editing ? s.inputDisabled : s.input}
                   placeholder="Не заполнено"
-                  id="firstName"
+                  id="fio"
                   type="text"
                   value={userData?.fullName}
 
@@ -186,8 +186,6 @@ const UserProfile = () => {
                   {errors.secondName && <p>{errors.secondName.message}</p>}
                 </div>
               </>
-
-
             )
           }
 
@@ -208,6 +206,7 @@ const UserProfile = () => {
                 <input
                   {...inputProps}
                   type="tel"
+                  id={editing ? "phone":''}
                 />
               )}
             </InputMask>
@@ -232,13 +231,13 @@ const UserProfile = () => {
           {/* Адрес */}
           <div className={s.control}>
             <label
-              className={s.label} htmlFor="name">Адрес</label>
+              className={s.label} htmlFor="address">Адрес</label>
 
             <textarea
               disabled={!editing}
               className={!editing ? s.textareaDisabled : s.textarea}
               placeholder="Не заполнено"
-              id="name"
+              id="address"
               spellCheck={false}
               onChange={(e) => adjustTextareaHeight(e)}
               defaultValue={userData?.address}
@@ -253,7 +252,7 @@ const UserProfile = () => {
           {/* Whatsapp */}
 
           <div className={s.control}>
-            <label className={s.label} htmlFor="phone">Whatsapp</label>
+            <label className={s.label} htmlFor="whatsApp">Whatsapp</label>
             <InputMask
               placeholder="Не заполнено"
               disabled={!editing}
@@ -265,6 +264,7 @@ const UserProfile = () => {
               {(inputProps) => (
                 <input
                   {...inputProps}
+                  id={editing ? "whatsApp":''}
                 />
               )}
             </InputMask>
@@ -272,8 +272,8 @@ const UserProfile = () => {
 
           {/* Telegram */}
           <div className={s.control}>
-            <label className={s.label} htmlFor="phone">Telegram</label>
-            <InputMask
+            <label className={s.label} htmlFor="tg">Telegram</label>
+            <InputMask              
               placeholder="Не заполнено"
               disabled={!editing}
               className={!editing ? s.inputDisabled : s.input}
@@ -284,6 +284,7 @@ const UserProfile = () => {
               {(inputProps) => (
                 <input
                   {...inputProps}
+                  id={editing ? "tg":''}
                 />
               )}
             </InputMask>
@@ -293,12 +294,11 @@ const UserProfile = () => {
 
         <h2 className={s.subTitle}>Тарифы</h2>
 
-
         <div className={s.lastFieldset}>
           {/* tariff */}
 
           <div className={s.control}>
-            <label className={s.label} htmlFor="phone">Текущий тариф</label>
+            <label className={s.label} htmlFor="tariff">Текущий тариф</label>
             <input
               disabled={!editing}
               className={!editing ? s.inputDisabled : s.input}

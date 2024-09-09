@@ -90,11 +90,9 @@ const CompaniesTab = () => {
       
       <CompaniesGrid isGridLoading={isGridLoading} grid={grid} activeCompanyName={activeCompany?.companyName} />
       
-      <div className={s.activeCompanyInfo}>
-        
-        <Company isCompanyDataLoading={isCompanyDataLoading} activeCompanyData={activeCompanyData} />
-        <CompanyBalance />
-        
+      <div className={s.activeCompanyInfo}>        
+        <Company isCompanyDataLoading={isCompanyDataLoading} company={activeCompanyData} />
+        <CompanyBalance />        
       </div>
       
     </div>
