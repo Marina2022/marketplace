@@ -165,7 +165,6 @@
   @include m {
     width: 100%;
   }
-
 }
 
 .fieldset {
@@ -192,6 +191,10 @@
     max-width: 160px;
     font-size: 12px;
   }
+}
+
+.disabledLabel {
+  background: #F7F7F9;
 }
 
 .textareaDisabled {

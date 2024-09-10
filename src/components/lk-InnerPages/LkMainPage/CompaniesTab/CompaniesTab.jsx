@@ -65,20 +65,21 @@ const CompaniesTab = () => {
   
   const [isCompanyDataLoading, setIsCompanyDataLoading] = useState(true)
   const [activeCompanyData, setActiveCompanyData] = useState(null)
+
+  const getActiveCompany = async () => {
+
+    try {
+      const resp = await axios(`companies/${activeCompany.companyId}`)
+      setActiveCompanyData(resp.data)
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setIsCompanyDataLoading(false)
+    }
+  }
   
   useEffect(() => {
-    const getActiveCompany = async () => {
-      
-      try {
-        const resp = await axios(`companies/${activeCompany.companyId}`)
-        setActiveCompanyData(resp.data)
-      } catch (err) {
-        console.log(err)
-      } finally {
-        setIsCompanyDataLoading(false)
-      }
-    }
-    
+  
     if (activeCompany) {
       getActiveCompany()  
     }
@@ -89,12 +90,15 @@ const CompaniesTab = () => {
     <div className={s.companiesTab}>
       
       <CompaniesGrid isGridLoading={isGridLoading} grid={grid} activeCompanyName={activeCompany?.companyName} />
-      
-      <div className={s.activeCompanyInfo}>        
-        <Company isCompanyDataLoading={isCompanyDataLoading} company={activeCompanyData} />
-        <CompanyBalance />        
-      </div>
-      
+
+      {
+        activeCompany && <div className={s.activeCompanyInfo}>
+          <Company isCompanyDataLoading={isCompanyDataLoading} company={activeCompanyData} getActiveCompany={getActiveCompany} />
+          <CompanyBalance/>
+        </div>
+      }
+
+
     </div>
   );
 };

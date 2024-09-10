@@ -117,6 +117,7 @@ const InputCode = ({setStep, phoneInputValue, setIsPopupOpen}) => {
         onChange={handleChange}
         placeholder='Код'
         className={s.input}
+        autoFocus
       />
 
       {

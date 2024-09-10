@@ -76,8 +76,8 @@ export const getUserProfiles = createAsyncThunk('cart/getUserProfiles', async (_
   return
 })
 
-
 export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
+  localStorage.removeItem('token')
   thunkAPI.dispatch(setToken(null))
   thunkAPI.dispatch(setUser(null))
   thunkAPI.dispatch(setUserProfiles(null))
@@ -149,7 +149,7 @@ export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
 
 const initialState = {
   user: null,
-  isLoading: false,
+  // isLoading: true,
   isAuthenticated: false,
   token: null,
   userProfiles: null,
@@ -157,7 +157,6 @@ const initialState = {
   getUserStatus: 'loading',
   activeProfileId: null,
   profilesInDropdownAreShown: true
-
   // loginStatus: 'loading',
 }
 

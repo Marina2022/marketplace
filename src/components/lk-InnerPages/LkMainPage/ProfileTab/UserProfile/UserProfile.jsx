@@ -3,7 +3,7 @@ import s from './UserProfile.module.scss';
 import pencil from '@/assets/img/lk/lk-main/pencil.svg';
 import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from "react-redux";
-import {getUser, getUserData} from "@/store/userSlice.js";
+import {getUser, getUserData, logout} from "@/store/userSlice.js";
 import {useEffect, useState} from "react";
 import InputMask from 'react-input-mask';
 import Button from "@/components/ui/Button/Button.jsx";
@@ -98,7 +98,9 @@ const UserProfile = () => {
 
     console.log(body)
   };
-
+    const phoneChangeHandler = () => {
+    // если нужно добавить свою логику на смену телефона
+  }
 
   return (
     <div className={s.profile}>
@@ -199,14 +201,17 @@ const UserProfile = () => {
               mask="+7 (999) 999-99-99"
               {...register('phone', {
                 required: 'Поле телефон обязательно',
+                // добавить обработчик прямо здесь, чтобы он не перезаписывал встроенный
+                onChange: phoneChangeHandler,
               })}
               defaultValue={userData ? `+7 (${userData.phoneNumber.slice(0, 3)}) ${userData.phoneNumber.slice(3, 6)}-${userData.phoneNumber.slice(6, 8)}-${userData.phoneNumber.slice(8)}` : ''} // Начальное значение
             >
               {(inputProps) => (
                 <input
-                  {...inputProps}
+                  {...inputProps}                  
                   type="tel"
                   id={editing ? "phone":''}
+                  disabled={!editing}
                 />
               )}
             </InputMask>
@@ -265,6 +270,7 @@ const UserProfile = () => {
                 <input
                   {...inputProps}
                   id={editing ? "whatsApp":''}
+                  disabled={!editing}
                 />
               )}
             </InputMask>
@@ -285,6 +291,7 @@ const UserProfile = () => {
                 <input
                   {...inputProps}
                   id={editing ? "tg":''}
+                  disabled={!editing}
                 />
               )}
             </InputMask>
