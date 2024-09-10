@@ -12,8 +12,6 @@ import {BASE_URL} from "@/consts/baseURL.js";
 
 const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
 
-    console.log(company)
-
     const userData = useSelector(getUserData);
     const [legalAddressEl, setLegalAddressEl] = useState(null);
     const [realAddressEl, setRealAddressEl] = useState(null);
@@ -24,12 +22,29 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
       textarea.style.height = `${textarea.scrollHeight}px`; // Устанавливаем новую высоту
     };
 
+    const [legalAddress, setLegalAddress] = useState('')
+    const [realAddress, setRealAddress] = useState('')
+
+
+    // useEffect(() => {
+    //   console.log('legalAddress = ', legalAddress)
+    //   if (legalAddress === '') {
+    //     errors.legalAddress = true
+    //   } else {
+    //     errors.legalAddress = false
+    //   }
+    //
+    // }, [legalAddress]);
+
+
     useEffect(() => {
       setTimeout(() => {
         if (legalAddressEl) {
           adjustTextareaHeight({target: legalAddressEl}, true);
+          // setLegalAddress(company.legalAdress)
         }
       }, 500)
+
     }, [legalAddressEl]);
 
     useEffect(() => {
@@ -79,17 +94,29 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
         setValue('bank', company?.bank ? company.bank.trim() : null);
         setValue('accountType', company?.accountType ? company.accountType.trim() : null);
         setValue('title', company?.title ? company.title.trim() : null);
-
         setValue('phone', formattedPhone);
+
+        setLegalAddress(company?.legalAdress)
+        setRealAddress(company?.postalAddress)
 
       }
     }, [company, setValue]);
 
+    console.log('company', company)
+    console.log('realAddress', realAddress)
     const onSubmit = async (data) => {
+
+      console.log('errors', errors)
+
+      if (legalAddress === '' || realAddress === '') {
+        return
+      }
+
+
       const numericPhone = data.phone.replace(/\D/g, '').slice(1);
 
+
       const body = {
-        // userId: userData.userId,
         companyId: company.companyId,
         companyName: data.companyName,
         email: data.email,
@@ -99,15 +126,13 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
         cleaningAccount: data.cleaningAccount,
         correspondentAccount: data.correspondentAccount,
         bank: data.bank,
-        LegalAdress: legalAddressEl.value,
+        legalAdress: legalAddressEl.value,
         postalAdress: realAddressEl.value,
         position: data.title
       }
 
-      console.log(body)
 
-      
-      try {    
+      try {
         const resp = await axios.post('companies/updateProfile', body)
         console.log(resp)
         getActiveCompany()
@@ -116,8 +141,6 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
         console.log(err)
       }
 
-      console.log('hello')
-      console.log(body)
     };
 
 
@@ -159,9 +182,14 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
             <h1 className={s.title}>{company.companyName}</h1>
 
             {
-              !editing && <button onClick={() => setEditing(true)} type="button" className={s.edit}>
-                <img src={pencil} alt="pencil"/><span className={s.editText}>Внести&nbsp;изменения</span>
-              </button>
+              !editing && <div className={s.topPartWrapper}>
+                <button onClick={() => setEditing(true)} type="button" className={s.edit}>
+                  <img src={pencil} alt="pencil"/><span className={s.editText}>Внести&nbsp;изменения</span>
+                </button>
+              
+              <Button className={s.downloadCartBtn}>Скачать&nbsp;карточку<span className={s.mobileHidden}>&nbsp;компании</span></Button>
+              
+              </div>
             }
 
             {
@@ -185,38 +213,37 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
                 type="text"
                 {...register('inn')}
               />
-              {errors.inn && <p>{errors.inn.message}</p>}
             </div>
 
             {/* ОГРН */}
             <div className={s.control}>
               <label className={`${s.label} ${editing ? s.disabledLabel : ''}`} htmlFor="ogrn">ОГРН</label>
               <input
-                // disabled={!editing}
                 disabled={true}
                 className={!editing ? s.inputDisabled : s.input}
                 placeholder="Не указано"
                 id="ogrn"
                 type="text"
-                {...register('inn')}
+                {...register('ogrn')}
               />
-              {errors.ogrn && <p>{errors.ogrn.message}</p>}
             </div>
 
             {/* Корр/сч */}
             <div className={s.control}>
               <label className={s.label} htmlFor="companyName">Наименование компании</label>
 
-              <div className={!editing ? s.inputDisabled : s.input}>
+              <div
+                className={` ${!editing ? s.inputDisabled : s.input} ${errors.companyName ? s.invalid : ''} `}
+
+              >
                 <input
                   disabled={!editing}
-                  className={s.correspondingAccInput}
+                  className={`${s.correspondingAccInput} `}
                   placeholder="Не указано"
                   id="companyName"
                   type="text"
-                  {...register('companyName')}
+                  {...register('companyName', {required: true})}
                 />
-                {errors.companyName && <p>{errors.companyName.message}</p>}
               </div>
             </div>
 
@@ -226,14 +253,13 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
               <label className={`${s.label}`} htmlFor="kpp">КПП</label>
               <input
                 disabled={!editing}
-                className={!editing ? s.inputDisabled : s.input}
+                className={` ${!editing ? s.inputDisabled : s.input} ${errors.kpp ? s.invalid : ''} `}
                 placeholder="Не указано"
                 id="kpp"
                 type="text"
-                {...register('kpp')
+                {...register('kpp', {required: true})
 
                 }
-
               />
               {errors.kpp && <p>{errors.kpp.message}</p>}
             </div>
@@ -244,13 +270,13 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
               <label className={s.label} htmlFor="bic">БИК</label>
               <input
                 disabled={!editing}
-                className={!editing ? s.inputDisabled : s.input}
+                className={` ${!editing ? s.inputDisabled : s.input} ${errors.bic ? s.invalid : ''} `}
                 placeholder="Не указано"
                 id="bic"
                 type="text"
-                {...register('bic')}
+                {...register('bic', {required: true})}
               />
-              {errors.bic && <p>{errors.bic.message}</p>}
+
             </div>
 
             {/* Р/с */}
@@ -258,29 +284,32 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
               <label className={s.label} htmlFor="cleaningAccount">Рассчетный счет </label>
               <input
                 disabled={!editing}
-                className={!editing ? s.inputDisabled : s.input}
+                className={` ${!editing ? s.inputDisabled : s.input} ${errors.cleaningAccount ? s.invalid : ''} `}
+                //className={!editing ? s.inputDisabled : s.input}
                 placeholder="Не указано"
                 id="cleaningAccount"
                 type="text"
-                {...register('cleaningAccount')}
+                {...register('cleaningAccount', {required: true})}
               />
-              {errors.cleaningAccount && <p>{errors.cleaningAccount.message}</p>}
+
             </div>
 
             {/* Корр/сч */}
             <div className={s.control}>
               <label className={s.label} htmlFor="correspondentAccount">Корреспондентский счет</label>
 
-              <div className={!editing ? s.inputDisabled : s.input}>
+              <div
+                className={` ${!editing ? s.inputDisabled : s.input} ${errors.correspondentAccount ? s.invalid : ''} `}
+                //className={!editing ? s.inputDisabled : s.input}
+              >
                 <input
                   disabled={!editing}
                   className={s.correspondingAccInput}
                   placeholder="Не указано"
                   id="correspondentAccount"
                   type="text"
-                  {...register('correspondentAccount')}
+                  {...register('correspondentAccount', {required: true})}
                 />
-                {errors.bicorrespondentAccountc && <p>{errors.correspondentAccount.message}</p>}
               </div>
             </div>
 
@@ -289,13 +318,14 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
               <label className={s.label} htmlFor="bank">Банк </label>
               <input
                 disabled={!editing}
-                className={!editing ? s.inputDisabled : s.input}
+                className={` ${!editing ? s.inputDisabled : s.input} ${errors.bank ? s.invalid : ''} `}
+                //className={!editing ? s.inputDisabled : s.input}
                 placeholder="Не указано"
                 id="bank"
                 type="text"
-                {...register('bank')}
+                {...register('bank', {required: true})}
               />
-              {errors.bank && <p>{errors.bank.message}</p>}
+
             </div>
           </div>
 
@@ -309,12 +339,19 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
 
               <textarea
                 disabled={!editing}
-                className={!editing ? s.textareaDisabled : s.textarea}
+                className={` ${!editing ? s.textareaDisabled : s.textarea} ${legalAddress === '' ? s.invalid : ''} `}
+                // className={!editing ? s.textareaDisabled : s.textarea}
                 placeholder="Не указано"
                 id="legalAddress"
                 spellCheck={false}
-                onChange={(e) => adjustTextareaHeight(e)}
-                defaultValue={company?.legalAdress}
+                onChange={
+                  (e) => {
+                    adjustTextareaHeight(e)
+                    setLegalAddress(e.target.value)
+                  }
+                }
+                value={legalAddress}
+                // defaultValue={company?.legalAdress}
                 ref={(el) => {
                   setLegalAddressEl(el)
                 }}
@@ -328,15 +365,21 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
 
               <textarea
                 disabled={!editing}
-                className={!editing ? s.textareaDisabled : s.textarea}
+                className={` ${!editing ? s.textareaDisabled : s.textarea} ${realAddress === '' ? s.invalid : ''} `}
+                //className={!editing ? s.textareaDisabled : s.textarea}
                 placeholder="Не указано"
                 id="postalAddress"
                 spellCheck={false}
-                onChange={(e) => adjustTextareaHeight(e)}
-                defaultValue={company?.postalAddress}
+                onChange={(e) => {
+                  adjustTextareaHeight(e)
+                  setRealAddress(e.target.value)
+                }}
+                //defaultValue={company?.postalAddress}
+                value={realAddress}
                 ref={(el) => {
                   setRealAddressEl(el)
                 }}
+
               ></textarea>
             </div>
 
@@ -345,7 +388,7 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
               <label className={s.label} htmlFor="phone">Телефон</label>
               <InputMask
                 disabled={!editing}
-                className={!editing ? s.inputDisabled : s.input}
+                className={` ${!editing ? s.inputDisabled : s.input} ${errors.phone ? s.invalid : ''} `}
                 mask="+7 (999) 999-99-99"
                 {...register('phone', {
                   required: 'Поле телефон обязательно',
@@ -361,7 +404,6 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
                   />
                 )}
               </InputMask>
-              {errors.phone && <p>{errors.phone.message}</p>}
             </div>
 
             {/* Email */}
@@ -369,13 +411,13 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
               <label className={s.label} htmlFor="email">Email</label>
               <input
                 disabled={!editing}
-                className={!editing ? s.inputDisabled : s.input}
-                placeholder="Не заполнено"
+                //className={!editing ? s.inputDisabled : s.input}
+                className={` ${!editing ? s.inputDisabled : s.input} ${errors.email ? s.invalid : ''} `}
+                placeholder="Не указано"
                 id="email"
                 type="email"
-                {...register('email')}
+                {...register('email', {required: true})}
               />
-              {errors.email && <p>{errors.email.message}</p>}
             </div>
 
 
@@ -390,11 +432,12 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
               <label className={s.label} htmlFor="title">Должность</label>
               <input
                 disabled={!editing}
-                className={!editing ? s.inputDisabled : s.input}
+                className={` ${!editing ? s.inputDisabled : s.input} ${errors.title ? s.invalid : ''} `}
+                //className={!editing ? s.inputDisabled : s.input}
                 placeholder="Не указано"
                 id="title"
                 type="text"
-                {...register('title')}
+                {...register('title', {required: true})}
               />
               {errors.title && <p>{errors.title.message}</p>}
             </div>

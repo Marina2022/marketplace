@@ -197,11 +197,11 @@ const UserProfile = () => {
             <label className={s.label} htmlFor="phone">Номер&nbsp;телефона</label>
             <InputMask
               disabled={!editing}
-              className={!editing ? s.inputDisabled : s.input}
+              className={ ` ${!editing ? s.inputDisabled : s.input} ${ errors.phone ? s.invalid : '' } ` }
+              // className={!editing ? s.inputDisabled : s.input}
               mask="+7 (999) 999-99-99"
               {...register('phone', {
-                required: 'Поле телефон обязательно',
-                // добавить обработчик прямо здесь, чтобы он не перезаписывал встроенный
+                required: 'Поле телефон обязательно',                
                 onChange: phoneChangeHandler,
               })}
               defaultValue={userData ? `+7 (${userData.phoneNumber.slice(0, 3)}) ${userData.phoneNumber.slice(3, 6)}-${userData.phoneNumber.slice(6, 8)}-${userData.phoneNumber.slice(8)}` : ''} // Начальное значение
@@ -215,7 +215,7 @@ const UserProfile = () => {
                 />
               )}
             </InputMask>
-            {errors.phone && <p>{errors.phone.message}</p>}
+            {/*{errors.phone && <p>{errors.phone.message}</p>}*/}
           </div>
 
           {/* Email */}
@@ -281,7 +281,7 @@ const UserProfile = () => {
             <label className={s.label} htmlFor="tg">Telegram</label>
             <InputMask              
               placeholder="Не заполнено"
-              disabled={!editing}
+              disabled={!editing}              
               className={!editing ? s.inputDisabled : s.input}
               mask="+7 (999) 999-99-99"
               {...register('telegramMsg')}

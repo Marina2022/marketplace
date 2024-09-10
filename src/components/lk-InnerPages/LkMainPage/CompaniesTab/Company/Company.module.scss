@@ -52,7 +52,7 @@
 }
 
 .editText {
-  @include m {
+  @include t {
     display: none;
   }
 }
@@ -319,3 +319,33 @@
   
 }
 
+
+.invalid {
+  border: #E32636 1px solid;
+}
+
+
+.topPartWrapper {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.downloadCartBtn {
+  width: 190px;
+  height: 38px;
+  font-weight: 500;
+  font-size: 12px;
+  margin-left: 10px;
+  
+  @include m {
+    width: 150px;
+  }
+}
+
+.mobileHidden {
+  @include m {
+    display: none;
+  }
+}
