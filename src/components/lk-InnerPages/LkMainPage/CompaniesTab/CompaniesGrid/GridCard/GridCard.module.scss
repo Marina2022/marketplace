@@ -151,3 +151,71 @@
 .address {
   margin-bottom: 8px;
 }
+
+.popup {
+  height: unset;
+  padding: 20px 23px;
+  width: 479px;
+}
+
+.popupTitle {
+  text-align: center;
+  color: #000;
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: 15px;
+  
+  @include m {
+    font-size: 16px;    
+  }
+}
+
+.continue {
+  text-align: center;
+  color: #000;
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 34px;
+}
+
+.buttons {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+
+.grayBtn {
+  background: #AAB7BF;
+  width: 180px;
+  height: 38px;
+  font-weight: 500;
+  font-size: 15px;
+  
+  &:hover {
+    background: #99A4AB;
+  }
+
+  &:active {
+    background: #99A4AB;
+  }
+}
+
+.btn {
+  width: 180px;
+  height: 38px;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.warningList {
+  font-size: 15px;
+  list-style: disc;
+  margin-left: 20px;  
+  padding-left: 20px; 
+  margin-bottom: 24px;
+}
+
+.warningListItem {
+  list-style: disc;
+  margin-bottom: 10px;
+}
