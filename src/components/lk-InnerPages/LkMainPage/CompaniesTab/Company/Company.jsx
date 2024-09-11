@@ -2,7 +2,7 @@ import s from './Company.module.scss';
 import axios from "@/api/axiosInstance.js";
 import pencil from '@/assets/img/lk/lk-main/pencil.svg';
 import {useForm} from 'react-hook-form';
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {getActiveProfileId, getUserData} from "@/store/userSlice.js";
 import {useEffect, useState} from "react";
 import InputMask from 'react-input-mask';
@@ -11,11 +11,7 @@ import docIcon from '@/assets/img/lk/lk-main/docIcon.svg'
 import {BASE_URL} from "@/consts/baseURL.js";
 
 const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
-  
-  const activeProfileId = useSelector(getActiveProfileId) 
 
-  
-  
     const userData = useSelector(getUserData);
     const [legalAddressEl, setLegalAddressEl] = useState(null);
     const [realAddressEl, setRealAddressEl] = useState(null);
@@ -48,6 +44,8 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
         }
       }, 500)
     }, [realAddressEl, editing]);
+    
+    
 
     const {
       register,
@@ -73,12 +71,11 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
 
     useEffect(() => {
       if (userData) {
-        
+
         let formattedPhone = ''
         if (company?.phoneNumber) {
-          formattedPhone = `+7 (${company?.phoneNumber.slice(0, 3)}) ${company?.phoneNumber.slice(3, 6)}-${company?.phoneNumber.slice(6, 8)}-${company?.phoneNumber.slice(8)}`;  
+          formattedPhone = `+7 (${company?.phoneNumber.slice(0, 3)}) ${company?.phoneNumber.slice(3, 6)}-${company?.phoneNumber.slice(6, 8)}-${company?.phoneNumber.slice(8)}`;
         }
-     
 
         setValue('email', company?.email ? company.email.trim() : null);
         setValue('inn', company?.inn ? company.inn.trim() : null);
@@ -143,7 +140,8 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
         const response = await axios.post(`companies/${company.companyId}/uploadFile`, formData)
 
         if (response.status === 200) {
-          console.log('Файлы успешно загружены!');
+          getActiveCompany()
+          //console.log('Файлы успешно загружены!');
         } else {
           console.error('Ошибка загрузки файлов:', response.status);
         }
