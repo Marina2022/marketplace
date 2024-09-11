@@ -1,5 +1,4 @@
 import s from './LkMainPage.module.scss';
-import {useEffect} from "react";
 import MainTab from "@/components/lk-InnerPages/LkMainPage/MainTab/MainTab.jsx";
 import CompaniesTab from "@/components/lk-InnerPages/LkMainPage/CompaniesTab/CompaniesTab.jsx";
 import ProfileTab from "@/components/lk-InnerPages/LkMainPage/ProfileTab/ProfileTab.jsx";

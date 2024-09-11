@@ -26,17 +26,6 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
     const [realAddress, setRealAddress] = useState('')
 
 
-    // useEffect(() => {
-    //   console.log('legalAddress = ', legalAddress)
-    //   if (legalAddress === '') {
-    //     errors.legalAddress = true
-    //   } else {
-    //     errors.legalAddress = false
-    //   }
-    //
-    // }, [legalAddress]);
-
-
     useEffect(() => {
       setTimeout(() => {
         if (legalAddressEl) {
@@ -102,19 +91,12 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
       }
     }, [company, setValue]);
 
-    console.log('company', company)
-    console.log('realAddress', realAddress)
     const onSubmit = async (data) => {
-
-      console.log('errors', errors)
-
       if (legalAddress === '' || realAddress === '') {
         return
       }
 
-
       const numericPhone = data.phone.replace(/\D/g, '').slice(1);
-
 
       const body = {
         companyId: company.companyId,
@@ -131,31 +113,23 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
         position: data.title
       }
 
-
       try {
-        const resp = await axios.post('companies/updateProfile', body)
-        console.log(resp)
+        await axios.post('companies/updateProfile', body)
         getActiveCompany()
         setEditing(false)
       } catch (err) {
         console.log(err)
       }
-
     };
 
-
     const fileInputHandler = async (e) => {
-      console.log(e.target.files)
       const files = e.target.files;
       if (files.length === 0) return;
-
-      console.log(files)
       const formData = new FormData();
 
       for (let i = 0; i < files.length; i++) {
         formData.append('file', files[i]);
       }
-
 
       try {
         const response = await axios.post(`companies/${company.companyId}/uploadFile`, formData)
@@ -168,15 +142,12 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
       } catch (error) {
         console.error('Ошибка при отправке запроса:', error);
       }
-
     }
 
     if (isCompanyDataLoading) return <div className={s.company}></div>
 
-
     return (
       <div className={s.company}>
-
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <div className={s.titleWrapper}>
             <h1 className={s.title}>{company.companyName}</h1>
@@ -186,9 +157,10 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
                 <button onClick={() => setEditing(true)} type="button" className={s.edit}>
                   <img src={pencil} alt="pencil"/><span className={s.editText}>Внести&nbsp;изменения</span>
                 </button>
-              
-              <Button className={s.downloadCartBtn}>Скачать&nbsp;карточку<span className={s.mobileHidden}>&nbsp;компании</span></Button>
-              
+
+                <Button className={s.downloadCartBtn}>Скачать&nbsp;карточку<span
+                  className={s.mobileHidden}>&nbsp;компании</span></Button>
+
               </div>
             }
 
@@ -199,7 +171,6 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
           </div>
 
           <h2 className={s.subTitle}>Реквизиты компании</h2>
-
           <div className={s.fieldset}>
 
             {/* ИНН */}
@@ -247,7 +218,6 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
               </div>
             </div>
 
-
             {/* КПП */}
             <div className={s.control}>
               <label className={`${s.label}`} htmlFor="kpp">КПП</label>
@@ -257,9 +227,7 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
                 placeholder="Не указано"
                 id="kpp"
                 type="text"
-                {...register('kpp', {required: true})
-
-                }
+                {...register('kpp', {required: true})}
               />
               {errors.kpp && <p>{errors.kpp.message}</p>}
             </div>
@@ -285,7 +253,6 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
               <input
                 disabled={!editing}
                 className={` ${!editing ? s.inputDisabled : s.input} ${errors.cleaningAccount ? s.invalid : ''} `}
-                //className={!editing ? s.inputDisabled : s.input}
                 placeholder="Не указано"
                 id="cleaningAccount"
                 type="text"
@@ -300,7 +267,6 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
 
               <div
                 className={` ${!editing ? s.inputDisabled : s.input} ${errors.correspondentAccount ? s.invalid : ''} `}
-                //className={!editing ? s.inputDisabled : s.input}
               >
                 <input
                   disabled={!editing}
@@ -319,13 +285,11 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
               <input
                 disabled={!editing}
                 className={` ${!editing ? s.inputDisabled : s.input} ${errors.bank ? s.invalid : ''} `}
-                //className={!editing ? s.inputDisabled : s.input}
                 placeholder="Не указано"
                 id="bank"
                 type="text"
                 {...register('bank', {required: true})}
               />
-
             </div>
           </div>
 
@@ -336,11 +300,9 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
             <div className={s.control}>
               <label
                 className={s.label} htmlFor="legalAddress">Юридический адрес</label>
-
               <textarea
                 disabled={!editing}
                 className={` ${!editing ? s.textareaDisabled : s.textarea} ${legalAddress === '' ? s.invalid : ''} `}
-                // className={!editing ? s.textareaDisabled : s.textarea}
                 placeholder="Не указано"
                 id="legalAddress"
                 spellCheck={false}
@@ -351,7 +313,6 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
                   }
                 }
                 value={legalAddress}
-                // defaultValue={company?.legalAdress}
                 ref={(el) => {
                   setLegalAddressEl(el)
                 }}
@@ -366,7 +327,6 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
               <textarea
                 disabled={!editing}
                 className={` ${!editing ? s.textareaDisabled : s.textarea} ${realAddress === '' ? s.invalid : ''} `}
-                //className={!editing ? s.textareaDisabled : s.textarea}
                 placeholder="Не указано"
                 id="postalAddress"
                 spellCheck={false}
@@ -374,12 +334,10 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
                   adjustTextareaHeight(e)
                   setRealAddress(e.target.value)
                 }}
-                //defaultValue={company?.postalAddress}
                 value={realAddress}
                 ref={(el) => {
                   setRealAddressEl(el)
                 }}
-
               ></textarea>
             </div>
 
@@ -411,7 +369,6 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
               <label className={s.label} htmlFor="email">Email</label>
               <input
                 disabled={!editing}
-                //className={!editing ? s.inputDisabled : s.input}
                 className={` ${!editing ? s.inputDisabled : s.input} ${errors.email ? s.invalid : ''} `}
                 placeholder="Не указано"
                 id="email"
@@ -419,12 +376,9 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
                 {...register('email', {required: true})}
               />
             </div>
-
-
           </div>
 
           <h2 className={s.subTitle}>Управление компанией</h2>
-
           <div className={s.fieldset}>
 
             {/* Должность */}
@@ -433,7 +387,6 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
               <input
                 disabled={!editing}
                 className={` ${!editing ? s.inputDisabled : s.input} ${errors.title ? s.invalid : ''} `}
-                //className={!editing ? s.inputDisabled : s.input}
                 placeholder="Не указано"
                 id="title"
                 type="text"
@@ -458,7 +411,6 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
           </div>
 
           <h2 className={s.subTitle}>Прикрепленные файлы</h2>
-
           <div className={s.filesBlock}>
             <ul className={s.fileList}>
               {
@@ -470,16 +422,11 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
                     </a>
                   </li>
                 })
-
-
               }
             </ul>
             <label className={s.fileLabelShown} htmlFor="fileIntput">Добавить файл</label>
             <input onChange={fileInputHandler} className={s.fileInputHidden} type="file" id="fileIntput"/>
-
           </div>
-
-
         </form>
       </div>
     );

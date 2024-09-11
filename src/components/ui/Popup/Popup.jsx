@@ -1,7 +1,7 @@
 import s from './Popup.module.scss';
 import {useEffect} from "react";
-
-const Popup = ({setIsPopupOpen, popupClassName, children}) => {
+import closeBtn from '@/assets/img/closeBtn.svg'
+const Popup = ({setIsPopupOpen, popupClassName, children, withCloseBtn = false}) => {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -18,9 +18,12 @@ const Popup = ({setIsPopupOpen, popupClassName, children}) => {
   }, []);
 
   return (
-    <div className={s.wrapper}>
+    <div className={s.wrapper}>      
       <div onClick={() => setIsPopupOpen(false)} className={s.underlay}></div>
       <div className={`${s.popup} ${popupClassName}`}>
+        {
+          withCloseBtn && <button onClick={()=>setIsPopupOpen(false)} className={s.closeBtn}><img src={closeBtn} alt="close"/></button>
+        }
         {children}
       </div>
     </div>

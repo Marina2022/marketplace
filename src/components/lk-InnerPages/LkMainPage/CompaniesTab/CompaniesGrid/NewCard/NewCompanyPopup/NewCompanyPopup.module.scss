@@ -1,0 +1,48 @@
+@import "@/assets/styles/mixins";
+
+
+.popup {
+  height: unset;
+  border-radius: 10px;
+  padding: 20px;
+  width: 479px;
+}
+
+.title {
+  color: #000;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;  
+
+  @include t {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+}
+
+.label {
+  color: #658092;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.miniText {
+  color: #658092;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.input {
+  width: 100%;
+  color: #658092;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 10px;
+  border: #F0F1F1 solid 1px;
+  background: #F7F7F9;
+  
+  &:focus {
+    outline: none;
+  }
+}

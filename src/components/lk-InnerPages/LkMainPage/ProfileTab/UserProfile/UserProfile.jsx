@@ -3,7 +3,7 @@ import s from './UserProfile.module.scss';
 import pencil from '@/assets/img/lk/lk-main/pencil.svg';
 import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from "react-redux";
-import {getUser, getUserData, logout} from "@/store/userSlice.js";
+import {getUser, getUserData} from "@/store/userSlice.js";
 import {useEffect, useState} from "react";
 import InputMask from 'react-input-mask';
 import Button from "@/components/ui/Button/Button.jsx";
@@ -11,7 +11,6 @@ import Button from "@/components/ui/Button/Button.jsx";
 const UserProfile = () => {
   const userData = useSelector(getUserData);
   const [textareaAddress, setTextareaAddress] = useState(null);
-
   const [editing, setEditing] = useState(false)
   const adjustTextareaHeight = (event) => {
     const textarea = event.target;
@@ -51,10 +50,7 @@ const UserProfile = () => {
       const firstName = nameParts[0]  // Предположительно
       const secondName = nameParts[2]
       const middleName = nameParts[1]
-
-
       const formattedPhone = `+7 (${userData.phoneNumber.slice(0, 3)}) ${userData.phoneNumber.slice(3, 6)}-${userData.phoneNumber.slice(6, 8)}-${userData.phoneNumber.slice(8)}`;
-
       const formattedWhatsApp = userData?.whatsAppMsg ? `+7 (${userData.whatsAppMsg.slice(0, 3)}) ${userData.whatsAppMsg.slice(3, 6)}-${userData.whatsAppMsg.slice(6, 8)}-${userData.whatsAppMsg.slice(8)}` : '';
       const formattedTg = userData?.telegramMsg ? `+7 (${userData.telegramMsg.slice(0, 3)}) ${userData.telegramMsg.slice(3, 6)}-${userData.telegramMsg.slice(6, 8)}-${userData.telegramMsg.slice(8)}` : '';
 
@@ -94,13 +90,8 @@ const UserProfile = () => {
     } catch (err) {
       console.log(err)
     }
-
-
-    console.log(body)
   };
-    const phoneChangeHandler = () => {
-    // если нужно добавить свою логику на смену телефона
-  }
+    const phoneChangeHandler = () => {}
 
   return (
     <div className={s.profile}>
@@ -191,14 +182,12 @@ const UserProfile = () => {
             )
           }
 
-
           {/* Телефон */}
           <div className={s.control}>
             <label className={s.label} htmlFor="phone">Номер&nbsp;телефона</label>
             <InputMask
               disabled={!editing}
-              className={ ` ${!editing ? s.inputDisabled : s.input} ${ errors.phone ? s.invalid : '' } ` }
-              // className={!editing ? s.inputDisabled : s.input}
+              className={ ` ${!editing ? s.inputDisabled : s.input} ${ errors.phone ? s.invalid : '' } ` }              
               mask="+7 (999) 999-99-99"
               {...register('phone', {
                 required: 'Поле телефон обязательно',                
@@ -214,8 +203,7 @@ const UserProfile = () => {
                   disabled={!editing}
                 />
               )}
-            </InputMask>
-            {/*{errors.phone && <p>{errors.phone.message}</p>}*/}
+            </InputMask>            
           </div>
 
           {/* Email */}
@@ -300,10 +288,9 @@ const UserProfile = () => {
         </div>
 
         <h2 className={s.subTitle}>Тарифы</h2>
-
         <div className={s.lastFieldset}>
-          {/* tariff */}
 
+          {/* tariff */}
           <div className={s.control}>
             <label className={s.label} htmlFor="tariff">Текущий тариф</label>
             <input

@@ -33,9 +33,7 @@ const CompaniesTab = () => {
   const profiles = useSelector(getUserProfilesData)
 
   const [activeCompany, setActiveCompany] = useState(null)
-
-  console.log('activeCompany', activeCompany)
-  
+    
   useEffect(() => {
     let activeProfile
 
@@ -58,7 +56,6 @@ const CompaniesTab = () => {
 
     // потестировать надо будет потом, когда еще компаний добавлю todo
     // console.log('activeCompany', activeCompany)
-
     
   }, [activeProfileId, profiles, grid])
 
@@ -82,13 +79,11 @@ const CompaniesTab = () => {
   
     if (activeCompany) {
       getActiveCompany()  
-    }
-    
+    }    
   }, [activeCompany]);
   
   return (
-    <div className={s.companiesTab}>
-      
+    <div className={s.companiesTab}>     
       <CompaniesGrid isGridLoading={isGridLoading} grid={grid} activeCompanyName={activeCompany?.companyName} />
 
       {
@@ -97,8 +92,6 @@ const CompaniesTab = () => {
           <CompanyBalance/>
         </div>
       }
-
-
     </div>
   );
 };

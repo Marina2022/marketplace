@@ -12,14 +12,6 @@ const CompaniesGrid = ({isGridLoading, grid, activeCompanyName}) => {
 
       {
         grid.map(company =><GridCard company={company} key={company.companyId} activeCompanyName={activeCompanyName}  />)
-
-
-        // grid.map(company => {
-        //   return <>
-        //     <GridCard company={company} key={company.companyId} activeCompanyName={activeCompanyName}/>
-        //     <GridCard company={company} key={company.companyId} activeCompanyName={'d'}/>
-        //   </>
-        // })
       }
       <NewCard key={1}/>
     </ul>
