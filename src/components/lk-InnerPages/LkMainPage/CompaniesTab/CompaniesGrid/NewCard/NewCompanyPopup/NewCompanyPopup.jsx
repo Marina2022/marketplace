@@ -4,7 +4,7 @@ import {useState} from "react";
 import axios from "@/api/axiosInstance.js";
 import Button from "@/components/ui/Button/Button.jsx";
 import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
-import {getUser, getUserProfiles} from "@/store/userSlice.js";
+import {getUserCompanies} from "@/store/userSlice.js";
 import {useDispatch} from "react-redux";
 
 
@@ -29,7 +29,7 @@ const NewCompanyPopup = ({setPopupIsOpen}) => {
       setInfoIsLoading(true)
       const resp = await axios.post('companies/addDetails', body)
       setPopupIsOpen(false)
-      dispatch(getUser())
+      dispatch(getUserCompanies())
       console.log(resp.data)
     } catch (err) {
       console.log(err)

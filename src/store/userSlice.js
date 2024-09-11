@@ -3,6 +3,64 @@ import axios from "@/api/axiosInstance.js";
 import {loadCart} from "@/store/cartSlice.js";
 import {loadFavs} from "@/store/favSlice.js";
 
+
+export const getUserCompanies = createAsyncThunk('cart/getUserCompanies', async (_, thunkAPI) => {
+
+  try {
+    const resp = await axios('user',)
+
+    if (resp.status === 200) {
+
+      // try {
+      //
+      //   // объединение корзин, если в LS есть непустая корзина:
+      //   const lsCart = JSON.parse(localStorage.getItem('cart'))
+      //
+      //   if (lsCart && lsCart.cartItems.length > 0) {
+      //
+      //     const itemsToSend = lsCart.cartItems.map(item => {
+      //       return ({productVriantId: item.productVariantId, count: item.quantity})
+      //     })
+      //
+      //     await axios.post(`carts/cartItems`, itemsToSend)
+      //     localStorage.removeItem('cart')
+      //   }
+      //
+      // } catch (err) {
+      //   console.log('Ошибка при обединении корзин')
+      // }
+      //
+      // try {
+      //   // объединение Избранного, если в LS есть непустой массив favs:
+      //
+      //   const lsFavs = JSON.parse(localStorage.getItem('favs'))
+      //
+      //   if (lsFavs && lsFavs.length > 0) {
+      //     const favsToSend = lsFavs.map(fav => {
+      //       return ({productVariantId: fav.productVariantId})
+      //     })
+      //     await axios.post(`favourites/addRange`, favsToSend)
+      //     localStorage.removeItem('favs')
+      //   }
+      // } catch (err) {
+      //   console.log('Ошибка при обединении Избранного')
+      // }
+
+
+      // thunkAPI.dispatch(setIsAuthenticated(true))
+      thunkAPI.dispatch(getUserProfiles())
+      // thunkAPI.dispatch(loadCart())
+      // thunkAPI.dispatch(loadFavs())
+
+      return resp.data
+    }
+  } catch (err) {
+    thunkAPI.rejectWithValue(err.response.data)
+  }
+  return
+})
+
+
 export const getUser = createAsyncThunk('cart/getUser', async (_, thunkAPI) => {
 
   try {
@@ -208,6 +266,21 @@ const userSlice = createSlice({
     })
     .addCase(getUser.rejected, (state, action) => {
       state.getUserStatus = 'error'
+      console.log('Не удалось получить данные пользователя', action.error.message)
+    })
+
+    .addCase(getUserCompanies.pending, (state) => {
+      state.getUserCompaniesStatus = 'loading'
+    })
+    .addCase(getUserCompanies.fulfilled, (state, action) => {
+      state.getUserCompaniesStatus = 'success'
+      // state.isAuthenticated = true
+      if (action.payload) {
+        state.user = action.payload
+      }
+    })
+    .addCase(getUserCompanies.rejected, (state, action) => {
+      state.getUserCompaniesStatus = 'error'
       console.log('Не удалось получить данные пользователя', action.error.message)
     })
 

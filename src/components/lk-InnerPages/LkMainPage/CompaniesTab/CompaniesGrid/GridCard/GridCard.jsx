@@ -4,7 +4,7 @@ import {useState} from "react";
 import Popup from "@/components/ui/Popup/Popup.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
 import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
-import {getUser} from "@/store/userSlice.js";
+import {getUserCompanies} from "@/store/userSlice.js";
 import {useDispatch} from "react-redux";
 
 const GridCard = ({company, activeCompanyName}) => {
@@ -27,8 +27,7 @@ const GridCard = ({company, activeCompanyName}) => {
       if (resp.data.hasProductsInSale || resp.data.balance > 0) {
 
         setShowWarning(true)
-      } else {
-        console.log('setShowConfirm(true)')
+      } else {        
         setShowConfirm(true)
       }
 
@@ -43,7 +42,8 @@ const GridCard = ({company, activeCompanyName}) => {
     try {
       setDeleting(true)     
       await axios.delete(`companies/${company.companyId}`)
-      dispatch(getUser())
+      dispatch(getUserCompanies())
+      setShowConfirm(false)
 
     } catch (err) {
       console.log(err)

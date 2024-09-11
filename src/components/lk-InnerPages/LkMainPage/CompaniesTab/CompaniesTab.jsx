@@ -12,6 +12,9 @@ const CompaniesTab = () => {
 
   const [isGridLoading, setIsGridLoading] = useState(true)
   const [grid, setGrid] = useState(null)
+
+  const activeProfileId = useSelector(getActiveProfileId)
+  const profiles = useSelector(getUserProfilesData)
   
   useEffect(() => {
     const getGrid = async () => {
@@ -26,14 +29,15 @@ const CompaniesTab = () => {
       }
     }
     getGrid()
-  }, [])
+  //}, [activeProfileId, profiles])
+  }, [profiles])
 
-  const activeProfileId = useSelector(getActiveProfileId)
-  const profiles = useSelector(getUserProfilesData)
+  
 
   const [activeCompany, setActiveCompany] = useState(null)
     
   useEffect(() => {
+        
     let activeProfile
 
     if (profiles) {

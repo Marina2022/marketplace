@@ -3,7 +3,7 @@ import s from './UserProfile.module.scss';
 import pencil from '@/assets/img/lk/lk-main/pencil.svg';
 import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from "react-redux";
-import {getUser, getUserData} from "@/store/userSlice.js";
+import {getUser, getUserCompanies, getUserData} from "@/store/userSlice.js";
 import {useEffect, useState} from "react";
 import InputMask from 'react-input-mask';
 import Button from "@/components/ui/Button/Button.jsx";
@@ -84,7 +84,8 @@ const UserProfile = () => {
     try {
       const resp = await axios.post('user', body)
       console.log(resp)
-      dispatch(getUser())
+      // dispatch(getUser())
+      dispatch(getUserCompanies())
       setEditing(false)
     } catch (err) {
       console.log(err)

@@ -4,8 +4,8 @@ import {useForm} from 'react-hook-form';
 import InputMask from 'react-input-mask';
 
 import {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
-import {getUserData} from "@/store/userSlice.js";
+import {useDispatch, useSelector} from "react-redux";
+import {getUserCompanies, getUserData} from "@/store/userSlice.js";
 
 import Button from "@/components/ui/Button/Button.jsx";
 import docIcon from '@/assets/img/lk/lk-main/docIcon.svg'
@@ -94,6 +94,7 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
       }
     }, [company, setValue]);
 
+    const dispatch = useDispatch()
     const onSubmit = async (data) => {
       if (legalAddress === '' || realAddress === '') {
         return
@@ -118,7 +119,8 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
 
       try {
         await axios.post('companies/updateProfile', body)
-        getActiveCompany()
+        // getActiveCompany()
+        dispatch(getUserCompanies())
         setEditing(false)
       } catch (err) {
         console.log(err)
