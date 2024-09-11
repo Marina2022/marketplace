@@ -116,18 +116,15 @@ const UserProfile = () => {
         <div className={s.fieldset}>
           {/* ФИО */}
           {
+
+         
+            // !editing && <div className={s.textareaDisabledDiv}>{userData?.fullName}</div>
+        
+            
             !editing && (
               <div className={s.control}>
                 <label className={s.label} htmlFor="fio">ФИО</label>
-                <input
-                  disabled
-                  className={!editing ? s.inputDisabled : s.input}
-                  placeholder="Не заполнено"
-                  id="fio"
-                  type="text"
-                  value={userData?.fullName}
-
-                />
+                <div className={s.textareaDisabledDiv}>{userData?.fullName}</div>                
                 {errors.firstName && <p>{errors.firstName.message}</p>}
               </div>
             )
