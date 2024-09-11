@@ -42,7 +42,7 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
         if (realAddressEl) {
           adjustTextareaHeight({target: realAddressEl}, true);
         }
-      }, 500)
+      }, 0)
     }, [realAddressEl, editing]);
     
     const {
