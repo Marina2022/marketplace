@@ -3,7 +3,7 @@ import axios from "@/api/axiosInstance.js";
 import pencil from '@/assets/img/lk/lk-main/pencil.svg';
 import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from "react-redux";
-import {getUserData} from "@/store/userSlice.js";
+import {getActiveProfileId, getUserData} from "@/store/userSlice.js";
 import {useEffect, useState} from "react";
 import InputMask from 'react-input-mask';
 import Button from "@/components/ui/Button/Button.jsx";
@@ -11,7 +11,11 @@ import docIcon from '@/assets/img/lk/lk-main/docIcon.svg'
 import {BASE_URL} from "@/consts/baseURL.js";
 
 const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
+  
+  const activeProfileId = useSelector(getActiveProfileId) 
 
+  
+  
     const userData = useSelector(getUserData);
     const [legalAddressEl, setLegalAddressEl] = useState(null);
     const [realAddressEl, setRealAddressEl] = useState(null);
@@ -19,6 +23,7 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
     const [editing, setEditing] = useState(false)
     const adjustTextareaHeight = (event) => {
       const textarea = event.target;
+      // textarea.style.height = 'auto';
       textarea.style.height = `${textarea.scrollHeight}px`; // Устанавливаем новую высоту
     };
 
@@ -34,7 +39,7 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
         }
       }, 500)
 
-    }, [legalAddressEl]);
+    }, [legalAddressEl, editing]);
 
     useEffect(() => {
       setTimeout(() => {
@@ -42,7 +47,7 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
           adjustTextareaHeight({target: realAddressEl}, true);
         }
       }, 500)
-    }, [realAddressEl]);
+    }, [realAddressEl, editing]);
 
     const {
       register,
@@ -68,11 +73,14 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
 
     useEffect(() => {
       if (userData) {
-
-        const formattedPhone = `+7 (${company?.phoneNumber.slice(0, 3)}) ${company?.phoneNumber.slice(3, 6)}-${company?.phoneNumber.slice(6, 8)}-${company?.phoneNumber.slice(8)}`;
+        
+        let formattedPhone = ''
+        if (company?.phoneNumber) {
+          formattedPhone = `+7 (${company?.phoneNumber.slice(0, 3)}) ${company?.phoneNumber.slice(3, 6)}-${company?.phoneNumber.slice(6, 8)}-${company?.phoneNumber.slice(8)}`;  
+        }
+     
 
         setValue('email', company?.email ? company.email.trim() : null);
-
         setValue('inn', company?.inn ? company.inn.trim() : null);
         setValue('kpp', company?.kpp ? company.kpp.trim() : null);
         setValue('ogrn', company?.ogrn ? company.ogrn.trim() : null);
@@ -351,7 +359,7 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
                 {...register('phone', {
                   required: 'Поле телефон обязательно',
                 })}
-                defaultValue={company ? `+7 (${company.phoneNumber.slice(0, 3)}) ${company.phoneNumber.slice(3, 6)}-${company.phoneNumber.slice(6, 8)}-${company.phoneNumber.slice(8)}` : ''}
+                defaultValue={company && company.phoneNumber ? `+7 (${company.phoneNumber.slice(0, 3)}) ${company.phoneNumber.slice(3, 6)}-${company.phoneNumber.slice(6, 8)}-${company.phoneNumber.slice(8)}` : ''}
               >
                 {(inputProps) => (
                   <input

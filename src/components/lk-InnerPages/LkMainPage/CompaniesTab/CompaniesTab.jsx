@@ -8,7 +8,6 @@ import {getActiveProfileId, getUserProfilesData} from "@/store/userSlice.js";
 import Company from "@/components/lk-InnerPages/LkMainPage/CompaniesTab/Company/Company.jsx";
 import CompanyBalance
   from "@/components/lk-InnerPages/LkMainPage/CompaniesTab/CompaniesGrid/CompanyBalance/CompanyBalance.jsx";
-
 const CompaniesTab = () => {
 
   const [isGridLoading, setIsGridLoading] = useState(true)

@@ -5,18 +5,27 @@
   height: unset;
   border-radius: 10px;
   padding: 20px;
+  padding-bottom: 36px;
   width: 479px;
+  
+  @include m {
+    padding-bottom: 20px;
+  }
 }
 
 .title {
   color: #000;
   font-size: 24px;
   font-weight: 600;
-  margin-bottom: 24px;  
+  margin-bottom: 24px;
 
   @include t {
     font-size: 18px;
     margin-bottom: 16px;
+  }
+  
+  @include m {
+    font-size: 16px;
   }
 }
 
@@ -41,8 +50,61 @@
   padding: 10px;
   border: #F0F1F1 solid 1px;
   background: #F7F7F9;
-  
+
   &:focus {
     outline: none;
   }
+}
+
+.detailsBlock {
+  margin-top: 20px;
+  color: #658092;
+  font-size: 15px;
+  font-weight: 500;
+  
+  @include m {
+    font-size: 13px;
+  }
+}
+
+.subTitle {
+  color: #131D2A;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  
+  @include m {
+    font-size: 15px;
+  }
+}
+
+.infoLabel {
+  margin-bottom: 10px;
+}
+
+.infoValue {
+  background: #F7F7F9;
+  border: #F0F1F1 solid 1px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.btn {
+  height: 39px;
+  width: 222px;
+  font-weight: 500;
+  font-size:16px;
+  margin-top: 24px;
+  
+  @include m {
+    width: 200px;
+    font-size:14px;
+  }
+  
 }
