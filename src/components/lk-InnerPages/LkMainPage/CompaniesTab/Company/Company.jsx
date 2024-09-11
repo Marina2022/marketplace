@@ -1,13 +1,15 @@
 import s from './Company.module.scss';
 import axios from "@/api/axiosInstance.js";
-import pencil from '@/assets/img/lk/lk-main/pencil.svg';
 import {useForm} from 'react-hook-form';
-import {useSelector} from "react-redux";
-import {getActiveProfileId, getUserData} from "@/store/userSlice.js";
-import {useEffect, useState} from "react";
 import InputMask from 'react-input-mask';
+
+import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
+import {getUserData} from "@/store/userSlice.js";
+
 import Button from "@/components/ui/Button/Button.jsx";
 import docIcon from '@/assets/img/lk/lk-main/docIcon.svg'
+import pencil from '@/assets/img/lk/lk-main/pencil.svg';
 import {BASE_URL} from "@/consts/baseURL.js";
 
 const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
@@ -18,9 +20,8 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
 
     const [editing, setEditing] = useState(false)
     const adjustTextareaHeight = (event) => {
-      const textarea = event.target;
-      // textarea.style.height = 'auto';
-      textarea.style.height = `${textarea.scrollHeight}px`; // Устанавливаем новую высоту
+      const textarea = event.target;      
+      textarea.style.height = `${textarea.scrollHeight}px`; 
     };
 
     const [legalAddress, setLegalAddress] = useState('')
@@ -30,10 +31,9 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
     useEffect(() => {
       setTimeout(() => {
         if (legalAddressEl) {
-          adjustTextareaHeight({target: legalAddressEl}, true);
-          // setLegalAddress(company.legalAdress)
+          adjustTextareaHeight({target: legalAddressEl}, true);         
         }
-      }, 500)
+      }, 0)
 
     }, [legalAddressEl, editing]);
 
@@ -45,8 +45,6 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
       }, 500)
     }, [realAddressEl, editing]);
     
-    
-
     const {
       register,
       handleSubmit,
@@ -140,8 +138,7 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
         const response = await axios.post(`companies/${company.companyId}/uploadFile`, formData)
 
         if (response.status === 200) {
-          getActiveCompany()
-          //console.log('Файлы успешно загружены!');
+          getActiveCompany()          
         } else {
           console.error('Ошибка загрузки файлов:', response.status);
         }
@@ -149,7 +146,6 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
         console.error('Ошибка при отправке запроса:', error);
       }
     }
-
     if (isCompanyDataLoading) return <div className={s.company}></div>
 
     return (
@@ -306,23 +302,31 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
             <div className={s.control}>
               <label
                 className={s.label} htmlFor="legalAddress">Юридический адрес</label>
-              <textarea
-                disabled={!editing}
-                className={` ${!editing ? s.textareaDisabled : s.textarea} ${legalAddress === '' ? s.invalid : ''} `}
-                placeholder="Не указано"
-                id="legalAddress"
-                spellCheck={false}
-                onChange={
-                  (e) => {
-                    adjustTextareaHeight(e)
-                    setLegalAddress(e.target.value)
+
+              {
+                !editing && <div className={s.textareaDisabledDiv}>{legalAddress}</div> 
+              }
+
+              {
+                editing && <textarea                  
+                  className={` ${s.textarea} ${legalAddress === '' ? s.invalid : ''} `}
+                  placeholder="Не указано"
+                  id="legalAddress"
+                  spellCheck={false}
+                  onChange={
+                    (e) => {
+                      adjustTextareaHeight(e)
+                      setLegalAddress(e.target.value)
+                    }
                   }
-                }
-                value={legalAddress}
-                ref={(el) => {
-                  setLegalAddressEl(el)
-                }}
-              ></textarea>
+                  value={legalAddress}
+                  ref={(el) => {
+                    setLegalAddressEl(el)
+                  }}
+                ></textarea>
+              }
+
+
             </div>
 
             {/* Фактический адрес */}
@@ -330,27 +334,33 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
               <label
                 className={s.label} htmlFor="postalAddress">Фактический адрес</label>
 
-              <textarea
-                disabled={!editing}
-                className={` ${!editing ? s.textareaDisabled : s.textarea} ${realAddress === '' ? s.invalid : ''} `}
-                placeholder="Не указано"
-                id="postalAddress"
-                spellCheck={false}
-                onChange={(e) => {
-                  adjustTextareaHeight(e)
-                  setRealAddress(e.target.value)
-                }}
-                value={realAddress}
-                ref={(el) => {
-                  setRealAddressEl(el)
-                }}
-              ></textarea>
+              {
+                !editing && <div className={s.textareaDisabledDiv}>{realAddress}</div>
+              }
+
+              {
+                editing && <textarea                                    
+                  className={` ${s.textarea} ${realAddress === '' ? s.invalid : ''} `}
+                  placeholder="Не указано"
+                  id="postalAddress"
+                  spellCheck={false}
+                  onChange={(e) => {
+                    adjustTextareaHeight(e)
+                    setRealAddress(e.target.value)
+                  }}
+                  value={realAddress}
+                  ref={(el) => {
+                    setRealAddressEl(el)
+                  }}
+                ></textarea>
+              }
             </div>
 
             {/* Телефон */}
             <div className={s.control}>
               <label className={s.label} htmlFor="phone">Телефон</label>
               <InputMask
+                placeholder="Не указано"
                 disabled={!editing}
                 className={` ${!editing ? s.inputDisabled : s.input} ${errors.phone ? s.invalid : ''} `}
                 mask="+7 (999) 999-99-99"

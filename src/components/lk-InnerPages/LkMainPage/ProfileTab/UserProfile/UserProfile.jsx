@@ -18,13 +18,12 @@ const UserProfile = () => {
   };
 
   useEffect(() => {
-
     setTimeout(() => {
       if (textareaAddress) {
         adjustTextareaHeight({target: textareaAddress}, true);
       }
-    }, 500)
-  }, [textareaAddress]);
+    }, 0)
+  }, [textareaAddress, editing]);
 
   const {
     register,
@@ -186,6 +185,7 @@ const UserProfile = () => {
           <div className={s.control}>
             <label className={s.label} htmlFor="phone">Номер&nbsp;телефона</label>
             <InputMask
+              placeholder="Не заполнено"
               disabled={!editing}
               className={ ` ${!editing ? s.inputDisabled : s.input} ${ errors.phone ? s.invalid : '' } ` }              
               mask="+7 (999) 999-99-99"
@@ -226,18 +226,26 @@ const UserProfile = () => {
             <label
               className={s.label} htmlFor="address">Адрес</label>
 
-            <textarea
-              disabled={!editing}
-              className={!editing ? s.textareaDisabled : s.textarea}
-              placeholder="Не заполнено"
-              id="address"
-              spellCheck={false}
-              onChange={(e) => adjustTextareaHeight(e)}
-              defaultValue={userData?.address}
-              ref={(el) => {
-                setTextareaAddress(el)
-              }}
-            ></textarea>
+            {
+              !editing && <div className={s.textareaDisabledDiv}>{userData?.address}</div>
+            }
+
+            {
+              editing && <textarea
+                disabled={!editing}
+                className={!editing ? s.textareaDisabled : s.textarea}
+                placeholder="Не заполнено"
+                id="address"
+                spellCheck={false}
+                onChange={(e) => adjustTextareaHeight(e)}
+                defaultValue={userData?.address}
+                ref={(el) => {
+                  setTextareaAddress(el)
+                }}
+              ></textarea>
+            }
+
+
           </div>
         </div>
         <h2 className={s.subTitle}>Мессенджеры</h2>
