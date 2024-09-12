@@ -8,6 +8,10 @@
 .starWrapper {
   display: flex;
   padding-inline: 5px;
+  
+  &:first-child {
+    padding-left: 0;
+  }
 }
 
 .star {
@@ -25,7 +29,6 @@
   }
 }
 
-
 .activeStar {
   fill: #E32636;
   width: 40px;
@@ -42,3 +45,13 @@
   }
 }
 
+.ratingLabel {
+  font-size: 12px;
+  color: #658092;
+  margin-top: 6px;
+}
+
+
+.globalWrapper {
+  text-align: center;
+}

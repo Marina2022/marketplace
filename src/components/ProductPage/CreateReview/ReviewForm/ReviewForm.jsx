@@ -1,12 +1,13 @@
 import s from './ReviewForm.module.scss';
 import EditRating from "@/components/ProductPage/CreateReview/ReviewForm/EditRating/EditRating.jsx";
 import {useState} from "react";
+import TimePeriod from "@/components/ProductPage/CreateReview/ReviewForm/TimePeriod/TimePeriod.jsx";
 
 const ReviewForm = () => {
   
   const [rating, setRating] = useState(1)
-  
-  
+  const [period, setPeriod] = useState(null)
+    
   return (
     <form className={s.form}>
 
@@ -22,9 +23,7 @@ const ReviewForm = () => {
         </h2>
         <div>
           <h3 className={s.subtitle}>Опыт использования</h3>
-          <p>sssd</p>
-          <p>sssd</p>
-          <p>sssd</p>
+          <TimePeriod period={period} setPeriod={setPeriod}/>
         </div>
       </div>
 

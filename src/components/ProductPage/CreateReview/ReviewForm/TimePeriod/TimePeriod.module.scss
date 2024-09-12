@@ -1,0 +1,29 @@
+.item {
+  display:  flex;
+  align-items: center;
+  gap: 10px;
+  color: #658092;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.item {
+  margin-bottom: 5px;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.radioBtn {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid #AAB7BF;
+  box-shadow: inset 0 4px 5px rgba(0, 0, 0, 0.08);
+}
+
+
+.activeItem {
+  
+}
