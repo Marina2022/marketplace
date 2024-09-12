@@ -13,6 +13,7 @@ import penIcon from '@/assets/img/penIcon.svg'
 import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 import {getIsAuthenticated} from "@/store/userSlice.js";
 import axios from "@/api/axiosInstance.js";
+import {useNavigate} from "react-router-dom";
 
 const Reviews = ({product, reviewsRef}) => {
 
@@ -110,6 +111,11 @@ const Reviews = ({product, reviewsRef}) => {
   const showMoreHandler = () => {
     setCursor((pagesCount + 1) * PAGE_SIZE)
   }
+  
+  const navigate = useNavigate()
+  const createReview = () => {    
+    navigate('new-review')
+  }
 
   if (isLoading && pagesCount === 0) return <Spinner className={s.spinner}/>
   
@@ -119,7 +125,7 @@ const Reviews = ({product, reviewsRef}) => {
 
       {
         !isEligibilityLoading && (
-          <Button disabled={!canCreateReview} className={s.writeReviewBtn}>
+          <Button onClick={createReview} disabled={!canCreateReview} className={s.writeReviewBtn}>
             <img src={penIcon} alt="icon"/>
             <span>Написать&nbsp;отзыв</span>
           </Button>
@@ -148,7 +154,7 @@ const Reviews = ({product, reviewsRef}) => {
 
           {
             !isEligibilityLoading && (
-              <Button disabled={!canCreateReview} className={s.writeReviewBtn}>
+              <Button onClick={createReview} disabled={!canCreateReview} className={s.writeReviewBtn}>
                 <img src={penIcon} alt="icon"/>
                 <span>Написать&nbsp;отзыв</span>
               </Button>

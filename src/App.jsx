@@ -15,6 +15,7 @@ import LkOrders from "@/pages/Lk/LkOrders.jsx";
 import LkRequests from "@/pages/Lk/LkRequests.jsx";
 import LkChat from "@/pages/Lk/LkChat.jsx";
 import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute.jsx";
+import CreateReview from "@/components/ProductPage/CreateReview/CreateReview.jsx";
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route path='/category/:category' element={<Category/>}/>
           <Route path='/login' element={<Auth/>}/>
           <Route path='/product/:slug' element={<Product/>}/>
+          <Route path='/product/:slug/new-review' element={<CreateReview/>}/>
           
           <Route path='/favourites' element={<Favourites/>}/>
           <Route path='/cart' element={<Cart/>}/>

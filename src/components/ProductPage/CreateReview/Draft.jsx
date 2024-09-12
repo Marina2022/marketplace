@@ -1,12 +1,9 @@
-import React, {useState} from 'react';
-import {useDropzone} from "react-dropzone";
 import {useState} from 'react';
-const CreateReview = () => {
+import  {useDropzone} from "react-dropzone";
 
-
+const Draft = () => {
 
   const [images, setImages] = useState([]);
-
   const onDrop = (acceptedFiles) => {
     const newImages = acceptedFiles.map((file) =>
       Object.assign(file, {
@@ -21,7 +18,7 @@ const CreateReview = () => {
     accept: 'image/*',
     multiple: true, // Позволяет загружать несколько файлов
   });
-  
+
   return (
     <div className="container">
       <div
@@ -56,4 +53,4 @@ const CreateReview = () => {
   );
 };
 
-export default CreateReview;
+export default Draft;

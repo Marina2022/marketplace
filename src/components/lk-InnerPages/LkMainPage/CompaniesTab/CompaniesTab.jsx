@@ -93,5 +93,4 @@ const CompaniesTab = () => {
     </div>
   );
 };
-
 export default CompaniesTab;
