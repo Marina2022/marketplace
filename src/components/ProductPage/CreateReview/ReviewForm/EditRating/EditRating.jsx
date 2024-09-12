@@ -2,7 +2,7 @@ import s from './EditRating.module.scss';
 import Star from "@/components/ProductPage/CreateReview/ReviewForm/EditRating/Star.jsx";
 import {useState} from "react";
 
-const EditRating = ({rating, setRating}) => {
+const EditRating = ({rating, setRating, ratingError}) => {
 
   const [tempRating, setTempRating] = useState(1)
   const [isInside, setIsInside] = useState(false)
@@ -24,7 +24,7 @@ const EditRating = ({rating, setRating}) => {
         }
       </ul>
 
-      <div className={s.ratingLabel}>Поставьте оценку</div>
+      <div className={ rating === 0 && ratingError ? s.ratingLabelError : s.ratingLabel}>Поставьте оценку</div>
 
 
     </div>

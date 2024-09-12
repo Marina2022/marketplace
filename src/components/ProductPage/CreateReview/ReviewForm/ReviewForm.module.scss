@@ -56,10 +56,45 @@
 }
 
 .subtitle {
+  display: block;
   color: #3E5067;
   font-weight: 500;
   font-size: 14px;
   margin-bottom: 10px;
 }
 
+.periodBlock {
+  margin-bottom: 35px;
+  
+  @include m {
+    margin-bottom: 15px;
+  }
+}
+
+.textarea {
+  height: 100px;
+  width: 596px;
+  resize: none;
+  border: 1px solid #AAB7BF;
+  border-radius: 5px;
+  padding: 10px;
+  color: #658092;
+  font-size: 14px;
+  margin-bottom: 20px;
+  
+  @include m {
+    margin-bottom: 10px;
+  }
+    
+  &::placeholder {
+    font-size: 12px;
+    color: #AAB7BF;
+    font-weight: 400;
+  }
+  
+  &:focus {
+    outline: 2px solid #AAB7BF;
+    border: none;    
+  }
+}
 
