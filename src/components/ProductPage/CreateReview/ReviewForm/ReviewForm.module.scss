@@ -1,0 +1,14 @@
+@import "@/assets/styles/mixins";
+
+.form {
+  background: white;
+  padding: 40px 88px;
+  
+  @include t {
+    padding: 40px 20px;
+  }
+  
+  @include m {
+    padding: 20px 16px;
+  }
+}
