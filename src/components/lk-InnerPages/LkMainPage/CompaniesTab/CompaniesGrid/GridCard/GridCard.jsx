@@ -23,11 +23,11 @@ const GridCard = ({company, activeCompanyName}) => {
     try {
       setSending(true)
       const resp = await axios(`company/${company.companyId}/deleteWarning`)
-      
+
       if (resp.data.hasProductsInSale || resp.data.balance > 0) {
 
         setShowWarning(true)
-      } else {        
+      } else {
         setShowConfirm(true)
       }
 
@@ -40,7 +40,7 @@ const GridCard = ({company, activeCompanyName}) => {
 
   const handleRealDelete = async () => {
     try {
-      setDeleting(true)     
+      setDeleting(true)
       await axios.delete(`companies/${company.companyId}`)
       dispatch(getUserCompanies())
       setShowConfirm(false)
@@ -50,14 +50,12 @@ const GridCard = ({company, activeCompanyName}) => {
     } finally {
       setDeleting(false)
     }
- 
   }
 
   return (
     <>
       <div className={active ? s.gridCardActive : s.gridCard}>
         <div className={s.cardContent}>
-
           <div className={s.titleWrapper}>
             <h3 className={s.title}>{company.companyName}</h3>
             <button disabled={sending} onClick={handleDelete} className={s.deleteBtn}>
@@ -76,7 +74,6 @@ const GridCard = ({company, activeCompanyName}) => {
             </button>
           </div>
 
-
           <div className={s.text}>
             <div className={s.innKpp}>
               <div>ИНН {company.inn}</div>
@@ -92,11 +89,9 @@ const GridCard = ({company, activeCompanyName}) => {
         </div>
       </div>
 
-
       {
         showWarning && <Popup setIsPopupOpen={setShowWarning} popupClassName={s.popup}>
           <h4 className={s.popupTitle}>Перед удаление обратите внимание</h4>
-
           <ul className={s.warningList}>
             <li className={s.warningListItem}>Удалите оставшиеся зарегистрированные товары</li>
             <li className={s.warningListItem}>Выведите средства с вашего баланса</li>

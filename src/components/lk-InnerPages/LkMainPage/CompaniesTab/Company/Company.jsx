@@ -12,16 +12,23 @@ import docIcon from '@/assets/img/lk/lk-main/docIcon.svg'
 import pencil from '@/assets/img/lk/lk-main/pencil.svg';
 import {BASE_URL} from "@/consts/baseURL.js";
 
-const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
+const Company = ({isCompanyDataLoading, company}) => {
 
     const userData = useSelector(getUserData);
     const [legalAddressEl, setLegalAddressEl] = useState(null);
     const [realAddressEl, setRealAddressEl] = useState(null);
-
     const [editing, setEditing] = useState(false)
+    const [documents, setDocuments] = useState(null)
+
+    useEffect(() => {
+      if (company) {        
+        setDocuments(company.documents)
+      }
+    }, [company])
+
     const adjustTextareaHeight = (event) => {
-      const textarea = event.target;      
-      textarea.style.height = `${textarea.scrollHeight}px`; 
+      const textarea = event.target;
+      textarea.style.height = `${textarea.scrollHeight}px`;
     };
 
     const [legalAddress, setLegalAddress] = useState('')
@@ -31,7 +38,7 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
     useEffect(() => {
       setTimeout(() => {
         if (legalAddressEl) {
-          adjustTextareaHeight({target: legalAddressEl}, true);         
+          adjustTextareaHeight({target: legalAddressEl}, true);
         }
       }, 0)
 
@@ -44,7 +51,7 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
         }
       }, 0)
     }, [realAddressEl, editing]);
-    
+
     const {
       register,
       handleSubmit,
@@ -118,8 +125,7 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
       }
 
       try {
-        await axios.post('companies/updateProfile', body)
-        // getActiveCompany()
+        await axios.post('companies/updateProfile', body)        
         dispatch(getUserCompanies())
         setEditing(false)
       } catch (err) {
@@ -140,7 +146,10 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
         const response = await axios.post(`companies/${company.companyId}/uploadFile`, formData)
 
         if (response.status === 200) {
-          getActiveCompany()          
+
+          const newDocs = [...documents, {docPath: response.data.documentPath, docName: response.data.documentName}]
+          setDocuments(newDocs)
+
         } else {
           console.error('Ошибка загрузки файлов:', response.status);
         }
@@ -148,7 +157,7 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
         console.error('Ошибка при отправке запроса:', error);
       }
     }
-    if (isCompanyDataLoading) return <div className={s.company}></div>
+    if (isCompanyDataLoading && !company) return <div className={s.company}></div>
 
     return (
       <div className={s.company}>
@@ -306,11 +315,11 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
                 className={s.label} htmlFor="legalAddress">Юридический адрес</label>
 
               {
-                !editing && <div className={s.textareaDisabledDiv}>{legalAddress}</div> 
+                !editing && <div className={s.textareaDisabledDiv}>{legalAddress}</div>
               }
 
               {
-                editing && <textarea                  
+                editing && <textarea
                   className={` ${s.textarea} ${legalAddress === '' ? s.invalid : ''} `}
                   placeholder="Не указано"
                   id="legalAddress"
@@ -327,8 +336,6 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
                   }}
                 ></textarea>
               }
-
-
             </div>
 
             {/* Фактический адрес */}
@@ -341,7 +348,7 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
               }
 
               {
-                editing && <textarea                                    
+                editing && <textarea
                   className={` ${s.textarea} ${realAddress === '' ? s.invalid : ''} `}
                   placeholder="Не указано"
                   id="postalAddress"
@@ -432,7 +439,8 @@ const Company = ({isCompanyDataLoading, company, getActiveCompany}) => {
           <div className={s.filesBlock}>
             <ul className={s.fileList}>
               {
-                company.documents.map((doc, i) => {
+                //company.documents.map((doc, i) => {
+                documents && documents.map((doc, i) => {
                   return <li key={i} className={s.docItem}>
                     <a target="_blank" className={s.docItemLink} href={`${BASE_URL}${doc.docPath}`}>
                       <img src={docIcon} alt="doc icon"/>

@@ -28,8 +28,7 @@ const CompaniesTab = () => {
         setIsGridLoading(false)
       }
     }
-    getGrid()
-  //}, [activeProfileId, profiles])
+    getGrid()  
   }, [profiles])
 
   
@@ -56,9 +55,6 @@ const CompaniesTab = () => {
         setActiveCompany(grid[0])
       }
     }
-
-    // потестировать надо будет потом, когда еще компаний добавлю todo
-    // console.log('activeCompany', activeCompany)
     
   }, [activeProfileId, profiles, grid])
 
@@ -88,10 +84,9 @@ const CompaniesTab = () => {
   return (
     <div className={s.companiesTab}>     
       <CompaniesGrid isGridLoading={isGridLoading} grid={grid} activeCompanyName={activeCompany?.companyName} />
-
       {
         activeCompany && <div className={s.activeCompanyInfo}>
-          <Company isCompanyDataLoading={isCompanyDataLoading} company={activeCompanyData} getActiveCompany={getActiveCompany} />
+          <Company isCompanyDataLoading={isCompanyDataLoading} company={activeCompanyData} />
           <CompanyBalance/>
         </div>
       }
