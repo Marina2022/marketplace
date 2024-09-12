@@ -153,7 +153,7 @@ const ProductPage = () => {
       setIsFavourite(product.isFavourite)
     } else {
       if (favs) {
-        setIsFavourite(favs.find(item => item.productVariantId === product.productVariantId))
+        setIsFavourite(favs?.find(item => item.productVariantId === product.productVariantId))
       }
     }
 
@@ -164,7 +164,7 @@ const ProductPage = () => {
     if (product) {
       const newFavState = isAuthenticated
         ? product.isFavourite
-        : favs.find(item => item.productVariantId === product?.productVariantId)
+        : favs?.find(item => item.productVariantId === product?.productVariantId)
 
       setIsFavourite(newFavState)
     }

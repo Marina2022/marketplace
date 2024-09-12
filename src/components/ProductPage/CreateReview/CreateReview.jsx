@@ -41,6 +41,7 @@ const CreateReview = () => {
 
   return (
     <div className="container-review">
+      
       <Link className={s.backLink} to={`/product/${slug}`}>
         <img src={backArror} alt="back arror"/>
         <span>Назад к карточке товара</span>
@@ -50,11 +51,9 @@ const CreateReview = () => {
           <img className={s.headerImage} src={`${BASE_URL}${product.productImages[0].imageUrl}`}
                alt={product.productImages[0].imageName}/>
         </div>
-        <span className={s.headerText}>Отзыв о товаре {product.productName.slice(0, 33) + '...'} {}</span>
-
+        <span className={s.headerText}>Отзыв о товаре {product.productName.slice(0, 33) + '...'}</span>
       </div>
-      
-      <ReviewForm productId = {product.productId} />
+      <ReviewForm productId={product.productId}/>
 
     </div>
   );
