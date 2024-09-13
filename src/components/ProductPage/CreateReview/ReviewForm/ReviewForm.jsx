@@ -3,43 +3,71 @@ import EditRating from "@/components/ProductPage/CreateReview/ReviewForm/EditRat
 import {useState} from "react";
 import TimePeriod from "@/components/ProductPage/CreateReview/ReviewForm/TimePeriod/TimePeriod.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
-import galleryIcon from '@/assets/img/gallery.svg'
+import galleryIcon from '@/assets/img/gallery.svg';
+import {useDropzone} from "react-dropzone";
 
 const ReviewForm = () => {
 
-  const [rating, setRating] = useState(0)
-  const [period, setPeriod] = useState(null)
-  const [ratingError, setRatingError] = useState(false)
+  const [images, setImages] = useState([]);
 
-  const [advantages, setAdvantages] = useState('')
-  const [disadvantages, setDisadvantages] = useState('')
-  const [comments, setComments] = useState('')
+  const onDrop = (acceptedFiles) => {
+    const newImages = acceptedFiles.map((file) =>
+      Object.assign(file, {
+        preview: URL.createObjectURL(file),
+      })
+    );
+
+    const totalImages = images.length + newImages.length;
+
+    // Ограничиваем общее количество изображений до 4
+    if (totalImages > 4) {
+      const allowedNewImages = newImages.slice(0, 4 - images.length);
+      setImages([...images, ...allowedNewImages]);
+    } else {
+      setImages([...images, ...newImages]);
+    }
+  };
+
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({
+    onDrop,
+    
+    accept: {
+      'image/jpeg': ['.jpeg', '.jpg'],
+      'image/png': ['.png'],
+      'image/gif': ['.gif']
+    },
+    multiple: true, 
+  });
+
+  const [rating, setRating] = useState(0);
+  const [period, setPeriod] = useState(null);
+  const [ratingError, setRatingError] = useState(false);
+
+  const [advantages, setAdvantages] = useState('');
+  const [disadvantages, setDisadvantages] = useState('');
+  const [comments, setComments] = useState('');
+
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (rating === 0) {
-      setRatingError(true)
-      return
+      setRatingError(true);
+      return;
     }
 
-    const body = {rating, period, advantages, disadvantages, comments}
-    console.log(body)
-  }
+    const body = {rating, period, advantages, disadvantages, comments};
+    console.log(body);
+  };
 
   return (
     <form className={s.form} onSubmit={handleSubmit}>
-
-
       <div className={s.mainPart}>
         <div className={s.starRow}>
-          <h2 className={s.title}>Общая оценка </h2>
+          <h2 className={s.title}>Общая оценка</h2>
           <EditRating rating={rating} setRating={setRating} ratingError={ratingError}/>
         </div>
 
-
         <div className={s.row}>
-          <h2 className={s.title}>Дополнительные
-            сведения
-          </h2>
+          <h2 className={s.title}>Дополнительные сведения</h2>
           <div className={s.periodBlock}>
             <label className={s.subtitle}>Опыт использования</label>
             <TimePeriod period={period} setPeriod={setPeriod}/>
@@ -47,7 +75,7 @@ const ReviewForm = () => {
         </div>
 
         <div className={s.row}>
-          <h2 className={s.title}>Поделитесь мнением </h2>
+          <h2 className={s.title}>Поделитесь мнением</h2>
           <div>
             <label htmlFor="advantages" className={s.subtitle}>Достоинства</label>
             <textarea
@@ -62,7 +90,7 @@ const ReviewForm = () => {
             <label htmlFor="disadvantages" className={s.subtitle}>Недостатки</label>
             <textarea
               className={s.textarea}
-              placeholder="Укажите, что  не понравилось"
+              placeholder="Укажите, что не понравилось"
               name="disadvantages"
               id="disadvantages"
               value={disadvantages}
@@ -86,27 +114,43 @@ const ReviewForm = () => {
 
           <label
             className={`${s.textarea} ${s.filesInput}`}
-            placeholder="Укажите что вам понравилось"
-            htmlFor="files"
-            // value={advantages}
-            // onChange={(e) => setAdvantages(e.target.value)}
+            {...getRootProps()}
           >
-            <img src={galleryIcon} alt="icon"/>
-            <div className={s.filesInputText}>
-              Выберите фотографии или перетащите фото
-            </div>
+            {
+              images.length === 0 && (
+                <div className={s.inputTextWrapper}>
+                  <img src={galleryIcon} alt="icon"/>
+                  <div className={s.filesInputText}>
+                    Выберите фотографии или перетащите фото
+                  </div>
+                </div>
+              )
+            }
 
-
+            {
+              images.length > 0 && (
+                <div className={s.previewList}>
+                  {images.map((image, index) => (
+                    <img
+                      key={index}
+                      src={image.preview}
+                      alt="preview"
+                      className={s.previewImg}
+                    />
+                  ))}
+                </div>
+              )
+            }
           </label>
-          <input className={s.fileInput} type="file" id="files"/>
+          <input
+            {...getInputProps()}
+            className={s.fileInput}
+            type="file"
+          />
         </div>
-
-
       </div>
 
-      <Button type="sumbit">Отправить&nbsp;отзыв</Button>
-
-
+      <Button type="submit">Отправить&nbsp;отзыв</Button>
     </form>
   );
 };

@@ -21,7 +21,6 @@
   @include m {
     flex-direction: column;
   }
-
 }
 
 .starRow {
@@ -115,15 +114,36 @@
   font-size: 12px;
 }
 
-.filesInput {
+.filesInput {  
+  gap: 10px;
+  margin-bottom: 4px;
+  cursor: pointer;
+  padding: 10px;
+  position: relative;
+}
+
+.inputTextWrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 4px;
+  height: 100%;
 }
 
 .mainPart {
   border-bottom: #F0F1F1 1px solid;
   margin-bottom: 20px;
+}
+
+.previewList {
+  display: flex;
+  gap: 10px;
+  width: 100%;  
+}
+
+.previewImg {
+  height: 80px;
+  width: 80px;
+  border-radius: 5px;
+  object-fit: cover;  
 }
