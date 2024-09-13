@@ -10,8 +10,7 @@
   align-items: center;
   font-size: 14px;
   font-weight: 500;
-  color: #131D2A;
-  
+  color: #131D2A;  
   cursor: pointer;
   
   img {
@@ -35,7 +34,6 @@
 
 .selectBtnClosed {
   transform: rotate(180deg);
-
 }
 
 .selectBlock {
@@ -46,9 +44,7 @@
 .options {
   background: white;
   border: orange 2px solid;
-  margin-top: 3px;
-
-  
+  margin-top: 3px; 
   border: #F0F1F1 1px solid;  
 }
 
@@ -71,9 +67,5 @@
   color: #131D2A;
   background: #F7F7F9;
   cursor: pointer;
-}
-
-.wrapper {
-  
 }
 

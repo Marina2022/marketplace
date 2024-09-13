@@ -5,7 +5,6 @@
   cursor: pointer;
 }
 
-
 .switchOuter {
   width: 44px;
   height: 25px;
@@ -30,16 +29,14 @@
   height: 21px;
   border-radius: 23px;
   background: white;  
-  transition: all .1s linear;
-  
+  transition: all .1s linear;  
 }
 
 .innerChecked {
   width: 21px;
   height: 21px;
   border-radius: 23px;
-  background: white;
-  
+  background: white;  
   transform: translateX(19px);    
   transition: all .1s linear;
 }

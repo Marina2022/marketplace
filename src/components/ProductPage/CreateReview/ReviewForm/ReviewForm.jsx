@@ -13,8 +13,20 @@ import Switch from "@/components/ui/Switch/Switch.jsx";
 
 const ReviewForm = ({productId}) => {
 
-  const [images, setImages] = useState([]);
+  const [rating, setRating] = useState(0);
+  const [period, setPeriod] = useState(null);
+  const [ratingError, setRatingError] = useState(false);
 
+  const [advantages, setAdvantages] = useState('');
+  const [disadvantages, setDisadvantages] = useState('');
+  const [comments, setComments] = useState('');
+  const [anonym, setAnonym] = useState(false)
+
+  const activeProfileId = useSelector(getActiveProfileId)
+  const [chosenProfileIndex, setChosenProfileIndex] = useState(null)
+  const [reviewers, setReviewers] = useState(null);
+
+  const [images, setImages] = useState([]);
   const onDrop = (acceptedFiles) => {
     const newImages = acceptedFiles.map((file) =>
       Object.assign(file, {
@@ -43,23 +55,6 @@ const ReviewForm = ({productId}) => {
     multiple: true,
   });
 
-  const [rating, setRating] = useState(0);
-  const [period, setPeriod] = useState(null);
-  const [ratingError, setRatingError] = useState(false);
-
-  const [advantages, setAdvantages] = useState('');
-  const [disadvantages, setDisadvantages] = useState('');
-  const [comments, setComments] = useState('');
-
-
-  const activeProfileId = useSelector(getActiveProfileId)
-
-  const [chosenProfileIndex, setChosenProfileIndex] = useState(null)
-
-  const [reviewers, setReviewers] = useState(null);
-
-  console.log(reviewers)
-
   useEffect(() => {
     if (reviewers) {
       const index = reviewers.findIndex(item => item.profileId === activeProfileId)
@@ -68,17 +63,13 @@ const ReviewForm = ({productId}) => {
   }, [reviewers])
 
   useEffect(() => {
-
     (async () => {
       const resp = await axios.post('reviews/reviewers', {productId})
       setReviewers(resp.data)
       console.log(resp.data)
     })()
-
   }, []);
 
-
-  const [anonym, setAnonym] = useState(false)
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (rating === 0) {
@@ -86,7 +77,7 @@ const ReviewForm = ({productId}) => {
       return;
     }
 
-    const body = {rating, period, advantages, disadvantages, comments};
+    const body = {rating, period, advantages, disadvantages, comments, anonym, images};
     console.log(body);
   };
 
@@ -97,7 +88,6 @@ const ReviewForm = ({productId}) => {
           <h2 className={s.title}>Общая оценка</h2>
           <EditRating rating={rating} setRating={setRating} ratingError={ratingError}/>
         </div>
-
         <div className={s.row}>
           <h2 className={s.title}>Дополнительные сведения</h2>
           <div className={s.periodBlock}>
@@ -105,7 +95,6 @@ const ReviewForm = ({productId}) => {
             <TimePeriod period={period} setPeriod={setPeriod}/>
           </div>
         </div>
-
         <div className={s.row}>
           <h2 className={s.title}>Поделитесь мнением</h2>
           <div>
@@ -140,7 +129,6 @@ const ReviewForm = ({productId}) => {
             ></textarea>
           </div>
         </div>
-
         <div className={s.row}>
           <h2 className={s.title}>Добавьте фото</h2>
 
@@ -181,18 +169,16 @@ const ReviewForm = ({productId}) => {
           />
         </div>
       </div>
-
       {
-        reviewers && <ChooseReviewer chosenProfileIndex={chosenProfileIndex} reviewers={reviewers} setChosenProfileIndex={setChosenProfileIndex} />
+        reviewers && <ChooseReviewer
+          chosenProfileIndex={chosenProfileIndex}
+          reviewers={reviewers}
+          setChosenProfileIndex={setChosenProfileIndex}/>
       }
-
       <div className={s.btnWrapper}>
         <Button className={s.submitBtn} type="submit">Отправить&nbsp;отзыв</Button>
-        
-        <Switch label="Отправить отзыв анонимно" setChecked={setAnonym} checked={anonym} />       
-        
+        <Switch label="Отправить отзыв анонимно" setChecked={setAnonym} checked={anonym}/>
       </div>
-      
       <p className={s.bottomText}>Оставляя отзыв, вы соглашаетесь c <a href="#">правилами публикациии</a></p>
     </form>
   );

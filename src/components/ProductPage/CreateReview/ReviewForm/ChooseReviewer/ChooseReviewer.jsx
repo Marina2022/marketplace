@@ -2,18 +2,13 @@ import s from './ChooseReviewer.module.scss';
 import {useState, useEffect, useRef} from "react";
 import pencil from '@/assets/img/lk/lk-main/pencil.svg';
 import selectBtn from '@/assets/img/selectBtn.svg';
-
 const ChooseReviewer = ({chosenProfileIndex, reviewers, setChosenProfileIndex}) => {
 
-  console.log({chosenProfileIndex})
-  console.log(reviewers[chosenProfileIndex])
-
-  const [editing, setEditing] = useState(false);
-  const nameBlockRef = useRef(null); // Реф для отслеживания элемента
-
+  const [editing, setEditing] = useState(false)
+  const nameBlockRef = useRef(null)
   const handleClickOutside = (event) => {
     if (nameBlockRef.current && !nameBlockRef.current.contains(event.target)) {
-      setEditing(false); // Сбрасываем состояние, если клик был вне блока
+      setEditing(false);
       setDropdownOpen(true)
     }
   };
@@ -29,9 +24,8 @@ const ChooseReviewer = ({chosenProfileIndex, reviewers, setChosenProfileIndex}) 
 
   const reviewerClickHandler = (i) => {
     setChosenProfileIndex(i)
-    setDropdownOpen(false)
+    setEditing(false)
   }
-
 
   if (!reviewers || chosenProfileIndex === null) return <></>
 
@@ -54,7 +48,6 @@ const ChooseReviewer = ({chosenProfileIndex, reviewers, setChosenProfileIndex}) 
         ref={nameBlockRef}
       >
         <p className={s.firstText}>Вы оставляете отзыв как:</p>
-
         <div
           className={s.wrapper}
         >
@@ -80,11 +73,9 @@ const ChooseReviewer = ({chosenProfileIndex, reviewers, setChosenProfileIndex}) 
             </ul>
           }
         </div>
-
       </div>
     )
   }
-
-};
+}
 
 export default ChooseReviewer;
