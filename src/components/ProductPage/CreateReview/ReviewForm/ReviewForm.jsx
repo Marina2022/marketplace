@@ -1,12 +1,16 @@
+import axios from "@/api/axiosInstance.js";
 import s from './ReviewForm.module.scss';
 import EditRating from "@/components/ProductPage/CreateReview/ReviewForm/EditRating/EditRating.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import TimePeriod from "@/components/ProductPage/CreateReview/ReviewForm/TimePeriod/TimePeriod.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
 import galleryIcon from '@/assets/img/gallery.svg';
 import {useDropzone} from "react-dropzone";
+import {useSelector} from "react-redux";
+import {getActiveProfileId} from "@/store/userSlice.js";
+import ChooseReviewer from "@/components/ProductPage/CreateReview/ReviewForm/ChooseReviewer/ChooseReviewer.jsx";
 
-const ReviewForm = () => {
+const ReviewForm = ({productId}) => {
 
   const [images, setImages] = useState([]);
 
@@ -28,15 +32,14 @@ const ReviewForm = () => {
     }
   };
 
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({
+  const {getRootProps, getInputProps} = useDropzone({
     onDrop,
-    
+
     accept: {
       'image/jpeg': ['.jpeg', '.jpg'],
       'image/png': ['.png'],
-      'image/gif': ['.gif']
     },
-    multiple: true, 
+    multiple: true,
   });
 
   const [rating, setRating] = useState(0);
@@ -46,6 +49,33 @@ const ReviewForm = () => {
   const [advantages, setAdvantages] = useState('');
   const [disadvantages, setDisadvantages] = useState('');
   const [comments, setComments] = useState('');
+
+
+  const activeProfileId = useSelector(getActiveProfileId)
+
+  const [chosenProfileIndex, setChosenProfileIndex] = useState(null)
+
+  const [reviewers, setReviewers] = useState(null);
+
+  console.log(reviewers)
+
+  useEffect(() => {
+    if (reviewers) {
+      const index = reviewers.findIndex(item => item.profileId === activeProfileId)
+      setChosenProfileIndex(index)
+    }
+  }, [reviewers])
+
+  useEffect(() => {
+
+    (async () => {
+      const resp = await axios.post('reviews/reviewers', {productId})
+      setReviewers(resp.data)
+      console.log(resp.data)
+    })()
+
+  }, []);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -149,6 +179,11 @@ const ReviewForm = () => {
           />
         </div>
       </div>
+
+      {
+        reviewers && <ChooseReviewer chosenProfileIndex={chosenProfileIndex} reviewers={reviewers}/>
+      }
+
 
       <Button type="submit">Отправить&nbsp;отзыв</Button>
     </form>

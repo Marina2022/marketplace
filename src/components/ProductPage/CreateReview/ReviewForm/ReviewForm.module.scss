@@ -120,6 +120,15 @@
   cursor: pointer;
   padding: 10px;
   position: relative;
+  
+  @include m {
+    padding: 4px;
+  }
+  
+  &:focus {
+    outline: none;
+    border: 1px solid #AAB7BF;
+  }
 }
 
 .inputTextWrapper {
@@ -145,5 +154,10 @@
   height: 80px;
   width: 80px;
   border-radius: 5px;
-  object-fit: cover;  
+  object-fit: cover; 
+  
+  @include m {
+    height: 60px;
+    width: 60px;
+  }
 }
