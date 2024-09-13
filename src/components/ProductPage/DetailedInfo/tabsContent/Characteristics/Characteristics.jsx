@@ -1,5 +1,5 @@
 import s from './Characteristics.module.scss';
-import docImg from '@/assets/img/doc.svg'
+import docImg from '@/assets/img/doc.png'
 import {BASE_URL} from "@/consts/baseURL.js";
 const Characteristics = ({product}) => {
   return (

@@ -10,11 +10,9 @@
   }
 
   @include m {
-    padding: 20px 16px;
-    
+    padding: 20px 16px;    
   }
 }
-
 
 .row {
   display: flex;
@@ -23,6 +21,7 @@
   @include m {
     flex-direction: column;
   }
+
 }
 
 .starRow {
@@ -89,6 +88,10 @@
     width: 100%;
     height: 70px;
   }
+  
+  &:last-child {
+    margin-bottom: 10px;
+  }
     
   &::placeholder {
     font-size: 12px;
@@ -102,3 +105,25 @@
   }
 }
 
+.fileInput {
+  display: none;
+}
+
+.filesInputText {
+  width: 135px;
+  color: #658092;
+  font-size: 12px;
+}
+
+.filesInput {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.mainPart {
+  border-bottom: #F0F1F1 1px solid;
+  margin-bottom: 20px;
+}
