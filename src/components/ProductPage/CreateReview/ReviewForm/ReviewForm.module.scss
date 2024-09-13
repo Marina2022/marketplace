@@ -161,3 +161,26 @@
     width: 60px;
   }
 }
+
+.submitBtn {
+  //margin-top: 20px;
+}
+
+.bottomText {
+  margin-top: 10px;
+  color: #3E5067;
+  font-size: 12px;
+
+  a, a:active, a:visited {
+    color: #0093FD;
+  }
+}
+
+.btnWrapper {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 20px;
+  
+}
+

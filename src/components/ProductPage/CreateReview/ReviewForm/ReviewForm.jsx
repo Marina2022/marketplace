@@ -9,6 +9,7 @@ import {useDropzone} from "react-dropzone";
 import {useSelector} from "react-redux";
 import {getActiveProfileId} from "@/store/userSlice.js";
 import ChooseReviewer from "@/components/ProductPage/CreateReview/ReviewForm/ChooseReviewer/ChooseReviewer.jsx";
+import Switch from "@/components/ui/Switch/Switch.jsx";
 
 const ReviewForm = ({productId}) => {
 
@@ -77,6 +78,7 @@ const ReviewForm = ({productId}) => {
   }, []);
 
 
+  const [anonym, setAnonym] = useState(false)
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (rating === 0) {
@@ -181,11 +183,17 @@ const ReviewForm = ({productId}) => {
       </div>
 
       {
-        reviewers && <ChooseReviewer chosenProfileIndex={chosenProfileIndex} reviewers={reviewers}/>
+        reviewers && <ChooseReviewer chosenProfileIndex={chosenProfileIndex} reviewers={reviewers} setChosenProfileIndex={setChosenProfileIndex} />
       }
 
-
-      <Button type="submit">Отправить&nbsp;отзыв</Button>
+      <div className={s.btnWrapper}>
+        <Button className={s.submitBtn} type="submit">Отправить&nbsp;отзыв</Button>
+        
+        <Switch label="Отправить отзыв анонимно" setChecked={setAnonym} checked={anonym} />       
+        
+      </div>
+      
+      <p className={s.bottomText}>Оставляя отзыв, вы соглашаетесь c <a href="#">правилами публикациии</a></p>
     </form>
   );
 };

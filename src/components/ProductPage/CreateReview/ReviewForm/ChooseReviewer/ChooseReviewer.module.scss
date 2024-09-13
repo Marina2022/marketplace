@@ -5,11 +5,75 @@
 }
 
 .nameBlock {
-  display: flex;
+  display: inline-flex;
   gap: 5px;
   align-items: center;
   font-size: 14px;
   font-weight: 500;
   color: #131D2A;
-  margin-bottom: 20px;
+  
+  cursor: pointer;
+  
+  img {
+    width: 16px;
+    height: 16px;
+  }
 }
+
+.selectField {
+  border: 1px #F0F1F1 solid;
+  height: 37px;
+  width: 433px;
+  padding: 10px;
+}
+
+.selectField {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.selectBtnClosed {
+  transform: rotate(180deg);
+
+}
+
+.selectBlock {
+  display: inline-block;
+   
+}
+
+.options {
+  background: white;
+  border: orange 2px solid;
+  margin-top: 3px;
+
+  
+  border: #F0F1F1 1px solid;  
+}
+
+.reviewerItem {
+  height: 37px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-size: 14px;
+  color: #131D2A;
+  cursor: pointer;
+}
+
+.reviewerItemActive {  
+  height: 37px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-size: 14px;
+  color: #131D2A;
+  background: #F7F7F9;
+  cursor: pointer;
+}
+
+.wrapper {
+  
+}
+

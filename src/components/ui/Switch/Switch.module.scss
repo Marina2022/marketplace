@@ -1,0 +1,46 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+
+.switchOuter {
+  width: 44px;
+  height: 25px;
+  border-radius: 23px;
+  background: #F0F1F1;
+  padding: 2px;
+  transition: all .1s linear;
+}
+
+.switchOuterChecked {
+  width: 44px;
+  height: 25px;
+  border-radius: 23px;
+  background: #E32636;
+  padding: 2px;
+  text-align: right;
+  transition: all .1s linear;
+}
+
+.inner {
+  width: 21px;
+  height: 21px;
+  border-radius: 23px;
+  background: white;  
+  transition: all .1s linear;
+  
+}
+
+.innerChecked {
+  width: 21px;
+  height: 21px;
+  border-radius: 23px;
+  background: white;
+  
+  transform: translateX(19px);    
+  transition: all .1s linear;
+}
+
