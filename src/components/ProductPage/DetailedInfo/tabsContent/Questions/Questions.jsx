@@ -6,6 +6,9 @@ import Button from "@/components/ui/Button/Button.jsx";
 import penIcon from '@/assets/img/penIcon.svg'
 import QuestionList from "@/components/ProductPage/DetailedInfo/tabsContent/Questions/QuestionList/QuestionList.jsx";
 import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
+import {useSelector} from "react-redux";
+import {getIsAuthenticated} from "@/store/userSlice.js";
+import {useNavigate} from "react-router-dom";
 const Questions = ({product, questionsRef}) => {
 
   const PAGE_SIZE = 10
@@ -18,6 +21,8 @@ const Questions = ({product, questionsRef}) => {
   
   let showMoreBtn = false
 
+  const isAuthenticated = useSelector(getIsAuthenticated)
+  
   if (cursorPaging) {
     showMoreBtn = cursorPaging.cursorLimit  >  pagesCount * PAGE_SIZE
   }
@@ -62,13 +67,19 @@ const Questions = ({product, questionsRef}) => {
   const showMoreHandler = ()=>{
     setCursor((pagesCount+1)*PAGE_SIZE)    
   }
+  
+  const navigate = useNavigate()
+  const  createQuestion = () => {
+    navigate('new-question')
+  }
+
 
   if (isLoading && pagesCount === 0) return <Spinner className={s.spinner}/>
 
   if (error) return <div className={s.globalWrapper} ref={questionsRef} >
     <div className={s.sideBlock}>
       <h3 className={s.mobileHeader}>Вопросы</h3>
-      <Button className={s.writeQuestionBtn}>
+      <Button onClick={createQuestion} disabled={!isAuthenticated} className={s.writeQuestionBtn}>
         <img src={penIcon} alt="icon"/>
         <span>Задать&nbsp;вопрос</span>
       </Button>
@@ -83,7 +94,7 @@ const Questions = ({product, questionsRef}) => {
       <div className={s.globalWrapper}>
         <div className={s.sideBlock}>
           <h3 className={s.mobileTitle}>Вопросы</h3>
-          <Button className={s.writeQuestionBtn}>
+          <Button onClick={createQuestion} disabled={!isAuthenticated} className={s.writeQuestionBtn}>
             <img src={penIcon} alt="icon"/>
             <span>Задать&nbsp;вопрос</span>
           </Button>

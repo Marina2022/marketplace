@@ -116,7 +116,7 @@ const Reviews = ({product, reviewsRef}) => {
   const createReview = () => {    
     navigate('new-review')
   }
-
+  
   if (isLoading && pagesCount === 0) return <Spinner className={s.spinner}/>
   
   if (error) return <div className={s.globalWrapper} ref={reviewsRef}>
@@ -124,8 +124,8 @@ const Reviews = ({product, reviewsRef}) => {
       <h3 className={s.mobileHeader}>Отзывы</h3>
 
       {
-        !isEligibilityLoading && (
-          <Button onClick={createReview} disabled={!canCreateReview} className={s.writeReviewBtn}>
+        (!isAuthenticated || !isEligibilityLoading) && (
+          <Button onClick={createReview} disabled={ !isAuthenticated || !canCreateReview  } className={s.writeReviewBtn}>
             <img src={penIcon} alt="icon"/>
             <span>Написать&nbsp;отзыв</span>
           </Button>
@@ -153,7 +153,7 @@ const Reviews = ({product, reviewsRef}) => {
           </div>
 
           {
-            !isEligibilityLoading && (
+            (!isAuthenticated || !isEligibilityLoading) && (
               <Button onClick={createReview} disabled={!canCreateReview} className={s.writeReviewBtn}>
                 <img src={penIcon} alt="icon"/>
                 <span>Написать&nbsp;отзыв</span>

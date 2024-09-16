@@ -82,9 +82,7 @@ const UserProfile = () => {
     }
 
     try {
-      const resp = await axios.post('user', body)
-      console.log(resp)
-      // dispatch(getUser())
+      const resp = await axios.post('user', body)            
       dispatch(getUserCompanies())
       setEditing(false)
     } catch (err) {

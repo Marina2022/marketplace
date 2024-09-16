@@ -1,32 +1,28 @@
-import s from './CreateReview.module.scss'
-import backArror from "@/assets/img/back-arror.svg"
+import s from './CreateQuestion.module.scss';
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "@/api/axiosInstance.js";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
+import backArror from "@/assets/img/back-arror.svg";
 import {BASE_URL} from "@/consts/baseURL.js";
 import ReviewForm from "@/components/ProductPage/CreateReview/ReviewForm/ReviewForm.jsx";
+import ReviewFormQuestion from "@/components/ProductPage/CreateQuestion/ReviewFormQuestion/QuestionForm.jsx";
+import QuestionForm from "@/components/ProductPage/CreateQuestion/ReviewFormQuestion/QuestionForm.jsx";
 
-const CreateReview = () => {
+
+const CreateQuestion = () => {
   const {slug} = useParams()
 
   const [product, setProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  const navigate = useNavigate()
-
+  
   useEffect(() => {
-    const getEligibility = async () => {
+    const getProduct = async () => {
 
       try {
-        const resp1 = await axios(`/products/${slug}`)
-        const resp2 = await axios.post('reviews/eligibility', {productId: resp1.data.productId})
-
-        if (!resp2.data.isEligible) {
-          navigate('/')
-          return
-        }
-        setProduct(resp1.data)
+        const resp = await axios(`/products/${slug}`)       
+        setProduct(resp.data)
 
       } catch (err) {
         console.log(err)
@@ -34,14 +30,14 @@ const CreateReview = () => {
         setIsLoading(false)
       }
     }
-    getEligibility()
+    getProduct()
   }, [])
 
   if (isLoading) return <Spinner/>
 
   return (
     <div className="container-review">
-      
+
       <Link className={s.backLink} to={`/product/${slug}`}>
         <img src={backArror} alt="back arror"/>
         <span>Назад к карточке товара</span>
@@ -51,12 +47,12 @@ const CreateReview = () => {
           <img className={s.headerImage} src={`${BASE_URL}${product.productImages[0].imageUrl}`}
                alt={product.productImages[0].imageName}/>
         </div>
-        <span className={s.headerText}>Отзыв о товаре {product.productName.slice(0, 33) + '...'}</span>
+        <span className={s.headerText}>Вопросы о товаре {product.productName.slice(0, 33) + '...'}</span>
       </div>
-      <ReviewForm productId={product.productId} slug={slug} />
+      <QuestionForm productId={product.productId} slug={slug}/>
 
     </div>
   );
 };
 
-export default CreateReview;
+export default CreateQuestion;

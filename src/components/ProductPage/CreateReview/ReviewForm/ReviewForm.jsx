@@ -1,31 +1,33 @@
 import axios from "@/api/axiosInstance.js";
-import s from './ReviewForm.module.scss';
-import EditRating from "@/components/ProductPage/CreateReview/ReviewForm/EditRating/EditRating.jsx";
-import {useEffect, useState} from "react";
-import TimePeriod from "@/components/ProductPage/CreateReview/ReviewForm/TimePeriod/TimePeriod.jsx";
-import Button from "@/components/ui/Button/Button.jsx";
-import galleryIcon from '@/assets/img/gallery.svg';
 import {useDropzone} from "react-dropzone";
+import s from './ReviewForm.module.scss';
+
+import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {getActiveProfileId} from "@/store/userSlice.js";
+import {useNavigate} from "react-router-dom";
+
+import EditRating from "@/components/ProductPage/CreateReview/ReviewForm/EditRating/EditRating.jsx";
+import TimePeriod from "@/components/ProductPage/CreateReview/ReviewForm/TimePeriod/TimePeriod.jsx";
+import Button from "@/components/ui/Button/Button.jsx";
 import ChooseReviewer from "@/components/ProductPage/CreateReview/ReviewForm/ChooseReviewer/ChooseReviewer.jsx";
 import Switch from "@/components/ui/Switch/Switch.jsx";
+import galleryIcon from '@/assets/img/gallery.svg';
 
-const ReviewForm = ({productId}) => {
+const ReviewForm = ({productId, slug}) => {
+
+  const navigate = useNavigate()
+  const activeProfileId = useSelector(getActiveProfileId)
 
   const [rating, setRating] = useState(0);
   const [period, setPeriod] = useState(null);
   const [ratingError, setRatingError] = useState(false);
-
   const [advantages, setAdvantages] = useState('');
   const [disadvantages, setDisadvantages] = useState('');
   const [comments, setComments] = useState('');
   const [anonym, setAnonym] = useState(false)
-
-  const activeProfileId = useSelector(getActiveProfileId)
   const [chosenProfileIndex, setChosenProfileIndex] = useState(null)
   const [reviewers, setReviewers] = useState(null);
-
   const [images, setImages] = useState([]);
   const onDrop = (acceptedFiles) => {
     const newImages = acceptedFiles.map((file) =>
@@ -55,6 +57,8 @@ const ReviewForm = ({productId}) => {
     multiple: true,
   });
 
+  const [sending, setSending] = useState(false)
+
   useEffect(() => {
     if (reviewers) {
       const index = reviewers.findIndex(item => item.profileId === activeProfileId)
@@ -66,19 +70,66 @@ const ReviewForm = ({productId}) => {
     (async () => {
       const resp = await axios.post('reviews/reviewers', {productId})
       setReviewers(resp.data)
-      console.log(resp.data)
     })()
   }, []);
 
+  const periods = [
+    'Меньше месяца',
+    'Несколько месяцев',
+    'Больше года'
+  ]
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // пока идет отправка, кнопка работать не будет
+    if (sending) return
+
+    // рейтинг должен быть обязательно:
     if (rating === 0) {
       setRatingError(true);
       return;
     }
 
-    const body = {rating, period, advantages, disadvantages, comments, anonym, images};
-    console.log(body);
+    const body = {
+      profileType: reviewers[chosenProfileIndex].reviewerType,
+      profileId: reviewers[chosenProfileIndex].profileId,
+      productId: productId,
+      ratingValue: rating,
+      experience: periods[period],
+      advantage: advantages,
+      disadvantage: disadvantages,
+      comment: comments,
+      isAnonimous: anonym,
+    }
+
+    try {
+      setSending(true)
+      const resp = await axios.post('reviews/add', body)
+      const reviewId = resp.data.reviewId
+      const formData = new FormData();
+
+      // Добавляем каждый файл в FormData
+      Array.from(images).forEach((file) => {
+        formData.append('request', file, file.name);
+      });
+
+      try {
+        await axios.post(`reviews/${reviewId}/upload`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+      } catch (error) {
+        console.error('Ошибка при отправке фото:', error);
+      }
+      navigate(`/product/${slug}`)
+
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setSending(false)
+    }
   };
 
   return (
@@ -92,7 +143,7 @@ const ReviewForm = ({productId}) => {
           <h2 className={s.title}>Дополнительные сведения</h2>
           <div className={s.periodBlock}>
             <label className={s.subtitle}>Опыт использования</label>
-            <TimePeriod period={period} setPeriod={setPeriod}/>
+            <TimePeriod period={period} setPeriod={setPeriod} periods={periods}/>
           </div>
         </div>
         <div className={s.row}>

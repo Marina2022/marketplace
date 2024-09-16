@@ -6,32 +6,11 @@
   margin-bottom: 100px;
 
   @include t {
-    padding: 40px 20px;
+    padding: 20px 24px;
   }
 
   @include m {
-    padding: 20px 16px;    
-  }
-}
-
-.row {
-  display: flex;
-  margin-bottom: 20px;
-
-  @include m {
-    flex-direction: column;
-  }
-}
-
-.starRow {
-  display: flex;
-  margin-bottom: 20px;
-  align-items: center;
-
-  @include m {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 8px;
+    padding: 20px 16px;
   }
 }
 
@@ -58,14 +37,14 @@
 .subtitle {
   display: block;
   color: #3E5067;
-  font-weight: 500;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 18px;
   margin-bottom: 10px;
 }
 
 .periodBlock {
   margin-bottom: 35px;
-  
+
   @include m {
     margin-bottom: 15px;
   }
@@ -87,23 +66,23 @@
   }
   
   @include m {
-    margin-bottom: 10px;
+    margin-bottom: 10px;    
     height: 70px;
   }
-  
+
   &:last-child {
     margin-bottom: 10px;
   }
-    
+
   &::placeholder {
     font-size: 12px;
     color: #AAB7BF;
     font-weight: 400;
   }
-  
+
   &:focus {
     outline: 2px solid #AAB7BF;
-    border: none;    
+    border: none;
   }
 }
 
@@ -117,17 +96,17 @@
   font-size: 12px;
 }
 
-.filesInput {  
+.filesInput {
   gap: 10px;
   margin-bottom: 4px;
   cursor: pointer;
   padding: 10px;
   position: relative;
-  
+
   @include m {
     padding: 4px;
   }
-  
+
   &:focus {
     outline: none;
     border: 1px solid #AAB7BF;
@@ -145,20 +124,21 @@
 .mainPart {
   border-bottom: #F0F1F1 1px solid;
   margin-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 .previewList {
   display: flex;
   gap: 10px;
-  width: 100%;  
+  width: 100%;
 }
 
 .previewImg {
   height: 80px;
   width: 80px;
   border-radius: 5px;
-  object-fit: cover; 
-  
+  object-fit: cover;
+
   @include m {
     height: 60px;
     width: 60px;
@@ -180,7 +160,7 @@
   gap: 20px;
   align-items: center;
   margin-top: 20px;
-
+  
   @include m {
     flex-direction: column-reverse;
     gap: 10px;

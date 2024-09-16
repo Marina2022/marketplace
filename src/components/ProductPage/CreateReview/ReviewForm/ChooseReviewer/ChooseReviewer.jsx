@@ -2,8 +2,7 @@ import s from './ChooseReviewer.module.scss';
 import {useState, useEffect, useRef} from "react";
 import pencil from '@/assets/img/lk/lk-main/pencil.svg';
 import selectBtn from '@/assets/img/selectBtn.svg';
-const ChooseReviewer = ({chosenProfileIndex, reviewers, setChosenProfileIndex}) => {
-
+const ChooseReviewer = ({chosenProfileIndex, reviewers, setChosenProfileIndex}) => {  
   const [editing, setEditing] = useState(false)
   const nameBlockRef = useRef(null)
   const handleClickOutside = (event) => {
@@ -34,7 +33,7 @@ const ChooseReviewer = ({chosenProfileIndex, reviewers, setChosenProfileIndex}) 
       <div>
         <p className={s.firstText}>Вы оставляете отзыв как:</p>
         <div onClick={() => setEditing(true)} className={s.nameBlock} ref={nameBlockRef}>
-          <span>{reviewers[chosenProfileIndex]?.reviewerName}</span>
+          <span>{reviewers[chosenProfileIndex]?.name}</span>
           <img src={pencil} alt="edit"/>
         </div>
       </div>
