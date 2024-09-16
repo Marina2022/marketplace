@@ -33,7 +33,7 @@ const ChooseReviewer = ({chosenProfileIndex, reviewers, setChosenProfileIndex}) 
       <div>
         <p className={s.firstText}>Вы оставляете отзыв как:</p>
         <div onClick={() => setEditing(true)} className={s.nameBlock} ref={nameBlockRef}>
-          <span>{reviewers[chosenProfileIndex]?.name}</span>
+          <span>{reviewers[chosenProfileIndex]?.reviewerName}</span>
           <img src={pencil} alt="edit"/>
         </div>
       </div>

@@ -4,7 +4,7 @@ import {viewedProducts} from "@/dev-data/viewedProducts.js";
 
 const ViewedProducts = ({fullSize=false}) => {
   const viewedProductsToShow = viewedProducts.slice(0, 10)
-  return null  // todo потом исправить
+  
   return (
       <div className={s.viewedProducts}>
         <h2 className={s.viewedTitle}>Вы смотрели</h2>
