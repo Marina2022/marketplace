@@ -1,14 +1,11 @@
-import s from './CreateQuestion.module.scss';
-import {Link, useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
 import axios from "@/api/axiosInstance.js";
+import s from './CreateQuestion.module.scss';
+import {Link, useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
-import backArror from "@/assets/img/back-arror.svg";
+import backArrow from "@/assets/img/back-arror.svg";
 import {BASE_URL} from "@/consts/baseURL.js";
-import ReviewForm from "@/components/ProductPage/CreateReview/ReviewForm/ReviewForm.jsx";
-import ReviewFormQuestion from "@/components/ProductPage/CreateQuestion/ReviewFormQuestion/QuestionForm.jsx";
 import QuestionForm from "@/components/ProductPage/CreateQuestion/ReviewFormQuestion/QuestionForm.jsx";
-
 
 const CreateQuestion = () => {
   const {slug} = useParams()
@@ -39,7 +36,7 @@ const CreateQuestion = () => {
     <div className="container-review">
 
       <Link className={s.backLink} to={`/product/${slug}`}>
-        <img src={backArror} alt="back arror"/>
+        <img src={backArrow} alt="back arror"/>
         <span>Назад к карточке товара</span>
       </Link>
       <div className={s.header}>
@@ -50,7 +47,6 @@ const CreateQuestion = () => {
         <span className={s.headerText}>Вопросы о товаре {product.productName.slice(0, 33) + '...'}</span>
       </div>
       <QuestionForm productId={product.productId} slug={slug}/>
-
     </div>
   );
 };

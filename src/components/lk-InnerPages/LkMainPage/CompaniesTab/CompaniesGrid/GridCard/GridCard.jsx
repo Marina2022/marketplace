@@ -13,7 +13,6 @@ const GridCard = ({company, activeCompanyName}) => {
   if (company.companyName === activeCompanyName) active = true
   const [sending, setSending] = useState(false)
   const [deleting, setDeleting] = useState(false)
-
   const [showWarning, setShowWarning] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
 
@@ -25,7 +24,6 @@ const GridCard = ({company, activeCompanyName}) => {
       const resp = await axios(`company/${company.companyId}/deleteWarning`)
 
       if (resp.data.hasProductsInSale || resp.data.balance > 0) {
-
         setShowWarning(true)
       } else {
         setShowConfirm(true)
@@ -88,7 +86,6 @@ const GridCard = ({company, activeCompanyName}) => {
           </div>
         </div>
       </div>
-
       {
         showWarning && <Popup setIsPopupOpen={setShowWarning} popupClassName={s.popup}>
           <h4 className={s.popupTitle}>Перед удаление обратите внимание</h4>
@@ -101,7 +98,6 @@ const GridCard = ({company, activeCompanyName}) => {
           </div>
         </Popup>
       }
-
       {
         showConfirm && <Popup setIsPopupOpen={setShowConfirm} popupClassName={s.popup}>
           <h4 className={s.popupTitle}>Вы собираетесь удалить организацию</h4>
@@ -112,13 +108,10 @@ const GridCard = ({company, activeCompanyName}) => {
               {
                 deleting ? <MiniSpinner/> : <span>Удалить&nbsp;компанию</span>
               }
-
             </Button>
           </div>
         </Popup>
       }
-
-
     </>
   );
 };

@@ -7,6 +7,7 @@ import {getActiveProfileId} from "@/store/userSlice.js";
 import ChooseReviewer from "@/components/ProductPage/CreateReview/ReviewForm/ChooseReviewer/ChooseReviewer.jsx";
 import Switch from "@/components/ui/Switch/Switch.jsx";
 import {useNavigate} from "react-router-dom";
+
 const QuestionForm = ({productId, slug}) => {
 
   const navigate = useNavigate()
@@ -40,7 +41,6 @@ const QuestionForm = ({productId, slug}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // пока идет отправка, кнопка работать не будет    
     if (sending) return
 
     const body = {
@@ -55,7 +55,7 @@ const QuestionForm = ({productId, slug}) => {
       setSending(true)
       await axios.post('questions/add', body)
       navigate(`/product/${slug}`)
-      
+
     } catch (err) {
       console.log(err)
     } finally {

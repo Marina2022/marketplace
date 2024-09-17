@@ -4,8 +4,6 @@ import activeRadioBtn from '@/assets/img/activeRadioBtn.svg'
 
 const TimePeriod = ({setPeriod, period, periods}) => {
 
-
-
   return (
     <ul>
       {
@@ -14,12 +12,10 @@ const TimePeriod = ({setPeriod, period, periods}) => {
           onClick={() => setPeriod(i)}
           className={s.item}
         >
-          
           <img src={period === i ? activeRadioBtn : radioBtn} alt=""/>
           <div className={s.text}>{item}</div>
         </li>)
       }
-
     </ul>
   );
 };

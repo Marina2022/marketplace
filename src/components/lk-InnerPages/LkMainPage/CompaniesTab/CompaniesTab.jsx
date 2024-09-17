@@ -12,7 +12,6 @@ const CompaniesTab = () => {
 
   const [isGridLoading, setIsGridLoading] = useState(true)
   const [grid, setGrid] = useState(null)
-
   const activeProfileId = useSelector(getActiveProfileId)
   const profiles = useSelector(getUserProfilesData)
   
@@ -50,8 +49,7 @@ const CompaniesTab = () => {
         setActiveCompany(activeCompany)
       }
 
-      if (activeProfile.type === 'user' && profiles.length > 1) {
-        // если текущий профиль = user, и у него есть компании, то делаем активной первую компанию из грида.
+      if (activeProfile.type === 'user' && profiles.length > 1) {        
         setActiveCompany(grid[0])
       }
     }
@@ -61,9 +59,7 @@ const CompaniesTab = () => {
   
   const [isCompanyDataLoading, setIsCompanyDataLoading] = useState(true)
   const [activeCompanyData, setActiveCompanyData] = useState(null)
-
   const getActiveCompany = async () => {
-
     try {
       const resp = await axios(`companies/${activeCompany.companyId}`)
       setActiveCompanyData(resp.data)

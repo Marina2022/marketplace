@@ -18,7 +18,6 @@ const ReviewForm = ({productId, slug}) => {
 
   const navigate = useNavigate()
   const activeProfileId = useSelector(getActiveProfileId)
-
   const [rating, setRating] = useState(0);
   const [period, setPeriod] = useState(null);
   const [ratingError, setRatingError] = useState(false);
@@ -201,14 +200,12 @@ const ReviewForm = ({productId, slug}) => {
                 </div>
               )
             }
-
             <div className={s.inputTextWrapper}>
               <img src={galleryIcon} alt="icon"/>
               <div className={s.filesInputText}>
                 Выберите фотографии или перетащите фото
               </div>
             </div>
-            
           </label>
           <input
             {...getInputProps()}
@@ -227,7 +224,8 @@ const ReviewForm = ({productId, slug}) => {
         <Button className={s.submitBtn} type="submit">Отправить&nbsp;отзыв</Button>
         <Switch label="Отправить отзыв анонимно" setChecked={setAnonym} checked={anonym}/>
       </div>
-      <p className={s.bottomText}>Оставляя отзыв, вы соглашаетесь <br className={s.mobileVisible} /> c <a href="#">правилами публикациии</a></p>
+      <p className={s.bottomText}>Оставляя отзыв, вы соглашаетесь <br className={s.mobileVisible}/> c <a href="#">правилами
+        публикациии</a></p>
     </form>
   );
 };

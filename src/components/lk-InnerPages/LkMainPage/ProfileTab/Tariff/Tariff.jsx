@@ -15,10 +15,8 @@ const Tariff = () => {
             <span className={s.chooseTariffText}>Подобрать тариф</span>
             <img className={s.chooseTariffIcon} src={questionIcon} alt="icon"/>
           </div>
-        </div>
-        
+        </div>        
       </div>
-
     </div>
   );
 };

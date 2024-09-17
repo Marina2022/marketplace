@@ -23,13 +23,8 @@ const EditRating = ({rating, setRating, ratingError}) => {
           />)
         }
       </ul>
-
       <div className={ rating === 0 && ratingError ? s.ratingLabelError : s.ratingLabel}>Поставьте оценку</div>
-
-
     </div>
-
-
   );
 };
 

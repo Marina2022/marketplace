@@ -75,9 +75,7 @@
     font-size: 14px;
   }
 
-  @include m {
-    //width: 50%;
-    //max-width: 258px;
+  @include m {    
     font-size: 14px;
     margin-bottom: 0px;
   }

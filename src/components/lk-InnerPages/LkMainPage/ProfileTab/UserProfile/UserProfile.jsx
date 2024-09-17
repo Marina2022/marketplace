@@ -1,11 +1,11 @@
 import axios from "@/api/axiosInstance.js";
+import InputMask from 'react-input-mask';
 import s from './UserProfile.module.scss';
 import pencil from '@/assets/img/lk/lk-main/pencil.svg';
 import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from "react-redux";
-import {getUser, getUserCompanies, getUserData} from "@/store/userSlice.js";
+import {getUserCompanies, getUserData} from "@/store/userSlice.js";
 import {useEffect, useState} from "react";
-import InputMask from 'react-input-mask';
 import Button from "@/components/ui/Button/Button.jsx";
 
 const UserProfile = () => {
@@ -82,14 +82,15 @@ const UserProfile = () => {
     }
 
     try {
-      const resp = await axios.post('user', body)            
+      const resp = await axios.post('user', body)
       dispatch(getUserCompanies())
       setEditing(false)
     } catch (err) {
       console.log(err)
     }
   };
-    const phoneChangeHandler = () => {}
+  const phoneChangeHandler = () => {
+  }
 
   return (
     <div className={s.profile}>
@@ -115,15 +116,10 @@ const UserProfile = () => {
         <div className={s.fieldset}>
           {/* ФИО */}
           {
-
-         
-            // !editing && <div className={s.textareaDisabledDiv}>{userData?.fullName}</div>
-        
-            
             !editing && (
               <div className={s.control}>
                 <label className={s.label} htmlFor="fio">ФИО</label>
-                <div className={s.textareaDisabledDiv}>{userData?.fullName}</div>                
+                <div className={s.textareaDisabledDiv}>{userData?.fullName}</div>
                 {errors.firstName && <p>{errors.firstName.message}</p>}
               </div>
             )
@@ -183,23 +179,23 @@ const UserProfile = () => {
             <InputMask
               placeholder="Не заполнено"
               disabled={!editing}
-              className={ ` ${!editing ? s.inputDisabled : s.input} ${ errors.phone ? s.invalid : '' } ` }              
+              className={` ${!editing ? s.inputDisabled : s.input} ${errors.phone ? s.invalid : ''} `}
               mask="+7 (999) 999-99-99"
               {...register('phone', {
-                required: 'Поле телефон обязательно',                
+                required: 'Поле телефон обязательно',
                 onChange: phoneChangeHandler,
               })}
               defaultValue={userData ? `+7 (${userData.phoneNumber.slice(0, 3)}) ${userData.phoneNumber.slice(3, 6)}-${userData.phoneNumber.slice(6, 8)}-${userData.phoneNumber.slice(8)}` : ''} // Начальное значение
             >
               {(inputProps) => (
                 <input
-                  {...inputProps}                  
+                  {...inputProps}
                   type="tel"
-                  id={editing ? "phone":''}
+                  id={editing ? "phone" : ''}
                   disabled={!editing}
                 />
               )}
-            </InputMask>            
+            </InputMask>
           </div>
 
           {/* Email */}
@@ -240,8 +236,6 @@ const UserProfile = () => {
                 }}
               ></textarea>
             }
-
-
           </div>
         </div>
         <h2 className={s.subTitle}>Мессенджеры</h2>
@@ -261,7 +255,7 @@ const UserProfile = () => {
               {(inputProps) => (
                 <input
                   {...inputProps}
-                  id={editing ? "whatsApp":''}
+                  id={editing ? "whatsApp" : ''}
                   disabled={!editing}
                 />
               )}
@@ -271,9 +265,9 @@ const UserProfile = () => {
           {/* Telegram */}
           <div className={s.control}>
             <label className={s.label} htmlFor="tg">Telegram</label>
-            <InputMask              
+            <InputMask
               placeholder="Не заполнено"
-              disabled={!editing}              
+              disabled={!editing}
               className={!editing ? s.inputDisabled : s.input}
               mask="+7 (999) 999-99-99"
               {...register('telegramMsg')}
@@ -282,13 +276,12 @@ const UserProfile = () => {
               {(inputProps) => (
                 <input
                   {...inputProps}
-                  id={editing ? "tg":''}
+                  id={editing ? "tg" : ''}
                   disabled={!editing}
                 />
               )}
             </InputMask>
           </div>
-
         </div>
 
         <h2 className={s.subTitle}>Тарифы</h2>

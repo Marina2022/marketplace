@@ -19,7 +19,6 @@ const MobileHeader = () => {
             <img src={cartIcon} alt="cart"/>
           </Link>
         </div>
-
         <HeaderSearch/>
         <div className={s.geoDiv}>
           {/*Москва...*/}

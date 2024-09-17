@@ -16,7 +16,6 @@
   }
 }
 
-
 .title {
   color: #000000;
   font-size: 18px;
@@ -65,8 +64,7 @@
 .wrapper {
   @include m {
     display: flex;
-    gap: 20px;
-    //justify-content: space-between;
+    gap: 20px;    
     align-items: center;
   }  
 }
@@ -83,6 +81,5 @@
     height: 37px;
     font-size: 14px;  
     padding-inline: 5px!important;
-  }
-  
+  }  
 }

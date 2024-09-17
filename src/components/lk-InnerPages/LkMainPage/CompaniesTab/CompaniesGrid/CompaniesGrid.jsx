@@ -9,7 +9,6 @@ const CompaniesGrid = ({isGridLoading, grid, activeCompanyName}) => {
 
   return (
     <ul className={s.gridList}>
-
       {
         grid.map(company =><GridCard company={company} key={company.companyId} activeCompanyName={activeCompanyName}  />)
       }

@@ -9,7 +9,6 @@ import {useDispatch} from "react-redux";
 import {getUser, setToken} from "@/store/userSlice.js";
 
 const INITIAL_TIME = 120
-
 const InputCode = ({setStep, phoneInputValue, setIsPopupOpen}) => {
 
   const [value, setValue] = useState('')
@@ -79,18 +78,12 @@ const InputCode = ({setStep, phoneInputValue, setIsPopupOpen}) => {
     try {
       setIsSubmitting(true)
       const resp = await axios.post('auth/validate', {phoneNumber: phoneInputValue, code: value})
-
       localStorage.setItem('token', resp.data.token)
       dispatch(setToken(resp.data.token))      
       dispatch(getUser())
-      setIsPopupOpen(false)
-
-      // throw new Error('Invalid otp') // можно оставить для тестов (см. ниже)
+      setIsPopupOpen(false)     
 
     } catch (err) {
-
-      //if (err.message == 'Invalid otp') { // - тестирование ошибки, кот. вручную создала выше throw new Error('Invalid otp')
-
       if (err.response.data.description === 'Invalid otp') {
         setIsInvalidOtp(true)
         setValue("")

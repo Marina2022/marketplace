@@ -11,7 +11,6 @@ const LkMainPage = () => {
   const activeTab = useSelector(getActiveTabInMain)
   const tabs = ['Главная', 'Организации', 'Профиль пользователя', 'Настройки аккаунта']
   const dispatch = useDispatch()
-
   return (
     <div className={s.lkMain}>
 
@@ -38,8 +37,6 @@ const LkMainPage = () => {
           </div>)
         }
       </ul>
-
-
       {
         activeTab === 0 && <MainTab/>
       }
@@ -55,8 +52,6 @@ const LkMainPage = () => {
       {
         activeTab === 3 && <SettingsTab/>
       }
-
-
     </div>
   );
 };

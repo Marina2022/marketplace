@@ -18,12 +18,9 @@ const NewCard = () => {
         <div className={s.cornerThree}></div>
         <div className={s.cornerFour}></div>
       </li>
-
       {
         popupIsOpen && <NewCompanyPopup setPopupIsOpen={setPopupIsOpen} />
       }
-      
-
     </>
   );
 };

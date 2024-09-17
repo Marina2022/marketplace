@@ -1,7 +1,15 @@
+@import '@/assets/styles/mixins';
+
 .firstText {
   font-size: 12px;
   margin-bottom: 5px;
   color: #658092;
+}
+
+.wrapper {
+  @include m {
+    width: 100%;
+  }
 }
 
 .nameBlock {
@@ -12,6 +20,10 @@
   font-weight: 500;
   color: #131D2A;  
   cursor: pointer;
+  
+  @include m {
+    width: 100%;
+  }
   
   img {
     width: 16px;
@@ -24,6 +36,11 @@
   height: 37px;
   width: 433px;
   padding: 10px;
+  
+  @include m {
+    width: calc(100% - 32px);
+    width: 100%;
+  }
 }
 
 .selectField {
@@ -37,8 +54,12 @@
 }
 
 .selectBlock {
-  display: inline-block;
-   
+  display: inline-block;   
+  
+  @include m {
+    width: 100%;
+    max-width: 433px;
+  }
 }
 
 .options {

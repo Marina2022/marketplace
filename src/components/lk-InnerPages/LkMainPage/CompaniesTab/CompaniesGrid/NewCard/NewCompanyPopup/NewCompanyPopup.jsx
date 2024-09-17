@@ -7,10 +7,7 @@ import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 import {getUserCompanies} from "@/store/userSlice.js";
 import {useDispatch} from "react-redux";
 
-
-const NewCompanyPopup = ({setPopupIsOpen}) => {
-
-  
+const NewCompanyPopup = ({setPopupIsOpen}) => { 
   const dispatch = useDispatch()
   const handleAddCompany = async () => {
 
@@ -67,7 +64,6 @@ const NewCompanyPopup = ({setPopupIsOpen}) => {
 
   return (
     <Popup setIsPopupOpen={setPopupIsOpen} popupClassName={s.popup} withCloseBtn={true}>
-
       <h3 className={s.title}>Добавить организацию</h3>
       <p className={s.label}>ИНН</p>
       <p className={s.miniText}>Введите ИНН организации, остальные данные будут взяты из базы</p>
@@ -98,10 +94,8 @@ const NewCompanyPopup = ({setPopupIsOpen}) => {
               infoIsLoading ? <MiniSpinner/> : <span>Добавить&nbsp;организацию</span>
             }
           </Button>
-
         </div>
       }
-
     </Popup>
   );
 };

@@ -6,47 +6,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {getProfilesInDropdownAreShown, getUserProfiles, setProfilesInDropdownAreShown} from "@/store/userSlice.js";
 
 const OtherProfiles = ({activeProfile, userProfiles, setIsDropdownOpen}) => {
-  
-  
-  const profilesAreShown = useSelector(getProfilesInDropdownAreShown)  
+
+
+  const profilesAreShown = useSelector(getProfilesInDropdownAreShown)
   const restProfiles = userProfiles.filter(item => item.profileId !== activeProfile.profileId)
   
-
-  //
-  // const testRestProfiles = [
-  //   {
-  //     isHasShop: false,
-  //     profileId: "18089a94-2244-425d-a4cb-6ce866802aeb",
-  //     profileName: "ООО \"Омела\"",
-  //     shopName: null,
-  //     type: "company"
-  //   },
-  //   {
-  //     isHasShop: false,
-  //     profileId: "18089a94-2244-425d-a4cb-6ce866802aeb",
-  //     profileName: "Афанасий С.",
-  //     shopName: null,
-  //     type: "user"
-  //   },
-  //   {
-  //     isHasShop: false,
-  //     profileId: "18089a94-2244-425d-a4cb-6ce866802aeb",
-  //     profileName: "Валерий А.",
-  //     shopName: null,
-  //     type: "user"
-  //   },
-  //   {
-  //     isHasShop: false,
-  //     profileId: "18089a94-2244-425d-a4cb-6ce866802aeb",
-  //     profileName: "ООО \"Граната\"",
-  //     shopName: `Магазин: “Все для дома и сада”`,
-  //     type: "company"
-  //   },
-  // ]
-
   const improvedRestProfiles = restProfiles.map(item => {
-    //const improvedRestProfiles = testRestProfiles.map(item => {
-
     let letter;
     if (item.type === 'company') {
       letter = "К"
@@ -56,7 +21,7 @@ const OtherProfiles = ({activeProfile, userProfiles, setIsDropdownOpen}) => {
     return {...item, letter}
   })
 
-  
+
   const dispatch = useDispatch()
   const profileItemClickHandler = (profileId) => {
     localStorage.setItem('activeProfile', profileId)

@@ -2,7 +2,8 @@ import s from './ChooseReviewer.module.scss';
 import {useState, useEffect, useRef} from "react";
 import pencil from '@/assets/img/lk/lk-main/pencil.svg';
 import selectBtn from '@/assets/img/selectBtn.svg';
-const ChooseReviewer = ({chosenProfileIndex, reviewers, setChosenProfileIndex}) => {  
+
+const ChooseReviewer = ({chosenProfileIndex, reviewers, setChosenProfileIndex}) => {
   const [editing, setEditing] = useState(false)
   const nameBlockRef = useRef(null)
   const handleClickOutside = (event) => {
@@ -56,7 +57,6 @@ const ChooseReviewer = ({chosenProfileIndex, reviewers, setChosenProfileIndex}) 
               <img className={dropdownOpen ? s.selectBtn : s.selectBtnClosed} src={selectBtn} alt="arrow"/>
             </div>
           </div>
-
           {
             dropdownOpen && <ul className={s.options}>
               {

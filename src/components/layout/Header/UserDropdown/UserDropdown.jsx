@@ -47,7 +47,6 @@ const UserDropdown = () => {
       >
         {letter}
       </button>
-
       {isDropdownOpen && (
         <div className={s.dropWrapper}>
           <div className={s.dropdown}>
@@ -73,7 +72,6 @@ const UserDropdown = () => {
               >
                 Мои организации
               </div>
-
               <button onClick={logoutHandler} className={s.logoutBtn}>Выход</button>
             </div>
             {userProfilesLoadingStatus === 'success' && userProfiles.length > 1 && (

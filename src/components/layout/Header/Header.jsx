@@ -20,9 +20,7 @@ const Header = () => {
 
   const isAuthenticated = useSelector(getIsAuthenticated)
   const userLoadingStatus = useSelector(getUserStatus)
-
   const isMobile = useMobileScreen()
-
   const favs = useSelector(getFavs)
   const cart = useSelector(getCart)
 

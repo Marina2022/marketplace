@@ -13,11 +13,9 @@ const HiddenBlockProfiles = ({restProfiles}) => {
       </ul>
       {
         restProfiles.length > 2 && <div className={s.moreProfiles}>+{restProfiles.length-2}</div>
-
       }
     </>
-  )
-    ;
-};
+  )    
+}
 
 export default HiddenBlockProfiles;

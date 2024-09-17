@@ -7,11 +7,10 @@ import {useState} from "react";
 import InputMask from 'react-input-mask';
 
 const InputPhone = ({setIsPopupOpen, setStep, value, setValue}) => {
-  
+
   const [placeholder, setPlaceholder] = useState('Телефон');
   const [isFocused, setIsFocused] = useState(false)
   const [isInvalid, setIsInvalid] = useState(false)
-
   const handleFocus = () => {
     setPlaceholder('000 000-00-00');
     setIsFocused(true)
@@ -21,17 +20,16 @@ const InputPhone = ({setIsPopupOpen, setStep, value, setValue}) => {
     setPlaceholder('Телефон');
     setIsFocused(false)
   };
-  const handleChange = (e) => {    
+  const handleChange = (e) => {
     let inputValue = e.target.value.replace(/\D/g, '');
     if (inputValue.startsWith('7') || inputValue.startsWith('8')) {
       inputValue = inputValue.slice(1);
     }
-        
-    if(inputValue.length > 10) {      
+
+    if (inputValue.length > 10) {
       inputValue = inputValue.slice(0, 10);
-    } 
-    
-      
+    }
+
     setValue(inputValue);
 
     if (value.length === 10 && isInvalid) setIsInvalid(false)
@@ -62,7 +60,6 @@ const InputPhone = ({setIsPopupOpen, setStep, value, setValue}) => {
         в СМС</h3>
 
       <form>
-
         <div className={s.inputWrapper}>
           {
             (isFocused || value !== '') && <div className={s.seven}>+ 7 </div>

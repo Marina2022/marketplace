@@ -8,7 +8,6 @@
   @include t {
     padding: 16px;
   }
-
 }
 
 .titleWrapper {
@@ -40,8 +39,7 @@
 
   @include xs {
     font-size: 16px;
-  }
-  
+  }  
 }
 
 .edit {
@@ -358,8 +356,6 @@
   @include m {
     width: 150px;
   }
-
-
 }
 
 .mobileHidden {

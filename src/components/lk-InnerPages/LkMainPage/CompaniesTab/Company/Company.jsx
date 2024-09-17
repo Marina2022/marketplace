@@ -164,7 +164,6 @@ const Company = ({isCompanyDataLoading, company}) => {
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <div className={s.titleWrapper}>
             <h1 className={s.title}>{company.companyName}</h1>
-
             {
               !editing && <div className={s.topPartWrapper}>
                 <button onClick={() => setEditing(true)} type="button" className={s.edit}>
