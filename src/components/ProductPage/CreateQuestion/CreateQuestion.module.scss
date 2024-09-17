@@ -8,6 +8,8 @@
   color: #0093FD;
   font-size: 14px;
   font-weight: 500;
+  padding-left: 8px;
+
   @include m {
     padding-inline: 16px;
   }

@@ -10,10 +10,9 @@ const UserDropdown = () => {
   const userProfilesLoadingStatus = useSelector(getUserProfilesLoadingStatus);
   const userProfiles = useSelector(getUserProfilesData);
   const activeProfileId = useSelector(getActiveProfileId);
-
   const location = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  
+
   useEffect(() => {
     setIsDropdownOpen(false);
   }, [location]);
@@ -31,32 +30,26 @@ const UserDropdown = () => {
     letter = activeProfile?.profileName?.slice(0, 1);
   }
 
-  // const openDropdownHandler = () => {
-  //   setIsDropdownOpen(prev => !prev);
-  // };
-
   const dispatch = useDispatch()
   const logoutHandler = () => {
     dispatch(logout())
   }
-  
+
   const navigate = useNavigate()
 
   return (
     <div className={s.userDropdownWrapper}
          onMouseEnter={() => setIsDropdownOpen(true)}
-       onMouseLeave={()=>setIsDropdownOpen(false)}
+         onMouseLeave={() => setIsDropdownOpen(false)}
     >
       <button
-        // ref={buttonRef}
         className={s.userDropdownBtn}
       >
         {letter}
       </button>
 
       {isDropdownOpen && (
-        // <div className={s.dropWrapper} ref={dropdownRef}>
-        <div className={s.dropWrapper} >
+        <div className={s.dropWrapper}>
           <div className={s.dropdown}>
             <div className={s.activeProfile}>
               <div className={s.user}>
@@ -70,19 +63,17 @@ const UserDropdown = () => {
                 <li><Link className={s.dropdownLink} to="/favourites">Избранное</Link></li>
                 <li><Link className={s.dropdownLink} to="/messages">Сообщения</Link></li>
               </ul>
-
-
               <div
                 className={s.companiesLink}
-                
-                onClick={()=>{
+
+                onClick={() => {
                   dispatch(setActiveTabInMain(1))
-                  navigate("/lk/main")                  
+                  navigate("/lk/main")
                 }}
               >
                 Мои организации
               </div>
-              
+
               <button onClick={logoutHandler} className={s.logoutBtn}>Выход</button>
             </div>
             {userProfilesLoadingStatus === 'success' && userProfiles.length > 1 && (

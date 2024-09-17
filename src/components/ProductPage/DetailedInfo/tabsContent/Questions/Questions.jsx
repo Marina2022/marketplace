@@ -29,12 +29,10 @@ const Questions = ({product, questionsRef}) => {
 
   useEffect(() => {
     const getData = async () => {
-
       setIsLoading(true)
       setError(false)
 
       let requestString
-
       if (cursor) {
         requestString = `products/${product.productId}/questions?cursor=${cursor}`
       } else {
@@ -72,7 +70,6 @@ const Questions = ({product, questionsRef}) => {
   const  createQuestion = () => {
     navigate('new-question')
   }
-
 
   if (isLoading && pagesCount === 0) return <Spinner className={s.spinner}/>
 

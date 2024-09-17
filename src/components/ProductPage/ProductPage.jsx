@@ -47,10 +47,8 @@ function findClosestOption(options, targetValues, requiredOptionHandle) {
       bestMatchScore = score;
     }
   });
-
   return bestMatch ? {sku: bestMatch.sku, option: bestMatch.values} : null;
 }
-
 
 const ProductPage = () => {
 
@@ -185,9 +183,7 @@ const ProductPage = () => {
   if (!product)
     return <Spinner className={s.spinner}/>
 
-
   return (
-
     <div className={s.productPageWrapper}>
       <div className='containerProductPage'>
         <BreadCrumbs path={path} productBreadCrumbs={true} className={s.breadCrumbs} loading={isLoading}/>
@@ -219,7 +215,6 @@ const ProductPage = () => {
           </div>
           <RightSidebar product={product} sku={sku}/>
         </div>        
-
         <div className={s.viewed}>
           <ViewedProducts fullSize={true}/>
         </div>

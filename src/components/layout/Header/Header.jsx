@@ -22,12 +22,9 @@ const Header = () => {
   const userLoadingStatus = useSelector(getUserStatus)
 
   const isMobile = useMobileScreen()
-  
+
   const favs = useSelector(getFavs)
   const cart = useSelector(getCart)
-
-  //const user = useSelector(getUserData)
-  // console.log('user из хедера', user)
 
   let productsTotal
   if (cart?.cartItems) {
@@ -35,8 +32,7 @@ const Header = () => {
   }
 
   if (isMobile) {
-    return <MobileHeader />      
-    
+    return <MobileHeader/>
   }
 
   return (
@@ -44,7 +40,6 @@ const Header = () => {
       <div className={s.topHeaderPart}></div>
       <div className='container'>
         <div className={s.wrapper}>
-          {/*<button className={s.mobileMenuBtn}><img src={hamburger} alt="menu"/></button>*/}
           <Link className={s.logoLink} to="/">
             <img className={s.logo} src={logo} alt="logo"/>
           </Link>
@@ -88,26 +83,18 @@ const Header = () => {
               </Link>
             </li>
             <li className={s.userMenuItem}>
-
               {
                 isAuthenticated && userLoadingStatus !== 'loading' && <UserDropdown/>
               }
 
               {
                 !isAuthenticated && userLoadingStatus !== 'loading' && <Login/>
-
-
               }
             </li>
           </ul>
-
-          {/*<Link className={s.cartBtnOnMobile} to="/cart">*/}
-          {/*  <img className={s.menuItemImg} src={cartIcon} alt="cart"/>*/}
-          {/*</Link>*/}
         </div>
       </div>
     </header>
   )
 }
-
 export default Header;

@@ -1,3 +1,5 @@
+@import "@/assets/styles/mixins";
+
 .wrapper {
   display: flex;
   align-items: center;
@@ -12,6 +14,11 @@
   background: #F0F1F1;
   padding: 2px;
   transition: all .1s linear;
+
+  @include m {
+    width: 38px;
+    height: 20px;
+  }  
 }
 
 .switchOuterChecked {
@@ -22,6 +29,11 @@
   padding: 2px;
   text-align: right;
   transition: all .1s linear;
+  
+  @include m {
+    width: 38px;
+    height: 20px;
+  }
 }
 
 .inner {
@@ -29,7 +41,12 @@
   height: 21px;
   border-radius: 23px;
   background: white;  
-  transition: all .1s linear;  
+  transition: all .1s linear;
+
+  @include m {
+    width: 18px;
+    height: 16px;
+  }  
 }
 
 .innerChecked {
@@ -39,5 +56,16 @@
   background: white;  
   transform: translateX(19px);    
   transition: all .1s linear;
+
+  @include m {
+    transform: translateX(16px);
+    width: 18px;
+    height: 16px;
+  }
 }
 
+.text {
+  font-size: 13px;
+  font-weight: 500;
+  color: #658092;
+}

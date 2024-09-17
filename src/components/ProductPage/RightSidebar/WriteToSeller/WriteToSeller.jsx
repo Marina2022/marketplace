@@ -1,7 +1,18 @@
 import s from './WriteToSeller.module.scss';
 import {BASE_URL} from "@/consts/baseURL.js";
 import Button from "@/components/ui/Button/Button.jsx";
+import {useSelector} from "react-redux";
+import {getIsAuthenticated} from "@/store/userSlice.js";
+import {useNavigate} from "react-router-dom";
 const WriteToSeller = ({seller}) => {
+  
+  const isAuthenticated = useSelector(getIsAuthenticated)
+
+  const navigate = useNavigate()
+  const  createQuestion = () => {
+    navigate('new-question')
+  }
+  
   return (
     <div className={s.writeToSeller}>
       <h3 className={s.title}>Написать продавцу</h3>      
@@ -12,7 +23,7 @@ const WriteToSeller = ({seller}) => {
           <div className={s.position}>{seller.contactPersonPosition}</div>          
         </div>        
       </div>
-      <Button className={s.btn}>Написать&nbsp;сейчас</Button>
+      <Button onClick={createQuestion} disabled={!isAuthenticated} className={s.btn}>Написать&nbsp;сейчас</Button>
     </div>
   );
 };

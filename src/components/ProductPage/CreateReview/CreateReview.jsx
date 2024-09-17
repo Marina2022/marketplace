@@ -9,10 +9,8 @@ import ReviewForm from "@/components/ProductPage/CreateReview/ReviewForm/ReviewF
 
 const CreateReview = () => {
   const {slug} = useParams()
-
   const [product, setProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
-
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -41,9 +39,9 @@ const CreateReview = () => {
 
   return (
     <div className="container-review">
-      
+
       <Link className={s.backLink} to={`/product/${slug}`}>
-        <img src={backArror} alt="back arror"/>
+        <img className={s.img} src={backArror} alt="back arror"/>
         <span>Назад к карточке товара</span>
       </Link>
       <div className={s.header}>
@@ -53,8 +51,7 @@ const CreateReview = () => {
         </div>
         <span className={s.headerText}>Отзыв о товаре {product.productName.slice(0, 33) + '...'}</span>
       </div>
-      <ReviewForm productId={product.productId} slug={slug} />
-
+      <ReviewForm productId={product.productId} slug={slug}/>
     </div>
   );
 };

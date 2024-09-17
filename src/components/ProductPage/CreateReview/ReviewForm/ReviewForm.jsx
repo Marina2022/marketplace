@@ -142,13 +142,13 @@ const ReviewForm = ({productId, slug}) => {
         <div className={s.row}>
           <h2 className={s.title}>Дополнительные сведения</h2>
           <div className={s.periodBlock}>
-            <label className={s.subtitle}>Опыт использования</label>
+            <label className={s.subtitlePeriod}>Опыт использования</label>
             <TimePeriod period={period} setPeriod={setPeriod} periods={periods}/>
           </div>
         </div>
         <div className={s.row}>
           <h2 className={s.title}>Поделитесь мнением</h2>
-          <div>
+          <div className={s.textareasWrapper}>
             <label htmlFor="advantages" className={s.subtitle}>Достоинства</label>
             <textarea
               className={s.textarea}
@@ -188,17 +188,6 @@ const ReviewForm = ({productId, slug}) => {
             {...getRootProps()}
           >
             {
-              images.length === 0 && (
-                <div className={s.inputTextWrapper}>
-                  <img src={galleryIcon} alt="icon"/>
-                  <div className={s.filesInputText}>
-                    Выберите фотографии или перетащите фото
-                  </div>
-                </div>
-              )
-            }
-
-            {
               images.length > 0 && (
                 <div className={s.previewList}>
                   {images.map((image, index) => (
@@ -212,6 +201,14 @@ const ReviewForm = ({productId, slug}) => {
                 </div>
               )
             }
+
+            <div className={s.inputTextWrapper}>
+              <img src={galleryIcon} alt="icon"/>
+              <div className={s.filesInputText}>
+                Выберите фотографии или перетащите фото
+              </div>
+            </div>
+            
           </label>
           <input
             {...getInputProps()}
@@ -230,7 +227,7 @@ const ReviewForm = ({productId, slug}) => {
         <Button className={s.submitBtn} type="submit">Отправить&nbsp;отзыв</Button>
         <Switch label="Отправить отзыв анонимно" setChecked={setAnonym} checked={anonym}/>
       </div>
-      <p className={s.bottomText}>Оставляя отзыв, вы соглашаетесь c <a href="#">правилами публикациии</a></p>
+      <p className={s.bottomText}>Оставляя отзыв, вы соглашаетесь <br className={s.mobileVisible} /> c <a href="#">правилами публикациии</a></p>
     </form>
   );
 };

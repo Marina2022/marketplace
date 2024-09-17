@@ -88,7 +88,8 @@ const QuestionForm = ({productId, slug}) => {
         <Button className={s.submitBtn} type="submit">Отправить&nbsp;вопрос</Button>
         <Switch label="Отправить отзыв анонимно" setChecked={setAnonym} checked={anonym}/>
       </div>
-      <p className={s.bottomText}>Оставляя вопрос, вы соглашаетесь c <a href="#">правилами публикациии</a></p>
+      <p className={s.bottomText}>Оставляя вопрос, вы соглашаетесь <br className={s.mobileVisible}/> c <a href="#">правилами
+        публикациии</a></p>
     </form>
   );
 };

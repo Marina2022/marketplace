@@ -124,7 +124,16 @@
 .mainPart {
   border-bottom: #F0F1F1 1px solid;
   margin-bottom: 20px;
-  padding-bottom: 20px;
+
+  @include t {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+  }
+
+  @include m {
+    margin-bottom: 11px;
+    padding-bottom: 4px;
+  }
 }
 
 .previewList {
@@ -168,3 +177,21 @@
   }
 }
 
+.submitBtn {
+  width: 180px;
+  height: 40px;
+  
+  @include m {
+    width: 150px;
+    height: 36px;
+    font-size: 14px;
+  }  
+}
+
+.mobileVisible {
+  display: none;
+
+  @include m {
+    display: inline-block;
+  }
+}
