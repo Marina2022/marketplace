@@ -4,7 +4,7 @@
   background: #F9FAFB;
   border: #F0F1F1 1px solid;
   border-radius: 2px;
-  min-height: 180px;
+  min-height: 160px;
   width: 263px;
 
   @include t {
@@ -20,7 +20,7 @@
 .gridCardActive {
   border: #F0F1F1 1px solid;
   border-radius: 2px;
-  min-height: 180px;
+  min-height: 160px;
   width: 263px;  
   box-shadow: 0 8px 8px rgba(0, 0, 0, 0.04);
 
@@ -62,6 +62,11 @@
 
   @include m {
     font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  @include xs {
+    font-size: 14px;
     margin-bottom: 12px;
   }
 }

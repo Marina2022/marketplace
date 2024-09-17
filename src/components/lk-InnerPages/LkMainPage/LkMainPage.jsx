@@ -7,12 +7,6 @@ import {getActiveTabInMain, setActiveTabInMain} from "@/store/lkSlice.js";
 import {useDispatch, useSelector} from "react-redux";
 
 const LkMainPage = () => {
-
-  // useEffect(() => {
-  //   return ()=>{
-  //     dispatch(setActiveTabInMain(0))
-  //   }
-  // }, []);
   
   const activeTab = useSelector(getActiveTabInMain)
   const tabs = ['Главная', 'Организации', 'Профиль пользователя', 'Настройки аккаунта']

@@ -37,6 +37,11 @@
     font-weight: 500;
     font-size: 18px;
   }
+
+  @include xs {
+    font-size: 16px;
+  }
+  
 }
 
 .edit {
@@ -353,6 +358,8 @@
   @include m {
     width: 150px;
   }
+
+
 }
 
 .mobileHidden {

@@ -21,7 +21,7 @@ const Company = ({isCompanyDataLoading, company}) => {
     const [documents, setDocuments] = useState(null)
 
     useEffect(() => {
-      if (company) {        
+      if (company) {
         setDocuments(company.documents)
       }
     }, [company])
@@ -125,7 +125,7 @@ const Company = ({isCompanyDataLoading, company}) => {
       }
 
       try {
-        await axios.post('companies/updateProfile', body)        
+        await axios.post('companies/updateProfile', body)
         dispatch(getUserCompanies())
         setEditing(false)
       } catch (err) {
@@ -212,24 +212,28 @@ const Company = ({isCompanyDataLoading, company}) => {
               />
             </div>
 
-            {/* Корр/сч */}
-            <div className={s.control}>
-              <label className={s.label} htmlFor="companyName">Наименование компании</label>
+            {/* Наименование компании */}
 
-              <div
-                className={` ${!editing ? s.inputDisabled : s.input} ${errors.companyName ? s.invalid : ''} `}
+            {
+              
+              editing && <div className={s.control}>
+                <label className={s.label} htmlFor="companyName">Наименование компании</label>
 
-              >
-                <input
-                  disabled={!editing}
-                  className={`${s.correspondingAccInput} `}
-                  placeholder="Не указано"
-                  id="companyName"
-                  type="text"
-                  {...register('companyName', {required: true})}
-                />
+                <div
+                  className={` ${!editing ? s.inputDisabled : s.input} ${errors.companyName ? s.invalid : ''} `}
+
+                >
+                  <input
+                    disabled={!editing}
+                    className={`${s.correspondingAccInput} `}
+                    placeholder="Не указано"
+                    id="companyName"
+                    type="text"
+                    {...register('companyName', {required: true})}
+                  />
+                </div>
               </div>
-            </div>
+            }
 
             {/* КПП */}
             <div className={s.control}>
