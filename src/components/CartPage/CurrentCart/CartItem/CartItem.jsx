@@ -133,8 +133,7 @@ const CartItem = ({cartItem}) => {
       </div>
       <img className={s.img} src={`${BASE_URL}${cartItem.productImageUrl}`} alt="product"/>
       <div className={s.cardMainContent}>
-        <div className={s.nameBlock}>
-          {/*<Link to={`/product/${cartItem.productHandle}?sku=${ cartItem.sku}`} className={s.name}>{cartItem.productName}</Link>*/}
+        <div className={s.nameBlock}>          
           <Link to={linkURL} className={s.name}>{cartItem.productName}</Link>
           {
             cartItem.inventoryLevel === 0 && <div className={s.noInStock}>Нет в наличии</div>

@@ -17,6 +17,7 @@ import LkChat from "@/pages/Lk/LkChat.jsx";
 import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute.jsx";
 import CreateReview from "@/components/ProductPage/CreateReview/CreateReview.jsx";
 import CreateQuestion from "@/components/ProductPage/CreateQuestion/CreateQuestion.jsx";
+import CreateMessage from "@/components/ProductPage/CreateMessage/CreateMessage.jsx";
 
 function App() {
 
@@ -28,15 +29,15 @@ function App() {
           <Route path='/' index element={<Home/>}/>
           <Route path='/category/:category' element={<Category/>}/>
           <Route path='/login' element={<Auth/>}/>
-          <Route path='/product/:slug' element={<Product/>}/>
-          <Route path='/product/:slug/new-review' element={<CreateReview/>}/>
-          <Route path='/product/:slug/new-question' element={<CreateQuestion/>}/>
+          <Route path='/product/:slug' element={<Product/>}/>                    
+          <Route path='/product/:slug/new-review' element={<ProtectedRoute><CreateReview/></ProtectedRoute>}/>
+          <Route path='/product/:slug/new-question' element={<ProtectedRoute><CreateQuestion/></ProtectedRoute>}/>
+          <Route path='/product/:productHandle/:sku/new-message' element={<ProtectedRoute><CreateMessage/></ProtectedRoute>}/>
           
           <Route path='/favourites' element={<Favourites/>}/>
           <Route path='/cart' element={<Cart/>}/>
           <Route path='/orders' element={<Orders/>}/>
-
-          {/*<Route path='/lk'  element={<Lk/>}>*/}
+          
           <Route path='/lk' element={<ProtectedRoute> <Lk/> </ProtectedRoute>}>
             <Route index element={<Navigate to="main" replace/>}/> {/* Перенаправление на /lk/main */}
             <Route path='main' element={<LkMain/>}/>

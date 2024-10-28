@@ -8,7 +8,7 @@ const RightSidebar = ({product, sku}) => {
     <div className={s.rightSidebar}>
       <AddToCart product={product} sku={sku} />
       {
-        product.productVendor.isContactShown && <WriteToSeller seller={product.productVendor} />
+        product.productVendor.isContactShown && <WriteToSeller seller={product.productVendor} product={product} sku={sku} />
       }     
       
       {

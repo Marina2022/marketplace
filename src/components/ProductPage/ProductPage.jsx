@@ -65,7 +65,6 @@ const ProductPage = () => {
   const [mobileAllTabIsOpen, setMobileAllTabisOpen] = useState(false)
   const [mobileReviewsTabIsOpen, setMobileReviewsTabIsOpen] = useState(false)
   const [mobileQuestionsTabIsOpen, setMobileQuestionsTabIsOpen] = useState(false)
-
   
   const [fav, setFav] = useState(false)
   
