@@ -1,0 +1,96 @@
+@import '@/assets/styles/mixins';
+
+.backLink {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-block: 12px;
+  color: #0093FD;
+  font-size: 14px;
+  font-weight: 500;
+  padding-left: 8px;
+
+  @include m {
+    padding-inline: 16px;
+  }
+}
+
+.title {
+  color: #131D2A;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 24px;
+
+  @include t {
+    margin-bottom: 40px;
+  }
+
+  @include m {
+    margin-bottom: 16px;
+    font-size: 18px;
+  }
+}
+
+.shopNameBlock {
+  background: white;
+  padding: 16px 24px;
+  color: #000000;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid #F0F1F1;
+}
+
+.message {
+  border: none;
+  background: white;
+  width: 100%;
+  padding: 10px 20px;
+  resize: none;  
+  outline: none;  
+  display: block;
+  height: 118px;  
+  //background: linear-gradient(180.00deg, rgba(238, 238, 238, 0) 91.25%,rgba(180, 180, 180, 0.2) 100%),rgb(255, 255, 255);
+  color: #658092;
+  font-size: 14px;
+  
+  @include m {
+    margin-top: 16px;
+  }
+  
+  &::placeholder {
+    color: #AAB7BF;
+    font-size: 14px;
+    
+    @include m {
+      font-size: 12px;
+    }
+  }
+  
+}
+
+.fileInputBlock {
+  border: #F0F1F1 1px solid;
+  background: white;
+  padding: 15px 24px;
+}
+
+.messageWrapper {
+  padding-top: 8px;
+  position: relative;
+  padding-bottom: 30px;
+  background: linear-gradient(180.00deg, rgba(238, 238, 238, 0) 91.25%,rgba(180, 180, 180, 0.2) 100%),rgb(255, 255, 255);
+  border: #F0F1F1 1px solid;
+  border-radius: 10px 10px 0 0;height: 160px;
+  margin-top: 24px;
+  margin-bottom: 0;
+  overflow: hidden;
+  
+}
+
+.symbolsQuantity {
+  position: absolute;
+  right: 20px;
+  bottom: 14px;
+  font-size: 12px;
+  color: #658092;
+}

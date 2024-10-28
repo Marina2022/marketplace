@@ -32,7 +32,10 @@ function App() {
           <Route path='/product/:slug' element={<Product/>}/>                    
           <Route path='/product/:slug/new-review' element={<ProtectedRoute><CreateReview/></ProtectedRoute>}/>
           <Route path='/product/:slug/new-question' element={<ProtectedRoute><CreateQuestion/></ProtectedRoute>}/>
-          <Route path='/product/:productHandle/:sku/new-message' element={<ProtectedRoute><CreateMessage/></ProtectedRoute>}/>
+          {/*<Route path='/product/:productHandle/:sku/new-message' element={<ProtectedRoute><CreateMessage/></ProtectedRoute>}/>*/} 
+          {/*// todo - вернуть Protected*/}
+          
+          <Route path='/product/:productHandle/:sku/new-message' element={<CreateMessage/>}/>
           
           <Route path='/favourites' element={<Favourites/>}/>
           <Route path='/cart' element={<Cart/>}/>

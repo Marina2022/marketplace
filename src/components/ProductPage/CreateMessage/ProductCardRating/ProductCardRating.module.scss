@@ -1,0 +1,22 @@
+.ratingBlock {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.noRating {
+  color: #658092;
+  font-size: 12px;
+}
+
+.number {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.marks {
+  font-size: 12px;
+  color: #658092;
+}
+
+
