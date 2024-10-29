@@ -7,17 +7,18 @@ import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import ProductCardForMessage
   from "@/components/ProductPage/CreateMessage/ProductCardForMessage/ProductCardForMessage.jsx";
 
+import docThumbnail from '@/assets/img/docThumbnail.svg'
+
 const CreateMessage = () => {
+
+  const FILES_MAX_NUMBER = 5
 
   const {productHandle, sku} = useParams()
   const [product, setProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  // console.log('product from createMessage', product)
-
   useEffect(() => {
     const getProduct = async () => {
-
       try {
         const resp = await axios(`/products/${productHandle}?sku=${sku}`)
         setProduct(resp.data)
@@ -34,17 +35,42 @@ const CreateMessage = () => {
   const MAX_NUMBER = 4000
   const [currentNumber, setCurrentNumber] = useState(0)
   const [messageValue, setMessageValue] = useState('')
-  
-  const inputMessageHandler = (e)=> {
-    if(+e.target.value.length > MAX_NUMBER) return
-      
+
+  const inputMessageHandler = (e) => {
+    if (+e.target.value.length > MAX_NUMBER) return
+
     setMessageValue(e.target.value)
     setCurrentNumber(e.target.value.length)
   }
 
-  
-  if (isLoading) return <Spinner/>
+  const [files, setFiles] = useState([]);
+  const [filesInputError, setFilesInputError] = useState(null);
 
+  const handleFileChange = (e) => {
+    setFilesInputError(null)
+    const selectedFiles = Array.from(e.target.files);
+
+    // Проверяем, сколько файлов можно еще добавить
+    const availableSlots = 5 - files.length;
+
+    if (selectedFiles.length > availableSlots) {
+      setFilesInputError(`Вы можете добавить только ${availableSlots} файл(ов)`);
+      if (files.length === 5) {
+        setTimeout(() => {
+          setFilesInputError(null)
+        }, 1500)
+      }
+      return;
+    }
+
+    const newFiles = selectedFiles.map((file) => ({
+      file,
+      preview: file.type.startsWith('image/') ? URL.createObjectURL(file) : null,
+    }));
+    setFiles((prevFiles) => [...prevFiles, ...newFiles]);
+  };
+
+  if (isLoading) return <Spinner/>
 
   return (
     <div className="container">
@@ -56,7 +82,7 @@ const CreateMessage = () => {
       <div className={s.shopNameBlock}>
         {product.productVendor.shopName}
       </div>
-      <ProductCardForMessage product={product}/>
+      <ProductCardForMessage product={product} sku={sku}/>
 
       <form>
         <div className={s.messageWrapper}>
@@ -69,9 +95,54 @@ const CreateMessage = () => {
 
           <div className={s.symbolsQuantity}>{currentNumber}/{MAX_NUMBER}</div>
         </div>
+        <div className={s.fileInputBlock}>
 
+          {/*показывать - если привьюшки есть*/}
+          {
+            files.length !== 0 && <div className={s.previewsWrapper}>
 
-        <div className={s.fileInputBlock}></div>
+              <ul className={s.previews}>
+
+                {files.map((fileData, index) => (
+                  <li key={index} className={s.previewItem}>
+                    {fileData.preview ? (
+                      <div className={s.imgWrapper}>
+                        <img
+                          src={fileData.preview}
+                          alt={`Preview ${index + 1}`}
+                          className={s.imgThumbnail}
+                        />
+                      </div>
+                    ) : (
+                      <div className={s.docItem}>
+                        <img
+                          src={docThumbnail}
+                          alt="Document Thumbnail"
+                          className={s.thumbnail}
+                        />
+                        <p className={s.docText}>{fileData.file.name}</p>
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          }
+
+          <div className={s.inputWrapper}>
+            <label className={s.fileInputLabel} htmlFor="fileInput">
+              Добавить файлы
+            </label>
+            <input onChange={handleFileChange} id="fileInput" className={s.fileInput} type="file"
+                   accept="image/*, application/pdf" multiple/>
+            <span className={s.added}>Добавлено ({files.length}/{FILES_MAX_NUMBER})</span>
+
+            {
+              filesInputError && <div className={s.filesInputError}>{filesInputError}</div>
+            }
+          </div>
+
+        </div>
 
       </form>
 
