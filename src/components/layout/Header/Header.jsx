@@ -15,6 +15,7 @@ import UserDropdown from "@/components/layout/Header/UserDropdown/UserDropdown.j
 import Login from "@/components/layout/Header/Login/Login.jsx";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
 import MobileHeader from "@/components/layout/Header/MobileHeader/MobileHeader.jsx";
+import {getActiveOrders} from "@/store/ordersSlice.js";
 
 const Header = () => {
 
@@ -24,6 +25,7 @@ const Header = () => {
   const favs = useSelector(getFavs)
   const cart = useSelector(getCart)
 
+  const orders = useSelector(getActiveOrders)
   let productsTotal
   if (cart?.cartItems) {
     productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
@@ -62,7 +64,9 @@ const Header = () => {
               <Link className={s.menuItemLink} to="/orders">
                 <div className={s.menuItemImgWrapper}>
                   <img className={s.menuItemImg} src={orderIcon} alt="orders"/>
-                  <div className={s.menuItemBadge}>12</div>
+                  {
+                    orders && orders.length > 0 && <div className={s.menuItemBadge}>{orders.length}</div>
+                  }
                 </div>
                 <div className={s.menuItemLabel}>Заказы</div>
               </Link>

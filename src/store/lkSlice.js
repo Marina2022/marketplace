@@ -1,7 +1,4 @@
 import {createSlice} from "@reduxjs/toolkit";
-//import axios from "@/api/axiosInstance.js";
-
-
 
 const initialState = {
   activeTabInMain: 0,  
@@ -14,8 +11,7 @@ const lkSlice = createSlice({
     setActiveTabInMain: (state, action) => {      
       state.activeTabInMain = action.payload
     },
-  },
-  
+  },  
 })
 export const {
    setActiveTabInMain,

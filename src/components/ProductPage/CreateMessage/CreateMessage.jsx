@@ -55,7 +55,7 @@ const CreateMessage = () => {
     const availableSlots = 5 - files.length;
 
     if (selectedFiles.length > availableSlots) {
-      setFilesInputError(`Вы можете добавить только ${availableSlots} файл(ов)`);
+      setFilesInputError(`Вы можете добавить только  ${availableSlots === 0 ? "5" : availableSlots} файл(ов)`);
       if (files.length === 5) {
         setTimeout(() => {
           setFilesInputError(null)
@@ -93,12 +93,9 @@ const CreateMessage = () => {
           className={s.message}
           placeholder="Пожалуйста, напишите ваше сообщение. Укажите детали, спецификации и другие требования.">          
         </textarea>
-
           <div className={s.symbolsQuantity}>{currentNumber}/{MAX_NUMBER}</div>
         </div>
-        <div className={s.fileInputBlock}>
-
-          {/*показывать - если привьюшки есть*/}
+        <div className={s.fileInputBlock}>          
           {
             files.length !== 0 && <div className={s.previewsWrapper}>
               <ul className={s.previews}>
@@ -135,16 +132,13 @@ const CreateMessage = () => {
             <input onChange={handleFileChange} id="fileInput" className={s.fileInput} type="file"
                    accept="image/*, application/pdf" multiple/>
             <span className={s.added}>Добавлено ({files.length}/{FILES_MAX_NUMBER})</span>
-
             {
               filesInputError && <div className={s.filesInputError}>{filesInputError}</div>
             }
           </div>
         </div>
-
         <Button className={s.btn}>Отправить</Button>
       </form>
-
     </div>
   );
 };

@@ -9,6 +9,7 @@ import catalogSlice from "@/store/catalogSlice.js";
 import reviewsSlice, {loadReviewLikes} from "@/store/reviewsSlice.js";
 import favSlice from "@/store/favSlice.js";
 import lkSlice from "@/store/lkSlice.js";
+import ordersSlice from "@/store/ordersSlice.js";
 
 export const store = configureStore({
       reducer: {        
@@ -17,7 +18,8 @@ export const store = configureStore({
         catalog: catalogSlice,
         reviews: reviewsSlice,
         favs: favSlice,
-        lk: lkSlice
+        lk: lkSlice,
+        orders: ordersSlice,
       }
     }
 )
