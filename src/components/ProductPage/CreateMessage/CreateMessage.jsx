@@ -8,6 +8,7 @@ import ProductCardForMessage
   from "@/components/ProductPage/CreateMessage/ProductCardForMessage/ProductCardForMessage.jsx";
 
 import docThumbnail from '@/assets/img/docThumbnail.svg'
+import Button from "@/components/ui/Button/Button.jsx";
 
 const CreateMessage = () => {
 
@@ -100,9 +101,7 @@ const CreateMessage = () => {
           {/*показывать - если привьюшки есть*/}
           {
             files.length !== 0 && <div className={s.previewsWrapper}>
-
               <ul className={s.previews}>
-
                 {files.map((fileData, index) => (
                   <li key={index} className={s.previewItem}>
                     {fileData.preview ? (
@@ -141,9 +140,9 @@ const CreateMessage = () => {
               filesInputError && <div className={s.filesInputError}>{filesInputError}</div>
             }
           </div>
-
         </div>
 
+        <Button className={s.btn}>Отправить</Button>
       </form>
 
     </div>

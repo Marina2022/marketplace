@@ -67,6 +67,11 @@
   border: #F0F1F1 1px solid;
   background: white;
   padding: 15px 24px;
+  margin-bottom: 24px;
+  
+  @include m {
+    margin-bottom: 16px;
+  }
 }
 
 .messageWrapper {
@@ -169,3 +174,13 @@
   margin-top: 5px;
 }
 
+.btn {
+  width: 160px;
+  height: 35px;
+  font-size: 16px;
+  font-weight: 500;
+  
+  @include m {
+    margin-bottom: 74px;
+  }
+}
