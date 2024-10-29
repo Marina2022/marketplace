@@ -58,7 +58,7 @@ const UserDropdown = () => {
               </div>
               <ul className={s.dropdownMenu}>
                 <li><Link className={s.dropdownLink} to="/lk">Личный кабинет</Link></li>
-                <li><Link className={s.dropdownLink} to="/orders">Заказы</Link></li>
+                <li><Link className={s.dropdownLink} to="/lk/orders">Заказы</Link></li>
                 <li><Link className={s.dropdownLink} to="/favourites">Избранное</Link></li>
                 <li><Link className={s.dropdownLink} to="/messages">Сообщения</Link></li>
               </ul>

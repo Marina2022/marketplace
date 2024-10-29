@@ -53,8 +53,6 @@ const ordersSlice = createSlice({
     state.orderLoadingStatus = 'error'
     console.log('ошибка', action.error.message)
   })
-
-
 })
 export const {
   setActiveOrders,

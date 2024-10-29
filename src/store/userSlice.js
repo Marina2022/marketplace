@@ -83,6 +83,9 @@ export const getUserProfiles = createAsyncThunk('cart/getUserProfiles', async (_
     const lsProfileFoundInProfiles = resp.data.find(item => item.profileId === lsProfile)
 
     const activeProfileId = lsProfileFoundInProfiles ? lsProfile : resp.data[0].profileId
+    
+    if(!lsProfileFoundInProfiles) localStorage.setItem("activeProfile", resp.data[0].profileId)
+    
     thunkAPI.dispatch(setActiveProfileId(activeProfileId))
     
             

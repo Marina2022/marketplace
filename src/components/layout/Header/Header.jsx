@@ -24,8 +24,8 @@ const Header = () => {
   const isMobile = useMobileScreen()
   const favs = useSelector(getFavs)
   const cart = useSelector(getCart)
-
   const orders = useSelector(getActiveOrders)
+  
   let productsTotal
   if (cart?.cartItems) {
     productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
@@ -61,7 +61,7 @@ const Header = () => {
               </Link>
             </li>
             <li className={s.userMenuItem}>
-              <Link className={s.menuItemLink} to="/orders">
+              <Link className={s.menuItemLink} to="/lk/orders">
                 <div className={s.menuItemImgWrapper}>
                   <img className={s.menuItemImg} src={orderIcon} alt="orders"/>
                   {
