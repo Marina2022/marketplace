@@ -1,6 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "@/api/axiosInstance.js";
-import {loadFavs} from "@/store/favSlice.js";
 
 
 export const loadActiveOrders = createAsyncThunk('orders/loadActiveOrders', async (args, thunkAPI) => {
@@ -59,5 +58,6 @@ export const {
 
 } = ordersSlice.actions
 export const getActiveOrders = state => state.orders.activeOrders
+export const getActiveOrdersLoadingStatus = state => state.orders.orderLoadingStatus
 
 export default ordersSlice.reducer

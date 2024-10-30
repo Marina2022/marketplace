@@ -1,5 +1,6 @@
 import {useState} from "react";
 import s from './LkOrders.module.scss'
+import ActiveOrders from "@/pages/Lk/LKOrders/ActiveOrders/ActiveOrders.jsx";
 
 const LkOrders = () => {
   
@@ -8,7 +9,6 @@ const LkOrders = () => {
   
   return (
     <div className={s.lkOrdersWrapper}>
-
       <div className={s.topTabs}>
         <div onClick={() => setTopTab(1)} className={topTabs === 1 ? s.activeTopTab : s.topTab}>Покупки</div>
         <div onClick={() => setTopTab(2)} className={topTabs === 2 ? s.activeTopTab : s.topTab}>Возвраты</div>
@@ -19,7 +19,9 @@ const LkOrders = () => {
         <div onClick={() => setOrdersTab(2)} className={ordersTab === 2 ? s.activeOrderTab : s.orderTab}>Все заказы</div>
       </div>
 
-
+      {
+        topTabs === 1 && ordersTab === 1 && <ActiveOrders />
+      }
     </div>
   );
 };
