@@ -3,7 +3,7 @@ import {getStringFromISO} from "@/utils/fromISO.js";
 import OrderPosition from "@/components/lk-InnerPages/LKOrdersPage/ActiveOrders/OneActiveOrder/OrderPosition/OrderPosition.jsx";
 
 const OneActiveOrder = ({order}) => {
-  console.log('order', order)
+  
   return (
     <li className={s.ordersListItem}>
 
