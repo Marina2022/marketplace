@@ -1,0 +1,136 @@
+@import '@/assets/styles/mixins';
+
+.topTabs {
+  width: 189px;
+  height: 43px;
+  background: white;
+  border: #F0F1F1 1px solid;
+  padding: 4px;
+  border-radius: 2px;
+  display: flex;
+  margin-bottom: 12px;
+  
+  @include t {
+    margin-bottom: 8px;
+  }
+  
+  @include m {
+    background: none;
+    border: none;
+    padding: 0;
+    gap: 4px;
+    height: 24px;    
+  }
+}
+
+.topTab {
+  background: white;
+  color: #658092;
+  padding: 10px 18px;
+  border-radius: 2px;
+  font-weight: 500;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  
+  @include m {
+    padding: 5px 10px;
+    font-size: 11px;
+    font-width: 400;
+    border-radius: 16px;
+  }
+}
+
+.activeTopTab {
+  background: #AAB7BF;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 2px;
+  font-weight: 500;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  @include m {
+    padding: 5px 10px;
+    font-size: 11px;
+    font-width: 400;
+    border-radius: 16px;
+    background: #3E5067;
+  }
+}
+
+
+.ordersTabs {  
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 17px;
+  
+  @include t {
+    margin-bottom: 16px;
+  }
+
+  @include m {
+    margin-bottom: 0;
+  }
+}
+
+.orderTab {
+  width: 200px;
+  height: 36px;
+  background: white;
+  color: #658092;
+  padding: 10px 15px;
+  border-radius: 2px;
+  font-weight: 500;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 1px #F0F1F1 solid;
+  
+  @include m {
+    height: 23px;
+    width: auto;
+    padding: 5px 10px;
+    font-size: 10px;    
+    border-radius: 16px;
+  }
+}
+
+.activeOrderTab {
+  width: 200px;
+  height: 34px;
+  background: #AAB7BF;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 2px;
+  font-weight: 500;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  @include m {
+    height: 23px;
+    width: auto;
+    padding: 5px 10px;
+    font-size: 10px;
+    border-radius: 16px;
+    background: #658092;
+  }
+  
+}
+
+.lkOrdersWrapper {
+  @include m {
+    padding-inline: 16px;
+  }
+}
