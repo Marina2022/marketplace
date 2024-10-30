@@ -11,6 +11,7 @@ import favSlice from "@/store/favSlice.js";
 import lkSlice from "@/store/lkSlice.js";
 import ordersSlice from "@/store/ordersSlice.js";
 
+
 export const store = configureStore({
       reducer: {        
         cart: cartSlice,
