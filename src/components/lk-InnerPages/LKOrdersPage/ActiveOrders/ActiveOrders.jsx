@@ -1,4 +1,3 @@
-import s from './ActiveOrders.module.scss';
 import {useSelector} from "react-redux";
 import {getActiveOrders, getActiveOrdersLoadingStatus} from "@/store/ordersSlice.js";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";

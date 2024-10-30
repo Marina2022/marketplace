@@ -1,4 +1,6 @@
 import s from './OrderPosition.module.scss';
+import OrderProductCard
+  from "@/components/lk-InnerPages/LKOrdersPage/ActiveOrders/OneActiveOrder/OrderPosition/OrderProductCard/OrderProductCard.jsx";
 
 const OrderPosition = ({orderPosition}) => {
 
@@ -13,11 +15,10 @@ const OrderPosition = ({orderPosition}) => {
         className={s.sellerValue}>{orderPosition.sellerName}</span></div>
 
       <ul className={s.productList}>
-        <li>productList</li>
-        <li>productList</li>
-        <li>productList</li>
-        <li>productList</li>
-        <li>productList</li>
+        {
+          orderPosition.orderPositionDetails.map(product=><OrderProductCard product={product} key={product.productVariantId} />)
+        }        
+        
       </ul>
 
       <div className={s.deliveryInfo}>

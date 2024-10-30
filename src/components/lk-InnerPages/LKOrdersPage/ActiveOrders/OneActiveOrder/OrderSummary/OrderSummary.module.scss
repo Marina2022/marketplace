@@ -1,0 +1,58 @@
+@import "@/assets/styles/mixins";
+
+.orderHeader {
+  width: 100%;
+  background: white;
+  border-bottom: 1px solid #F0F1F1;
+  border-top: 1px solid #F0F1F1;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include m {
+    padding-block: 16px;
+  }
+}
+
+.orderNumber {
+  margin-bottom: 3px;
+  color: #131D2A;
+  line-height: 140%;
+  font-size: 18px;
+  font-weight: 600;
+
+  @include m {
+    font-size: 16px;
+  }
+}
+
+.orderDate {
+  color: #658092;
+  font-weight: 500;
+  font-size: 14px;
+
+  @include m {
+    font-size: 12px;
+  }
+}
+
+.sumLabel {
+  color: #658092;
+  font-size: 14px;
+  font-weight: 500;
+
+  @include m {
+    font-size: 12px;
+  }
+}
+
+.sumValue {
+  color: #131D2A;
+  font-weight: 600;
+  font-size: 18px;
+
+  @include m {
+    font-size: 16px;
+  }
+}
