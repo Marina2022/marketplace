@@ -1,6 +1,6 @@
 import s from './OneActiveOrder.module.scss';
 import {getStringFromISO} from "@/utils/fromISO.js";
-import OrderPosition from "@/pages/Lk/LKOrders/ActiveOrders/OneActiveOrder/OrderPosition/OrderPosition.jsx";
+import OrderPosition from "@/components/lk-InnerPages/LKOrdersPage/ActiveOrders/OneActiveOrder/OrderPosition/OrderPosition.jsx";
 
 const OneActiveOrder = ({order}) => {
   console.log('order', order)

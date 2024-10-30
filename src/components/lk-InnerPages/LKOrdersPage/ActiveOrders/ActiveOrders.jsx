@@ -2,7 +2,7 @@ import s from './ActiveOrders.module.scss';
 import {useSelector} from "react-redux";
 import {getActiveOrders, getActiveOrdersLoadingStatus} from "@/store/ordersSlice.js";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
-import OneActiveOrder from "@/pages/Lk/LKOrders/ActiveOrders/OneActiveOrder/OneActiveOrder.jsx";
+import OneActiveOrder from "@/components/lk-InnerPages/LKOrdersPage/ActiveOrders/OneActiveOrder/OneActiveOrder.jsx";
 
 const ActiveOrders = () => {
   const activeOrders = useSelector(getActiveOrders)

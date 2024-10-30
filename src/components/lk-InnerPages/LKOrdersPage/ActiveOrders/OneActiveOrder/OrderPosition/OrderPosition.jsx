@@ -11,9 +11,7 @@ const OrderPosition = ({orderPosition}) => {
         <li>productList</li>
         <li>productList</li>
         <li>productList</li>
-        <li>productList</li>
-
-        
+        <li>productList</li>       
       </ul>
       
       <div className={s.deliveryInfo}>Доставка</div>
