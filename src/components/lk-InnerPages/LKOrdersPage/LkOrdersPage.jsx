@@ -14,13 +14,19 @@ const LkOrdersPage = () => {
         <div onClick={() => setTopTab(2)} className={topTabs === 2 ? s.activeTopTab : s.topTab}>Возвраты</div>
       </div>
 
-      <div className={s.ordersTabs}>
-        <div onClick={() => setOrdersTab(1)} className={ordersTab === 1 ? s.activeOrderTab : s.orderTab}>Активные заказы</div>
-        <div onClick={() => setOrdersTab(2)} className={ordersTab === 2 ? s.activeOrderTab : s.orderTab}>Все заказы</div>
-      </div>
+      {
+        topTabs === 1 && <div className={s.ordersTabs}>
+          <div onClick={() => setOrdersTab(1)} className={ordersTab === 1 ? s.activeOrderTab : s.orderTab}>Активные
+            заказы
+          </div>
+          <div onClick={() => setOrdersTab(2)} className={ordersTab === 2 ? s.activeOrderTab : s.orderTab}>Все заказы
+          </div>
+        </div>
+      }
+
 
       {
-        topTabs === 1 && ordersTab === 1 && <ActiveOrders />
+        topTabs === 1 && ordersTab === 1 && <ActiveOrders/>
       }
     </div>
   )
