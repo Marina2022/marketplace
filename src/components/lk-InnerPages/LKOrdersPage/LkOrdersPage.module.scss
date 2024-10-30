@@ -9,6 +9,7 @@
   border-radius: 2px;
   display: flex;
   margin-bottom: 12px;
+  user-select: none;
   
   @include t {
     margin-bottom: 8px;
@@ -34,7 +35,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
+  cursor: pointer;  
   
   @include m {
     padding: 5px 10px;
@@ -44,7 +45,7 @@
   }
 }
 
-.activeTopTab {
+.activeTopTab {  
   background: #AAB7BF;
   color: white;
   padding: 10px 18px;
@@ -65,8 +66,8 @@
   }
 }
 
-
-.ordersTabs {  
+.ordersTabs {
+  user-select: none;
   display: flex;
   gap: 8px;
   align-items: center;
@@ -127,8 +128,7 @@
     font-size: 10px;
     border-radius: 16px;
     background: #658092;
-  }
-  
+  }  
 }
 
 .lkOrdersWrapper {
@@ -136,7 +136,6 @@
   padding-bottom: 100px;
   
   @include m {
-    //padding-inline: 16px;
     padding-bottom: 76px;
   }
 }

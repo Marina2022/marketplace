@@ -5,6 +5,7 @@
   display: flex;
   gap: 15px;
   align-items: center;
+  cursor: pointer;
   
   @include m {
     align-items: flex-start;
