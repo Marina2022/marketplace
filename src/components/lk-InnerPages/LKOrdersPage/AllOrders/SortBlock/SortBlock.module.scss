@@ -1,0 +1,66 @@
+@import "@/assets/styles/mixins";
+
+.sortBlock {
+  background: white;
+  width: 249px;
+  min-height: 100px;
+  padding: 24px;
+
+  @include t {
+    position: absolute;
+    left: -235px;
+    width: 215px;
+    top: 325px;
+  }
+
+  @include m {
+    display: none;
+  }
+}
+
+.sortTitle {
+  color: #3E5067;
+  font-size: 18px;
+  margin-bottom: 16px;
+  cursor: pointer;
+
+  @include t {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+}
+
+.sortingGroupItem {
+  margin-bottom: 16px;  
+
+  @include t {
+    margin-bottom: 12px;
+  }
+}
+
+
+.yearItem {
+  font-size: 16px;
+  margin-bottom: 16px;
+  color: #658092;
+  cursor: pointer;
+  font-weight: 500;
+  
+  @include t {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+}
+
+.yearItemActive {
+  font-size: 16px;
+  margin-bottom: 16px;
+  color: #0093FD;
+  cursor: pointer;
+  font-weight: 500;
+
+  @include t {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+}

@@ -4,6 +4,7 @@ import axios from "@/api/axiosInstance.js";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import {useSelector} from "react-redux";
 import {getActiveProfileId, getUserProfilesData} from "@/store/userSlice.js";
+import SortBlock from "@/components/lk-InnerPages/LKOrdersPage/AllOrders/SortBlock/SortBlock.jsx";
 
 const AllOrders = () => {
 
@@ -39,6 +40,11 @@ const AllOrders = () => {
     }
   }, [profileId, userProfiles]);
 
+  // этот стейт контролирует значения, которые уйдут в запрос
+  const [sortingType, setSortingType] = useState('product')
+  
+  const [dateSort, setDateSort] = useState(null)
+  
 
   if (isLoading) return <Spinner className={s.spinner}/>
   if (error) return <div className={s.noReviews}>{error}</div>
@@ -47,7 +53,8 @@ const AllOrders = () => {
     <div className={s.allOrdersTabWrapper}>
       
       <div className={s.mainPart}>mainPart</div>
-      <div className={s.sortBlock}>sortBlock</div>
+
+      <SortBlock sortingType={sortingType} setSortingType={setSortingType} dateSort={dateSort} setDateSort={setDateSort} sortingData={allOrders.sortingData} />
       
       
     </div>

@@ -16,19 +16,3 @@
   }
 }
 
-.sortBlock {
-  background: white;
-  width: 249px;
-  min-height: 100px;
-  
-  @include t {
-    position: absolute;
-    left: -235px;
-    width: 215px;
-    top: 325px;    
-  }
-  
-  @include m {
-    display: none;
-  }
-}
