@@ -58,6 +58,17 @@
   color: #0093FD;
   cursor: pointer;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+ 
+  
+  &::before {
+    content: '';
+    background: url('@/assets/img/arrow-right.svg');
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;   
+  }
 
   @include t {
     font-size: 14px;

@@ -1,10 +1,8 @@
 import s from './SortBlock.module.scss';
 import {useState} from "react";
-
 const SortBlock = ({sortingType, setSortingType, dateSort, setDateSort, sortingData}) => {
 
-  const handleYearClick = (year, sortingType) => {
-    console.log('handleYearClick', {year, sortingType})
+  const handleYearClick = (year, sortingType) => {    
     setDateSort(year)
     setSortingType(sortingType)
   }
@@ -12,10 +10,6 @@ const SortBlock = ({sortingType, setSortingType, dateSort, setDateSort, sortingD
   // если есть заказы в категории товары, то открыт будет список именно с этой категорией 
   const foundItem = sortingData.find(item => item.sortingOrderType === 'product')
   const [openedSortingList, setOpenedSortingList] = useState(foundItem ? 'product' : 'services')
-
-  console.log({
-    sortingType, dateSort, openedSortingList
-  })
 
   return (
     <ul className={s.sortBlock}>
