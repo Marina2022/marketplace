@@ -1,11 +1,12 @@
 import {useState} from "react";
 import ActiveOrders from "@/components/lk-InnerPages/LKOrdersPage/ActiveOrders/ActiveOrders.jsx";
 import s from './LkOrdersPage.module.scss'
+import AllOrders from "@/components/lk-InnerPages/LKOrdersPage/AllOrders/AllOrders.jsx";
 
 
 const LkOrdersPage = () => {
   const [topTabs, setTopTab] = useState(1)
-  const [ordersTab, setOrdersTab] = useState(1)
+  const [ordersTab, setOrdersTab] = useState(2)
 
   return (
     <div className={s.lkOrdersWrapper}>
@@ -24,10 +25,14 @@ const LkOrdersPage = () => {
         </div>
       }
 
-
       {
         topTabs === 1 && ordersTab === 1 && <ActiveOrders/>
       }
+
+      {
+        topTabs === 1 && ordersTab === 2 && <AllOrders/>
+      }
+      
     </div>
   )
 };

@@ -1,0 +1,34 @@
+@import "@/assets/styles/mixins";
+
+.allOrdersTabWrapper {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.mainPart {
+  border: red 1px solid;
+  height: 500px;
+  width: 850px;
+  
+  @include t {
+    width: 100%;
+  }
+}
+
+.sortBlock {
+  background: white;
+  width: 249px;
+  min-height: 100px;
+  
+  @include t {
+    position: absolute;
+    left: -235px;
+    width: 215px;
+    top: 325px;    
+  }
+  
+  @include m {
+    display: none;
+  }
+}

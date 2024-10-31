@@ -134,6 +134,7 @@
 .lkOrdersWrapper {
   width: 100%;
   padding-bottom: 100px;
+  position: relative;
   
   @include m {
     padding-bottom: 76px;

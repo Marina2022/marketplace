@@ -6,12 +6,16 @@ import OrderSummary
 
 const OneActiveOrder = ({order}) => {
 
+  // для теста
+  // const testOrderPositions = order.orderPositions.concat(order.orderPositions)
+  
   return (
     <li className={s.ordersListItem}>
       <OrderSummary order={order}/>
       <ul className={s.orderPositions}>
         {
           order.orderPositions.map((orderPosition, i) => <OrderPosition key={i} orderPosition={orderPosition}/>)
+          //testOrderPositions.map((orderPosition, i) => <OrderPosition key={i} orderPosition={orderPosition}/>)
         }
       </ul>
       <OrderSummary order={order}/>
