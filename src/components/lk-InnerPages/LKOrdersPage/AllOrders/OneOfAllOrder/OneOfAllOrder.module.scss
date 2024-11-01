@@ -2,8 +2,9 @@
 
 .orderWrapper {
   margin-bottom: 16px;
+  
   &:last-child {
-    margin-bottom: 0;
+    margin-bottom: 76px;
   }
   
   @include t {

@@ -1,12 +1,16 @@
 import s from './AllOrdersProductCard.module.scss';
 import {BASE_URL} from "@/consts/baseURL.js";
+import {useNavigate} from "react-router-dom";
 
 const AllOrdersProductCard = ({product}) => {
-
-  console.log(product)
+  const navigate = useNavigate()
+  const handleCardClick = () => {
+    navigate(`/product/${product.productHandle}?sku=${product.sku}`)
+  }
+  
   return (
-    <li className={s.productWrapper}>
-      <img className={s.img} src={`${BASE_URL}${product.productImageUrl}`} alt=""/>
+    <li onClick={handleCardClick} className={s.productWrapper}>
+      <img className={s.img} src={`${BASE_URL}${product.productImageUrl}`} alt={product.productName}/>
       
       <div className={s.cardRightPart}>
         <div className={s.mainInfo}>

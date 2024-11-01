@@ -1,17 +1,52 @@
 @import "@/assets/styles/mixins";
 
-.allOrdersTabWrapper {
+.allOrdersWrapper {
   display: flex;
   gap: 16px;
   align-items: flex-start;
 }
 
-.mainPart {
-  height: 500px;
+.mainPart {  
   width: 850px;
   
   @include t {
     width: 100%;
+  } 
+}
+
+
+
+.mobileNavigateToSort {
+  display: none;
+  
+  @include m {
+    display: block;
+    width: 100%;
+    background: white;
+    padding: 16px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: #292D32;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+.arrow {
+  margin-left: auto;
+}
+
+
+.mobileSorting {
+  margin-top: 8px;
+  width: 100%;
+}
+
+
+.mobileHidden {
+  @include m {
+    display: none;
   }
 }
 

@@ -14,7 +14,8 @@
   }
 
   @include m {
-    display: none;
+    position: static;
+    width: 100%;
   }
 }
 
