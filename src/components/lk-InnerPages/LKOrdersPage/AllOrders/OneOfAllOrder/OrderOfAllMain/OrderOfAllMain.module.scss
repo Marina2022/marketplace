@@ -1,0 +1,80 @@
+@import "@/assets/styles/mixins";
+
+.oneOrderOfAllWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  background: white;
+  border: 1px solid #F0F1F1;
+  flex-wrap: wrap;
+
+  @include t {
+    padding: 16px 24px;
+  }
+
+  @include m {
+    padding: 16px;
+
+  }
+
+}
+
+.orderInfo {
+  background: skyblue;
+
+  width: 260px;
+
+  @include t {
+    width: 175px;
+  }
+
+  @include m {
+    max-width: 188px;
+    width: 100%;
+  }
+}
+
+.price {
+  background: lightgoldenrodyellow;
+}
+
+.pictures {
+  background: sandybrown;
+
+  @include m {
+    width: 100%;
+    order: 1;
+  }
+}
+
+.toggleBtn {
+
+  & img {
+    width: 29px;
+    height: 29px;
+  }
+
+  //@include m {
+  //
+  //  & img {
+  //    width: 20px;
+  //    height: 20px;
+  //  }
+  //}
+
+
+}
+
+.additional {
+  width: 100%;
+  display: flex;
+  column-gap: 30px;
+  flex-wrap: wrap;
+}
+
+.status {
+  @include m {
+    width: 100%;
+  }
+}

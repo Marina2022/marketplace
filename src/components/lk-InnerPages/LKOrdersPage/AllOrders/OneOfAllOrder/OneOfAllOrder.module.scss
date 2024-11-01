@@ -1,0 +1,38 @@
+@import "@/assets/styles/mixins";
+
+.orderWrapper {
+  margin-bottom: 16px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  @include t {
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  @include m {
+    margin-bottom: 4px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+
+.productList {
+  background: white;
+  margin-top: 5px;
+  
+  @include t {
+    margin-top: 4px;
+  }
+
+  @include m {
+    margin-top: 0;
+  }
+}

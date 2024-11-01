@@ -5,6 +5,7 @@ import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import {useSelector} from "react-redux";
 import {getActiveProfileId, getUserProfilesData} from "@/store/userSlice.js";
 import SortBlock from "@/components/lk-InnerPages/LKOrdersPage/AllOrders/SortBlock/SortBlock.jsx";
+import OneOfAllOrder from "@/components/lk-InnerPages/LKOrdersPage/AllOrders/OneOfAllOrder/OneOfAllOrder.jsx";
 
 const AllOrders = () => {
 
@@ -23,11 +24,15 @@ const AllOrders = () => {
       setError(false)
 
       try {
-        const response = await axios(`all-orders?profileId=${profileId}&profileType=${type}`) //todo
+        const response = await axios(`all-orders?profileId=${profileId}&profileType=${type}`)
+        console.log('response', response)
+        if (response.data.description === 'No product in order') {
+          throw new Error('No product in order')
+        }
         setAllOrders(response.data)
       } catch (err) {
         console.log('err = ', err)
-        setError('Произошла ошибка')
+        setError(err)
       } finally {
         setIsLoading(false)
       }
@@ -40,19 +45,29 @@ const AllOrders = () => {
     }
   }, [profileId, userProfiles]);
 
-  // этот стейт контролирует значения, которые уйдут в запрос
+  // этот стейт контролирует значения, которые уйдут в запрос (а не открытие/закрытие списка)
   const [sortingType, setSortingType] = useState('product')
   
   const [dateSort, setDateSort] = useState(null)
   
 
   if (isLoading) return <Spinner className={s.spinner}/>
-  if (error) return <div className={s.noReviews}>{error}</div>
+  
+  if (error) return <div >{error.message}</div>
 
   return (
     <div className={s.allOrdersTabWrapper}>
       
-      <div className={s.mainPart}>mainPart</div>
+      <div className={s.mainPart}>
+        
+        <ul>
+          {
+            allOrders.orders.map(order=><OneOfAllOrder order={order} key={order.orderId} />)
+          }
+          
+        </ul>
+        
+      </div>
 
       <SortBlock sortingType={sortingType} setSortingType={setSortingType} dateSort={dateSort} setDateSort={setDateSort} sortingData={allOrders.sortingData} />
       

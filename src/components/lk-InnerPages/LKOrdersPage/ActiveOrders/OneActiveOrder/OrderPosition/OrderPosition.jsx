@@ -4,20 +4,17 @@ import OrderProductCard
 
 const OrderPosition = ({orderPosition}) => {
 
-  console.log('orderPosition', orderPosition)
-
   const deliveryDateArr = orderPosition.deliveryData.deliveryDateDisplay.split(": ")
 
   return (
     <li className={s.orderGroupWrapper}>
-
       <div className={s.seller}><span className={s.sellerLabel}>Продавец:</span> <span
         className={s.sellerValue}>{orderPosition.sellerName}</span></div>
 
       <ul className={s.productList}>
         {
           orderPosition.orderPositionDetails.map(product=><OrderProductCard product={product} key={product.productVariantId} />)
-        }        
+        }       
         
       </ul>
 
