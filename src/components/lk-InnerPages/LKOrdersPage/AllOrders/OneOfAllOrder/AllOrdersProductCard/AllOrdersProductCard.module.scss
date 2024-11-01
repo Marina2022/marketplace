@@ -1,0 +1,118 @@
+@import "@/assets/styles/mixins";
+
+.productWrapper {
+  border-bottom: 1px solid #F0F1F1;
+  border-top: 1px solid #F0F1F1;
+  background: white;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 24px;
+
+  @include m {
+    padding: 20px;
+    align-items: flex-start;
+  }
+}
+
+
+.img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.cardRightPart {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  @include m {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.mainInfo {
+  width: 310px;
+  margin-right: 20px;
+  
+  @include m {
+    width: unset;
+  }
+}
+
+.quantity {
+  margin-right: auto;
+
+  @include m {
+    margin-right: 0;
+  }
+}
+
+.price {
+  margin-left: 10px;
+  color: #09213D;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 140%;
+
+  @include m {
+    font-size: 16px;
+    margin-left: 0;
+s  }
+}
+
+.productName {
+  margin-bottom: 9px;
+  color: #131D2A;
+  font-size: 14px;
+  font-weight: 500;
+
+  @include m {
+    margin-bottom: 6px;
+  }
+}
+
+.seller {
+  font-size: 14px;
+
+  @include m {
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+}
+
+
+.sellerLabel {
+  color: #658092;
+  
+  @include m {
+    display: block;
+    margin-bottom: 3px;
+    
+  }
+}
+
+.sellerValue {
+  color: #131D2A;
+}
+
+.quantity {
+  color: #658092;
+  font-size: 14px;
+}
+
+
+.priceLabel {
+  display: none;
+
+  @include m {
+    display: inline;
+    color: #658092;
+    font-weight: 500;
+    font-size: 12px;
+    margin-right: 4px;
+  }
+}

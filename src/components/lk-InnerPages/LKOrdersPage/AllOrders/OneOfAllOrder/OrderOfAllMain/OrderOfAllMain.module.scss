@@ -193,6 +193,25 @@
   color: #658092;
   font-size: 14px;
   
+  & svg {
+    fill: #3E5067;
+    
+  }
+  
+  &:hover {    
+    color: #3E5067;    
+    & svg {
+      fill: #3E5067;      
+    }
+  }
+
+  &:active {
+    color: #09213D;
+    & svg {
+      fill: #09213D;
+    }
+  }
+  
   @include m {
     font-size: 12px;
     margin-bottom: 14px;
@@ -207,6 +226,24 @@
   
   & a {color: #658092;}
 
+  & svg {
+    fill: #658092;
+  }
+
+  &:hover {
+    color: #3E5067;
+    & svg {
+      fill: #3E5067;
+    }
+  }
+
+  &:active {
+    color: #09213D;
+    & svg {
+      fill: #09213D;
+    }
+  }
+  
   @include m {
     font-size: 12px;
     margin-bottom: 14px;
