@@ -4,6 +4,9 @@ import OrderProductCard
 
 const OrderPosition = ({orderPosition}) => {
 
+
+  console.log('orderPosition', orderPosition)
+
   const deliveryDateArr = orderPosition.deliveryData.deliveryDateDisplay.split(": ")
 
   return (

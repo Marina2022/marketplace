@@ -3,7 +3,7 @@
 .oneOrderOfAllWrapper {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 24px;
   background: white;
   border: 1px solid #F0F1F1;
@@ -15,33 +15,45 @@
 
   @include m {
     padding: 16px;
-
   }
-
 }
 
 .orderInfo {
-  background: skyblue;
 
   width: 260px;
+  margin-right: 66px;
 
   @include t {
+    margin-right: 40px;
     width: 175px;
   }
 
   @include m {
-    max-width: 188px;
-    width: 100%;
+    width: 160px;
+    
+    margin-right: 0;
   }
 }
 
 .price {
-  background: lightgoldenrodyellow;
+  color: #09213D;
+  font-size: 20px;
+  font-weight: 600;
+  margin-right: 66px;
+  
+  @include t {
+    margin-right: 40px;
+  }
+
+  @include m {
+    text-align: right;
+    margin-inline: auto;
+  }
 }
 
 .pictures {
-  background: sandybrown;
-
+  margin-inline: auto;
+  
   @include m {
     width: 100%;
     order: 1;
@@ -49,32 +61,154 @@
 }
 
 .toggleBtn {
+  margin-left: 10px;
 
   & img {
     width: 29px;
     height: 29px;
   }
-
-  //@include m {
-  //
-  //  & img {
-  //    width: 20px;
-  //    height: 20px;
-  //  }
-  //}
-
-
 }
 
 .additional {
+  margin-top: 10px;
   width: 100%;
   display: flex;
   column-gap: 30px;
   flex-wrap: wrap;
+  align-items: center;
+  
+  @include m {
+    margin-top: 6px;
+  }
 }
 
-.status {
+.redStatus {
+
+  font-size: 16px;
+  color: #E32636;
+
+  @include t {
+    font-size: 14px;
+  }
+  
   @include m {
     width: 100%;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+}
+
+.blueStatus {
+  font-size: 16px;
+  color: #0093FD;
+
+  @include t {
+    font-size: 14px;
+  }
+
+  @include m {
+    width: 100%;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+}
+
+.orderNumber {
+  color: #131D2A;
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 5px;
+
+  @include t {
+    font-size: 16px;
+  }
+}
+
+.orderDate {
+  color: #3E5067;
+  font-size: 16px;
+
+  @include t {
+    font-size: 14px;
+  }
+
+  @include m {
+    font-size: 12px;
+  }
+}
+
+.productImg {
+  width: 70px;
+  height: 70px;
+  object-position: center;
+  object-fit: contain;
+}
+
+
+.picturesList {
+  display: flex;
+  gap: 15px;
+  //width: 240px;
+
+  @include m {
+    width: 100%;
+  }
+}
+
+.priceLabel {
+  display: none;
+
+  @include m {
+    display: block;
+    color: #658092;
+    font-weight: 500;
+    font-size: 12px;
+    margin-bottom: 8px;
+    margin-top: 3px;
+  }
+}
+
+.moreProducts {
+  margin-top: 3px;
+  color: #658092;
+  font-size: 14px;
+  text-align: right;
+  line-height: 140%;
+
+  @include t {
+    font-size: 13px;
+  }
+
+  @include m {
+    display: none;
+  }
+}
+
+.repeat {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: #658092;
+  font-size: 14px;
+  
+  @include m {
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+}
+
+.docs {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+  
+  & a {color: #658092;}
+
+  @include m {
+    font-size: 12px;
+    margin-bottom: 14px;
   }
 }
