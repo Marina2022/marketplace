@@ -16,15 +16,26 @@ const AllOrders = () => {
   const profileId = useSelector(getActiveProfileId)
   const userProfiles = useSelector(getUserProfilesData)
 
+  // этот стейт контролирует значения, которые уйдут в запрос (а не открытие/закрытие списка)
+  const [sortingType, setSortingType] = useState('product')
+  const [dateSort, setDateSort] = useState(null)
+  
   console.log('allOrders', allOrders)
 
   useEffect(() => {
     const getData = async (profileId, type) => {
       setIsLoading(true)
       setError(false)
+      
+      let url = `all-orders?profileId=${profileId}&profileType=${type}`
+      
+      if (dateSort) {
+        url+= `&orderType=${sortingType}&dateSort=${dateSort}`
+      }
 
       try {
-        const response = await axios(`all-orders?profileId=${profileId}&profileType=${type}`)
+        // const response = await axios(`all-orders?profileId=${profileId}&profileType=${type}`)
+        const response = await axios(url)
         console.log('response', response)
         if (response.data.description === 'No product in order') {
           throw new Error('No product in order')
@@ -43,12 +54,9 @@ const AllOrders = () => {
       const type = currentProfile.type
       getData(profileId, type)
     }
-  }, [profileId, userProfiles]);
+  }, [profileId, userProfiles, dateSort, sortingType]);
 
-  // этот стейт контролирует значения, которые уйдут в запрос (а не открытие/закрытие списка)
-  const [sortingType, setSortingType] = useState('product')
-  const [dateSort, setDateSort] = useState(null)
-
+  
   let mobileNavigateToSortTitle
   if (allOrders) {
     mobileNavigateToSortTitle = allOrders.sortingData.find(item => item.sortingOrderType === sortingType).sortingOrderTypeDisplay
@@ -63,9 +71,7 @@ const AllOrders = () => {
   if (isLoading) return <Spinner className={s.spinner}/>
   if (error) return <div>{error.message}</div>
 
-
   return (
-
     <div className={s.globalWrapper}>
       {
         isMobileSortOpened && <div className={s.mobileSorting}>
