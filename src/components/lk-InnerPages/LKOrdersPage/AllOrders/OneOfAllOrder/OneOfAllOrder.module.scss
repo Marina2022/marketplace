@@ -2,6 +2,8 @@
 
 .orderWrapper {
   margin-bottom: 16px;
+  cursor: pointer;
+  position: relative;
   
   &:last-child {
     margin-bottom: 76px;

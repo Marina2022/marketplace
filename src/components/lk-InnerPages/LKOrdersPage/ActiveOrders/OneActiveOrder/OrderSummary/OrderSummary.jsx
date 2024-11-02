@@ -1,9 +1,16 @@
 import s from './OrderSummary.module.scss';
 import {getStringFromISO} from "@/utils/fromISO.js";
+import {useNavigate} from "react-router-dom";
 
 const OrderSummary = ({order}) => {
+
+  const navigate = useNavigate()
+  const handleOrderClick = ()=>{
+    navigate(`/order/${order.orderId}`)
+  }
+  
   return (
-    <div className={s.orderHeader}>
+    <div className={s.orderHeader} onClick={handleOrderClick} >
       <div className={s.titleInfo}>
         <p className={s.orderNumber}>Заказ № {order.orderNumber}</p>
         <p className={s.orderDate}>от {getStringFromISO(order.orderingDate)}</p>

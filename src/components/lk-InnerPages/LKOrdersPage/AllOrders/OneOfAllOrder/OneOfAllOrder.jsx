@@ -9,10 +9,8 @@ const OneOfAllOrder = ({order}) => {
 
   const [productListIsOpen, setProductListIsOpen] = useState(false)
 
-  // const testProductArray = [...order.orderedProducts, ...order.orderedProducts, ...order.orderedProducts]
-
   return (
-    <li className={s.orderWrapper}>
+    <li  className={s.orderWrapper}  >
       <OrderOfAllMain order={order} productListIsOpen={productListIsOpen} setProductListIsOpen={setProductListIsOpen}/>
       {
         productListIsOpen && <ul className={s.productList}>

@@ -17,6 +17,8 @@ import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute.jsx";
 import CreateReview from "@/components/ProductPage/CreateReview/CreateReview.jsx";
 import CreateQuestion from "@/components/ProductPage/CreateQuestion/CreateQuestion.jsx";
 import CreateMessage from "@/components/ProductPage/CreateMessage/CreateMessage.jsx";
+import Order from "@/pages/Order.jsx";
+
 
 function App() {
 
@@ -36,6 +38,7 @@ function App() {
           
           <Route path='/favourites' element={<Favourites/>}/>
           <Route path='/cart' element={<Cart/>}/>
+          <Route path='/order/:orderId' element={<Order/>}/>
           
           <Route path='/lk' element={<ProtectedRoute> <Lk/> </ProtectedRoute>}>
             <Route index element={<Navigate to="main" replace/>}/> {/* Перенаправление на /lk/main */}

@@ -62,6 +62,8 @@
 
 .toggleBtn {
   margin-left: 10px;
+  position: relative;
+  z-index: 1;
 
   & img {
     width: 29px;
@@ -120,6 +122,7 @@
   font-weight: 600;
   font-size: 18px;
   margin-bottom: 5px;
+  cursor: pointer;
 
   @include t {
     font-size: 16px;
@@ -150,7 +153,6 @@
 .picturesList {
   display: flex;
   gap: 15px;
-  //width: 240px;
 
   @include m {
     width: 100%;

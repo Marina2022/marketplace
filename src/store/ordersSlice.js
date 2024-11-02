@@ -28,16 +28,18 @@ export const loadActiveOrders = createAsyncThunk('orders/loadActiveOrders', asyn
 
 const initialState = {
   activeOrders: null,
-  orderLoadingStatus: 'loading'
+  orderLoadingStatus: 'loading',
+  ordersTab: 1
 }
 
 const ordersSlice = createSlice({
   name: 'orders',
   initialState,
   reducers: {
-    // setActiveOrders: (state, action) => {
-    //   state.activeOrders = action.payload
-    // },
+    setOrdersTab: (state, action) => {
+      console.log('getOrdersTab', action.payload)
+      state.ordersTab = action.payload
+    },
   },
 
    extraReducers: builder => builder
@@ -54,10 +56,11 @@ const ordersSlice = createSlice({
   })
 })
 export const {
-  setActiveOrders,
+  setActiveOrders, setOrdersTab
 
 } = ordersSlice.actions
 export const getActiveOrders = state => state.orders.activeOrders
+export const getOrdersTab = state => state.orders.ordersTab
 export const getActiveOrdersLoadingStatus = state => state.orders.orderLoadingStatus
 
 export default ordersSlice.reducer

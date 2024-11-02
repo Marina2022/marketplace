@@ -3,11 +3,10 @@ import OrderPosition
   from "@/components/lk-InnerPages/LKOrdersPage/ActiveOrders/OneActiveOrder/OrderPosition/OrderPosition.jsx";
 import OrderSummary
   from "@/components/lk-InnerPages/LKOrdersPage/ActiveOrders/OneActiveOrder/OrderSummary/OrderSummary.jsx";
+import {useNavigate} from "react-router-dom";
 
 const OneActiveOrder = ({order}) => {
 
-  // для теста
-  // const testOrderPositions = order.orderPositions.concat(order.orderPositions)
   
   return (
     <li className={s.ordersListItem}>

@@ -2,10 +2,14 @@ import {useState} from "react";
 import ActiveOrders from "@/components/lk-InnerPages/LKOrdersPage/ActiveOrders/ActiveOrders.jsx";
 import s from './LkOrdersPage.module.scss'
 import AllOrders from "@/components/lk-InnerPages/LKOrdersPage/AllOrders/AllOrders.jsx";
+import {getOrdersTab, setOrdersTab} from "@/store/ordersSlice.js";
+import {useDispatch, useSelector} from "react-redux";
 
 const LkOrdersPage = () => {
   const [topTabs, setTopTab] = useState(1)
-  const [ordersTab, setOrdersTab] = useState(1)
+  
+  const ordersTab = useSelector(getOrdersTab)
+  const dispatch = useDispatch()
 
   return (
     <div className={s.lkOrdersWrapper}>
@@ -16,10 +20,10 @@ const LkOrdersPage = () => {
 
       {
         topTabs === 1 && <div className={s.ordersTabs}>
-          <div onClick={() => setOrdersTab(1)} className={ordersTab === 1 ? s.activeOrderTab : s.orderTab}>Активные
+          <div onClick={() => dispatch(setOrdersTab(1))} className={ordersTab === 1 ? s.activeOrderTab : s.orderTab}>Активные
             заказы
           </div>
-          <div onClick={() => setOrdersTab(2)} className={ordersTab === 2 ? s.activeOrderTab : s.orderTab}>Все заказы
+          <div onClick={() => dispatch(setOrdersTab(2))} className={ordersTab === 2 ? s.activeOrderTab : s.orderTab}>Все заказы
           </div>
         </div>
       }
