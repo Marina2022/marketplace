@@ -15,7 +15,6 @@
   }
 }
 
-
 .img {
   width: 70px;
   height: 70px;
@@ -84,14 +83,12 @@
   }
 }
 
-
 .sellerLabel {
   color: #658092;
   
   @include m {
     display: block;
-    margin-bottom: 3px;
-    
+    margin-bottom: 3px;    
   }
 }
 
@@ -103,7 +100,6 @@
   color: #658092;
   font-size: 14px;
 }
-
 
 .priceLabel {
   display: none;

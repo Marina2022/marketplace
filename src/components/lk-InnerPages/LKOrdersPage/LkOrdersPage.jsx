@@ -3,10 +3,9 @@ import ActiveOrders from "@/components/lk-InnerPages/LKOrdersPage/ActiveOrders/A
 import s from './LkOrdersPage.module.scss'
 import AllOrders from "@/components/lk-InnerPages/LKOrdersPage/AllOrders/AllOrders.jsx";
 
-
 const LkOrdersPage = () => {
   const [topTabs, setTopTab] = useState(1)
-  const [ordersTab, setOrdersTab] = useState(2)
+  const [ordersTab, setOrdersTab] = useState(1)
 
   return (
     <div className={s.lkOrdersWrapper}>

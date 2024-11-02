@@ -1,12 +1,14 @@
 import axios from "@/api/axiosInstance.js";
 import s from './AllOrders.module.scss';
 import {useEffect, useState} from "react";
-import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import {useSelector} from "react-redux";
+import useMobileScreen from "@/hooks/useMobileScreen.js";
 import {getActiveProfileId, getUserProfilesData} from "@/store/userSlice.js";
 import SortBlock from "@/components/lk-InnerPages/LKOrdersPage/AllOrders/SortBlock/SortBlock.jsx";
 import OneOfAllOrder from "@/components/lk-InnerPages/LKOrdersPage/AllOrders/OneOfAllOrder/OneOfAllOrder.jsx";
-import useMobileScreen from "@/hooks/useMobileScreen.js";
+import Spinner from "@/components/ui/Spinner/Spinner.jsx";
+import EmptyPageAllOrders
+  from "@/components/lk-InnerPages/LKOrdersPage/AllOrders/EmptyPageAllOrders/EmptyPageAllOrders.jsx";
 
 const AllOrders = () => {
 
@@ -24,7 +26,7 @@ const AllOrders = () => {
   console.log('allOrders', allOrders)
 
   const isMobile = useMobileScreen()
-  
+
   useEffect(() => {
     const getData = async (profileId, type) => {
       setIsLoading(true)
@@ -37,18 +39,15 @@ const AllOrders = () => {
       }
 
       try {
-        // const response = await axios(`all-orders?profileId=${profileId}&profileType=${type}`)
         const response = await axios(url)
-
-
         if (response.data.description === 'No product in order') {
           throw new Error('No product in order')
         }
         setAllOrders(response.data)
 
-        // год по умолчанию
+        // активный год, если в АПИ он всего один 
         const sortingArr = response.data.sortingData
-        
+
         if (sortingArr[0].years.length === 1 && sortingArr[1].years.length === 0) {
           setDateSort(sortingArr[0].years[0])
         }
@@ -73,25 +72,23 @@ const AllOrders = () => {
     }
   }, [profileId, userProfiles, dateSort, sortingType]);
 
-
   let mobileNavigateToSortTitle
   if (allOrders) {
     mobileNavigateToSortTitle = allOrders.sortingData.find(item => item.sortingOrderType === sortingType).sortingOrderTypeDisplay
   }
 
   const [isMobileSortOpened, setIsMobileSortOpened] = useState(false)
-
   const handleMobileToSortClick = () => {
     setIsMobileSortOpened(true)
   }
 
-  console.log({isMobile})
-  
-  //if (isLoading) return <Spinner className={s.spinner}/>
-  if (!allOrders) return <Spinner className={s.spinner}/>
-  if (error) return <div>{error.message}</div>
+  if (!allOrders && isLoading) return <Spinner className={s.spinner}/>
 
-    return (
+  if (error) {
+    return error.message === 'No product in order' ? <EmptyPageAllOrders/> : <div>{error.message}</div>
+  }
+  
+  return (
     <div className={s.globalWrapper}>
       {
         isMobile && <div className={isMobileSortOpened ? s.mobileSorting : s.notVisible}>
@@ -104,9 +101,8 @@ const AllOrders = () => {
           />
         </div>
       }
-
       {
-         (!isMobile || (isMobile && !isMobileSortOpened)) && 
+        (!isMobile || (isMobile && !isMobileSortOpened)) &&
         (
           <div>
             <div onClick={handleMobileToSortClick} className={s.mobileNavigateToSort}>
@@ -126,27 +122,22 @@ const AllOrders = () => {
               </svg>
               <span>{mobileNavigateToSortTitle}</span>
               <img src="" alt=""/>
-
               <svg className={s.arrow} width="16" height="16" viewBox="0 0 16 16" fill="none"
                    xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M5.99656 2.21999C6.12323 2.21999 6.2499 2.26665 6.3499 2.36665L10.6966 6.71332C11.4032 7.41999 11.4032 8.57999 10.6966 9.28665L6.3499 13.6333C6.15656 13.8267 5.83656 13.8267 5.64323 13.6333C5.4499 13.44 5.4499 13.12 5.64323 12.9267L9.9899 8.57999C10.3099 8.25999 10.3099 7.73999 9.9899 7.41999L5.64323 3.07332C5.4499 2.87999 5.4499 2.55999 5.64323 2.36665C5.74323 2.27332 5.8699 2.21999 5.99656 2.21999Z"
                   fill="#292D32"/>
               </svg>
-
             </div>
-
             <div className={s.allOrdersWrapper}>
               <div className={s.mainPart}>
                 <ul>
                   {
-                    isLoading ? <Spinner />
-
+                    isLoading ? <Spinner/>
                       : allOrders.orders.map(order => <OneOfAllOrder order={order} key={order.orderId}/>)
                   }
                 </ul>
               </div>
-
               <div className={s.mobileHidden}>
                 <SortBlock sortingType={sortingType}
                            setSortingType={setSortingType}
@@ -156,7 +147,6 @@ const AllOrders = () => {
                 />
               </div>
             </div>
-
           </div>
         )
       }
