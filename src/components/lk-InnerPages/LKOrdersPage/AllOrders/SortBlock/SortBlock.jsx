@@ -7,7 +7,9 @@ const SortBlock = ({sortingType, setSortingType, dateSort, setDateSort, sortingD
     setSortingType(sortingType)
     
     if (setIsMobileSortOpened) {
-      setIsMobileSortOpened(false)
+      setTimeout(()=>{
+        setIsMobileSortOpened(false)  
+      }, 0)      
     }
   }
 
@@ -19,7 +21,6 @@ const SortBlock = ({sortingType, setSortingType, dateSort, setDateSort, sortingD
     <ul className={s.sortBlock}>
       {
         sortingData.map(sortingGroup => {
-
           return (
             sortingGroup.years.length > 0 && <li className={s.srortingGroupItem} key={sortingGroup.sortingOrderType}>
               <h3

@@ -1,11 +1,12 @@
+import axios from "@/api/axiosInstance.js";
 import s from './AllOrders.module.scss';
 import {useEffect, useState} from "react";
-import axios from "@/api/axiosInstance.js";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import {useSelector} from "react-redux";
 import {getActiveProfileId, getUserProfilesData} from "@/store/userSlice.js";
 import SortBlock from "@/components/lk-InnerPages/LKOrdersPage/AllOrders/SortBlock/SortBlock.jsx";
 import OneOfAllOrder from "@/components/lk-InnerPages/LKOrdersPage/AllOrders/OneOfAllOrder/OneOfAllOrder.jsx";
+import useMobileScreen from "@/hooks/useMobileScreen.js";
 
 const AllOrders = () => {
 
@@ -19,28 +20,44 @@ const AllOrders = () => {
   // этот стейт контролирует значения, которые уйдут в запрос (а не открытие/закрытие списка)
   const [sortingType, setSortingType] = useState('product')
   const [dateSort, setDateSort] = useState(null)
-  
+
   console.log('allOrders', allOrders)
 
+  const isMobile = useMobileScreen()
+  
   useEffect(() => {
     const getData = async (profileId, type) => {
       setIsLoading(true)
       setError(false)
-      
+
       let url = `all-orders?profileId=${profileId}&profileType=${type}`
-      
+
       if (dateSort) {
-        url+= `&orderType=${sortingType}&dateSort=${dateSort}`
+        url += `&orderType=${sortingType}&dateSort=${dateSort}`
       }
 
       try {
         // const response = await axios(`all-orders?profileId=${profileId}&profileType=${type}`)
         const response = await axios(url)
-        console.log('response', response)
+
+
         if (response.data.description === 'No product in order') {
           throw new Error('No product in order')
         }
         setAllOrders(response.data)
+
+        // год по умолчанию
+        const sortingArr = response.data.sortingData
+        
+        if (sortingArr[0].years.length === 1 && sortingArr[1].years.length === 0) {
+          setDateSort(sortingArr[0].years[0])
+        }
+
+        if (sortingArr[1].years.length === 1 && sortingArr[0].years.length === 0) {
+          setDateSort(sortingArr[1].years[0])
+          setSortingType('services')
+        }
+
       } catch (err) {
         console.log('err = ', err)
         setError(err)
@@ -56,7 +73,7 @@ const AllOrders = () => {
     }
   }, [profileId, userProfiles, dateSort, sortingType]);
 
-  
+
   let mobileNavigateToSortTitle
   if (allOrders) {
     mobileNavigateToSortTitle = allOrders.sortingData.find(item => item.sortingOrderType === sortingType).sortingOrderTypeDisplay
@@ -68,13 +85,16 @@ const AllOrders = () => {
     setIsMobileSortOpened(true)
   }
 
-  if (isLoading) return <Spinner className={s.spinner}/>
+  console.log({isMobile})
+  
+  //if (isLoading) return <Spinner className={s.spinner}/>
+  if (!allOrders) return <Spinner className={s.spinner}/>
   if (error) return <div>{error.message}</div>
 
-  return (
+    return (
     <div className={s.globalWrapper}>
       {
-        isMobileSortOpened && <div className={s.mobileSorting}>
+        isMobile && <div className={isMobileSortOpened ? s.mobileSorting : s.notVisible}>
           <SortBlock sortingType={sortingType}
                      setSortingType={setSortingType}
                      dateSort={dateSort}
@@ -86,7 +106,8 @@ const AllOrders = () => {
       }
 
       {
-        !isMobileSortOpened && (
+         (!isMobile || (isMobile && !isMobileSortOpened)) && 
+        (
           <div>
             <div onClick={handleMobileToSortClick} className={s.mobileNavigateToSort}>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -119,7 +140,9 @@ const AllOrders = () => {
               <div className={s.mainPart}>
                 <ul>
                   {
-                    allOrders.orders.map(order => <OneOfAllOrder order={order} key={order.orderId}/>)
+                    isLoading ? <Spinner />
+
+                      : allOrders.orders.map(order => <OneOfAllOrder order={order} key={order.orderId}/>)
                   }
                 </ul>
               </div>
@@ -133,7 +156,7 @@ const AllOrders = () => {
                 />
               </div>
             </div>
-            
+
           </div>
         )
       }
