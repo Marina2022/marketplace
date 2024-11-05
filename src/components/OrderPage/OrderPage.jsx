@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 
 import s from './OrderPage.module.scss'
+import MainPartOrderDetails from "@/components/OrderPage/MainPartOrderDetails/MainPartOrderDetails.jsx";
 
 const OrderPage = () => {
 
@@ -12,9 +13,7 @@ const OrderPage = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   const [order, setOrder] = useState(null)
-
-  console.log(order)
-
+  
   useEffect(() => {
     const getData = async () => {
       setIsLoading(true)
@@ -45,7 +44,8 @@ const OrderPage = () => {
 
   return (
     <div className={s.orderPageWrapper}>
-      <div className={s.mainPart}>mainPart</div>
+      
+      <MainPartOrderDetails order={order} />
       
       <div className={s.additionalPart}>additionalPart</div>
     </div>
