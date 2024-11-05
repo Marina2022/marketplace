@@ -11,9 +11,7 @@ const OrderLine = ({orderLine}) => {
 
   return (
     <div>
-
       <div className={s.orderLineHeader}>
-
         <div className={s.topWrapper}>
           <div className={s.quantity}>{getProductQuantityString(orderLine.partialCount)}</div>
           <div className={s.rightPart}>
@@ -41,13 +39,14 @@ const OrderLine = ({orderLine}) => {
             </div>
           </div>
         </div>
-
-        {/*{*/}
-        {/*  orderLine.groupedProducts.map((product, i) => <OrderLineProductCard key={i} product={product}/>)*/}
-        {/*}*/}
-
-
       </div>
+      
+      <ul className={s.groupedProducts}>
+        {
+          orderLine.groupedProducts.map((product, i) => <OrderLineProductCard key={i} product={product} status={orderLine.deliveryStatus} />)
+        }
+      </ul>
+
 
     </div>
 

@@ -2,6 +2,7 @@
 
 .orderLineHeader {
   background: white;
+  border: 1px solid #F0F1F1;
 }
 
 .quantity {
@@ -78,4 +79,8 @@
   width: 48px;
   height: 48px;
   margin-right: 24px;
+}
+
+.groupedProducts {
+  margin-top: 5px;
 }

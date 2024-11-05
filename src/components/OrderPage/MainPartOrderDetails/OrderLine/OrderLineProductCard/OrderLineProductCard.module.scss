@@ -1,7 +1,43 @@
 .orderLineProductCardWrapper {
   padding: 17px 24px;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  border: 1px solid #F0F1F1;
+  display: flex;
+  align-items: center;
+  background: white;
 }
 
+.productImg {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  object-position: center;
+  margin-right: 15px;
+}
+
+
+
+.productName {
+  color: #131D2A;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 9px;
+}
+
+.sellerName {
+  color: #658092;
+  font-size: 14px;
+  
+}
+
+.priceBlock {
+  margin-left: auto;
+}
+
+
+.price {
+  color: #09213D;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
