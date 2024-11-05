@@ -1,0 +1,90 @@
+@import "@/assets/styles/mixins";
+
+.contactInfoWrapper {
+  background: white;
+  padding: 30px 24px;
+  margin-bottom: 16px;
+
+  @include m {
+    display: none;
+  }
+}
+
+.contactInfoWrapperMobileVisible {
+  
+  display: none;
+  
+  @include m {
+    display: block;
+    background: white;
+    padding: 30px 24px;
+    margin-bottom: 16px;
+  }    
+}
+
+.contactInfoTitle {
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 16px;
+
+  @include t {
+    font-size: 16px;
+  }
+}
+
+.contactInfoTitleSecond {
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 16px;
+  margin-top: 24px;
+
+  @include t {
+    font-size: 16px;
+  }
+}
+
+.rowsWrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  margin-right: 15px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.twoRows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  color: #3E5067;
+  font-weight: 500;
+  margin-right: 24px;
+
+  @include t {
+    width: 125px;
+    font-size: 12px;
+    margin-right: 0;
+  }
+}
+
+.value {
+  color: #658092;
+  font-size: 14px;
+
+  @include t {
+    font-size: 13px;
+  }
+
+}

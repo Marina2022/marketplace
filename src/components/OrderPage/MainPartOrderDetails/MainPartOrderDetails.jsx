@@ -1,9 +1,16 @@
 import s from './MainPartOrderDetails.module.scss';
 import {Link} from "react-router-dom";
+import ContactInfo from "@/components/OrderPage/MainPartOrderDetails/ContactInfo/ContactInfo.jsx";
+import {useState} from "react";
+import OrderLine from "@/components/OrderPage/MainPartOrderDetails/OrderLine/OrderLine.jsx";
 
 const MainPartOrderDetails = ({order}) => {
   console.log(order)
+  
+  const [isOpened, setIsOpened] = useState(false)
 
+  console.log(order)
+  
   return (
     <div className={s.mainPart}>
 
@@ -18,8 +25,22 @@ const MainPartOrderDetails = ({order}) => {
         <h1 className={s.headline}>Заказ №{order.orderNumber}</h1>
       </div>
 
+      <ContactInfo order={order} />
 
-      mainPart
+      {
+        isOpened && <ContactInfo order={order} mobile={true} /> 
+      }
+
+      {
+
+
+        order.orderLines.map((orderLine, i)=><OrderLine key={i} orderLine={orderLine} />)
+        
+      }
+      
+
+
+      
     </div>
   );
 };
