@@ -37,8 +37,7 @@ function App() {
                     
           
           <Route path='/favourites' element={<Favourites/>}/>
-          <Route path='/cart' element={<Cart/>}/>
-          <Route path='/order/:orderId' element={<Order/>}/>
+          <Route path='/cart' element={<Cart/>}/>          
           
           <Route path='/lk' element={<ProtectedRoute> <Lk/> </ProtectedRoute>}>
             <Route index element={<Navigate to="main" replace/>}/> {/* Перенаправление на /lk/main */}
@@ -47,6 +46,7 @@ function App() {
             <Route path='orders' element={<LkOrders/>}/>
             <Route path='search-requests' element={<LkRequests/>}/>
             <Route path='chat' element={<LkChat/>}/>
+            <Route path='orders/:orderId' element={<Order/>}/>
           </Route>
 
           <Route path='*' element={<NotFound/>}/>

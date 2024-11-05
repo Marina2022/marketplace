@@ -23,8 +23,6 @@ const AllOrders = () => {
   const [sortingType, setSortingType] = useState('product')
   const [dateSort, setDateSort] = useState(null)
 
-  console.log('allOrders', allOrders)
-
   const isMobile = useMobileScreen()
 
   useEffect(() => {

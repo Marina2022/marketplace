@@ -6,7 +6,7 @@ const OrderSummary = ({order}) => {
 
   const navigate = useNavigate()
   const handleOrderClick = ()=>{
-    navigate(`/order/${order.orderId}`)
+    navigate(`/lk/orders/${order.orderId}`)
   }
   
   return (

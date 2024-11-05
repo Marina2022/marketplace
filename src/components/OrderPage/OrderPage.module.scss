@@ -1,0 +1,41 @@
+@import "@/assets/styles/mixins";
+
+.orderPageWrapper {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  position: relative;
+  width: 100%;
+}
+
+.mainPart {
+  width: 850px;
+  border: red 1px solid;
+  padding: 20px;
+
+  @include t {
+    width: 100%;
+  }
+}
+
+
+.additionalPart {
+  background: white;
+  width: 250px;
+  min-height: 100px;
+  padding: 20px;
+
+  @include t {
+    position: absolute;
+    left: -235px;
+    width: 215px;
+    top: 325px;
+  }
+
+  @include m {
+    //position: static;
+    //width: 100%;
+    
+    display: none;
+  }
+}
