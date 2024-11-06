@@ -21,13 +21,14 @@
 
 .topBlock {
   background: white;
-  padding: 20px;  margin-bottom: 8px;
+  padding: 20px;
+  margin-bottom: 8px;
   border: #F5F5F5 1px solid;
-    
+
   @include m {
-    display:  none;
+    display: none;
     background: white;
-    
+
   }
 }
 
@@ -36,9 +37,15 @@
   border: #F5F5F5 1px solid;
   padding: 20px;
   background: white;
+  text-align: right;
+  font-size: 14px;
+
+  @include t {
+    padding: 20px 20px 20px 14px;
+  }
 
   @include m {
-    display:  none;
+    display: none;
   }
 }
 
@@ -48,7 +55,7 @@
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
-  font-weight: 500;  
+  font-weight: 500;
   color: #3E5067;
   border-bottom: #F0F1F1 1px solid;
 }
@@ -75,4 +82,61 @@
   color: #131D2A;
   font-size: 20px;
   font-weight: 500;
+}
+
+
+.downloadIcon {
+  fill: #3E5067;
+
+}
+
+
+.downloadLink {
+  color: #658092;
+  font-weight: 500;
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+
+  @include t {
+    gap: 8px;
+  }
+
+  &:hover, &:active {
+    color: #3E5067;
+
+    & svg {
+      fill: #131D2A;
+    }
+  }
+}
+
+.repeatBtn {
+  color: #658092;
+  margin-bottom: 4px;
+  
+  &:hover {
+    color: #3E5067;
+  }
+}
+
+.returnGoodsBtn {
+  color: #E32636;
+  margin-bottom: 4px;
+  
+  &:hover {
+    color: #c31a24;
+  }
+  
+}
+
+.cancelOrderBtn {
+  color: #E32636;
+  
+  &:hover {
+    color: #c31a24;
+  }
+  
 }
