@@ -26,7 +26,6 @@ const ContactInfo = ({order, mobile = false}) => {
 
       <h2 className={s.contactInfoTitleSecond}>Информация об оплате</h2>
       <div className={s.rowsWrapper}>
-
         <img className={s.icon} src={paymentMethodIcon} alt="icon"/>
         <div className={s.row}>
           <div className={s.label}>Способ оплаты:</div>

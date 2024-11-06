@@ -1,3 +1,6 @@
+@import "@/assets/styles/mixins";
+
+
 .orderLineProductCardWrapper {
   padding: 17px 24px;
   display: flex;
@@ -5,6 +8,7 @@
   display: flex;
   align-items: center;
   background: white;
+  cursor: pointer;
 }
 
 .productImg {
@@ -15,8 +19,6 @@
   margin-right: 15px;
 }
 
-
-
 .productName {
   color: #131D2A;
   font-weight: 500;
@@ -25,9 +27,21 @@
 }
 
 .sellerName {
+  color: #131D2A;
+  font-size: 14px;  
+  
+  @include t {
+    font-size: 12px;
+  }
+}
+
+.sellerLabel {
   color: #658092;
   font-size: 14px;
-  
+
+  @include t {
+    font-size: 12px;
+  }
 }
 
 .priceBlock {
@@ -40,4 +54,19 @@
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 20px;
+  
+  @include m {
+    font-size: 16px;
+  }
 }
+
+.reviewLink {
+  font-size: 12px;
+  color: #658092;
+  
+  &:hover {
+    color: #131D2A;
+  }
+}
+
+

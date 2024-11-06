@@ -5,6 +5,7 @@ import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 
 import s from './OrderPage.module.scss'
 import MainPartOrderDetails from "@/components/OrderPage/MainPartOrderDetails/MainPartOrderDetails.jsx";
+import AdditionalPart from "@/components/OrderPage/MainPartOrderDetails/AdditionalPart/AdditionalPart.jsx";
 
 const OrderPage = () => {
 
@@ -47,7 +48,7 @@ const OrderPage = () => {
       
       <MainPartOrderDetails order={order} />
       
-      <div className={s.additionalPart}>additionalPart</div>
+      <AdditionalPart order={order} />
     </div>
   );
 };

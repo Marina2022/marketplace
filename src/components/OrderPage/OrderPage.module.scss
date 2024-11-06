@@ -13,26 +13,3 @@
   }
 }
 
-
-
-
-.additionalPart {
-  background: white;
-  width: 250px;
-  min-height: 100px;
-  padding: 20px;
-
-  @include t {
-    position: absolute;
-    left: -235px;
-    width: 215px;
-    top: 325px;
-  }
-
-  @include m {
-    //position: static;
-    //width: 100%;
-    
-    display: none;
-  }
-}

@@ -1,0 +1,78 @@
+@import "@/assets/styles/mixins";
+
+.additionalPart {
+  width: 250px;
+  min-height: 100px;
+
+  @include t {
+    position: absolute;
+    left: -235px;
+    width: 215px;
+    top: 325px;
+  }
+
+  @include m {
+    //position: static;
+    //width: 100%;
+
+    display: none;
+  }
+}
+
+.topBlock {
+  background: white;
+  padding: 20px;  margin-bottom: 8px;
+  border: #F5F5F5 1px solid;
+    
+  @include m {
+    display:  none;
+    background: white;
+    
+  }
+}
+
+
+.bottomBlock {
+  border: #F5F5F5 1px solid;
+  padding: 20px;
+  background: white;
+
+  @include m {
+    display:  none;
+  }
+}
+
+.wrapper {
+  padding-block: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;  
+  color: #3E5067;
+  border-bottom: #F0F1F1 1px solid;
+}
+
+.value {
+  font-size: 16px;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 14px;
+  border-bottom: 1px solid #F0F1F1;
+}
+
+.sumLabel {
+  font-size: 14px;
+  color: #09213D;
+  font-weight: 600;
+}
+
+.sumValue {
+  color: #131D2A;
+  font-size: 20px;
+  font-weight: 500;
+}
