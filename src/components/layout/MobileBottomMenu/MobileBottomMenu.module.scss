@@ -1,7 +1,7 @@
 @import '@/assets/styles/mixins';
 
-.menu { 
-  
+.menu {
+
   @include m {
     display: flex;
     justify-content: space-between;
@@ -20,7 +20,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  
+
   @include m {
     display: block;
   }
@@ -29,4 +29,12 @@
 .gray {
   height: 15px;
   background: #F9F9FB;
+}
+
+.menuItem {
+  fill: #658092;
+}
+
+.menuItemActive {
+  fill: #131D2A;
 }

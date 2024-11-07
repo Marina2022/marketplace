@@ -16,7 +16,7 @@ const ContactInfo = ({order, mobile = false}) => {
               <img className={s.icon} src={paymentMethodIcon} alt="icon"/>
               <div className={s.rowPayMethod}>
                 <div className={s.label}>Заказ:</div>
-                <div className={s.value}>{order.orderNumber}</div>
+                <div className={s.value}>№{order.orderNumber}</div>
               </div>
             </div>
 
