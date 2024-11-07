@@ -1,13 +1,11 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "@/api/axiosInstance.js";
 
-
 export const loadActiveOrders = createAsyncThunk('orders/loadActiveOrders', async (args, thunkAPI) => {
 
   const state = thunkAPI.getState()
 
   if (state.user.isAuthenticated) {
-
     const {activeProfileId, type} = args
 
     try {
@@ -23,7 +21,6 @@ export const loadActiveOrders = createAsyncThunk('orders/loadActiveOrders', asyn
       return thunkAPI.rejectWithValue(err.response.data)
     }
   }
-
 })
 
 const initialState = {
@@ -36,8 +33,7 @@ const ordersSlice = createSlice({
   name: 'orders',
   initialState,
   reducers: {
-    setOrdersTab: (state, action) => {
-      console.log('getOrdersTab', action.payload)
+    setOrdersTab: (state, action) => {      
       state.ordersTab = action.payload
     },
   },

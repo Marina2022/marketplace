@@ -11,18 +11,12 @@ const MainPartOrderDetails = ({order}) => {
 
   const isMobile = useMobileScreen()
   const [additionalMobileOpened, setAdditionalMobileOpened] = useState(false)
-
-  const [isOpened, setIsOpened] = useState(false)
-
   
   return (
-
     <>
-
       {
         additionalMobileOpened && isMobile && <AdditionalMobile order={order} setAdditionalMobileOpened={setAdditionalMobileOpened} /> 
       }
-
       {
         (!isMobile || !additionalMobileOpened) &&  (
 
@@ -36,29 +30,17 @@ const MainPartOrderDetails = ({order}) => {
               </Link>
               <h1 className={s.headline}>Заказ №{order.orderNumber}</h1>
             </div>
-
             {
               isMobile && <MobileButtons order={order} setAdditionalMobileOpened={setAdditionalMobileOpened}/>
             }
-
             <ContactInfo order={order}/>
-
-            {
-              isOpened && <ContactInfo order={order} mobile={true}/>
-            }
-
             {
               order.orderLines.map((orderLine, i) => <OrderLine key={i} orderLine={orderLine}/>)
             }
-
           </div>
-
         )
       }
-
     </>
-
-
   );
 };
 

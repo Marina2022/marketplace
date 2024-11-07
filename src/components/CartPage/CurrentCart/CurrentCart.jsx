@@ -56,10 +56,14 @@ const CurrentCart = () => {
     dispatch(saveCart({cartId: cart.cartId}))
   } 
 
+  
+  // todo -- undefined иногда остается..
   let productsTotal
+  
   if (cart?.cartItems) {
     productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
   }
+    
   
   if (cart?.cartItems?.length === 0 && !debouncedSearchTerm && !editingSearchTerm && cartStatus !== 'loading' && userLoadingStatus !== 'loading' ) {
     

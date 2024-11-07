@@ -9,12 +9,8 @@ const AdditionalMobile = ({order, setAdditionalMobileOpened}) => {
           <path d="M5 9.5L1 5L5 0.5" stroke="#658092"/>
         </svg>
         <span>Вернуться к заказу</span>
-      </div>
-      
-      <ContactInfo order={order} mobile={true} />
-
-             
-      
+      </div>      
+      <ContactInfo order={order} mobile={true} />      
     </div>
   );
 };

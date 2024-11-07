@@ -24,10 +24,8 @@ const OrderLine = ({orderLine}) => {
             }
           </div>
         </div>
-
         <div className={s.bottomWrapper}>
           <img className={s.icon} src={deliveryMethodIcon} alt="delivery icon"/>
-
           <div className={s.rowWrapper}>
             <div className={s.row}>
               <div className={s.label}>Способ доставки:</div>
@@ -40,17 +38,13 @@ const OrderLine = ({orderLine}) => {
           </div>
         </div>
       </div>
-      
       <ul className={s.groupedProducts}>
         {
-          orderLine.groupedProducts.map((product, i) => <OrderLineProductCard key={i} product={product} status={orderLine.deliveryStatus} />)
+          orderLine.groupedProducts.map((product, i) => <OrderLineProductCard key={i} product={product}
+                                                                              status={orderLine.deliveryStatus}/>)
         }
       </ul>
-
-
     </div>
-
-
   );
 };
 

@@ -7,6 +7,10 @@
   @include t {
     width: 100%;
   }
+  
+  @include m {
+    padding: 8px 16px 16px 16px;
+  }
 }
 
 .link {
