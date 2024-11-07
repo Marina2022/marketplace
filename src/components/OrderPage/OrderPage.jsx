@@ -9,7 +9,7 @@ import AdditionalPart from "@/components/OrderPage/MainPartOrderDetails/Addition
 
 const OrderPage = () => {
 
-  const {orderId} = useParams()
+    const {orderId} = useParams()
 
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -19,7 +19,6 @@ const OrderPage = () => {
     const getData = async () => {
       setIsLoading(true)
       setError(false)
-
 
       try {
         const response = await axios(`orders/${orderId}/details`)
@@ -35,17 +34,19 @@ const OrderPage = () => {
 
     getData()
   }, [])
-
+   
 
   if (isLoading) return <Spinner/>
 
   if (error) {
     return <div>{error.message}</div>
   }
+ 
+
 
   return (
     <div className={s.orderPageWrapper}>
-      
+     
       <MainPartOrderDetails order={order} />
       
       <AdditionalPart order={order} />

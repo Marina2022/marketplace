@@ -11,9 +11,7 @@
     top: 325px;
   }
 
-  @include m {
-    //position: static;
-    //width: 100%;
+  @include m {  
 
     display: none;
   }

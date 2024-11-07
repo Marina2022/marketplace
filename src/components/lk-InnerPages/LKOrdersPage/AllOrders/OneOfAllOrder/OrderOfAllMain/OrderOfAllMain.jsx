@@ -57,8 +57,7 @@ const OrderOfAllMain = ({order, productListIsOpen, setProductListIsOpen}) => {
       <div className={s.additional}>
         <div className={order.orderStatus === "canceled" ? s.redStatus : s.blueStatus}>{order.orderStatusDisplay}</div>
         {
-          productListIsOpen && (
-            
+          productListIsOpen && (            
             <>
 
               <button className={s.repeat} onClick={handleRepeatBtnClick}>

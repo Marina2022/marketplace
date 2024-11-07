@@ -14,13 +14,14 @@
 .contactInfoWrapperMobileVisible {
   border: 1px solid #F0F1F1;
   display: none;
-  
+  width: 100%;
+
   @include m {
     display: block;
     background: white;
     padding: 30px 24px;
     margin-bottom: 16px;
-  }    
+  }
 }
 
 .contactInfoTitle {
@@ -31,7 +32,19 @@
   @include t {
     font-size: 16px;
   }
+
+  @include m {
+    margin-top: 24px;    
+  }
+  
+  &:first-child {
+    
+    @include m {
+      margin-top: 0;  
+    }    
+  }
 }
+
 
 .contactInfoTitleSecond {
   font-weight: 600;
@@ -48,6 +61,17 @@
   display: flex;
   align-items: center;
   gap: 15px;
+
+  @include m {
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+.rowsWrapperNumber {
+  display: flex;
+  gap: 15px;
+  align-items: center;
 }
 
 .icon {
@@ -55,18 +79,39 @@
   height: 40px;
   object-fit: contain;
   margin-right: 15px;
+
+  @include m {
+    width: 32px;
+    height: 32px;
+    margin-right: 0;
+  }
 }
 
 
 .row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+
+  @include m {
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+.rowPayMethod {
+  display: flex;
+  align-items: flex-start;
+
 }
 
 .twoRows {
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  @include m {
+
+  }
 }
 
 .label {
@@ -79,6 +124,11 @@
     font-size: 12px;
     margin-right: 0;
   }
+
+  @include m {
+    width: unset;
+    margin-right: 10px;
+  }
 }
 
 .value {
@@ -88,5 +138,32 @@
   @include t {
     font-size: 13px;
   }
+}
 
+.additionalPart {
+  margin-left: 42px;
+
+  font-weight: 500;
+  color: #3E5067;
+  font-size: 12px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #AAB7BF;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.sumValue {
+  color: #658092;
 }

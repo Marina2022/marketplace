@@ -9,6 +9,11 @@
   font-size: 16px;
   font-weight: 500;
   color: #131D2A;
+
+  @include m {
+    font-size: 14px;
+  }
+  
 }
 
 .date {
@@ -17,6 +22,12 @@
   gap: 10px;
   font-weight: 500;
   font-size: 14px;  
+  
+  @include m {
+    font-size: 12px;
+  }
+  
+  
 }
 
 .dateLabel {
@@ -32,6 +43,10 @@
   color: #131D2A;
   font-weight: 500;
   margin-bottom: 2px;
+  
+  @include m {
+    font-size: 14px;
+  }
 }
 
 .topWrapper {
@@ -47,12 +62,20 @@
   padding: 12px 24px;
   display: flex;
   align-items: center;
+  
+  @include m {
+    padding-inline: 16px;
+    align-items: flex-start;
+    
+  }
 }
 
 .rowWrapper {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  
+  
 }
 
 .row {
@@ -60,7 +83,13 @@
   font-size: 14px;
       
   @include t {
-    font-size: 12px;
+    font-size: 12px;    
+  }
+  
+  @include m {
+    display: block;
+    flex-grow: 1;
+    flex-basis: 100%;
   }
 }
 
@@ -68,10 +97,20 @@
   font-weight: 500;
   color: #3E5067;
   margin-right: 24px;
+  
+  @include m {
+    margin-right: 3px;
+    white-space: nowrap;
+    display: inline;
+  }
 }
 
 .value {
   color: #658092;
+  
+  @include m {
+    display: inline;
+  }
 }
 
 
@@ -79,6 +118,12 @@
   width: 40px;
   height: 40px;
   margin-right: 24px;
+  
+  @include m {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+  }
 }
 
 .groupedProducts {

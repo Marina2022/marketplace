@@ -1,0 +1,50 @@
+.mobileButtonsWrapper {
+  padding-block: 16px;
+}
+
+.topButtons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.mobileBtn {
+  width: 102px;
+  background: white;
+  border: 1px solid #AAB7BF;
+  height: 36px;
+  color: #658092;
+  font-size: 12px;
+  gap: 5px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  
+  @media (max-width: 350px) {
+    & svg {
+      display: none;
+    }
+  }
+}
+
+.moreOnOrderBtn {
+  width: 100%;
+  border: #AAB7BF 1px solid;
+  background: white;
+  height: 37px;
+  display: flex;
+  align-items: center;
+  color: #658092;
+  font-weight: 500;
+  font-size: 12px;
+  padding-inline: 16px;
+}
+
+.moreOnOrderIcon {
+  margin-right: 8px;
+}
+
+.moreOnOrderArrow {
+  margin-left: auto;
+  
+}
