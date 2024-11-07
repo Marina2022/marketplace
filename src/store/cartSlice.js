@@ -520,6 +520,7 @@ export const {
 export const getCart = (state) => state.cart.cart
 export const getCartSearchTerm = (state) => state.cart.cartSearchTerm
 export const getCartStatus = (state) => state.cart.status
+export const getLoadingCheckStatus = (state) => state.cart.gettingCartStatus
 export const getCartUpdatingStatus = (state) => state.cart.cartUpdateStatus
 export const getCheckoutStatus = (state) => state.cart.checkoutStatus
 export const getCheckout = (state) => state.cart.checkout

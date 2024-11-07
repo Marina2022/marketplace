@@ -16,6 +16,7 @@ const CartPage = () => {
   const isMobile = useMobileScreen()
   const cartStatus = useSelector(getCartStatus)
   const savedCartStatus = useSelector(getSavedCartsStatus)
+  
     
   useEffect(() => {
     if (!isAuthenticated) setCurrentTab('currentCart')
