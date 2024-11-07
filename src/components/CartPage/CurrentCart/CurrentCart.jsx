@@ -67,9 +67,8 @@ const CurrentCart = () => {
   
   
   
-  if (cartStatus === 'loading' || userLoadingStatus === 'loading' || favsLoadingStatus === 'loading') return <Spinner />
+  if ( productsTotal === 'undefined' || cartStatus === 'loading' || userLoadingStatus === 'loading' || favsLoadingStatus === 'loading') return <Spinner />
   
-
 
   if (cart?.cartItems?.length === 0 && !debouncedSearchTerm && !editingSearchTerm && cartStatus !== 'loading' && userLoadingStatus !== 'loading') {
 
@@ -81,7 +80,6 @@ const CurrentCart = () => {
               className={s.emptyPageButton}>Начать&nbsp;покупки</Button>
     </div>
   }
-
   
   
   return (
