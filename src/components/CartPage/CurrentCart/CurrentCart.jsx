@@ -72,15 +72,15 @@ const CurrentCart = () => {
       setProductsTotal(cart.cartItems.reduce((sum, item) => sum + item.quantity, 0))  
     }
     
-  }, [cart.cartItems]);
+  }, [cart, cart.cartItems]);
   
   
     
   // todo undefined
-  if ( typeof productsTotal === 'undefined' || cartStatus === 'loading' || userLoadingStatus === 'loading' || favsLoadingStatus === 'loading') return <Spinner />
+  if ( cartStatus === 'loading' || userLoadingStatus === 'loading' || favsLoadingStatus === 'loading') return <Spinner />
   
 
-  if (cart?.cartItems?.length === 0 && !debouncedSearchTerm && !editingSearchTerm && cartStatus !== 'loading' && userLoadingStatus !== 'loading') {
+  if (typeof productsTotal === 'undefined' || cart?.cartItems?.length === 0 && !debouncedSearchTerm && !editingSearchTerm && cartStatus !== 'loading' && userLoadingStatus !== 'loading') {
 
     return <div className={s.emptyPage}>
       <h2 className={s.emptyPageTitle}>Здесь пусто :(</h2>
