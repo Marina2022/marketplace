@@ -82,16 +82,26 @@ export const loadCheckout = createAsyncThunk('cart/getCheckout', async (param, t
 })
 
 export const checkCartStatus = createAsyncThunk('cart/checkCartStatus', async (param, thunkAPI) => {
+  
   const cartId = param.cartId
   if (!cartId) return
   const state = thunkAPI.getState()
 
   if (state.user.isAuthenticated) {
-    const resp = await axios(`carts/${cartId}/currentStatus`)
-    if (resp.status === 200) {
-      thunkAPI.dispatch(loadCart())
+    
+    try {
+
+      
+      const resp = await axios(`carts/${cartId}/currentStatus`)
+      if (resp.status === 200) {
+        thunkAPI.dispatch(loadCart())
+      } 
+      return (resp.data)  
+    } catch(err) {
+      thunkAPI.rejectWithValue(err)
+      
     }
-    return (resp.data)
+    
   } else {
     // без авторизации ничего не будет происходить
     return {cartItems: []}
@@ -371,6 +381,7 @@ export const cartSlice = createSlice({
     setCheckout: (state, action) => {      
       state.checkout = action.payload
     },
+    
   },
 
   extraReducers: builder => builder
@@ -420,6 +431,7 @@ export const cartSlice = createSlice({
       state.cartStatus = action.payload
     })
     .addCase(checkCartStatus.rejected, (state, action) => {
+      
       state.gettingCartStatus = 'error'
       console.log('ошибка', action.error.message)
     })

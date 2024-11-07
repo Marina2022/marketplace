@@ -14,7 +14,7 @@ import {
   loadCart,
   saveCart
 } from "@/store/cartSlice.js";
-import {getIsAuthenticated, getUserStatus} from "@/store/userSlice.js";
+import {getIsAuthenticated, getUserStatus, logout} from "@/store/userSlice.js";
 
 import CartSearch from "@/components/CartPage/CurrentCart/CartSearch/CartSearch.jsx";
 import ChooseDeleteBlock from "@/components/CartPage/CurrentCart/ChooseDeleteBlock/ChooseDeleteBlock.jsx";
@@ -40,6 +40,7 @@ const CurrentCart = () => {
   const isMobile = useMobileScreen()
   const userLoadingStatus = useSelector(getUserStatus)
   const loadingCheckStatus = useSelector(getLoadingCheckStatus)
+
   
   useEffect(() => {
     if (userLoadingStatus !== 'success') return
@@ -47,10 +48,15 @@ const CurrentCart = () => {
   }, [debouncedSearchTerm])
 
   useEffect(() => {
-    if (userLoadingStatus !== 'success') return
 
+    
+    if (userLoadingStatus !== 'success') return
+        
     if (isAuthenticated && cart?.cartItems?.length > 0) {
+
       dispatch(checkCartStatus({cartId: cart.cartId}))
+    } else {
+      
     }
   }, [cart?.cartId, userLoadingStatus]);
 
@@ -67,7 +73,7 @@ const CurrentCart = () => {
   }, [cart, cart.cartItems]);
   
     
-  if ( cartStatus === 'loading' || (loadingCheckStatus === 'loading' && isAuthenticated )) return <Spinner />
+  if ( cartStatus === 'loading' || (loadingCheckStatus === 'loading' && isAuthenticated && cart?.cartItems?.length > 0 )) return <Spinner />
   
 
   if (cart?.cartItems?.length === 0 && !debouncedSearchTerm && !editingSearchTerm && cartStatus !== 'loading' && userLoadingStatus !== 'loading') {
