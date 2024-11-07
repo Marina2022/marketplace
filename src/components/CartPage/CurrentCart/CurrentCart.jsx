@@ -64,8 +64,7 @@ const CurrentCart = () => {
   if (cart?.cartItems) {
     productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
   }
-  
-  
+    
   
   if ( productsTotal === 'undefined' || cartStatus === 'loading' || userLoadingStatus === 'loading' || favsLoadingStatus === 'loading') return <Spinner />
   
@@ -87,6 +86,7 @@ const CurrentCart = () => {
     <div>
       <div className={s.headerWrapper}>
         <h1 className={s.mainTitle}>Ваша корзина</h1>
+        <p>productsTotal = {productsTotal}</p>
         <p className={s.productsQuantity}>{getProductQuantityString(productsTotal)}</p>
       </div>
 
