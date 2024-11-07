@@ -25,6 +25,7 @@ import DownloadBlock from "@/components/CartPage/DownloadBlock/DownloadBlock.jsx
 import Button from "@/components/ui/Button/Button.jsx";
 import saveCartIcon from "@/assets/img/cart/saveCartIcon.svg"
 import {getFavsLoadingStatus} from "@/store/favSlice.js";
+import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 
 const CurrentCart = () => {
   const dispatch = useDispatch()
@@ -38,7 +39,7 @@ const CurrentCart = () => {
   const editingSearchTerm = useSelector(getEditingSearchTerm)
   const isMobile = useMobileScreen()
   const userLoadingStatus = useSelector(getUserStatus)
-  
+
   useEffect(() => {
     if (userLoadingStatus !== 'success') return
     dispatch(loadCart())
@@ -51,22 +52,27 @@ const CurrentCart = () => {
       dispatch(checkCartStatus({cartId: cart.cartId}))
     }
   }, [cart?.cartId, userLoadingStatus]);
-  
+
   const saveCartHandler = () => {
     dispatch(saveCart({cartId: cart.cartId}))
-  } 
+  }
 
-  
+
   // todo -- undefined иногда остается..
   let productsTotal
-  
+
   if (cart?.cartItems) {
     productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
   }
-    
   
-  if (cart?.cartItems?.length === 0 && !debouncedSearchTerm && !editingSearchTerm && cartStatus !== 'loading' && userLoadingStatus !== 'loading' ) {
-    
+  
+  
+  if (cartStatus === 'loading' || userLoadingStatus === 'loading' || favsLoadingStatus === 'loading') return <Spinner />
+  
+
+
+  if (cart?.cartItems?.length === 0 && !debouncedSearchTerm && !editingSearchTerm && cartStatus !== 'loading' && userLoadingStatus !== 'loading') {
+
     return <div className={s.emptyPage}>
       <h2 className={s.emptyPageTitle}>Здесь пусто :(</h2>
       <p className={s.emptyPageText}>Ваша корзина пуста!<br/>
@@ -76,8 +82,11 @@ const CurrentCart = () => {
     </div>
   }
 
+  
+  
   return (
-    !(cart?.cartItems?.length <= 0 && !debouncedSearchTerm && favsLoadingStatus !=='loading' && userLoadingStatus !== 'loading'   ) && <div>
+    !(cart?.cartItems?.length === 0 && !debouncedSearchTerm && favsLoadingStatus !== 'loading' && userLoadingStatus !== 'loading') &&
+    <div>
       <div className={s.headerWrapper}>
         <h1 className={s.mainTitle}>Ваша корзина</h1>
         <p className={s.productsQuantity}>{getProductQuantityString(productsTotal)}</p>
