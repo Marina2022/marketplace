@@ -56,19 +56,18 @@ const CurrentCart = () => {
   const saveCartHandler = () => {
     dispatch(saveCart({cartId: cart.cartId}))
   }
-
  
   const [productsTotal, setProductsTotal] = useState(null)
 
   useEffect(() => {
     if(cart && cart.cartItems) {
       setProductsTotal(cart.cartItems.reduce((sum, item) => sum + item.quantity, 0))  
-    }
-    
+    }    
   }, [cart, cart.cartItems]);
   
   
-  if ( cartStatus === 'loading' || userLoadingStatus === 'loading' || favsLoadingStatus === 'loading') return <Spinner />
+  // if ( cartStatus === 'loading' || userLoadingStatus === 'loading' || favsLoadingStatus === 'loading') return <Spinner />
+  if ( cartStatus === 'loading' ) return <Spinner />
   
 
   if (cart?.cartItems?.length === 0 && !debouncedSearchTerm && !editingSearchTerm && cartStatus !== 'loading' && userLoadingStatus !== 'loading') {
