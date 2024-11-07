@@ -57,14 +57,7 @@ const CurrentCart = () => {
     dispatch(saveCart({cartId: cart.cartId}))
   }
 
-
-  // // todo -- undefined иногда остается..
-  // let productsTotal
-  //
-  // if (cart?.cartItems) {
-  //   productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
-  // }
-  
+ 
   const [productsTotal, setProductsTotal] = useState(null)
 
   useEffect(() => {
@@ -75,12 +68,10 @@ const CurrentCart = () => {
   }, [cart, cart.cartItems]);
   
   
-    
-  // todo undefined
   if ( cartStatus === 'loading' || userLoadingStatus === 'loading' || favsLoadingStatus === 'loading') return <Spinner />
   
 
-  if (productsTotal === null || cart?.cartItems?.length === 0 && !debouncedSearchTerm && !editingSearchTerm && cartStatus !== 'loading' && userLoadingStatus !== 'loading') {
+  if (cart?.cartItems?.length === 0 && !debouncedSearchTerm && !editingSearchTerm && cartStatus !== 'loading' && userLoadingStatus !== 'loading') {
 
     return <div className={s.emptyPage}>
       <h2 className={s.emptyPageTitle}>Здесь пусто :(</h2>
@@ -96,8 +87,7 @@ const CurrentCart = () => {
     !(cart?.cartItems?.length === 0 && !debouncedSearchTerm && favsLoadingStatus !== 'loading' && userLoadingStatus !== 'loading') &&
     <div>
       <div className={s.headerWrapper}>
-        <h1 className={s.mainTitle}>Ваша корзина</h1>
-        <p>productsTotal = {productsTotal}</p>
+        <h1 className={s.mainTitle}>Ваша корзина</h1>        
         <p className={s.productsQuantity}>{getProductQuantityString(productsTotal)}</p>
       </div>
 
