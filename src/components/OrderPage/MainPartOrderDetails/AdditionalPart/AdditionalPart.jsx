@@ -35,18 +35,14 @@ const AdditionalPart = ({order}) => {
 
         <button className={s.repeatBtn}>Повторить заказ</button>
 
-
         {
           order.orderStatus === 'completed' && <button className={s.returnGoodsBtn}>Вернуть товары</button>
         }
 
         {
           (order.orderStatus === 'awaiting_payment' || order.orderStatus === 'pending' || order.orderStatus === 'preparing' ) &&  <button className={s.cancelOrderBtn}>Отменить заказ</button>
-        }
-        
-
+        }        
       </div>
-
     </div>
   );
 };

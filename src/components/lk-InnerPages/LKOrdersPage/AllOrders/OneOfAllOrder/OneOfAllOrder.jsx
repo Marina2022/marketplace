@@ -11,7 +11,7 @@ const OneOfAllOrder = ({order}) => {
 
   return (
     <li  className={s.orderWrapper}  >
-      <OrderOfAllMain order={order} productListIsOpen={productListIsOpen} setProductListIsOpen={setProductListIsOpen}/>
+      <OrderOfAllMain order={order} productListIsOpen={productListIsOpen} setProductListIsOpen={setProductListIsOpen} />
       {
         productListIsOpen && <ul className={s.productList}>
           {

@@ -28,10 +28,8 @@
   @include m {
     display: none;
     background: white;
-
   }
 }
-
 
 .bottomBlock {
   border: #F5F5F5 1px solid;
@@ -84,10 +82,8 @@
   font-weight: 500;
 }
 
-
 .downloadIcon {
   fill: #3E5067;
-
 }
 
 
@@ -128,8 +124,7 @@
   
   &:hover {
     color: #c31a24;
-  }
-  
+  }  
 }
 
 .cancelOrderBtn {
@@ -137,6 +132,5 @@
   
   &:hover {
     color: #c31a24;
-  }
-  
+  }  
 }
