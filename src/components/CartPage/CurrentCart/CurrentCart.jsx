@@ -1,6 +1,6 @@
 import s from './CurrentCart.module.scss';
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useDebounce} from "@uidotdev/usehooks";
 import {useNavigate} from "react-router-dom";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
@@ -58,14 +58,25 @@ const CurrentCart = () => {
   }
 
 
-  // todo -- undefined иногда остается..
-  let productsTotal
-
-  if (cart?.cartItems) {
-    productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
-  }
-    
+  // // todo -- undefined иногда остается..
+  // let productsTotal
+  //
+  // if (cart?.cartItems) {
+  //   productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
+  // }
   
+  const [productsTotal, setProductsTotal] = useState(null)
+
+  useEffect(() => {
+    if(cart && cart.cartItems) {
+      setProductsTotal(cart.cartItems.reduce((sum, item) => sum + item.quantity, 0))  
+    }
+    
+  }, [cart.cartItems]);
+  
+  
+    
+  // todo undefined
   if ( typeof productsTotal === 'undefined' || cartStatus === 'loading' || userLoadingStatus === 'loading' || favsLoadingStatus === 'loading') return <Spinner />
   
 
