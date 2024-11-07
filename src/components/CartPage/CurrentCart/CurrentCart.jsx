@@ -66,7 +66,7 @@ const CurrentCart = () => {
   }
     
   
-  if ( productsTotal === 'undefined' || cartStatus === 'loading' || userLoadingStatus === 'loading' || favsLoadingStatus === 'loading') return <Spinner />
+  if ( typeof productsTotal === 'undefined' || cartStatus === 'loading' || userLoadingStatus === 'loading' || favsLoadingStatus === 'loading') return <Spinner />
   
 
   if (cart?.cartItems?.length === 0 && !debouncedSearchTerm && !editingSearchTerm && cartStatus !== 'loading' && userLoadingStatus !== 'loading') {
