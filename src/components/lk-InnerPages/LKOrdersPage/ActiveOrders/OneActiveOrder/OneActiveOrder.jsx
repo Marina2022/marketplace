@@ -14,7 +14,7 @@ const OneActiveOrder = ({order}) => {
           order.orderPositions.map((orderPosition, i) => <OrderPosition key={i} orderPosition={orderPosition}/>)
         }
       </ul>
-      <OrderSummary order={order}/>
+      {/*<OrderSummary order={order}/>*/}
     </li>
   );
 };
