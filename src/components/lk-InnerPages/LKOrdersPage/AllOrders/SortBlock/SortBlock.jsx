@@ -1,15 +1,15 @@
 import s from './SortBlock.module.scss';
 import {useState} from "react";
-const SortBlock = ({sortingType, setSortingType, dateSort, setDateSort, sortingData, setIsMobileSortOpened=null}) => {
 
-  const handleYearClick = (year, sortingType) => {    
+const SortBlock = ({sortingType, setSortingType, dateSort, setDateSort, sortingData, setIsMobileSortOpened = null}) => {
+  const handleYearClick = (year, sortingType) => {
     setDateSort(year)
     setSortingType(sortingType)
-    
+
     if (setIsMobileSortOpened) {
-      setTimeout(()=>{
-        setIsMobileSortOpened(false)  
-      }, 0)      
+      setTimeout(() => {
+        setIsMobileSortOpened(false)
+      }, 0)
     }
   }
 
@@ -44,15 +44,13 @@ const SortBlock = ({sortingType, setSortingType, dateSort, setDateSort, sortingD
                       })
                     }
                   </ul>
-                )
-              }
+                )}
             </li>
           )
         })
       }
-
     </ul>
-  );
-};
+  )
+}
 
 export default SortBlock;

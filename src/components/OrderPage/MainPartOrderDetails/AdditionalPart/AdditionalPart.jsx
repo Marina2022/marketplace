@@ -18,7 +18,6 @@ const AdditionalPart = ({order}) => {
           <div className={s.sumValue}>{order.orderTotalPrice}</div>
         </div>
       </div>
-
       <div className={s.bottomBlock}>
         {
           order.orderStatus === 'completed' &&
@@ -32,13 +31,10 @@ const AdditionalPart = ({order}) => {
             <span>Документы по заказу</span>
           </a>
         }
-
         <button className={s.repeatBtn}>Повторить заказ</button>
-
         {
           order.orderStatus === 'completed' && <button className={s.returnGoodsBtn}>Вернуть товары</button>
         }
-
         {
           (order.orderStatus === 'awaiting_payment' || order.orderStatus === 'pending' || order.orderStatus === 'preparing' ) &&  <button className={s.cancelOrderBtn}>Отменить заказ</button>
         }        

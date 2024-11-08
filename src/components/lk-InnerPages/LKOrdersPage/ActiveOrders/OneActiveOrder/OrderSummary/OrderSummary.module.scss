@@ -11,7 +11,8 @@
   align-items: center;
 
   @include m {
-    padding-block: 16px;
+    padding: 16px;
+    align-items: flex-start;
   }
 }
 

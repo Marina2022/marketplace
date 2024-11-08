@@ -2,12 +2,9 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "@/api/axiosInstance.js";
 
 export const loadActiveOrders = createAsyncThunk('orders/loadActiveOrders', async (args, thunkAPI) => {
-
   const state = thunkAPI.getState()
-
   if (state.user.isAuthenticated) {
     const {activeProfileId, type} = args
-
     try {
       const url = `current-orders?profileId=${activeProfileId}&profileType=${type}`
       const resp = await axios(url)

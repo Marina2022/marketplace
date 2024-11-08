@@ -9,6 +9,11 @@
   align-items: center;
   background: white;
   cursor: pointer;
+  
+  @include m {
+    flex-wrap: wrap;
+    padding: 10px 16px;
+  }
 }
 
 .productImg {
@@ -46,6 +51,13 @@
 
 .priceBlock {
   margin-left: auto;
+  
+  @include m {
+    margin-top: 20px;
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+  }
 }
 
 
@@ -69,4 +81,10 @@
   }
 }
 
+
+.rightPart {
+  @include m {
+    width: calc(100vw - 32px - 70px - 20px);    
+  }
+}
 

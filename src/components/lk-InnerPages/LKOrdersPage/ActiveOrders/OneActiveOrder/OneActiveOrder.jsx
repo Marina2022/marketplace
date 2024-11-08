@@ -5,7 +5,6 @@ import OrderSummary
   from "@/components/lk-InnerPages/LKOrdersPage/ActiveOrders/OneActiveOrder/OrderSummary/OrderSummary.jsx";
 
 const OneActiveOrder = ({order}) => {
-
   
   return (
     <li className={s.ordersListItem}>
@@ -13,7 +12,6 @@ const OneActiveOrder = ({order}) => {
       <ul className={s.orderPositions}>
         {
           order.orderPositions.map((orderPosition, i) => <OrderPosition key={i} orderPosition={orderPosition}/>)
-          //testOrderPositions.map((orderPosition, i) => <OrderPosition key={i} orderPosition={orderPosition}/>)
         }
       </ul>
       <OrderSummary order={order}/>

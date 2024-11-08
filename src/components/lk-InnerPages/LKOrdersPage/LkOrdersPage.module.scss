@@ -78,8 +78,11 @@
   }
 
   @include m {
-    margin-bottom: 8px;
+    margin-bottom: 0;
     padding-inline: 16px;
+    background: white;
+    padding-block: 10px;
+    border-top: #F0F1F1 1px solid;
   }
 }
 
@@ -93,7 +96,7 @@
   font-weight: 500;
   font-size: 12px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   cursor: pointer;
   border: 1px #F0F1F1 solid;
@@ -117,7 +120,7 @@
   font-weight: 500;
   font-size: 12px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   cursor: pointer;
 

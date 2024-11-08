@@ -1,16 +1,11 @@
 @import "@/assets/styles/mixins";
 
 .mainPart {
-  width: 850px;
-  padding: 20px;
+  width: 850px;  
 
   @include t {
     width: 100%;
-  }
-  
-  @include m {
-    padding: 8px 16px 16px 16px;
-  }
+  }  
 }
 
 .link {
@@ -27,8 +22,7 @@
   
   @include m {
     margin-bottom: 0;
-  }
-  
+  }  
 }
 
 .headline {
@@ -53,9 +47,9 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    padding: 8px 16px 0 16px;
   }
 }
-
 
 .linkText {
   @include m {

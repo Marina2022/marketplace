@@ -30,8 +30,7 @@ const AllOrdersProductCard = ({product}) => {
         <div className={s.price}>
           <span className={s.priceLabel}>сумма</span>
           <span>{product.orderLinePrice.toLocaleString('ru')}&nbsp;₽</span>
-        </div>
-        
+        </div>        
       </div>
     </li>
   );

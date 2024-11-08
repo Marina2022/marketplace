@@ -41,7 +41,7 @@ const CurrentCart = () => {
   const userLoadingStatus = useSelector(getUserStatus)
   const loadingCheckStatus = useSelector(getLoadingCheckStatus)
 
-  
+
   useEffect(() => {
     if (userLoadingStatus !== 'success') return
     dispatch(loadCart())
@@ -49,32 +49,27 @@ const CurrentCart = () => {
 
   useEffect(() => {
 
-    
-    if (userLoadingStatus !== 'success') return
-        
-    if (isAuthenticated && cart?.cartItems?.length > 0) {
 
+    if (userLoadingStatus !== 'success') return
+    if (isAuthenticated && cart?.cartItems?.length > 0) {
       dispatch(checkCartStatus({cartId: cart.cartId}))
-    } else {
-      
     }
-  }, [cart?.cartId, userLoadingStatus]);
+  }, [cart?.cartId, userLoadingStatus, isAuthenticated]);
 
   const saveCartHandler = () => {
     dispatch(saveCart({cartId: cart.cartId}))
   }
- 
+
   const [productsTotal, setProductsTotal] = useState(null)
 
   useEffect(() => {
-    if(cart && cart.cartItems) {
-      setProductsTotal(cart.cartItems.reduce((sum, item) => sum + item.quantity, 0))  
-    }    
+    if (cart && cart.cartItems) {
+      setProductsTotal(cart.cartItems.reduce((sum, item) => sum + item.quantity, 0))
+    }
   }, [cart, cart.cartItems]);
-  
-    
-  if ( cartStatus === 'loading' || (loadingCheckStatus === 'loading' && isAuthenticated && cart?.cartItems?.length > 0 )) return <Spinner />
-  
+
+
+  if (cartStatus === 'loading' || (loadingCheckStatus === 'loading' && isAuthenticated && cart?.cartItems?.length > 0)) return <Spinner/>
 
   if (cart?.cartItems?.length === 0 && !debouncedSearchTerm && !editingSearchTerm && cartStatus !== 'loading' && userLoadingStatus !== 'loading') {
 
@@ -86,12 +81,12 @@ const CurrentCart = () => {
               className={s.emptyPageButton}>Начать&nbsp;покупки</Button>
     </div>
   }
-    
+
   return (
     !(cart?.cartItems?.length === 0 && !debouncedSearchTerm && favsLoadingStatus !== 'loading' && userLoadingStatus !== 'loading') &&
     <div>
       <div className={s.headerWrapper}>
-        <h1 className={s.mainTitle}>Ваша корзина</h1>        
+        <h1 className={s.mainTitle}>Ваша корзина</h1>
         <p className={s.productsQuantity}>{getProductQuantityString(productsTotal)}</p>
       </div>
 

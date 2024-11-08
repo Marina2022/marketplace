@@ -9,21 +9,21 @@ import ProductCardForMessage
 
 import docThumbnail from '@/assets/img/docThumbnail.svg'
 import Button from "@/components/ui/Button/Button.jsx";
+import useMobileScreen from "@/hooks/useMobileScreen.js";
 
 const CreateMessage = () => {
 
   const FILES_MAX_NUMBER = 5
-
   const {productHandle, sku} = useParams()
   const [product, setProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
+  const isMobile = useMobileScreen()
 
   useEffect(() => {
     const getProduct = async () => {
       try {
         const resp = await axios(`/products/${productHandle}?sku=${sku}`)
         setProduct(resp.data)
-
       } catch (err) {
         console.log(err)
       } finally {
@@ -75,16 +75,31 @@ const CreateMessage = () => {
 
   return (
     <div className="container">
-      <Link className={s.backLink} to={`/product/${productHandle}?sku=${sku}`}>
-        <img src={backArrow} alt="back arror"/>
-        <span>Назад к карточке товара</span>
-      </Link>
-      <h1 className={s.title}>Сообщение продавцу</h1>
+      {
+        !isMobile && <Link className={s.backLink} to={`/product/${productHandle}?sku=${sku}`}>
+          <img src={backArrow} alt="back arror"/>
+          <span>Назад к карточке товара</span>
+        </Link>
+      }
+      <h1 className={s.title}>
+        {
+          isMobile ? <Link to={`/product/${productHandle}?sku=${sku}`}>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M6.38094 12.5466C6.25427 12.5466 6.1276 12.5 6.0276 12.4L1.98094 8.35329C1.7876 8.15996 1.7876 7.83996 1.98094 7.64662L6.0276 3.59996C6.22094 3.40662 6.54094 3.40662 6.73427 3.59996C6.9276 3.79329 6.9276 4.11329 6.73427 4.30662L3.04094 7.99996L6.73427 11.6933C6.9276 11.8866 6.9276 12.2066 6.73427 12.4C6.64094 12.5 6.5076 12.5466 6.38094 12.5466Z"
+                fill="#292D32"/>
+              <path
+                d="M13.6653 8.5H2.44531C2.17198 8.5 1.94531 8.27333 1.94531 8C1.94531 7.72667 2.17198 7.5 2.44531 7.5H13.6653C13.9386 7.5 14.1653 7.72667 14.1653 8C14.1653 8.27333 13.9386 8.5 13.6653 8.5Z"
+                fill="#292D32"/>
+            </svg>
+          </Link> : ''
+        }
+        <span>Сообщение продавцу</span>
+      </h1>
       <div className={s.shopNameBlock}>
         {product.productVendor.shopName}
       </div>
       <ProductCardForMessage product={product} sku={sku}/>
-
       <form>
         <div className={s.messageWrapper}>
         <textarea
@@ -95,7 +110,7 @@ const CreateMessage = () => {
         </textarea>
           <div className={s.symbolsQuantity}>{currentNumber}/{MAX_NUMBER}</div>
         </div>
-        <div className={s.fileInputBlock}>          
+        <div className={s.fileInputBlock}>
           {
             files.length !== 0 && <div className={s.previewsWrapper}>
               <ul className={s.previews}>
@@ -124,7 +139,6 @@ const CreateMessage = () => {
               </ul>
             </div>
           }
-
           <div className={s.inputWrapper}>
             <label className={s.fileInputLabel} htmlFor="fileInput">
               Добавить файлы

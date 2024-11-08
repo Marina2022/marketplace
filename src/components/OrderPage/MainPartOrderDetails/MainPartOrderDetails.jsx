@@ -34,6 +34,7 @@ const MainPartOrderDetails = ({order}) => {
               isMobile && <MobileButtons order={order} setAdditionalMobileOpened={setAdditionalMobileOpened}/>
             }
             <ContactInfo order={order}/>
+            
             {
               order.orderLines.map((orderLine, i) => <OrderLine key={i} orderLine={orderLine}/>)
             }

@@ -50,16 +50,14 @@ const OrderOfAllMain = ({order, productListIsOpen, setProductListIsOpen}) => {
           <p className={s.moreProducts}>еще {getProductQuantityString(order.additionalProductCount)}</p>
         }
       </div>
-
       <button onClick={handleToggleBtnClick} className={s.toggleBtn}>
         <img src={productListIsOpen ? btnOpened : btnClosed} alt=""/>
       </button>
       <div className={s.additional}>
         <div className={order.orderStatus === "canceled" ? s.redStatus : s.blueStatus}>{order.orderStatusDisplay}</div>
         {
-          productListIsOpen && (            
+          productListIsOpen && (
             <>
-
               <button className={s.repeat} onClick={handleRepeatBtnClick}>
                 <svg width="20" height="21" viewBox="0 0 20 21" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -80,12 +78,10 @@ const OrderOfAllMain = ({order, productListIsOpen, setProductListIsOpen}) => {
                        href={`${BASE_URL}${order.orderBilsLink.slice(1)}`}>Документы по заказу</a>
                   </div>
                 )
-              }              
+              }
             </>
           )
         }
-        
-        
       </div>
     </div>
   );

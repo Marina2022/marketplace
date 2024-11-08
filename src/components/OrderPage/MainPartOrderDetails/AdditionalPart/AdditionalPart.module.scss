@@ -12,7 +12,6 @@
   }
 
   @include m {  
-
     display: none;
   }
 }
@@ -20,8 +19,12 @@
 .topBlock {
   background: white;
   padding: 20px;
-  margin-bottom: 8px;
+  margin-bottom: 24px;
   border: #F5F5F5 1px solid;
+  
+  @include t {
+    margin-bottom: 8px;
+  }
 
   @include m {
     display: none;
@@ -83,7 +86,6 @@
 .downloadIcon {
   fill: #3E5067;
 }
-
 
 .downloadLink {
   color: #658092;

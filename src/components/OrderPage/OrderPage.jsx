@@ -8,13 +8,11 @@ import MainPartOrderDetails from "@/components/OrderPage/MainPartOrderDetails/Ma
 import AdditionalPart from "@/components/OrderPage/MainPartOrderDetails/AdditionalPart/AdditionalPart.jsx";
 
 const OrderPage = () => {
-
-    const {orderId} = useParams()
-
+  const {orderId} = useParams()
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   const [order, setOrder] = useState(null)
-  
+
   useEffect(() => {
     const getData = async () => {
       setIsLoading(true)
@@ -34,22 +32,18 @@ const OrderPage = () => {
 
     getData()
   }, [])
-   
+
 
   if (isLoading) return <Spinner/>
 
   if (error) {
     return <div>{error.message}</div>
   }
- 
-
 
   return (
     <div className={s.orderPageWrapper}>
-     
-      <MainPartOrderDetails order={order} />
-      
-      <AdditionalPart order={order} />
+      <MainPartOrderDetails order={order}/>
+      <AdditionalPart order={order}/>
     </div>
   );
 };

@@ -6,7 +6,6 @@ import deliveryMethodIcon from '@/assets/img/orderPage/deliveryMethod.svg'
 
 const OrderLine = ({orderLine}) => {
 
-
   const dateArr = orderLine.deliveryDateLineDisplay.split(": ")
 
   return (
@@ -40,8 +39,10 @@ const OrderLine = ({orderLine}) => {
       </div>
       <ul className={s.groupedProducts}>
         {
-          orderLine.groupedProducts.map((product, i) => <OrderLineProductCard key={i} product={product}
-                                                                              status={orderLine.deliveryStatus}/>)
+          orderLine.groupedProducts.map((product, i) => <OrderLineProductCard
+            key={i}
+            product={product}
+            status={orderLine.deliveryStatus}/>)
         }
       </ul>
     </div>

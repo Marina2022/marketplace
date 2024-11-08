@@ -19,7 +19,7 @@
   @include m {
     display: block;
     background: white;
-    padding: 30px 24px;
+    padding: 12px 16px;
     margin-bottom: 16px;
   }
 }
@@ -44,7 +44,6 @@
     }    
   }
 }
-
 
 .contactInfoTitleSecond {
   font-weight: 600;
@@ -101,17 +100,12 @@
 .rowPayMethod {
   display: flex;
   align-items: flex-start;
-
 }
 
 .twoRows {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-
-  @include m {
-
-  }
+  gap: 8px;  
 }
 
 .label {
@@ -142,7 +136,6 @@
 
 .additionalPart {
   margin-left: 42px;
-
   font-weight: 500;
   color: #3E5067;
   font-size: 12px;
