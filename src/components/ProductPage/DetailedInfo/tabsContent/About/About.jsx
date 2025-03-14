@@ -40,18 +40,30 @@ const About = ({product}) => {
     <div className={s.about}>
       <h2 className={s.title}>О компании</h2>
       <div className={s.topBlock}>
-        <div className={s.imgWrapper}>
-          {
-            company.galery.length > 0 &&
+
+
+        {/*<div className={s.imgWrapper}>*/}
+        {/*  {*/}
+        {/*    company.galery.length > 0 &&*/}
+        {/*    <img className={s.profileImage} src={`${BASE_URL}${company.galery[1].images[0].imageUrl}`}*/}
+        {/*         alt={company.galery[1].images[0].imageName}/>*/}
+        {/*  }*/}
+        {/*</div>*/}
+
+        {
+          company.galery.length > 0 &&
+          <div className={s.imgWrapper}>
             <img className={s.profileImage} src={`${BASE_URL}${company.galery[1].images[0].imageUrl}`}
                  alt={company.galery[1].images[0].imageName}/>
-          }
 
-        </div>
+          </div>
+        }
+
+
         <AboutDetails company={company}/>
       </div>
       <Description text={company.companyDescription} images={company.galery[0]?.images}/>
-      
+
       {
         company.galery.length > 0 &&
 
