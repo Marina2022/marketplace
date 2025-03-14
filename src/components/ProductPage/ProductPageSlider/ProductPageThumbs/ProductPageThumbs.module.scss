@@ -30,11 +30,16 @@
   margin-bottom: 8px;
   border: 2px solid #E32636;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .thumbnailImage {  
   max-width: 100%;
-  object-fit: cover;
+  max-height: 100%;  
+  object-fit: contain;
+  object-position: center;
 }
 
 .more {

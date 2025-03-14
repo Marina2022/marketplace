@@ -20,7 +20,8 @@ const ProductPageThumbs = ({images, currentImage, setCurrentImage, setSliderPopu
                 onClick={
                   () => thumbnailClickHandler(i)                  
                 }>
-              <img className={s.thumbnailImage} src={`${BASE_URL}${image.imageUrl}`} alt={image.imageName}/>
+              {/*<img className={s.thumbnailImage} src={`${BASE_URL}${image.imageUrl}`} alt={image.imageName}/>*/}
+              <img className={s.thumbnailImage} src={image.imageUrl} alt={image.imageName}/>
             </li>
           ))
         }

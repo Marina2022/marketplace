@@ -26,24 +26,29 @@ const ProductPageSlider = ({images, productId, isFavourite, onFavClick}) => {
           currentImage={currentImage}
           setCurrentImage={setCurrentImage}
           setSliderPopupIsOpen={setSliderPopupIsOpen}/>
-        
+
         <div
           className={s.bigPicture}
           onClick={() => setSliderPopupIsOpen(true)}>
-          
+
           <FavButton
             onClick={onFavClick}
             className={s.favBtn}
             productId={productId}
             isFavourite={isFavourite}/>
-          <img className={s.image} src={`${BASE_URL}${images[currentImage].imageUrl}`}
-               alt={images[currentImage].imageName}
+          
+          {/*<img className={s.image} src={`${BASE_URL}${images[currentImage].imageUrl}`}*/}
+          {/*     alt={images[currentImage].imageName}*/}
+          {/*/>*/}
+
+          <img className={s.image} src={images[currentImage].imageUrl}
+               alt={images[currentImage].imageName}               
           />
           
         </div>
       </div>
-      
-      
+
+
       {
         sliderPopupIsOpen &&
         <ProductSliderPopup setSliderPopupIsOpen={setSliderPopupIsOpen} images={images} currentImage={currentImage}/>

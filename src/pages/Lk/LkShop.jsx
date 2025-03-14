@@ -1,9 +1,7 @@
+import LkShopPage from "@/components/lk-InnerPages/LkShopPage/LkShopPage.jsx";
+
 const LkShop = () => {
-  return (
-    <div>
-      LkShop
-    </div>
-  );
+  return <LkShopPage />
 };
 
 export default LkShop;

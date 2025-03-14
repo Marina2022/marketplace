@@ -11,6 +11,10 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.3",
+    "@tiptap/extension-placeholder": "^2.11.5",
+    "@tiptap/extension-underline": "^2.11.5",
+    "@tiptap/react": "^2.11.5",
+    "@tiptap/starter-kit": "^2.11.5",
     "@uidotdev/usehooks": "^2.4.1",
     "axios": "^1.6.8",
     "nouislider": "^15.7.1",

@@ -2,6 +2,13 @@
 .slideImage {  
   max-width: calc(100% - 2px);  // 2px - это border
   object-fit: contain;
+  max-height: 60vh;   
+}
+
+.slideddd {
+  justify-content: center;
+  display: flex!important;
+  text-align: center;
 }
 
 .mainSlider {
@@ -28,7 +35,7 @@
   width: 80px;
   height: 80px;
   cursor: pointer;
-  border: 3px solid #ff0000; 
+  //border: 3px solid #ff0000; 
 }
 
 .swiperWrapper {

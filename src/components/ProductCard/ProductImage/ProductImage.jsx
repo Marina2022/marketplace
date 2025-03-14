@@ -51,7 +51,8 @@ const ProductImage = ({product, orientation}) => {
             product.images.map((image, i) => {
               return (
                   <SwiperSlide className={s.slide} key={i}>
-                    <img className={s.testImg} src={`${base_url}${image.imageUrl}`} alt=""/>
+                    {/*<img className={s.testImg} src={`${base_url}${image.imageUrl}`} alt=""/>*/}
+                    <img className={s.testImg} src={image.imageUrl} alt=""/>
                   </SwiperSlide>
               )
             })

@@ -18,8 +18,6 @@ import CreateReview from "@/components/ProductPage/CreateReview/CreateReview.jsx
 import CreateQuestion from "@/components/ProductPage/CreateQuestion/CreateQuestion.jsx";
 import CreateMessage from "@/components/ProductPage/CreateMessage/CreateMessage.jsx";
 import Order from "@/pages/Order.jsx";
-
-
 function App() {
 
 

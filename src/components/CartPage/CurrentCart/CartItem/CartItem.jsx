@@ -131,7 +131,8 @@ const CartItem = ({cartItem}) => {
           </svg>
         }
       </div>
-      <img className={s.img} src={`${BASE_URL}${cartItem.productImageUrl}`} alt="product"/>
+      {/*<img className={s.img} src={`${BASE_URL}${cartItem.productImageUrl}`} alt="product"/>*/}
+      <img className={s.img} src={cartItem.productImageUrl} alt="product"/>
       <div className={s.cardMainContent}>
         <div className={s.nameBlock}>          
           <Link to={linkURL} className={s.name}>{cartItem.productName}</Link>

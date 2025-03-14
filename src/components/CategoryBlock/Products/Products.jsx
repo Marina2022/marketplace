@@ -18,7 +18,6 @@ import {getIsAuthenticated} from "@/store/userSlice.js";
 
 const Products = ({isBigScreen, allFilters, rightPartRef}) => {
 
-
   const [searchParams] = useSearchParams();
   const [pageCountTotal, setPageCountTotal] = useState(0)
   const [products, setProducts] = useState(null)

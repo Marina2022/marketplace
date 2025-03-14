@@ -20,23 +20,23 @@ export const viewedProducts =
         "images": [
           {
             "imageName": "6706256093",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256093.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"            
           },
           {
             "imageName": "6951689770",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6951689770.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6706256091",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256091.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6706256094",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256094.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6951689772",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6951689772.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           }
         ],
         "features": [
@@ -86,23 +86,23 @@ export const viewedProducts =
         "images": [
           {
             "imageName": "6706256093",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256093.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6951689770",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6951689770.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6706256091",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256091.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6706256094",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256094.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6951689772",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6951689772.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           }
         ],
         "features": [
@@ -152,23 +152,23 @@ export const viewedProducts =
         "images": [
           {
             "imageName": "6706256093",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256093.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6951689770",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6951689770.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6706256091",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256091.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6706256094",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256094.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6951689772",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6951689772.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           }
         ],
         "features": [
@@ -218,23 +218,23 @@ export const viewedProducts =
         "images": [
           {
             "imageName": "6706256093",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256093.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6951689770",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6951689770.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6706256091",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256091.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6706256094",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256094.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6951689772",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6951689772.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           }
         ],
         "features": [
@@ -284,23 +284,23 @@ export const viewedProducts =
         "images": [
           {
             "imageName": "6706256093",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256093.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6951689770",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6951689770.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6706256091",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256091.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6706256094",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256094.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6951689772",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6951689772.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           }
         ],
         "features": [
@@ -350,23 +350,23 @@ export const viewedProducts =
         "images": [
           {
             "imageName": "6706256093",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256093.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6951689770",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6951689770.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6706256091",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256091.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6706256094",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256094.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6951689772",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6951689772.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           }
         ],
         "features": [
@@ -416,23 +416,23 @@ export const viewedProducts =
         "images": [
           {
             "imageName": "6706256093",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256093.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6951689770",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6951689770.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6706256091",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256091.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6706256094",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256094.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6951689772",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6951689772.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           }
         ],
         "features": [
@@ -482,23 +482,23 @@ export const viewedProducts =
         "images": [
           {
             "imageName": "6706256093",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256093.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6951689770",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6951689770.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6706256091",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256091.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6706256094",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6706256094.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           },
           {
             "imageName": "6951689772",
-            "imageUrl": "Data/products/ea69c644-c2c1-414e-862a-fe8705e8781a/images/main/6951689772.png"
+            "imageUrl":"https://irif.storage.yandexcloud.net/qW48djd293100221dhhwW2349mdh271/Jtu2jpPd233Mz061lk/65af79d9-2afb-4c0c-afaa-8d0e37013725.webp"
           }
         ],
         "features": [

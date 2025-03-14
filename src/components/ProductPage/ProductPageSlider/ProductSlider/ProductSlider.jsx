@@ -50,9 +50,10 @@ const ProductSlider = ({images, currentImage}) => {
         {
           images.map((image, i) => {
               return (
-                <SwiperSlide key={i}>
+                <SwiperSlide key={i} className={s.slideddd} >
 
-                  <img className={s.slideImage} src={`${BASE_URL}${image.imageUrl}`} alt=""/>
+                  {/*<img className={s.slideImage} src={`${BASE_URL}${image.imageUrl}`} alt=""/>*/}
+                  <img className={s.slideImage} src={image.imageUrl} alt="" />
 
                 </SwiperSlide>)
             }
