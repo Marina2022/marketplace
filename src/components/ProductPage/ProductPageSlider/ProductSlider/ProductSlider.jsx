@@ -84,7 +84,8 @@ const ProductSlider = ({images, currentImage}) => {
                 <SwiperSlide onClick={() => handleThumbnailClick(i)}
                              className={thumbsSwiper && activeIndex === i ? s.thumbnailSlideActive : s.thumbnailSlide}
                              key={i}>
-                  <img className={s.slideImage} src={`${BASE_URL}${image.imageUrl}`} alt=""/>
+                  {/*<img className={s.slideImage} src={`${BASE_URL}${image.imageUrl}`} alt=""/>*/}
+                  <img className={s.slideImageSmall} src={image.imageUrl} alt=""/>
                 </SwiperSlide>)
             }
           )

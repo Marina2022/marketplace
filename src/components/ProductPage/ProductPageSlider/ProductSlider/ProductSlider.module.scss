@@ -5,6 +5,12 @@
   max-height: 60vh;   
 }
 
+.slideImageSmall {
+  max-width: calc(100% - 2px);  // 2px - это border
+  object-fit: contain;
+  max-height: 100%;
+}
+
 .slideddd {
   justify-content: center;
   display: flex!important;
@@ -24,6 +30,11 @@
   height: 80px;
   cursor: pointer;
   border: 1px solid #F0F1F1;
+
+  display: flex;
+  justify-content: center!important;
+  justify-self: center!important;
+  align-items: center!important;
 }
 
 .thumbSlider {
@@ -35,7 +46,11 @@
   width: 80px;
   height: 80px;
   cursor: pointer;
-  //border: 3px solid #ff0000; 
+  
+  display: flex;
+  justify-self: center!important;
+  align-items: center!important;
+  
 }
 
 .swiperWrapper {
