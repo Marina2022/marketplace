@@ -1,0 +1,87 @@
+@import '@/assets/styles/mixins';
+
+.backLink {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-block: 12px;
+  color: #658092;
+  font-size: 14px;
+  font-weight: 500;
+
+  @include m {
+    padding-right: 11px;
+    margin: 0;
+  }
+}
+
+.backLinkText {
+  @include m {
+    display: none;
+  }
+}
+
+.backArrow {
+  position: relative;
+  top: 1px;
+
+  @include m {
+    top: 0;
+  }
+}
+
+.mainTitle {
+  color: #131D2A;
+  font-size: 28px;
+  font-weight: 600;
+
+  @include m {
+    font-size: 18px;
+  }
+}
+
+
+.linkAndTitleWrapper {
+  width: 780px;
+  display: flex;
+  flex-direction: column;
+  
+  @include m {
+    width: 100%;
+    flex-direction: row;
+    margin-block: 12px;
+    align-items: center;
+  }
+}
+
+
+.topPart {
+  display: flex;
+  gap: 24px;
+  
+  @include t {
+    flex-direction: column;
+  }  
+  
+  @include m {
+    gap: 10px;
+  }
+}
+
+.stepsNav {
+  width: 307px;
+  
+  @include t {
+    width: 100%;
+  }
+}
+
+.stepsContainer {
+  margin-top: -40px;
+  width: 780px;
+  
+  @include t {    
+    margin-top: 0;
+    width: 100%;
+  }
+}

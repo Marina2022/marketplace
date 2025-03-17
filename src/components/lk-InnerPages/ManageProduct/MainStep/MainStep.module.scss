@@ -1,0 +1,22 @@
+@import '@/assets/styles/mixins';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  
+  @include t {
+    gap: 12px;
+  }
+
+  @include m {
+    gap: 8px;
+  }
+}
+
+
+.errorMessage {
+  margin-top: 3px;
+  color: #E32636;
+  font-size: 12px;
+}

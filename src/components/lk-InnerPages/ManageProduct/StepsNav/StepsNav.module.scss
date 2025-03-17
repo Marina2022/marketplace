@@ -1,0 +1,66 @@
+@import '@/assets/styles/mixins';
+
+.stepsNavWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-inline: 20px;
+  margin-top: 35px;
+
+  @include t {
+    margin-top: 0;
+    flex-direction: row;
+    gap: 29px;
+    padding-inline: 0;
+    margin-bottom: 24px;
+  }
+
+  @include m {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+}
+
+.step {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.stepActive {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  
+  
+  .number {
+    border: none;
+    color: white;
+    background: #E32636;
+  }
+  .itemText {
+    color: #3E5067;
+  }
+  
+}
+
+.number {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: #658092 1px solid;
+  color: #658092;
+  font-size: 12px;
+}
+
+
+.itemText {
+  font-size: 14px;
+  color: #658092;
+}

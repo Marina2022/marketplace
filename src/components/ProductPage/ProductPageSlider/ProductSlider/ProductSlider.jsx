@@ -4,7 +4,6 @@ import activeBtn from '@/assets/img/productSlider/sliderBtn.svg'
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Thumbs} from 'swiper/modules';
 import 'swiper/css';
-import {BASE_URL} from "@/consts/baseURL.js";
 import {useState} from "react";
 
 const ProductSlider = ({images, currentImage}) => {
@@ -51,10 +50,7 @@ const ProductSlider = ({images, currentImage}) => {
           images.map((image, i) => {
               return (
                 <SwiperSlide key={i} className={s.slideddd} >
-
-                  {/*<img className={s.slideImage} src={`${BASE_URL}${image.imageUrl}`} alt=""/>*/}
                   <img className={s.slideImage} src={image.imageUrl} alt="" />
-
                 </SwiperSlide>)
             }
           )
@@ -83,8 +79,7 @@ const ProductSlider = ({images, currentImage}) => {
               return (
                 <SwiperSlide onClick={() => handleThumbnailClick(i)}
                              className={thumbsSwiper && activeIndex === i ? s.thumbnailSlideActive : s.thumbnailSlide}
-                             key={i}>
-                  {/*<img className={s.slideImage} src={`${BASE_URL}${image.imageUrl}`} alt=""/>*/}
+                             key={i}>                  
                   <img className={s.slideImageSmall} src={image.imageUrl} alt=""/>
                 </SwiperSlide>)
             }

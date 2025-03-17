@@ -1,0 +1,32 @@
+.notEditing {
+  height: 44px;
+  border: #F0F1F1 1px solid;
+  background: white;
+  padding: 12px 20px;
+}
+
+.requiredStar {
+  color: red;
+  margin-left: 2px;
+}
+
+.empty {
+  
+  color: #658092;  
+}
+
+.placeholder {
+
+}
+
+.input {
+  height: 44px;
+  border: #F0F1F1 1px solid;
+  background: white;
+  width: 100%;
+  padding: 12px 20px;
+  
+  &:focus {
+    outline: #D1D1D1 1px solid;
+  }
+}

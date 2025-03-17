@@ -4,8 +4,7 @@ import {BASE_URL} from "@/consts/baseURL.js";
 const ProductPageThumbs = ({images, currentImage, setCurrentImage, setSliderPopupIsOpen}) => {
 
   const imagesToShow = images.slice(0, 6)
-  const thumbnailClickHandler = (index) => {
-    console.log('клик и сет на image #', index)
+  const thumbnailClickHandler = (index) => {    
     setCurrentImage(index)
   }
 

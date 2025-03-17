@@ -36,11 +36,7 @@ const ProductPageSlider = ({images, productId, isFavourite, onFavClick}) => {
             className={s.favBtn}
             productId={productId}
             isFavourite={isFavourite}/>
-          
-          {/*<img className={s.image} src={`${BASE_URL}${images[currentImage].imageUrl}`}*/}
-          {/*     alt={images[currentImage].imageName}*/}
-          {/*/>*/}
-
+    
           <img className={s.image} src={images[currentImage].imageUrl}
                alt={images[currentImage].imageName}               
           />

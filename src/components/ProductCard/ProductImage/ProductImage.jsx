@@ -4,14 +4,12 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';
 import {useRef, useState} from "react";
 import useBigScreen from "@/hooks/useBigScreen.js";
-import {BASE_URL} from "@/consts/baseURL.js";
 
 const ProductImage = ({product, orientation}) => {
   const isBigScreen = useBigScreen()
 
   const [currentSlide, setCurrentSlide] = useState(0)
-  
-  const base_url = BASE_URL
+    
   const swiperRef = useRef(null)
   const hoverHandler = (index) => {
     if (swiperRef.current !== null) {
@@ -51,7 +49,6 @@ const ProductImage = ({product, orientation}) => {
             product.images.map((image, i) => {
               return (
                   <SwiperSlide className={s.slide} key={i}>
-                    {/*<img className={s.testImg} src={`${base_url}${image.imageUrl}`} alt=""/>*/}
                     <img className={s.testImg} src={image.imageUrl} alt=""/>
                   </SwiperSlide>
               )
@@ -62,10 +59,10 @@ const ProductImage = ({product, orientation}) => {
         {
             isBigScreen && <div className={s.overlay}>
               {
-                product.images.map((image, i) => <div onMouseEnter={() => hoverHandler(i)} className={s.tile}
+                product.images.map((image, i) => <div onMouseEnter={() => hoverHandler(i)} 
+                                                      className={s.tile}
                                                       key={i}></div>)
               }
-
             </div>
         }
 

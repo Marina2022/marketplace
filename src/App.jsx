@@ -18,6 +18,7 @@ import CreateReview from "@/components/ProductPage/CreateReview/CreateReview.jsx
 import CreateQuestion from "@/components/ProductPage/CreateQuestion/CreateQuestion.jsx";
 import CreateMessage from "@/components/ProductPage/CreateMessage/CreateMessage.jsx";
 import Order from "@/pages/Order.jsx";
+import ManageProduct from "@/components/lk-InnerPages/ManageProduct/ManageProduct.jsx";
 function App() {
 
 
@@ -32,8 +33,7 @@ function App() {
           <Route path='/product/:slug/new-review' element={<ProtectedRoute><CreateReview/></ProtectedRoute>}/>
           <Route path='/product/:slug/new-question' element={<ProtectedRoute><CreateQuestion/></ProtectedRoute>}/>
           <Route path='/product/:productHandle/:sku/new-message' element={<ProtectedRoute><CreateMessage/></ProtectedRoute>}/>
-                    
-          
+                              
           <Route path='/favourites' element={<Favourites/>}/>
           <Route path='/cart' element={<Cart/>}/>          
           
@@ -45,6 +45,8 @@ function App() {
             <Route path='search-requests' element={<LkRequests/>}/>
             <Route path='chat' element={<LkChat/>}/>
             <Route path='orders/:orderId' element={<Order/>}/>
+            
+            <Route path='edit-product/:productIdParam' element={<ManageProduct/>}/>
           </Route>
 
           <Route path='*' element={<NotFound/>}/>
