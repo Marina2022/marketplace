@@ -12,7 +12,6 @@ import CharacteristicsStep from "@/components/lk-InnerPages/ManageProduct/Charac
 import MediaStep from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaStep.jsx";
 import PreviewStep from "@/components/lk-InnerPages/ManageProduct/PreviewStep/PreviewStep.jsx";
 import {useFieldArray, useForm} from "react-hook-form";
-import {catTree} from "@/dev-data/cat-tree.js";
 
 const ManageProduct = () => {
 
@@ -47,6 +46,31 @@ const ManageProduct = () => {
   if (!cats) navItems = ['Главное о товаре', 'Медиа']
 
 
+  const {
+    getValues,
+    register,
+    control,
+    setValue,
+    handleSubmit,
+    watch,
+    formState: { errors}} = useForm({
+    defaultValues: {
+      fields: [
+        {value: 'productName'},
+        {value: 'productCategoryId'},
+      ]
+    }
+  });
+
+  const {fields, append} = useFieldArray({
+    control,
+    name: "fields"
+  });
+
+
+  const categoryValue = watch("productCategoryId")
+
+
   // подгрузка данных для создания нового товара   
 
   useEffect(() => {
@@ -57,13 +81,10 @@ const ManageProduct = () => {
 
     const getCats = async () => {
       try {
-        setLoading(true)
-        
+        setLoading(true)        
         const response = await axiosInstance(`/categories-tree`)
-        console.log('cats', response)
-        
+        console.log('cats', response)       
         setCats(response.data)
-        // setCats(catTree)
 
       } catch (err) {
         console.log(err)
@@ -82,18 +103,14 @@ const ManageProduct = () => {
 
     const getAttributes = async () => {
 
-      console.log('hello')
       try {
-        setLoading(true)
-
-        // const response = await axiosInstance(`/seller/${profileId}/attributes?categoryId={productCategoryId}`)
+        if(!cats) setLoading(  true)
         
-        // строить урл будем, отталкиваясь от наличия категорий
-        const response = await axiosInstance(`/seller/${profileId}/attributes?categoryId=781001bc-3a72-4e5b-8d2a-ee22e0ea7b0a`)        
-        //const response = await axiosInstance(`/seller/${profileId}/attributes`)
-        
-        
-        console.log('data --------', response.data)
+        let categoryURL = `/seller/${profileId}/attributes`
+        if (categoryValue) categoryURL+=  `?categoryId=${categoryValue}`       
+        const response = await axiosInstance(categoryURL)       
+                
+        console.log('attributes:', response.data)
 
       } catch (err) {
         console.log(err)
@@ -103,27 +120,11 @@ const ManageProduct = () => {
     }
     getAttributes()
 
-  }, [productIdParam, profileId]);
-
-  
-  const {getValues, register, control, handleSubmit, formState: { errors}} = useForm({
-    defaultValues: {
-      fields: [
-        {value: 'productName'}, 
-        {value: 'productCategoryId'}, 
-      ] 
-    }
-  });
-
-  const {fields, append} = useFieldArray({
-    control,
-    name: "fields"
-  });
+  }, [productIdParam, profileId, categoryValue]);
 
 
   const onSubmit = async(data)=>{
-    console.log('data', data)
-    
+    console.log('form data', data)    
   }
 
 
@@ -159,7 +160,16 @@ const ManageProduct = () => {
 
           {
             step === 'main' &&
-            <MainStep onSubmit={onSubmit} register={register} append={append} fields={fields} errors={errors} getValues={getValues} cats={cats} />
+            <MainStep 
+              onSubmit={onSubmit} 
+              register={register} 
+              append={append} 
+              fields={fields} 
+              errors={errors} 
+              getValues={getValues} 
+              cats={cats}
+              setValue={setValue}
+            />
           }
 
           {

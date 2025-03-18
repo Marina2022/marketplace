@@ -3,52 +3,41 @@ import {forwardRef, useState} from "react";
 import Button from "@/components/ui/Button/Button.jsx";
 import MainCategory
   from "@/components/lk-InnerPages/ManageProduct/MainStep/EditProductCategory/EditCategory/MainCategory.jsx";
+import CategoryDropdown
+  from "@/components/lk-InnerPages/ManageProduct/MainStep/EditProductCategory/CategoryDropdown/CategoryDropdown.jsx";
+import {findProductCategoryName} from "@/utils/lkShop.js";
 
 
-const EditProductCategory = forwardRef(({getValues, name, cats}, ref) => {
+const EditProductCategory = forwardRef(({getValues, name, cats, setValue}, ref) => {
 
-  const [editing, setEditing] = useState(true);
-  const handleClick = () => {        
-    setEditing(true)
+  const [editing, setEditing] = useState(false);
+  const handleClick = () => {
+    setEditing(prev=>!prev)
   }
 
   const [search, setSearch] = useState('sdfdsf')
-  
+
   if (!cats) return null
 
   return (
-    // <div className={s.wrapper} onClick={handleClick} tabIndex={0} onBlur={()=>setEditing(false)} >   // потом вернуть onBlur
-    <div className={s.wrapper} onClick={handleClick} tabIndex={0}  >
-      <div className={editing ? s.bordered : s.notEditing}>
+    // <div className={s.wrapper} onClick={handleClick} tabIndex={0} onBlur={()=>setEditing(false)} > 
+    <div className={s.wrapper}   > 
+    {/*<div onClick={handleClick} tabIndex={0}>*/}
+      <div className={editing ? s.catInputBordered : s.catInput} onClick={handleClick} >
         {
-          getValues(name)
+          getValues(name) &&  findProductCategoryName(cats, getValues(name))   
         }
-          <div className={s.empty }>
-            <span className={s.placeholder}>Категория в магазине</span>
+
+        {
+          !getValues(name) && <div className={s.empty}>
+            <span>Категория в магазине</span>
             <span className={s.requiredStar}>*</span>
           </div>
-        
+        }
+
       </div>
 
-      {editing && (
-        <div className={s.catsDropdown}>
-
-          <div className={s.content}>
-            <ul>
-              {
-                cats.map((cat, i) => <MainCategory key={cat.categoryId} cat={cat} search={search}  />)
-              }
-            </ul>
-          </div>
-
-          <div className={s.dropdownFooter}>
-            <div className={s.footerLeft}>
-              Если категории вашего товара не существует, отправьте заявку
-            </div>
-            <Button className={s.btn} type="button">Добавить категорию</Button>
-          </div>
-        </div>
-      )}
+      {editing && <CategoryDropdown cats={cats} search={search} setValue={setValue} getValues={getValues} setEditing={setEditing}  />}
     </div>
   );
 });

@@ -5,7 +5,7 @@ import EditProductCategory
   from "@/components/lk-InnerPages/ManageProduct/MainStep/EditProductCategory/EditProductCategory.jsx";
 
 
-const MainStep = ({register, fields, errors, getValues, cats}) => {
+const MainStep = ({register, fields, errors, getValues, cats, setValue}) => {
 
   const notEmptyMessage = "Это поле не может быть пустым"
 
@@ -38,6 +38,7 @@ const MainStep = ({register, fields, errors, getValues, cats}) => {
       <EditProductCategory
         cats={cats.categories}
         getValues={getValues}
+        setValue={setValue}
         {...register('productCategoryId',
           {
             required: notEmptyMessage,            
