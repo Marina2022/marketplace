@@ -3,3 +3,68 @@
 .subCategoryWrapper {
   cursor: pointer;
 }
+
+.subCatHeader {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  height: 30px;
+  position: relative;
+}
+
+.arrowBtn {
+  position: relative;
+  top: -2px;
+  transform: rotate(270deg);
+}
+
+.arrowBtnOpened {
+  position: relative;
+  top: -2px;  
+}
+
+.outerWrapper {
+  display:  flex;
+  gap: 10px;
+  position: relative;
+}
+
+.verticalLine {
+  background: #AAB7BF;
+  width: 1px;
+  position: relative;
+  top: -6px;
+  margin-left: 7px;
+}
+
+
+.verticalLineEraser {
+  width: 2px;
+  background: white;
+  position: absolute;
+  left: -19px;
+  top: -16px;
+  height: 130%;  
+}
+
+.horizontalLine {
+  position: absolute;
+  top: 0;
+  left: -17px;
+  width: 8px;  
+  height: 1px;
+  background: #AAB7BF;
+  top: 13px;
+  width: 8px;
+  height: 1px;
+}
+
+
+.verticalTickEraser {
+  background: white;
+  width: 1px;
+  position: absolute;
+  top: 14px;
+  left: -18px;
+  height: 14px;
+}

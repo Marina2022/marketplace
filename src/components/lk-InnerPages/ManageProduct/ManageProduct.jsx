@@ -12,6 +12,7 @@ import CharacteristicsStep from "@/components/lk-InnerPages/ManageProduct/Charac
 import MediaStep from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaStep.jsx";
 import PreviewStep from "@/components/lk-InnerPages/ManageProduct/PreviewStep/PreviewStep.jsx";
 import {useFieldArray, useForm} from "react-hook-form";
+import {catTree} from "@/dev-data/cat-tree.js";
 
 const ManageProduct = () => {
 
@@ -62,6 +63,7 @@ const ManageProduct = () => {
         console.log('cats', response)
         
         setCats(response.data)
+        // setCats(catTree)
 
       } catch (err) {
         console.log(err)

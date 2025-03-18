@@ -12,12 +12,13 @@ const EditProductCategory = forwardRef(({getValues, name, cats}, ref) => {
     setEditing(true)
   }
 
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState('sdfdsf')
   
   if (!cats) return null
 
   return (
-    <div className={s.wrapper} onClick={handleClick} tabIndex={0} onBlur={()=>setEditing(false)} >
+    // <div className={s.wrapper} onClick={handleClick} tabIndex={0} onBlur={()=>setEditing(false)} >   // потом вернуть onBlur
+    <div className={s.wrapper} onClick={handleClick} tabIndex={0}  >
       <div className={editing ? s.bordered : s.notEditing}>
         {
           getValues(name)
@@ -35,7 +36,7 @@ const EditProductCategory = forwardRef(({getValues, name, cats}, ref) => {
           <div className={s.content}>
             <ul>
               {
-                cats.map(cat => <MainCategory key={cat.categoryId} cat={cat} search={search}  />)
+                cats.map((cat, i) => <MainCategory key={cat.categoryId} cat={cat} search={search}  />)
               }
             </ul>
           </div>
