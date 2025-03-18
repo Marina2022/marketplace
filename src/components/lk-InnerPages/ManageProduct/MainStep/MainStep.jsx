@@ -8,27 +8,19 @@ import EditProductCategory
 const MainStep = ({register, fields, errors, getValues, cats, setValue, clearErrors, setError, trigger}) => {
 
   const notEmptyMessage = "Это поле не может быть пустым"
-
-  // console.log('fields', fields)
-  console.log('errors', errors)
-
-
   const goToNextStep = async () => {
     const isValid = await trigger(["productName", "productCategoryId"]);
-
 
     if (!isValid) {
       console.log('ошибки есть, дальше нельзя')
     } else {
       console.log('all good, next step')
     }
-
   }
 
   return (
     <div className={s.wrapper}>
       <h2 className={s.title}>Главное о товаре</h2>
-
       <div>
         <Input
           trigger={trigger}
