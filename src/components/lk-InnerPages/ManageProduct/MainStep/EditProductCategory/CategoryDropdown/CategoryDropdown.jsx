@@ -4,6 +4,7 @@ import MainCategory
 import Button from "@/components/ui/Button/Button.jsx";
 import {useState} from "react";
 
+
 const CategoryDropdown = ({cats, search, setValue, getValues, setEditing}) => {
   
   const [selectedCatId, setSelectedCatId] = useState(getValues("productCategoryId"))
