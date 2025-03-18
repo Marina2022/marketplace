@@ -57,10 +57,11 @@ const ManageProduct = () => {
     const getCats = async () => {
       try {
         setLoading(true)
-
-        // const response = await axiosInstance(`/seller/${profileId}/attributes?categoryId={productCategoryId}`)
+        
         const response = await axiosInstance(`/categories-tree`)
         console.log('cats', response)
+        
+        setCats(response.data)
 
       } catch (err) {
         console.log(err)
@@ -78,12 +79,19 @@ const ManageProduct = () => {
     // грузим атрибуты
 
     const getAttributes = async () => {
+
+      console.log('hello')
       try {
         setLoading(true)
 
         // const response = await axiosInstance(`/seller/${profileId}/attributes?categoryId={productCategoryId}`)
-        const response = await axiosInstance(`/seller/${profileId}/attributes`)
-        console.log(response)
+        
+        // строить урл будем, отталкиваясь от наличия категорий
+        const response = await axiosInstance(`/seller/${profileId}/attributes?categoryId=781001bc-3a72-4e5b-8d2a-ee22e0ea7b0a`)        
+        //const response = await axiosInstance(`/seller/${profileId}/attributes`)
+        
+        
+        console.log('data --------', response.data)
 
       } catch (err) {
         console.log(err)
@@ -98,7 +106,10 @@ const ManageProduct = () => {
   
   const {getValues, register, control, handleSubmit, formState: { errors}} = useForm({
     defaultValues: {
-      fields: [{value: 'productTitle'}] 
+      fields: [
+        {value: 'productName'}, 
+        {value: 'productCategoryId'}, 
+      ] 
     }
   });
 
@@ -146,7 +157,7 @@ const ManageProduct = () => {
 
           {
             step === 'main' &&
-            <MainStep onSubmit={onSubmit} register={register} append={append} fields={fields} errors={errors} getValues={getValues}/>
+            <MainStep onSubmit={onSubmit} register={register} append={append} fields={fields} errors={errors} getValues={getValues} cats={cats} />
           }
 
           {

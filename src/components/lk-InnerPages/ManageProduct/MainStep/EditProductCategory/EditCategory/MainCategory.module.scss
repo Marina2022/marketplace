@@ -1,0 +1,33 @@
+@import '@/assets/styles/mixins';
+
+.mainCategoryWrapper {
+  cursor: pointer;
+}
+
+.subCats {
+  padding-left: 7px;  
+}
+
+.mainCatName {
+  margin-bottom: 5px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+}
+
+.mainCatHeader {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.arrowBtn {
+  position: relative;
+  top: -2px;
+}
+
+.arrowBtnOpened {
+  position: relative;
+  top: -2px;
+  transform: rotate(270deg);
+}

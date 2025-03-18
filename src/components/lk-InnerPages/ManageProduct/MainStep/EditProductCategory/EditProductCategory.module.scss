@@ -1,0 +1,59 @@
+@import '@/assets/styles/mixins';
+
+.catsDropdown {
+  padding-top: 10px;
+  //padding-inline: 20px;
+  background: white;
+  margin-top: 5px;
+  box-shadow: 0 4px 16px rgb(0 0 0/.2);
+}
+
+
+.empty {
+  color: #658092;
+}
+
+.requiredStar {
+  color: red;
+  margin-left: 2px;
+}
+
+.notEditing {
+  height: 44px;
+  border: #F0F1F1 1px solid;
+  background: white;
+  padding: 12px 20px;
+}
+
+.dropdownFooter {
+  background: #EAEAEA;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.content {
+  padding-inline: 20px;
+  padding-bottom: 10px;
+  color: #131D2A;
+  font-size: 14px;
+}
+
+.footerLeft {
+  width: 280px;
+}
+
+.btn {
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.bordered {
+  outline: #D1DCE8 1px solid;
+  height: 44px;
+  border: #F0F1F1 1px solid;
+  background: white;
+  padding: 12px 20px;
+}
