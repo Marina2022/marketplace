@@ -1,13 +1,14 @@
 import {forwardRef, useState} from "react";
 import s from "./Input.module.scss";
 
-const Input = forwardRef(({getValues, name, onChange, required = false, placeholder = ''}, ref) => {
+const Input = forwardRef(({getValues, name, onChange, required = false, placeholder = '', trigger}, ref) => {
   const [editing, setEditing] = useState(false);
   const handleClick = () => {
     if (!editing) setEditing(true)
   }
   const handleBlur = () => {
-    setEditing(false)
+    trigger('productName')
+    setEditing(false)    
   }
 
   return (

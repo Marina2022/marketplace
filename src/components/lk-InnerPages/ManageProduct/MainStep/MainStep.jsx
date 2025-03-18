@@ -5,13 +5,25 @@ import EditProductCategory
   from "@/components/lk-InnerPages/ManageProduct/MainStep/EditProductCategory/EditProductCategory.jsx";
 
 
-const MainStep = ({register, fields, errors, getValues, cats, setValue}) => {
+const MainStep = ({register, fields, errors, getValues, cats, setValue, clearErrors, setError, trigger}) => {
 
   const notEmptyMessage = "Это поле не может быть пустым"
 
   // console.log('fields', fields)
-  // console.log('errors', errors)
+  console.log('errors', errors)
 
+
+  const goToNextStep = async () => {
+    const isValid = await trigger(["productName", "productCategoryId"]);
+
+
+    if (!isValid) {
+      console.log('ошибки есть, дальше нельзя')
+    } else {
+      console.log('all good, next step')
+    }
+
+  }
 
   return (
     <div className={s.wrapper}>
@@ -19,6 +31,8 @@ const MainStep = ({register, fields, errors, getValues, cats, setValue}) => {
 
       <div>
         <Input
+          trigger={trigger}
+          setError={setError}
           getValues={getValues}
           required={true}
           placeholder="Название товара"
@@ -27,6 +41,11 @@ const MainStep = ({register, fields, errors, getValues, cats, setValue}) => {
               required: notEmptyMessage,
               // minLength: {value: 3, message: "Минимум 3 буквы"}
             })}
+          onChange={(e) => {
+            register().onChange(e)
+            trigger("productName")
+          }
+          }
         />
 
         {
@@ -35,19 +54,26 @@ const MainStep = ({register, fields, errors, getValues, cats, setValue}) => {
 
       </div>
 
-      <EditProductCategory
-        cats={cats.categories}
-        getValues={getValues}
-        setValue={setValue}
-        {...register('productCategoryId',
-          {
-            required: notEmptyMessage,            
-          })}
-      />
-      
+      <div>
+        <EditProductCategory
+          cats={cats.categories}
+          getValues={getValues}
+          setValue={setValue}
+          clearErrors={clearErrors}
+          {...register('productCategoryId',
+            {
+              required: notEmptyMessage,
+            })}
+        />
+        {
+          errors.productCategoryId && <p className={s.errorMessage}>{errors.productCategoryId.message}</p>
+        }
+      </div>
       {/*<Button onClick={() => append({value: "Memory"})}>Добавь новое поле Animal</Button>*/}
 
-      <Button>Submit</Button>
+      <Button type="button" onClick={goToNextStep}>Далее</Button>
+
+      {/*<Button>Submit</Button>*/}
 
     </div>
   );

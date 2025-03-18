@@ -47,12 +47,15 @@ const ManageProduct = () => {
 
 
   const {
+    trigger,
     getValues,
     register,
     control,
     setValue,
     handleSubmit,
     watch,
+    setError,
+    clearErrors,
     formState: { errors}} = useForm({
     defaultValues: {
       fields: [
@@ -124,7 +127,23 @@ const ManageProduct = () => {
 
 
   const onSubmit = async(data)=>{
-    console.log('form data', data)    
+        
+    if (!categoryValue) {
+        setError("productCategoryId", {
+          type: "manual",
+          message: "Это поле не может быть пустым"})        
+    } else {
+       clearErrors("productCategoryId");
+    }
+
+    if (Object.keys(errors).length > 0) {
+      return; 
+    }
+    
+    // console.log('errors ===', errors)    
+    
+    
+     console.log('form data', data)    
   }
 
 
@@ -160,7 +179,8 @@ const ManageProduct = () => {
 
           {
             step === 'main' &&
-            <MainStep 
+            <MainStep
+              trigger={trigger}
               onSubmit={onSubmit} 
               register={register} 
               append={append} 
@@ -169,6 +189,8 @@ const ManageProduct = () => {
               getValues={getValues} 
               cats={cats}
               setValue={setValue}
+              clearErrors={clearErrors}
+              setError={setError}
             />
           }
 

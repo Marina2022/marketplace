@@ -5,21 +5,19 @@ import Button from "@/components/ui/Button/Button.jsx";
 import {useState} from "react";
 
 
-const CategoryDropdown = ({cats, search, setValue, getValues, setEditing}) => {
+const CategoryDropdown = ({cats, search, setValue, getValues, setEditing, clearErrors}) => {
   
   const [selectedCatId, setSelectedCatId] = useState(getValues("productCategoryId"))
   
-  const submitCategory = (e)=>{
-    e.stopPropagation()
-    console.log("submitCategory-----------")
+  const submitCategory = ()=>{
     setValue('productCategoryId', selectedCatId)
     setEditing(false)
+    clearErrors("productCategoryId");    
   }
   
   return (
       <div className={s.catsDropdown}>
-      <div className={s.searchBlock}></div>
-     
+      <div className={s.searchBlock}></div>     
       <div className={`${s.content} lk-scroll`}>
         <ul>
           {
@@ -32,7 +30,6 @@ const CategoryDropdown = ({cats, search, setValue, getValues, setEditing}) => {
           }
         </ul>
       </div>
-
       <div className={s.dropdownFooter}>
         <div className={s.footerLeft}>
           Если категории вашего товара не существует, отправьте заявку

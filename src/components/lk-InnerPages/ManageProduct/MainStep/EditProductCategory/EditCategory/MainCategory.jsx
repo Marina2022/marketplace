@@ -4,9 +4,6 @@ import SubCategory
 import {useEffect, useState} from "react";
 
 const MainCategory = ({cat, search, selectedCatId, setSelectedCatId}) => {
-
-  
-  
   
   // будет зависеть от того, есть search или нет
   const [open, setOpen] = useState(false)
@@ -22,9 +19,7 @@ const MainCategory = ({cat, search, selectedCatId, setSelectedCatId}) => {
   const handleClick = () => {
     setOpen(prev => !prev)
   }
-  
-  
-
+   
   return (
     <div className={s.mainCategoryWrapper}>
       <div className={s.mainCatHeader} onClick={handleClick}>
@@ -51,11 +46,8 @@ const MainCategory = ({cat, search, selectedCatId, setSelectedCatId}) => {
               />)
             }
           </ul>
-        }
-        
+        }        
       </div>
- 
-
     </div>
   );
 };
