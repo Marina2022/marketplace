@@ -3,7 +3,7 @@ import SubCategory
   from "@/components/lk-InnerPages/ManageProduct/MainStep/EditProductCategory/SubCategory/SubCategory.jsx";
 import {useEffect, useState} from "react";
 
-const MainCategory = ({cat, search}) => {
+const MainCategory = ({cat, search, selectedCatId, setSelectedCatId}) => {
 
   
   
@@ -27,7 +27,6 @@ const MainCategory = ({cat, search}) => {
 
   return (
     <div className={s.mainCategoryWrapper}>
-
       <div className={s.mainCatHeader} onClick={handleClick}>
         <svg className={open ? s.arrowBtnOpened : s.arrowBtn} width="16" height="8" viewBox="0 0 16 8" fill="none"
              xmlns="http://www.w3.org/2000/svg">
@@ -37,11 +36,8 @@ const MainCategory = ({cat, search}) => {
         </svg>
         <p className={s.mainCatName}>{cat.categoryName}</p>
       </div>
-
       <div className={s.outerWrapper}>
-
         <div className={s.verticalLine}></div>
-
         {
           open && <ul className={s.subCats}>
             {
@@ -50,7 +46,8 @@ const MainCategory = ({cat, search}) => {
                 subCat={subCat} 
                 search={search}
                 lastOne={cat.subCategories.length-1 === i}
-                     
+                selectedCatId={selectedCatId}
+                setSelectedCatId={setSelectedCatId}    
               />)
             }
           </ul>

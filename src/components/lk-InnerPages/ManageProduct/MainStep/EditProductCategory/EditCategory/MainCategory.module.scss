@@ -4,8 +4,8 @@
   cursor: pointer;
 }
 
-.subCats {
-  padding-left: 7px;  
+.subCats {  
+  width: 100%;
 }
 
 .mainCatName {
@@ -16,6 +16,7 @@
 }
 
 .mainCatHeader {
+  padding-left: 7px;
   display: flex;
   gap: 8px;
   align-items: center;
@@ -34,7 +35,6 @@
 
 .outerWrapper {
   display:  flex;
-  gap: 10px;
   position: relative;
 }
 
@@ -43,15 +43,7 @@
   width: 1px;
   position: relative;
   top: -6px;
-  margin-left: 7px;
+  left: 14px;
 }
 
 
-//.verticalLineEraser {
-//  width: 1px;
-//  background: green;
-//  position: absolute;
-//  left: 7px;
-//  top: -6px;
-//  height: 100%;
-//}
