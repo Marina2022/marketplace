@@ -54,7 +54,6 @@ const ManageProduct = () => {
     setValue,
     handleSubmit,
     watch,
-    setError,
     clearErrors,
     formState: { errors}} = useForm({
     defaultValues: {
@@ -74,10 +73,11 @@ const ManageProduct = () => {
   const categoryValue = watch("productCategoryId")
 
 
+  const [search, setSearch] = useState('')
+
   // подгрузка данных для создания нового товара   
 
   useEffect(() => {
-    if (productIdParam !== 'new') return
     if (!isNew) return
 
     // грузим категории
@@ -127,20 +127,6 @@ const ManageProduct = () => {
 
   const onSubmit = async(data)=>{
         
-    if (!categoryValue) {
-        setError("productCategoryId", {
-          type: "manual",
-          message: "Это поле не может быть пустым"})        
-    } else {
-       clearErrors("productCategoryId");
-    }
-
-    if (Object.keys(errors).length > 0) {
-      return; 
-    }
-    
-    // console.log('errors ===', errors)    
-        
      console.log('form data', data)    
   }
 
@@ -188,7 +174,8 @@ const ManageProduct = () => {
               cats={cats}
               setValue={setValue}
               clearErrors={clearErrors}
-              setError={setError}
+              search={search}
+              setSearch={setSearch}
             />
           }
 

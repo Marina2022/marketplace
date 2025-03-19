@@ -6,10 +6,10 @@ const Input = forwardRef(({getValues, name, onChange, onBlur, required = false, 
   const handleClick = () => {
     if (!editing) setEditing(true)
   }
-  // const handleBlur = () => {
-  //   trigger(name)
-  //   setEditing(false)    
-  // }
+  const handleBlur = (e) => {
+    onBlur(e)
+    setEditing(false)    
+  }
 
   return (
     <div className={s.wrapper} onClick={handleClick}>
@@ -26,9 +26,8 @@ const Input = forwardRef(({getValues, name, onChange, onBlur, required = false, 
       </div>}
 
       {editing && (
-        <div>
-          {/*<input className={s.input} ref={ref} name={name} onChange={onChange} autoFocus onBlur={handleBlur}/>*/}
-          <input className={s.input} ref={ref} name={name} onChange={onChange} autoFocus onBlur={onBlur}/>
+        <div>          
+          <input className={s.input} ref={ref} name={name} onChange={onChange} autoFocus onBlur={handleBlur}/>
         </div>
       )}
     </div>

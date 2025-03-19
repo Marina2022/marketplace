@@ -5,14 +5,14 @@ import CategoryDropdown
 
 import {findProductCategoryName} from "@/utils/lkShop.js";
 
-const EditProductCategory = forwardRef(({getValues, name, cats, setValue, clearErrors}, ref) => {
+const EditProductCategory = forwardRef(({getValues, name, cats, setValue, clearErrors, search, setSearch}, ref) => {
 
   const [editing, setEditing] = useState(false);
   const handleClick = () => {
     setEditing(prev => !prev)
   }
 
-  const [search, setSearch] = useState('')
+  // const [search, setSearch] = useState('')
 
   if (!cats) return null
 
@@ -34,6 +34,8 @@ const EditProductCategory = forwardRef(({getValues, name, cats, setValue, clearE
       </div>
 
       {editing && <CategoryDropdown
+        search={search}
+        setSearch={setSearch}
         cats={cats}
         search={search}
         setValue={setValue}

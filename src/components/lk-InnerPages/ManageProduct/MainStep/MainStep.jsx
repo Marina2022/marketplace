@@ -5,8 +5,9 @@ import EditProductCategory
   from "@/components/lk-InnerPages/ManageProduct/MainStep/EditProductCategory/EditProductCategory.jsx";
 
 
-const MainStep = ({register, fields, errors, getValues, cats, setValue, clearErrors, setError, trigger}) => {
+const MainStep = ({register, fields, errors, getValues, cats, setValue, clearErrors, setError, trigger, search, setSearch}) => {
 
+  
   const notEmptyMessage = "Это поле не может быть пустым"
   const goToNextStep = async () => {
     const isValid = await trigger(["productName", "productCategoryId"]);
@@ -52,10 +53,10 @@ const MainStep = ({register, fields, errors, getValues, cats, setValue, clearErr
           getValues={getValues}
           setValue={setValue}
           clearErrors={clearErrors}
+          name='productCategoryId'
           {...register('productCategoryId',
-            {
-              required: notEmptyMessage,
-            })}
+            {required: notEmptyMessage,}
+          )}
         />
         {
           errors.productCategoryId && <p className={s.errorMessage}>{errors.productCategoryId.message}</p>
