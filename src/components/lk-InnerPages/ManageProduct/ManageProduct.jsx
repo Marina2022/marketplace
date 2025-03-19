@@ -19,12 +19,11 @@ const ManageProduct = () => {
 
   const [loading, setLoading] = useState(true)
 
-  // когда edit - будем просто сетать при загрузке товара
+  // когда edit - будем сетать при загрузке товара
 
+  const [cats, setCats] = useState(null) // todo вернуть потом
 
-  // const [cats, setCats] = useState(null) // todo вернуть потом
-
-  const [cats, setCats] = useState('sdfdsf')  // todo убрать потом
+  //const [cats, setCats] = useState('sdfdsf')  // todo убрать потом
 
   const [step, setStep] = useState('main')
 
@@ -73,30 +72,43 @@ const ManageProduct = () => {
 
   const categoryValue = watch("productCategoryId")
 
+  const [selectedCatName, setSelectedCatName] = useState('')
 
+  const [searchCats, setSearchCats] = useState('')
+  console.log({searchCats})
+
+  const [catsLoading, setCatsLoading] = useState(true)
+  
   // подгрузка данных для создания нового товара   
 
   useEffect(() => {
     if (productIdParam !== 'new') return
     if (!isNew) return
 
-    // грузим категории
-
+    // грузим категории  (будут зависеть от searchCats)
+        
     const getCats = async () => {
       try {
-        setLoading(true)        
-        const response = await axiosInstance(`/categories-tree`)
+         setCatsLoading(true)        
+        
+        let url = `/categories-tree`
+        
+        if (searchCats) url+=`?searchTerms=${searchCats}` 
+                
+        const response = await axiosInstance(url)
         console.log('cats', response)       
         setCats(response.data)
 
       } catch (err) {
         console.log(err)
       } finally {
-        setLoading(false)
+         setCatsLoading(false)
       }
     }
     getCats()
-  }, [productIdParam, profileId]);
+  }, [productIdParam, profileId, searchCats]);
+  //searchCats - добавить в зависимости
+  
 
   useEffect(() => {
     if (!isNew) return
@@ -141,8 +153,6 @@ const ManageProduct = () => {
     }
     
     // console.log('errors ===', errors)    
-    
-    
      console.log('form data', data)    
   }
 
@@ -180,8 +190,7 @@ const ManageProduct = () => {
           {
             step === 'main' &&
             <MainStep
-              trigger={trigger}
-              onSubmit={onSubmit} 
+              trigger={trigger}              
               register={register} 
               append={append} 
               fields={fields} 
@@ -191,6 +200,11 @@ const ManageProduct = () => {
               setValue={setValue}
               clearErrors={clearErrors}
               setError={setError}
+              searchCats={searchCats}
+              setSearchCats={setSearchCats}
+              catsLoading={catsLoading}
+              setSelectedCatName={setSelectedCatName}
+              selectedCatName={selectedCatName}
             />
           }
 

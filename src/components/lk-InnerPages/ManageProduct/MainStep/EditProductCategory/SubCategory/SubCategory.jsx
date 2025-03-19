@@ -3,17 +3,17 @@ import ProductCategory
   from "@/components/lk-InnerPages/ManageProduct/MainStep/EditProductCategory/ProductCategory/ProductCategory.jsx";
 import {useEffect, useState} from "react";
 
-const SubCategory = ({subCat, search, lastOne, selectedCatId, setSelectedCatId}) => {
+const SubCategory = ({subCat, searchCats, lastOne, selectedCatId, setSelectedCatId}) => {
 
   const [subCatOpen, setSubCatOpen] = useState(false)
 
   useEffect(() => {
-    if (search === '') {
+    if (searchCats === '') {
       setSubCatOpen(false)
     } else {
       setSubCatOpen(true)
     }
-  }, [search]);
+  }, [searchCats]);
 
   const handleClick = () => {
     setSubCatOpen(prev => !prev)
@@ -50,7 +50,7 @@ const SubCategory = ({subCat, search, lastOne, selectedCatId, setSelectedCatId})
                 productCategory={productCategory}
                 lastOne={subCat.productCategories.length - 1 === i}
                 selectedCatId={selectedCatId}
-                setSelectedCatId={setSelectedCatId}
+                setSelectedCatId={setSelectedCatId}                
               />)
             }
           </ul>

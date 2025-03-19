@@ -1,0 +1,35 @@
+@import '@/assets/styles/mixins';
+
+.searchBlock {
+  height: 44px;
+  border: #F0F1F1 1px solid;
+  background: white;
+  width: calc(100% - 40px);
+  flex: 1;
+  padding: 12px 20px;
+  margin-inline: 20px;
+  margin-bottom: 20px;
+
+  &:focus::placeholder {
+    color: transparent;
+  }
+
+  &:focus {
+    outline: #D1DCE8 1px solid;
+  }
+  
+  &::placeholder {
+    padding-left: 10px;
+    font-size: 14px;
+  }
+}
+
+.wrapper {
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 30px;
+  top: 15px;
+}
