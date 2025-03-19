@@ -27,8 +27,19 @@
   background: white;
   width: 100%;
   padding: 12px 20px;
+  color: #658092;
+  font-size: 15px;
+  font-weight: 500;
   
   &:focus {
     outline: #D1DCE8 1px solid;
   }
+}
+
+
+
+.inputValue {
+  color: #658092;
+  font-size: 15px;
+  font-weight: 500;
 }

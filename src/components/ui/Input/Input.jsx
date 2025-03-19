@@ -20,9 +20,12 @@ const Input = forwardRef(({getValues, name, onChange, onBlur, required = false, 
   return (
     <div className={s.wrapper} onClick={handleClick}>
       {!editing && <div className={s.notEditing}>
-        {
-          getValues(name)
-        }
+        
+        <span className={s.inputValue}>
+          {
+            getValues(name)
+          }
+        </span>
 
         {
           required && !getValues(name) &&

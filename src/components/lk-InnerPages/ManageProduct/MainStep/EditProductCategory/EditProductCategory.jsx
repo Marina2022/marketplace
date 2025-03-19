@@ -31,9 +31,11 @@ const EditProductCategory = forwardRef(({
 
     <div className={s.wrapper}>
       <div className={editing ? s.catInputBordered : s.catInput} onClick={handleClick}>
-        {
-          getValues(name) && selectedCatName
-        }
+        <span className={s.catName}>
+          {
+            getValues(name) && selectedCatName
+          }
+        </span>
 
         {
           !getValues(name) && <div className={s.empty}>
@@ -57,7 +59,7 @@ const EditProductCategory = forwardRef(({
       />}
 
 
-      {editing && isMobile && <CategoriesModalOnMobile setEditing={setEditing} >
+      {editing && isMobile && <CategoriesModalOnMobile setEditing={setEditing}>
         <CategoryDropdown
           catsLoading={catsLoading}
           searchCats={searchCats}
@@ -65,7 +67,7 @@ const EditProductCategory = forwardRef(({
           cats={cats}
           setValue={setValue}
           getValues={getValues}
-          setEditing={setEditing} 
+          setEditing={setEditing}
           clearErrors={clearErrors}
           setSelectedCatName={setSelectedCatName}
         />
