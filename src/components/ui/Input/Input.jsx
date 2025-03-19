@@ -1,15 +1,15 @@
 import {forwardRef, useState} from "react";
 import s from "./Input.module.scss";
 
-const Input = forwardRef(({getValues, name, onChange, required = false, placeholder = '', trigger}, ref) => {
+const Input = forwardRef(({getValues, name, onChange, onBlur, required = false, placeholder = '', trigger}, ref) => {
   const [editing, setEditing] = useState(false);
   const handleClick = () => {
     if (!editing) setEditing(true)
   }
-  const handleBlur = () => {
-    trigger('productName')
-    setEditing(false)    
-  }
+  // const handleBlur = () => {
+  //   trigger(name)
+  //   setEditing(false)    
+  // }
 
   return (
     <div className={s.wrapper} onClick={handleClick}>
@@ -27,7 +27,8 @@ const Input = forwardRef(({getValues, name, onChange, required = false, placehol
 
       {editing && (
         <div>
-          <input className={s.input} ref={ref} name={name} onChange={onChange} autoFocus onBlur={handleBlur}/>
+          {/*<input className={s.input} ref={ref} name={name} onChange={onChange} autoFocus onBlur={handleBlur}/>*/}
+          <input className={s.input} ref={ref} name={name} onChange={onChange} autoFocus onBlur={onBlur}/>
         </div>
       )}
     </div>

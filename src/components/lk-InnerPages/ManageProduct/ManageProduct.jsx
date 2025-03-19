@@ -22,9 +22,9 @@ const ManageProduct = () => {
   // когда edit - будем просто сетать при загрузке товара
 
 
-  // const [cats, setCats] = useState(null) // todo вернуть потом
+  const [cats, setCats] = useState(null) 
 
-  const [cats, setCats] = useState('sdfdsf')  // todo убрать потом
+  //const [cats, setCats] = useState('sdfdsf')  // todo убрать потом
 
   const [step, setStep] = useState('main')
 
@@ -103,7 +103,6 @@ const ManageProduct = () => {
     if (!profileId) return
 
     // грузим атрибуты
-
     const getAttributes = async () => {
 
       try {
@@ -141,8 +140,7 @@ const ManageProduct = () => {
     }
     
     // console.log('errors ===', errors)    
-    
-    
+        
      console.log('form data', data)    
   }
 
