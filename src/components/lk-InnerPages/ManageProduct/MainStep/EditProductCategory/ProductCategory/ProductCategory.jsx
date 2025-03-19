@@ -2,7 +2,9 @@ import s from './ProductCategory.module.scss';
 
 const ProductCategory = ({productCategory, lastOne, selectedCatId, setSelectedCatId}) => {
 
-  const selectHandler = () => setSelectedCatId(productCategory.productCategoryId)
+  const selectHandler = () => {
+    setSelectedCatId(productCategory.productCategoryId)    
+  }
   
   const idSelected = productCategory.productCategoryId === selectedCatId
   

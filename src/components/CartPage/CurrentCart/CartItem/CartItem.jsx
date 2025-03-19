@@ -12,9 +12,9 @@ import {getFavs, updateFavs} from "@/store/favSlice.js";
 import {getIsAuthenticated} from "@/store/userSlice.js";
 
 const CartItem = ({cartItem}) => {
-   
-  const [currentQuantity, setCurrentQuantity] = useState(cartItem.quantity)
   const [inputValue, setInputValue] = useState(cartItem.quantity)
+  
+  const [currentQuantity, setCurrentQuantity] = useState(cartItem.quantity)  
   const debouncedQuantity = useDebounce(currentQuantity, 400);
 
   useEffect(() => {

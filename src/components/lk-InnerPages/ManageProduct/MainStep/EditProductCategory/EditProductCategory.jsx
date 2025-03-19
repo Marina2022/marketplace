@@ -5,14 +5,14 @@ import CategoryDropdown
 
 import {findProductCategoryName} from "@/utils/lkShop.js";
 
-const EditProductCategory = forwardRef(({getValues, name, cats, setValue, clearErrors, search, setSearch}, ref) => {
+const EditProductCategory = forwardRef(({getValues, selectedCatName, name, cats, setValue, clearErrors, searchCats, setSearchCats, catsLoading, setSelectedCatName}, ref) => {
 
+
+  // const [editing, setEditing] = useState(searchCats ==='' ? false : true );
   const [editing, setEditing] = useState(false);
   const handleClick = () => {
     setEditing(prev => !prev)
   }
-
-  // const [search, setSearch] = useState('')
 
   if (!cats) return null
 
@@ -21,7 +21,8 @@ const EditProductCategory = forwardRef(({getValues, name, cats, setValue, clearE
     <div className={s.wrapper}>
       <div className={editing ? s.catInputBordered : s.catInput} onClick={handleClick}>
         {
-          getValues(name) && findProductCategoryName(cats, getValues(name))
+          // getValues(name) && findProductCategoryName(cats, getValues(name))
+          getValues(name) && selectedCatName
         }
 
         {
@@ -34,13 +35,17 @@ const EditProductCategory = forwardRef(({getValues, name, cats, setValue, clearE
       </div>
 
       {editing && <CategoryDropdown
-        search={search}
-        setSearch={setSearch}
-        cats={cats}
-        search={search}
+
+        catsLoading={catsLoading}
+        searchCats={searchCats}
+        setSearchCats={setSearchCats}
+        cats={cats}        
+
         setValue={setValue}
         getValues={getValues}
-        setEditing={setEditing} clearErrors={clearErrors}/>}
+        setEditing={setEditing} clearErrors={clearErrors}
+        setSelectedCatName={setSelectedCatName}
+      />}
     </div>
   );
 });

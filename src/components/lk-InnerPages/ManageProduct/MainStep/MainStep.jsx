@@ -5,8 +5,24 @@ import EditProductCategory
   from "@/components/lk-InnerPages/ManageProduct/MainStep/EditProductCategory/EditProductCategory.jsx";
 
 
-const MainStep = ({register, fields, errors, getValues, cats, setValue, clearErrors, setError, trigger, search, setSearch}) => {
 
+const MainStep = ({
+                    register, 
+                    fields, 
+                    errors, 
+                    getValues, 
+                    cats, 
+                    setValue, 
+                    clearErrors,
+                    
+                    trigger, 
+                    searchCats, 
+                    setSearchCats, 
+                    catsLoading, 
+                    setSelectedCatName,
+                    selectedCatName
+
+}) => {
   
   const notEmptyMessage = "Это поле не может быть пустым"
   const goToNextStep = async () => {
@@ -24,22 +40,15 @@ const MainStep = ({register, fields, errors, getValues, cats, setValue, clearErr
       <h2 className={s.title}>Главное о товаре</h2>
       <div>
         <Input
-          trigger={trigger}
-          setError={setError}
+          trigger={trigger}          
           getValues={getValues}
           required={true}
           placeholder="Название товара"
           {...register('productName',
             {
-              required: notEmptyMessage,
-              // minLength: {value: 3, message: "Минимум 3 буквы"}
+              required: notEmptyMessage,              
             })}
-          onChange={(e) => {
-            register().onChange(e)
-            trigger("productName")
-          }
-          }
-        />
+         />
 
         {
           errors.productName && <p className={s.errorMessage}>{errors.productName.message}</p>
@@ -49,11 +58,15 @@ const MainStep = ({register, fields, errors, getValues, cats, setValue, clearErr
 
       <div>
         <EditProductCategory
+          catsLoading={catsLoading}
+          searchCats={searchCats}
+          setSearchCats={setSearchCats}
           cats={cats.categories}
           getValues={getValues}
           setValue={setValue}
           clearErrors={clearErrors}
-          name='productCategoryId'
+          setSelectedCatName={setSelectedCatName}
+          selectedCatName={selectedCatName}
           {...register('productCategoryId',
             {required: notEmptyMessage,}
           )}
