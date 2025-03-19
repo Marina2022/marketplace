@@ -42,13 +42,18 @@
 
 
 .verticalLineEraser {
-  width: 1px;
+  width: 3px;
   background: white;
+  //background: red;
   
   position: absolute;  
   left: 13px;
   top: -16px;
   height: 135%;  
+  
+  @include t {
+    left: 12px;
+  }
 }
 
 .horizontalLine {

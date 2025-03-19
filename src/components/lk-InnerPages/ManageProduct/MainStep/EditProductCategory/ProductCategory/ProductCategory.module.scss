@@ -31,7 +31,8 @@
 }
 
 .verticalTickEraser {
-  background: white;    
+  background: white; 
+  
   width: 1px;
   position: absolute;
   top: 14px;
@@ -39,7 +40,7 @@
   height: 14px;  
   z-index: 1;
   
-  @include m {
+  @include t {
     width: 4px;    
     left: 36px;
   }
