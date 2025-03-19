@@ -11,6 +11,7 @@
   align-items: center;
   min-height: 30px;
   position: relative;
+  margin-block: 2px;
 }
 
 .arrowBtn {
@@ -58,17 +59,23 @@
   height: 1px;
   background: #AAB7BF;
   top: 13px;
+  top: 48%;
   width: 8px;
   height: 1px;
 }
 
 .verticalTickEraser {
   background: white;  
-  width: 1px;
+  width: 5px;
   position: absolute;
-  top: 14px;
-  left: 13px;
+  top: 15px;
+  left: 12px;
   height: 14px;
+  
+  
+  @include m {
+    top: 16px;
+  }
 }
 
 .list {

@@ -38,6 +38,11 @@
   left: 37px;
   height: 14px;  
   z-index: 1;
+  
+  @include m {
+    width: 4px;    
+    left: 36px;
+  }
 }
 
 .selectedCategory {
