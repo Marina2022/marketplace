@@ -57,20 +57,23 @@ const MainStep = ({
       </div>
 
       <div>
-        <EditProductCategory
-          catsLoading={catsLoading}
-          searchCats={searchCats}
-          setSearchCats={setSearchCats}
-          cats={cats.categories}
-          getValues={getValues}
-          setValue={setValue}
-          clearErrors={clearErrors}
-          setSelectedCatName={setSelectedCatName}
-          selectedCatName={selectedCatName}
-          {...register('productCategoryId',
-            {required: notEmptyMessage,}
-          )}
-        />
+        {
+          cats && <EditProductCategory
+            catsLoading={catsLoading}
+            searchCats={searchCats}
+            setSearchCats={setSearchCats}
+            cats={cats.categories}
+            getValues={getValues}
+            setValue={setValue}
+            clearErrors={clearErrors}
+            setSelectedCatName={setSelectedCatName}
+            selectedCatName={selectedCatName}
+            {...register('productCategoryId',
+              {required: notEmptyMessage,}
+            )}
+          /> 
+        }
+        
         {
           errors.productCategoryId && <p className={s.errorMessage}>{errors.productCategoryId.message}</p>
         }
