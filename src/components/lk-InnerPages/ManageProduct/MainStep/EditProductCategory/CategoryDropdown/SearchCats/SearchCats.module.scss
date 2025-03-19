@@ -9,6 +9,7 @@
   padding: 12px 20px;
   margin-inline: 20px;
   margin-bottom: 20px;
+  background: #F9FAFB;
 
   &:focus::placeholder {
     color: transparent;
@@ -22,6 +23,11 @@
     padding-left: 10px;
     font-size: 14px;
   }
+  
+  @include m {
+    margin-inline: 16px;
+    width: calc(100% - 32px);
+  }  
 }
 
 .wrapper {
@@ -32,4 +38,8 @@
   position: absolute;
   left: 30px;
   top: 15px;
+  
+  @include m {
+    left: 26px;
+  }
 }

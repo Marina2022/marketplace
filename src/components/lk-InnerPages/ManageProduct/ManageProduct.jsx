@@ -160,8 +160,7 @@ const ManageProduct = () => {
   if (loading) return <Spinner/>
 
   return (
-    <div className="container">
-
+    <div className={s.manageProductWrapper}>
       <div className={s.topPart}>
         <div className={s.linkAndTitleWrapper}>
           <Link className={s.backLink} to={`/lk/shop`}>

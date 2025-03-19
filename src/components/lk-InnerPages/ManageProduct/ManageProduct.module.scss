@@ -1,5 +1,14 @@
 @import '@/assets/styles/mixins';
 
+.manageProductWrapper {
+  width: 100%;
+  
+  @include m {
+    padding-inline: 16px;
+    padding-bottom: 56px;
+  }
+}
+
 .backLink {
   display: flex;
   gap: 8px;
@@ -45,6 +54,10 @@
   width: 780px;
   display: flex;
   flex-direction: column;
+  
+  @include t {
+    width: 100%;
+  }
   
   @include m {
     width: 100%;

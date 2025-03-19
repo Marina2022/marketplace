@@ -26,11 +26,13 @@
   position: relative;
   top: -2px;
   transform: rotate(270deg);
+  flex-shrink: 0;
 }
 
 .arrowBtnOpened {
   position: relative;
-  top: -2px;  
+  top: -2px;
+  flex-shrink: 0;
 }
 
 .outerWrapper {

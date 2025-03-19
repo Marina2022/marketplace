@@ -2,13 +2,24 @@ import s from './EditProductCategory.module.scss';
 import {forwardRef, useState} from "react";
 import CategoryDropdown
   from "@/components/lk-InnerPages/ManageProduct/MainStep/EditProductCategory/CategoryDropdown/CategoryDropdown.jsx";
+import useMobileScreen from "@/hooks/useMobileScreen.js";
+import CategoriesModalOnMobile
+  from "@/components/lk-InnerPages/ManageProduct/MainStep/EditProductCategory/CategoriesModalOnMobile/CategoriesModalOnMobile.jsx";
 
-import {findProductCategoryName} from "@/utils/lkShop.js";
+const EditProductCategory = forwardRef(({
+                                          getValues,
+                                          selectedCatName,
+                                          name,
+                                          cats,
+                                          setValue,
+                                          clearErrors,
+                                          searchCats,
+                                          setSearchCats,
+                                          catsLoading,
+                                          setSelectedCatName
+                                        }, ref) => {
 
-const EditProductCategory = forwardRef(({getValues, selectedCatName, name, cats, setValue, clearErrors, searchCats, setSearchCats, catsLoading, setSelectedCatName}, ref) => {
-
-
-  // const [editing, setEditing] = useState(searchCats ==='' ? false : true );
+  const isMobile = useMobileScreen()
   const [editing, setEditing] = useState(false);
   const handleClick = () => {
     setEditing(prev => !prev)
@@ -21,7 +32,6 @@ const EditProductCategory = forwardRef(({getValues, selectedCatName, name, cats,
     <div className={s.wrapper}>
       <div className={editing ? s.catInputBordered : s.catInput} onClick={handleClick}>
         {
-          // getValues(name) && findProductCategoryName(cats, getValues(name))
           getValues(name) && selectedCatName
         }
 
@@ -34,18 +44,33 @@ const EditProductCategory = forwardRef(({getValues, selectedCatName, name, cats,
 
       </div>
 
-      {editing && <CategoryDropdown
+      {editing && !isMobile && <CategoryDropdown
 
         catsLoading={catsLoading}
         searchCats={searchCats}
         setSearchCats={setSearchCats}
-        cats={cats}        
-
+        cats={cats}
         setValue={setValue}
         getValues={getValues}
         setEditing={setEditing} clearErrors={clearErrors}
         setSelectedCatName={setSelectedCatName}
       />}
+
+
+      {editing && isMobile && <CategoriesModalOnMobile setEditing={setEditing} >
+        <CategoryDropdown
+          catsLoading={catsLoading}
+          searchCats={searchCats}
+          setSearchCats={setSearchCats}
+          cats={cats}
+          setValue={setValue}
+          getValues={getValues}
+          setEditing={setEditing} 
+          clearErrors={clearErrors}
+          setSelectedCatName={setSelectedCatName}
+        />
+      </CategoriesModalOnMobile>
+      }
     </div>
   );
 });

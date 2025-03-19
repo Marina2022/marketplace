@@ -80,7 +80,7 @@ const MainStep = ({
       </div>
       {/*<Button onClick={() => append({value: "Memory"})}>Добавь новое поле Animal</Button>*/}
 
-      <Button type="button" onClick={goToNextStep}>Далее</Button>
+      <Button className={s.continueBtn} type="button" onClick={goToNextStep}>Далее</Button>
 
       {/*<Button>Submit</Button>*/}
 

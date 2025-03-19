@@ -9,19 +9,21 @@
   display: flex;
   gap: 8px;
   align-items: center;
-  height: 30px;
+  min-height: 30px;
   position: relative;
 }
 
 .arrowBtn {
   position: relative;
-  top: -2px;
+  top: -1px;
   transform: rotate(270deg);
+  flex-shrink: 0;
 }
 
 .arrowBtnOpened {
   position: relative;
-  top: -2px;  
+  top: -1px;
+  flex-shrink: 0;
 }
 
 .outerWrapper {

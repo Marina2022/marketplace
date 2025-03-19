@@ -11,6 +11,12 @@
   width: 97.5%;
   margin-bottom: 20px;
   user-select: none;
+  
+  @include m {
+    padding-left: 8px;
+    max-height: calc(100vh - 312px);
+    width: 96.2%;    
+  }
 }
 
 
@@ -19,23 +25,43 @@
   background: white;
   margin-top: 5px;
   box-shadow: 0 4px 16px rgb(0 0 0/.2);
+  
+  @include m {
+    box-shadow: none;
+  }
 }
 
 .dropdownFooter {
-  background: #EAEAEA;
+  background: #EAEAEA;  
   padding: 16px 20px;
   display: flex;
   justify-content: space-between;
+  
+  @include m {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 
 .footerLeft {
+  color: #3E5067;
+  font-size: 14px;
+  line-height: 140%;
   width: 280px;
+  
+  @include m {
+    width: 100%;
+  }
 }
 
 .btn {
   font-size: 12px;
   font-weight: 500;
   white-space: nowrap;
+  
+  @include m {
+    align-self: center ;
+  }
 }
 
 
