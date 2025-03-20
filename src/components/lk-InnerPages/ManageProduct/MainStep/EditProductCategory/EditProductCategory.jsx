@@ -16,7 +16,8 @@ const EditProductCategory = forwardRef(({
                                           searchCats,
                                           setSearchCats,
                                           catsLoading,
-                                          setSelectedCatName
+                                          setSelectedCatName,
+                                          isError
                                         }, ref) => {
 
   const isMobile = useMobileScreen()
@@ -29,8 +30,10 @@ const EditProductCategory = forwardRef(({
 
   return (
 
+    // ${isError ? s.errorInput : ''}
+
     <div className={s.wrapper}>
-      <div className={editing ? s.catInputBordered : s.catInput} onClick={handleClick}>
+      <div className={editing ? s.catInputBordered : isError ? s.catInputError:   s.catInput  } onClick={handleClick}>
         <span className={s.catName}>
           {
             getValues(name) && selectedCatName
@@ -38,7 +41,7 @@ const EditProductCategory = forwardRef(({
         </span>
 
         {
-          !getValues(name) && <div className={s.empty}>
+          !getValues(name) && <div className={s.empty}  >
             <span>Категория в магазине</span>
             <span className={s.requiredStar}>*</span>
           </div>

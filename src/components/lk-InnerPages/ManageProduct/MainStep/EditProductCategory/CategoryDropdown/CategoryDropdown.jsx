@@ -13,12 +13,12 @@ const CategoryDropdown = ({cats, setValue, getValues, setEditing, clearErrors, s
   const [selectedCatId, setSelectedCatId] = useState(getValues("productCategoryId"))
 
   const submitCategory = () => {
-    setValue('productCategoryId', selectedCatId)
-    
+
+    console.log('selectedCatId', selectedCatId)
+    if (!selectedCatId) return
+    setValue('productCategoryId', selectedCatId)        
     setEditing(false)
     clearErrors("productCategoryId");
-
-
     setSelectedCatName(findProductCategoryName(cats, selectedCatId))
   }
   

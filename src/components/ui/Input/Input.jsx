@@ -1,7 +1,10 @@
 import {forwardRef, useState} from "react";
 import s from "./Input.module.scss";
 
-const Input = forwardRef(({getValues, name, onChange, onBlur, required = false, placeholder = '', trigger}, ref) => {
+const Input = forwardRef(({getValues, name, onChange, onBlur, isError, required = false, placeholder = '', trigger}, ref) => {
+
+  console.log({isError})
+  
   const [editing, setEditing] = useState(false);
   const handleClick = () => {
     if (!editing) setEditing(true)
@@ -19,7 +22,7 @@ const Input = forwardRef(({getValues, name, onChange, onBlur, required = false, 
 
   return (
     <div className={s.wrapper} onClick={handleClick}>
-      {!editing && <div className={s.notEditing}>
+      {!editing && <div className={`${s.notEditing} ${isError ? s.errorInput : ''}`}>
         
         <span className={s.inputValue}>
           {
@@ -38,7 +41,6 @@ const Input = forwardRef(({getValues, name, onChange, onBlur, required = false, 
 
         <div>
           <input className={s.input} ref={ref} name={name} onChange={customOnChange} autoFocus onBlur={handleBlur}/>
-
         </div>
       )}
     </div>

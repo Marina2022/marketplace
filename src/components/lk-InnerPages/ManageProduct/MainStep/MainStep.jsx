@@ -40,6 +40,7 @@ const MainStep = ({
       <h2 className={s.title}>Главное о товаре</h2>
       <div>
         <Input
+          isError={errors.productName}
           trigger={trigger}          
           getValues={getValues}
           required={true}
@@ -59,6 +60,7 @@ const MainStep = ({
       <div>
         {
           cats && <EditProductCategory
+            isError={errors.productCategoryId}
             catsLoading={catsLoading}
             searchCats={searchCats}
             setSearchCats={setSearchCats}

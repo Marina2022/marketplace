@@ -35,10 +35,12 @@
   &:focus {
     outline: #D1DCE8 1px solid;
   }
-
 }
 
-
+.errorInput {
+  border: 1px solid #E32636;
+  background: #FFDEE1;
+}
 
 .inputValue {
   color: #658092;
