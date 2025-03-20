@@ -1,6 +1,6 @@
 import s from './CategoryDropdown.module.scss';
 import MainCategory
-  from "@/components/lk-InnerPages/ManageProduct/MainStep/EditProductCategory/EditCategory/MainCategory.jsx";
+  from "@/components/lk-InnerPages/ManageProduct/MainStep/EditProductCategory/MainCategory/MainCategory.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
 import {useState} from "react";
 import SearchCats

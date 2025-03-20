@@ -9,7 +9,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 38px;  // зависит от position в пропсах
+  left: 38px;  
   width: 234px;
   border-radius: 10px;
   min-height: 80px;
@@ -20,9 +20,24 @@
   }
 }
 
+.annotationFromLeft {
+  left: -234px;
+
+  @include t {
+    left: -234px;
+  }
+}
+
 .triangle {
   position: absolute;
   left: -16px;
-  top: 49%;
+  top: 50%;
   transform: translateY(-50%);
+}
+
+.triangleFromLeft {
+  transform: rotateY(180deg) translateY(-50%);
+  left: unset;
+  right: -16px;
+  top: 50%;
 }

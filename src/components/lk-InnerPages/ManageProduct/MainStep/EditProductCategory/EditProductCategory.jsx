@@ -62,8 +62,8 @@ const EditProductCategory = forwardRef(({
       />}
 
 
-      {editing && isMobile && <CategoriesModalOnMobile setEditing={setEditing}>
-        <CategoryDropdown
+      {editing && isMobile && <CategoriesModalOnMobile setEditing={setEditing} trigger={trigger} >
+        <CategoryDropdown          
           catsLoading={catsLoading}
           searchCats={searchCats}
           setSearchCats={setSearchCats}

@@ -1,11 +1,44 @@
 import s from './InputInfoButton.module.scss';
 import Annotation from "@/components/ui/Annotation/Annotation.jsx";
+import useBigScreen from "@/hooks/useBigScreen.js";
+import {useState} from "react";
 
 const InputInfoButton = () => {
+
+  const isBigScreen = useBigScreen()
+
+  const [showAnnotation, setShowAnnotation] = useState(false)
+
+
+  const handleHoverIn = () => {
+    setShowAnnotation(true)
+  }
+  const handleHoverOut = (e) => {
+    e.stopPropagation()
+
+    if (e.relatedTarget && e.currentTarget.contains(e.relatedTarget)) {
+      return; // Если курсор внутри кнопки, не триггерим onMouseLeave
+    }
+
+    setShowAnnotation(false)
+  }
+
+  const handleClick = () => {
+    if (!isBigScreen) return
+    setShowAnnotation(prev => !prev)
+    
+    
+  }
+
   return (
     <div className={s.wrapper}>
 
-      <button type="button">
+      <button
+        className={s.btn}
+        onMouseEnter={handleHoverIn}
+        onMouseOut={handleHoverOut}
+        onClick={handleClick}
+        type="button">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="18" height="18" rx="9" fill="#658092"/>
           <path
@@ -13,11 +46,14 @@ const InputInfoButton = () => {
             fill="white"/>
         </svg>
       </button>
-      
-      <Annotation>
-        <p className={s.firstPar}>Укажите одинаковое значение, чтобы товары можно было объединить в одну карточку.</p>
-        <p>Бренд должен совпадать, а хотя бы одна вариативная характеристика — отличаться.</p>
-      </Annotation>
+
+      {
+        showAnnotation && <Annotation position={!isBigScreen ? "fromLeft" : "fromRight"}>
+          <p className={s.firstPar}>Укажите одинаковое значение, чтобы товары можно было объединить в одну карточку.</p>
+          <p>Бренд должен совпадать, а хотя бы одна вариативная характеристика — отличаться.</p>
+        </Annotation>
+      }
+
 
     </div>
   );

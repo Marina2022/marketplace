@@ -2,14 +2,16 @@
 
 .wrapper {
   width: 100%;
-  position: relative;
+  position: relative;  
 }
 
-.rightPartBlock {
+.rightPartBlock {  
+  z-index: 1;
   position: absolute;
-  right: 20px;
+  right: 18px;
+  right: 18px;
   top: 50%;  
-  transform: translateY(-41%);  
+  transform: translateY(-50%);  
   display: flex;
   gap: 5px;
   align-self: center;
@@ -57,4 +59,30 @@
   color: #658092;
   font-size: 15px;
   font-weight: 500;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.clearBtn {
+  position: absolute;
+  right: 16px;
+  top: 52%;
+  transform: translateY(-50%);
+
+  @include m {
+    top: 55%;
+  }
+}
+
+.clearBtnInfo {
+  position: absolute;
+  right: 40px;
+  top: 52%;
+  transform: translateY(-50%);
+  
+  @include m {
+    top: 55%;
+  }
 }

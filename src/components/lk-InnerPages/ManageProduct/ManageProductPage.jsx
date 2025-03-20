@@ -1,4 +1,4 @@
-import s from './ManageProduct.module.scss';
+import s from './ManageProductPage.module.scss';
 import {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
@@ -13,7 +13,7 @@ import MediaStep from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaS
 import PreviewStep from "@/components/lk-InnerPages/ManageProduct/PreviewStep/PreviewStep.jsx";
 import {useFieldArray, useForm} from "react-hook-form";
 
-const ManageProduct = () => {
+const ManageProductPage = () => {
 
     
   const {productIdParam} = useParams()
@@ -66,9 +66,7 @@ const ManageProduct = () => {
     }
   });
 
-
-  console.log('errors', errors)
-  
+ 
   const {fields, append} = useFieldArray({
     control,
     name: "fields"
@@ -222,4 +220,4 @@ const ManageProduct = () => {
 )
 }
 
-export default ManageProduct;
+export default ManageProductPage;
