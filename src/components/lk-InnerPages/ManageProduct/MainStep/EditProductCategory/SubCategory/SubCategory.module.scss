@@ -63,10 +63,15 @@
   width: 8px;  
   height: 1px;
   background: #AAB7BF;
+  //background: red;
   top: 13px;
   top: 48%;
   width: 8px;
   height: 1px;
+  
+  @include m {
+    top: 47%;
+  }
 }
 
 .verticalTickEraser {
@@ -79,7 +84,9 @@
   
   
   @include m {
+    //background: yellowgreen;
     top: 16px;
+    top: 50%;
   }
 }
 
