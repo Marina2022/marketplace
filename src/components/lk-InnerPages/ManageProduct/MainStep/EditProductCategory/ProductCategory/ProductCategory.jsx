@@ -16,9 +16,9 @@ const ProductCategory = ({productCategory, lastOne, selectedCatId, setSelectedCa
       
       <div className={`${s.productCategoryWrapper} ${idSelected ? s.selectedCategory : ''} `} onClick={selectHandler}  >
         <div className={s.horizontalLine}></div>
-        <span>
-        {productCategory.productCategoryName}
-      </span>
+        <span className={s.categoryName}>
+          {productCategory.productCategoryName}
+        </span>
       </div>
     </div>
   );
