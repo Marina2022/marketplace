@@ -1,0 +1,28 @@
+@import '@/assets/styles/mixins';
+
+.annotation {  
+  position: absolute;
+  background: #253246;
+  padding: 20px;
+  color: white;
+  font-size: 14px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 38px;  // зависит от position в пропсах
+  width: 234px;
+  border-radius: 10px;
+  min-height: 80px;
+  
+  @include t {
+    font-size: 12px;
+    width: 210px;
+  }
+}
+
+.triangle {
+  position: absolute;
+  left: -16px;
+  top: 49%;
+  transform: translateY(-50%);
+}

@@ -17,20 +17,22 @@ const EditProductCategory = forwardRef(({
                                           setSearchCats,
                                           catsLoading,
                                           setSelectedCatName,
+                                          trigger,
                                           isError
                                         }, ref) => {
 
   const isMobile = useMobileScreen()
   const [editing, setEditing] = useState(false);
-  const handleClick = () => {
-    setEditing(prev => !prev)
+  const handleClick = () => {    
+    setEditing(prev => {
+      if (prev === true) trigger('productCategoryId')
+      return !prev
+    })
   }
 
   if (!cats) return null
 
   return (
-
-    // ${isError ? s.errorInput : ''}
 
     <div className={s.wrapper}>
       <div className={editing ? s.catInputBordered : isError ? s.catInputError:   s.catInput  } onClick={handleClick}>
@@ -46,11 +48,9 @@ const EditProductCategory = forwardRef(({
             <span className={s.requiredStar}>*</span>
           </div>
         }
-
       </div>
 
       {editing && !isMobile && <CategoryDropdown
-
         catsLoading={catsLoading}
         searchCats={searchCats}
         setSearchCats={setSearchCats}

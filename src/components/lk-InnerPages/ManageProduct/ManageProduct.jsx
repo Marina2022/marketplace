@@ -15,6 +15,7 @@ import {useFieldArray, useForm} from "react-hook-form";
 
 const ManageProduct = () => {
 
+    
   const {productIdParam} = useParams()
 
   const [loading, setLoading] = useState(true)
@@ -59,10 +60,15 @@ const ManageProduct = () => {
       fields: [
         {value: 'productName'},
         {value: 'productCategoryId'},
+        {value: 'sellerArticle'},
+        {value: 'model'},
       ]
     }
   });
 
+
+  console.log('errors', errors)
+  
   const {fields, append} = useFieldArray({
     control,
     name: "fields"
@@ -70,13 +76,8 @@ const ManageProduct = () => {
 
 
   const categoryValue = watch("productCategoryId")
-
   const [selectedCatName, setSelectedCatName] = useState('')
-
-
-  const [searchCats, setSearchCats] = useState('')
-  console.log({searchCats})
-
+  const [searchCats, setSearchCats] = useState('')  
   const [catsLoading, setCatsLoading] = useState(true)
   
 
@@ -89,14 +90,10 @@ const ManageProduct = () => {
         
     const getCats = async () => {
       try {
-         setCatsLoading(true)        
-        
-        let url = `/categories-tree`
-        
-        if (searchCats) url+=`?searchTerms=${searchCats}` 
-                
-        const response = await axiosInstance(url)
-        console.log('cats', response)       
+         setCatsLoading(true)
+        let url = `/categories-tree`        
+        if (searchCats) url+=`?searchTerms=${searchCats}`                 
+        const response = await axiosInstance(url)               
         setCats(response.data)
 
       } catch (err) {
@@ -107,7 +104,6 @@ const ManageProduct = () => {
     }
     getCats()
   }, [productIdParam, profileId, searchCats]);
-  //searchCats - добавить в зависимости
   
 
   useEffect(() => {
@@ -164,7 +160,7 @@ const ManageProduct = () => {
       <div className={s.topPart}>
         <div className={s.linkAndTitleWrapper}>
           <Link className={s.backLink} to={`/lk/shop`}>
-            <svg className={s.backArrow} fill="current-color" width="6" height="11" viewBox="0 0 6 11" fill="none"
+            <svg className={s.backArrow} width="6" height="11" viewBox="0 0 6 11" fill="none"
                  xmlns="http://www.w3.org/2000/svg">
               <path d="M5 10L1 5.5L5 1" stroke="#658092"/>
             </svg>

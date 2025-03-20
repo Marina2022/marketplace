@@ -34,17 +34,18 @@
   display: flex;
   gap: 10px;
   align-items: center;
-  
-  
+
+
   .number {
     border: none;
     color: white;
     background: #E32636;
   }
+
   .itemText {
     color: #3E5067;
   }
-  
+
 }
 
 .number {
@@ -57,6 +58,8 @@
   border: #658092 1px solid;
   color: #658092;
   font-size: 12px;
+
+  flex-shrink: 0;
 }
 
 

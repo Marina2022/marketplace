@@ -2,6 +2,17 @@
 
 .wrapper {
   width: 100%;
+  position: relative;
+}
+
+.rightPartBlock {
+  position: absolute;
+  right: 20px;
+  top: 50%;  
+  transform: translateY(-41%);  
+  display: flex;
+  gap: 5px;
+  align-self: center;
 }
 
 .notEditing {

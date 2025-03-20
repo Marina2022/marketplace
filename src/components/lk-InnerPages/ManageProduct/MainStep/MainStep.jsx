@@ -26,7 +26,7 @@ const MainStep = ({
   
   const notEmptyMessage = "Это поле не может быть пустым"
   const goToNextStep = async () => {
-    const isValid = await trigger(["productName", "productCategoryId"]);
+    const isValid = await trigger(["productName", "productCategoryId", "sellerArticle", "model"]);
 
     if (!isValid) {
       console.log('ошибки есть, дальше нельзя')
@@ -41,25 +41,26 @@ const MainStep = ({
       <div>
         <Input
           isError={errors.productName}
-          trigger={trigger}          
+          trigger={trigger}
           getValues={getValues}
           required={true}
           placeholder="Название товара"
+          setValue={setValue}
           {...register('productName',
             {
-              required: notEmptyMessage,              
+              required: notEmptyMessage,
             })}
-         />
+        />
 
         {
           errors.productName && <p className={s.errorMessage}>{errors.productName.message}</p>
         }
-
       </div>
 
       <div>
         {
           cats && <EditProductCategory
+            trigger={trigger}
             isError={errors.productCategoryId}
             catsLoading={catsLoading}
             searchCats={searchCats}
@@ -73,18 +74,61 @@ const MainStep = ({
             {...register('productCategoryId',
               {required: notEmptyMessage,}
             )}
-          /> 
+          />
         }
-        
+
         {
           errors.productCategoryId && <p className={s.errorMessage}>{errors.productCategoryId.message}</p>
         }
       </div>
+
+
+      <div>
+        <Input
+          isError={errors.sellerArticle}
+          trigger={trigger}
+          getValues={getValues}
+          required={true}          
+          placeholder="Артикул"
+          setValue={setValue}
+          {...register('sellerArticle',
+            {
+              required: notEmptyMessage,
+            })}
+        />
+
+        {
+          errors.sellerArticle && <p className={s.errorMessage}>{errors.sellerArticle.message}</p>
+        }
+      </div>   
+      
+      <div>
+        <Input
+          infoButton={true}
+          isError={errors.model}
+          trigger={trigger}
+          getValues={getValues}
+          required={true}
+          setValue={setValue}
+          placeholder="Модель товара"
+          {...register('model',
+            {
+              required: notEmptyMessage,
+            })}
+        />
+
+        {
+          errors.model && <p className={s.errorMessage}>{errors.model.message}</p>
+        }
+      </div>
+
+
       {/*<Button onClick={() => append({value: "Memory"})}>Добавь новое поле Animal</Button>*/}
 
       <Button className={s.continueBtn} type="button" onClick={goToNextStep}>Далее</Button>
 
-      {/*<Button>Submit</Button>*/}
+      <p>**************************</p>
+      <Button>Submit</Button>
 
     </div>
   );
