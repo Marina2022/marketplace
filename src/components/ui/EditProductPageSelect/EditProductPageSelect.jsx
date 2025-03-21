@@ -5,29 +5,6 @@ import EditProductCategory
 import {notEmptyMessage} from "@/consts/notEmptyMessage.js";
 
 
-const demoCountries = {
-  isRequired: true,
-  label: "Страна производства",
-  name: "originCountry",
-  options: [
-    {valueId: 'd480260f-8069-415f-88c3-629636d2a03f', value: 'Китай'},
-    {valueId: 'd480260f-8069-415f-88c1-629636d2a03f', value: 'Япония'},
-    {valueId: 'd480260f-8069-415f-88c2-629636d2a03f', value: 'Зимбабве'},
-    {valueId: 'd480260f-8069-415f-88c4-629636d2a03f', value: 'Россия'},
-    {valueId: 'd480260f-8069-415f-88c5-629636d2a03f', value: 'Франция'},
-    {valueId: 'd480260f-806w-415f-88c6-629636d2a03f', value: 'Парагвай'},
-    {valueId: 'd480260f-8069-415f-88c6-629636d2a01f', value: 'США'},
-    {valueId: 'd480260f-8069-415f-88c6-629636d2a02f', value: 'Уругвай'},
-    {valueId: 'd480260f-8069-415f-88c6-629636d2a03f', value: 'Германия'},
-    {valueId: 'd480260f-8069-415f-88c6-629636d2a04f', value: 'Италия'},
-    {valueId: 'd480260f-8069-415f-88c6-629636d2a05f', value: 'Австралия'},
-    {valueId: 'd480260f-8069-415f-88c6-629636d2a06f', value: 'Занзибар'},
-    {valueId: 'd480260f-8069-415f-88c6-629636d2a07f', value: 'Тайланд'},
-    {valueId: 'd480260f-8069-415f-88c6-629636d2a08f', value: 'Индия'},
-  ],
-  type:
-    "select"
-}
 
 // eslint-disable-next-line react/display-name
 const EditProductPageSelect = forwardRef(({
@@ -60,8 +37,7 @@ const EditProductPageSelect = forwardRef(({
   const handleBlur = () => {
     trigger(name)
     setEditing(false)
-  }
-  
+  }  
   
   const handleOptionClick = (option) => {
     setValue(name, option)
@@ -111,8 +87,7 @@ const EditProductPageSelect = forwardRef(({
 
             >
               {
-                // data.options.map(option => {
-                demoCountries.options.map(option => {
+                data.options.map(option => {
                   return (
                     <li key={option.valueId}
                         onClick={()=>handleOptionClick(option)}

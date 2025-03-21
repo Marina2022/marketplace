@@ -61,6 +61,7 @@ const ManageProductPage = () => {
         {value: 'productCategoryId'},
         {value: 'sellerArticle'},
         {value: 'model'},
+        {value: 'productDescription'},
       ]
     }
   });
@@ -79,8 +80,15 @@ const ManageProductPage = () => {
     attributes.standartFields.forEach(attributeField=>{
       if (!fields.find(field => {                
         return field.value === attributeField.name
+      })) {       
+        append({value: attributeField.name})
+      }
+    })
+
+    attributes.categorySpecificFields.commonFields.forEach(attributeField=>{
+      if (!fields.find(field => {
+        return field.value === attributeField.name
       })) {
-       
         append({value: attributeField.name})
       }
     })
@@ -200,7 +208,6 @@ const ManageProductPage = () => {
       <div className={s.stepsContainer}>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-
           {
             step === 'main' &&
             <MainStep

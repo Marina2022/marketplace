@@ -1,40 +1,86 @@
 .wrapper {
-  border: 1px solid black;
-  padding: 24px;
-  margin-top: 40px;
+  border: 1px solid #F0F1F1;
+  margin-top: 18px;
+  position: relative;
 }
+
 .buttonsWrapper {
-  display: flex;
-  gap: 10px;
+  display: flex;  
+  background: #ECECEC;
+  height: 50px;
+  border-bottom: 1px solid #F0F1F1;
 }
 
 .editor {
 
   ul, ul > li {
-    list-style: initial; 
+    list-style: initial;
+    
   }
 
-  ol {
+  ol, ul {
     list-style-type: decimal;
+    padding-left: 18px;
   }
 
  ol > li {
    list-style: initial;
    list-style-type: decimal;
  }
-  
-  
-
-  
-  border: gray 1px solid;
-  min-height: 200px;
-  padding: 8px;
+    
+  height: 180px;
+  padding: 10px 20px;
   background: white;
-  width: 250px;
+  width: 100%;
+  overflow: auto;
+  line-height: 140%;
+  font-size: 14px;
+  color: #658092;
   
   * {
     &:focus {
       outline: none;
     }
   }
+}
+
+.formatBtn{
+  width: 50px;
+  height: 50px;
+  border-right: 1px solid #D5D9DA;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  transition: box-shadow 0.2s,  background-color .2s;
+
+  @media (hover: hover) {
+    &:hover {
+      background: #D5D9DA;
+      transition: 0.2s ease-out background-color;
+    }
+  }
+
+  &:active {
+    box-shadow: inset 0 3px 6px rgb(0 0 0 / 0.1);   
+  }
+}
+
+.active {
+  box-shadow: inset 0 3px 6px rgb(0 0 0 / 0.1);
+  background: #D5D9DA;
+}
+
+.counter {
+  position: absolute;
+  bottom: 6px;
+  right: 20px;
+  font-size: 14px;
+  color: #658092;
+}
+
+.editorWrapper {
+  padding-top: 6px;
+  padding-right: 6px;
+  padding-bottom: 22px;    
+  background-color: white;
 }
