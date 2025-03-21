@@ -77,10 +77,7 @@ const ManageProductPage = () => {
     if (!attributes) return
     
     attributes.standartFields.forEach(attributeField=>{
-      if (!fields.find(field => {
-        
-        console.log('append?', ' field.value = ', field.value, ' attributeField.name = ', attributeField.name )
-        console.log('Нашел? ', field.value === attributeField.name)
+      if (!fields.find(field => {                
         return field.value === attributeField.name
       })) {
        
@@ -89,7 +86,6 @@ const ManageProductPage = () => {
     })
     
   }, [attributes]);
-
 
   console.log('fields', fields)
   console.log('errors', errors)

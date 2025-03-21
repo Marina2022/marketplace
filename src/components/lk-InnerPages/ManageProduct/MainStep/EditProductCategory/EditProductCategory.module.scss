@@ -4,6 +4,7 @@
 .empty {
   color: #658092;
   font-size: 14px;
+  user-select: none;
 }
 
 .requiredStar {
@@ -33,6 +34,7 @@
   border: #F0F1F1 1px solid;
   background: white;
   padding: 12px 20px;
+  user-select: none;
 }
 
 .catName {
@@ -45,3 +47,4 @@
   border: 1px solid #E32636;
   background: #FFDEE1;
 }
+

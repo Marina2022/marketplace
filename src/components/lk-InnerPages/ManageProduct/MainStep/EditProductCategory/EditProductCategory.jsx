@@ -30,11 +30,20 @@ const EditProductCategory = forwardRef(({
     })
   }
 
+  const handleBlur = (e) => {
+
+    if (e.relatedTarget && e.currentTarget.contains(e.relatedTarget)) {
+      return; 
+    }
+    trigger(name)
+    setEditing(false)
+  }
+  
   if (!cats) return null
 
   return (
 
-    <div className={s.wrapper}>
+    <div className={s.wrapper} tabIndex={0} onBlur={handleBlur} >
       <div className={editing ? s.catInputBordered : isError ? s.catInputError:   s.catInput  } onClick={handleClick}>
         <span className={s.catName}>
           {

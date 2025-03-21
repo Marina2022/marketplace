@@ -1,0 +1,1 @@
+export const notEmptyMessage = "Это поле не может быть пустым"

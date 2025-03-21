@@ -6,9 +6,7 @@ import {useState} from "react";
 const InputInfoButton = () => {
 
   const isBigScreen = useBigScreen()
-
   const [showAnnotation, setShowAnnotation] = useState(false)
-
 
   const handleHoverIn = () => {
     setShowAnnotation(true)
@@ -25,9 +23,7 @@ const InputInfoButton = () => {
 
   const handleClick = () => {
     if (!isBigScreen) return
-    setShowAnnotation(prev => !prev)
-    
-    
+    setShowAnnotation(prev => !prev)    
   }
 
   return (

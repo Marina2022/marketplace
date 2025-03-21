@@ -3,31 +3,35 @@ import Button from "@/components/ui/Button/Button.jsx";
 import Input from "@/components/ui/Input/Input.jsx";
 import EditProductCategory
   from "@/components/lk-InnerPages/ManageProduct/MainStep/EditProductCategory/EditProductCategory.jsx";
-
+import EditProductPageSelect from "@/components/ui/EditProductPageSelect/EditProductPageSelect.jsx";
+import {notEmptyMessage} from "@/consts/notEmptyMessage.js";
 
 
 const MainStep = ({
-                    register, 
-                    fields, 
-                    errors, 
-                    getValues, 
-                    cats, 
-                    setValue, 
+                    register,
+                    fields,
+                    errors,
+                    getValues,
+                    cats,
+                    setValue,
                     clearErrors,
-                    
-                    trigger, 
-                    searchCats, 
-                    setSearchCats, 
-                    catsLoading, 
+
+                    trigger,
+                    searchCats,
+                    setSearchCats,
+                    catsLoading,
                     setSelectedCatName,
                     selectedCatName,
                     attributes
 
-}) => {
+                  }) => {
   
-  const notEmptyMessage = "Это поле не может быть пустым"
   const goToNextStep = async () => {
-    const isValid = await trigger(["productName", "productCategoryId", "sellerArticle", "model"]);
+
+    const fieldNames = fields.map(fieldItem => fieldItem.value)
+
+    // const isValid = await trigger(["productName", "productCategoryId", "sellerArticle", "model"]);
+    const isValid = await trigger(fieldNames);
 
     if (!isValid) {
       console.log('ошибки есть, дальше нельзя')
@@ -88,7 +92,7 @@ const MainStep = ({
           isError={errors.sellerArticle}
           trigger={trigger}
           getValues={getValues}
-          required={true}          
+          required={true}
           placeholder="Артикул"
           setValue={setValue}
           {...register('sellerArticle',
@@ -100,8 +104,8 @@ const MainStep = ({
         {
           errors.sellerArticle && <p className={s.errorMessage}>{errors.sellerArticle.message}</p>
         }
-      </div>   
-      
+      </div>
+
       <div>
         <Input
           infoButton={true}
@@ -123,27 +127,35 @@ const MainStep = ({
       </div>
 
       {
-        attributes.standartFields.map(standardField=>{
-          
-          return  (
+        attributes.standartFields.length > 0 && attributes.standartFields.map(standardField => {
 
-            <input 
-              key={standardField.name}              
-              {...register(standardField.name,
-                {
-                  required: notEmptyMessage,
-                })}
-              
-              // placeholder={standardField.label}
-              placeholder={standardField.name}
-            
-            />
+          console.log(' errors[name]', errors[standardField.name])
+
+          return (
+            standardField.type === 'select' &&
+            (
+              <div key={standardField.name}>
+                <EditProductPageSelect
+
+                  {...register(standardField.name,
+                    standardField.isRequired && {   // потестить бы todo
+                      required: notEmptyMessage,
+                    })}
+                  data={standardField}
+                  getValues={getValues}
+                  setValue={setValue}
+                  clearErrors={clearErrors}
+                  trigger={trigger}
+                  isError={errors[standardField.name]}
+                  placeholder={standardField.label}
+                  required={standardField.isRequired}
+                />
+
+              </div>
+            )
           )
         })
       }
-
-
-      {/*<Button onClick={() => append({value: "Memory"})}>Добавь новое поле Animal</Button>*/}
 
       <Button className={s.continueBtn} type="button" onClick={goToNextStep}>Далее</Button>
 

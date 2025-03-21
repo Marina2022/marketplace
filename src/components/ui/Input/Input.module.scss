@@ -22,12 +22,12 @@
   border: #F0F1F1 1px solid;
   background: white;
   padding: 12px 20px;
+  user-select: none;
 }
 
 .requiredStar {
   color: red;
-  margin-left: 2px;
-  
+  margin-left: 2px;  
 }
 
 .empty {  

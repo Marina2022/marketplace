@@ -7,7 +7,7 @@
   color: #131D2A;
   font-size: 14px;
   max-height: 472px;
-  overflow-y: scroll;
+  overflow-y: auto;
   width: 97.5%;
   margin-bottom: 20px;
   user-select: none;
@@ -21,6 +21,7 @@
 
 
 .catsDropdown {
+  border: 1px solid #F0F1F1;
   padding-top: 10px;
   background: white;
   margin-top: 5px;
