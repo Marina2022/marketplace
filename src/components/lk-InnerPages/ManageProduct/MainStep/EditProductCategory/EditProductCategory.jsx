@@ -44,7 +44,7 @@ const EditProductCategory = forwardRef(({
   return (
 
     <div className={s.wrapper} tabIndex={0} onBlur={handleBlur} >
-      <div className={editing ? s.catInputBordered : isError ? s.catInputError:   s.catInput  } onClick={handleClick}>
+      <div className={editing ? s.catInputBordered : isError ? s.catInputError : s.catInput} onClick={handleClick}>
         <span className={s.catName}>
           {
             getValues(name) && selectedCatName

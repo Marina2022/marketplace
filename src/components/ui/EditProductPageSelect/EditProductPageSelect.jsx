@@ -67,12 +67,12 @@ const EditProductPageSelect = forwardRef(({
     setValue(name, option)
     setEditing(false)
   }
-
-   
+  
   return (
     <div>
       <div onBlur={handleBlur} tabIndex={0}>
-        <div onClick={handleClick} className={`${s.notEditing} ${isError ? s.errorField : ''}`}>
+                
+        <div onClick={handleClick} className={editing ? s.selectFocused : isError ? s.errorField : s.notEditing}>
 
           <svg className={editing ? s.dropdownIconOpened : s.dropdownIcon} width="18" height="9" viewBox="0 0 18 9"
                fill="none"
