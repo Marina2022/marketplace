@@ -21,6 +21,7 @@
 }
 
 .dropdownWrapper {
+  margin-top: 5px;
   border: 1px solid #F0F1F1;
   background: white;
   width: 100%;
@@ -28,8 +29,6 @@
   padding-bottom: 10px;
   box-shadow: 0 4px 16px rgb(0 0 0/.2);
 }
-
-
 
 .dropdownIcon {
   position: absolute;
@@ -56,29 +55,31 @@
   background: #FFDEE1;
 }
 
-
 .selectOption {
   padding-left: 20px;
-  padding-block: 10px;
+  padding-block: 12px;
   
   &:hover {
     background: #E6E9F0;
   }
 }
 
-.dropdownInner {
-  //margin-top: 5px; 
+.dropdownInner {   
   color: #131D2A;
   font-size: 14px;
   max-height: 472px;
-  overflow-y: auto;
-  
-  width: 97.5%;
-  
+  overflow-y: auto;  
+  width: 97.5%;  
   user-select: none;
 
   @include m {
     padding-left: 8px;
     width: 96.2%;
   }
+}
+
+.inputValue {
+  color: #658092;
+  font-size: 14px;
+  font-weight: 500;
 }

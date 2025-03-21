@@ -45,7 +45,7 @@ const EditProductPageSelect = forwardRef(({
 
   console.log('data', data.options[0].value)
 
-  const [editing, setEditing] = useState(false);
+  const [editing, setEditing] = useState(true);
   const handleClick = () => {
     setEditing(prev => {
         if (prev === true) {
@@ -63,7 +63,15 @@ const EditProductPageSelect = forwardRef(({
     trigger(name)
     setEditing(false)
   }
+  
+  
+  const handleOptionClick = (option) => {
+    setValue(name, option)
+    setEditing(false)
+  }
 
+  
+  
   return (
     <div>
       <div onBlur={handleBlur} tabIndex={0}>
@@ -79,7 +87,7 @@ const EditProductPageSelect = forwardRef(({
 
           <span className={s.inputValue}>
           {
-            getValues(name)
+            getValues(name).value
           }
         </span>
 
@@ -96,21 +104,24 @@ const EditProductPageSelect = forwardRef(({
 
         {editing && (
           <div className={s.dropdownWrapper}>
-            <ul className={`${s.dropdownInner} lk-scroll`} 
+            <ul className={`${s.dropdownInner} lk-scroll`}
 
                 ref={(node) => {
                   if (node) {
                     console.log(node.scrollHeight)
                     if (node.scrollHeight < 472) node.style.width = '100%'
-                  } 
+                  }
                 }}
-            
+
             >
               {
                 // data.options.map(option => {
                 demoCountries.options.map(option => {
                   return (
-                    <li  key={option.valueId} className={s.selectOption}>
+                    <li key={option.valueId}
+                        onClick={()=>handleOptionClick(option)}
+                        className={s.selectOption}
+                    >
                       {option.value}
                     </li>
                   )
