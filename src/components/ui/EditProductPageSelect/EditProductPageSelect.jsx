@@ -43,9 +43,7 @@ const EditProductPageSelect = forwardRef(({
 
                                           }, ref) => {
 
-  console.log('data', data.options[0].value)
-
-  const [editing, setEditing] = useState(true);
+    const [editing, setEditing] = useState(false);
   const handleClick = () => {
     setEditing(prev => {
         if (prev === true) {
@@ -70,8 +68,7 @@ const EditProductPageSelect = forwardRef(({
     setEditing(false)
   }
 
-  
-  
+   
   return (
     <div>
       <div onBlur={handleBlur} tabIndex={0}>
@@ -87,7 +84,7 @@ const EditProductPageSelect = forwardRef(({
 
           <span className={s.inputValue}>
           {
-            getValues(name).value
+            getValues(name) && getValues(name).value
           }
         </span>
 
@@ -107,8 +104,7 @@ const EditProductPageSelect = forwardRef(({
             <ul className={`${s.dropdownInner} lk-scroll`}
 
                 ref={(node) => {
-                  if (node) {
-                    console.log(node.scrollHeight)
+                  if (node) {                    
                     if (node.scrollHeight < 472) node.style.width = '100%'
                   }
                 }}

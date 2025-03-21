@@ -129,8 +129,6 @@ const MainStep = ({
       {
         attributes.standartFields.length > 0 && attributes.standartFields.map(standardField => {
 
-          console.log(' errors[name]', errors[standardField.name])
-
           return (
             standardField.type === 'select' &&
             (
