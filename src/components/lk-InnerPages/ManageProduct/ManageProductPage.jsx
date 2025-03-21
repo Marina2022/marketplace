@@ -22,16 +22,15 @@ const ManageProductPage = () => {
 
   // когда edit - будем сетать при загрузке товара
 
-  const [cats, setCats] = useState(null) // todo вернуть потом
-
-  //const [cats, setCats] = useState('sdfdsf')  // todo убрать потом
-
+  const [cats, setCats] = useState(null)   
   const [step, setStep] = useState('main')
+  const [attributes, setAttibutes] = useState(null)
+  
 
   const profileId = useSelector(getActiveProfileId)
 
   const isNew = productIdParam === 'new'
-
+  
   const isMobile = useMobileScreen()
 
   let navItems = []
@@ -66,11 +65,34 @@ const ManageProductPage = () => {
     }
   });
 
- 
+
   const {fields, append} = useFieldArray({
     control,
     name: "fields"
   });
+  
+  
+  useEffect(() => {
+
+    if (!attributes) return
+    
+    attributes.standartFields.forEach(attributeField=>{
+      if (!fields.find(field => {
+        
+        console.log('append?', ' field.value = ', field.value, ' attributeField.name = ', attributeField.name )
+        console.log('Нашел? ', field.value === attributeField.name)
+        return field.value === attributeField.name
+      })) {
+       
+        append({value: attributeField.name})
+      }
+    })
+    
+  }, [attributes]);
+
+
+  console.log('fields', fields)
+  console.log('errors', errors)
 
 
   const categoryValue = watch("productCategoryId")
@@ -116,9 +138,12 @@ const ManageProductPage = () => {
         
         let categoryURL = `/seller/${profileId}/attributes`
         if (categoryValue) categoryURL+=  `?categoryId=${categoryValue}`       
-        const response = await axiosInstance(categoryURL)       
+        const response = await axiosInstance(categoryURL)
+        
+        
                 
         console.log('attributes:', response.data)
+        setAttibutes(response.data)
 
       } catch (err) {
         console.log(err)
@@ -191,14 +216,13 @@ const ManageProductPage = () => {
               getValues={getValues} 
               cats={cats}
               setValue={setValue}
-              clearErrors={clearErrors}
-              
+              clearErrors={clearErrors}              
               searchCats={searchCats}
               setSearchCats={setSearchCats}
               catsLoading={catsLoading}
               setSelectedCatName={setSelectedCatName}
               selectedCatName={selectedCatName}
-
+              attributes={attributes}
             />
           }
 

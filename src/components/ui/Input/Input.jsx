@@ -12,7 +12,6 @@ const Input = forwardRef(({
                             trigger,
                             infoButton = false,
                             setValue
-
                           }, ref) => {
 
   const [editing, setEditing] = useState(false);
@@ -20,17 +19,14 @@ const Input = forwardRef(({
   const handleClick = () => {
     if (!editing) setEditing(true)
   }
-
   const handleBlur = () => {
     trigger(name)
     setEditing(false)
   }
-
   const customOnChange = (e) => {
     onChange(e)
     trigger(name)
   }
-
   const handleClear = () => {
     setValue(name, '')    
   }

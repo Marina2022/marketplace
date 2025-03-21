@@ -20,7 +20,8 @@ const MainStep = ({
                     setSearchCats, 
                     catsLoading, 
                     setSelectedCatName,
-                    selectedCatName
+                    selectedCatName,
+                    attributes
 
 }) => {
   
@@ -82,7 +83,6 @@ const MainStep = ({
         }
       </div>
 
-
       <div>
         <Input
           isError={errors.sellerArticle}
@@ -121,6 +121,26 @@ const MainStep = ({
           errors.model && <p className={s.errorMessage}>{errors.model.message}</p>
         }
       </div>
+
+      {
+        attributes.standartFields.map(standardField=>{
+          
+          return  (
+
+            <input 
+              key={standardField.name}              
+              {...register(standardField.name,
+                {
+                  required: notEmptyMessage,
+                })}
+              
+              // placeholder={standardField.label}
+              placeholder={standardField.name}
+            
+            />
+          )
+        })
+      }
 
 
       {/*<Button onClick={() => append({value: "Memory"})}>Добавь новое поле Animal</Button>*/}
