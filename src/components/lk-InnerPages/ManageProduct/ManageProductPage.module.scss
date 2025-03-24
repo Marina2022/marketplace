@@ -95,5 +95,14 @@
   
   @include t {    
     margin-top: 0;
+    width: 100%;
   }
+}
+
+
+.submitBtn {
+  margin-top: 50px;
+  margin-bottom: 40px;
+  background: darkgreen;
+  white-space: nowrap;
 }

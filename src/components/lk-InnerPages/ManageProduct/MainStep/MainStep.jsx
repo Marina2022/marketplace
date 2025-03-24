@@ -11,6 +11,7 @@ import PriceInputs from "@/components/lk-InnerPages/ManageProduct/MainStep/Price
 import DimensionsInputs from "@/components/lk-InnerPages/ManageProduct/MainStep/DimensionsInputs/DimensionsInputs.jsx";
 import {useEffect} from "react";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
+import DocsFileInputs from "@/components/lk-InnerPages/ManageProduct/MainStep/DocsFileInputs/DocsFileInputs.jsx";
 
 
 const MainStep = ({
@@ -27,7 +28,13 @@ const MainStep = ({
                     catsLoading,
                     setSelectedCatName,
                     selectedCatName,
-                    attributes
+                    attributes,
+
+                    instructionFile, setInstructionFile,
+                    documentationFile, setDocumentationFile,
+                    certificateFile, setCertificateFile,
+
+                    handleCancel
 
                   }) => {
 
@@ -71,12 +78,12 @@ const MainStep = ({
               required: notEmptyMessage,
             })}
         />
-      
+
         {
           errors.productName && <p className={s.errorMessage}>{errors.productName.message}</p>
         }
       </div>
-      
+
       <div>
         {
           cats && <EditProductCategory
@@ -96,12 +103,12 @@ const MainStep = ({
             )}
           />
         }
-      
+
         {
           errors.productCategoryId && <p className={s.errorMessage}>{errors.productCategoryId.message}</p>
         }
       </div>
-      
+
       <div>
         <Input
           isError={errors.sellerArticle}
@@ -115,15 +122,15 @@ const MainStep = ({
               required: notEmptyMessage,
             })}
         />
-      
+
         {
           errors.sellerArticle && <p className={s.errorMessage}>{errors.sellerArticle.message}</p>
         }
       </div>
-      
-      
+
+
       {/*/!*common fields*!/*/}
-      
+
       {
         attributes.categorySpecificFields.commonFields.length > 0 && attributes.categorySpecificFields.commonFields.map(commonField => {
           return (
@@ -131,7 +138,7 @@ const MainStep = ({
             (
               <div key={commonField.name}>
                 <EditProductPageSelect
-      
+
                   {...register(commonField.name,
                     commonField.isRequired && {   // потестить бы todo
                       required: notEmptyMessage,
@@ -150,7 +157,7 @@ const MainStep = ({
           )
         })
       }
-      
+
       <div>
         <Input
           infoButton={true}
@@ -165,12 +172,12 @@ const MainStep = ({
               required: notEmptyMessage,
             })}
         />
-      
+
         {
           errors.model && <p className={s.errorMessage}>{errors.model.message}</p>
         }
       </div>
-      
+
       {
         attributes.standartFields.length > 0 && attributes.standartFields.map(standardField => {
           return (
@@ -178,7 +185,7 @@ const MainStep = ({
             (
               <div key={standardField.name}>
                 <EditProductPageSelect
-      
+
                   {...register(standardField.name,
                     standardField.isRequired && {   // потестить бы todo
                       required: notEmptyMessage,
@@ -197,27 +204,35 @@ const MainStep = ({
           )
         })
       }
-      
-      
+
+
       <ProductDescription
         productDescription
         name='productDescription'
         setValue={setValue}
         getValues={getValues}
       />
-      
+
       <PriceInputs register={register} errors={errors} trigger={trigger} getValues={getValues} setValue={setValue}/>
-      
+
       <DimensionsInputs register={register} errors={errors} trigger={trigger} getValues={getValues}
                         setValue={setValue}/>
+
+      <DocsFileInputs
+        instructionFile={instructionFile}
+        setInstructionFile={setInstructionFile}
+        documentationFile={documentationFile}
+        setDocumentationFile={setDocumentationFile}
+        certificateFile={certificateFile}
+        setCertificateFile={setCertificateFile}
+      />
+
       
-      
-      
-      
-      <Button className={s.continueBtn} type="button" onClick={goToNextStep}>Далее</Button>
-      
-      {/*<p>**************************</p>*/}
-      <Button>Submit</Button>
+      <div className={s.buttons}>
+        <Button className={s.backButton} type="button" onClick={handleCancel}>Отменить</Button>  
+        <Button className={s.continueBtn} type="button" onClick={goToNextStep}>Далее</Button>  
+      </div>
+           
 
     </div>
   );

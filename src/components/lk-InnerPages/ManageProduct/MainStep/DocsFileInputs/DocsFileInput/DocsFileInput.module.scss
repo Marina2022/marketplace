@@ -1,0 +1,29 @@
+@import '@/assets/styles/mixins';
+
+
+.docWrapper {
+  color: #658092;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.realFileInput {
+  display: none;
+}
+
+.fileExists {
+  color: #3E5067;
+}
+
+.deleteBtn {
+  margin-left: 20px;
+  position: relative;
+  top: 2px;
+}
+
+.outerWrapper {
+  display: flex;
+  align-items: center;
+}

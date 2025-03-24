@@ -1,0 +1,19 @@
+@import '@/assets/styles/mixins';
+
+.title {
+  margin-top: 15px;
+  color: #3E5067;
+  font-weight: 600;
+  font-size: 19px;
+  margin-bottom: 18px;
+
+  @include xs {
+    font-size: 18px;
+  }
+}
+
+.filesList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

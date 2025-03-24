@@ -1,6 +1,6 @@
 import s from './ManageProductPage.module.scss';
 import {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import {useSelector} from "react-redux";
 import {getActiveProfileId} from "@/store/userSlice.js";
@@ -12,6 +12,7 @@ import CharacteristicsStep from "@/components/lk-InnerPages/ManageProduct/Charac
 import MediaStep from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaStep.jsx";
 import PreviewStep from "@/components/lk-InnerPages/ManageProduct/PreviewStep/PreviewStep.jsx";
 import {useFieldArray, useForm} from "react-hook-form";
+import Button from "@/components/ui/Button/Button.jsx";
 
 const ManageProductPage = () => {
 
@@ -31,8 +32,6 @@ const ManageProductPage = () => {
 
   const isNew = productIdParam === 'new'
 
-  const isMobile = useMobileScreen()
-
   let navItems = []
 
   if (cats) navItems = [
@@ -43,6 +42,10 @@ const ManageProductPage = () => {
   ]
 
   if (!cats) navItems = ['Главное о товаре', 'Медиа']
+
+  const [instructionFile, setInstructionFile] = useState(null)
+  const [documentationFile, setDocumentationFile] = useState(null)
+  const [certificateFile, setCertificateFile] = useState(null)
 
 
   const {
@@ -68,10 +71,18 @@ const ManageProductPage = () => {
         {value: 'weight'},
         {value: 'height'},
         {value: 'width'},
-        {value: 'length'},
+        {value: 'length'}
+
       ]
     }
   });
+
+
+  const fileList = getValues('doc_instruction')
+  if (fileList) {
+    console.log('fileList[0]', fileList[0])
+    console.log(getValues('doc_instruction'))
+  }
 
 
   const {fields, append} = useFieldArray({
@@ -102,7 +113,7 @@ const ManageProductPage = () => {
 
   }, [attributes]);
 
-  console.log('fields', fields)
+  // console.log('fields', fields)
   // console.log('errors', errors)
 
 
@@ -182,18 +193,34 @@ const ManageProductPage = () => {
 
     // console.log('errors ===', errors)    
 
+
     console.log('form data', data)
+
+
+    // Отправка файлов:
+    // const formData = new FormData();
+    // formData.append("file", file);
   }
 
+  const navigate = useNavigate()
+
+  // При нажатии "Назад к списку товаров" и кнопки Cancel
+  const handleCancel = () => {
+    console.log('Все отменить и вернуться')
+    navigate(`/lk/shop`)
+  }
 
   if (loading) return <Spinner/>
-    
-  
+
+
   return (
-    
+
     <div className={s.manageProductWrapper}>
       <div className={s.topPart}>
         <div className={s.linkAndTitleWrapper}>
+
+          {/*Здесь будет кнопка и на нее обработчик с попапом предупреждения и -- handleCancel */}
+
           <Link className={s.backLink} to={`/lk/shop`}>
             <svg className={s.backArrow} width="6" height="11" viewBox="0 0 6 11" fill="none"
                  xmlns="http://www.w3.org/2000/svg">
@@ -234,6 +261,16 @@ const ManageProductPage = () => {
               setSelectedCatName={setSelectedCatName}
               selectedCatName={selectedCatName}
               attributes={attributes}
+
+              instructionFile={instructionFile}
+              setInstructionFile={setInstructionFile}
+              documentationFile={documentationFile}
+              setDocumentationFile={setDocumentationFile}
+              certificateFile={certificateFile}
+              setCertificateFile={setCertificateFile}
+
+              handleCancel={handleCancel}
+
             />
           }
 
@@ -248,6 +285,9 @@ const ManageProductPage = () => {
           {
             step === 'preview' && <PreviewStep/>
           }
+
+
+          <Button className={s.submitBtn}>Test Submit</Button>
         </form>
 
       </div>
