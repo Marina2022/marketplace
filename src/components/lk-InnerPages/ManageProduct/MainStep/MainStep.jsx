@@ -48,20 +48,35 @@ const MainStep = ({
   }, [isMobile])
 
   const goToNextStep = async () => {
-
-    
+   
 
     // console.log('fields', fields)
     // console.log('errors', errors)
+    
+    
+    let fieldsToValidate = ["productName", "productCategoryId", "sellerArticle", "model",
+      "price", "regularPrice", "weight", "height", "width", "length"]
 
-    // со всех шагов ведь поля подтянутся:
-    // const fieldNames = fields.map(fieldItem => fieldItem.value)
 
-    const isValid = await trigger(["productName", "productCategoryId", "sellerArticle", "model",
+    console.log('attributes ~~~~~~~~~~', attributes)
+    
+    attributes.categorySpecificFields.commonFields.forEach(field=>{
 
-      "price", "regularPrice", "weight", "height", "width", "length"
-       
-    ]);
+      console.log('field =======', field)
+      
+      fieldsToValidate.push(field.name)
+    })
+
+
+    attributes.standartFields.forEach(field=> {
+
+        fieldsToValidate.push(field.name)
+      }
+    )
+
+    console.log('fieldsToValidate ===========', fieldsToValidate)
+    
+    const isValid = await trigger(fieldsToValidate);
 
    
     if (!isValid) {
