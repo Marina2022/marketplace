@@ -5,11 +5,15 @@ import Underline from "@tiptap/extension-underline";
 import {EditorContent, useEditor} from "@tiptap/react";
 import Placeholder from "@tiptap/extension-placeholder";
 
+
 const TiptapEditor = ({setValue, maxValue = 1000}) => {
+
+
   const editor = useEditor({
     onBlur: () => {
       setValue('productDescription', editor.getHTML())
     },
+
 
     onUpdate: ({editor}) => {
       let text = editor.getText().replace(/\s+/g, '');
@@ -47,7 +51,7 @@ const TiptapEditor = ({setValue, maxValue = 1000}) => {
           </svg>
         </button>
 
-        <button type="button"                
+        <button type="button"
                 className={`${s.formatBtn} ${editor?.isActive('underline') ? s.active : ''} `}
                 onClick={() => editor.chain().focus().toggleUnderline().run()}>
           <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -56,10 +60,10 @@ const TiptapEditor = ({setValue, maxValue = 1000}) => {
               fill="black"/>
           </svg>
         </button>
-        
-        <button 
+
+        <button
           type="button"
-          className={`${s.formatBtn} ${editor?.isActive('bulletList') ? s.active : ''} `} 
+          className={`${s.formatBtn} ${editor?.isActive('bulletList') ? s.active : ''} `}
           onClick={() => editor.chain().focus().toggleBulletList().run()}>
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M11 7H29" stroke="black" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round"
@@ -80,9 +84,9 @@ const TiptapEditor = ({setValue, maxValue = 1000}) => {
           </svg>
         </button>
 
-        <button 
+        <button
           type="button"
-          className={`${s.formatBtn} ${editor?.isActive('orderedList') ? s.active : ''} `} 
+          className={`${s.formatBtn} ${editor?.isActive('orderedList') ? s.active : ''} `}
           onClick={() => editor.chain().focus().toggleOrderedList().run()}>
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -97,6 +101,7 @@ const TiptapEditor = ({setValue, maxValue = 1000}) => {
           editor={editor}
           className={`${s.editor} lk-scroll`}
           onClick={() => editor?.commands.focus()}
+
         />
       </div>
 

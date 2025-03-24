@@ -15,22 +15,22 @@ import {useFieldArray, useForm} from "react-hook-form";
 
 const ManageProductPage = () => {
 
-    
+
   const {productIdParam} = useParams()
 
   const [loading, setLoading] = useState(true)
 
   // когда edit - будем сетать при загрузке товара
 
-  const [cats, setCats] = useState(null)   
+  const [cats, setCats] = useState(null)
   const [step, setStep] = useState('main')
   const [attributes, setAttibutes] = useState(null)
-  
+
 
   const profileId = useSelector(getActiveProfileId)
 
   const isNew = productIdParam === 'new'
-  
+
   const isMobile = useMobileScreen()
 
   let navItems = []
@@ -54,7 +54,8 @@ const ManageProductPage = () => {
     handleSubmit,
     watch,
     clearErrors,
-    formState: { errors}} = useForm({
+    formState: {errors}
+  } = useForm({
     defaultValues: {
       fields: [
         {value: 'productName'},
@@ -64,6 +65,10 @@ const ManageProductPage = () => {
         {value: 'productDescription'},
         {value: 'price'},
         {value: 'regularPrice'},
+        {value: 'weight'},
+        {value: 'height'},
+        {value: 'width'},
+        {value: 'length'},
       ]
     }
   });
@@ -73,39 +78,39 @@ const ManageProductPage = () => {
     control,
     name: "fields"
   });
-  
-  
+
+
   useEffect(() => {
 
     if (!attributes) return
-    
-    attributes.standartFields.forEach(attributeField=>{
-      if (!fields.find(field => {                
-        return field.value === attributeField.name
-      })) {       
-        append({value: attributeField.name})
-      }
-    })
 
-    attributes.categorySpecificFields.commonFields.forEach(attributeField=>{
+    attributes.standartFields.forEach(attributeField => {
       if (!fields.find(field => {
         return field.value === attributeField.name
       })) {
         append({value: attributeField.name})
       }
     })
-    
+
+    attributes.categorySpecificFields.commonFields.forEach(attributeField => {
+      if (!fields.find(field => {
+        return field.value === attributeField.name
+      })) {
+        append({value: attributeField.name})
+      }
+    })
+
   }, [attributes]);
 
   console.log('fields', fields)
-  console.log('errors', errors)
+  // console.log('errors', errors)
 
 
   const categoryValue = watch("productCategoryId")
   const [selectedCatName, setSelectedCatName] = useState('')
-  const [searchCats, setSearchCats] = useState('')  
+  const [searchCats, setSearchCats] = useState('')
   const [catsLoading, setCatsLoading] = useState(true)
-  
+
 
   // подгрузка данных для создания нового товара   
 
@@ -113,24 +118,24 @@ const ManageProductPage = () => {
     if (!isNew) return
 
     // грузим категории  (будут зависеть от searchCats)
-        
+
     const getCats = async () => {
       try {
-         setCatsLoading(true)
-        let url = `/categories-tree`        
-        if (searchCats) url+=`?searchTerms=${searchCats}`                 
-        const response = await axiosInstance(url)               
+        setCatsLoading(true)
+        let url = `/categories-tree`
+        if (searchCats) url += `?searchTerms=${searchCats}`
+        const response = await axiosInstance(url)
         setCats(response.data)
 
       } catch (err) {
         console.log(err)
       } finally {
-         setCatsLoading(false)
+        setCatsLoading(false)
       }
     }
     getCats()
   }, [productIdParam, profileId, searchCats]);
-  
+
 
   useEffect(() => {
     if (!isNew) return
@@ -140,14 +145,13 @@ const ManageProductPage = () => {
     const getAttributes = async () => {
 
       try {
-        if(!cats) setLoading(  true)
-        
+        if (!cats) setLoading(true)
+
         let categoryURL = `/seller/${profileId}/attributes`
-        if (categoryValue) categoryURL+=  `?categoryId=${categoryValue}`       
+        if (categoryValue) categoryURL += `?categoryId=${categoryValue}`
         const response = await axiosInstance(categoryURL)
-        
-        
-                
+
+
         console.log('attributes:', response.data)
         setAttibutes(response.data)
 
@@ -162,7 +166,7 @@ const ManageProductPage = () => {
   }, [productIdParam, profileId, categoryValue]);
 
 
-  const onSubmit = async(data)=>{
+  const onSubmit = async (data) => {
 
     // if (!categoryValue) {
     //     setError("productCategoryId", {
@@ -178,13 +182,15 @@ const ManageProductPage = () => {
 
     // console.log('errors ===', errors)    
 
-     console.log('form data', data)    
+    console.log('form data', data)
   }
 
 
   if (loading) return <Spinner/>
-
+    
+  
   return (
+    
     <div className={s.manageProductWrapper}>
       <div className={s.topPart}>
         <div className={s.linkAndTitleWrapper}>
@@ -213,15 +219,15 @@ const ManageProductPage = () => {
           {
             step === 'main' &&
             <MainStep
-              trigger={trigger}              
-              register={register} 
-              append={append} 
-              fields={fields} 
-              errors={errors} 
-              getValues={getValues} 
+              trigger={trigger}
+              register={register}
+              append={append}
+              fields={fields}
+              errors={errors}
+              getValues={getValues}
               cats={cats}
               setValue={setValue}
-              clearErrors={clearErrors}              
+              clearErrors={clearErrors}
               searchCats={searchCats}
               setSearchCats={setSearchCats}
               catsLoading={catsLoading}
@@ -246,7 +252,7 @@ const ManageProductPage = () => {
 
       </div>
     </div>
-)
+  )
 }
 
 export default ManageProductPage;

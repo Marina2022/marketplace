@@ -1,7 +1,10 @@
+@import '@/assets/styles/mixins';
+
 .wrapper {
   border: 1px solid #F0F1F1;
   margin-top: 18px;
   position: relative;
+  max-width: 100%;
 }
 
 .buttonsWrapper {
@@ -12,6 +15,8 @@
 }
 
 .editor {
+  width: 100%;
+  
 
   ul, ul > li {
     list-style: initial;
@@ -31,7 +36,7 @@
   height: 180px;
   padding: 10px 20px;
   background: white;
-  width: 100%;
+    
   overflow: auto;
   line-height: 140%;
   font-size: 14px;
@@ -78,10 +83,16 @@
   color: #658092;
 }
 
-.editorWrapper {
+.editorWrapper {  
   padding-top: 6px;
   padding-right: 6px;
   padding-bottom: 22px;    
   background-color: white;
   box-shadow: 0 4px 4px rgb(0 0 0/.25);
+  
+  
+  @include xs {
+    overflow-x: hidden;
+    max-width: calc(100vw - 32px);
+  }
 }

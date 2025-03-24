@@ -48,8 +48,7 @@ const Input = forwardRef(({
               <line x1="5.10738" y1="12.8891" x2="12.8856" y2="5.11089" stroke="#658092"/>
             </svg>
           </button>
-        }
-        
+        }        
 
         {!editing && <div className={`${s.notEditing} ${isError ? s.errorInput : ''}`}>
         

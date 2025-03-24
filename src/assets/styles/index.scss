@@ -43,10 +43,10 @@ img {
   display: block;
 }
 
-html {
-  overflow-x: hidden;
-  margin-right: calc(-1 * (100vw - 100%));
-}
+//html {
+//  overflow-x: hidden;
+//  margin-right: calc(-1 * (100vw - 100%));
+//}
 
 body {
   font-family: Inter, sans-serif;
@@ -166,3 +166,4 @@ a {
     height: 0!important;
   }   
 }
+

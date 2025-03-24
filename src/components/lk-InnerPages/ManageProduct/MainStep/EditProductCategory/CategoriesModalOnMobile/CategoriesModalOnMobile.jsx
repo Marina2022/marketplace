@@ -1,4 +1,6 @@
 import s from './CategoriesModalOnMobile.module.scss';
+import {useEffect} from "react";
+import useMobileScreen from "@/hooks/useMobileScreen.js";
 
 const CategoriesModalOnMobile = ({setEditing,  children, trigger}) => {
 
@@ -6,6 +8,15 @@ const CategoriesModalOnMobile = ({setEditing,  children, trigger}) => {
     trigger('productCategoryId')
     setEditing(false)  
   }
+  
+const isMobile = useMobileScreen()
+  useEffect(()=>{
+    document.documentElement.style.overflow = 'hidden';
+    
+    return ()=>{
+      document.documentElement.style.overflow = 'auto';
+    }
+  }, [isMobile])
   
   return (
     <div className={s.modal}>
@@ -19,7 +30,6 @@ const CategoriesModalOnMobile = ({setEditing,  children, trigger}) => {
           </svg>
         </button>
       </div>
-
       {children}
     </div>
     

@@ -5,10 +5,12 @@ import EditProductCategory
   from "@/components/lk-InnerPages/ManageProduct/MainStep/EditProductCategory/EditProductCategory.jsx";
 import EditProductPageSelect from "@/components/ui/EditProductPageSelect/EditProductPageSelect.jsx";
 import {notEmptyMessage} from "@/consts/notEmptyMessage.js";
-import TiptapEditor from "@/components/ui/Editor/Editor.jsx";
 import ProductDescription
   from "@/components/lk-InnerPages/ManageProduct/MainStep/ProductDescription/ProductDescription.jsx";
 import PriceInputs from "@/components/lk-InnerPages/ManageProduct/MainStep/PriceInputs/PriceInputs.jsx";
+import DimensionsInputs from "@/components/lk-InnerPages/ManageProduct/MainStep/DimensionsInputs/DimensionsInputs.jsx";
+import {useEffect} from "react";
+import useMobileScreen from "@/hooks/useMobileScreen.js";
 
 
 const MainStep = ({
@@ -28,7 +30,16 @@ const MainStep = ({
                     attributes
 
                   }) => {
-  
+
+  const isMobile = useMobileScreen()
+
+
+  useEffect(() => {
+
+    document.body.style.overflowX = 'hidden';
+    document.documentElement.style.overflowX = 'hidden';
+  }, [isMobile])
+
   const goToNextStep = async () => {
 
     const fieldNames = fields.map(fieldItem => fieldItem.value)
@@ -42,6 +53,7 @@ const MainStep = ({
       console.log('all good, next step')
     }
   }
+
 
   return (
     <div className={s.wrapper}>
@@ -59,12 +71,12 @@ const MainStep = ({
               required: notEmptyMessage,
             })}
         />
-
+      
         {
           errors.productName && <p className={s.errorMessage}>{errors.productName.message}</p>
         }
       </div>
-
+      
       <div>
         {
           cats && <EditProductCategory
@@ -84,12 +96,12 @@ const MainStep = ({
             )}
           />
         }
-
+      
         {
           errors.productCategoryId && <p className={s.errorMessage}>{errors.productCategoryId.message}</p>
         }
       </div>
-
+      
       <div>
         <Input
           isError={errors.sellerArticle}
@@ -103,15 +115,15 @@ const MainStep = ({
               required: notEmptyMessage,
             })}
         />
-
+      
         {
           errors.sellerArticle && <p className={s.errorMessage}>{errors.sellerArticle.message}</p>
         }
       </div>
       
       
-      {/*common fields*/}
-
+      {/*/!*common fields*!/*/}
+      
       {
         attributes.categorySpecificFields.commonFields.length > 0 && attributes.categorySpecificFields.commonFields.map(commonField => {
           return (
@@ -119,7 +131,7 @@ const MainStep = ({
             (
               <div key={commonField.name}>
                 <EditProductPageSelect
-
+      
                   {...register(commonField.name,
                     commonField.isRequired && {   // потестить бы todo
                       required: notEmptyMessage,
@@ -153,12 +165,12 @@ const MainStep = ({
               required: notEmptyMessage,
             })}
         />
-
+      
         {
           errors.model && <p className={s.errorMessage}>{errors.model.message}</p>
         }
       </div>
-
+      
       {
         attributes.standartFields.length > 0 && attributes.standartFields.map(standardField => {
           return (
@@ -166,7 +178,7 @@ const MainStep = ({
             (
               <div key={standardField.name}>
                 <EditProductPageSelect
-
+      
                   {...register(standardField.name,
                     standardField.isRequired && {   // потестить бы todo
                       required: notEmptyMessage,
@@ -185,22 +197,26 @@ const MainStep = ({
           )
         })
       }
-            
+      
+      
       <ProductDescription
-        productDescription        
+        productDescription
         name='productDescription'
         setValue={setValue}
         getValues={getValues}
       />
-
-      <PriceInputs register={register} errors={errors} trigger={trigger} getValues={getValues} setValue={setValue} />
       
-     
+      <PriceInputs register={register} errors={errors} trigger={trigger} getValues={getValues} setValue={setValue}/>
       
-
+      <DimensionsInputs register={register} errors={errors} trigger={trigger} getValues={getValues}
+                        setValue={setValue}/>
+      
+      
+      
+      
       <Button className={s.continueBtn} type="button" onClick={goToNextStep}>Далее</Button>
-
-      <p>**************************</p>
+      
+      {/*<p>**************************</p>*/}
       <Button>Submit</Button>
 
     </div>

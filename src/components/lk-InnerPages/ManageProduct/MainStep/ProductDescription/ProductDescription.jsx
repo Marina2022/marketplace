@@ -3,7 +3,7 @@ import TiptapEditor from "@/components/ui/Editor/Editor.jsx";
 
 const ProductDescription = ({setValue}) => {
   return (
-    <div>
+    <div className={s.descWrapper}>
       <h3 className={s.descTitle}>Описание товара</h3>
       <TiptapEditor setValue={setValue }/>
     </div>

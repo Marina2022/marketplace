@@ -10,3 +10,11 @@
     font-size: 18px;
   }
 }
+
+.descWrapper {
+  
+  @include xs {
+    max-width: calc(100vw - 32px);
+    overflow-x: hidden;
+  }  
+}
