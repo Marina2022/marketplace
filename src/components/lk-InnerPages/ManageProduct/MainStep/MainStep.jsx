@@ -34,7 +34,8 @@ const MainStep = ({
                     documentationFile, setDocumentationFile,
                     certificateFile, setCertificateFile,
 
-                    handleCancel
+                    handleCancel,
+                    setStep
 
                   }) => {
 
@@ -53,36 +54,24 @@ const MainStep = ({
     // console.log('fields', fields)
     // console.log('errors', errors)
     
-    
     let fieldsToValidate = ["productName", "productCategoryId", "sellerArticle", "model",
       "price", "regularPrice", "weight", "height", "width", "length"]
-
-
-    console.log('attributes ~~~~~~~~~~', attributes)
-    
+   
     attributes.categorySpecificFields.commonFields.forEach(field=>{
-
-      console.log('field =======', field)
-      
       fieldsToValidate.push(field.name)
     })
 
-
     attributes.standartFields.forEach(field=> {
-
         fieldsToValidate.push(field.name)
       }
     )
-
-    console.log('fieldsToValidate ===========', fieldsToValidate)
     
     const isValid = await trigger(fieldsToValidate);
-
    
     if (!isValid) {
       console.log('ошибки есть, дальше нельзя')
     } else {
-      console.log('all good, next step')
+      setStep('characteristics')
     }
   }
 

@@ -1,0 +1,27 @@
+@import '@/assets/styles/mixins';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 20px;
+  max-width: 100%;
+
+  @include t {
+    gap: 12px;
+  }
+
+  @include m {
+    gap: 8px;
+  }
+}
+
+.title {
+  color: #3E5067;
+  font-weight: 600;
+  font-size: 19px;
+
+  @include xs {
+    font-size: 18px;
+  }
+}

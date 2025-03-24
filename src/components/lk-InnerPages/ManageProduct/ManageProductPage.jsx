@@ -263,6 +263,7 @@ const ManageProductPage = () => {
               setCertificateFile={setCertificateFile}
 
               handleCancel={handleCancel}
+              setStep={setStep}
 
             />
           }
