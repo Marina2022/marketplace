@@ -5,7 +5,6 @@ const ProductDescription = ({setValue}) => {
   return (
     <div>
       <h3 className={s.descTitle}>Описание товара</h3>
-
       <TiptapEditor setValue={setValue }/>
     </div>
   );

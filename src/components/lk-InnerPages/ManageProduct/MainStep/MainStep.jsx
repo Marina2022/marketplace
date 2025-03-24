@@ -8,6 +8,7 @@ import {notEmptyMessage} from "@/consts/notEmptyMessage.js";
 import TiptapEditor from "@/components/ui/Editor/Editor.jsx";
 import ProductDescription
   from "@/components/lk-InnerPages/ManageProduct/MainStep/ProductDescription/ProductDescription.jsx";
+import PriceInputs from "@/components/lk-InnerPages/ManageProduct/MainStep/PriceInputs/PriceInputs.jsx";
 
 
 const MainStep = ({
@@ -111,8 +112,6 @@ const MainStep = ({
       
       {/*common fields*/}
 
-      
-
       {
         attributes.categorySpecificFields.commonFields.length > 0 && attributes.categorySpecificFields.commonFields.map(commonField => {
           return (
@@ -134,7 +133,6 @@ const MainStep = ({
                   placeholder={commonField.label}
                   required={commonField.isRequired}
                 />
-
               </div>
             )
           )
@@ -187,17 +185,15 @@ const MainStep = ({
           )
         })
       }
-
-      
-      
+            
       <ProductDescription
         productDescription        
         name='productDescription'
         setValue={setValue}
         getValues={getValues}
-                
-      
       />
+
+      <PriceInputs register={register} errors={errors} trigger={trigger} getValues={getValues} setValue={setValue} />
       
      
       

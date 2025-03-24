@@ -62,6 +62,8 @@ const ManageProductPage = () => {
         {value: 'sellerArticle'},
         {value: 'model'},
         {value: 'productDescription'},
+        {value: 'price'},
+        {value: 'regularPrice'},
       ]
     }
   });

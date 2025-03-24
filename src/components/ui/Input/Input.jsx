@@ -60,9 +60,12 @@ const Input = forwardRef(({
         </span>
 
           {
-            required && !getValues(name) &&
+            !getValues(name) &&
             <div className={s.empty}><span> {placeholder}</span>
-              <span className={s.requiredStar}>*</span></div>
+              {
+                required && <span className={s.requiredStar}>*</span>
+              }
+            </div>
           }
         </div>}
 
