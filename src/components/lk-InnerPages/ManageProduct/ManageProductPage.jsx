@@ -78,13 +78,6 @@ const ManageProductPage = () => {
   });
 
 
-  const fileList = getValues('doc_instruction')
-  if (fileList) {
-    console.log('fileList[0]', fileList[0])
-    console.log(getValues('doc_instruction'))
-  }
-
-
   const {fields, append} = useFieldArray({
     control,
     name: "fields"
@@ -113,8 +106,7 @@ const ManageProductPage = () => {
 
   }, [attributes]);
 
-  // console.log('fields', fields)
-  // console.log('errors', errors)
+  
 
 
   const categoryValue = watch("productCategoryId")
@@ -192,7 +184,8 @@ const ManageProductPage = () => {
     // }
 
     // console.log('errors ===', errors)    
-
+    
+    
 
     console.log('form data', data)
 

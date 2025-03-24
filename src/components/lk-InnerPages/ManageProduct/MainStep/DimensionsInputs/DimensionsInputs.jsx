@@ -12,7 +12,7 @@ const DimensionsInputs = ({register, errors, trigger, getValues, setValue}) => {
 
           <div className={s.inputWrapper}>
             <Input
-              isError={errors.price}
+              isError={errors.weight}
               trigger={trigger}
               getValues={getValues}
               required={true}
@@ -34,7 +34,7 @@ const DimensionsInputs = ({register, errors, trigger, getValues, setValue}) => {
 
           <div className={s.inputWrapper}>
             <Input
-              isError={errors.regularPrice}
+              isError={errors.length}
               trigger={trigger}
               getValues={getValues}
               required={true}
@@ -62,7 +62,7 @@ const DimensionsInputs = ({register, errors, trigger, getValues, setValue}) => {
 
           <div className={s.inputWrapper}>
             <Input
-              isError={errors.regularPrice}
+              isError={errors.width}
               trigger={trigger}
               getValues={getValues}
               required={true}
@@ -84,7 +84,7 @@ const DimensionsInputs = ({register, errors, trigger, getValues, setValue}) => {
 
           <div className={s.inputWrapper}>
             <Input
-              isError={errors.regularPrice}
+              isError={errors.height}
               trigger={trigger}
               getValues={getValues}
               required={true}

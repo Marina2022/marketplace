@@ -49,11 +49,21 @@ const MainStep = ({
 
   const goToNextStep = async () => {
 
-    const fieldNames = fields.map(fieldItem => fieldItem.value)
+    
 
-    // const isValid = await trigger(["productName", "productCategoryId", "sellerArticle", "model"]);
-    const isValid = await trigger(fieldNames);
+    // console.log('fields', fields)
+    // console.log('errors', errors)
 
+    // со всех шагов ведь поля подтянутся:
+    // const fieldNames = fields.map(fieldItem => fieldItem.value)
+
+    const isValid = await trigger(["productName", "productCategoryId", "sellerArticle", "model",
+
+      "price", "regularPrice", "weight", "height", "width", "length"
+       
+    ]);
+
+   
     if (!isValid) {
       console.log('ошибки есть, дальше нельзя')
     } else {
