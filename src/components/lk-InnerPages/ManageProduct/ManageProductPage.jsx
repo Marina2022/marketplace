@@ -104,6 +104,15 @@ const ManageProductPage = () => {
       }
     })
 
+
+    attributes.categorySpecificFields.characteristics.forEach(attributeField => {
+      if (!fields.find(field => {
+        return field.value === attributeField.name
+      })) {
+        append({value: 'char_' + attributeField.name})   // будут имена полей в форме с приставкой, типа char_memory, чтобы не пересеклись с другими  
+      }
+    })
+
   }, [attributes]);
 
   
@@ -269,7 +278,17 @@ const ManageProductPage = () => {
           }
 
           {
-            step === 'characteristics' && <CharacteristicsStep/>
+            step === 'characteristics' && <CharacteristicsStep
+              attributes={attributes} 
+              getValues={getValues}
+              setValue={setValue}
+              clearErrors={clearErrors}
+              trigger={trigger}
+              errors={errors}
+              register={register}
+             
+            
+            />
           }
 
           {

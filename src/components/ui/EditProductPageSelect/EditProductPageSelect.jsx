@@ -1,9 +1,8 @@
 import s from './EditProductPageSelect.module.scss';
-import {forwardRef, useEffect, useRef, useState} from "react";
+import {forwardRef, useState} from "react";
 import EditProductCategory
   from "@/components/lk-InnerPages/ManageProduct/MainStep/EditProductCategory/EditProductCategory.jsx";
 import {notEmptyMessage} from "@/consts/notEmptyMessage.js";
-
 
 
 // eslint-disable-next-line react/display-name
@@ -16,7 +15,9 @@ const EditProductPageSelect = forwardRef(({
                                             trigger,
                                             isError,
                                             placeholder = '',
-                                            required
+                                            required,
+                                            isVariant
+  
 
                                           }, ref) => {
 
@@ -40,7 +41,7 @@ const EditProductPageSelect = forwardRef(({
   }  
   
   const handleOptionClick = (option) => {
-    setValue(name, option)
+    setValue(name, {...option, isVariant})
     setEditing(false)
   }
   
@@ -65,9 +66,14 @@ const EditProductPageSelect = forwardRef(({
         </span>
 
           {
-            required && !getValues(name) &&
+            !getValues(name) &&
             <div className={s.empty}><span> {placeholder}</span>
-              <span className={s.requiredStar}>*</span></div>
+
+              {
+                required && <span className={s.requiredStar}>*</span>
+              }
+
+            </div>
           }
         </div>
 

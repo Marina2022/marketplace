@@ -49,25 +49,25 @@ const MainStep = ({
   }, [isMobile])
 
   const goToNextStep = async () => {
-   
+
 
     // console.log('fields', fields)
     // console.log('errors', errors)
-    
+
     let fieldsToValidate = ["productName", "productCategoryId", "sellerArticle", "model",
       "price", "regularPrice", "weight", "height", "width", "length"]
-   
-    attributes.categorySpecificFields.commonFields.forEach(field=>{
+
+    attributes.categorySpecificFields.commonFields.forEach(field => {
       fieldsToValidate.push(field.name)
     })
 
-    attributes.standartFields.forEach(field=> {
+    attributes.standartFields.forEach(field => {
         fieldsToValidate.push(field.name)
       }
     )
-    
+
     const isValid = await trigger(fieldsToValidate);
-   
+
     if (!isValid) {
       console.log('ошибки есть, дальше нельзя')
     } else {
@@ -143,35 +143,6 @@ const MainStep = ({
       </div>
 
 
-      {/*/!*common fields*!/*/}
-
-      {
-        attributes.categorySpecificFields.commonFields.length > 0 && attributes.categorySpecificFields.commonFields.map(commonField => {
-          return (
-            commonField.type === 'select' &&
-            (
-              <div key={commonField.name}>
-                <EditProductPageSelect
-
-                  {...register(commonField.name,
-                    commonField.isRequired && {   // потестить бы todo
-                      required: notEmptyMessage,
-                    })}
-                  data={commonField}
-                  getValues={getValues}
-                  setValue={setValue}
-                  clearErrors={clearErrors}
-                  trigger={trigger}
-                  isError={errors[commonField.name]}
-                  placeholder={commonField.label}
-                  required={commonField.isRequired}
-                />
-              </div>
-            )
-          )
-        })
-      }
-
       <div>
         <Input
           infoButton={true}
@@ -191,6 +162,64 @@ const MainStep = ({
           errors.model && <p className={s.errorMessage}>{errors.model.message}</p>
         }
       </div>
+
+
+      {/*/!*common fields*!/*/}
+
+      {
+        attributes.categorySpecificFields.commonFields.length > 0 && attributes.categorySpecificFields.commonFields.map(commonField => {
+          return (
+
+            <div key={commonField.name}>
+
+              {
+                commonField.type === 'select' && <div>
+                  <EditProductPageSelect
+
+                    {...register(commonField.name,
+                      commonField.isRequired && {
+                        required: notEmptyMessage,
+                      })}
+                    data={commonField}
+                    getValues={getValues}
+                    setValue={setValue}
+                    clearErrors={clearErrors}
+                    trigger={trigger}
+                    isError={errors[commonField.name]}
+                    placeholder={commonField.label}
+                    required={commonField.isRequired}
+                  />
+                </div>
+              }
+
+              {
+                commonField.type === 'input' && <div >
+                  <Input
+                    isError={errors[commonField.name]}
+                    trigger={trigger}
+                    getValues={getValues}
+                    required={commonField.isRequired}                    
+                    setValue={setValue}
+                    placeholder={commonField.label}
+                    {...register(commonField.name,
+                      commonField.isRequired && {
+                        required: notEmptyMessage,
+                      })}
+                  />
+
+                  {
+                    errors.model && <p className={s.errorMessage}>{errors.model.message}</p>
+                  }
+                </div>
+              }
+
+            </div>
+
+
+          )
+        })
+      }
+
 
       {
         attributes.standartFields.length > 0 && attributes.standartFields.map(standardField => {
@@ -241,12 +270,12 @@ const MainStep = ({
         setCertificateFile={setCertificateFile}
       />
 
-      
+
       <div className={s.buttons}>
-        <Button className={s.backButton} type="button" onClick={handleCancel}>Отменить</Button>  
-        <Button className={s.continueBtn} type="button" onClick={goToNextStep}>Далее</Button>  
+        <Button className={s.backButton} type="button" onClick={handleCancel}>Отменить</Button>
+        <Button className={s.continueBtn} type="button" onClick={goToNextStep}>Далее</Button>
       </div>
-           
+
 
     </div>
   );
