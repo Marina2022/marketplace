@@ -1,15 +1,10 @@
 
-.variantIcon {
-  //position: absolute;
-  //right: 20px;
-  //top: 50%;
-  //transform: translateY(-50%);
+.variantIcon {  
   width: 18px;
   height: 18px;
   z-index: 1;
   cursor: pointer;
 }
-
 
 .isVariantIconDiv {
   z-index: 1;  
@@ -20,7 +15,6 @@
   top: 54%;
   transform: translateY(-50%);
 }
-
 
 .header {
   font-weight: 500;

@@ -4,29 +4,25 @@ import {useState} from "react";
 import Annotation from "@/components/ui/Annotation/Annotation.jsx";
 
 const IsVariantButton = () => {
-
-
   const isBigScreen = useBigScreen()
   const [showAnnotation, setShowAnnotation] = useState(false)
-
   const handleHoverIn = () => {
+    if (!isBigScreen) return
     setShowAnnotation(true)
   }
-  const handleHoverOut = (e) => {
+  const handleHoverOut = (e) => {    
     e.stopPropagation()
 
     if (e.relatedTarget && e.currentTarget.contains(e.relatedTarget)) {
       return; // Если курсор внутри кнопки, не триггерим onMouseLeave
     }
-
     setShowAnnotation(false)
   }
 
-  const handleClick = () => {
-    if (!isBigScreen) return
+  const handleClick = (e) => {
+    if (isBigScreen) return
     setShowAnnotation(prev => !prev)
   }
-
 
   return (
     <div className={s.isVariantIconDiv}>
@@ -51,22 +47,15 @@ const IsVariantButton = () => {
             </clipPath>
           </defs>
         </svg>
-
-
       </button>
-
       {
         showAnnotation && <Annotation position={!isBigScreen ? "fromLeft" : "fromRight"}>
           <p className={s.header}>Отличительный признак</p>
           <p className={s.par}>Заполняйте это поле разными значениями для товаров, которые будут объединены в одну карточку</p>
         </Annotation>
       }
-
-
     </div>
-
-
-  );
-};
+  )
+}
 
 export default IsVariantButton;

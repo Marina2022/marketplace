@@ -7,8 +7,8 @@ const InputInfoButton = () => {
 
   const isBigScreen = useBigScreen()
   const [showAnnotation, setShowAnnotation] = useState(false)
-
   const handleHoverIn = () => {
+    if (!isBigScreen) return
     setShowAnnotation(true)
   }
   const handleHoverOut = (e) => {
@@ -17,12 +17,10 @@ const InputInfoButton = () => {
     if (e.relatedTarget && e.currentTarget.contains(e.relatedTarget)) {
       return; // Если курсор внутри кнопки, не триггерим onMouseLeave
     }
-
     setShowAnnotation(false)
   }
-
   const handleClick = () => {
-    if (!isBigScreen) return
+    if (isBigScreen) return
     setShowAnnotation(prev => !prev)    
   }
 
@@ -49,8 +47,6 @@ const InputInfoButton = () => {
           <p>Бренд должен совпадать, а хотя бы одна вариативная характеристика — отличаться.</p>
         </Annotation>
       }
-
-
     </div>
   );
 };
