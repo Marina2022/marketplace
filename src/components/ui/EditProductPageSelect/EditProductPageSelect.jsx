@@ -3,6 +3,7 @@ import {forwardRef, useState} from "react";
 import EditProductCategory
   from "@/components/lk-InnerPages/ManageProduct/MainStep/EditProductCategory/EditProductCategory.jsx";
 import {notEmptyMessage} from "@/consts/notEmptyMessage.js";
+import IsVariantButton from "@/components/ui/EditProductPageSelect/IsVariantButton/IsVariantButton.jsx";
 
 
 // eslint-disable-next-line react/display-name
@@ -50,7 +51,11 @@ const EditProductPageSelect = forwardRef(({
       <div onBlur={handleBlur} tabIndex={0}>
 
         <div className={s.wrapperForIsVariant}>
-                    
+
+          {
+            !editing && <IsVariantButton />
+          }
+
           <div onClick={handleClick} className={editing ? s.selectFocused : isError ? s.errorField : s.notEditing}>
 
             <svg className={editing ? s.dropdownIconOpened : s.dropdownIcon} width="18" height="9" viewBox="0 0 18 9"

@@ -13,6 +13,7 @@
   width: 234px;
   border-radius: 10px;
   min-height: 80px;
+  z-index: 1;
   
   @include t {
     font-size: 12px;

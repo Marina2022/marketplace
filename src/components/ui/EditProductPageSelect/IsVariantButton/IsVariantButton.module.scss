@@ -1,0 +1,33 @@
+
+.variantIcon {
+  //position: absolute;
+  //right: 20px;
+  //top: 50%;
+  //transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  z-index: 1;
+  cursor: pointer;
+}
+
+
+.isVariantIconDiv {
+  z-index: 1;  
+  position: absolute;
+  right: 0;  
+  position: absolute;
+  right: 20px;
+  top: 54%;
+  transform: translateY(-50%);
+}
+
+
+.header {
+  font-weight: 500;
+  margin-bottom: 10px;
+  line-height: 140%;
+}
+
+.par {
+  line-height: 140%;
+}
