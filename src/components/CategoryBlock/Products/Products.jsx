@@ -107,9 +107,7 @@ const Products = ({isBigScreen, allFilters, rightPartRef}) => {
   
   if (isLoading) return <Spinner/>
   if (error) return <Error>Нет такой страницы</Error>
-
-  //const manyProducts  = [...products, ...products, ...products, ...products, ...products, ...products, ...products, ...products, ...products] //todo убрать
-  
+    
   return (
       <>
         <div className={s.sortAndView}>

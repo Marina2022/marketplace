@@ -19,7 +19,7 @@ const IsVariantButton = () => {
     setShowAnnotation(false)
   }
 
-  const handleClick = (e) => {
+  const handleClick = () => {
     if (isBigScreen) return
     setShowAnnotation(prev => !prev)
   }

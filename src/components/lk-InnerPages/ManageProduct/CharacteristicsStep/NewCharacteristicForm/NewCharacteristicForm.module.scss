@@ -1,0 +1,36 @@
+@import '@/assets/styles/mixins';
+
+.pageBlock {
+  position: absolute;
+  border: 1px solid #D1D9E6;
+  padding: 20px;
+  width: 384px;
+  top: 65px;
+  right: -408px;
+  
+  @include t {
+    display: none;
+  }
+}
+
+.text {
+  color: #3E5067;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  line-height: 140%;
+}
+
+.btn {
+  height: 36px;
+  width: 100%;
+  border: 1px solid #3E5067;
+  background: #E6E9F0;
+  border: none;
+  transition: background-color .2s ease-out;
+  
+  &:hover {
+    background: #dfe2e8;
+    transition: background-color .2s ease-out;
+  }
+}

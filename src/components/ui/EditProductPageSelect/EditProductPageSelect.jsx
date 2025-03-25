@@ -18,8 +18,6 @@ const EditProductPageSelect = forwardRef(({
                                             placeholder = '',
                                             required,
                                             isVariant
-
-
                                           }, ref) => {
 
   const [editing, setEditing] = useState(false);
@@ -51,9 +49,8 @@ const EditProductPageSelect = forwardRef(({
       <div onBlur={handleBlur} tabIndex={0}>
 
         <div className={s.wrapperForIsVariant}>
-
           {
-            !editing && <IsVariantButton />
+            !editing && isVariant && <IsVariantButton />
           }
 
           <div onClick={handleClick} className={editing ? s.selectFocused : isError ? s.errorField : s.notEditing}>
@@ -75,11 +72,9 @@ const EditProductPageSelect = forwardRef(({
             {
               !getValues(name) &&
               <div className={s.empty}><span> {placeholder}</span>
-
                 {
                   required && <span className={s.requiredStar}>*</span>
                 }
-
               </div>
             }
           </div>
@@ -98,7 +93,6 @@ const EditProductPageSelect = forwardRef(({
                     if (node.scrollHeight < 472) node.style.width = '100%'
                   }
                 }}
-
             >
               {
                 data.options.map(option => {

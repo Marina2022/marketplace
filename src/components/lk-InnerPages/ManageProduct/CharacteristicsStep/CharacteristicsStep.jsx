@@ -1,6 +1,8 @@
 import s from './CharacteristicsStep.module.scss';
 import EditProductPageSelect from "@/components/ui/EditProductPageSelect/EditProductPageSelect.jsx";
 import {notEmptyMessage} from "@/consts/notEmptyMessage.js";
+import NewCharacteristicForm
+  from "@/components/lk-InnerPages/ManageProduct/CharacteristicsStep/NewCharacteristicForm/NewCharacteristicForm.jsx";
 
 const CharacteristicsStep = ({attributes, getValues, setValue, clearErrors, trigger, errors, register}) => {
 
@@ -40,6 +42,9 @@ const CharacteristicsStep = ({attributes, getValues, setValue, clearErrors, trig
             )
           })
         }
+
+        <NewCharacteristicForm />
+        
       </div>
     </div>
   )

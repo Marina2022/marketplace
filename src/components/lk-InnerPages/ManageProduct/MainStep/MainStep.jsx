@@ -230,7 +230,7 @@ const MainStep = ({
                 <EditProductPageSelect
 
                   {...register(standardField.name,
-                    standardField.isRequired && {   // потестить бы todo
+                    standardField.isRequired && {  
                       required: notEmptyMessage,
                     })}
                   data={standardField}

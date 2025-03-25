@@ -50,7 +50,7 @@ const CompaniesTab = () => {
       }
 
       if (activeProfile.type === 'user' && profiles.length > 1) {        
-        setActiveCompany(grid[0])  // todo
+        setActiveCompany(grid[0])  
       } else {
         setActiveCompany(null)
       }
