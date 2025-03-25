@@ -39,14 +39,6 @@ const MainStep = ({
 
                   }) => {
 
-  // const isMobile = useMobileScreen()
-
-
-  // useEffect(() => {
-  //
-  //   document.body.style.overflowX = 'hidden';
-  //   document.documentElement.style.overflowX = 'hidden';
-  // }, [isMobile])
 
   const goToNextStep = async () => {
 
@@ -208,7 +200,7 @@ const MainStep = ({
                   />
 
                   {
-                    errors.model && <p className={s.errorMessage}>{errors.model.message}</p>
+                    errors[commonField.name] && <p className={s.errorMessage}>{errors[commonField.name].message}</p>
                   }
                 </div>
               }
