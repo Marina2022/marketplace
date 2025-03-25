@@ -39,14 +39,14 @@ const MainStep = ({
 
                   }) => {
 
-  const isMobile = useMobileScreen()
+  // const isMobile = useMobileScreen()
 
 
-  useEffect(() => {
-
-    document.body.style.overflowX = 'hidden';
-    document.documentElement.style.overflowX = 'hidden';
-  }, [isMobile])
+  // useEffect(() => {
+  //
+  //   document.body.style.overflowX = 'hidden';
+  //   document.documentElement.style.overflowX = 'hidden';
+  // }, [isMobile])
 
   const goToNextStep = async () => {
 
