@@ -36,9 +36,13 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
     //setProductPhotos()
   }
 
+  const handlePopupClick = (e) => {
+    e.stopPropagation();
+  }
+
   return (
-    <div onClick={()=>setPopupOpen(false)} className={s.underlay}>
-      <div className={s.popup}>
+    <div onClick={() => setPopupOpen(false)} className={s.underlay}>
+      <div className={s.popup} onClick={handlePopupClick}>
         popup
       </div>
     </div>
