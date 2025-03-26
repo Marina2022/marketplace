@@ -18,6 +18,7 @@ const EditProductPageSelect = forwardRef(({
                                             placeholder = '',
                                             required,
                                             isVariant,
+                                            watch,
                                           }, ref) => {
 
   const [editing, setEditing] = useState(false);
@@ -46,7 +47,9 @@ const EditProductPageSelect = forwardRef(({
     setEditing(false)
   }
 
-  
+  const displayedValue = watch(name)
+
+
   return (
     <div>
       <div onBlur={handleBlur} tabIndex={0}>
@@ -68,15 +71,12 @@ const EditProductPageSelect = forwardRef(({
 
             <span className={s.inputValue}>
               {
-                 getValues(name) && getValues(name).value                
-                //currentDisplayedValue && currentDisplayedValue.value
+                displayedValue?.value
               }
             </span>
 
             {
-              !getValues(name) &&              
-              //!currentDisplayedValue &&
-              <div className={s.empty}><span> {placeholder}</span>
+              !getValues(name) && <div className={s.empty}><span> {placeholder}</span>
                 {
                   required && <span className={s.requiredStar}>*</span>
                 }

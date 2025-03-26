@@ -103,12 +103,10 @@ const ManageProductPage = () => {
         append({value: attributeField.name})
       } else {
 
-        console.log('attributeField.name', attributeField.name)
         //если поле найдено, сбросить значение
-        // setValue(attributeField.name, null)
+         setValue(attributeField.name, null)
       }
     })
-
 
     attributes.categorySpecificFields.characteristics.forEach(attributeField => {
       if (!fields.find(field => {
@@ -278,6 +276,7 @@ const ManageProductPage = () => {
 
               handleCancel={handleCancel}
               setStep={setStep}
+              watch={watch}
 
             />
           }

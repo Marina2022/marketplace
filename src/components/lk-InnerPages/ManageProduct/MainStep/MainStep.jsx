@@ -29,6 +29,7 @@ const MainStep = ({
                     setSelectedCatName,
                     selectedCatName,
                     attributes,
+                    watch,
 
                     instructionFile, setInstructionFile,
                     documentationFile, setDocumentationFile,
@@ -164,7 +165,7 @@ const MainStep = ({
               {
                 commonField.type === 'select' && <div>
                   <EditProductPageSelect
-                    
+
                     {...register(commonField.name,
                       commonField.isRequired && {
                         required: notEmptyMessage,
@@ -177,6 +178,7 @@ const MainStep = ({
                     isError={errors[commonField.name]}
                     placeholder={commonField.label}
                     required={commonField.isRequired}
+                    watch={watch}
                   />
                 </div>
               }
@@ -226,6 +228,7 @@ const MainStep = ({
                   isError={errors[standardField.name]}
                   placeholder={standardField.label}
                   required={standardField.isRequired}
+                  watch={watch}
                 />
               </div>
             )
