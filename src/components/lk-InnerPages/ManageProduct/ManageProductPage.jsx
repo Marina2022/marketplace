@@ -5,13 +5,12 @@ import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import {useSelector} from "react-redux";
 import {getActiveProfileId} from "@/store/userSlice.js";
 import axiosInstance from "@/api/axiosInstance.js";
-import useMobileScreen from "@/hooks/useMobileScreen.js";
 import StepsNav from "@/components/lk-InnerPages/ManageProduct/StepsNav/StepsNav.jsx";
 import MainStep from "@/components/lk-InnerPages/ManageProduct/MainStep/MainStep.jsx";
 import CharacteristicsStep from "@/components/lk-InnerPages/ManageProduct/CharacteristicsStep/CharacteristicsStep.jsx";
 import MediaStep from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaStep.jsx";
 import PreviewStep from "@/components/lk-InnerPages/ManageProduct/PreviewStep/PreviewStep.jsx";
-import {set, useFieldArray, useForm} from "react-hook-form";
+import {useFieldArray, useForm} from "react-hook-form";
 import Button from "@/components/ui/Button/Button.jsx";
 
 const ManageProductPage = () => {
@@ -24,8 +23,8 @@ const ManageProductPage = () => {
   // когда edit - будем сетать при загрузке товара
 
   const [cats, setCats] = useState(null)
-  const [step, setStep] = useState('main')
-  const [attributes, setAttibutes] = useState(null)
+  const [step, setStep] = useState('media')
+  const [attributes, setAttributes] = useState(null)
 
 
   const profileId = useSelector(getActiveProfileId)
@@ -168,7 +167,7 @@ const ManageProductPage = () => {
 
 
         console.log('attributes:', response.data)
-        setAttibutes(response.data)
+        setAttributes(response.data)
 
       } catch (err) {
         console.log(err)
