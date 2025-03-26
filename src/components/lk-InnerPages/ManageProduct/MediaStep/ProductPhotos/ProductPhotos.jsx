@@ -7,12 +7,14 @@ const ProductPhotos = ({productPhotos, setPopupOpen, setProductPhotos}) => {
 
   const placeholders = Array.from({length: 15})
 
+  const handleAddPhoto = ()=>setPopupOpen(true)
+  
   return (
     <div className={s.productPhotosWrapper}>
 
       <div className={s.headerWrapper}>
         <h3 className={s.subtitle}>Фотографии товара</h3>
-        <Button className={s.addPhotoBtn}>Добавить фото</Button>
+        <Button onClick={handleAddPhoto}  className={s.addPhotoBtn}>Добавить фото</Button>
       </div>
 
       <div className={s.mobileScrollWrapper}>
