@@ -19,12 +19,17 @@
 }
 
 .photosWrapper {
-  height: 142px;
+  height: 162px;
   width: 100%;
   gap: 12px;
   display: grid;
   grid-template-columns: repeat(9, 1fr) ;
   grid-template-rows: 1fr 1fr;
+  
+  
+  @include t {
+    height: 142px;
+  }
 
 
   @include m {
