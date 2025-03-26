@@ -5,7 +5,7 @@ import NewCharacteristicForm
   from "@/components/lk-InnerPages/ManageProduct/CharacteristicsStep/NewCharacteristicForm/NewCharacteristicForm.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
 
-const CharacteristicsStep = ({attributes, getValues, setValue, clearErrors, trigger, errors, register, setStep}) => {
+const CharacteristicsStep = ({attributes, getValues, setValue, clearErrors, trigger, errors, register, setStep, watch}) => {
 
   const goToNextStep = async() => {
     
@@ -50,6 +50,7 @@ const CharacteristicsStep = ({attributes, getValues, setValue, clearErrors, trig
                     placeholder={charField.label}
                     required={charField.isRequired}
                     isVariant={charField.isVariant}
+                    watch={watch}
                   />
                 </div>
               )

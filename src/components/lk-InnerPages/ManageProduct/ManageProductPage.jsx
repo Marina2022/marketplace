@@ -290,7 +290,8 @@ const ManageProductPage = () => {
               trigger={trigger}
               errors={errors}
               register={register}
-              setStep={setStep}            
+              setStep={setStep}
+              watch={watch}
             />
           }
 
