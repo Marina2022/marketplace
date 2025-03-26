@@ -27,3 +27,29 @@
     font-size: 18px;
   }
 }
+
+
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 70px;
+}
+
+.backButton {
+  width: unset;
+  padding-inline: 10px;
+  color: #E32636;
+  background: #FFDEE1;
+  font-weight: 500;
+
+  &:hover {
+    background: #fcd2d5;
+  }
+}
+
+.continueBtn {
+  width: unset;
+  font-weight: 500;
+  padding-inline: 10px;
+}

@@ -41,11 +41,7 @@ const MainStep = ({
 
 
   const goToNextStep = async () => {
-
-
-    // console.log('fields', fields)
-    // console.log('errors', errors)
-
+    
     let fieldsToValidate = ["productName", "productCategoryId", "sellerArticle", "model",
       "price", "regularPrice", "weight", "height", "width", "length"]
 
@@ -57,6 +53,7 @@ const MainStep = ({
         fieldsToValidate.push(field.name)
       }
     )
+        
 
     const isValid = await trigger(fieldsToValidate);
 
@@ -167,7 +164,7 @@ const MainStep = ({
               {
                 commonField.type === 'select' && <div>
                   <EditProductPageSelect
-
+                    
                     {...register(commonField.name,
                       commonField.isRequired && {
                         required: notEmptyMessage,
@@ -204,14 +201,10 @@ const MainStep = ({
                   }
                 </div>
               }
-
             </div>
-
-
           )
         })
       }
-
 
       {
         attributes.standartFields.length > 0 && attributes.standartFields.map(standardField => {

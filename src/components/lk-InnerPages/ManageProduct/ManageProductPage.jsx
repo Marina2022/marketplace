@@ -11,7 +11,7 @@ import MainStep from "@/components/lk-InnerPages/ManageProduct/MainStep/MainStep
 import CharacteristicsStep from "@/components/lk-InnerPages/ManageProduct/CharacteristicsStep/CharacteristicsStep.jsx";
 import MediaStep from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaStep.jsx";
 import PreviewStep from "@/components/lk-InnerPages/ManageProduct/PreviewStep/PreviewStep.jsx";
-import {useFieldArray, useForm} from "react-hook-form";
+import {set, useFieldArray, useForm} from "react-hook-form";
 import Button from "@/components/ui/Button/Button.jsx";
 
 const ManageProductPage = () => {
@@ -93,7 +93,7 @@ const ManageProductPage = () => {
         return field.value === attributeField.name
       })) {
         append({value: attributeField.name})
-      }
+      } 
     })
 
     attributes.categorySpecificFields.commonFields.forEach(attributeField => {
@@ -101,6 +101,11 @@ const ManageProductPage = () => {
         return field.value === attributeField.name
       })) {
         append({value: attributeField.name})
+      } else {
+
+        console.log('attributeField.name', attributeField.name)
+        //если поле найдено, сбросить значение
+        // setValue(attributeField.name, null)
       }
     })
 
@@ -286,13 +291,14 @@ const ManageProductPage = () => {
               trigger={trigger}
               errors={errors}
               register={register}
-             
-            
+              setStep={setStep}            
             />
           }
 
           {
-            step === 'media' && <MediaStep/>
+            step === 'media' && <MediaStep
+              setStep={setStep}
+            />
           }
 
           {

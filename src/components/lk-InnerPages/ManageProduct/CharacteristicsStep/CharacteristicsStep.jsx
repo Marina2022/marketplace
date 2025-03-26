@@ -3,14 +3,28 @@ import EditProductPageSelect from "@/components/ui/EditProductPageSelect/EditPro
 import {notEmptyMessage} from "@/consts/notEmptyMessage.js";
 import NewCharacteristicForm
   from "@/components/lk-InnerPages/ManageProduct/CharacteristicsStep/NewCharacteristicForm/NewCharacteristicForm.jsx";
+import Button from "@/components/ui/Button/Button.jsx";
 
-const CharacteristicsStep = ({attributes, getValues, setValue, clearErrors, trigger, errors, register}) => {
+const CharacteristicsStep = ({attributes, getValues, setValue, clearErrors, trigger, errors, register, setStep}) => {
 
+  const goToNextStep = async() => {
+    
+      let fieldsToValidate = []
 
-  const nextStep = () => {
-    // trigger - всех имен характеристик (добавим в массив в цикле), к имени прибавь char_
-  }
+      attributes.categorySpecificFields.characteristics.forEach(field => {
+        fieldsToValidate.push('char_' + field.name)
+      })
 
+      const isValid = await trigger(fieldsToValidate);
+
+      if (!isValid) {
+        console.log('ошибки есть, дальше нельзя')
+      } else {
+        setStep('media')
+      }
+    }
+
+  
   return (
     <div>
       <h2 className={s.title}>Характеристики</h2>
@@ -43,8 +57,12 @@ const CharacteristicsStep = ({attributes, getValues, setValue, clearErrors, trig
           })
         }
 
-        <NewCharacteristicForm />
-        
+        <NewCharacteristicForm/>
+
+      </div>
+      <div className={s.buttons}>
+        <Button className={s.backButton} type="button" onClick={()=>setStep('main')}>Назад</Button>
+        <Button className={s.continueBtn} type="button" onClick={goToNextStep}>Далее</Button>
       </div>
     </div>
   )

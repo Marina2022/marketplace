@@ -1,5 +1,5 @@
 import s from './EditProductPageSelect.module.scss';
-import {forwardRef, useState} from "react";
+import {forwardRef, useEffect, useState} from "react";
 import EditProductCategory
   from "@/components/lk-InnerPages/ManageProduct/MainStep/EditProductCategory/EditProductCategory.jsx";
 import {notEmptyMessage} from "@/consts/notEmptyMessage.js";
@@ -17,10 +17,12 @@ const EditProductPageSelect = forwardRef(({
                                             isError,
                                             placeholder = '',
                                             required,
-                                            isVariant
+                                            isVariant,
                                           }, ref) => {
 
   const [editing, setEditing] = useState(false);
+
+
   const handleClick = () => {
     setEditing(prev => {
         if (prev === true) {
@@ -44,13 +46,14 @@ const EditProductPageSelect = forwardRef(({
     setEditing(false)
   }
 
+  
   return (
     <div>
       <div onBlur={handleBlur} tabIndex={0}>
 
         <div className={s.wrapperForIsVariant}>
           {
-            !editing && isVariant && <IsVariantButton />
+            !editing && isVariant && <IsVariantButton/>
           }
 
           <div onClick={handleClick} className={editing ? s.selectFocused : isError ? s.errorField : s.notEditing}>
@@ -64,13 +67,15 @@ const EditProductPageSelect = forwardRef(({
             </svg>
 
             <span className={s.inputValue}>
-            {
-              getValues(name) && getValues(name).value
-            }
-          </span>
+              {
+                 getValues(name) && getValues(name).value                
+                //currentDisplayedValue && currentDisplayedValue.value
+              }
+            </span>
 
             {
-              !getValues(name) &&
+              !getValues(name) &&              
+              //!currentDisplayedValue &&
               <div className={s.empty}><span> {placeholder}</span>
                 {
                   required && <span className={s.requiredStar}>*</span>

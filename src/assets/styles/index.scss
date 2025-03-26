@@ -44,7 +44,7 @@ img {
 }
 
 html {
-  //overflow-x: hidden;
+  overflow-x: hidden;
   margin-right: calc(-1 * (100vw - 100%));
   
   @include m {
