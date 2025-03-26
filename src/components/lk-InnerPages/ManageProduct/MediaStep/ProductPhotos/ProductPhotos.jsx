@@ -12,7 +12,7 @@ const ProductPhotos = ({productPhotos}) => {
 
       <div className={s.headerWrapper}>
         <h3 className={s.subtitle}>Фотографии товара</h3>
-        <Button>Добавить фото</Button>
+        <Button className={s.addPhotoBtn}>Добавить фото</Button>
       </div>
 
       <div className={s.mobileScrollWrapper}>

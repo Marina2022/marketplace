@@ -78,3 +78,10 @@
   }
 }
 
+
+.addPhotoBtn {
+  
+  @include m {
+    display: none;
+  }
+}
