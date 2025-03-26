@@ -46,6 +46,8 @@ const ManageProductPage = () => {
   const [documentationFile, setDocumentationFile] = useState(null)
   const [certificateFile, setCertificateFile] = useState(null)
 
+  const [productPhotos, setProductPhotos] = useState([])
+  const [presentationPhotos, setPresentationPhotos] = useState([])
 
   const {
     trigger,
@@ -297,6 +299,10 @@ const ManageProductPage = () => {
           {
             step === 'media' && <MediaStep
               setStep={setStep}
+              productPhotos={productPhotos}
+              setProductPhotos={setProductPhotos}  
+              presentationPhotos={presentationPhotos}
+              setPresentationPhotos={setPresentationPhotos}
             />
           }
 
