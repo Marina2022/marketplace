@@ -3,10 +3,47 @@
 .title {
   color: #3E5067;
   font-weight: 600;
-  font-size: 19px;
+  font-size: 20px;
   margin-bottom: 24px;
 
   @include xs {
     font-size: 18px;
   }
 }
+
+.subtitle {
+  color: #3E5067;
+  font-size: 19px;
+  font-weight: 600;
+  margin-bottom: 22px;
+  
+  @include m {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+}
+
+.photosWrapper {
+  height: 142px;
+  width: 100%;
+  gap: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  
+}
+
+.placeholder {
+    
+  background: white;
+
+
+  &:first-child {
+    //height: 140px;
+    //width: 140px;
+
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 2;
+  }
+}
+
