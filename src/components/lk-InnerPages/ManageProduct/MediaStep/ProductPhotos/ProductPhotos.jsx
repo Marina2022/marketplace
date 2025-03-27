@@ -21,7 +21,6 @@ const ProductPhotos = ({productPhotos, setPopupOpen, setProductPhotos}) => {
         <ul className={s.photosWrapper}>
           {
             placeholders.map((placeholder, i) => {
-
               // key={i} потестить потом todo
               return <ProductPhotoContainer key={i} productPhotos={productPhotos} index={i} setPopupOpen={setPopupOpen} />
             })

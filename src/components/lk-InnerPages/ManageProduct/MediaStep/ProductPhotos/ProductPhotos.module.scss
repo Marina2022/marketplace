@@ -26,11 +26,9 @@
   grid-template-columns: repeat(9, 1fr) ;
   grid-template-rows: 1fr 1fr;
   
-  
   @include t {
     height: 142px;
   }
-
 
   @include m {
     grid-template-columns: repeat(15, 1fr) ;
@@ -49,7 +47,6 @@
   }
 }
 
-
 .headerWrapper {
   display: flex;
   justify-content: space-between;
@@ -60,7 +57,6 @@
     margin-bottom: 12px;
   }
 }
-
 
 .mobileScrollWrapper {
   position: relative;

@@ -3,11 +3,15 @@ import {useEffect, useRef, useState} from "react";
 import {useParams} from "react-router-dom";
 import cameraIcon from "@/assets/img/lk/lk-shop/camera.svg";
 import {useDropzone} from "react-dropzone";
+import Button from "@/components/ui/Button/Button.jsx";
+import ProductPhotoContainer
+  from "@/components/lk-InnerPages/ManageProduct/MediaStep/ProductPhotos/ProductPhotoContainer/ProductPhotoContainer.jsx";
+import ProductPhotosInPopup
+  from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/ProductPhotosInPopup/ProductPhotosInPopup.jsx";
 
 const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) => {
 
   const {productIdParam} = useParams()
-
   let isNew = true
   if (productIdParam !== 'new') isNew = false
 
@@ -59,6 +63,7 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
   }
 
 
+  // images - это загруженные из попапа файлы (не сохраненные в Апп еще)
   const [images, setImages] = useState([]);
 
   const onDrop = (acceptedFiles) => {
@@ -89,7 +94,15 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
     multiple: true,
   });
 
+  console.log('getRootProps()', getRootProps())
+  console.log('getInputProps()', getInputProps().ref)
 
+  // передать этот хендлер на клик фото-контейнеру
+  const emptyPhotoClickHandler = () => {
+    getInputProps().ref.current.click()
+  }
+
+    
   return (
     <div onClick={() => setPopupOpen(null)} className={s.underlay}>
       <div className={s.popup} onClick={handlePopupClick}>
@@ -121,7 +134,6 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
 
           <div>
             <label
-              // className={`${s.textarea} ${s.filesInput}`}
               className={s.filesInput}
               {...getRootProps()}
             >
@@ -138,24 +150,13 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
             />
           </div>
 
+
           <h2 className={s.title}>Добавленные фото</h2>
 
-          {
-            images.length > 0 && (
-              <div className={s.previewList}>
-                {images.map((image, index) => (
-                  <img
-                    key={index}
-                    src={image.preview}
-                    alt="preview"
-                    className={s.previewImg}
-                  />
-                ))}
-              </div>
-            )
-          }
-
-
+          <ProductPhotosInPopup 
+            productPhotos={productPhotos} 
+            images={images} 
+            emptyPhotoClickHandler={emptyPhotoClickHandler} />
         </div>
 
 

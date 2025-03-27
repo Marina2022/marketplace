@@ -4,8 +4,8 @@
   position: fixed;
   inset: 0;
   background: rgb(0 0 0 /.2);
-  z-index: 10;  
-  
+  z-index: 10;
+
   @include m {
     background: transparent;
   }
@@ -16,16 +16,16 @@
   top: 50%;
   left: 49.6%;
   transform: translate(-50%, -50%);
-  width: 780px;
+  width: 794px;
   height: 580px;
   background: white;
   padding: 20px 15px;
   overflow: auto;
-  
+
   @include t {
-    width: 684px;
+    width: 722px;
   }
-  
+
   @include m {
     width: 100%;
     background: #F9F9FB;
@@ -41,14 +41,14 @@
   font-size: 19px;
   font-weight: 600;
   margin-bottom: 10px;
-  
+
   display: flex;
   align-items: center;
 }
 
 .backBtn {
   display: none;
-  
+
   @include m {
     display: inline-block;
     margin-right: 10px;
@@ -67,7 +67,7 @@
   position: absolute;
   top: 20px;
   right: 15px;
-  
+
   @include m {
     display: none;
   }
@@ -80,12 +80,12 @@
   font-weight: 500;
   margin-bottom: 10px;
 
-  @include m {    
-    display: none;    
+  @include m {
+    display: none;
   }
 }
 
-.filesInputText {  
+.filesInputText {
   color: #658092;
   font-size: 12px;
 }
@@ -100,69 +100,9 @@
   display: none;
 }
 
-//******************* убери ненужное потом
-
-
-.form {
-  background: white;
-  padding: 40px 88px;
-  margin-bottom: 100px;
-
-  @include t {
-    padding: 40px 20px;
-  }
-
-  @include m {
-    padding: 20px 16px;
-  }
-}
-
-
-.starRow {
-  display: flex;
+.filesInput {
   margin-bottom: 20px;
-  align-items: center;
-
-  @include m {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 6px;
-  }
-}
-
-
-.subtitlePeriod {
-  display: block;
-  color: #3E5067;
-  font-weight: 500;
-  font-size: 14px;
-  margin-bottom: 17px;
-
-  @include m {
-    margin-top: 6px;
-  }
-}
-
-.subtitle {
-  display: block;
-  color: #3E5067;
-  font-weight: 500;
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-
-.periodBlock {
-  margin-bottom: 23px;
-
-  @include m {
-    margin-bottom: 7px;
-  }
-}
-
-.filesInput {  
-  margin-bottom: 20px;
-  cursor: pointer;  
+  cursor: pointer;
   border: 1px dashed #AAB7BF;
   width: 100%;
   display: flex;
@@ -171,101 +111,12 @@
   align-items: center;
   padding: 20px;
 
-   @include m {
-    width: 100%;
-    padding: 4px;
-    margin-top: 10px;
+  @include m {
+    display: none;
   }
 
   &:focus {
     outline: none;
-    
-    
   }
 }
 
-
-.mainPart {
-  border-bottom: #F0F1F1 1px solid;
-  margin-bottom: 20px;
-
-  @include t {
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-  }
-
-  @include m {
-    margin-bottom: 11px;
-    padding-bottom: 4px;
-  }
-}
-
-.previewList {
-  display: flex;
-  gap: 10px;
-  width: 100%;
-}
-
-.previewImg {
-  height: 80px;
-  width: 80px;
-  border-radius: 5px;
-  object-fit: cover;
-
-  @include m {
-    height: 60px;
-    width: 60px;
-  }
-}
-
-.bottomText {
-  margin-top: 10px;
-  color: #3E5067;
-  font-size: 12px;
-
-  a, a:active, a:visited {
-    color: #0093FD;
-  }
-}
-
-.btnWrapper {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  margin-top: 20px;
-
-  @include m {
-    flex-direction: column-reverse;
-    gap: 10px;
-    align-items: flex-start;
-  }
-}
-
-.submitBtn {
-  width: 180px;
-  height: 40px;
-
-  @include m {
-    width: 150px;
-    height: 36px;
-    font-size: 14px;
-  }
-}
-
-.mobileVisible {
-  display: none;
-
-  @include m {
-    display: inline-block;
-  }
-}
-
-.textareasWrapper {
-  @include t {
-    width: 596px;
-  }
-
-  @include m {
-    width: 100%;
-  }
-}

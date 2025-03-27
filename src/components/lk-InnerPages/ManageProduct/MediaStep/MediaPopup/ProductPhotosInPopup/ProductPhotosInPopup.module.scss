@@ -1,0 +1,38 @@
+@import '@/assets/styles/mixins';
+
+.photosWrapper {
+  height: 162px;
+  width: 100%;
+  gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr) ;
+  grid-template-rows: 1fr 1fr;
+
+  @include t {
+    height: 142px;
+  }
+
+  @include m {
+    grid-template-columns: repeat(15, 1fr) ;
+    gap: 0;
+    overflow: auto;
+    position: absolute;
+    left: -16px;
+    width: calc(100vw);
+    padding-left: 16px;
+    padding-right: 16px;
+    height: 68px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+.mobileScrollWrapper {
+  position: relative;
+
+  @include m {
+    height: 65px;
+  }
+}
