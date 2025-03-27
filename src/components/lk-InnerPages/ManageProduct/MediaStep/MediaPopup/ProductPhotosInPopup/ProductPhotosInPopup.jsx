@@ -26,21 +26,7 @@ const ProductPhotosInPopup = ({productPhotos, images, emptyPhotoClickHandler}) =
       </div>
 
 
-      {/*{*/}
-      {/*  images.length > 0 && (*/}
-      {/*    <div className={s.previewList}>*/}
-      {/*      {images.map((image, index) => (*/}
-      {/*        <img*/}
-      {/*          key={index}*/}
-      {/*          src={image.preview}*/}
-      {/*          alt="preview"*/}
-      {/*          className={s.previewImg}*/}
-      {/*        />*/}
-      {/*      ))}*/}
-      {/*    </div>*/}
-      {/*  )*/}
-      {/*}*/}
-
+  
     </div>
   );
 };

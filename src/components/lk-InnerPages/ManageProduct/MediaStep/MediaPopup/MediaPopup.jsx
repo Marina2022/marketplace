@@ -14,7 +14,10 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
   const {productIdParam} = useParams()
   let isNew = true
   if (productIdParam !== 'new') isNew = false
-
+  
+  
+// images - это загруженные из попапа файлы (не сохраненные в Апп еще)
+  const [images, setImages] = useState([]);
 
   // productPhotos, presentationPhotos
 
@@ -54,18 +57,16 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
     };
   }, [popupOpen])
 
-  const addHandle = () => {
-    //setProductPhotos()
+  const handleAddClick = () => {
+    setProductPhotos([...productPhotos, ...images])
+    setPopupOpen(false)
   }
 
   const handlePopupClick = (e) => {
     e.stopPropagation();
   }
 
-
-  // images - это загруженные из попапа файлы (не сохраненные в Апп еще)
-  const [images, setImages] = useState([]);
-
+ 
   const onDrop = (acceptedFiles) => {
     const newImages = acceptedFiles.map((file) =>
       Object.assign(file, {
@@ -76,8 +77,8 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
     const totalImages = images.length + newImages.length;
 
     // Ограничиваем общее количество изображений до 4
-    if (totalImages > 4) {
-      const allowedNewImages = newImages.slice(0, 4 - images.length);
+    if (totalImages > 15 - productPhotos.length ) {
+      const allowedNewImages = newImages.slice(0, 15 - productPhotos.length - images.length);
       setImages([...images, ...allowedNewImages]);
     } else {
       setImages([...images, ...newImages]);
@@ -94,8 +95,7 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
     multiple: true,
   });
 
-  console.log('getRootProps()', getRootProps())
-  console.log('getInputProps()', getInputProps().ref)
+   
 
   // передать этот хендлер на клик фото-контейнеру
   const emptyPhotoClickHandler = () => {
@@ -126,10 +126,7 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
           </span>
         </h2>
         <div className={s.req}>Требования к загружаемым фотографиям</div>
-
-
         <div className={s.productPhotosBlock}>
-
           <h2 className={s.title}>Загрузка фото</h2>
 
           <div>
@@ -141,7 +138,6 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
               <div className={s.filesInputText}>
                 Выберите или перетащите изображения в эту область
               </div>
-
             </label>
             <input
               {...getInputProps()}
@@ -149,10 +145,7 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
               type="file"
             />
           </div>
-
-
           <h2 className={s.title}>Добавленные фото</h2>
-
           <ProductPhotosInPopup 
             productPhotos={productPhotos} 
             images={images} 
@@ -164,6 +157,11 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
         <div ref={presentationalPhotosRef} className={s.bottomDiv}>
 
         </div>
+        
+        <div className={s.buttons}>
+          <Button onClick={()=>setPopupOpen(false)}  className={s.cancelBtn}>Отмена</Button>
+          <Button onClick={handleAddClick} className={s.addBtn}>Добавить</Button>
+        </div>         
       </div>
     </div>
   );

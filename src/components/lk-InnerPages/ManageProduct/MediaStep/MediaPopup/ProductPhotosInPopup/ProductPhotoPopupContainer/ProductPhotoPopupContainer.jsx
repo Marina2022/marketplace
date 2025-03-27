@@ -13,7 +13,7 @@ const ProductPhotoPopupContainer = ({productPhotos, images, index, emptyPhotoCli
   const handleClick = () => {
     // if первый пустой контейнер
     if (firstEmpty) {
-      emptyPhotoClickHandler
+      emptyPhotoClickHandler()
     }
   }
 

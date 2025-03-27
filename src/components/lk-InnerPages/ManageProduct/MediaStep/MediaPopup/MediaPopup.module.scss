@@ -120,3 +120,30 @@
   }
 }
 
+
+.buttons {
+  border-top: #AAB7BF 1px solid;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding-top: 16px;
+  margin-top: 10px;
+}
+
+.addBtn {
+  width: 117px;
+  height: 36px;
+}
+
+.cancelBtn {
+  width: 101px;
+  padding-inline: 10px;
+  color: #E32636;
+  background: #FFDEE1;
+  font-weight: 500;
+  height: 36px;
+
+  &:hover {
+    background: #fcd2d5;
+  }
+}
