@@ -3,6 +3,8 @@ import s from './ProductPhotoContainer.module.scss';
 const ProductPhotoContainer = ({index, productPhotos, setPopupOpen}) => {
   
   const firstEmpty = index === productPhotos.length
+  
+  const isEmpty = index >=productPhotos.length
   const handleClick = () => {
 
     // if первый пустой контейнер
@@ -14,7 +16,11 @@ const ProductPhotoContainer = ({index, productPhotos, setPopupOpen}) => {
 
   return (
     <li className={`${s.productPhotoContainer} ${firstEmpty ? s.firstEmpty : ''}`} onClick={handleClick}>
-      {index}
+      {
+        !isEmpty && <img className={s.image} src={productPhotos[index].preview} alt="image"/>
+      }
+      
+      
     </li>
   );
 };
