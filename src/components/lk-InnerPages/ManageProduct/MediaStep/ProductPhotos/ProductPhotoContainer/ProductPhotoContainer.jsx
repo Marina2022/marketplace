@@ -1,5 +1,5 @@
 import s from './ProductPhotoContainer.module.scss';
-
+import cameraIcon from '@/assets/img/lk/lk-shop/camera.svg'
 const ProductPhotoContainer = ({index, productPhotos, setPopupOpen, setProductPhotos}) => {
 
   const firstEmpty = index === productPhotos.length
@@ -53,9 +53,12 @@ const ProductPhotoContainer = ({index, productPhotos, setPopupOpen, setProductPh
         </button>
       }
 
-
       {
         !isEmpty && <img className={s.image} src={productPhotos[index].preview} alt="image"/>
+      }
+
+      {
+        isEmpty && index === 0 && <img src={cameraIcon} alt="icon"/>
       }
     </li>
   );
