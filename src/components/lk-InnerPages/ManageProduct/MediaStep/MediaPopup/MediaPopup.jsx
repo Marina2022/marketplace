@@ -14,8 +14,8 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
   const {productIdParam} = useParams()
   let isNew = true
   if (productIdParam !== 'new') isNew = false
-  
-  
+
+
 // images - это загруженные из попапа файлы (не сохраненные в Апп еще)
   const [images, setImages] = useState([]);
 
@@ -58,6 +58,7 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
   }, [popupOpen])
 
   const handleAddClick = () => {
+    if (images.length === 0) return
     setProductPhotos([...productPhotos, ...images])
     setPopupOpen(false)
   }
@@ -66,7 +67,7 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
     e.stopPropagation();
   }
 
- 
+
   const onDrop = (acceptedFiles) => {
     const newImages = acceptedFiles.map((file) =>
       Object.assign(file, {
@@ -77,7 +78,7 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
     const totalImages = images.length + newImages.length;
 
     // Ограничиваем общее количество изображений до 4
-    if (totalImages > 15 - productPhotos.length ) {
+    if (totalImages > 15 - productPhotos.length) {
       const allowedNewImages = newImages.slice(0, 15 - productPhotos.length - images.length);
       setImages([...images, ...allowedNewImages]);
     } else {
@@ -95,14 +96,13 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
     multiple: true,
   });
 
-   
 
   // передать этот хендлер на клик фото-контейнеру
   const emptyPhotoClickHandler = () => {
     getInputProps().ref.current.click()
   }
 
-    
+
   return (
     <div onClick={() => setPopupOpen(null)} className={s.underlay}>
       <div className={s.popup} onClick={handlePopupClick}>
@@ -127,7 +127,8 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
         </h2>
         <div className={s.req}>Требования к загружаемым фотографиям</div>
         <div className={s.productPhotosBlock}>
-          <h2 className={s.title}>Загрузка фото</h2>
+          
+          <h2 className={`${s.title} mobile-hidden`}>Загрузка фото</h2>
 
           <div>
             <label
@@ -146,10 +147,10 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
             />
           </div>
           <h2 className={s.title}>Добавленные фото</h2>
-          <ProductPhotosInPopup 
-            productPhotos={productPhotos} 
-            images={images} 
-            emptyPhotoClickHandler={emptyPhotoClickHandler} />
+          <ProductPhotosInPopup
+            productPhotos={productPhotos}
+            images={images}
+            emptyPhotoClickHandler={emptyPhotoClickHandler}/>
         </div>
 
 
@@ -157,11 +158,11 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
         <div ref={presentationalPhotosRef} className={s.bottomDiv}>
 
         </div>
-        
+
         <div className={s.buttons}>
-          <Button onClick={()=>setPopupOpen(false)}  className={s.cancelBtn}>Отмена</Button>
+          <Button onClick={() => setPopupOpen(false)} className={s.cancelBtn}>Отмена</Button>
           <Button onClick={handleAddClick} className={s.addBtn}>Добавить</Button>
-        </div>         
+        </div>
       </div>
     </div>
   );

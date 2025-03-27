@@ -35,8 +35,9 @@
   padding: 0;
   list-style: none;
 }
+
 h1, h2, h3, ul, ol, li {
-  margin: 0;  
+  margin: 0;
 }
 
 img {
@@ -46,7 +47,7 @@ img {
 html {
   overflow-x: hidden;
   margin-right: calc(-1 * (100vw - 100%));
-  
+
   @include m {
     margin-right: 0;
   }
@@ -118,8 +119,6 @@ a {
 }
 
 
-
-
 .containerCart {
   margin: 0 auto;
   width: 100%;
@@ -149,25 +148,31 @@ a {
     scrollbar-width: thin;
     scrollbar-color: #AAB7BF #F0F1F1;
   }
-  
+
   &::-webkit-scrollbar {
-    width: 6px!important;
+    width: 6px !important;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #AAB7BF!important; /* Цвет ползунка */
-    border-radius: 3px!important; /* Закругление краев */
+    background-color: #AAB7BF !important; /* Цвет ползунка */
+    border-radius: 3px !important; /* Закругление краев */
   }
 
   &::-webkit-scrollbar-track {
-    background-color: #F0F1F1!important; /* Цвет трека */
-    border-radius: 3px!important; /* Закругление краев */
+    background-color: #F0F1F1 !important; /* Цвет трека */
+    border-radius: 3px !important; /* Закругление краев */
   }
 
   &::-webkit-scrollbar-button {
-    display: none!important;
-    width: 0!important;
-    height: 0!important;
-  }   
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
 }
 
+
+.mobile-hidden {
+  @include m {
+    display: none;
+  }
+}

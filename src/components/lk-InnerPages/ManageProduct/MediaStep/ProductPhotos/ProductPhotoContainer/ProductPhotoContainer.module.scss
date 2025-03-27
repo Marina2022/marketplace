@@ -9,10 +9,24 @@
   align-items: center;
   width: 74px;
   height: 74px;
+  position: relative;
 
   @include t {
     width: 65px;
     height: 65px;
+  }
+  
+  @media (hover: hover) {
+    &:hover {
+      //border: #658092 1px solid;
+      border: rgba(101, 128, 146, 0.51) 1px solid;
+      box-shadow: 0 4px 4px 0 rgb(0 0 0 / .25);
+
+      .deleteBtn {
+        display: inline-block;
+      }
+    }
+
   }
 
   &:first-child {
@@ -20,7 +34,7 @@
     grid-row: 1 / span 2;
     width: 160px;
     height: 160px;
-    
+
     @include t {
       width: 140px;
       height: 140px;
@@ -44,4 +58,26 @@
   height: 100%;
   object-fit: contain;
   object-position: center;
+}
+
+.deleteBtn {
+  display: none;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 3px;
+  right: 3px;
+}
+
+.mobileDeleteBtn {
+  display: none;
+
+  @include m {
+    display: inline-block;
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    top: 7px;
+    right: 6px;
+  }
 }

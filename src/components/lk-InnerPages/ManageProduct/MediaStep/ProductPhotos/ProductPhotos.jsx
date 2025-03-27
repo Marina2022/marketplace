@@ -22,7 +22,13 @@ const ProductPhotos = ({productPhotos, setPopupOpen, setProductPhotos}) => {
           {
             placeholders.map((placeholder, i) => {
               // key={i} потестить потом todo
-              return <ProductPhotoContainer key={i} productPhotos={productPhotos} index={i} setPopupOpen={setPopupOpen} />
+              return <ProductPhotoContainer 
+                key={i} 
+                productPhotos={productPhotos} 
+                index={i} 
+                setPopupOpen={setPopupOpen}
+                setProductPhotos={setProductPhotos}
+              />
             })
           }
         </ul>
