@@ -20,6 +20,7 @@
   height: 580px;
   background: white;
   padding: 20px 15px;
+  overflow: auto;
   
   @include t {
     width: 684px;
@@ -35,3 +36,39 @@
   }
 }
 
+.mainTitle {
+  color: #3E5067;
+  font-size: 19px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  
+  display: flex;
+  align-items: center;
+}
+
+.backBtn {
+  display: none;
+  
+  @include m {
+    display: inline-block;
+    margin-right: 10px;
+    position: relative;
+    top: -2px;
+  }
+}
+
+.req {
+  height: 50px;
+  border: #ccc 1px solid;
+  margin-bottom: 20px;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  
+  @include m {
+    display: none;
+  }
+}
