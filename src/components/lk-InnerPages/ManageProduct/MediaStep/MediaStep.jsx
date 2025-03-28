@@ -13,15 +13,15 @@ const MediaStep = ({
                      setPresentationPhotos,
                      setStep
                    }) => {
-  
-  const [popupOpen, setPopupOpen] = useState(null)  // productPhotos, presentationPhotos
 
-  const goToNextStep = () => {
-    
-    if (productPhotos.length === 0) return
-    
-    setStep('preview')
-  }
+    const [popupOpen, setPopupOpen] = useState(null)  // productPhotos, presentationPhotos
+
+    const goToNextStep = () => {
+
+      if (productPhotos.length === 0) return
+
+      setStep('preview')
+    }
 
     return (
 
@@ -29,9 +29,10 @@ const MediaStep = ({
 
         <h2 className={s.title}>Медиа</h2>
 
-        <ProductPhotos productPhotos={productPhotos} setProductPhotos={setProductPhotos} setPopupOpen={setPopupOpen} />
+        <ProductPhotos productPhotos={productPhotos} setProductPhotos={setProductPhotos} setPopupOpen={setPopupOpen}/>
 
-        <PresentationPhotos presentationPhotos={presentationPhotos} setPresentationPhotos={setPresentationPhotos} setPopupOpen={setPopupOpen}/>
+        <PresentationPhotos presentationPhotos={presentationPhotos} setPresentationPhotos={setPresentationPhotos}
+                            setPopupOpen={setPopupOpen}/>
 
         <div className={s.buttons}>
           <Button className={s.backButton} type="button" onClick={() => setStep('characteristics')}>Назад</Button>
@@ -39,17 +40,18 @@ const MediaStep = ({
         </div>
 
         {
-          popupOpen && <MediaPopup 
-            className={s.popup} 
-            setProductPhotos={setProductPhotos} 
+          popupOpen && <MediaPopup
+            className={s.popup}
+            setProductPhotos={setProductPhotos}
             productPhotos={productPhotos}
+            presentationPhotos={presentationPhotos}
+            setPresentationPhotos={setPresentationPhotos}
             setPopupOpen={setPopupOpen}
             popupOpen={popupOpen}
-          /> 
+          />
         }
-        
-          
-        
+
+
       </div>
     );
   }

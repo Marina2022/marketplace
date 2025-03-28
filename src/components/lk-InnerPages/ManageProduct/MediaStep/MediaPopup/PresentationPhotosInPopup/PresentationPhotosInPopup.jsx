@@ -1,14 +1,14 @@
-import s from './ProductPhotos.module.scss';
+import s from './PresentationPhotosInPopup.module.scss';
 import Button from "@/components/ui/Button/Button.jsx";
-import ProductPhotoContainer
-  from "@/components/lk-InnerPages/ManageProduct/MediaStep/ProductPhotos/ProductPhotoContainer/ProductPhotoContainer.jsx";
+import PresentationPhotoContainer
+  from "@/components/lk-InnerPages/ManageProduct/MediaStep/PresentationPhotos/PresentationPhotosContainer/PresentationPhotoContainer.jsx";
 
-const ProductPhotos = ({productPhotos, setPopupOpen, setProductPhotos}) => {
+const PresentationPhotos = ({presentationPhotos, setPresentationPhotos, setPopupOpen, presentationImages}) => {
 
-  const placeholders = Array.from({length: 15})
+  const placeholders = Array.from({length: 5})
 
   const handleAddPhoto = ()=>setPopupOpen(true)
-  
+
   return (
     <div className={s.productPhotosWrapper}>
 
@@ -21,12 +21,12 @@ const ProductPhotos = ({productPhotos, setPopupOpen, setProductPhotos}) => {
         <ul className={s.photosWrapper}>
           {
             placeholders.map((placeholder, i) => {
-              return <ProductPhotoContainer 
-                key={i} 
-                productPhotos={productPhotos} 
-                index={i} 
+              return <PresentationPhotoContainer
+                key={i}
+                index={i}
                 setPopupOpen={setPopupOpen}
-                setProductPhotos={setProductPhotos}
+                productPhotos={presentationPhotos}
+                setProductPhotos={setPresentationPhotos}
               />
             })
           }
@@ -43,4 +43,4 @@ const ProductPhotos = ({productPhotos, setPopupOpen, setProductPhotos}) => {
   )
 }
 
-export default ProductPhotos;
+export default PresentationPhotos;

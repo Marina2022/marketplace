@@ -9,8 +9,10 @@ import ProductPhotoContainer
 import ProductPhotosInPopup
   from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/ProductPhotosInPopup/ProductPhotosInPopup.jsx";
 import Requirements from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/Requirements/Requirements.jsx";
+import PresentationPhotosInPopup
+  from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/PresentationPhotosInPopup/PresentationPhotosInPopup.jsx";
 
-const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) => {
+const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen, presentationPhotos, setPresentationPhotos}) => {
 
   const {productIdParam} = useParams()
   let isNew = true
@@ -18,6 +20,7 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
 
 // images - это загруженные из попапа файлы (не сохраненные в Апп еще)  - файлы с фото товаров
   const [images, setImages] = useState([]);
+  const [presentationImages, setPresentationImages] = useState([]);
 
   // productPhotos, presentationPhotos 
 
@@ -52,8 +55,9 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
   }, [popupOpen])
 
   const handleAddClick = () => {
-    if (images.length === 0) return   // todo - проверь, может презентац. фото загружены были, т.е. надо чтобы что-то одно хотя бы было
+    if (images.length === 0 && presentationImages.length === 0 ) return   
     setProductPhotos([...productPhotos, ...images])
+    setPresentationPhotos([...presentationPhotos, presentationImages])
     setPopupOpen(false)
   }
   const handlePopupClick = (e) => {
@@ -119,7 +123,8 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
           <div className={s.innerScrollable}>
 
             <Requirements/>
-
+            
+            {/*В отд. компонент вместе с хуком и всей логикой:*/}
             <div className={s.productPhotosBlock}>
               <h2 className={`${s.title} mobile-hidden`}>Загрузка фото</h2>
 
@@ -147,11 +152,20 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
                 emptyPhotoClickHandler={emptyPhotoClickHandler}
               />
             </div>
-
+                        
+            
+            
+            
+            
             {/*presentationalPhotos будут тут,  не снеси случайно, настроен скролл к нему  */}
             <div ref={presentationalPhotosRef} className={s.bottomDiv}>
-            </div>
 
+            {/*  <PresentationPhotosInPopup*/}
+            {/*    productPhotos={presentationPhotos}*/}
+            {/*    presentationImages={presentationImages}*/}
+            {/*    emptyPhotoClickHandler={emptyPhotoClickHandler}*/}
+            {/*  />*/}
+            </div>
           </div>
         </div>
 
