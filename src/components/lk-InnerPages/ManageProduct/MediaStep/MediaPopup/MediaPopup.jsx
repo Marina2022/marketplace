@@ -1,16 +1,12 @@
 import s from './MediaPopup.module.scss';
 import {useEffect, useRef, useState} from "react";
 import {useParams} from "react-router-dom";
-import cameraIcon from "@/assets/img/lk/lk-shop/camera.svg";
-import {useDropzone} from "react-dropzone";
 import Button from "@/components/ui/Button/Button.jsx";
-import ProductPhotoContainer
-  from "@/components/lk-InnerPages/ManageProduct/MediaStep/ProductPhotos/ProductPhotoContainer/ProductPhotoContainer.jsx";
-import ProductPhotosInPopup
-  from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/ProductPhotosInPopup/ProductPhotosInPopup.jsx";
 import Requirements from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/Requirements/Requirements.jsx";
-import PresentationPhotosInPopup
-  from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/PresentationPhotosInPopup/PresentationPhotosInPopup.jsx";
+import ProductPhotosBlock
+  from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/ProductPhotosBlock/ProductPhotosBlock.jsx";
+import PresentationPhotosBlock
+  from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/PresentationPhotosBlock/PresentationPhotosBlock.jsx";
 
 const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen, presentationPhotos, setPresentationPhotos}) => {
 
@@ -57,45 +53,13 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen, p
   const handleAddClick = () => {
     if (images.length === 0 && presentationImages.length === 0 ) return   
     setProductPhotos([...productPhotos, ...images])
-    setPresentationPhotos([...presentationPhotos, presentationImages])
+    setPresentationPhotos([...presentationPhotos, ...presentationImages])
     setPopupOpen(false)
   }
   const handlePopupClick = (e) => {
     e.stopPropagation();
   }
-  const onDrop = (acceptedFiles) => {
-    const newImages = acceptedFiles.map((file) =>
-      Object.assign(file, {
-        preview: URL.createObjectURL(file),
-      })
-    );
-
-    const totalImages = images.length + newImages.length;
-
-    // Ограничиваем общее количество изображений до 15
-    if (totalImages > 15 - productPhotos.length) {
-      const allowedNewImages = newImages.slice(0, 15 - productPhotos.length - images.length);
-      setImages([...images, ...allowedNewImages]);
-    } else {
-      setImages([...images, ...newImages]);
-    }
-  };
-
-  const {getRootProps, getInputProps} = useDropzone({
-    onDrop,
-
-    accept: {
-      'image/jpeg': ['.jpeg', '.jpg'],
-      'image/png': ['.png'],
-      'image/webp': ['.webp']
-    },
-    multiple: true,
-  });
-
-  // передать этот хендлер на клик фото-контейнеру
-  const emptyPhotoClickHandler = () => {
-    getInputProps().ref.current.click()
-  }
+  
 
   return (
     <div onClick={() => setPopupOpen(null)} className={s.underlay}>
@@ -124,47 +88,12 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen, p
 
             <Requirements/>
             
-            {/*В отд. компонент вместе с хуком и всей логикой:*/}
-            <div className={s.productPhotosBlock}>
-              <h2 className={`${s.title} mobile-hidden`}>Загрузка фото</h2>
-
-              <div>
-                <label
-                  className={s.filesInput}
-                  {...getRootProps()}
-                >
-                  <img className={s.cameraIcon} src={cameraIcon} alt="icon"/>
-                  <div className={s.filesInputText}>
-                    Выберите или перетащите изображения в эту область
-                  </div>
-                </label>
-                <input
-                  {...getInputProps()}
-                  className={s.fileInput}
-                  type="file"
-                />
-              </div>
-              <h2 className={s.title}>Добавленные фото</h2>
-
-              <ProductPhotosInPopup
-                productPhotos={productPhotos}
-                images={images}
-                emptyPhotoClickHandler={emptyPhotoClickHandler}
-              />
-            </div>
-                        
-            
-            
-            
-            
-            {/*presentationalPhotos будут тут,  не снеси случайно, настроен скролл к нему  */}
+            <ProductPhotosBlock productPhotos={productPhotos} images={images} setImages={setImages} />                      
+                                    
             <div ref={presentationalPhotosRef} className={s.bottomDiv}>
 
-            {/*  <PresentationPhotosInPopup*/}
-            {/*    productPhotos={presentationPhotos}*/}
-            {/*    presentationImages={presentationImages}*/}
-            {/*    emptyPhotoClickHandler={emptyPhotoClickHandler}*/}
-            {/*  />*/}
+              <PresentationPhotosBlock presentationPhotos={presentationPhotos} presentationImages={presentationImages} setPresentationImages={setPresentationImages} />
+                            
             </div>
           </div>
         </div>

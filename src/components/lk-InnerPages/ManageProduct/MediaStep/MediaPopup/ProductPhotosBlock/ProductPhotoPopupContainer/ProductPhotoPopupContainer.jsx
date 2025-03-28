@@ -20,14 +20,7 @@ const ProductPhotoPopupContainer = ({productPhotos, images, index, emptyPhotoCli
 
   let imgUrl = ''
 
-  // при edit будем урлы картинок доставать чуть иначе
   if (isNew) {
-
-    // productPhotos - рисуем вначале списка  
-    // images - за ними (это текущие, загруженные из попапа)
-
-    // определяем какой индекс взять из какого массива:
-
 
       if (index < productPhotos.length) {
         imgUrl = productPhotos[index]?.preview

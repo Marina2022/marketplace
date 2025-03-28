@@ -1,0 +1,54 @@
+@import '@/assets/styles/mixins';
+
+.title {
+  color: #658092;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 10px;
+
+  @include m {
+    margin-top: 20px;
+    padding-inline: 16px;
+  }
+}
+
+.filesInputText {
+  color: #658092;
+  font-size: 12px;
+}
+
+.cameraIcon {
+  width: 20px;
+  height: 20px;
+}
+
+
+.fileInput {
+  display: none;
+}
+
+.filesInput {
+  margin-bottom: 20px;
+  cursor: pointer;
+  border: 1px dashed #AAB7BF;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  padding: 20px;
+  transition: .2s ease-out background-color;
+
+  @include m {
+    display: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background: #E6E9F0;
+    transition: .2s ease-out background-color;
+  }
+}

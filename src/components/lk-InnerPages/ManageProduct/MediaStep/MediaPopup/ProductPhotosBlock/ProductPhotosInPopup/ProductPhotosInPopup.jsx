@@ -1,6 +1,6 @@
 import s from './ProductPhotosInPopup.module.scss';
 import ProductPhotoPopupContainer
-  from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/ProductPhotosInPopup/ProductPhotoPopupContainer/ProductPhotoPopupContainer.jsx";
+  from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/ProductPhotosBlock/ProductPhotoPopupContainer/ProductPhotoPopupContainer.jsx";
 
 const ProductPhotosInPopup = ({productPhotos, images, emptyPhotoClickHandler}) => {
 

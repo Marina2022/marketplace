@@ -9,14 +9,14 @@ const PresentationPhotos = ({presentationPhotos, setPresentationPhotos, setPopup
 
   const placeholders = Array.from({length: 5})
 
-  const handleAddPhoto = ()=>setPopupOpen(true)
+  const handleAddPhoto = () => setPopupOpen(true)
 
   return (
     <div className={s.productPhotosWrapper}>
 
       <div className={s.headerWrapper}>
-        <h3 className={s.subtitle}>Фотографии товара</h3>
-        <Button onClick={handleAddPhoto}  className={s.addPhotoBtn}>Добавить фото</Button>
+        <h3 className={s.subtitle}>Презентационные материалы</h3>
+        <Button onClick={handleAddPhoto} className={s.addPhotoBtn}>Добавить фото</Button>
       </div>
 
       <div className={s.mobileScrollWrapper}>
@@ -24,7 +24,7 @@ const PresentationPhotos = ({presentationPhotos, setPresentationPhotos, setPopup
           {
             placeholders.map((placeholder, i) => {
               return <PresentationPhotoContainer
-                key={i}                
+                key={i}
                 index={i}
                 setPopupOpen={setPopupOpen}
                 productPhotos={presentationPhotos}
@@ -36,9 +36,9 @@ const PresentationPhotos = ({presentationPhotos, setPresentationPhotos, setPopup
       </div>
 
       <div className={s.textBlock}>
-        Загрузите изображения, чтобы покупатели могли лучше рассмотреть ваш товар. Первое фото станет главным — оно
-        будет отображаться в каталоге и на карточке товара. Остальные фото можно использовать для демонстрации деталей,
-        упаковки или дополнительных ракурсов.
+        Эти изображения используются в описании товара, чтобы показать его преимущества, особенности и детали. Первое
+        фото станет главным в описании. Остальные изображения можно расположить в том порядке, который лучше всего
+        раскрывает особенности товара.
       </div>
 
     </div>
