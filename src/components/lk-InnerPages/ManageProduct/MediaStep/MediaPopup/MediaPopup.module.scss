@@ -16,17 +16,19 @@
   top: 50%;
   left: 49.6%;
   transform: translate(-50%, -50%);
-  width: 794px;
-  height: 580px;
+  width: 806px;
   background: white;
   padding: 20px 15px;
   overflow: auto;
+
 
   @include t {
     width: 722px;
   }
 
   @include m {
+    padding-inline: 0;
+
     width: 100%;
     background: #F9F9FB;
     inset: 0;
@@ -41,9 +43,12 @@
   font-size: 19px;
   font-weight: 600;
   margin-bottom: 10px;
-
   display: flex;
   align-items: center;
+
+  @include m {
+    padding-inline: 16px;
+  }
 }
 
 .backBtn {
@@ -57,15 +62,6 @@
   }
 }
 
-.req {
-  height: 50px;
-  border: #ccc 1px solid;
-  margin-bottom: 20px;
-  
-  @include m {
-    display: none;
-  }
-}
 
 .closeBtn {
   position: absolute;
@@ -77,15 +73,15 @@
   }
 }
 
-
 .title {
   color: #658092;
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 10px;
-  
+
   @include m {
     margin-top: 20px;
+    padding-inline: 16px;
   }
 }
 
@@ -114,13 +110,19 @@
   gap: 10px;
   align-items: center;
   padding: 20px;
-
+  transition: .2s ease-out background-color;
+  
   @include m {
     display: none;
   }
 
   &:focus {
     outline: none;
+  }
+
+  &:hover {
+    background: #E6E9F0;
+    transition: .2s ease-out background-color;
   }
 }
 
@@ -131,9 +133,11 @@
   justify-content: flex-end;
   padding-top: 16px;
   margin-top: 10px;
-  
+
   @include m {
     border: none;
+    padding-inline: 16px;
+    justify-content: space-between;
   }
 }
 
@@ -153,4 +157,24 @@
   &:hover {
     background: #fcd2d5;
   }
+}
+
+.scrollableContent {
+  overflow-y: auto;
+  height: calc(580px - 138px);
+
+  @include m {
+    &::-webkit-scrollbar {
+      display: none !important;
+    }
+  }
+}
+
+.innerScrollable {
+  padding-right: 6px;
+  position: relative;
+}
+
+.bottomDiv {
+  padding-inline: 16px;
 }

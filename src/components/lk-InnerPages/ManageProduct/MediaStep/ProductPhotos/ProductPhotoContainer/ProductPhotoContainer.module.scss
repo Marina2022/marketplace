@@ -1,6 +1,5 @@
 @import '@/assets/styles/mixins';
 
-
 .productPhotoContainer {
   border: #F0F1F1 1px solid;
   background: white;
@@ -16,19 +15,6 @@
     height: 65px;
   }
   
-  @media (hover: hover) {
-    &:hover {
-      //border: #658092 1px solid;
-      border: rgba(101, 128, 146, 0.51) 1px solid;
-      box-shadow: 0 4px 4px 0 rgb(0 0 0 / .25);
-
-      .deleteBtn {
-        display: inline-block;
-      }
-    }
-
-  }
-
   &:first-child {
     grid-column: 1 / span 2;
     grid-row: 1 / span 2;
@@ -45,6 +31,19 @@
       height: 65px;
       grid-column: 1 / 1;
       grid-row: 1 / 1;
+    }
+  }
+}
+
+.containerWithPhoto {
+  @media (hover: hover) {
+    &:hover {
+      border: rgba(101, 128, 146, 0.51) 1px solid;
+      box-shadow: 0 4px 4px 0 rgb(0 0 0 / .25);
+
+      .deleteBtn {
+        display: inline-block;
+      }
     }
   }
 }
@@ -80,4 +79,9 @@
     top: 7px;
     right: 6px;
   }
+}
+
+.imgWrapper {
+  width: 100%;
+  height: 100%;
 }

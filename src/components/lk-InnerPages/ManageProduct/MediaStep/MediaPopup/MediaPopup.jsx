@@ -8,6 +8,7 @@ import ProductPhotoContainer
   from "@/components/lk-InnerPages/ManageProduct/MediaStep/ProductPhotos/ProductPhotoContainer/ProductPhotoContainer.jsx";
 import ProductPhotosInPopup
   from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/ProductPhotosInPopup/ProductPhotosInPopup.jsx";
+import Requirements from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/Requirements/Requirements.jsx";
 
 const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) => {
 
@@ -15,11 +16,10 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
   let isNew = true
   if (productIdParam !== 'new') isNew = false
 
-
-// images - это загруженные из попапа файлы (не сохраненные в Апп еще)
+// images - это загруженные из попапа файлы (не сохраненные в Апп еще)  - файлы с фото товаров
   const [images, setImages] = useState([]);
 
-  // productPhotos, presentationPhotos
+  // productPhotos, presentationPhotos 
 
   const presentationalPhotosRef = useRef()
   useEffect(() => {
@@ -29,17 +29,12 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
   }, [popupOpen]);
 
   useEffect(() => {
-    // Функция для обработки события клавиши
     const handleKeyDown = (event) => {
-      if (event.key === 'Escape') { // Проверяем, была ли нажата клавиша 'Esc'
+      if (event.key === 'Escape') {
         setPopupOpen(false)
       }
     };
-
-    // Добавляем обработчик события 'keydown' при монтировании компонента
     window.addEventListener('keydown', handleKeyDown);
-
-    // Убираем обработчик при размонтировании компонента
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
@@ -51,23 +46,19 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
     } else {
       document.documentElement.style.overflow = "";
     }
-
     return () => {
       document.documentElement.style.overflow = "";
     };
   }, [popupOpen])
 
   const handleAddClick = () => {
-    if (images.length === 0) return
+    if (images.length === 0) return   // todo - проверь, может презентац. фото загружены были, т.е. надо чтобы что-то одно хотя бы было
     setProductPhotos([...productPhotos, ...images])
     setPopupOpen(false)
   }
-
   const handlePopupClick = (e) => {
     e.stopPropagation();
   }
-
-
   const onDrop = (acceptedFiles) => {
     const newImages = acceptedFiles.map((file) =>
       Object.assign(file, {
@@ -77,7 +68,7 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
 
     const totalImages = images.length + newImages.length;
 
-    // Ограничиваем общее количество изображений до 4
+    // Ограничиваем общее количество изображений до 15
     if (totalImages > 15 - productPhotos.length) {
       const allowedNewImages = newImages.slice(0, 15 - productPhotos.length - images.length);
       setImages([...images, ...allowedNewImages]);
@@ -92,16 +83,15 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
     accept: {
       'image/jpeg': ['.jpeg', '.jpg'],
       'image/png': ['.png'],
+      'image/webp': ['.webp']
     },
     multiple: true,
   });
-
 
   // передать этот хендлер на клик фото-контейнеру
   const emptyPhotoClickHandler = () => {
     getInputProps().ref.current.click()
   }
-
 
   return (
     <div onClick={() => setPopupOpen(null)} className={s.underlay}>
@@ -120,43 +110,49 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen}) 
               <path d="M5 9.5L1 5L5 0.5" stroke="#658092"/>
             </svg>
           </button>
-
           <span>
             {isNew ? 'Добавление медиа' : 'Обновление медиа'}
           </span>
         </h2>
-        <div className={s.req}>Требования к загружаемым фотографиям</div>
-        <div className={s.productPhotosBlock}>
-          
-          <h2 className={`${s.title} mobile-hidden`}>Загрузка фото</h2>
 
-          <div>
-            <label
-              className={s.filesInput}
-              {...getRootProps()}
-            >
-              <img className={s.cameraIcon} src={cameraIcon} alt="icon"/>
-              <div className={s.filesInputText}>
-                Выберите или перетащите изображения в эту область
+        <div className={`${s.scrollableContent} lk-scroll-popup`}>
+          <div className={s.innerScrollable}>
+
+            <Requirements/>
+
+            <div className={s.productPhotosBlock}>
+              <h2 className={`${s.title} mobile-hidden`}>Загрузка фото</h2>
+
+              <div>
+                <label
+                  className={s.filesInput}
+                  {...getRootProps()}
+                >
+                  <img className={s.cameraIcon} src={cameraIcon} alt="icon"/>
+                  <div className={s.filesInputText}>
+                    Выберите или перетащите изображения в эту область
+                  </div>
+                </label>
+                <input
+                  {...getInputProps()}
+                  className={s.fileInput}
+                  type="file"
+                />
               </div>
-            </label>
-            <input
-              {...getInputProps()}
-              className={s.fileInput}
-              type="file"
-            />
+              <h2 className={s.title}>Добавленные фото</h2>
+
+              <ProductPhotosInPopup
+                productPhotos={productPhotos}
+                images={images}
+                emptyPhotoClickHandler={emptyPhotoClickHandler}
+              />
+            </div>
+
+            {/*presentationalPhotos будут тут,  не снеси случайно, настроен скролл к нему  */}
+            <div ref={presentationalPhotosRef} className={s.bottomDiv}>
+            </div>
+
           </div>
-          <h2 className={s.title}>Добавленные фото</h2>
-          <ProductPhotosInPopup
-            productPhotos={productPhotos}
-            images={images}
-            emptyPhotoClickHandler={emptyPhotoClickHandler}/>
-        </div>
-
-
-        {/*presentationalPhotos будут тут,  не снеси случайно, настроен скролл к нему  */}
-        <div ref={presentationalPhotosRef} className={s.bottomDiv}>
-
         </div>
 
         <div className={s.buttons}>

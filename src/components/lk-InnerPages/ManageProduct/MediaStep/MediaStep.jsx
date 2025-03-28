@@ -28,7 +28,7 @@ const MediaStep = ({
 
         <ProductPhotos productPhotos={productPhotos} setProductPhotos={setProductPhotos} setPopupOpen={setPopupOpen} />
 
-        <PresentationPhotos setPopupOpen={setPopupOpen} presentationPhotos={presentationPhotos} setPresentationPhotos={setPresentationPhotos} setPopupOpen={setPopupOpen}/>
+        <PresentationPhotos presentationPhotos={presentationPhotos} setPresentationPhotos={setPresentationPhotos} setPopupOpen={setPopupOpen}/>
 
         <div className={s.buttons}>
           <Button className={s.backButton} type="button" onClick={() => setStep('characteristics')}>Назад</Button>

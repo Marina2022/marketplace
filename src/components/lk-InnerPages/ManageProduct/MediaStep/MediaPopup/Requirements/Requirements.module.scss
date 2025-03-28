@@ -1,0 +1,66 @@
+@import '@/assets/styles/mixins';
+
+.wrapper {
+  position: relative;
+  margin-bottom: 20px;
+
+  @include m {
+    display: none;
+  }  
+}
+
+.reqTitle {
+  user-select: none;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  border: #ccc 1px solid;  
+  font-size: 14px;
+  color: #3E5067;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: .2s ease-out background-color;
+  
+  &:hover {
+    background: #E6E9F0;
+    transition: .2s ease-out background-color;
+  }
+}
+
+.dropIcon {
+  margin-right: 13px;
+}
+
+.reqTitleOpened {
+  
+  &:hover {
+    background: white;
+  }  
+}
+
+.dropIconOpened {
+  transform: rotateX(180deg) translateY(-46%);
+  position: relative;
+  top: -4px;
+}
+
+.requirementsList {
+  background: white;
+  padding-block: 8px;
+}
+
+.requirementsList {
+  color: #3E5067;
+  font-size: 12px;
+  border: #ccc 1px solid;
+  border-top: none;  
+  list-style-type: disc;
+  padding-left: 22px;
+  
+  & li {
+    margin-bottom: 4px;
+    list-style: initial;
+    text-indent: -4px;
+  }
+}

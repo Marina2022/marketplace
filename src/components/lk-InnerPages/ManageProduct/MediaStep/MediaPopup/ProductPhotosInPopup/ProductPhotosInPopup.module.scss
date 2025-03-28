@@ -17,8 +17,7 @@
     gap: 0;
     overflow: auto;
     position: absolute;
-    left: -16px;
-    width: calc(100vw);
+    width: 100vw;
     padding-left: 16px;
     padding-right: 16px;
     height: 68px;
@@ -30,9 +29,9 @@
 }
 
 .mobileScrollWrapper {
-  position: relative;
+  position: relative;  
 
   @include m {
-    height: 65px;
+    height: 65px;    
   }
 }
