@@ -8,7 +8,6 @@ const ProductPhotoPopupContainer = ({productPhotos, images, index, emptyPhotoCli
   if (productIdParam !== 'new') isNew = false
 
   const isEmpty = index >= productPhotos.length + images.length
-
   const firstEmpty = index === productPhotos.length + images.length
   const handleClick = () => {
     // if первый пустой контейнер
@@ -17,26 +16,22 @@ const ProductPhotoPopupContainer = ({productPhotos, images, index, emptyPhotoCli
     }
   }
 
-
   let imgUrl = ''
 
   if (isNew) {
 
-      if (index < productPhotos.length) {
-        imgUrl = productPhotos[index]?.preview
-      } else {
-        imgUrl = images[index - productPhotos.length]?.preview
-      }
-
+    if (index < productPhotos.length) {
+      imgUrl = productPhotos[index]?.preview
+    } else {
+      imgUrl = images[index - productPhotos.length]?.preview
+    }
   }
 
   return (
     <li className={`${s.productPhotoContainer} ${firstEmpty ? s.firstEmpty : ''}`} onClick={handleClick}>
-
       {
         !isEmpty && <img className={s.image} src={imgUrl} alt="image"/>
       }
-
     </li>
   )
 }

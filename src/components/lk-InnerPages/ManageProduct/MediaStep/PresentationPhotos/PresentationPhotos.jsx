@@ -1,7 +1,5 @@
 import s from './PresentationPhotos.module.scss';
 import Button from "@/components/ui/Button/Button.jsx";
-import ProductPhotoContainer
-  from "@/components/lk-InnerPages/ManageProduct/MediaStep/ProductPhotos/ProductPhotoContainer/ProductPhotoContainer.jsx";
 import PresentationPhotoContainer
   from "@/components/lk-InnerPages/ManageProduct/MediaStep/PresentationPhotos/PresentationPhotosContainer/PresentationPhotoContainer.jsx";
 
@@ -34,13 +32,11 @@ const PresentationPhotos = ({presentationPhotos, setPresentationPhotos, setPopup
           }
         </ul>
       </div>
-
       <div className={s.textBlock}>
         Эти изображения используются в описании товара, чтобы показать его преимущества, особенности и детали. Первое
         фото станет главным в описании. Остальные изображения можно расположить в том порядке, который лучше всего
         раскрывает особенности товара.
       </div>
-
     </div>
   )
 }

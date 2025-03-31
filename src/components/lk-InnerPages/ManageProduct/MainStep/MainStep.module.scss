@@ -44,6 +44,12 @@
   color: #E32636;
   background: #FFDEE1;
   font-weight: 500;
+
+  @include m {
+    font-size: 14px;
+    font-weight: 400;
+    height: 37px;
+  }
   
   &:hover {
     background: #fcd2d5;
@@ -53,6 +59,12 @@
 .continueBtn {
   width: unset;
   font-weight: 500;
-  padding-inline: 10px;  
+  padding-inline: 10px;
+  height: 37px;
+
+  @include m {
+    font-size: 14px;
+    font-weight: 400;
+  }
 }
 

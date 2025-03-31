@@ -41,8 +41,9 @@ const CreateQuestion = () => {
       </Link>
       <div className={s.header}>
         <div className={s.imageWrapper}>
-          <img className={s.headerImage} src={`${BASE_URL}${product.productImages[0].imageUrl}`}
-               alt={product.productImages[0].imageName}/>
+          {/*<img className={s.headerImage} src={`${BASE_URL}${product.productImages[0].imageUrl}`}*/}
+          <img className={s.headerImage} src={product.productImages[0].imageUrl}
+               alt="image"/>
         </div>
         <span className={s.headerText}>Вопросы о товаре {product.productName.slice(0, 33) + '...'}</span>
       </div>

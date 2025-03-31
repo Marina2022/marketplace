@@ -26,7 +26,6 @@ const ProductPhotosBlock = ({images, setImages, productPhotos}) => {
 
   const {getRootProps, getInputProps} = useDropzone({
     onDrop,
-
     accept: {
       'image/jpeg': ['.jpeg', '.jpg'],
       'image/png': ['.png'],
@@ -34,8 +33,6 @@ const ProductPhotosBlock = ({images, setImages, productPhotos}) => {
     },
     multiple: true,
   });
-
-  // передать этот хендлер на клик фото-контейнеру
   const emptyPhotoClickHandler = () => {
     getInputProps().ref.current.click()
   }

@@ -15,11 +15,8 @@ const MediaStep = ({
                    }) => {
 
     const [popupOpen, setPopupOpen] = useState(null)  // productPhotos, presentationPhotos
-
     const goToNextStep = () => {
-
       if (productPhotos.length === 0) return
-
       setStep('preview')
     }
 
@@ -50,8 +47,6 @@ const MediaStep = ({
             popupOpen={popupOpen}
           />
         }
-
-
       </div>
     );
   }

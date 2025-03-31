@@ -1,6 +1,4 @@
 import s from './PresentationPhotosInPopup.module.scss';
-import ProductPhotoPopupContainer
-  from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/ProductPhotosBlock/ProductPhotoPopupContainer/ProductPhotoPopupContainer.jsx";
 import PresentationPhotosPopupContainer
   from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/PresentationPhotosBlock/PresentationPhotosPopupContainer/PresentationPhotosPopupContainer.jsx";
 
@@ -8,7 +6,6 @@ const PresentationPhotosInPopup = ({productPhotos, images, emptyPhotoClickHandle
 
   const placeholders = Array.from({length: 5})
   return (
-
     <div className={s.mobileScrollWrapper}>
       <ul className={s.photosWrapper}>
         {

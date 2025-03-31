@@ -22,7 +22,6 @@
   height: 20px;
 }
 
-
 .fileInput {
   display: none;
 }
@@ -53,7 +52,6 @@
   }
 }
 
-
 .someText {
   color: #658092;
   font-size: 12px;
@@ -62,7 +60,6 @@
   @include m {
     background: #F0F1F1;
     padding: 11px 20px;
-    border-radius: 5px;
-    
+    border-radius: 5px;    
   }
 }

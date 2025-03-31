@@ -21,7 +21,6 @@
   padding: 20px 15px;
   overflow: auto;
 
-
   @include t {
     width: 722px;
   }
@@ -62,7 +61,6 @@
   }
 }
 
-
 .closeBtn {
   position: absolute;
   top: 20px;
@@ -72,7 +70,6 @@
     display: none;
   }
 }
-
 
 .buttons {
   border-top: #AAB7BF 1px solid;

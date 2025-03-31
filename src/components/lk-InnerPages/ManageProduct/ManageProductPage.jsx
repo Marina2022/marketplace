@@ -11,10 +11,10 @@ import CharacteristicsStep from "@/components/lk-InnerPages/ManageProduct/Charac
 import MediaStep from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaStep.jsx";
 import PreviewStep from "@/components/lk-InnerPages/ManageProduct/PreviewStep/PreviewStep.jsx";
 import {useFieldArray, useForm} from "react-hook-form";
-import Button from "@/components/ui/Button/Button.jsx";
 
 const ManageProductPage = () => {
 
+  const [step, setStep] = useState('main')
 
   const {productIdParam} = useParams()
 
@@ -23,9 +23,10 @@ const ManageProductPage = () => {
   // когда edit - будем сетать при загрузке товара
 
   const [cats, setCats] = useState(null)
-  const [step, setStep] = useState('media')
   const [attributes, setAttributes] = useState(null)
 
+  // console.log(attributes)
+  
 
   const profileId = useSelector(getActiveProfileId)
 
@@ -73,7 +74,6 @@ const ManageProductPage = () => {
         {value: 'height'},
         {value: 'width'},
         {value: 'length'}
-
       ]
     }
   });
@@ -94,7 +94,7 @@ const ManageProductPage = () => {
         return field.value === attributeField.name
       })) {
         append({value: attributeField.name})
-      } 
+      }
     })
 
     attributes.categorySpecificFields.commonFields.forEach(attributeField => {
@@ -105,7 +105,7 @@ const ManageProductPage = () => {
       } else {
 
         //если поле найдено, сбросить значение
-         setValue(attributeField.name, null)
+        setValue(attributeField.name, null)
       }
     })
 
@@ -118,8 +118,6 @@ const ManageProductPage = () => {
     })
 
   }, [attributes]);
-
-  
 
 
   const categoryValue = watch("productCategoryId")
@@ -167,8 +165,6 @@ const ManageProductPage = () => {
         if (categoryValue) categoryURL += `?categoryId=${categoryValue}`
         const response = await axiosInstance(categoryURL)
 
-
-        console.log('attributes:', response.data)
         setAttributes(response.data)
 
       } catch (err) {
@@ -197,8 +193,7 @@ const ManageProductPage = () => {
     // }
 
     // console.log('errors ===', errors)    
-    
-    
+
 
     console.log('form data', data)
 
@@ -284,7 +279,7 @@ const ManageProductPage = () => {
 
           {
             step === 'characteristics' && <CharacteristicsStep
-              attributes={attributes} 
+              attributes={attributes}
               getValues={getValues}
               setValue={setValue}
               clearErrors={clearErrors}
@@ -300,20 +295,23 @@ const ManageProductPage = () => {
             step === 'media' && <MediaStep
               setStep={setStep}
               productPhotos={productPhotos}
-              setProductPhotos={setProductPhotos}  
+              setProductPhotos={setProductPhotos}
               presentationPhotos={presentationPhotos}
               setPresentationPhotos={setPresentationPhotos}
             />
           }
 
           {
-            step === 'preview' && <PreviewStep/>
+            step === 'preview' && <PreviewStep
+              setStep={setStep}              
+              attributes={attributes}
+              getValues={getValues}
+              cats={cats}
+              onSubmit={onSubmit}
+            />
           }
-
-
-          <Button className={s.submitBtn}>Test Submit</Button>
+         
         </form>
-
       </div>
     </div>
   )
