@@ -11,21 +11,25 @@ import CharacteristicsStep from "@/components/lk-InnerPages/ManageProduct/Charac
 import MediaStep from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaStep.jsx";
 import PreviewStep from "@/components/lk-InnerPages/ManageProduct/PreviewStep/PreviewStep.jsx";
 import {useFieldArray, useForm} from "react-hook-form";
+import WarningPopup from "@/components/lk-InnerPages/ManageProduct/WarningPopup/WarningPopup.jsx";
 
 const ManageProductPage = () => {
 
   const [step, setStep] = useState('main')
 
-  const {productIdParam} = useParams()
-
   const [loading, setLoading] = useState(true)
+
+  const [showWarningPopup, setShowWarningPopup] = useState(false)
+
+
+  const {productIdParam} = useParams()
 
   // когда edit - будем сетать при загрузке товара
 
   const [cats, setCats] = useState(null)
   const [attributes, setAttributes] = useState(null)
 
-  // console.log(attributes)
+  const navigate = useNavigate()
 
 
   const profileId = useSelector(getActiveProfileId)
@@ -182,6 +186,25 @@ const ManageProductPage = () => {
   }, [productIdParam, profileId, categoryValue]);
 
 
+  // При нажатии "Назад к списку товаров" и кнопки Cancel
+  const handleCancel = () => {
+
+    // проверяем, вносились ли изменения в форму
+    let formEdited = false
+    const newArr = fields.map(field => {
+      return getValues(field.value)
+    })
+
+    formEdited = newArr.some(item => item !== undefined)
+
+    // если хоть одно поле заполнено, либо загружено фото либо документ:    
+    if (formEdited || productPhotos.length > 0 || presentationPhotos.length > 0 || instructionFile || documentationFile || certificateFile) {
+      setShowWarningPopup(true)
+    } else {
+      navigate(`/lk/shop`)
+    }
+  }
+
   const onSubmit = async (data) => {
 
     // if (!categoryValue) {
@@ -207,32 +230,25 @@ const ManageProductPage = () => {
     // formData.append("file", file);
   }
 
-  const navigate = useNavigate()
-
-  // При нажатии "Назад к списку товаров" и кнопки Cancel
-  const handleCancel = () => {
-    console.log('Все отменить и вернуться')
-    navigate(`/lk/shop`)
-  }
 
   if (loading) return <Spinner/>
 
 
   return (
-
     <div className={s.manageProductWrapper}>
+      {
+        showWarningPopup &&
+        <WarningPopup setShowWarningPopup={setShowWarningPopup} showWarningPopup={showWarningPopup}/>
+      }
       <div className={s.topPart}>
         <div className={s.linkAndTitleWrapper}>
-
-          {/*Здесь будет кнопка и на нее обработчик с попапом предупреждения и -- handleCancel */}
-
-          <Link className={s.backLink} to={`/lk/shop`}>
+          <button type="button" className={s.backLink} onClick={handleCancel}>
             <svg className={s.backArrow} width="6" height="11" viewBox="0 0 6 11" fill="none"
                  xmlns="http://www.w3.org/2000/svg">
               <path d="M5 10L1 5.5L5 1" stroke="#658092"/>
             </svg>
             <span className={s.backLinkText}>Назад к списку товаров</span>
-          </Link>
+          </button>
           <h1 className={s.mainTitle}>
             {
               isNew ? "Создание товара" : "Редактирование товара"
@@ -241,12 +257,11 @@ const ManageProductPage = () => {
         </div>
 
         <nav className={s.stepsNav}>
-          <StepsNav navItems={navItems} step={step} setStep={setStep} trigger={trigger} productPhotos={productPhotos} />
+          <StepsNav navItems={navItems} step={step} setStep={setStep} trigger={trigger} productPhotos={productPhotos}/>
         </nav>
       </div>
 
       <div className={s.stepsContainer}>
-
         <form onSubmit={handleSubmit(onSubmit)}>
           {
             step === 'main' &&
@@ -314,7 +329,6 @@ const ManageProductPage = () => {
               onSubmit={onSubmit}
             />
           }
-
         </form>
       </div>
     </div>

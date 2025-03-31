@@ -2,6 +2,7 @@
 
 .manageProductWrapper {
   width: 100%;
+  position: relative;
   
   @include m {
     padding-inline: 16px;
