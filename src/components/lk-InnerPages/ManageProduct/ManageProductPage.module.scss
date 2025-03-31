@@ -44,6 +44,7 @@
   font-size: 28px;
   font-weight: 600;
 
+
   @include m {
     font-size: 18px;
   }
@@ -90,7 +91,8 @@
 }
 
 .stepsContainer {
-  margin-top: -50px;
+  //margin-top: -50px;
+  margin-top: 0px;
   width: 780px;
   
   @include t {    
