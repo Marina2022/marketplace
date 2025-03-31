@@ -26,22 +26,12 @@ const ManageProductPage = () => {
   const [attributes, setAttributes] = useState(null)
 
   // console.log(attributes)
-  
+
 
   const profileId = useSelector(getActiveProfileId)
 
   const isNew = productIdParam === 'new'
 
-  let navItems = []
-
-  if (cats) navItems = [
-    {name: 'main', label: 'Главное о товаре'},
-    {name: 'characteristics', label: 'Характеристики'},
-    {name: 'media', label: 'Медиа'},
-    {name: 'preview', label: 'Предварительный просмотр'},
-  ]
-
-  if (!cats) navItems = ['Главное о товаре', 'Медиа']
 
   const [instructionFile, setInstructionFile] = useState(null)
   const [documentationFile, setDocumentationFile] = useState(null)
@@ -84,6 +74,20 @@ const ManageProductPage = () => {
     name: "fields"
   });
 
+
+  let navItems = []
+
+  if (getValues('productCategoryId')) navItems = [
+    {name: 'main', label: 'Главное о товаре'},
+    {name: 'characteristics', label: 'Характеристики'},
+    {name: 'media', label: 'Медиа'},
+    {name: 'preview', label: 'Предварительный просмотр'},
+  ]
+
+  if (!getValues('productCategoryId')) navItems = [
+    {name: 'main', label: 'Главное о товаре'},
+    {name: 'media', label: 'Медиа'},
+  ]
 
   useEffect(() => {
 
@@ -237,7 +241,7 @@ const ManageProductPage = () => {
         </div>
 
         <nav className={s.stepsNav}>
-          <StepsNav navItems={navItems} step={step} setStep={setStep}/>
+          <StepsNav navItems={navItems} step={step} setStep={setStep} trigger={trigger} productPhotos={productPhotos} />
         </nav>
       </div>
 
@@ -303,14 +307,14 @@ const ManageProductPage = () => {
 
           {
             step === 'preview' && <PreviewStep
-              setStep={setStep}              
+              setStep={setStep}
               attributes={attributes}
               getValues={getValues}
               cats={cats}
               onSubmit={onSubmit}
             />
           }
-         
+
         </form>
       </div>
     </div>
