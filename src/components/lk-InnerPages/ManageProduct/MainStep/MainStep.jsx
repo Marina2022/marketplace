@@ -15,8 +15,7 @@ import DocsFileInputs from "@/components/lk-InnerPages/ManageProduct/MainStep/Do
 
 
 const MainStep = ({
-                    register,
-                    fields,
+                    register,                    
                     errors,
                     getValues,
                     cats,
@@ -43,7 +42,7 @@ const MainStep = ({
 
   const goToNextStep = async () => {
     
-    let fieldsToValidate = ["productName", "productCategoryId", "sellerArticle", "model",
+    let fieldsToValidate = ["productName", "productCategoryId", "article", "model",
       "price", "regularPrice", "weight", "height", "width", "length"]
 
     attributes.categorySpecificFields.commonFields.forEach(field => {
@@ -115,20 +114,20 @@ const MainStep = ({
 
       <div>
         <Input
-          isError={errors.sellerArticle}
+          isError={errors.article}
           trigger={trigger}
           getValues={getValues}
           required={true}
           placeholder="Артикул"
           setValue={setValue}
-          {...register('sellerArticle',
+          {...register('article',
             {
               required: notEmptyMessage,
             })}
         />
 
         {
-          errors.sellerArticle && <p className={s.errorMessage}>{errors.sellerArticle.message}</p>
+          errors.article && <p className={s.errorMessage}>{errors.article.message}</p>
         }
       </div>
 

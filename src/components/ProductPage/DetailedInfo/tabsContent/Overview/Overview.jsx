@@ -1,6 +1,5 @@
 import s from './Overview.module.scss';
 import {useState} from "react";
-import {BASE_URL} from "@/consts/baseURL.js";
 
 const Overview = ({product, textSize = 1000}) => {
   
@@ -11,20 +10,35 @@ const Overview = ({product, textSize = 1000}) => {
     setShowAll(true)
   }
   
+  const cutText = product.productDescription.slice(0, textSize) + '...'
+  
   return (
     <div className={s.overview}>
       <h3 className={s.overviewTitleMobile}>Обзор</h3>
+      {/*<div className={s.text}>*/}
+      {/*  {*/}
+      {/*    showAll ?*/}
+      {/*      (textFullParagraphs.map((par, i) => {*/}
+      {/*        return <p className={s.paragraph} key={i}>{par}</p>*/}
+      {/*      }))*/}
+      {/*      : (*/}
+      {/*        textCutParagraphs.map((par, i) => {*/}
+      {/*          return <p className={s.paragraph} key={i}>{par}</p>*/}
+      {/*        })*/}
+      {/*      )*/}
+      {/*  }*/}
+      {/*</div>*/}
+
+
       <div className={s.text}>
         {
-          showAll ?
-            (textFullParagraphs.map((par, i) => {
-              return <p className={s.paragraph} key={i}>{par}</p>
-            }))
+          showAll ? (
+              <div dangerouslySetInnerHTML={{__html: product.productDescription}}></div>
+          )
             : (
-              textCutParagraphs.map((par, i) => {
-                return <p className={s.paragraph} key={i}>{par}</p>
-              })
+              <div dangerouslySetInnerHTML={{__html: cutText}}></div>
             )
+            
         }
       </div>
 
@@ -33,7 +47,7 @@ const Overview = ({product, textSize = 1000}) => {
       <div className={s.images}>
         {
           product.overviewImages.map((image, i) => {
-            return <img className={s.image} key={i} src={`${BASE_URL}${image.imageUrl}`} alt={image.imageName}/>
+            return <img className={s.image} key={i} src={image.imageUrl} alt="image"/>
           })
         }
       </div>

@@ -3,12 +3,12 @@ import ProductPageThumbs from "@/components/ProductPage/ProductPageSlider/Produc
 import useBigScreen from "@/hooks/useBigScreen.js";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
 import {useState} from "react";
-import {BASE_URL} from "@/consts/baseURL.js";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import ProductSliderPopup from "@/components/ProductPage/ProductPageSlider/ProductSliderPopup/ProductSliderPopup.jsx";
 import ProductMobileSlider
   from "@/components/ProductPage/ProductPageSlider/ProductMobileSlider/ProductMobileSlider.jsx";
 import FavButton from "@/components/ui/FavButton/FavButton.jsx";
+
 const ProductPageSlider = ({images, productId, isFavourite, onFavClick}) => {
 
   const [currentImage, setCurrentImage] = useState(0)

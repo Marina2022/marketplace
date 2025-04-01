@@ -5,26 +5,35 @@ import NewCharacteristicForm
   from "@/components/lk-InnerPages/ManageProduct/CharacteristicsStep/NewCharacteristicForm/NewCharacteristicForm.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
 
-const CharacteristicsStep = ({attributes, getValues, setValue, clearErrors, trigger, errors, register, setStep, watch}) => {
+const CharacteristicsStep = ({
+                               attributes,
+                               getValues,
+                               setValue,
+                               clearErrors,
+                               trigger,
+                               errors,
+                               register,
+                               setStep,
+                               watch
+                             }) => {
 
-  const goToNextStep = async() => {
-    
-      let fieldsToValidate = []
+  const goToNextStep = async () => {
 
-      attributes.categorySpecificFields.characteristics.forEach(field => {
-        fieldsToValidate.push('char_' + field.name)
-      })
+    let fieldsToValidate = []
 
-      const isValid = await trigger(fieldsToValidate);
+    attributes.categorySpecificFields.characteristics.forEach(field => {
+      fieldsToValidate.push('char_' + field.name)
+    })
 
-      if (!isValid) {
-        console.log('ошибки есть, дальше нельзя')
-      } else {
-        setStep('media')
-      }
+    const isValid = await trigger(fieldsToValidate);
+
+    if (!isValid) {
+      console.log('ошибки есть, дальше нельзя')
+    } else {
+      setStep('media')
     }
+  }
 
-  
   return (
     <div>
       <h2 className={s.title}>Характеристики</h2>
@@ -62,7 +71,7 @@ const CharacteristicsStep = ({attributes, getValues, setValue, clearErrors, trig
 
       </div>
       <div className={s.buttons}>
-        <Button className={s.backButton} type="button" onClick={()=>setStep('main')}>Назад</Button>
+        <Button className={s.backButton} type="button" onClick={() => setStep('main')}>Назад</Button>
         <Button className={s.continueBtn} type="button" onClick={goToNextStep}>Далее</Button>
       </div>
     </div>

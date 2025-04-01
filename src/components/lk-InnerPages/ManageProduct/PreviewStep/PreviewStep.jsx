@@ -1,8 +1,9 @@
 import s from './PreviewStep.module.scss';
 import Button from "@/components/ui/Button/Button.jsx";
 import {findCategoryPath} from "@/utils/lkShop.js";
+import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 
-const PreviewStep = ({setStep, attributes, getValues, cats}) => {
+const PreviewStep = ({setStep, attributes, getValues, cats, sending}) => {
 
   const categoryString = findCategoryPath(getValues('productCategoryId'), cats)
   
@@ -91,12 +92,10 @@ const PreviewStep = ({setStep, attributes, getValues, cats}) => {
 
       </div>
 
-
       <div className={s.buttons}>
         <Button className={s.backButton} type="button" onClick={() => setStep('media')}>Назад</Button>
-        <Button className={s.submitBtn} type="submit">Отправить на модерацию</Button>
+        <Button disabled={sending} className={s.submitBtn} type="submit">{sending ? <MiniSpinner /> : 'Отправить на модерацию' } </Button>
       </div>
-
 
     </div>
   );

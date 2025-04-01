@@ -25,7 +25,7 @@ const Characteristics = ({product}) => {
           product.documents.map((doc, i) => {
             return (
               <li className={s.docItem} key={i}>
-                <a target="_blank" href={`${BASE_URL}${doc.documentPath}`} className={s.docUpload} download>
+                <a target="_blank" href={doc.documentPath} className={s.docUpload} download>
                   <span className={s.circle}>
                     <img src={docImg} alt="doc icon"/>
                   </span>

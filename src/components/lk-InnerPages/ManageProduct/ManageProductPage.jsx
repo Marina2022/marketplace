@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import {useSelector} from "react-redux";
-import {getActiveProfileId} from "@/store/userSlice.js";
+import {getActiveProfileId, getUserProfilesData} from "@/store/userSlice.js";
 import axiosInstance from "@/api/axiosInstance.js";
 import StepsNav from "@/components/lk-InnerPages/ManageProduct/StepsNav/StepsNav.jsx";
 import MainStep from "@/components/lk-InnerPages/ManageProduct/MainStep/MainStep.jsx";
@@ -21,6 +21,8 @@ const ManageProductPage = () => {
 
   const [showWarningPopup, setShowWarningPopup] = useState(false)
 
+  const [sending, setSending] = useState(false)
+
 
   const {productIdParam} = useParams()
 
@@ -28,6 +30,8 @@ const ManageProductPage = () => {
 
   const [cats, setCats] = useState(null)
   const [attributes, setAttributes] = useState(null)
+
+  // console.log('attributes', attributes)
 
   const navigate = useNavigate()
 
@@ -59,7 +63,7 @@ const ManageProductPage = () => {
       fields: [
         {value: 'productName'},
         {value: 'productCategoryId'},
-        {value: 'sellerArticle'},
+        {value: 'article'},
         {value: 'model'},
         {value: 'productDescription'},
         {value: 'price'},
@@ -134,6 +138,23 @@ const ManageProductPage = () => {
   const [catsLoading, setCatsLoading] = useState(true)
 
 
+  const activeProfileId = useSelector(getActiveProfileId)
+  const profilesData = useSelector(getUserProfilesData)
+  // console.log(profilesData)
+
+  useEffect(() => {
+
+    // редирект на страницу с магазином, если профиль не = company или если isHasShop = false
+
+    if (activeProfileId && profilesData) {
+      const currentProfile = profilesData.find(item => item.profileId === activeProfileId)
+      const type = currentProfile.type
+      const isHasShop = currentProfile.isHasShop
+      if (type !== 'company' || !isHasShop) navigate('/lk/shop')
+    }
+  }, [profilesData, activeProfileId]);
+
+
   // подгрузка данных для создания нового товара   
 
   useEffect(() => {
@@ -205,29 +226,134 @@ const ManageProductPage = () => {
     }
   }
 
+
   const onSubmit = async (data) => {
 
-    // if (!categoryValue) {
-    //     setError("productCategoryId", {
-    //       type: "manual",
-    //       message: "Это поле не может быть пустым"})        
-    // } else {
-    //    clearErrors("productCategoryId");
-    // }
-    //
-    // if (Object.keys(errors).length > 0) {
-    //   return; 
-    // }
+    //  console.log('form data', data)
 
-    // console.log('errors ===', errors)    
+    let payloadFields = {}
+    let characteristics = []
+
+    fields.forEach(field => {
+      const value = getValues(field.value)
+
+      // это значение отправится в форме
+      let payloadValue
+      // если это select
+      if (value?.value) {
+        payloadValue = value.valueId
+      } else {
+        payloadValue = value?.trim()
+      }
+
+      if (!payloadValue) return  // undefined (для необязат.полей) не посылаем
 
 
-    console.log('form data', data)
+      if (attributes && attributes.categorySpecificFields.characteristics.find(item => ('char_' + item.name) === field.value)) {
+        if (!getValues(field.value)) return
+        characteristics.push({
+          productOptionValueId: getValues(field.value).valueId,
+          isVariant: getValues(field.value).isVariant
+        })
+
+        return;
+      }
+      payloadFields[field.value] = payloadValue
+    })
+
+    payloadFields.characteristics = characteristics
+
+    // пока захардкодила
+    payloadFields.isSecondHand = false
+    payloadFields.isDiscounted = false
+    payloadFields.tnvdCode = "11112"
+    payloadFields.barcode = "1231231"
 
 
-    // Отправка файлов:
-    // const formData = new FormData();
-    // formData.append("file", file);
+    // console.log('payloadFields', payloadFields)
+
+    try {
+
+      setSending(true)
+      const response = await axiosInstance.post(`seller/${activeProfileId}/products/add`, payloadFields)
+
+      console.log('response.data', response.data)      
+      // {
+      //   "productVariantId": "0dc76b67-165c-4491-8637-11ab5ae2a80c",
+      //   "response": "Successfully created"
+      // }
+
+      const productVariantId = response.data.productVariantId
+      
+      //console.log({productVariantId})
+      //const productVariantId = '2bcc97cd-680a-4d29-9fff-a50a7028ef89'
+      
+
+      // // Отправка фотографий:
+      //
+      const formData = new FormData();
+
+      productPhotos.forEach((photoFile, index) => {
+        formData.append(`images[${index}].File`, photoFile);
+        formData.append(`images[${index}].Order`, index);
+      })
+
+
+      await axiosInstance.post(`seller/${activeProfileId}/products/${productVariantId}/add-main-imgs`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+
+      
+      // // Отправка презентационных материалов:
+      const formDataPresentations = new FormData();
+
+      presentationPhotos.forEach((photoFile, index) => {
+        formDataPresentations.append(`images[${index}].File`, photoFile);
+        formDataPresentations.append(`images[${index}].Order`, index);
+      })
+
+      await axiosInstance.post(`seller/${activeProfileId}/products/${productVariantId}/add-overview-imgs`, formDataPresentations, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+
+      // отправка документов:
+
+      const formDataDocs = new FormData();
+
+      if (instructionFile) {
+        formDataDocs.append(`documents[0].File`, instructionFile);
+        formDataDocs.append(`documents[0].DocumentType`, 'instruction');
+      }
+
+      if (documentationFile) {
+        formDataDocs.append(`documents[1].File`, documentationFile);
+        formDataDocs.append(`documents[1].DocumentType`, 'documentation');
+      }
+
+      if (certificateFile) {
+        formDataDocs.append(`documents[2].File`, certificateFile);
+        formDataDocs.append(`documents[2].DocumentType`, 'certificate');
+      }
+
+      if (!instructionFile && !documentationFile && certificateFile) return
+
+      await axiosInstance.post(`seller/${activeProfileId}/products/${productVariantId}/add-document`, formDataDocs, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+
+
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setSending(false)
+      // navigate('/lk/shop')
+    }
   }
 
 
@@ -269,7 +395,6 @@ const ManageProductPage = () => {
               trigger={trigger}
               register={register}
               append={append}
-              fields={fields}
               errors={errors}
               getValues={getValues}
               cats={cats}
@@ -281,14 +406,12 @@ const ManageProductPage = () => {
               setSelectedCatName={setSelectedCatName}
               selectedCatName={selectedCatName}
               attributes={attributes}
-
               instructionFile={instructionFile}
               setInstructionFile={setInstructionFile}
               documentationFile={documentationFile}
               setDocumentationFile={setDocumentationFile}
               certificateFile={certificateFile}
               setCertificateFile={setCertificateFile}
-
               handleCancel={handleCancel}
               setStep={setStep}
               watch={watch}
@@ -327,6 +450,7 @@ const ManageProductPage = () => {
               getValues={getValues}
               cats={cats}
               onSubmit={onSubmit}
+              sending={sending}
             />
           }
         </form>

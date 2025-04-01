@@ -10,9 +10,13 @@ const ProductSliderPopup = ({setSliderPopupIsOpen, images, currentImage}) => {
         setSliderPopupIsOpen(false)
       }
     }
-    window.addEventListener('keydown', escHandler)
+    window.addEventListener('keydown', escHandler)    
+    document.documentElement.style.overflow = 'hidden'    
+    
     return () => {
       window.removeEventListener('keydown', escHandler)
+
+      document.documentElement.style.overflow = 'auto'
     }
   }, []);
 

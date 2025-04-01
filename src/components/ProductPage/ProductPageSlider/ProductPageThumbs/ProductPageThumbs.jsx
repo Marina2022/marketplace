@@ -1,5 +1,4 @@
 import s from './ProductPageThumbs.module.scss';
-import {BASE_URL} from "@/consts/baseURL.js";
 
 const ProductPageThumbs = ({images, currentImage, setCurrentImage, setSliderPopupIsOpen}) => {
 

@@ -13,8 +13,6 @@ const CategoryDropdown = ({cats, setValue, getValues, setEditing, clearErrors, s
   const [selectedCatId, setSelectedCatId] = useState(getValues("productCategoryId"))
 
   const submitCategory = () => {
-
-    console.log('selectedCatId', selectedCatId)
     if (!selectedCatId) return
     setValue('productCategoryId', selectedCatId)        
     setEditing(false)
