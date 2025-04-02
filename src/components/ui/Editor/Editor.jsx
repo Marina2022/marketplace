@@ -6,7 +6,7 @@ import {EditorContent, useEditor} from "@tiptap/react";
 import Placeholder from "@tiptap/extension-placeholder";
 
 
-const TiptapEditor = ({setValue, maxValue = 1000}) => {
+const TiptapEditor = ({setValue, maxValue = 1000, getValues}) => {
 
 
   const editor = useEditor({
@@ -30,7 +30,8 @@ const TiptapEditor = ({setValue, maxValue = 1000}) => {
       }),
 
     ],
-    // content: "<p><u>Если товар редактируем, то сюда прошлое описание кладем</u></p>",
+     //content: "<p><u>Если товар редактируем, то сюда прошлое описание кладем</u></p>",
+     content: getValues('productDescription'),
   });
 
   if (!editor) {

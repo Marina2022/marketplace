@@ -1,6 +1,6 @@
 import s from './ManageProductPage.module.scss';
 import {useEffect, useState} from "react";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import {useSelector} from "react-redux";
 import {getActiveProfileId, getUserProfilesData} from "@/store/userSlice.js";
@@ -227,10 +227,7 @@ const ManageProductPage = () => {
   }
 
 
-  const onSubmit = async (data) => {
-
-    //  console.log('form data', data)
-
+  const onSubmit = async () => {
     let payloadFields = {}
     let characteristics = []
 
@@ -269,28 +266,15 @@ const ManageProductPage = () => {
     payloadFields.tnvdCode = "11112"
     payloadFields.barcode = "1231231"
 
-
-    // console.log('payloadFields', payloadFields)
-
     try {
 
       setSending(true)
       const response = await axiosInstance.post(`seller/${activeProfileId}/products/add`, payloadFields)
-
-      console.log('response.data', response.data)      
-      // {
-      //   "productVariantId": "0dc76b67-165c-4491-8637-11ab5ae2a80c",
-      //   "response": "Successfully created"
-      // }
-
       const productVariantId = response.data.productVariantId
-      
-      //console.log({productVariantId})
-      //const productVariantId = '2bcc97cd-680a-4d29-9fff-a50a7028ef89'
-      
+
 
       // // Отправка фотографий:
-      //
+
       const formData = new FormData();
 
       productPhotos.forEach((photoFile, index) => {
@@ -305,20 +289,24 @@ const ManageProductPage = () => {
         },
       })
 
-      
-      // // Отправка презентационных материалов:
-      const formDataPresentations = new FormData();
 
-      presentationPhotos.forEach((photoFile, index) => {
-        formDataPresentations.append(`images[${index}].File`, photoFile);
-        formDataPresentations.append(`images[${index}].Order`, index);
-      })
+      // Отправка презентационных материалов:
 
-      await axiosInstance.post(`seller/${activeProfileId}/products/${productVariantId}/add-overview-imgs`, formDataPresentations, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      if (presentationPhotos.length > 0) {
+        const formDataPresentations = new FormData();
+
+        presentationPhotos.forEach((photoFile, index) => {
+          formDataPresentations.append(`images[${index}].File`, photoFile);
+          formDataPresentations.append(`images[${index}].Order`, index);
+        })
+
+        await axiosInstance.post(`seller/${activeProfileId}/products/${productVariantId}/add-overview-imgs`, formDataPresentations, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+
+      }
 
       // отправка документов:
 
@@ -352,7 +340,7 @@ const ManageProductPage = () => {
       console.log(err)
     } finally {
       setSending(false)
-      // navigate('/lk/shop')
+      navigate('/lk/shop')
     }
   }
 

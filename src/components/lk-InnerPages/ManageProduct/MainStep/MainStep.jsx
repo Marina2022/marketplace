@@ -9,8 +9,6 @@ import ProductDescription
   from "@/components/lk-InnerPages/ManageProduct/MainStep/ProductDescription/ProductDescription.jsx";
 import PriceInputs from "@/components/lk-InnerPages/ManageProduct/MainStep/PriceInputs/PriceInputs.jsx";
 import DimensionsInputs from "@/components/lk-InnerPages/ManageProduct/MainStep/DimensionsInputs/DimensionsInputs.jsx";
-import {useEffect} from "react";
-import useMobileScreen from "@/hooks/useMobileScreen.js";
 import DocsFileInputs from "@/components/lk-InnerPages/ManageProduct/MainStep/DocsFileInputs/DocsFileInputs.jsx";
 
 
@@ -54,7 +52,6 @@ const MainStep = ({
       }
     )
         
-
     const isValid = await trigger(fieldsToValidate);
 
     if (!isValid) {
@@ -236,11 +233,10 @@ const MainStep = ({
       }
 
 
-      <ProductDescription
-        productDescription
+      <ProductDescription        
         name='productDescription'
         setValue={setValue}
-        getValues={getValues}
+        getValues={getValues}        
       />
 
       <PriceInputs register={register} errors={errors} trigger={trigger} getValues={getValues} setValue={setValue}/>
