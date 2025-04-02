@@ -154,11 +154,47 @@ const ManageProductPage = () => {
     }
   }, [profilesData, activeProfileId]);
 
+  
+  
+
+  // подгрузка данных для редактирования товара
+  
+  const [product, setProduct] = useState(null)
+  const [productLoading, setProductLoading] = useState(isNew ? true : false)
+
+
+  useEffect(() => {
+    if (isNew) return
+    if (!profileId) return
+
+    const getProduct = async()=>{
+
+      try {
+        setProductLoading(true)
+        const resp = await axiosInstance(`seller/${profileId}/products/${productIdParam}/update-details`)
+        setProduct(resp.data)
+       
+        setValue('productCategoryId', resp.data.productCategoryId)
+        
+      } catch (err) {
+        console.log(err)
+      } finally {
+        setProductLoading(false)
+      }
+    }
+
+    getProduct()
+
+
+  }, [profileId]);
+
+  console.log('product = ', product)
+  
 
   // подгрузка данных для создания нового товара   
 
   useEffect(() => {
-    if (!isNew) return
+    // if (!isNew) return
 
     // грузим категории  (будут зависеть от searchCats)
 
@@ -181,7 +217,7 @@ const ManageProductPage = () => {
 
 
   useEffect(() => {
-    if (!isNew) return
+    // if (!isNew) return
     if (!profileId) return
 
     // грузим атрибуты
@@ -345,7 +381,8 @@ const ManageProductPage = () => {
   }
 
 
-  if (loading) return <Spinner/>
+  if (isNew && loading) return <Spinner/>
+  if (!isNew && (catsLoading || productLoading) ) return <Spinner/>
 
 
   return (
