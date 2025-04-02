@@ -154,8 +154,7 @@ const ManageProductPage = () => {
     }
   }, [profilesData, activeProfileId]);
 
-  
-  
+   
 
   // подгрузка данных для редактирования товара
   
@@ -185,8 +184,43 @@ const ManageProductPage = () => {
 
     getProduct()
 
-
   }, [profileId]);
+
+
+  useEffect(() => {
+    if (isNew) return
+    if (!product) return
+
+    // {value: 'productName'},
+    // {value: 'productCategoryId'},
+    // {value: 'article'},
+    // {value: 'model'},
+    // {value: 'productDescription'},
+    // {value: 'price'},
+    // {value: 'regularPrice'},
+    // {value: 'weight'},
+    // {value: 'height'},
+    // {value: 'width'},
+    // {value: 'length'}
+
+    console.log('я здесь')
+    console.log(product.productName)
+
+    setValue('productName', product.productName)
+    setValue('productCategoryId', product.productCategoryId)
+    setValue('article', product.article)
+    setValue('model', product.model)
+    setValue('productDescription', product.productDescription)
+    setValue('price', product.price)
+    setValue('regularPrice', product.regularPrice)
+    setValue('weight', product.weight)
+    setValue('height', product.height)
+    setValue('width', product.width)
+    setValue('length', product.length)
+    
+    
+    
+  }, [product]);
 
   console.log('product = ', product)
   
