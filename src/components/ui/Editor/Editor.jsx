@@ -8,13 +8,7 @@ import {useEffect} from "react";
 
 
 const TiptapEditor = ({setValue, maxValue = 1000, getValues, watch}) => {
-
-
   const productDescription = getValues("productDescription") || "";
-  
-  
-  
-
   const editor = useEditor({
     onBlur: () => {
       setValue('productDescription', editor.getHTML())
@@ -113,7 +107,6 @@ const TiptapEditor = ({setValue, maxValue = 1000, getValues, watch}) => {
           editor={editor}
           className={`${s.editor} lk-scroll`}
           onClick={() => editor?.commands.focus()}
-
         />
       </div>
 

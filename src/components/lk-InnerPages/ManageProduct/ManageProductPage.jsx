@@ -26,7 +26,7 @@ const ManageProductPage = () => {
 
 
   const {productIdParam} = useParams()
-
+  const isNew = productIdParam === 'new'
   // когда edit - будем сетать при загрузке товара
 
   const [cats, setCats] = useState(null)
@@ -35,12 +35,9 @@ const ManageProductPage = () => {
 
   const navigate = useNavigate()
 
-
   const profileId = useSelector(getActiveProfileId)
 
-  const isNew = productIdParam === 'new'
-
-
+  
   const [instructionFile, setInstructionFile] = useState(null)
   const [documentationFile, setDocumentationFile] = useState(null)
   const [certificateFile, setCertificateFile] = useState(null)
@@ -101,7 +98,7 @@ const ManageProductPage = () => {
 
     if (!attributes) return
 
-    attributes.standartFields.forEach(attributeField => {
+    attributes?.standartFields.forEach(attributeField => {
       if (!fields.find(field => {
         return field.value === attributeField.name
       })) {
@@ -109,7 +106,7 @@ const ManageProductPage = () => {
       }
     })
 
-    attributes.categorySpecificFields.commonFields.forEach(attributeField => {
+    attributes?.categorySpecificFields.commonFields.forEach(attributeField => {
       if (!fields.find(field => {
         return field.value === attributeField.name
       })) {
@@ -121,7 +118,7 @@ const ManageProductPage = () => {
       }
     })
 
-    attributes.categorySpecificFields.characteristics.forEach(attributeField => {
+    attributes?.categorySpecificFields.characteristics.forEach(attributeField => {
       if (!fields.find(field => {
         return field.value === attributeField.name
       })) {
@@ -215,14 +212,11 @@ const ManageProductPage = () => {
     if (!profileId) return
 
     const getProduct = async () => {
-
       try {
         setProductLoading(true)
         const resp = await axiosInstance(`seller/${profileId}/products/${productIdParam}/update-details`)
         setProduct(resp.data)
-
         setValue('productCategoryId', resp.data.productCategoryId)
-
 
       } catch (err) {
         console.log(err)
@@ -261,20 +255,24 @@ const ManageProductPage = () => {
       const result = findProductCategoryName(cats.categories, product.productCategoryId)
       setSelectedCatName(result)
     }
+    
+    if (attributes) {
+      attributes.standartFields.forEach((field) => {
+        setValue(field.name, product[field.name])
+      })
 
-    attributes.standartFields.forEach((field) => {
-      setValue(field.name, product[field.name])
-    })
+      attributes.categorySpecificFields.commonFields.forEach((field) => {
+        setValue(field.name, product[field.name])
+      })
 
-    attributes.categorySpecificFields.commonFields.forEach((field) => {
-      setValue(field.name, product[field.name])
-    })
+      attributes.categorySpecificFields.characteristics.forEach((field) => {
+        const foundItem = product.characteristics.find(item => item.name === field.name)
+        setValue('char_' + field.name, {...foundItem, value: foundItem['valueName']})
+      })
 
-    attributes.categorySpecificFields.characteristics.forEach((field) => {
-      const foundItem = product.characteristics.find(item => item.name === field.name)
-      setValue('char_' + field.name, {...foundItem, value: foundItem['valueName']})
-    })
+    }
 
+    
   }, [product, attributes, cats]);
 
   console.log('product = ', product)
@@ -381,7 +379,6 @@ const ManageProductPage = () => {
             'Content-Type': 'multipart/form-data',
           },
         })
-
       }
 
       // отправка документов:
@@ -480,7 +477,8 @@ const ManageProductPage = () => {
               handleCancel={handleCancel}
               setStep={setStep}
               watch={watch}
-
+              product={product}
+              setProduct={setProduct}
             />
           }
 

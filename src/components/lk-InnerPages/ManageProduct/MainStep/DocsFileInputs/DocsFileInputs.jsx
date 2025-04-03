@@ -9,6 +9,8 @@ const DocsFileInputs = ({
                           setDocumentationFile,
                           certificateFile,
                           setCertificateFile,
+                          product,
+                          setProduct
                         }) => {
   return (
     <div>
@@ -20,17 +22,29 @@ const DocsFileInputs = ({
         <DocsFileInput file={instructionFile} 
                        setFile={setInstructionFile} 
                        label="Инструкция по эксплуатации"
-                       id="id-1"/>
+                       id="id-1"
+                       product={product}        
+                       type="instruction"
+                       setProduct={setProduct}
+        />
 
         <DocsFileInput file={documentationFile}
                        setFile={setDocumentationFile}
                        label="Техническая документация"
-                       id="id-2"/>
+                       id="id-2"
+                       product={product}
+                       type="documentation"
+                       setProduct={setProduct}
+        />
 
         <DocsFileInput file={certificateFile}
                        setFile={setCertificateFile}
                        label="Cертификат к товару"
-                       id="id-3"/>
+                       id="id-3"
+                       product={product}
+                       type="certificate"
+                       setProduct={setProduct}
+        />
       </div>
     </div>
   );

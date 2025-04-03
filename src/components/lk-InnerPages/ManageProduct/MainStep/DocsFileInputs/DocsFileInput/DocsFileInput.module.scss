@@ -21,10 +21,16 @@
 .deleteBtn {
   margin-left: 20px;
   position: relative;
-  top: 2px;
+  top: 1px;
 }
 
 .outerWrapper {
   display: flex;
   align-items: center;
+}
+
+.loading {
+  margin-left: 16px;
+  position: relative;
+  top: 3px;
 }

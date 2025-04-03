@@ -33,7 +33,10 @@ const MainStep = ({
                     certificateFile, setCertificateFile,
 
                     handleCancel,
-                    setStep
+                    setStep,
+
+                    product,
+                    setProduct
 
                   }) => {
 
@@ -153,7 +156,7 @@ const MainStep = ({
       {/*/!*common fields*!/*/}
 
       {
-        attributes.categorySpecificFields.commonFields.length > 0 && attributes.categorySpecificFields.commonFields.map(commonField => {
+        attributes?.categorySpecificFields.commonFields.length > 0 && attributes.categorySpecificFields.commonFields.map(commonField => {
           return (
 
             <div key={commonField.name}>
@@ -205,7 +208,7 @@ const MainStep = ({
       }
 
       {
-        attributes.standartFields.length > 0 && attributes.standartFields.map(standardField => {
+        attributes?.standartFields.length > 0 && attributes.standartFields.map(standardField => {
           return (
             standardField.type === 'select' &&
             (
@@ -232,7 +235,6 @@ const MainStep = ({
         })
       }
 
-
       <ProductDescription        
         name='productDescription'
         setValue={setValue}
@@ -252,14 +254,14 @@ const MainStep = ({
         setDocumentationFile={setDocumentationFile}
         certificateFile={certificateFile}
         setCertificateFile={setCertificateFile}
+        product={product}
+        setProduct={setProduct}
       />
-
 
       <div className={s.buttons}>
         <Button className={s.backButton} type="button" onClick={handleCancel}>Отменить</Button>
         <Button className={s.continueBtn} type="button" onClick={goToNextStep}>Далее</Button>
       </div>
-
 
     </div>
   );
