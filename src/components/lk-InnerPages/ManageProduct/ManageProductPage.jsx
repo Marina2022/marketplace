@@ -23,7 +23,9 @@ const ManageProductPage = () => {
   const [showWarningPopup, setShowWarningPopup] = useState(false)
 
   const [sending, setSending] = useState(false)
+  const [error, setError] = useState(null)
 
+  
 
   const {productIdParam} = useParams()
   const isNew = productIdParam === 'new'
@@ -180,6 +182,7 @@ const ManageProductPage = () => {
   }, [productIdParam, profileId, searchCats]);
 
 
+  
   useEffect(() => {
     // if (!isNew) return
     if (!profileId) return
@@ -215,10 +218,12 @@ const ManageProductPage = () => {
       try {
         setProductLoading(true)
         const resp = await axiosInstance(`seller/${profileId}/products/${productIdParam}/update-details`)
+       
         setProduct(resp.data)
         setValue('productCategoryId', resp.data.productCategoryId)
 
       } catch (err) {
+        setError('Ошибка при загрузке товара')
         console.log(err)
       } finally {
         setProductLoading(false)
@@ -267,7 +272,11 @@ const ManageProductPage = () => {
 
       attributes.categorySpecificFields.characteristics.forEach((field) => {
         const foundItem = product.characteristics.find(item => item.name === field.name)
-        setValue('char_' + field.name, {...foundItem, value: foundItem['valueName']})
+        
+        if (foundItem) {
+          setValue('char_' + field.name, {...foundItem, value: foundItem['valueName']})  
+        }
+        
       })
 
     }
@@ -418,7 +427,10 @@ const ManageProductPage = () => {
   }
 
 
+  
   if (isNew && loading) return <Spinner/>
+  
+  if (error) return <div>{error}</div>
   if (!isNew && (catsLoading || productLoading)) return <Spinner/>
 
 
