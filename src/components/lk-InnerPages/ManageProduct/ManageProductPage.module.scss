@@ -46,7 +46,6 @@
   font-size: 28px;
   font-weight: 600;
 
-
   @include m {
     font-size: 18px;
   }
@@ -72,6 +71,7 @@
 .topPart {
   display: flex;
   gap: 24px;
+  height: 145px;
   
   @include t {
     flex-direction: column;
@@ -91,7 +91,7 @@
 }
 
 .stepsContainer {
-  margin-top: 0px;
+  margin-top: -60px;
   width: 780px;
   
   @include t {    
