@@ -12,6 +12,7 @@ import MediaStep from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaS
 import PreviewStep from "@/components/lk-InnerPages/ManageProduct/PreviewStep/PreviewStep.jsx";
 import {useFieldArray, useForm} from "react-hook-form";
 import WarningPopup from "@/components/lk-InnerPages/ManageProduct/WarningPopup/WarningPopup.jsx";
+import {findProductCategoryName} from "@/utils/lkShop.js";
 
 const ManageProductPage = () => {
 
@@ -154,78 +155,11 @@ const ManageProductPage = () => {
     }
   }, [profilesData, activeProfileId]);
 
-   
 
   // подгрузка данных для редактирования товара
-  
+
   const [product, setProduct] = useState(null)
   const [productLoading, setProductLoading] = useState(isNew ? true : false)
-
-
-  useEffect(() => {
-    if (isNew) return
-    if (!profileId) return
-
-    const getProduct = async()=>{
-
-      try {
-        setProductLoading(true)
-        const resp = await axiosInstance(`seller/${profileId}/products/${productIdParam}/update-details`)
-        setProduct(resp.data)
-       
-        setValue('productCategoryId', resp.data.productCategoryId)
-        
-      } catch (err) {
-        console.log(err)
-      } finally {
-        setProductLoading(false)
-      }
-    }
-
-    getProduct()
-
-  }, [profileId]);
-
-
-  useEffect(() => {
-    if (isNew) return
-    if (!product) return
-
-    // {value: 'productName'},
-    // {value: 'productCategoryId'},
-    // {value: 'article'},
-    // {value: 'model'},
-    // {value: 'productDescription'},
-    // {value: 'price'},
-    // {value: 'regularPrice'},
-    // {value: 'weight'},
-    // {value: 'height'},
-    // {value: 'width'},
-    // {value: 'length'}
-
-    console.log('я здесь')
-    console.log(product.productName)
-
-    setValue('productName', product.productName)
-    setValue('productCategoryId', product.productCategoryId)
-    setValue('article', product.article)
-    setValue('model', product.model)
-    setValue('productDescription', product.productDescription)
-    setValue('price', product.price)
-    setValue('regularPrice', product.regularPrice)
-    setValue('weight', product.weight)
-    setValue('height', product.height)
-    setValue('width', product.width)
-    setValue('length', product.length)
-    
-    
-    
-  }, [product]);
-
-  console.log('product = ', product)
-  
-
-  // подгрузка данных для создания нового товара   
 
   useEffect(() => {
     // if (!isNew) return
@@ -277,6 +211,76 @@ const ManageProductPage = () => {
   }, [productIdParam, profileId, categoryValue]);
 
 
+  useEffect(() => {
+    if (isNew) return
+    if (!profileId) return
+
+    const getProduct = async () => {
+
+      try {
+        setProductLoading(true)
+        const resp = await axiosInstance(`seller/${profileId}/products/${productIdParam}/update-details`)
+        setProduct(resp.data)
+
+        setValue('productCategoryId', resp.data.productCategoryId)
+
+
+      } catch (err) {
+        console.log(err)
+      } finally {
+        setProductLoading(false)
+      }
+    }
+
+    getProduct()
+
+  }, [profileId, cats]);
+
+
+  useEffect(() => {
+    if (isNew) return
+    if (!product) return
+    if (!cats) return
+
+    console.log('я здесь')
+    console.log(product.productName)
+
+    console.log(attributes)
+
+    setValue('productName', product.productName)
+    setValue('productCategoryId', product.productCategoryId)
+    setValue('article', product.article)
+    setValue('model', product.model)
+    setValue('productDescription', product.productDescription)
+    setValue('price', product.price)
+    setValue('regularPrice', product.regularPrice)
+    setValue('weight', product.weight)
+    setValue('height', product.height)
+    setValue('width', product.width)
+    setValue('length', product.length)
+
+
+    // todo - проверить как работает, когда все заработает
+
+      
+    
+    if (cats) {
+
+      console.log('cats', cats)
+      
+      const result = findProductCategoryName(cats.categories, product.productCategoryId)
+      setSelectedCatName(result)
+    }
+    
+
+  }, [product, attributes, cats]);
+
+  console.log('product = ', product)
+
+
+  // подгрузка данных для создания нового товара   
+
+
   // При нажатии "Назад к списку товаров" и кнопки Cancel
   const handleCancel = () => {
 
@@ -296,8 +300,11 @@ const ManageProductPage = () => {
     }
   }
 
+  console.log('fields', fields)
 
-  const onSubmit = async () => {
+
+  const onSubmit = async (data) => {
+    // console.log('data ===', data)
     let payloadFields = {}
     let characteristics = []
 
@@ -416,7 +423,7 @@ const ManageProductPage = () => {
 
 
   if (isNew && loading) return <Spinner/>
-  if (!isNew && (catsLoading || productLoading) ) return <Spinner/>
+  if (!isNew && (catsLoading || productLoading)) return <Spinner/>
 
 
   return (

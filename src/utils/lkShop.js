@@ -1,17 +1,25 @@
 // Возвращает имя категории в дереве категорий по productCategoryId  
+
 export const findProductCategoryName = (cats, productCategoryId) => {
   for (const category of cats) {
-    for (const subCategory of category.subCategories) {
-      const productCategory = subCategory.productCategories.find(
-        (prod) => prod.productCategoryId === productCategoryId
-      );
-      if (productCategory) {
-        return productCategory.productCategoryName;
+    // Проверяем, что subCategories существует и является массивом
+    if (Array.isArray(category.subCategories)) {
+      for (const subCategory of category.subCategories) {
+        // Проверяем, что productCategories существует и является массивом
+        if (Array.isArray(subCategory.productCategories)) {
+          const productCategory = subCategory.productCategories.find(
+            (prod) => prod.productCategoryId === productCategoryId
+          );
+          if (productCategory) {
+            return productCategory.productCategoryName;
+          }
+        }
       }
     }
   }
-  return null; 
+  return null;
 };
+
 
 export const findCategoryPath = (productCategoryId, catTree) => {
   for (const category of catTree.categories) {
@@ -24,4 +32,8 @@ export const findCategoryPath = (productCategoryId, catTree) => {
     }
   }
   return "Категория не найдена";
+
 }
+
+
+
