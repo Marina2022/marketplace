@@ -236,7 +236,8 @@ const MainStep = ({
       <ProductDescription        
         name='productDescription'
         setValue={setValue}
-        getValues={getValues}        
+        getValues={getValues}
+        watch={watch}
       />
 
       <PriceInputs register={register} errors={errors} trigger={trigger} getValues={getValues} setValue={setValue}/>

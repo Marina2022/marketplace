@@ -4,16 +4,21 @@ import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import {EditorContent, useEditor} from "@tiptap/react";
 import Placeholder from "@tiptap/extension-placeholder";
+import {useEffect} from "react";
 
 
-const TiptapEditor = ({setValue, maxValue = 1000, getValues}) => {
+const TiptapEditor = ({setValue, maxValue = 1000, getValues, watch}) => {
 
+
+  const productDescription = getValues("productDescription") || "";
+  
+  
+  
 
   const editor = useEditor({
     onBlur: () => {
       setValue('productDescription', editor.getHTML())
     },
-
 
     onUpdate: ({editor}) => {
       let text = editor.getText().replace(/\s+/g, '');
@@ -30,9 +35,15 @@ const TiptapEditor = ({setValue, maxValue = 1000, getValues}) => {
       }),
 
     ],
-     //content: "<p><u>Если товар редактируем, то сюда прошлое описание кладем</u></p>",
-     content: getValues('productDescription'),
+    content: productDescription,
   });
+
+  useEffect(() => {
+    if (editor && productDescription !== editor.getHTML()) {
+      editor.commands.setContent(productDescription);
+    }
+  }, [productDescription, editor]);
+
 
   if (!editor) {
     return null;

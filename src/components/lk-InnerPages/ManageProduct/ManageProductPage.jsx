@@ -256,31 +256,28 @@ const ManageProductPage = () => {
     setValue('height', product.height)
     setValue('width', product.width)
     setValue('length', product.length)
-   
-    if (cats) {     
+
+    if (cats) {
       const result = findProductCategoryName(cats.categories, product.productCategoryId)
       setSelectedCatName(result)
     }
-    
-    attributes.standartFields.forEach((field)=>{
+
+    attributes.standartFields.forEach((field) => {
       setValue(field.name, product[field.name])
     })
 
-    attributes.categorySpecificFields.commonFields.forEach((field)=>{
+    attributes.categorySpecificFields.commonFields.forEach((field) => {
       setValue(field.name, product[field.name])
     })
 
-    attributes.categorySpecificFields.characteristics.forEach((field)=>{            
-      const foundItem = product.characteristics.find(item=>item.name === field.name)      
-      setValue('char_' + field.name, {...foundItem, value: foundItem['valueName']} )
+    attributes.categorySpecificFields.characteristics.forEach((field) => {
+      const foundItem = product.characteristics.find(item => item.name === field.name)
+      setValue('char_' + field.name, {...foundItem, value: foundItem['valueName']})
     })
 
   }, [product, attributes, cats]);
 
   console.log('product = ', product)
-
-
-  // подгрузка данных для создания нового товара   
 
 
   // При нажатии "Назад к списку товаров" и кнопки Cancel
