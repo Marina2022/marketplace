@@ -32,7 +32,6 @@ const ManageProductPage = () => {
   const [cats, setCats] = useState(null)
   const [attributes, setAttributes] = useState(null)
 
-  // console.log('attributes', attributes)
 
   const navigate = useNavigate()
 
@@ -234,7 +233,7 @@ const ManageProductPage = () => {
 
     getProduct()
 
-  }, [profileId, cats]);
+  }, [profileId]);
 
 
   useEffect(() => {
@@ -242,10 +241,9 @@ const ManageProductPage = () => {
     if (!product) return
     if (!cats) return
 
-    console.log('я здесь')
     console.log(product.productName)
 
-    console.log(attributes)
+    console.log('attributes', attributes)
 
     setValue('productName', product.productName)
     setValue('productCategoryId', product.productCategoryId)
@@ -258,20 +256,24 @@ const ManageProductPage = () => {
     setValue('height', product.height)
     setValue('width', product.width)
     setValue('length', product.length)
-
-
-    // todo - проверить как работает, когда все заработает
-
-      
-    
-    if (cats) {
-
-      console.log('cats', cats)
-      
+   
+    if (cats) {     
       const result = findProductCategoryName(cats.categories, product.productCategoryId)
       setSelectedCatName(result)
     }
     
+    attributes.standartFields.forEach((field)=>{
+      setValue(field.name, product[field.name])
+    })
+
+    attributes.categorySpecificFields.commonFields.forEach((field)=>{
+      setValue(field.name, product[field.name])
+    })
+
+    attributes.categorySpecificFields.characteristics.forEach((field)=>{            
+      const foundItem = product.characteristics.find(item=>item.name === field.name)      
+      setValue('char_' + field.name, {...foundItem, value: foundItem['valueName']} )
+    })
 
   }, [product, attributes, cats]);
 
