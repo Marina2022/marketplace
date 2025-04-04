@@ -13,19 +13,26 @@ const MediaStep = ({
                      setPresentationPhotos,
                      setStep,
                      product: productToSort,
-                     setProduct
+                     setProduct,
+                     trigger
+  
                    }) => {
 
   const product = JSON.parse(JSON.stringify(productToSort))
-  product.mediaContent.productImages.sort((a,b)=>a.sortOrder - b.sortOrder)
-  product.mediaContent.productPresentationImages.sort((a,b)=>a.sortOrder - b.sortOrder)
+  if (product) {
+    product.mediaContent.productImages.sort((a,b)=>a.sortOrder - b.sortOrder)
+    product.mediaContent.productPresentationImages.sort((a,b)=>a.sortOrder - b.sortOrder)  
+  }
+  
 
 
   console.log('sortedProduct ===', product)
   
     const [popupOpen, setPopupOpen] = useState(null)  // productPhotos, presentationPhotos
-    const goToNextStep = () => {
-      if (productPhotos.length === 0) return
+    const goToNextStep = async () => {
+
+      const isValid = await trigger();
+      if (!isValid || (productPhotos.length === 0 && product?.mediaContent?.productImages.length === 0)) return
       setStep('preview')
     }
 

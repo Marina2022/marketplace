@@ -456,7 +456,7 @@ const ManageProductPage = () => {
         </div>
 
         <nav className={s.stepsNav}>
-          <StepsNav navItems={navItems} step={step} setStep={setStep} trigger={trigger} productPhotos={productPhotos}/>
+          <StepsNav navItems={navItems} step={step} setStep={setStep} trigger={trigger} productPhotos={productPhotos} product={product} />
         </nav>
       </div>
 
@@ -516,6 +516,7 @@ const ManageProductPage = () => {
               setPresentationPhotos={setPresentationPhotos}
               product={product}
               setProduct={setProduct}
+              trigger={trigger}
             />
           }
 
@@ -527,6 +528,7 @@ const ManageProductPage = () => {
               cats={cats}
               onSubmit={onSubmit}
               sending={sending}
+              
             />
           }
         </form>

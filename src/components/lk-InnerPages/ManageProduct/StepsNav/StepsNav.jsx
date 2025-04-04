@@ -1,12 +1,12 @@
 import s from './StepsNav.module.scss';
 
-const StepsNav = ({navItems, setStep, step, trigger, productPhotos}) => {
+const StepsNav = ({navItems, setStep, step, trigger, productPhotos, product}) => {
   const onSelectStep = async (name) => {
 
     if (name === 'preview') {
       const isValid = await trigger();
 
-      if (!isValid || productPhotos.length === 0) {
+      if (!isValid || (productPhotos.length === 0 && product?.mediaContent?.productImages.length === 0) ) {
         alert('Нужно заполнить все обязательные поля и добавить хотя бы одно фото товара')
         return
       } else {
