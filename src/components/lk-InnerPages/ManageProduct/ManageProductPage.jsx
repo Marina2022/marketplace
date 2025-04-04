@@ -24,11 +24,11 @@ const ManageProductPage = () => {
 
   const [sending, setSending] = useState(false)
   const [error, setError] = useState(null)
-  
+
 
   const {productIdParam} = useParams()
   const isNew = productIdParam === 'new'
-  
+
 
   const [cats, setCats] = useState(null)
   const [attributes, setAttributes] = useState(null)
@@ -38,7 +38,7 @@ const ManageProductPage = () => {
 
   const profileId = useSelector(getActiveProfileId)
 
-  
+
   const [instructionFile, setInstructionFile] = useState(null)
   const [documentationFile, setDocumentationFile] = useState(null)
   const [certificateFile, setCertificateFile] = useState(null)
@@ -136,7 +136,6 @@ const ManageProductPage = () => {
   const [catsLoading, setCatsLoading] = useState(true)
 
 
-  
   const profilesData = useSelector(getUserProfilesData)
   // console.log(profilesData)
 
@@ -181,7 +180,6 @@ const ManageProductPage = () => {
   }, [productIdParam, profileId, searchCats]);
 
 
-  
   useEffect(() => {
     // if (!isNew) return
     if (!profileId) return
@@ -217,7 +215,7 @@ const ManageProductPage = () => {
       try {
         setProductLoading(true)
         const resp = await axiosInstance(`seller/${profileId}/products/${productIdParam}/update-details`)
-       
+
         setProduct(resp.data)
         setValue('productCategoryId', resp.data.productCategoryId)
 
@@ -259,7 +257,7 @@ const ManageProductPage = () => {
       const result = findProductCategoryName(cats.categories, product.productCategoryId)
       setSelectedCatName(result)
     }
-    
+
     if (attributes) {
       attributes.standartFields.forEach((field) => {
         setValue(field.name, product[field.name])
@@ -271,16 +269,13 @@ const ManageProductPage = () => {
 
       attributes.categorySpecificFields.characteristics.forEach((field) => {
         const foundItem = product.characteristics.find(item => item.name === field.name)
-        
-        if (foundItem) {
-          setValue('char_' + field.name, {...foundItem, value: foundItem['valueName']})  
-        }
-        
-      })
 
+        if (foundItem) {
+          setValue('char_' + field.name, {...foundItem, value: foundItem['valueName'], isVariant: field.isVariant})
+        }
+      })
     }
 
-    
   }, [product, attributes, cats]);
 
   console.log('product = ', product)
@@ -305,9 +300,6 @@ const ManageProductPage = () => {
     }
   }
 
-  console.log('fields', fields)
-
-
   const onSubmit = async (data) => {
     // console.log('data ===', data)
     let payloadFields = {}
@@ -322,7 +314,7 @@ const ManageProductPage = () => {
       if (value?.value) {
         payloadValue = value.valueId
       } else {
-        
+
         payloadValue = typeof value === 'string' ? value?.trim() : value
         //payloadValue = value 
       }
@@ -350,24 +342,24 @@ const ManageProductPage = () => {
     payloadFields.tnvdCode = "11112"
     payloadFields.barcode = "1231231"
 
-            
+
     try {
       setSending(true)
-      
+
       let productVariantId, response
-      
-      if(isNew)  {
+
+      if (isNew) {
         response = await axiosInstance.post(`seller/${profileId}/products/add`, payloadFields)
         productVariantId = response.data.productVariantId
       }
-      
+
       if (!isNew) {
-                                                // seller/{profileId}/products/{productVariantId}/update
+        // seller/{profileId}/products/{productVariantId}/update
         response = await axiosInstance.post(`seller/${profileId}/products/${product.productVariantId}/update`, payloadFields)
         console.log(response.data)
       }
-      
-      
+
+
       if (isNew) {
         // Отправка фотографий:
 
@@ -430,8 +422,6 @@ const ManageProductPage = () => {
           },
         })
       }
-      
-      
 
 
     } catch (err) {
@@ -443,9 +433,8 @@ const ManageProductPage = () => {
   }
 
 
-  
   if (isNew && loading) return <Spinner/>
-  
+
   if (error) return <div>{error}</div>
   if (!isNew && (catsLoading || productLoading)) return <Spinner/>
 
@@ -473,7 +462,8 @@ const ManageProductPage = () => {
         </div>
 
         <nav className={s.stepsNav}>
-          <StepsNav navItems={navItems} step={step} setStep={setStep} trigger={trigger} productPhotos={productPhotos} product={product} />
+          <StepsNav navItems={navItems} step={step} setStep={setStep} trigger={trigger} productPhotos={productPhotos}
+                    product={product}/>
         </nav>
       </div>
 
@@ -545,7 +535,7 @@ const ManageProductPage = () => {
               cats={cats}
               onSubmit={onSubmit}
               sending={sending}
-              
+
             />
           }
         </form>
