@@ -359,40 +359,49 @@ const ManageProductPage = () => {
 
 
       if (isNew) {
+
         // Отправка фотографий:
+        
+        try {
+          const formData = new FormData();
 
-        const formData = new FormData();
-
-        productPhotos.forEach((photoFile, index) => {
-          formData.append(`images[${index}].File`, photoFile);
-          formData.append(`images[${index}].Order`, index);
-        })
-
-
-        await axiosInstance.post(`seller/${profileId}/products/${productVariantId}/add-main-imgs`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-
-
-        // Отправка презентационных материалов:
-
-        if (presentationPhotos.length > 0) {
-          const formDataPresentations = new FormData();
-
-          presentationPhotos.forEach((photoFile, index) => {
-            formDataPresentations.append(`images[${index}].File`, photoFile);
-            formDataPresentations.append(`images[${index}].Order`, index);
+          productPhotos.forEach((photoFile, index) => {
+            formData.append(`images[${index}].File`, photoFile);
+            formData.append(`images[${index}].Order`, index);
           })
 
-          await axiosInstance.post(`seller/${profileId}/products/${productVariantId}/add-overview-imgs`, formDataPresentations, {
+
+          await axiosInstance.post(`seller/${profileId}/products/${productVariantId}/add-main-imgs`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
-          })
+          })  
+        } catch(err) {
+          console.log(err)
         }
 
+        // Отправка презентационных материалов:
+                
+        try {       
+          if (presentationPhotos.length > 0) {
+            const formDataPresentations = new FormData();
+
+            presentationPhotos.forEach((photoFile, index) => {
+              formDataPresentations.append(`images[${index}].File`, photoFile);
+              formDataPresentations.append(`images[${index}].Order`, index);
+            })
+
+            await axiosInstance.post(`seller/${profileId}/products/${productVariantId}/add-overview-imgs`, formDataPresentations, {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            })
+          }  
+        } catch(err) {
+          console.log(err)
+        }
+        
+        
         // отправка документов:
 
         const formDataDocs = new FormData();
