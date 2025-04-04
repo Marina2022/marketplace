@@ -39,6 +39,7 @@ const PresentationPhotoContainer = ({index, productPhotos, setPopupOpen, setProd
   };
 
   const [deleting, setDeleting] = useState(false)
+  const [moving, setMoving] = useState(false)
   const handleDelete = async() => {
 
     if (isNew) {
@@ -71,19 +72,41 @@ const PresentationPhotoContainer = ({index, productPhotos, setPopupOpen, setProd
     event.preventDefault(); // Нужно, чтобы работало drop
   };
 
-  const handleDrop = (event, index) => {
+  const handleDrop = async (event, index) => {
     // Получаем индекс перетаскиваемого элемента
     const draggedIndex = event.dataTransfer.getData('index');
 
-    //console.log('handleDrop, index, на который притащили = ', index, '. индекс, который тащим = ', draggedIndex);
 
     if (draggedIndex === null || draggedIndex === index) return; // Если перетаскиваем на тот же элемент, ничего не делаем
-    const updatedImages = [...productPhotos];
 
-    const [movedItem] = updatedImages.splice(draggedIndex, 1);
-    updatedImages.splice(index, 0, movedItem);
+    if (isNew) {
+      const updatedImages = [...productPhotos];
+      const [movedItem] = updatedImages.splice(draggedIndex, 1);
+      updatedImages.splice(index, 0, movedItem);
+      setProductPhotos(updatedImages);
+    } else {
+      // edit
 
-    setProductPhotos(updatedImages);  // в случае с edit, здесь будет отправка запроса на смену индекса элемента (и всего массива фоток)
+      try {
+        setMoving(true)
+
+        await axiosInstance.post(`seller/${profileId}/products/${product.productVariantId}/update-overview-imgs`, {
+          "imageId":  editPresentationPhotos[draggedIndex].imageId,
+          "newOrder": index
+        })
+
+        const resp = await axiosInstance(`seller/${profileId}/products/${product.productVariantId}/update-details`)
+        setProduct(resp.data)
+
+      } catch (err) {
+        console.log(err)
+
+      } finally {
+        setMoving(false)
+      }
+    }
+    
+    
   };
 
   return (

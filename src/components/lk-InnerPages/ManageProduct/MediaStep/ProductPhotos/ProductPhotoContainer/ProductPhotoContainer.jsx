@@ -75,8 +75,6 @@ const ProductPhotoContainer = ({index, productPhotos, setPopupOpen, setProductPh
     // Получаем индекс перетаскиваемого элемента
     const draggedIndex = event.dataTransfer.getData('index');
 
-    //console.log('handleDrop, index, на который притащили = ', index, '. индекс, который тащим = ', draggedIndex);
-
     if (draggedIndex === null || draggedIndex === index) return; // Если перетаскиваем на тот же элемент, ничего не делаем
 
     if (isNew) {
