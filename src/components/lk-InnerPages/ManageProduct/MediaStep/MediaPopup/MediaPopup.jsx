@@ -10,8 +10,18 @@ import PresentationPhotosBlock
 import axiosInstance from "@/api/axiosInstance.js";
 import {useSelector} from "react-redux";
 import {getActiveProfileId} from "@/store/userSlice.js";
+import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 
-const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen, presentationPhotos, setPresentationPhotos, product}) => {
+const MediaPopup = ({
+                      setProductPhotos,
+                      productPhotos,
+                      setPopupOpen,
+                      popupOpen,
+                      presentationPhotos,
+                      setPresentationPhotos,
+                      product,
+                      setProduct
+                    }) => {
   const profileId = useSelector(getActiveProfileId)
   const {productIdParam} = useParams()
   let isNew = true
@@ -53,41 +63,66 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen, p
     };
   }, [popupOpen])
 
-  const handleAddClick = async() => {
-    if (images.length === 0 && presentationImages.length === 0 ) return
-    
+  const [sending, setSending] = useState(false)
+  
+  const handleAddClick = async () => {
+    if (images.length === 0 && presentationImages.length === 0) return
+
     if (isNew) {
       setProductPhotos([...productPhotos, ...images])
-      setPresentationPhotos([...presentationPhotos, ...presentationImages])  
+      setPresentationPhotos([...presentationPhotos, ...presentationImages])
     } else {
-      // добавляем images
+      try {
+        setSending(true)
+        if (images.length > 0) {
+          const formData = new FormData();
 
-      const formData = new FormData();
+          images.forEach((photoFile, index) => {
+            formData.append(`images[${index}].File`, photoFile);
+            formData.append(`images[${index}].Order`, index);
+          })
 
-      images.forEach((photoFile, index) => {
-        formData.append(`images[${index}].File`, photoFile);
-        formData.append(`images[${index}].Order`, index);
-      })
+          await axiosInstance.post(`seller/${profileId}/products/${product.productVariantId}/add-main-imgs`, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+        }
+
+        if (presentationImages.length > 0) {
+          const formDataPresentations = new FormData();
+
+          presentationImages.forEach((photoFile, index) => {
+            formDataPresentations.append(`images[${index}].File`, photoFile);
+            formDataPresentations.append(`images[${index}].Order`, index);
+          })
+
+          await axiosInstance.post(`seller/${profileId}/products/${product.productVariantId}/add-overview-imgs`, formDataPresentations, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })              
+        }
 
 
-            
-      await axiosInstance.post(`seller/${profileId}/products/${product.productVariantId}/update-main-imgs`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+        const resp = await axiosInstance(`seller/${profileId}/products/${product.productVariantId}/update-details`)
+        setProduct(resp.data)
+      } catch (err) {
+        console.log(err)
+      } finally {
+        setSending(false)
+      }
 
 
     }
-    
-    
-    
+
+
     setPopupOpen(false)
   }
   const handlePopupClick = (e) => {
     e.stopPropagation();
   }
-  
+
   return (
     <div onClick={() => setPopupOpen(null)} className={s.underlay}>
       <div className={s.popup} onClick={handlePopupClick}>
@@ -114,25 +149,25 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen, p
           <div className={s.innerScrollable}>
 
             <Requirements/>
-            
-            <ProductPhotosBlock productPhotos={productPhotos} images={images} setImages={setImages} product={product} />                      
-                                    
+
+            <ProductPhotosBlock productPhotos={productPhotos} images={images} setImages={setImages} product={product}/>
+
             <div ref={presentationalPhotosRef} className={s.bottomDiv}>
 
-              <PresentationPhotosBlock 
-                presentationPhotos={presentationPhotos} 
-                presentationImages={presentationImages} 
+              <PresentationPhotosBlock
+                presentationPhotos={presentationPhotos}
+                presentationImages={presentationImages}
                 setPresentationImages={setPresentationImages}
                 product={product}
               />
-                            
+
             </div>
           </div>
         </div>
 
         <div className={s.buttons}>
           <Button onClick={() => setPopupOpen(false)} className={s.cancelBtn}>Отмена</Button>
-          <Button onClick={handleAddClick} className={s.addBtn}>Добавить</Button>
+          <Button onClick={handleAddClick} className={s.addBtn} disabled={sending} > {sending ? <MiniSpinner /> : 'Добавить' } </Button>
         </div>
       </div>
     </div>
