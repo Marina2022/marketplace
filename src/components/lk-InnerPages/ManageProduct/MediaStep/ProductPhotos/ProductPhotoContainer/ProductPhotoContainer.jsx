@@ -6,32 +6,32 @@ import axiosInstance from "@/api/axiosInstance.js";
 import {getActiveProfileId} from "@/store/userSlice.js";
 import {useSelector} from "react-redux";
 
-const ProductPhotoContainer = ({ index, productPhotos, setPopupOpen, setProductPhotos, product, setProduct}) => {
+const ProductPhotoContainer = ({index, productPhotos, setPopupOpen, setProductPhotos, product, setProduct}) => {
 
   const profileId = useSelector(getActiveProfileId)
-  
+
   const {productIdParam} = useParams()
   const isNew = productIdParam === 'new'
 
-  const editProductPhotos = product?.mediaContent.productImages  
+  const editProductPhotos = product?.mediaContent.productImages
   const currentProductImage = product?.mediaContent.productImages[index]
-  
+
   let firstEmpty
-  
+
   if (isNew) {
-    firstEmpty = index === productPhotos.length;  
+    firstEmpty = index === productPhotos.length;
   } else {
     firstEmpty = index === editProductPhotos.length;
   }
-    
+
   let isEmpty
-  
+
   if (isNew) {
-    isEmpty = index >= productPhotos.length;  
+    isEmpty = index >= productPhotos.length;
   } else {
     isEmpty = index >= editProductPhotos.length;
   }
-  
+
   const handleClick = () => {
     if (firstEmpty) {
       setPopupOpen('productPhotos');
@@ -39,29 +39,30 @@ const ProductPhotoContainer = ({ index, productPhotos, setPopupOpen, setProductP
   };
 
   const [deleting, setDeleting] = useState(false)
-  const handleDelete = async() => {
-    
+  const [moving, setMoving] = useState(false)
+  const handleDelete = async () => {
+
     if (isNew) {
       const newPhotosArray = productPhotos.filter((photo, i) => i !== index);
-      setProductPhotos(newPhotosArray);  
+      setProductPhotos(newPhotosArray);
     } else {
-      
+
       try {
         setDeleting(true)
         await axiosInstance.delete(`seller/${profileId}/products/images/${currentProductImage.imageId}`)
 
         const resp = await axiosInstance(`seller/${profileId}/products/${product.productVariantId}/update-details`)
         setProduct(resp.data)
-        
-      } catch(err) {               
+
+      } catch (err) {
         console.log(err)
       } finally {
         setDeleting(false)
-      }      
-    }    
+      }
+    }
   };
 
-  const handleDragStart = (e, index) => {    
+  const handleDragStart = (e, index) => {
     // Сохраняем индекс перетаскиваемого элемента в dataTransfer
     e.dataTransfer.setData('index', index);
   };
@@ -70,19 +71,40 @@ const ProductPhotoContainer = ({ index, productPhotos, setPopupOpen, setProductP
     event.preventDefault(); // Нужно, чтобы работало drop
   };
 
-  const handleDrop = (event, index) => {
+  const handleDrop = async (event, index) => {
     // Получаем индекс перетаскиваемого элемента
     const draggedIndex = event.dataTransfer.getData('index');
-    
+
     //console.log('handleDrop, index, на который притащили = ', index, '. индекс, который тащим = ', draggedIndex);
 
     if (draggedIndex === null || draggedIndex === index) return; // Если перетаскиваем на тот же элемент, ничего не делаем
-    const updatedImages = [...productPhotos];
-    
-    const [movedItem] = updatedImages.splice(draggedIndex, 1);
-    updatedImages.splice(index, 0, movedItem);
-       
-    setProductPhotos(updatedImages);  // в случае с edit, здесь будет отправка запроса на смену индекса элемента (и всего массива фоток)
+
+    if (isNew) {
+      const updatedImages = [...productPhotos];
+      const [movedItem] = updatedImages.splice(draggedIndex, 1);
+      updatedImages.splice(index, 0, movedItem);
+      setProductPhotos(updatedImages);
+    } else {
+      // edit  
+
+      try {
+        setMoving(true)
+
+        await axiosInstance.post(`seller/${profileId}/products/${product.productVariantId}/update-main-imgs`, {
+          "imageId":  editProductPhotos[draggedIndex].imageId,
+          "newOrder": index
+        })
+
+        const resp = await axiosInstance(`seller/${profileId}/products/${product.productVariantId}/update-details`)
+        setProduct(resp.data)
+
+      } catch (err) {
+        console.log(err)
+
+      } finally {
+        setMoving(false)
+      }
+    }
   };
 
   return (
@@ -93,7 +115,7 @@ const ProductPhotoContainer = ({ index, productPhotos, setPopupOpen, setProductP
       onDrop={(e) => handleDrop(e, index)} // Перетаскивание на контейнер
     >
       {!isEmpty && (
-        <button className={s.mobileDeleteBtn} onClick={handleDelete} type="button" disabled={deleting} >
+        <button className={s.mobileDeleteBtn} onClick={handleDelete} type="button" disabled={deleting}>
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M13 1L1 13M1.00001 1L13 13"
@@ -137,13 +159,14 @@ const ProductPhotoContainer = ({ index, productPhotos, setPopupOpen, setProductP
         <div
           className={s.imgWrapper}
           draggable
-          onDragStart={(e) => handleDragStart(e, index)} 
+          onDragStart={(e) => handleDragStart(e, index)}
         >
-          <img className={s.image} src={ isNew ? productPhotos[index].preview : currentProductImage.imagePath  } alt="image" />
+          <img className={s.image} src={isNew ? productPhotos[index].preview : currentProductImage.imagePath}
+               alt="image"/>
         </div>
       )}
 
-      {isEmpty && index === 0 && <img src={cameraIcon} alt="icon" />}
+      {isEmpty && index === 0 && <img src={cameraIcon} alt="icon"/>}
     </li>
   );
 };

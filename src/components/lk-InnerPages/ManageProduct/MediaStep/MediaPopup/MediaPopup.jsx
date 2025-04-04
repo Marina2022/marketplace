@@ -72,6 +72,9 @@ const MediaPopup = ({
       setProductPhotos([...productPhotos, ...images])
       setPresentationPhotos([...presentationPhotos, ...presentationImages])
     } else {
+      
+      // Редактирование
+      
       try {
         setSending(true)
         if (images.length > 0) {
@@ -79,7 +82,7 @@ const MediaPopup = ({
 
           images.forEach((photoFile, index) => {
             formData.append(`images[${index}].File`, photoFile);
-            formData.append(`images[${index}].Order`, index);
+            formData.append(`images[${index}].Order`, index + product.mediaContent.productImages.length );
           })
 
           await axiosInstance.post(`seller/${profileId}/products/${product.productVariantId}/add-main-imgs`, formData, {
@@ -94,7 +97,7 @@ const MediaPopup = ({
 
           presentationImages.forEach((photoFile, index) => {
             formDataPresentations.append(`images[${index}].File`, photoFile);
-            formDataPresentations.append(`images[${index}].Order`, index);
+            formDataPresentations.append(`images[${index}].Order`, index + product.mediaContent.productPresentationImages.length);
           })
 
           await axiosInstance.post(`seller/${profileId}/products/${product.productVariantId}/add-overview-imgs`, formDataPresentations, {
