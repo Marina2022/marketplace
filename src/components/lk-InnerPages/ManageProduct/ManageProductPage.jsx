@@ -237,8 +237,6 @@ const ManageProductPage = () => {
     if (!product) return
     if (!cats) return
 
-    console.log(product.productName)
-
     console.log('attributes', attributes)
 
     setValue('productName', product.productName)
@@ -414,7 +412,7 @@ const ManageProductPage = () => {
           formDataDocs.append(`documents[2].DocumentType`, 'certificate');
         }
 
-        if (!instructionFile && !documentationFile && certificateFile) return
+        if (!instructionFile && !documentationFile && !certificateFile) return
 
         await axiosInstance.post(`seller/${profileId}/products/${productVariantId}/add-document`, formDataDocs, {
           headers: {
@@ -422,7 +420,6 @@ const ManageProductPage = () => {
           },
         })
       }
-
 
     } catch (err) {
       console.log(err)
