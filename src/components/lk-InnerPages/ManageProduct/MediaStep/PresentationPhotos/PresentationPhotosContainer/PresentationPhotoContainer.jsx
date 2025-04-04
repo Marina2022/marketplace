@@ -1,9 +1,27 @@
 import s from './PresentationPhotoContainer.module.scss';
 import cameraIcon from '@/assets/img/lk/lk-shop/camera.svg';
+import {useParams} from "react-router-dom";
 
-const PresentationPhotoContainer = ({ index, productPhotos, setPopupOpen, setProductPhotos }) => {
+const PresentationPhotoContainer = ({index, productPhotos, setPopupOpen, setProductPhotos, product}) => {
+
+  const {productIdParam} = useParams()
+  const isNew = productIdParam === 'new'
+
+  const editPresentationPhotos = product?.mediaContent.productPresentationImages
+  const currentImage = product?.mediaContent.productImages[index]
+  
+  
   const firstEmpty = index === productPhotos.length;
-  const isEmpty = index >= productPhotos.length;
+
+
+  let isEmpty
+
+  if (isNew) {
+    isEmpty = index >= productPhotos.length;
+  } else {
+    isEmpty = index >= editPresentationPhotos.length;
+  }
+  
 
   const handleClick = () => {
     if (firstEmpty) {
@@ -94,11 +112,11 @@ const PresentationPhotoContainer = ({ index, productPhotos, setPopupOpen, setPro
           draggable
           onDragStart={(e) => handleDragStart(e, index)}
         >
-          <img className={s.image} src={productPhotos[index].preview} alt="image" />
+          <img className={s.image} src={ isNew ? productPhotos[index].preview  : currentImage.imagePath } alt="image"/>
         </div>
       )}
 
-      {isEmpty && index === 0 && <img src={cameraIcon} alt="icon" />}
+      {isEmpty && index === 0 && <img src={cameraIcon} alt="icon"/>}
     </li>
   );
 };

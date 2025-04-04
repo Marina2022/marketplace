@@ -29,7 +29,7 @@ const ManageProductPage = () => {
 
   const {productIdParam} = useParams()
   const isNew = productIdParam === 'new'
-  // когда edit - будем сетать при загрузке товара
+  
 
   const [cats, setCats] = useState(null)
   const [attributes, setAttributes] = useState(null)
@@ -515,6 +515,7 @@ const ManageProductPage = () => {
               setProductPhotos={setProductPhotos}
               presentationPhotos={presentationPhotos}
               setPresentationPhotos={setPresentationPhotos}
+              product={product}
             />
           }
 

@@ -11,7 +11,8 @@ const MediaStep = ({
                      setProductPhotos,
                      presentationPhotos,
                      setPresentationPhotos,
-                     setStep
+                     setStep,
+                     product
                    }) => {
 
     const [popupOpen, setPopupOpen] = useState(null)  // productPhotos, presentationPhotos
@@ -26,10 +27,10 @@ const MediaStep = ({
 
         <h2 className={s.title}>Медиа</h2>
 
-        <ProductPhotos productPhotos={productPhotos} setProductPhotos={setProductPhotos} setPopupOpen={setPopupOpen}/>
+        <ProductPhotos productPhotos={productPhotos} setProductPhotos={setProductPhotos} setPopupOpen={setPopupOpen} product={product} />
 
         <PresentationPhotos presentationPhotos={presentationPhotos} setPresentationPhotos={setPresentationPhotos}
-                            setPopupOpen={setPopupOpen}/>
+                            setPopupOpen={setPopupOpen} product={product} />
 
         <div className={s.buttons}>
           <Button className={s.backButton} type="button" onClick={() => setStep('characteristics')}>Назад</Button>
