@@ -2,7 +2,7 @@ import s from './PresentationPhotosInPopup.module.scss';
 import PresentationPhotosPopupContainer
   from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/PresentationPhotosBlock/PresentationPhotosPopupContainer/PresentationPhotosPopupContainer.jsx";
 
-const PresentationPhotosInPopup = ({productPhotos, images, emptyPhotoClickHandler}) => {
+const PresentationPhotosInPopup = ({productPhotos, images, emptyPhotoClickHandler, product}) => {
 
   const placeholders = Array.from({length: 5})
   return (
@@ -12,6 +12,7 @@ const PresentationPhotosInPopup = ({productPhotos, images, emptyPhotoClickHandle
           placeholders.map((placeholder, i) => {
             return <PresentationPhotosPopupContainer
               key={i}
+              product={product}
               productPhotos={productPhotos}
               images={images}
               index={i}

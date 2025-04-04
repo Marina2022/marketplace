@@ -46,6 +46,7 @@ const MediaStep = ({
             setPresentationPhotos={setPresentationPhotos}
             setPopupOpen={setPopupOpen}
             popupOpen={popupOpen}
+            product={product}
           />
         }
       </div>

@@ -2,7 +2,7 @@ import s from './ProductPhotosInPopup.module.scss';
 import ProductPhotoPopupContainer
   from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/ProductPhotosBlock/ProductPhotoPopupContainer/ProductPhotoPopupContainer.jsx";
 
-const ProductPhotosInPopup = ({productPhotos, images, emptyPhotoClickHandler}) => {
+const ProductPhotosInPopup = ({productPhotos, images, emptyPhotoClickHandler, product}) => {
 
   const placeholders = Array.from({length: 15})
   return (
@@ -17,6 +17,7 @@ const ProductPhotosInPopup = ({productPhotos, images, emptyPhotoClickHandler}) =
               images={images}
               index={i}
               emptyPhotoClickHandler={emptyPhotoClickHandler}
+              product={product}
             />
           })
         }

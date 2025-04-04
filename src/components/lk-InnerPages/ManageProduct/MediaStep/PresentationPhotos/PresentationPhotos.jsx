@@ -7,7 +7,7 @@ const PresentationPhotos = ({presentationPhotos, setPresentationPhotos, setPopup
 
   const placeholders = Array.from({length: 5})
 
-  const handleAddPhoto = () => setPopupOpen(true)
+  const handleAddPhoto = () => setPopupOpen('presentationPhotos')
 
   return (
     <div className={s.productPhotosWrapper}>

@@ -10,7 +10,14 @@ const ProductPhotoContainer = ({ index, productPhotos, setPopupOpen, setProductP
   const editProductPhotos = product?.mediaContent.productImages  
   const currentProductImage = product?.mediaContent.productImages[index]
   
-  const firstEmpty = index === productPhotos.length;
+  let firstEmpty
+  
+  if (isNew) {
+    firstEmpty = index === productPhotos.length;  
+  } else {
+    firstEmpty = index === editProductPhotos.length;
+  }
+  
   
   let isEmpty
   

@@ -3,9 +3,13 @@ import cameraIcon from "@/assets/img/lk/lk-shop/camera.svg";
 import {useDropzone} from "react-dropzone";
 import PresentationPhotosInPopup
   from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/PresentationPhotosBlock/PresentationPhotosInPopup/PresentationPhotosInPopup/PresentationPhotosInPopup.jsx";
+import {useParams} from "react-router-dom";
 
-const ProductPhotosBlock = ({presentationImages: images, setPresentationImages: setImages, presentationPhotos: productPhotos}) => {
+const PresentationPhotosBlock = ({presentationImages: images, setPresentationImages: setImages, presentationPhotos: productPhotos, product}) => {
 
+  const {productIdParam} = useParams()
+  const isNew = productIdParam === 'new'
+  const editPresentationPhotos = product?.mediaContent.productPresentationImages
   const onDrop = (acceptedFiles) => {
     const newImages = acceptedFiles.map((file) =>
       Object.assign(file, {
@@ -15,9 +19,11 @@ const ProductPhotosBlock = ({presentationImages: images, setPresentationImages: 
 
     const totalImages = images.length + newImages.length;
 
+    const lengthToCount = isNew ? productPhotos.length : editPresentationPhotos.length
+    
     // Ограничиваем общее количество изображений до 5
-    if (totalImages > 5 - productPhotos.length) {
-      const allowedNewImages = newImages.slice(0, 5 - productPhotos.length - images.length);
+    if (totalImages > 5 - lengthToCount) {
+      const allowedNewImages = newImages.slice(0, 5 - lengthToCount - images.length);
       setImages([...images, ...allowedNewImages]);
     } else {
       setImages([...images, ...newImages]);
@@ -67,9 +73,10 @@ const ProductPhotosBlock = ({presentationImages: images, setPresentationImages: 
         productPhotos={productPhotos}
         images={images}
         emptyPhotoClickHandler={emptyPhotoClickHandler}
+        product={product}
       />
     </div>
   );
 };
 
-export default ProductPhotosBlock;
+export default PresentationPhotosBlock;

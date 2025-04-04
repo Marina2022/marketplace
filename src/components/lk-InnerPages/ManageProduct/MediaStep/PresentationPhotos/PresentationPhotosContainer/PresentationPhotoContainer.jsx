@@ -8,11 +8,15 @@ const PresentationPhotoContainer = ({index, productPhotos, setPopupOpen, setProd
   const isNew = productIdParam === 'new'
 
   const editPresentationPhotos = product?.mediaContent.productPresentationImages
-  const currentImage = product?.mediaContent.productImages[index]
+  const currentImage = product?.mediaContent.productPresentationImages[index]
   
-  
-  const firstEmpty = index === productPhotos.length;
+  let firstEmpty
 
+  if (isNew) {
+    firstEmpty = index === productPhotos.length;
+  } else {
+    firstEmpty = index === editPresentationPhotos.length;
+  }
 
   let isEmpty
 

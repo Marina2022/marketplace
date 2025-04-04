@@ -8,7 +8,7 @@ import ProductPhotosBlock
 import PresentationPhotosBlock
   from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/PresentationPhotosBlock/PresentationPhotosBlock.jsx";
 
-const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen, presentationPhotos, setPresentationPhotos}) => {
+const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen, presentationPhotos, setPresentationPhotos, product}) => {
 
   const {productIdParam} = useParams()
   let isNew = true
@@ -60,7 +60,6 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen, p
     e.stopPropagation();
   }
   
-
   return (
     <div onClick={() => setPopupOpen(null)} className={s.underlay}>
       <div className={s.popup} onClick={handlePopupClick}>
@@ -88,11 +87,16 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen, p
 
             <Requirements/>
             
-            <ProductPhotosBlock productPhotos={productPhotos} images={images} setImages={setImages} />                      
+            <ProductPhotosBlock productPhotos={productPhotos} images={images} setImages={setImages} product={product} />                      
                                     
             <div ref={presentationalPhotosRef} className={s.bottomDiv}>
 
-              <PresentationPhotosBlock presentationPhotos={presentationPhotos} presentationImages={presentationImages} setPresentationImages={setPresentationImages} />
+              <PresentationPhotosBlock 
+                presentationPhotos={presentationPhotos} 
+                presentationImages={presentationImages} 
+                setPresentationImages={setPresentationImages}
+                product={product}
+              />
                             
             </div>
           </div>
