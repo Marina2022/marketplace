@@ -7,9 +7,12 @@ import ProductPhotosBlock
   from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/ProductPhotosBlock/ProductPhotosBlock.jsx";
 import PresentationPhotosBlock
   from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/PresentationPhotosBlock/PresentationPhotosBlock.jsx";
+import axiosInstance from "@/api/axiosInstance.js";
+import {useSelector} from "react-redux";
+import {getActiveProfileId} from "@/store/userSlice.js";
 
 const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen, presentationPhotos, setPresentationPhotos, product}) => {
-
+  const profileId = useSelector(getActiveProfileId)
   const {productIdParam} = useParams()
   let isNew = true
   if (productIdParam !== 'new') isNew = false
@@ -50,10 +53,35 @@ const MediaPopup = ({setProductPhotos, productPhotos, setPopupOpen, popupOpen, p
     };
   }, [popupOpen])
 
-  const handleAddClick = () => {
-    if (images.length === 0 && presentationImages.length === 0 ) return   
-    setProductPhotos([...productPhotos, ...images])
-    setPresentationPhotos([...presentationPhotos, ...presentationImages])
+  const handleAddClick = async() => {
+    if (images.length === 0 && presentationImages.length === 0 ) return
+    
+    if (isNew) {
+      setProductPhotos([...productPhotos, ...images])
+      setPresentationPhotos([...presentationPhotos, ...presentationImages])  
+    } else {
+      // добавляем images
+
+      const formData = new FormData();
+
+      images.forEach((photoFile, index) => {
+        formData.append(`images[${index}].File`, photoFile);
+        formData.append(`images[${index}].Order`, index);
+      })
+
+
+            
+      await axiosInstance.post(`seller/${profileId}/products/${product.productVariantId}/update-main-imgs`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+
+
+    }
+    
+    
+    
     setPopupOpen(false)
   }
   const handlePopupClick = (e) => {

@@ -1,9 +1,15 @@
 import s from './PresentationPhotoContainer.module.scss';
 import cameraIcon from '@/assets/img/lk/lk-shop/camera.svg';
 import {useParams} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {getActiveProfileId} from "@/store/userSlice.js";
+import {useState} from "react";
+import axiosInstance from "@/api/axiosInstance.js";
 
-const PresentationPhotoContainer = ({index, productPhotos, setPopupOpen, setProductPhotos, product}) => {
+const PresentationPhotoContainer = ({index, productPhotos, setPopupOpen, setProductPhotos, product, setProduct}) => {
 
+  const profileId = useSelector(getActiveProfileId)
+  
   const {productIdParam} = useParams()
   const isNew = productIdParam === 'new'
 
@@ -26,16 +32,34 @@ const PresentationPhotoContainer = ({index, productPhotos, setPopupOpen, setProd
     isEmpty = index >= editPresentationPhotos.length;
   }
   
-
   const handleClick = () => {
     if (firstEmpty) {
       setPopupOpen('presentationPhotos');
     }
   };
 
-  const handleDelete = () => {
-    const newPhotosArray = productPhotos.filter((photo, i) => i !== index);
-    setProductPhotos(newPhotosArray);
+  const [deleting, setDeleting] = useState(false)
+  const handleDelete = async() => {
+
+    if (isNew) {
+      const newPhotosArray = productPhotos.filter((photo, i) => i !== index);
+      setProductPhotos(newPhotosArray);  
+    } else {
+
+      try {
+        setDeleting(true)                                   
+        await axiosInstance.delete(`seller/${profileId}/products/overview-imgs/${currentImage.imageId}`)
+
+        const resp = await axiosInstance(`seller/${profileId}/products/${product.productVariantId}/update-details`)
+        setProduct(resp.data)
+
+      } catch(err) {
+        console.log(err)
+      } finally {
+        setDeleting(false)
+      }
+    }
+
   };
 
   const handleDragStart = (e, index) => {
@@ -70,7 +94,7 @@ const PresentationPhotoContainer = ({index, productPhotos, setPopupOpen, setProd
       onDrop={(e) => handleDrop(e, index)} // Перетаскивание на контейнер
     >
       {!isEmpty && (
-        <button className={s.mobileDeleteBtn} onClick={handleDelete} type="button">
+        <button className={s.mobileDeleteBtn} onClick={handleDelete} type="button" disabled={deleting} >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M13 1L1 13M1.00001 1L13 13"

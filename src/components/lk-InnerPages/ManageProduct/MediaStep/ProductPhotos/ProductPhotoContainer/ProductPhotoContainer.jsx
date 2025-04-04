@@ -1,9 +1,15 @@
 import s from './ProductPhotoContainer.module.scss';
 import cameraIcon from '@/assets/img/lk/lk-shop/camera.svg';
 import {useParams} from "react-router-dom";
+import {useState} from "react";
+import axiosInstance from "@/api/axiosInstance.js";
+import {getActiveProfileId} from "@/store/userSlice.js";
+import {useSelector} from "react-redux";
 
-const ProductPhotoContainer = ({ index, productPhotos, setPopupOpen, setProductPhotos, product}) => {
+const ProductPhotoContainer = ({ index, productPhotos, setPopupOpen, setProductPhotos, product, setProduct}) => {
 
+  const profileId = useSelector(getActiveProfileId)
+  
   const {productIdParam} = useParams()
   const isNew = productIdParam === 'new'
 
@@ -17,8 +23,7 @@ const ProductPhotoContainer = ({ index, productPhotos, setPopupOpen, setProductP
   } else {
     firstEmpty = index === editProductPhotos.length;
   }
-  
-  
+    
   let isEmpty
   
   if (isNew) {
@@ -33,9 +38,27 @@ const ProductPhotoContainer = ({ index, productPhotos, setPopupOpen, setProductP
     }
   };
 
-  const handleDelete = () => {
-    const newPhotosArray = productPhotos.filter((photo, i) => i !== index);
-    setProductPhotos(newPhotosArray);
+  const [deleting, setDeleting] = useState(false)
+  const handleDelete = async() => {
+    
+    if (isNew) {
+      const newPhotosArray = productPhotos.filter((photo, i) => i !== index);
+      setProductPhotos(newPhotosArray);  
+    } else {
+      
+      try {
+        setDeleting(true)
+        await axiosInstance.delete(`seller/${profileId}/products/images/${currentProductImage.imageId}`)
+
+        const resp = await axiosInstance(`seller/${profileId}/products/${product.productVariantId}/update-details`)
+        setProduct(resp.data)
+        
+      } catch(err) {               
+        console.log(err)
+      } finally {
+        setDeleting(false)
+      }      
+    }    
   };
 
   const handleDragStart = (e, index) => {    
@@ -70,7 +93,7 @@ const ProductPhotoContainer = ({ index, productPhotos, setPopupOpen, setProductP
       onDrop={(e) => handleDrop(e, index)} // Перетаскивание на контейнер
     >
       {!isEmpty && (
-        <button className={s.mobileDeleteBtn} onClick={handleDelete} type="button">
+        <button className={s.mobileDeleteBtn} onClick={handleDelete} type="button" disabled={deleting} >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M13 1L1 13M1.00001 1L13 13"

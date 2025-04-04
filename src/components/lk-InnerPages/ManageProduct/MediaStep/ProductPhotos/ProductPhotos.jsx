@@ -3,7 +3,7 @@ import Button from "@/components/ui/Button/Button.jsx";
 import ProductPhotoContainer
   from "@/components/lk-InnerPages/ManageProduct/MediaStep/ProductPhotos/ProductPhotoContainer/ProductPhotoContainer.jsx";
 
-const ProductPhotos = ({productPhotos, setPopupOpen, setProductPhotos, product}) => {
+const ProductPhotos = ({productPhotos, setPopupOpen, setProductPhotos, product, setProduct}) => {
 
   const placeholders = Array.from({length: 15})
 
@@ -28,6 +28,7 @@ const ProductPhotos = ({productPhotos, setPopupOpen, setProductPhotos, product})
                 setPopupOpen={setPopupOpen}
                 setProductPhotos={setProductPhotos}
                 product={product}
+                setProduct={setProduct}
               />
             })
           }

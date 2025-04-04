@@ -24,7 +24,6 @@ const ManageProductPage = () => {
 
   const [sending, setSending] = useState(false)
   const [error, setError] = useState(null)
-
   
 
   const {productIdParam} = useParams()
@@ -137,7 +136,7 @@ const ManageProductPage = () => {
   const [catsLoading, setCatsLoading] = useState(true)
 
 
-  const activeProfileId = useSelector(getActiveProfileId)
+  
   const profilesData = useSelector(getUserProfilesData)
   // console.log(profilesData)
 
@@ -145,13 +144,13 @@ const ManageProductPage = () => {
 
     // редирект на страницу с магазином, если профиль не = company или если isHasShop = false
 
-    if (activeProfileId && profilesData) {
-      const currentProfile = profilesData.find(item => item.profileId === activeProfileId)
+    if (profileId && profilesData) {
+      const currentProfile = profilesData.find(item => item.profileId === profileId)
       const type = currentProfile.type
       const isHasShop = currentProfile.isHasShop
       if (type !== 'company' || !isHasShop) navigate('/lk/shop')
     }
-  }, [profilesData, activeProfileId]);
+  }, [profilesData, profileId]);
 
 
   // подгрузка данных для редактирования товара
@@ -352,7 +351,7 @@ const ManageProductPage = () => {
     try {
 
       setSending(true)
-      const response = await axiosInstance.post(`seller/${activeProfileId}/products/add`, payloadFields)
+      const response = await axiosInstance.post(`seller/${profileId}/products/add`, payloadFields)
       const productVariantId = response.data.productVariantId
 
 
@@ -366,7 +365,7 @@ const ManageProductPage = () => {
       })
 
 
-      await axiosInstance.post(`seller/${activeProfileId}/products/${productVariantId}/add-main-imgs`, formData, {
+      await axiosInstance.post(`seller/${profileId}/products/${productVariantId}/add-main-imgs`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -383,7 +382,7 @@ const ManageProductPage = () => {
           formDataPresentations.append(`images[${index}].Order`, index);
         })
 
-        await axiosInstance.post(`seller/${activeProfileId}/products/${productVariantId}/add-overview-imgs`, formDataPresentations, {
+        await axiosInstance.post(`seller/${profileId}/products/${productVariantId}/add-overview-imgs`, formDataPresentations, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -411,7 +410,7 @@ const ManageProductPage = () => {
 
       if (!instructionFile && !documentationFile && certificateFile) return
 
-      await axiosInstance.post(`seller/${activeProfileId}/products/${productVariantId}/add-document`, formDataDocs, {
+      await axiosInstance.post(`seller/${profileId}/products/${productVariantId}/add-document`, formDataDocs, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -516,6 +515,7 @@ const ManageProductPage = () => {
               presentationPhotos={presentationPhotos}
               setPresentationPhotos={setPresentationPhotos}
               product={product}
+              setProduct={setProduct}
             />
           }
 
