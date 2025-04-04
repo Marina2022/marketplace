@@ -30,7 +30,7 @@ const PreviewStep = ({setStep, attributes, getValues, cats, sending}) => {
 
         <div className={s.row}>
           <div className={s.label}>Артикул</div>
-          <div className={s.value}>{getValues('sellerArticle')}</div>
+          <div className={s.value}>{getValues('article')}</div>
         </div>
 
 
@@ -50,20 +50,20 @@ const PreviewStep = ({setStep, attributes, getValues, cats, sending}) => {
           <div className={s.value}>{getValues('weight')}</div>
         </div>
 
-        {
-          getValues('seviceLife') && (
+             {
+          getValues('guaranteePeriod') && (
             <div className={s.row}>
               <div className={s.label}>Гарантийный срок, г</div>
-              <div className={s.value}>{getValues('seviceLife')}</div>
+              <div className={s.value}>{getValues('guaranteePeriod')}</div>
             </div>
           )
         }
 
         {
-          getValues('guaranteePeriod') && (
+          getValues('serviceLife') && (
             <div className={s.row}>
               <div className={s.label}>Срок годности, г</div>
-              <div className={s.value}>{getValues('guaranteePeriod')}</div>
+              <div className={s.value}>{getValues('serviceLife')}</div>
             </div>
           )
         }

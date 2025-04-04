@@ -322,7 +322,9 @@ const ManageProductPage = () => {
       if (value?.value) {
         payloadValue = value.valueId
       } else {
-        payloadValue = value?.trim()
+        
+        payloadValue = typeof value === 'string' ? value?.trim() : value
+        //payloadValue = value 
       }
 
       if (!payloadValue) return  // undefined (для необязат.полей) не посылаем
@@ -342,79 +344,94 @@ const ManageProductPage = () => {
 
     payloadFields.characteristics = characteristics
 
-    // пока захардкодила
+    // пока захардкодим
     payloadFields.isSecondHand = false
     payloadFields.isDiscounted = false
     payloadFields.tnvdCode = "11112"
     payloadFields.barcode = "1231231"
 
+            
     try {
-
       setSending(true)
-      const response = await axiosInstance.post(`seller/${profileId}/products/add`, payloadFields)
-      const productVariantId = response.data.productVariantId
+      
+      let productVariantId, response
+      
+      if(isNew)  {
+        response = await axiosInstance.post(`seller/${profileId}/products/add`, payloadFields)
+        productVariantId = response.data.productVariantId
+      }
+      
+      if (!isNew) {
+                                                // seller/{profileId}/products/{productVariantId}/update
+        response = await axiosInstance.post(`seller/${profileId}/products/${product.productVariantId}/update`, payloadFields)
+        console.log(response.data)
+      }
+      
+      
+      if (isNew) {
+        // Отправка фотографий:
 
+        const formData = new FormData();
 
-      // // Отправка фотографий:
-
-      const formData = new FormData();
-
-      productPhotos.forEach((photoFile, index) => {
-        formData.append(`images[${index}].File`, photoFile);
-        formData.append(`images[${index}].Order`, index);
-      })
-
-
-      await axiosInstance.post(`seller/${profileId}/products/${productVariantId}/add-main-imgs`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-
-
-      // Отправка презентационных материалов:
-
-      if (presentationPhotos.length > 0) {
-        const formDataPresentations = new FormData();
-
-        presentationPhotos.forEach((photoFile, index) => {
-          formDataPresentations.append(`images[${index}].File`, photoFile);
-          formDataPresentations.append(`images[${index}].Order`, index);
+        productPhotos.forEach((photoFile, index) => {
+          formData.append(`images[${index}].File`, photoFile);
+          formData.append(`images[${index}].Order`, index);
         })
 
-        await axiosInstance.post(`seller/${profileId}/products/${productVariantId}/add-overview-imgs`, formDataPresentations, {
+
+        await axiosInstance.post(`seller/${profileId}/products/${productVariantId}/add-main-imgs`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+
+
+        // Отправка презентационных материалов:
+
+        if (presentationPhotos.length > 0) {
+          const formDataPresentations = new FormData();
+
+          presentationPhotos.forEach((photoFile, index) => {
+            formDataPresentations.append(`images[${index}].File`, photoFile);
+            formDataPresentations.append(`images[${index}].Order`, index);
+          })
+
+          await axiosInstance.post(`seller/${profileId}/products/${productVariantId}/add-overview-imgs`, formDataPresentations, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+        }
+
+        // отправка документов:
+
+        const formDataDocs = new FormData();
+
+        if (instructionFile) {
+          formDataDocs.append(`documents[0].File`, instructionFile);
+          formDataDocs.append(`documents[0].DocumentType`, 'instruction');
+        }
+
+        if (documentationFile) {
+          formDataDocs.append(`documents[1].File`, documentationFile);
+          formDataDocs.append(`documents[1].DocumentType`, 'documentation');
+        }
+
+        if (certificateFile) {
+          formDataDocs.append(`documents[2].File`, certificateFile);
+          formDataDocs.append(`documents[2].DocumentType`, 'certificate');
+        }
+
+        if (!instructionFile && !documentationFile && certificateFile) return
+
+        await axiosInstance.post(`seller/${profileId}/products/${productVariantId}/add-document`, formDataDocs, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         })
       }
-
-      // отправка документов:
-
-      const formDataDocs = new FormData();
-
-      if (instructionFile) {
-        formDataDocs.append(`documents[0].File`, instructionFile);
-        formDataDocs.append(`documents[0].DocumentType`, 'instruction');
-      }
-
-      if (documentationFile) {
-        formDataDocs.append(`documents[1].File`, documentationFile);
-        formDataDocs.append(`documents[1].DocumentType`, 'documentation');
-      }
-
-      if (certificateFile) {
-        formDataDocs.append(`documents[2].File`, certificateFile);
-        formDataDocs.append(`documents[2].DocumentType`, 'certificate');
-      }
-
-      if (!instructionFile && !documentationFile && certificateFile) return
-
-      await axiosInstance.post(`seller/${profileId}/products/${productVariantId}/add-document`, formDataDocs, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      
+      
 
 
     } catch (err) {
