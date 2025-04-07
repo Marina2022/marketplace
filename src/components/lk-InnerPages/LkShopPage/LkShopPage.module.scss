@@ -16,6 +16,10 @@
   display: flex;
   margin-bottom: 12px;
   user-select: none;
+  
+  @include m {
+    width: 100%;
+  }
 
   @include t {
     margin-bottom: 8px;

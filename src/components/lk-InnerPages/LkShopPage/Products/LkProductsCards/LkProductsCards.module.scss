@@ -1,0 +1,80 @@
+@import "@/assets/styles/mixins";
+
+.productsCardsWrapper {
+  background: white;
+  padding: 10px 15px;
+  
+  @include m {
+    background: transparent;
+  }
+}
+
+.mainTitle {
+  color: #131D2A;
+  font-weight: 600;
+  font-size: 28px;
+
+  @include t {
+    font-size: 24px;
+  }
+
+  @include m {
+    display: none;
+  }
+}
+
+.topPart {
+  display: flex;
+  flex-direction: column;
+  
+  @include m {
+    flex-direction: column-reverse;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  
+  @include m {
+    margin-bottom: 0;
+  }
+}
+
+.createProductBtn {
+  background: #658092;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  width: 150px;
+  
+  &:hover {
+    background: #5a7181;
+  }
+  
+  @include m {
+    width: 100%;
+    height: 36px;
+  }
+}
+
+
+.underHeader {
+  
+}
+
+
+.tabs {
+  @include m {
+    display: none;
+  }  
+}
+
+.searchAndFilters {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 16px;
+}

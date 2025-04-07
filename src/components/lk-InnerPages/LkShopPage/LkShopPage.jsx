@@ -47,31 +47,3 @@ const LkShopPage = () => {
 
 export default LkShopPage;
 
-
-// const [productVariantId, setProductVariantId] = useState('0dc76b67-165c-4491-8637-11ab5ae2a80c')
-
-{/*<p>*/
-}
-{/*  LkShopPage*/
-}
-{/*</p>*/
-}
-{/*<br/>*/
-}
-{/*<Button onClick={()=>navigate('/lk/edit-product/new')} >Создать&nbsp;товар</Button>*/
-}
-
-{/*<br/>*/
-}
-{/*<br/>*/
-}
-
-{/********************************************************************************************/
-}
-
-{/*<p>productVariantId:</p>      */
-}
-{/*<input className={s.input} type="text" placeholder="productVariantId" value={productVariantId} onChange={(e)=>setProductVariantId(e.target.value)} />*/
-}
-{/*<Button onClick={()=>navigate(`/lk/edit-product/${productVariantId}`)} >Редактировать&nbsp;товар</Button>*/
-}

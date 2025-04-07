@@ -1,0 +1,40 @@
+@import "@/assets/styles/mixins";
+
+.tabs {
+  display: inline-flex;
+  
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 12px;
+  border-bottom: #D1D5DB 2px solid;
+  
+  
+  @include m {
+    display: none;
+  }
+}
+
+.item {
+  color: #658092;
+  font-size: 14px;
+  cursor: pointer;
+  padding-inline: 4px;
+}
+
+.activeItem {
+  color: #3E5067;
+  font-size: 14px;
+  cursor: pointer;
+  position: relative;
+  
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -14px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #658092;
+  }
+  
+}

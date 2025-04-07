@@ -10,26 +10,25 @@ const LkProducts = () => {
 
   return (
     <>
-      
-    <div className={s.secondFromTopTabs}>      
-      <div onClick={() => dispatch(setSecondFromTopTab(1))}
-           className={secondFromTopTab === 1 ? s.activeSecondFromTopTab : s.secondFromTopTab}>Карточки товаров
-      </div>
-      <div
-        onClick={() => dispatch(setSecondFromTopTab(2))}
-        className={secondFromTopTab === 2 ? s.activeSecondFromTopTab : s.secondFromTopTab}>
-        Управление товарами
-      </div>
+      <div className={s.secondFromTopTabs}>
+        <div onClick={() => dispatch(setSecondFromTopTab(1))}
+             className={secondFromTopTab === 1 ? s.activeSecondFromTopTab : s.secondFromTopTab}>Карточки товаров
+        </div>
+        <div
+          onClick={() => dispatch(setSecondFromTopTab(2))}
+          className={secondFromTopTab === 2 ? s.activeSecondFromTopTab : s.secondFromTopTab}>
+          Управление товарами
+        </div>
 
-      <div
-        onClick={() => dispatch(setSecondFromTopTab(3))}
-        className={secondFromTopTab === 3 ? s.activeSecondFromTopTab : s.secondFromTopTab}>
-        Доставка
+        <div
+          onClick={() => dispatch(setSecondFromTopTab(3))}
+          className={secondFromTopTab === 3 ? s.activeSecondFromTopTab : s.secondFromTopTab}>
+          Доставка
+        </div>
       </div>
-    </div>
 
       {
-        secondFromTopTab === 1 && <LkProductsCards />
+        secondFromTopTab === 1 && <LkProductsCards/>
       }
 
       {
@@ -40,7 +39,7 @@ const LkProducts = () => {
         secondFromTopTab === 3 && <div>Доставка</div>
       }
     </>
-    
+
   )
 }
 

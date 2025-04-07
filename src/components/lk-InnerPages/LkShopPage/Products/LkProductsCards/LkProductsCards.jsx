@@ -1,38 +1,80 @@
 import {useSelector} from "react-redux";
 import {getActiveProfileId} from "@/store/userSlice.js";
-import {useParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
+import s from './LkProductsCards.module.scss'
+import Button from "@/components/ui/Button/Button.jsx";
+import Tabs from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/Tabs/Tabs.jsx";
+import ContentPart from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/ContentPart.jsx";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
+import SearchProductCard
+  from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/SearchProductCard/SearchProductCard.jsx";
+import ProductCardFilters
+  from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ProductCardFilters/ProductCardFilters.jsx";
 
 const LkProductsCards = () => {
 
   const profileId = useSelector(getActiveProfileId)
-  const {statusTab} = useParams()
   const [productsLoading, setProductsLoading] = useState(true)
+  const [productsData, setProductsData] = useState(null)
+
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!profileId) return
 
-    let url = `seller/${profileId}/products`
-    if (statusTab) url + '?' + `statusTab=${statusTab}`
+    const getProducts = async () => {
 
-    try {
-      setProductsLoading(true)
-      const resp = axiosInstance(`seller/${profileId}/products`)
-      console.log(resp)
-    } catch (err) {
-      console.log(err)
-    } finally {
-      setProductsLoading(false)
+      const statusTab = searchParams.get('statusTab')
+      let url = `seller/${profileId}/products?`
+      if (statusTab && statusTab !== 'all') url += `statusTab=${statusTab}`
+
+      try {
+        setProductsLoading(true)
+        const resp = await axiosInstance(url)
+        setProductsData(resp.data)
+        console.log(resp.data)
+      } catch (err) {
+        console.log(err)
+      } finally {
+        setProductsLoading(false)
+      }
     }
-  }, [profileId]);
 
-  if (productsLoading) return <Spinner/>
+    getProducts()
+
+
+  }, [profileId, searchParams]);
 
   return (
-    <div>
-      LkProductsCards
+    <div className={s.productsCardsWrapper}>
+
+      <div className={s.topPart}>
+        <div className={s.header}>
+          <h1 className={s.mainTitle}>Список товаров</h1>
+          <Button onClick={() => navigate('/lk/edit-product/new')} className={s.createProductBtn}>Создать товар</Button>
+        </div>
+
+        {
+          productsData && <div className={s.underHeader}>
+            <Tabs tabsCount={productsData.tabsCount}/>
+
+            <div className={s.searchAndFilters}>
+              <SearchProductCard/>
+              <ProductCardFilters/>
+
+            </div>
+
+
+          </div>
+        }
+      </div>
+      {
+        productsLoading ? <Spinner/> : <ContentPart productsLoading={productsLoading} products={productsData.products}/>
+      }
     </div>
   );
 };
