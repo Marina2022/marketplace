@@ -32,8 +32,7 @@ const LkOrdersPage = () => {
 
       {
         topTabs === 1 && ordersTab === 2 && <AllOrders/>
-      }
-      
+      }      
     </div>
   )
 };

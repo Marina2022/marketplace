@@ -10,6 +10,7 @@ import reviewsSlice, {loadReviewLikes} from "@/store/reviewsSlice.js";
 import favSlice from "@/store/favSlice.js";
 import lkSlice from "@/store/lkSlice.js";
 import ordersSlice from "@/store/ordersSlice.js";
+import lkShopSlice from "@/store/lkShopSlice.js";
 
 
 export const store = configureStore({
@@ -21,6 +22,7 @@ export const store = configureStore({
         favs: favSlice,
         lk: lkSlice,
         orders: ordersSlice,
+        shop: lkShopSlice
       }
     }
 )
