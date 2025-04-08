@@ -1,14 +1,36 @@
 import s from './SearchProductCard.module.scss';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import searchClose from "@/assets/img/cart/closeSearch.svg";
 import searchGlassIcon from "@/assets/img/cart/seachGlass.svg";
+import {useDebounce} from "@uidotdev/usehooks";
+import {useSearchParams} from "react-router-dom";
+
 
 const SearchProductCard = () => {
-  const [searchTerm, setSearchTerm] = useState('')
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('searchTerms') || '')
+
+  const debouncedSearchTerm = useDebounce(searchTerm, 300); // 300мс задержка
+
+  console.log({searchTerm, debouncedSearchTerm})
+
+  useEffect(() => {    
+    if (!debouncedSearchTerm) {      
+      const params = new URLSearchParams(searchParams);
+      params.delete('searchTerms')
+      setSearchParams(params);
+    } else {
+      setSearchParams({searchTerms: debouncedSearchTerm})  
+    }
+  }, [debouncedSearchTerm]);
+
+
   const searchCancelHandler = () => {
     setSearchTerm('')
   }
-  
+
   // через дебаунс сетать в searchParams
 
   return (

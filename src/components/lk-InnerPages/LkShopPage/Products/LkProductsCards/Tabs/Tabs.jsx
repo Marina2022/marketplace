@@ -25,7 +25,8 @@ const Tabs = ({tabsCount}) => {
         tabs.map((tab, i) => {
 
           let isActiveTab = false
-          if (!activeTab || tab === 'all') {
+          
+          if (!activeTab && tab.value === 'all') {
             isActiveTab = true
           } else {
             isActiveTab = activeTab === tab.value

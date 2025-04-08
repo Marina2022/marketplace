@@ -28,9 +28,14 @@ const LkProductsCards = () => {
 
     const getProducts = async () => {
 
-      const statusTab = searchParams.get('statusTab')
+            
       let url = `seller/${profileId}/products?`
+
+      const statusTab = searchParams.get('statusTab')
       if (statusTab && statusTab !== 'all') url += `statusTab=${statusTab}`
+
+      const searchTerms = searchParams.get('searchTerms')
+      if (searchTerms) url += `searchTerms=${searchTerms}`
 
       try {
         setProductsLoading(true)
@@ -46,7 +51,6 @@ const LkProductsCards = () => {
 
     getProducts()
 
-
   }, [profileId, searchParams]);
 
   return (
@@ -57,18 +61,13 @@ const LkProductsCards = () => {
           <h1 className={s.mainTitle}>Список товаров</h1>
           <Button onClick={() => navigate('/lk/edit-product/new')} className={s.createProductBtn}>Создать товар</Button>
         </div>
-
         {
           productsData && <div className={s.underHeader}>
             <Tabs tabsCount={productsData.tabsCount}/>
-
             <div className={s.searchAndFilters}>
               <SearchProductCard/>
               <ProductCardFilters/>
-
             </div>
-
-
           </div>
         }
       </div>
