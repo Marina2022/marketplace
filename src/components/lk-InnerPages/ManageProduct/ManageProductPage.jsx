@@ -276,9 +276,7 @@ const ManageProductPage = () => {
 
   }, [product, attributes, cats]);
 
-  console.log('product = ', product)
-
-
+  
   // При нажатии "Назад к списку товаров" и кнопки Cancel
   const handleCancel = () => {
 

@@ -9,20 +9,18 @@ import {useSearchParams} from "react-router-dom";
 const SearchProductCard = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
-
   const [searchTerm, setSearchTerm] = useState(searchParams.get('searchTerms') || '')
-
   const debouncedSearchTerm = useDebounce(searchTerm, 300); // 300мс задержка
 
-  console.log({searchTerm, debouncedSearchTerm})
-
-  useEffect(() => {    
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams);
     if (!debouncedSearchTerm) {      
-      const params = new URLSearchParams(searchParams);
       params.delete('searchTerms')
       setSearchParams(params);
     } else {
-      setSearchParams({searchTerms: debouncedSearchTerm})  
+      setSearchParams({searchTerms: debouncedSearchTerm})
+      params.set("searchTerms", debouncedSearchTerm);
+      setSearchParams(params);
     }
   }, [debouncedSearchTerm]);
 
@@ -30,8 +28,6 @@ const SearchProductCard = () => {
   const searchCancelHandler = () => {
     setSearchTerm('')
   }
-
-  // через дебаунс сетать в searchParams
 
   return (
     <div className={s.searchInputWrapper}>

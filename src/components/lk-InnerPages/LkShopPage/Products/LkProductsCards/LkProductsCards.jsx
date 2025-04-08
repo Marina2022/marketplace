@@ -25,23 +25,26 @@ const LkProductsCards = () => {
 
   useEffect(() => {
     if (!profileId) return
-
     const getProducts = async () => {
 
-            
       let url = `seller/${profileId}/products?`
 
       const statusTab = searchParams.get('statusTab')
-      if (statusTab && statusTab !== 'all') url += `statusTab=${statusTab}`
+      if (statusTab && statusTab !== 'all') url += `statusTab=${statusTab}&`
 
       const searchTerms = searchParams.get('searchTerms')
-      if (searchTerms) url += `searchTerms=${searchTerms}`
+      if (searchTerms) url += `searchTerms=${searchTerms}&`
+
+      const sortColumn = searchParams.get('sortColumn')
+      if (sortColumn) url += `sortColumn=${sortColumn}&`
+      const sortOrder = searchParams.get('sortOrder')
+      if (sortOrder) url += `sortOrder=${sortOrder}&`
 
       try {
         setProductsLoading(true)
         const resp = await axiosInstance(url)
         setProductsData(resp.data)
-        console.log(resp.data)
+        // console.log(resp.data)
       } catch (err) {
         console.log(err)
       } finally {
@@ -71,9 +74,9 @@ const LkProductsCards = () => {
           </div>
         }
       </div>
-      {
-        productsLoading ? <Spinner/> : <ContentPart productsLoading={productsLoading} products={productsData.products}/>
-      }
+
+      <ContentPart productsLoading={productsLoading} products={productsData?.products}/>
+
     </div>
   );
 };

@@ -5,7 +5,7 @@ const Tabs = ({tabsCount}) => {
 
 
   const [searchParams, setSearchParams] = useSearchParams('statusTab');
-    
+
   const activeTab = searchParams.get('statusTab')
 
 
@@ -17,7 +17,11 @@ const Tabs = ({tabsCount}) => {
     {label: "Архив", value: 'archived'},
   ]
 
-  
+  const handleClick = (tabValue) => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("statusTab", tabValue);
+    setSearchParams(newParams);
+  }
 
   return (
     <ul className={s.tabs}>
@@ -25,19 +29,18 @@ const Tabs = ({tabsCount}) => {
         tabs.map((tab, i) => {
 
           let isActiveTab = false
-          
+
           if (!activeTab && tab.value === 'all') {
             isActiveTab = true
           } else {
             isActiveTab = activeTab === tab.value
           }
-          
-          return (
 
+          return (
             <li
               key={i}
               className={`${s.item} ${isActiveTab ? s.activeItem : ''}`}
-              onClick={()=>setSearchParams({ statusTab: tab.value })}
+              onClick={() => handleClick(tab.value)}
             >{tab.label} ({tabsCount[tab.value]})</li>
           )
         })
