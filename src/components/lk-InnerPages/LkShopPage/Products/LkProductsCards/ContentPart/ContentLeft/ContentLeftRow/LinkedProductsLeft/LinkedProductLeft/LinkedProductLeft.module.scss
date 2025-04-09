@@ -1,0 +1,52 @@
+@import "@/assets/styles/mixins";
+
+.linkedProductLeft {
+  height: 60px;
+  display: flex;
+}
+
+.linkedProductLeftPhoto {
+  width: 93px;
+  display: flex;
+  align-items: center;
+}
+
+.linkedProductLeftArticle {
+  padding-top: 10px;
+  padding-left: 10px;
+  width: 125px;
+}
+
+
+.photo {
+  width: 40px;
+  height: 40px;
+  object-position: center;
+  object-fit: contain;  
+  margin-right: 10px;
+}
+
+.horizontalLine {
+  background: #D1D5DB;
+  width: 16px;
+  height: 1px;
+  margin-right: 10px;
+  //margin-left: auto;
+}
+
+.verticalLine {
+  background: #D1D5DB;
+  width: 1px;
+  height: 60px;
+  margin-left: auto;
+}
+
+.lastChild {
+  height: 30px;
+  position: relative;
+  top: -15px;
+}
+
+.hovered {
+  background: #F9FAFB;
+}

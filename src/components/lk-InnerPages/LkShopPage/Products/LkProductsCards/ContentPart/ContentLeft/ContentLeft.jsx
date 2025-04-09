@@ -4,7 +4,16 @@ import ContentLeftHeader
 import ContentLeftRow
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/ContentLeft/ContentLeftRow/ContentLeftRow.jsx";
 
-const ContentLeft = ({products, checkedProducts, setCheckedProducts, collapsedProducts, setCollapsedProducts}) => {
+const ContentLeft = ({
+                       products, 
+                       checkedProducts, 
+                       setCheckedProducts, 
+                       collapsedProducts, 
+                       setCollapsedProducts, 
+                       handleMouseIn, 
+                       handleMouseOut,
+                       hoveredProducts
+}) => {
     
   return (
     <div className={s.contentLeft}>
@@ -18,6 +27,9 @@ const ContentLeft = ({products, checkedProducts, setCheckedProducts, collapsedPr
           setCheckedProducts={setCheckedProducts}
           collapsedProducts={collapsedProducts}
           setCollapsedProducts={setCollapsedProducts}
+          handleMouseIn={handleMouseIn}
+          handleMouseOut={handleMouseOut}
+          hoveredProducts={hoveredProducts}
         />)
       }
       

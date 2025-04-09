@@ -10,7 +10,9 @@ import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import {useSearchParams} from "react-router-dom";
 import {useState} from "react";
 
-const ContentPart = ({ products}) => {
+import {flushSync} from 'react-dom';
+
+const ContentPart = ({products}) => {
 
   console.log(products)
 
@@ -20,27 +22,61 @@ const ContentPart = ({ products}) => {
 
 
   // todo - для теста linkedProducts  
-  if (products && products[1] && (!statusTab || statusTab === 'all')) {    
+  if (products && products[1] && (!statusTab || statusTab === 'all')) {
     products[1].linkedProducts = linkedProducts
-    console.log(products)  
   }
-  
+
   const [checkedProducts, setCheckedProducts] = useState([])
   const [collapsedProducts, setCollapsedProducts] = useState([])
-  
-  if (!products) return <Spinner />
-  
+  const [hoveredProducts, setHoveredProducts] = useState([])
+
+  const handleMouseIn = (productVariantId) => {
+    console.log('handleMouse In')
+    const tempHoveredProducts = [...hoveredProducts]
+    if (!tempHoveredProducts.includes(productVariantId)) {
+      tempHoveredProducts.push(productVariantId)
+
+      flushSync(() => {
+        setHoveredProducts(tempHoveredProducts)
+      });
+
+    }
+  }
+  const handleMouseOut = (productVariantId) => {
+    const tempHoveredProducts = [...hoveredProducts]
+    if (tempHoveredProducts.includes(productVariantId))
+      flushSync(() => {
+        setHoveredProducts(tempHoveredProducts.filter(item => item !== productVariantId))
+      });
+  }
+
+
+  if (!products) return <Spinner/>
+
   return (
     <div className={s.contentPartWrapper}>
-      <ContentLeft 
-        products={products} 
-        checkedProducts={checkedProducts} 
+      <ContentLeft
+        products={products}
+        checkedProducts={checkedProducts}
         setCheckedProducts={setCheckedProducts}
         collapsedProducts={collapsedProducts}
-        setCollapsedProducts={setCollapsedProducts}      
+        setCollapsedProducts={setCollapsedProducts}
+        handleMouseIn={handleMouseIn}
+        handleMouseOut={handleMouseOut}
+        hoveredProducts={hoveredProducts}
+
       />
-      <ContentMiddle products={products} />
-      <ContentRight products={products} />
+      <ContentMiddle
+        products={products}
+        handleMouseIn={handleMouseIn}
+        handleMouseOut={handleMouseOut}
+      />
+
+      <ContentRight
+        products={products}
+        handleMouseIn={handleMouseIn}
+        handleMouseOut={handleMouseOut}
+      />
     </div>
   );
 };

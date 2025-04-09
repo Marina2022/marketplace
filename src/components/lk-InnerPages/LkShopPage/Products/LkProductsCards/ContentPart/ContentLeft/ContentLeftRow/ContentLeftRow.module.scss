@@ -64,16 +64,25 @@
   width: 50px;
   height: 50px;
   object-position: center;
-  object-fit: contain;  
+  object-fit: contain;
 }
 
 .collapseIcon {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  top: -1px;
 }
 
 .collapseIconReversed {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  top: -1px;
   transform: rotate(180deg);
+}
+
+.hovered {
+  background: #F9FAFB;
+  border-right: #D1D5DB 1px solid;
 }
