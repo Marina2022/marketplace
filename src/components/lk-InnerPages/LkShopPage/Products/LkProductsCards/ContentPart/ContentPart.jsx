@@ -8,6 +8,7 @@ import ContentRight
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/ContentRight/ContentRight.jsx";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import {useSearchParams} from "react-router-dom";
+import {useState} from "react";
 
 const ContentPart = ({ products}) => {
 
@@ -24,14 +25,22 @@ const ContentPart = ({ products}) => {
     console.log(products)  
   }
   
+  const [checkedProducts, setCheckedProducts] = useState([])
+  const [collapsedProducts, setCollapsedProducts] = useState([])
   
   if (!products) return <Spinner />
   
   return (
     <div className={s.contentPartWrapper}>
-      <ContentLeft />
-      <ContentMiddle />
-      <ContentRight />
+      <ContentLeft 
+        products={products} 
+        checkedProducts={checkedProducts} 
+        setCheckedProducts={setCheckedProducts}
+        collapsedProducts={collapsedProducts}
+        setCollapsedProducts={setCollapsedProducts}      
+      />
+      <ContentMiddle products={products} />
+      <ContentRight products={products} />
     </div>
   );
 };

@@ -1,6 +1,15 @@
+@import "@/assets/styles/mixins";
+
 .contentPartWrapper {
   border: #F0F1F1 1px solid;
   display: flex;
+  
+  font-size: 13px;
+  color: #131D2A;
+  
+  @include t {
+    font-size: 12px;
+  }
   
 }
 

@@ -1,6 +1,6 @@
 import s from './ContentRight.module.scss';
 
-const ContentRight = () => {
+const ContentRight = ({products}) => {
   return (
     <div className={s.contentRight}>
       <div className={s.contentRightHeader}>

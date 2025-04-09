@@ -1,10 +1,9 @@
 import s from './CartItem.module.scss';
-import {BASE_URL} from "@/consts/baseURL.js";
 import heartBtn from '@/assets/img/cart/cart-card/heart.svg'
 import heartActiveBtn from '@/assets/img/cart/cart-card/heart-active.svg'
 import trashBtn from '@/assets/img/cart/cart-card/trash.svg'
 import {useDispatch, useSelector} from "react-redux";
-import {addToCart, cartSlice, deleteCartItem, sendCheckbox} from "@/store/cartSlice.js";
+import {addToCart, deleteCartItem, sendCheckbox} from "@/store/cartSlice.js";
 import {useEffect, useState} from "react";
 import {useDebounce} from '@uidotdev/usehooks';
 import {Link} from "react-router-dom";

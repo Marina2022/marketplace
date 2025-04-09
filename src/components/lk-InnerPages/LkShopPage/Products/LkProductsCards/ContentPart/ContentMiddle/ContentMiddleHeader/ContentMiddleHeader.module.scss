@@ -1,3 +1,5 @@
+@import "@/assets/styles/mixins";
+
 .middleHeader {
   width: max-content;
   padding-right: 6px;
@@ -26,6 +28,10 @@
   cursor: pointer;
   user-select: none;
   flex-shrink: 0;
+  
+  @include t {
+    width: 150px;
+  }
 }
 
 .sortIcon {
@@ -33,7 +39,7 @@
 }
 
 .sortIconActive {
-  fill: red;
+  fill: #E32636;
 }
 
 .sortIconAsc {

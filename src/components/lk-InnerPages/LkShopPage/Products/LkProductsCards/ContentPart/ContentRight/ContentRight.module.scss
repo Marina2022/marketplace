@@ -1,6 +1,12 @@
+@import "@/assets/styles/mixins";
+
 .contentRight {
   width: 187px;
   border-left: #D1D5DB 1px solid; 
+  
+  @include t {
+    width: 177px;
+  }
 }
 
 .contentRightHeader {

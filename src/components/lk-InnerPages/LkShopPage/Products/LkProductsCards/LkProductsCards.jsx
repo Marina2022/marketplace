@@ -12,6 +12,7 @@ import SearchProductCard
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/SearchProductCard/SearchProductCard.jsx";
 import ProductCardFilters
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ProductCardFilters/ProductCardFilters.jsx";
+import useMobileScreen from "@/hooks/useMobileScreen.js";
 
 const LkProductsCards = () => {
 
@@ -19,6 +20,7 @@ const LkProductsCards = () => {
   const [productsLoading, setProductsLoading] = useState(true)
   const [productsData, setProductsData] = useState(null)
 
+  const isMobile = useMobileScreen()
 
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate()
@@ -75,7 +77,11 @@ const LkProductsCards = () => {
         }
       </div>
 
-      <ContentPart productsLoading={productsLoading} products={productsData?.products}/>
+      {
+        !isMobile && <ContentPart productsLoading={productsLoading} products={productsData?.products}/> 
+      }
+
+      
 
     </div>
   );

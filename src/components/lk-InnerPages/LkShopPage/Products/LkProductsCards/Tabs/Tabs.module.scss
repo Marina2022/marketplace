@@ -1,13 +1,12 @@
 @import "@/assets/styles/mixins";
 
 .tabs {
-  display: inline-flex;
-  
+  display: inline-flex;  
   align-items: center;
   margin-bottom: 15px;
   padding-bottom: 12px;
   border-bottom: #D1D5DB 2px solid;
-  
+  user-select: none;  
   
   @include m {
     display: none;
