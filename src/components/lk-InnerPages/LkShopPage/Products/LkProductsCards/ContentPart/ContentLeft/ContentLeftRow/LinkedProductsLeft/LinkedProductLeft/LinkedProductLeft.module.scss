@@ -15,6 +15,10 @@
   padding-top: 10px;
   padding-left: 10px;
   width: 125px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-right: 6px;
 }
 
 

@@ -1,6 +1,6 @@
 export const linkedProducts = [
   {
-    article: "mock-111",
+    article: "11111",
     barcode: "2013209265481",
     brand: "Xiaomi",
     brandHandle: "xiaomi",
@@ -19,10 +19,11 @@ export const linkedProducts = [
     reviewCount: 0,
     type: "Смартфон",
     updateDate: null,
+    price: 11000
   },
 
   {
-    article: "mock-222",
+    article: "22222",
     barcode: "2013209265481",
     brand: "Xiaomi",
     brandHandle: "xiaomi",
@@ -41,10 +42,11 @@ export const linkedProducts = [
     reviewCount: 0,
     type: "Смартфон",
     updateDate: null,
+    price: 15000
   },
 
   {
-    article: "mock-333",
+    article: "33333",
     barcode: "2013209265481",
     brand: "Xiaomi",
     brandHandle: "xiaomi",
@@ -63,6 +65,7 @@ export const linkedProducts = [
     reviewCount: 0,
     type: "Смартфон",
     updateDate: null,
+    price: 15000
   },
 
 ]

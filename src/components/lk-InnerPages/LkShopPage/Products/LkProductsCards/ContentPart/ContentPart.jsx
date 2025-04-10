@@ -31,7 +31,6 @@ const ContentPart = ({products}) => {
   const [hoveredProducts, setHoveredProducts] = useState([])
 
   const handleMouseIn = (productVariantId) => {
-    console.log('handleMouse In')
     const tempHoveredProducts = [...hoveredProducts]
     if (!tempHoveredProducts.includes(productVariantId)) {
       tempHoveredProducts.push(productVariantId)
@@ -69,13 +68,17 @@ const ContentPart = ({products}) => {
       <ContentMiddle
         products={products}
         handleMouseIn={handleMouseIn}
-        handleMouseOut={handleMouseOut}
+        handleMouseOut={handleMouseOut}        
+        hoveredProducts={hoveredProducts}
+        collapsedProducts={collapsedProducts}
       />
 
       <ContentRight
         products={products}
         handleMouseIn={handleMouseIn}
         handleMouseOut={handleMouseOut}
+        hoveredProducts={hoveredProducts}
+        collapsedProducts={collapsedProducts}
       />
     </div>
   );

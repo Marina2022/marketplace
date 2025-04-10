@@ -4,7 +4,7 @@ import LinkedProductLeft
 
 const LinkedProductsLeft = ({linkedProducts, handleMouseOut, handleMouseIn, hoveredProducts}) => {
   return (
-    <ul className={s.linkedProductsLeft}>
+    <ul>
       {
         linkedProducts.map((product, i) => <LinkedProductLeft
           index={i}

@@ -2,6 +2,10 @@
 
 .leftRowWrapper {
   border-bottom: 1px solid #F0F1F1;
+  
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .leftRow {
@@ -51,6 +55,7 @@
   height: 13px;
   border: 1px solid #D1D5DB;
   cursor: pointer;
+  background-color: white;
 }
 
 .checkedSvg {

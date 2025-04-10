@@ -32,8 +32,7 @@ const ContentLeft = ({
           hoveredProducts={hoveredProducts}
         />)
       }
-      
-    
+          
     </div>
   );
 };

@@ -86,8 +86,7 @@ const ContentLeftRow = ({
           handleMouseOut={handleMouseOut}
           handleMouseIn={handleMouseIn}
           hoveredProducts={hoveredProducts}
-        />
-        
+        />        
       }
     </div>
 
