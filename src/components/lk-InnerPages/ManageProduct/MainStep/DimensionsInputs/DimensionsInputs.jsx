@@ -2,7 +2,7 @@ import s from "./DimensionsInputs.module.scss";
 import {notEmptyMessage} from "@/consts/notEmptyMessage.js";
 import Input from "@/components/ui/Input/Input.jsx";
 
-const DimensionsInputs = ({register, errors, trigger, getValues, setValue}) => {
+const DimensionsInputs = ({register, errors, trigger, getValues, setValue, setFormWasEdited}) => {
   return (
     <div>
       <h3 className={s.title}>Вес и габариты</h3>
@@ -12,6 +12,7 @@ const DimensionsInputs = ({register, errors, trigger, getValues, setValue}) => {
 
           <div className={s.inputWrapper}>
             <Input
+              setFormWasEdited
               isError={errors.weight}
               trigger={trigger}
               getValues={getValues}
@@ -34,6 +35,7 @@ const DimensionsInputs = ({register, errors, trigger, getValues, setValue}) => {
 
           <div className={s.inputWrapper}>
             <Input
+              setFormWasEdited
               isError={errors.length}
               trigger={trigger}
               getValues={getValues}
@@ -62,6 +64,7 @@ const DimensionsInputs = ({register, errors, trigger, getValues, setValue}) => {
 
           <div className={s.inputWrapper}>
             <Input
+              setFormWasEdited
               isError={errors.width}
               trigger={trigger}
               getValues={getValues}
@@ -84,6 +87,7 @@ const DimensionsInputs = ({register, errors, trigger, getValues, setValue}) => {
 
           <div className={s.inputWrapper}>
             <Input
+              setFormWasEdited
               isError={errors.height}
               trigger={trigger}
               getValues={getValues}

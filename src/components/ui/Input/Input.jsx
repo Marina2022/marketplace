@@ -11,7 +11,8 @@ const Input = forwardRef(({
                             placeholder = '',
                             trigger,
                             infoButton = false,
-                            setValue
+                            setValue,
+                            setFormWasEdited,
                           }, ref) => {
 
   const [editing, setEditing] = useState(false);
@@ -26,9 +27,11 @@ const Input = forwardRef(({
   const customOnChange = (e) => {
     onChange(e)
     trigger(name)
+    setFormWasEdited(true)
   }
   const handleClear = () => {
-    setValue(name, '')    
+    setValue(name, '')
+    setFormWasEdited(true)
   }
 
   return (

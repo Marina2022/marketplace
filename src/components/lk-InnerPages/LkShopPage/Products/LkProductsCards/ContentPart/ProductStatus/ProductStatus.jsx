@@ -38,8 +38,6 @@ const ProductStatus = ({product}) => {
           </p>
         </Annotation>
       }
-
-
     </div>
   )
 }

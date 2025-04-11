@@ -14,7 +14,8 @@ const CharacteristicsStep = ({
                                errors,
                                register,
                                setStep,
-                               watch
+                               watch,
+                               setFormWasEdited
                              }) => {
 
   const goToNextStep = async () => {
@@ -28,7 +29,7 @@ const CharacteristicsStep = ({
     const isValid = await trigger(fieldsToValidate);
 
     if (!isValid) {
-      console.log('ошибки есть, дальше нельзя')
+      // console.log('ошибки есть, дальше нельзя')
     } else {
       setStep('media')
     }
@@ -45,6 +46,7 @@ const CharacteristicsStep = ({
               (
                 <div key={charField.name}>
                   <EditProductPageSelect
+                    setFormWasEdited={setFormWasEdited}
 
                     {...register('char_' + charField.name,
                       charField.isRequired && {

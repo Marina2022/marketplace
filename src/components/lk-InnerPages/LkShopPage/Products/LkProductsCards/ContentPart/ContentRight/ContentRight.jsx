@@ -7,7 +7,8 @@ const ContentRight = ({
                         collapsedProducts,                        
                         handleMouseIn,
                         handleMouseOut,
-                        hoveredProducts
+                        hoveredProducts,
+                        getProducts
                       }) => {
   return (
     <div className={s.contentRight}>
@@ -23,6 +24,7 @@ const ContentRight = ({
           handleMouseOut={handleMouseOut}
           hoveredProducts={hoveredProducts}
           collapsedProducts={collapsedProducts}
+          getProducts={getProducts}
         />)
       }
 

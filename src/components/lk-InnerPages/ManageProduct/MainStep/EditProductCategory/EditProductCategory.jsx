@@ -18,7 +18,8 @@ const EditProductCategory = forwardRef(({
                                           catsLoading,
                                           setSelectedCatName,
                                           trigger,
-                                          isError
+                                          isError,
+                                          setFormWasEdited,
                                         }, ref) => {
 
   const isMobile = useMobileScreen()
@@ -68,6 +69,7 @@ const EditProductCategory = forwardRef(({
         getValues={getValues}
         setEditing={setEditing} clearErrors={clearErrors}
         setSelectedCatName={setSelectedCatName}
+        setFormWasEdited={setFormWasEdited}
       />}
 
 

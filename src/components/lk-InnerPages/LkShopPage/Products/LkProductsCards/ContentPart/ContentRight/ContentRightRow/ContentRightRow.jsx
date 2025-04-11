@@ -11,7 +11,8 @@ const ContentRightRow = ({
                            handleMouseIn,
                            handleMouseOut,
                            hoveredProducts,
-                           collapsedProducts                           
+                           collapsedProducts,
+                           getProducts
                          }
 ) => {
 
@@ -30,7 +31,7 @@ const ContentRightRow = ({
         >
           <div className={s.rightRowContent}>
             <ProductStatus product={product}/>
-            <ContextMenu product={product}/>        
+            <ContextMenu product={product} getProducts={getProducts} />        
           </div>
         </div>
 

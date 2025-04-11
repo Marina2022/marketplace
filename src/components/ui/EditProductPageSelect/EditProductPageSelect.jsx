@@ -19,6 +19,7 @@ const EditProductPageSelect = forwardRef(({
                                             required,
                                             isVariant,
                                             watch,
+                                            setFormWasEdited,
                                           }, ref) => {
 
   const [editing, setEditing] = useState(false);
@@ -44,6 +45,7 @@ const EditProductPageSelect = forwardRef(({
 
   const handleOptionClick = (option) => {
     setValue(name, {...option, isVariant})
+    setFormWasEdited(true)
     setEditing(false)
   }
 

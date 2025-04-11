@@ -36,7 +36,8 @@ const MainStep = ({
                     setStep,
 
                     product,
-                    setProduct
+                    setProduct,
+                    setFormWasEdited
 
                   }) => {
 
@@ -70,6 +71,7 @@ const MainStep = ({
       <h2 className={s.title}>Главное о товаре</h2>
       <div>
         <Input
+          setFormWasEdited={setFormWasEdited}
           isError={errors.productName}
           trigger={trigger}
           getValues={getValues}
@@ -101,6 +103,7 @@ const MainStep = ({
             clearErrors={clearErrors}
             setSelectedCatName={setSelectedCatName}
             selectedCatName={selectedCatName}
+            setFormWasEdited={setFormWasEdited}
             {...register('productCategoryId',
               {required: notEmptyMessage,}
             )}
@@ -114,6 +117,7 @@ const MainStep = ({
 
       <div>
         <Input
+          setFormWasEdited={setFormWasEdited}
           isError={errors.article}
           trigger={trigger}
           getValues={getValues}
@@ -134,6 +138,7 @@ const MainStep = ({
 
       <div>
         <Input
+          setFormWasEdited={setFormWasEdited}
           infoButton={true}
           isError={errors.model}
           trigger={trigger}
@@ -178,6 +183,7 @@ const MainStep = ({
                     placeholder={commonField.label}
                     required={commonField.isRequired}
                     watch={watch}
+                    setFormWasEdited={setFormWasEdited}
                   />
                 </div>
               }
@@ -185,6 +191,7 @@ const MainStep = ({
               {
                 commonField.type === 'input' && <div >
                   <Input
+                    setFormWasEdited={setFormWasEdited}
                     isError={errors[commonField.name]}
                     trigger={trigger}
                     getValues={getValues}
@@ -228,6 +235,7 @@ const MainStep = ({
                   placeholder={standardField.label}
                   required={standardField.isRequired}
                   watch={watch}
+                  setFormWasEdited={setFormWasEdited}
                 />
               </div>
             )
@@ -238,13 +246,13 @@ const MainStep = ({
       <ProductDescription        
         name='productDescription'
         setValue={setValue}
-        getValues={getValues}
-        watch={watch}
+        getValues={getValues}        
+        setFormWasEdited={setFormWasEdited}
       />
 
-      <PriceInputs register={register} errors={errors} trigger={trigger} getValues={getValues} setValue={setValue}/>
+      <PriceInputs register={register} errors={errors} trigger={trigger} getValues={getValues} setValue={setValue} setFormWasEdited={setFormWasEdited}/>
 
-      <DimensionsInputs register={register} errors={errors} trigger={trigger} getValues={getValues}
+      <DimensionsInputs register={register} errors={errors} trigger={trigger} getValues={getValues} setFormWasEdited={setFormWasEdited}
                         setValue={setValue}/>
 
       <DocsFileInputs

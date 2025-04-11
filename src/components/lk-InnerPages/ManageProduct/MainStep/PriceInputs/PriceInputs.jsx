@@ -2,7 +2,7 @@ import s from "./PriceInputs.module.scss";
 import {notEmptyMessage} from "@/consts/notEmptyMessage.js";
 import Input from "@/components/ui/Input/Input.jsx";
 
-const PriceInputs = ({register, errors, trigger, getValues, setValue}) => {
+const PriceInputs = ({register, errors, trigger, getValues, setValue, setFormWasEdited}) => {
   return (
     <div>
       <h3 className={s.title}>Цена товара</h3>
@@ -11,6 +11,7 @@ const PriceInputs = ({register, errors, trigger, getValues, setValue}) => {
 
         <div className={s.inputWrapper}>
           <Input
+            setFormWasEdited={setFormWasEdited}
             isError={errors.price}
             trigger={trigger}
             getValues={getValues}
@@ -33,6 +34,7 @@ const PriceInputs = ({register, errors, trigger, getValues, setValue}) => {
 
         <div className={s.inputWrapper}>
           <Input
+            setFormWasEdited={setFormWasEdited}
             isError={errors.regularPrice}
             trigger={trigger}
             getValues={getValues}

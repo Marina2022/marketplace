@@ -24,35 +24,63 @@ const LkProductsCards = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate()
+  
+  
+  const getProducts = async () => {
+
+    let url = `seller/${profileId}/products?`
+
+    const statusTab = searchParams.get('statusTab')
+    if (statusTab && statusTab !== 'all') url += `statusTab=${statusTab}&`
+
+    const searchTerms = searchParams.get('searchTerms')
+    if (searchTerms) url += `searchTerms=${searchTerms}&`
+
+    const sortColumn = searchParams.get('sortColumn')
+    if (sortColumn) url += `sortColumn=${sortColumn}&`
+    const sortOrder = searchParams.get('sortOrder')
+    if (sortOrder) url += `sortOrder=${sortOrder}&`
+
+    try {
+      setProductsLoading(true)
+      const resp = await axiosInstance(url)
+      setProductsData(resp.data)
+      console.log(resp.data)
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setProductsLoading(false)
+    }
+  }
 
   useEffect(() => {
     if (!profileId) return
-    const getProducts = async () => {
-
-      let url = `seller/${profileId}/products?`
-
-      const statusTab = searchParams.get('statusTab')
-      if (statusTab && statusTab !== 'all') url += `statusTab=${statusTab}&`
-
-      const searchTerms = searchParams.get('searchTerms')
-      if (searchTerms) url += `searchTerms=${searchTerms}&`
-
-      const sortColumn = searchParams.get('sortColumn')
-      if (sortColumn) url += `sortColumn=${sortColumn}&`
-      const sortOrder = searchParams.get('sortOrder')
-      if (sortOrder) url += `sortOrder=${sortOrder}&`
-
-      try {
-        setProductsLoading(true)
-        const resp = await axiosInstance(url)
-        setProductsData(resp.data)
-        // console.log(resp.data)
-      } catch (err) {
-        console.log(err)
-      } finally {
-        setProductsLoading(false)
-      }
-    }
+    // const getProducts = async () => {
+    //
+    //   let url = `seller/${profileId}/products?`
+    //
+    //   const statusTab = searchParams.get('statusTab')
+    //   if (statusTab && statusTab !== 'all') url += `statusTab=${statusTab}&`
+    //
+    //   const searchTerms = searchParams.get('searchTerms')
+    //   if (searchTerms) url += `searchTerms=${searchTerms}&`
+    //
+    //   const sortColumn = searchParams.get('sortColumn')
+    //   if (sortColumn) url += `sortColumn=${sortColumn}&`
+    //   const sortOrder = searchParams.get('sortOrder')
+    //   if (sortOrder) url += `sortOrder=${sortOrder}&`
+    //
+    //   try {
+    //     setProductsLoading(true)
+    //     const resp = await axiosInstance(url)
+    //     setProductsData(resp.data)
+    //     console.log(resp.data)
+    //   } catch (err) {
+    //     console.log(err)
+    //   } finally {
+    //     setProductsLoading(false)
+    //   }
+    // }
 
     getProducts()
 
@@ -78,7 +106,7 @@ const LkProductsCards = () => {
       </div>
 
       {
-        !isMobile && <ContentPart productsLoading={productsLoading} products={productsData?.products}/> 
+        !isMobile && <ContentPart productsLoading={productsLoading} products={productsData?.products} getProducts={getProducts} /> 
       }
 
       

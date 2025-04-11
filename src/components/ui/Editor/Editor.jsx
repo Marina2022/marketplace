@@ -7,11 +7,12 @@ import Placeholder from "@tiptap/extension-placeholder";
 import {useEffect} from "react";
 
 
-const TiptapEditor = ({setValue, maxValue = 1000, getValues, watch}) => {
+const TiptapEditor = ({setValue, maxValue = 1000, getValues, setFormWasEdited}) => {
   const productDescription = getValues("productDescription") || "";
   const editor = useEditor({
     onBlur: () => {
       setValue('productDescription', editor.getHTML())
+      setFormWasEdited(true)
     },
 
     onUpdate: ({editor}) => {

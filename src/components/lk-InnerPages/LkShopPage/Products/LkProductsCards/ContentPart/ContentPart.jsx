@@ -1,5 +1,4 @@
 import s from './ContentPart.module.scss';
-import {linkedProducts} from "@/dev-data/linkedProducts.js";
 import ContentLeft
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/ContentLeft/ContentLeft.jsx";
 import ContentMiddle
@@ -12,16 +11,12 @@ import {useState} from "react";
 
 import {flushSync} from 'react-dom';
 
-const ContentPart = ({products}) => {
+const ContentPart = ({products, getProducts}) => {
 
-  console.log(products)
-
-  
-  const [searchParams, setSearchParams] = useSearchParams();
-  const statusTab = searchParams.get('statusTab')
-
+  // const [searchParams, setSearchParams] = useSearchParams();
 
   // для теста linkedProducts  
+  //const statusTab = searchParams.get('statusTab')
   // if (products && products[1] && (!statusTab || statusTab === 'all')) {
   //   products[1].linkedProducts = linkedProducts
   // }
@@ -68,7 +63,7 @@ const ContentPart = ({products}) => {
       <ContentMiddle
         products={products}
         handleMouseIn={handleMouseIn}
-        handleMouseOut={handleMouseOut}        
+        handleMouseOut={handleMouseOut}
         hoveredProducts={hoveredProducts}
         collapsedProducts={collapsedProducts}
       />
@@ -79,6 +74,7 @@ const ContentPart = ({products}) => {
         handleMouseOut={handleMouseOut}
         hoveredProducts={hoveredProducts}
         collapsedProducts={collapsedProducts}
+        getProducts={getProducts}
       />
     </div>
   );

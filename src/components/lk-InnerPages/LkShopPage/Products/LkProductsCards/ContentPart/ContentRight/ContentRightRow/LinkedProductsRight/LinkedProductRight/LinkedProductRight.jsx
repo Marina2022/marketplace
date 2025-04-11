@@ -17,7 +17,7 @@ const LinkedProductRight = ({product, handleMouseOut, handleMouseIn, hoveredProd
 
       <div className={s.rightRowContent}>
         <ProductStatus product={product}/>
-        <ContextMenu product={product}/>
+        <ContextMenu product={product} linked={true} />
       </div>
 
 

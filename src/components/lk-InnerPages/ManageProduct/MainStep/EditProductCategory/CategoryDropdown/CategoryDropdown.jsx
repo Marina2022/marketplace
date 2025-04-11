@@ -8,13 +8,14 @@ import SearchCats
 import {findProductCategoryName} from "@/utils/lkShop.js";
 
 
-const CategoryDropdown = ({cats, setValue, getValues, setEditing, clearErrors, searchCats, setSearchCats, setSelectedCatName, catsLoading}) => {
+const CategoryDropdown = ({cats, setValue, getValues, setEditing, clearErrors, searchCats, setSearchCats, setSelectedCatName, setFormWasEdited}) => {
 
   const [selectedCatId, setSelectedCatId] = useState(getValues("productCategoryId"))
 
   const submitCategory = () => {
     if (!selectedCatId) return
-    setValue('productCategoryId', selectedCatId)        
+    setValue('productCategoryId', selectedCatId)
+    setFormWasEdited(true)
     setEditing(false)
     clearErrors("productCategoryId");
     setSelectedCatName(findProductCategoryName(cats, selectedCatId))

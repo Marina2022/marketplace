@@ -45,6 +45,8 @@ const ManageProductPage = () => {
 
   const [productPhotos, setProductPhotos] = useState([])
   const [presentationPhotos, setPresentationPhotos] = useState([])
+  
+  const [formWasEdited, setFormWasEdited] = useState(false)
 
   const {
     trigger,
@@ -289,11 +291,20 @@ const ManageProductPage = () => {
     formEdited = newArr.some(item => item !== undefined)
 
     // если хоть одно поле заполнено, либо загружено фото либо документ:    
-    if (formEdited || productPhotos.length > 0 || presentationPhotos.length > 0 || instructionFile || documentationFile || certificateFile) {
-      setShowWarningPopup(true)
+    
+    if (isNew) {
+      if (formEdited || productPhotos.length > 0 || presentationPhotos.length > 0 || instructionFile || documentationFile || certificateFile) {
+        setShowWarningPopup(true)
+      } else {
+        navigate(`/lk/shop`)
+      }  
     } else {
-      navigate(`/lk/shop`)
-    }
+      if (formWasEdited) {
+        setShowWarningPopup(true)
+      } else {
+        navigate(`/lk/shop`)
+      }
+    }            
   }
 
   const onSubmit = async (data) => {
@@ -436,6 +447,7 @@ const ManageProductPage = () => {
     }
   }
 
+  console.log('formWasEdited', formWasEdited)
 
   if (isNew && loading) return <Spinner/>
 
@@ -501,6 +513,7 @@ const ManageProductPage = () => {
               watch={watch}
               product={product}
               setProduct={setProduct}
+              setFormWasEdited={setFormWasEdited}
             />
           }
 
@@ -515,6 +528,7 @@ const ManageProductPage = () => {
               register={register}
               setStep={setStep}
               watch={watch}
+              setFormWasEdited={setFormWasEdited}
             />
           }
 
