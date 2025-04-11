@@ -1,9 +1,5 @@
 import s from './ContentMiddleRow.module.scss';
-import LinkedProductsLeft
-  from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/ContentLeft/ContentLeftRow/LinkedProductsLeft/LinkedProductsLeft.jsx";
 import {formatDateToDDMMYYYY} from "@/utils/fromISO.js";
-import LinkedProductMiddle
-  from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/ContentMiddle/ContentMiddleRow/LinkedProductsMiddle/LinkedProductMiddle/LinkedProductMiddle.jsx";
 import LinkedProductsMiddle
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/ContentMiddle/ContentMiddleRow/LinkedProductsMiddle/LinkedProductsMiddle.jsx";
 

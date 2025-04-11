@@ -1,0 +1,28 @@
+@import "@/assets/styles/mixins";
+
+.outerWrapper {
+  border-bottom: 1px solid #F0F1F1;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.rightRow {
+  height: 74px;
+  display: flex;
+  padding-block: 10px;
+  width: 100%;
+}
+
+.hovered {
+  background: #F9FAFB;
+  width: 100%;
+}
+
+.rightRowContent {
+  width: 100%;
+  display: flex;
+  padding-inline: 10px;
+  justify-content: space-between;
+}

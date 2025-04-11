@@ -1,10 +1,9 @@
-import s from './LinkedProductMiddle.module.scss'
 import LinkedProductMiddle
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/ContentMiddle/ContentMiddleRow/LinkedProductsMiddle/LinkedProductMiddle/LinkedProductMiddle.jsx";
 
 const LinkedProductsMiddle = ({linkedProducts, handleMouseOut, handleMouseIn, hoveredProducts}) => {
   return (
-    <ul className={s.linkedProductList}>
+    <ul>
       {
         linkedProducts.map((product, i) => <LinkedProductMiddle
           index={i}

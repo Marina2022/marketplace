@@ -1,0 +1,18 @@
+@import "@/assets/styles/mixins";
+
+.linkedProductRight {
+  padding-block: 10px;
+  height: 60px;
+  display: flex;
+}
+
+.hovered {
+  background: #F9FAFB;
+}
+
+.rightRowContent {
+  width: 100%;
+  display: flex;
+  padding-inline: 10px;
+  justify-content: space-between;
+}
