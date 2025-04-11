@@ -29,8 +29,8 @@ const ContentRightRow = ({
           onMouseOut={() => handleMouseOut(product.productVariantId)}
         >
           <div className={s.rightRowContent}>
-            <ProductStatus />
-            <ContextMenu />           
+            <ProductStatus product={product}/>
+            <ContextMenu product={product}/>        
           </div>
         </div>
 

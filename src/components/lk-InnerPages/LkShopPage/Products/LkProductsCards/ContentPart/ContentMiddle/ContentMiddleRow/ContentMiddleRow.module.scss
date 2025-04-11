@@ -7,10 +7,19 @@
   &:last-child {
     border-bottom: none;
   }
+  
+  @include t {
+    width: 1046px;
+  }
+  
 }
 
 .middleRowWrapper {    
-  width: 1116px;    
+  width: 1116px;
+
+  @include t {
+    width: 1046px;
+  }
 }
 
 .middleRow {

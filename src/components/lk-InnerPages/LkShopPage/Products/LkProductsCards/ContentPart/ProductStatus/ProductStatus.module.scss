@@ -1,1 +1,28 @@
 @import "@/assets/styles/mixins";
+
+.statusWrapper {
+  padding: 5px 10px;  
+  font-size: 12px;
+  background-color: #F0F1F5;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.reddish {
+  color: #E32636;
+  background-color: #FDE2E2;
+}
+
+.greenish {
+  color: #1B7F32;
+  background-color: #D1F4D5;
+}
+
+.annotationWrapper {
+  position: relative;
+}
+
+.annotationText {
+  line-height: 140%;
+  font-size: 14px;
+}

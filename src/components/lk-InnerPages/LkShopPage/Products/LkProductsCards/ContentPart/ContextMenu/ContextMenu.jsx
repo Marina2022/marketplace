@@ -1,6 +1,6 @@
 import s from './ContextMenu.module.scss';
 
-const ContextMenu = () => {
+const ContextMenu = ({product}) => {
   return (
     <div className={s.contextMenuWrapper}>
       <button>

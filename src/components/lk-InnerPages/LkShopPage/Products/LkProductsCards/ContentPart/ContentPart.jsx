@@ -16,15 +16,15 @@ const ContentPart = ({products}) => {
 
   console.log(products)
 
-  // todo - для теста linkedProducts  
+  
   const [searchParams, setSearchParams] = useSearchParams();
   const statusTab = searchParams.get('statusTab')
 
 
-  // todo - для теста linkedProducts  
-  if (products && products[1] && (!statusTab || statusTab === 'all')) {
-    products[1].linkedProducts = linkedProducts
-  }
+  // для теста linkedProducts  
+  // if (products && products[1] && (!statusTab || statusTab === 'all')) {
+  //   products[1].linkedProducts = linkedProducts
+  // }
 
   const [checkedProducts, setCheckedProducts] = useState([])
   const [collapsedProducts, setCollapsedProducts] = useState([])
