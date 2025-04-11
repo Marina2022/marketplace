@@ -112,6 +112,18 @@ const ContextMenu = ({product, linked = false, getProducts}) => {
 
     setOpen(false)
   }
+
+
+  const handleRestore = async() => {
+    axiosInstance.post(`/seller/product/${product.productVariantId}/restore-archivated`)
+
+    setTimeout(()=>{
+      getProducts()
+    },1000)
+
+    setOpen(false)
+  }
+  
   
   return (
     <div className={s.contextMenuWrapper} ref={menuRef}>
@@ -137,7 +149,7 @@ const ContextMenu = ({product, linked = false, getProducts}) => {
 
           {/*Пункты для товара в архиве*/}
           {!linked && product.productStatus === 'В архиве' && <ul>
-            <li className={s.menuItem}>Восстановить</li>
+            <li onClick={handleRestore} className={s.menuItem}>Восстановить</li>
           </ul>}
 
           {/*Пункты для связанного товара*/}
