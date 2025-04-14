@@ -33,7 +33,7 @@ const OneFilter = ({filter, selectedFilters, setSelectedFilters}) => {
       },
       {
         filterDisplay: "На модерации",
-        filterValue: "pending"
+        filterValue: "pendingApproval"
       },
       {
         filterDisplay: "Снят с продажи",

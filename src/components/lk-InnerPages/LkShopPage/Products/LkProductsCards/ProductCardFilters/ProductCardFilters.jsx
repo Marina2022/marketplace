@@ -8,9 +8,11 @@ const ProductCardFilters = ({filters}) => {
 
   // потом его соберем из useParams:
   const initialFilterState = [
-    {filterName: 'status', filterValues: ['approved', 'pending']},
-    {filterName: 'brand', filterValues: ['xiaomi']},    
+    {filterName: 'status', filterValues: ['approved', 'pendingApproval']},
+    {filterName: 'brand', filterValues: ['xiaomi', ]},    
   ]
+
+  console.log('initialFilterState', initialFilterState)
   
   const [selectedFilters, setSelectedFilters] = useState(initialFilterState)
 

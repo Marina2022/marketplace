@@ -6,6 +6,7 @@ const OneFilterValue = ({filterValue, selectedFilters, setSelectedFilters, filte
 
   let active = false
   if (currentSelectedFilter) {
+    
     active = currentSelectedFilter.filterValues.includes(filterValue.filterValue)
   }
   const handleClick = () => {
