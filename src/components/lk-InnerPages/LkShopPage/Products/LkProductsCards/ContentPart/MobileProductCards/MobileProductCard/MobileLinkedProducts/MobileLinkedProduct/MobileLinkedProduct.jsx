@@ -17,7 +17,7 @@ const MobileLinkedProduct = ({product, getProducts}) => {
           </div>
         </div>
         <div className={s.menuBlock}>
-          <ContextMenu product={product} getProducts={getProducts}/>
+          <ContextMenu product={product} getProducts={getProducts} linked={true} />
         </div>
       </div>
       <div className={s.centralBlock}>     

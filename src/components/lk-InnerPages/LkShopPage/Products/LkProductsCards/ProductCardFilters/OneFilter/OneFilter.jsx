@@ -52,6 +52,7 @@ const OneFilter = ({filter, selectedFilters, setSelectedFilters}) => {
     ]
   }
 
+  // todo - для rating другой компонент будуем в списке выводить
   if (filter.filterName === 'rating') return null
 
   return (
