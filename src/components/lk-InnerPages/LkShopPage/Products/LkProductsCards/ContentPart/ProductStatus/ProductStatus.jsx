@@ -2,10 +2,9 @@ import s from './ProductStatus.module.scss';
 import Annotation from "@/components/ui/Annotation/Annotation.jsx";
 import {useState} from "react";
 
-const ProductStatus = ({product}) => {
+const ProductStatus = ({product, mobile}) => {
 
   const [showAnnotation, setShowAnnotation] = useState(false)
-
 
   let annotationText = ''
 
@@ -32,7 +31,7 @@ const ProductStatus = ({product}) => {
       </div>
 
       {
-        showAnnotation && <Annotation position='fromLeft'>
+        showAnnotation && <Annotation position={mobile ? 'fromTop' : 'fromLeft'}>
           <p className={s.annotationText}>
             {annotationText}
           </p>

@@ -13,16 +13,17 @@ import {flushSync} from 'react-dom';
 import useMobileScreen from "@/hooks/useMobileScreen.js";
 import MobileProductCards
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/MobileProductCards/MobileProductCards.jsx";
+import {linkedProducts} from "@/dev-data/linkedProducts.js";
 
 const ContentPart = ({products, getProducts}) => {
 
-  // const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // для теста linkedProducts  
-  //const statusTab = searchParams.get('statusTab')
-  // if (products && products[1] && (!statusTab || statusTab === 'all')) {
-  //   products[1].linkedProducts = linkedProducts
-  // }
+  //для теста linkedProducts  
+  const statusTab = searchParams.get('statusTab')
+  if (products && products[1] && (!statusTab || statusTab === 'all')) {
+    products[1].linkedProducts = linkedProducts
+  }
 
   const isMobile = useMobileScreen()
 
@@ -48,8 +49,6 @@ const ContentPart = ({products, getProducts}) => {
         setHoveredProducts(tempHoveredProducts.filter(item => item !== productVariantId))
       });
   }
-
-  console.log('isMobile', isMobile)
 
   if (!products) return <Spinner/>
 
@@ -94,6 +93,7 @@ const ContentPart = ({products, getProducts}) => {
           products={products}
           collapsedProducts={collapsedProducts}
           getProducts={getProducts}
+          setCollapsedProducts={setCollapsedProducts}
         />
       }
 
