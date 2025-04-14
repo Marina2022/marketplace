@@ -20,10 +20,10 @@ const ContentPart = ({products, getProducts}) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   //для теста linkedProducts  
-  const statusTab = searchParams.get('statusTab')
-  if (products && products[1] && (!statusTab || statusTab === 'all')) {
-    products[1].linkedProducts = linkedProducts
-  }
+  // const statusTab = searchParams.get('statusTab')
+  // if (products && products[1] && (!statusTab || statusTab === 'all')) {
+  //   products[1].linkedProducts = linkedProducts
+  // }
 
   const isMobile = useMobileScreen()
 
