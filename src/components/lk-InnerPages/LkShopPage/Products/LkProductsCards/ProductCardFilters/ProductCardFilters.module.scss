@@ -11,11 +11,11 @@
   color: #3E5067;
   font-size: 14px;
   gap: 5px;
-  
+
   @include m {
     width: 17px;
     height: 16px;
-    border: none;    
+    border: none;
   }
 }
 
@@ -24,3 +24,68 @@
     display: none;
   }
 }
+
+.filtersWrapper {
+  position: relative;
+}
+
+.filtersPopup {
+  position: absolute;
+  top: 48px;
+  left: 0;
+  background: white;
+  padding: 14px 16px;
+  width: 345px;  
+  box-shadow: 0 4px 16px rgb(0 0 0 /.25);
+  z-index: 1;
+}
+
+.header {
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+  margin-bottom: 6px;
+}
+
+.applyBtn {
+  height: 37px;
+  margin-top: 20px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.scrollWrapper {
+  overflow: auto;
+  max-height: 300px;
+  padding-right: 10px;
+
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-width: thin;
+    scrollbar-color: #AAB7BF #F0F1F1;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px !important;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #AAB7BF !important; /* Цвет ползунка */
+    border-radius: 3px !important; /* Закругление краев */
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #F0F1F1 !important; /* Цвет трека */
+    border-radius: 3px !important; /* Закругление краев */
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+}
+
+
+

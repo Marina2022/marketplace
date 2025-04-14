@@ -1,0 +1,29 @@
+@import '@/assets/styles/mixins';
+
+.oneFilter {
+  border-bottom: #F0F1F1 1px solid;
+  color: #131D2A;
+  font-size: 14px;
+}
+
+.filterHeader {
+  display: flex;   
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 11px;
+  margin-top: 14px;
+}
+
+.filterTitle {
+  
+}
+
+.valuesList {
+  margin-bottom: 16px;
+}
+
+.showMoreBtn {
+  color: #0093FD;
+  font-size: 12px;
+  cursor: pointer;
+}

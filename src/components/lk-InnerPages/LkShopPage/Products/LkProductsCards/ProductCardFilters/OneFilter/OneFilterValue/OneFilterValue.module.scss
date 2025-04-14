@@ -1,0 +1,22 @@
+@import '@/assets/styles/mixins';
+
+.oneValue {
+  padding: 3px 8px;
+  background: #F0F1F1;
+  border-radius: 11px;
+  width: max-content;
+  margin-bottom: 10px;
+  cursor: pointer;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.oneValueActive {
+  background: #3E5067;
+  color: white;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
