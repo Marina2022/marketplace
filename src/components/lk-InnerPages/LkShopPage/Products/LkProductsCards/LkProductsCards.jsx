@@ -24,8 +24,8 @@ const LkProductsCards = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate()
-  
-  
+
+
   const getProducts = async () => {
 
     let url = `seller/${profileId}/products?`
@@ -105,11 +105,9 @@ const LkProductsCards = () => {
         }
       </div>
 
-      {
-        !isMobile && <ContentPart productsLoading={productsLoading} products={productsData?.products} getProducts={getProducts} /> 
-      }
-
       
+      <ContentPart productsLoading={productsLoading} products={productsData?.products} getProducts={getProducts}/>
+
 
     </div>
   );

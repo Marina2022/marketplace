@@ -88,10 +88,6 @@ const ContextMenu = ({product, linked = false, getProducts}) => {
     setOpen(false)
   }
 
-  // Для архивирования {host}/api/seller/product/{productVariantId}/archivate
-  
-  // для восстановления {host}/api/seller/product/{productVariantId}/restore-archivated
-
   const handleCopy = async() => {
     axiosInstance.post(`/seller/${profileId}/products/${product.productVariantId}/copy`)
     

@@ -1,3 +1,5 @@
+@import '@/assets/styles/mixins';
+
 .filterBtn {
   height: 41px;
   width: 113px;
@@ -9,4 +11,17 @@
   color: #3E5067;
   font-size: 14px;
   gap: 5px;
+  
+  @include m {
+    width: 17px;
+    height: 16px;
+    border: none;
+    
+  }
+}
+
+.btnText {
+  @include m {
+    display: none;
+  }
 }

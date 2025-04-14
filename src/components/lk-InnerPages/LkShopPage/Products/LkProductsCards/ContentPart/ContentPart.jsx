@@ -10,6 +10,9 @@ import {useSearchParams} from "react-router-dom";
 import {useState} from "react";
 
 import {flushSync} from 'react-dom';
+import useMobileScreen from "@/hooks/useMobileScreen.js";
+import MobileProductCards
+  from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/MobileProductCards/MobileProductCards.jsx";
 
 const ContentPart = ({products, getProducts}) => {
 
@@ -20,6 +23,8 @@ const ContentPart = ({products, getProducts}) => {
   // if (products && products[1] && (!statusTab || statusTab === 'all')) {
   //   products[1].linkedProducts = linkedProducts
   // }
+
+  const isMobile = useMobileScreen()
 
   const [checkedProducts, setCheckedProducts] = useState([])
   const [collapsedProducts, setCollapsedProducts] = useState([])
@@ -44,39 +49,56 @@ const ContentPart = ({products, getProducts}) => {
       });
   }
 
+  console.log('isMobile', isMobile)
 
   if (!products) return <Spinner/>
 
   return (
-    <div className={s.contentPartWrapper}>
-      <ContentLeft
-        products={products}
-        checkedProducts={checkedProducts}
-        setCheckedProducts={setCheckedProducts}
-        collapsedProducts={collapsedProducts}
-        setCollapsedProducts={setCollapsedProducts}
-        handleMouseIn={handleMouseIn}
-        handleMouseOut={handleMouseOut}
-        hoveredProducts={hoveredProducts}
+    <>
+      {
+        !isMobile && (
+          <div className={s.contentPartWrapper}>
+            <ContentLeft
+              products={products}
+              checkedProducts={checkedProducts}
+              setCheckedProducts={setCheckedProducts}
+              collapsedProducts={collapsedProducts}
+              setCollapsedProducts={setCollapsedProducts}
+              handleMouseIn={handleMouseIn}
+              handleMouseOut={handleMouseOut}
+              hoveredProducts={hoveredProducts}
 
-      />
-      <ContentMiddle
-        products={products}
-        handleMouseIn={handleMouseIn}
-        handleMouseOut={handleMouseOut}
-        hoveredProducts={hoveredProducts}
-        collapsedProducts={collapsedProducts}
-      />
+            />
+            <ContentMiddle
+              products={products}
+              handleMouseIn={handleMouseIn}
+              handleMouseOut={handleMouseOut}
+              hoveredProducts={hoveredProducts}
+              collapsedProducts={collapsedProducts}
+            />
 
-      <ContentRight
-        products={products}
-        handleMouseIn={handleMouseIn}
-        handleMouseOut={handleMouseOut}
-        hoveredProducts={hoveredProducts}
-        collapsedProducts={collapsedProducts}
-        getProducts={getProducts}
-      />
-    </div>
+            <ContentRight
+              products={products}
+              handleMouseIn={handleMouseIn}
+              handleMouseOut={handleMouseOut}
+              hoveredProducts={hoveredProducts}
+              collapsedProducts={collapsedProducts}
+              getProducts={getProducts}
+            />
+          </div>
+        )
+      }
+
+      {
+        isMobile && <MobileProductCards
+          products={products}
+          collapsedProducts={collapsedProducts}
+          getProducts={getProducts}
+        />
+      }
+
+    </>
+
   );
 };
 

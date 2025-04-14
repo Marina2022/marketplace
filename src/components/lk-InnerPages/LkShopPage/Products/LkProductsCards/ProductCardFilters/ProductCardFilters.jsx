@@ -40,7 +40,7 @@ const ProductCardFilters = () => {
           stroke="#3E5067"/>
       </svg>
 
-      <span>Фильтры</span>
+      <span className={s.btnText}>Фильтры</span>
     </button>
   );
 };
