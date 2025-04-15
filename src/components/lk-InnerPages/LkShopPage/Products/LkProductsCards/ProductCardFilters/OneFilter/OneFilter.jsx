@@ -20,7 +20,7 @@ const OneFilter = ({filter, selectedFilters, setSelectedFilters}) => {
   }
 
 
-  //todo - убрать  
+  // todo Не забыть потом убрать
   if (filter.filterName === 'status') {
     filter.filterValues = [
       {

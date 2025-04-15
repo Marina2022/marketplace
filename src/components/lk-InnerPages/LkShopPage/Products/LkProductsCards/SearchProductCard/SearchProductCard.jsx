@@ -17,8 +17,7 @@ const SearchProductCard = () => {
     if (!debouncedSearchTerm) {      
       params.delete('searchTerms')
       setSearchParams(params);
-    } else {
-      setSearchParams({searchTerms: debouncedSearchTerm})
+    } else {      
       params.set("searchTerms", debouncedSearchTerm);
       setSearchParams(params);
     }

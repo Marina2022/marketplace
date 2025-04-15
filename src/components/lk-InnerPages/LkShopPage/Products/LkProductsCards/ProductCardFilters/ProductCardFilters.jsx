@@ -3,20 +3,28 @@ import {useState, useEffect, useRef} from "react";
 import OneFilter
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ProductCardFilters/OneFilter/OneFilter.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
+import {useSearchParams} from "react-router-dom";
 
 const ProductCardFilters = ({filters}) => {
 
-  // потом его соберем из useParams:
-  const initialFilterState = [
-    {filterName: 'status', filterValues: ['approved', 'pendingApproval']},
-    {filterName: 'brand', filterValues: ['xiaomi', ]},    
-  ]
 
-  console.log('initialFilterState', initialFilterState)
-  
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  let initialFilterState = []
+
+  filters.forEach(filterItem => {
+
+    const filterValues = searchParams.get(filterItem.filterName)
+
+    let valuesArray
+    if (filterValues) {
+      valuesArray = filterValues.split(',')
+      initialFilterState.push({filterName: filterItem.filterName, filterValues: valuesArray})
+    }
+  })
+
   const [selectedFilters, setSelectedFilters] = useState(initialFilterState)
-
-  console.log('filters', filters)
+  
   const [showFilters, setShowFilters] = useState(false);
   const popupRef = useRef(null);
   const btnRef = useRef(null);
@@ -59,6 +67,23 @@ const ProductCardFilters = ({filters}) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [showFilters]);
+  
+  const handleApply = ()=>{
+
+    const params = new URLSearchParams(searchParams);
+    
+    filters.forEach(filterFromApi=>{
+      const filterIsSelected = selectedFilters.find(filterItem=>filterItem.filterName === filterFromApi.filterName)      
+      if (!filterIsSelected || filterIsSelected.filterValues.length === 0 ) {
+        params.delete(filterFromApi.filterName)        
+      } else {
+        params.set(filterFromApi.filterName, filterIsSelected.filterValues.join(','));        
+      }
+    })
+
+    setSearchParams(params);
+    setShowFilters(false)    
+  }
 
   return (
     <div className={s.filtersWrapper}>
@@ -110,15 +135,13 @@ const ProductCardFilters = ({filters}) => {
           <div className={s.scrollWrapper}>
             <ul>
               {
-                filters.map((filter, i) => <OneFilter key={i} filter={filter} selectedFilters={selectedFilters} setSelectedFilters={setSelectedFilters} />)
+                filters.map((filter, i) => <OneFilter key={i} filter={filter} selectedFilters={selectedFilters}
+                                                      setSelectedFilters={setSelectedFilters}/>)
               }
             </ul>
           </div>
-
-          <Button className={s.applyBtn}>Применить</Button>
-
+          <Button onClick={handleApply} className={s.applyBtn}>Применить</Button>
         </div>
-
       )}
     </div>
   );

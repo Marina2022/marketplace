@@ -11,7 +11,6 @@ import SearchProductCard
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/SearchProductCard/SearchProductCard.jsx";
 import ProductCardFilters
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ProductCardFilters/ProductCardFilters.jsx";
-import useMobileScreen from "@/hooks/useMobileScreen.js";
 
 const LkProductsCards = () => {
 
@@ -23,6 +22,7 @@ const LkProductsCards = () => {
   const navigate = useNavigate()
 
   const getProducts = async () => {
+       
 
     let url = `seller/${profileId}/products?`
 
@@ -36,6 +36,14 @@ const LkProductsCards = () => {
     if (sortColumn) url += `sortColumn=${sortColumn}&`
     const sortOrder = searchParams.get('sortOrder')
     if (sortOrder) url += `sortOrder=${sortOrder}&`
+    
+    const filterNames = ['status', 'brand', 'category', 'rating']
+
+    filterNames.forEach(filterName=>{      
+      const currentFilter = searchParams.get(filterName)
+      if (currentFilter) url += `${filterName}=${currentFilter}&`      
+    })
+
 
     try {
       setProductsLoading(true)

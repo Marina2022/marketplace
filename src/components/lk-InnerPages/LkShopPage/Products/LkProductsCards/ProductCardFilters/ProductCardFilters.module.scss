@@ -57,7 +57,7 @@
 
 .scrollWrapper {
   overflow: auto;
-  max-height: 300px;
+  max-height: 360px;
   padding-right: 10px;
 
   @supports not selector(::-webkit-scrollbar) {
