@@ -1,0 +1,28 @@
+@import '@/assets/styles/mixins';
+
+.noProducts {
+  font-size: 24px;
+  color: #131D2A;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  top: 43px;
+  left: 0;
+  z-index: 1;
+  background: white;
+  border: 1px solid #F0F1F1;
+  height: 250px;
+  
+  @include t {
+    height: 200px;
+  }
+
+  @include m {
+    height: 94px;
+    top: 0;
+    font-size: 16px;
+  }
+}

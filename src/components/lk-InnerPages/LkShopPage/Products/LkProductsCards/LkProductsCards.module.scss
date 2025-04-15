@@ -9,6 +9,14 @@
   }
 }
 
+.noProductsVariant {
+  height: 480px;
+  
+  @include t {
+    height: 430px;
+  }
+}
+
 .mainTitle {
   color: #131D2A;
   font-weight: 600;

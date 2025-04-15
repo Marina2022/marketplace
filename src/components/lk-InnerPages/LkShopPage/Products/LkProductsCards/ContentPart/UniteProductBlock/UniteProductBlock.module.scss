@@ -1,0 +1,58 @@
+@import '@/assets/styles/mixins';
+
+.uniteProductBlock {
+  position: fixed;
+  bottom: 20px;
+  width: 1040px;  
+  right: calc((100vw - 1440px) / 2 + 40px ) ;
+  height: 60px;
+  background: #253246;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 20px;
+  
+  @include t {
+    width: 630px;
+  }
+  
+  @include t {
+    right: calc((100vw - 920px) / 2 + 28px ) ;    
+  }
+  
+  @include m {
+    display: none;
+  } 
+  
+}
+
+.withOffset {
+  right: calc((100vw - 1440px) / 2 + 24px ) ;
+
+  @include t {
+    right: calc((100vw - 920px) / 2 + 28px ) ;
+  }
+}
+
+.uniteBtn {
+  height: 36px;
+  width: 103px;
+  border-radius: 2px;
+  font-size: 14px;
+  font-weight: 500;
+  
+  &:disabled {
+    background: #78383D;
+  }
+}
+
+.selectedText {
+  display: flex;
+  color: #658092;
+  gap: 5px;
+}
+
+.number {
+  color: white;
+}

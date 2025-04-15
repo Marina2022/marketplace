@@ -21,8 +21,7 @@ const LkProductsCards = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate()
 
-  const getProducts = async () => {
-       
+  const getProducts = async () => {       
 
     let url = `seller/${profileId}/products?`
 
@@ -63,10 +62,8 @@ const LkProductsCards = () => {
 
   }, [profileId, searchParams]);
 
-
-
   return (
-    <div className={s.productsCardsWrapper}>
+    <div className={`${s.productsCardsWrapper} ${ productsData?.products.length === 0 ? s.noProductsVariant : '' }`}>
 
       <div className={s.topPart}>
         <div className={s.header}>
@@ -82,12 +79,8 @@ const LkProductsCards = () => {
             </div>
           </div>
         }
-      </div>
-
-      
+      </div>     
       <ContentPart productsLoading={productsLoading} products={productsData?.products} getProducts={getProducts}/>
-
-
     </div>
   );
 };

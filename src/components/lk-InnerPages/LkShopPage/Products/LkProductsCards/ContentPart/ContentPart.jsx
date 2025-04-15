@@ -14,12 +14,15 @@ import useMobileScreen from "@/hooks/useMobileScreen.js";
 import MobileProductCards
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/MobileProductCards/MobileProductCards.jsx";
 import {linkedProducts} from "@/dev-data/linkedProducts.js";
+import NoProducts
+  from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/NoProducts/NoProducts.jsx";
+import UniteProductBlock
+  from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/UniteProductBlock/UniteProductBlock.jsx";
 
 const ContentPart = ({products, getProducts}) => {
 
-  const [searchParams, setSearchParams] = useSearchParams();
-
   //для теста linkedProducts  
+  //const [searchParams, setSearchParams] = useSearchParams();
   // const statusTab = searchParams.get('statusTab')
   // if (products && products[1] && (!statusTab || statusTab === 'all')) {
   //   products[1].linkedProducts = linkedProducts
@@ -38,8 +41,7 @@ const ContentPart = ({products, getProducts}) => {
 
       flushSync(() => {
         setHoveredProducts(tempHoveredProducts)
-      });
-
+      })
     }
   }
   const handleMouseOut = (productVariantId) => {
@@ -57,6 +59,9 @@ const ContentPart = ({products, getProducts}) => {
       {
         !isMobile && (
           <div className={s.contentPartWrapper}>
+            {
+              products.length === 0 && <NoProducts/>
+            }
             <ContentLeft
               products={products}
               checkedProducts={checkedProducts}
@@ -89,14 +94,21 @@ const ContentPart = ({products, getProducts}) => {
       }
 
       {
-        isMobile && <MobileProductCards
-          products={products}
-          collapsedProducts={collapsedProducts}
-          getProducts={getProducts}
-          setCollapsedProducts={setCollapsedProducts}
-        />
+        isMobile && <div className={s.mobileWrapper}>
+          {
+            products.length === 0 && <NoProducts/>
+          }
+          <MobileProductCards
+            products={products}
+            collapsedProducts={collapsedProducts}
+            getProducts={getProducts}
+            setCollapsedProducts={setCollapsedProducts}
+          />
+        </div>
       }
-
+      {
+        checkedProducts.length > 0 && <UniteProductBlock checkedProducts={checkedProducts} />
+      }
     </>
 
   );

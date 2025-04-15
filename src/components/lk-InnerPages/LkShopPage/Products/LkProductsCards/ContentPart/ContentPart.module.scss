@@ -1,9 +1,9 @@
 @import "@/assets/styles/mixins";
 
 .contentPartWrapper {
+  position: relative;
   border: #F0F1F1 1px solid;
-  display: flex;
-  
+  display: flex;  
   font-size: 13px;
   color: #131D2A;
   
@@ -13,3 +13,7 @@
   
 }
 
+
+.mobileWrapper {
+  position: relative;
+}

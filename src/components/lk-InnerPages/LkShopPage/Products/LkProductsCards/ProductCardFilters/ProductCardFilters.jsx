@@ -7,9 +7,7 @@ import {useSearchParams} from "react-router-dom";
 
 const ProductCardFilters = ({filters}) => {
 
-
   const [searchParams, setSearchParams] = useSearchParams();
-
   let initialFilterState = []
 
   filters.forEach(filterItem => {
