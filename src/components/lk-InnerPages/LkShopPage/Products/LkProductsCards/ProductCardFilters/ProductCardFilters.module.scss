@@ -38,6 +38,13 @@
   width: 345px;  
   box-shadow: 0 4px 16px rgb(0 0 0 /.25);
   z-index: 1;
+  
+  @include m {
+    position: fixed;
+    height: 100vh;
+    inset: 0;
+    width: 100%;
+  }
 }
 
 .header {
@@ -45,6 +52,13 @@
   font-weight: 500;
   color: #000;
   margin-bottom: 6px;
+  
+  @include m {
+    position: relative;
+    text-align: center;
+    margin-top: 6px;
+    margin-bottom: 10px;
+  }
 }
 
 .applyBtn {
@@ -85,6 +99,22 @@
     height: 0 !important;
   }
 
+  @include m {
+    border-top: #F0F1F1 1px solid;
+    max-height: calc(100vh - 113px);
+    height: calc(100vh - 178px);
+  }
+}
+
+.closeBtn {
+  display: none;
+  
+  @include m {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 }
 
 

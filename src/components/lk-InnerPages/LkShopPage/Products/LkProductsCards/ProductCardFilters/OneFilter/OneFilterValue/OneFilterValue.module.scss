@@ -8,9 +8,29 @@
   margin-bottom: 10px;
   cursor: pointer;
   user-select: none;
+    
   
   &:last-child {
     margin-bottom: 0;
+  }
+
+  @include m {
+    font-size: 12px;
+  }
+}
+
+.oneValueStar {
+  padding: 3px 8px;
+  background: #F0F1F1;
+  border-radius: 11px;
+  width: max-content;  
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  gap: 5px;
+  
+  @include m {
+    padding: 2px 8px;
   }
 }
 
@@ -21,3 +41,4 @@
   gap: 5px;
   align-items: center;
 }
+

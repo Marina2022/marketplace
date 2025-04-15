@@ -24,7 +24,7 @@ const ProductCardFilters = ({filters}) => {
   })
 
   const [selectedFilters, setSelectedFilters] = useState(initialFilterState)
-  
+
   const [showFilters, setShowFilters] = useState(false);
   const popupRef = useRef(null);
   const btnRef = useRef(null);
@@ -67,22 +67,22 @@ const ProductCardFilters = ({filters}) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [showFilters]);
-  
-  const handleApply = ()=>{
+
+  const handleApply = () => {
 
     const params = new URLSearchParams(searchParams);
-    
-    filters.forEach(filterFromApi=>{
-      const filterIsSelected = selectedFilters.find(filterItem=>filterItem.filterName === filterFromApi.filterName)      
-      if (!filterIsSelected || filterIsSelected.filterValues.length === 0 ) {
-        params.delete(filterFromApi.filterName)        
+
+    filters.forEach(filterFromApi => {
+      const filterIsSelected = selectedFilters.find(filterItem => filterItem.filterName === filterFromApi.filterName)
+      if (!filterIsSelected || filterIsSelected.filterValues.length === 0) {
+        params.delete(filterFromApi.filterName)
       } else {
-        params.set(filterFromApi.filterName, filterIsSelected.filterValues.join(','));        
+        params.set(filterFromApi.filterName, filterIsSelected.filterValues.join(','));
       }
     })
 
     setSearchParams(params);
-    setShowFilters(false)    
+    setShowFilters(false)
   }
 
   return (
@@ -130,13 +130,28 @@ const ProductCardFilters = ({filters}) => {
       {showFilters && (
 
         <div className={s.filtersPopup} ref={popupRef}>
-          <div className={s.header}>Фильтры</div>
+          <div className={s.header}>
+            <span>
+              Фильтры
+            </span>
+            <button onClick={() => setShowFilters(false)} className={s.closeBtn}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fillRule="evenodd" clipRule="evenodd"
+                      d="M1.07138 0.928861C0.583228 1.41702 0.583228 2.20847 1.07138 2.69663L6.37359 7.99883L1.06924 13.3032C0.581086 13.7913 0.581086 14.5828 1.06924 15.071C1.5574 15.5591 2.34885 15.5591 2.83701 15.071L8.14136 9.7666L13.4458 15.071C13.9339 15.5592 14.7254 15.5592 15.2135 15.071C15.7017 14.5828 15.7017 13.7914 15.2135 13.3032L9.90912 7.99883L15.2114 2.69658C15.6995 2.20843 15.6995 1.41697 15.2114 0.928816C14.7232 0.44066 13.9318 0.440659 13.4436 0.928816L8.14136 6.23107L2.83915 0.928861C2.35099 0.440706 1.55954 0.440705 1.07138 0.928861Z"
+                      fill="#3E5067"/>
+              </svg>
+            </button>
+          </div>
 
           <div className={s.scrollWrapper}>
             <ul>
               {
-                filters.map((filter, i) => <OneFilter key={i} filter={filter} selectedFilters={selectedFilters}
-                                                      setSelectedFilters={setSelectedFilters}/>)
+                filters.map((filter, i) => <OneFilter
+                  key={i}
+                  filter={filter}
+                  selectedFilters={selectedFilters}
+                  setSelectedFilters={setSelectedFilters}
+                />)
               }
             </ul>
           </div>

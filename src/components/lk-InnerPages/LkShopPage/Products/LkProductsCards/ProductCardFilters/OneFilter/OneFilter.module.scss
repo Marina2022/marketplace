@@ -3,7 +3,7 @@
 .oneFilter {
   border-bottom: #F0F1F1 1px solid;
   color: #131D2A;
-  font-size: 14px;
+  font-size: 14px;    
 }
 
 .filterHeader {
@@ -22,8 +22,20 @@
   margin-bottom: 16px;
 }
 
+.valuesListRating {
+  margin-bottom: 16px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+
 .showMoreBtn {
   color: #0093FD;
   font-size: 12px;
   cursor: pointer;
+}
+
+.star {
+  margin-left: 5px;
 }
