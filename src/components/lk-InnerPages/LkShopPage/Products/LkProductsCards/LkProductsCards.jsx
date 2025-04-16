@@ -48,7 +48,7 @@ const LkProductsCards = () => {
       setProductsLoading(true)
       const resp = await axiosInstance(url)
       setProductsData(resp.data)
-      console.log(resp.data)
+      // console.log(resp.data)
     } catch (err) {
       console.log(err)
     } finally {

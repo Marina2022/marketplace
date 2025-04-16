@@ -9,7 +9,7 @@ import Favourites from "@/pages/Favourites.jsx";
 import Cart from "@/pages/Cart.jsx";
 import Lk from "@/pages/Lk/Lk.jsx";
 import LkMain from "@/pages/Lk/LkMain.jsx";
-import LkShop from "@/pages/Lk/LkShop.jsx";
+import LkShop from "@/pages/Lk/LkShop/LkShop.jsx";
 import LkOrders from "@/pages/Lk/LKOrders/LkOrders.jsx";
 import LkRequests from "@/pages/Lk/LkRequests.jsx";
 import LkChat from "@/pages/Lk/LkChat.jsx";
@@ -19,6 +19,8 @@ import CreateQuestion from "@/components/ProductPage/CreateQuestion/CreateQuesti
 import CreateMessage from "@/components/ProductPage/CreateMessage/CreateMessage.jsx";
 import Order from "@/pages/Order.jsx";
 import ManageProductPage from "@/components/lk-InnerPages/ManageProduct/ManageProductPage.jsx";
+import CombineProductPage from "@/components/lk-InnerPages/CombineProductPage/CombineProductsPage.jsx";
+import EditAndCreateProduct from "@/pages/Lk/LkShop/EditAndCreateProduct.jsx";
 function App() {
 
 
@@ -46,7 +48,8 @@ function App() {
             <Route path='chat' element={<LkChat/>}/>
             <Route path='orders/:orderId' element={<Order/>}/>
             
-            <Route path='edit-product/:productIdParam' element={<ManageProductPage/>}/>
+            <Route path='edit-product/:productIdParam' element={<EditAndCreateProduct/>}/>
+            <Route path='combine-products' element={<CombineProductPage/>}/>
           </Route>
 
           <Route path='*' element={<NotFound/>}/>

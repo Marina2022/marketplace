@@ -1,0 +1,45 @@
+.attribute {
+  padding-inline: 10px;
+  width: 150px;
+  flex-shrink: 0;
+  position: relative;
+  text-align: right;
+  cursor: pointer;
+  padding-block: 10px;
+  
+  
+  &:nth-child(5) {
+    margin-left: auto;
+  } 
+  
+  &:hover {
+    background: #F9FAFB;
+    
+    & .menuBtn {
+      width: 13px;
+    }
+
+    & .value {
+      gap: 12px;
+    }
+  }  
+}
+
+.value {
+  display: flex;
+  //gap: 12px;
+  align-items: center;
+  justify-content: right;
+}
+
+.menuBtn {  
+  width: 0;
+}
+
+.menuBtnMenuOpen {
+  width: 13px;
+}
+
+.valueMenuOpen {
+  gap: 12px;
+}

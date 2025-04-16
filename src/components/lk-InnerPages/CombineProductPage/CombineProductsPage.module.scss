@@ -1,0 +1,43 @@
+@import '@/assets/styles/mixins';
+
+.combineWrapper {
+  width: 100%;
+  
+  @include t {
+    width: 685px
+  }
+  
+  @include m {
+    display:  none;
+  }
+}
+
+.backLink {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 15px;
+  color: #658092;
+  font-size: 14px;
+  font-weight: 500;
+
+  @include m {
+    padding-right: 11px;
+    margin: 0;
+  }
+}
+
+.backLinkText {
+  @include m {
+    display: none;
+  }
+}
+
+.backArrow {
+  position: relative;
+  top: 1px;
+
+  @include m {
+    top: 0;
+  }
+}

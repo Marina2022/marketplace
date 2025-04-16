@@ -29,9 +29,7 @@ const MobileProductCard = ({product, collapsedProducts, getProducts, setCollapse
         <img className={s.photo} src={product.productImgPath} alt="photo"/>
         <div className={s.centerHeaderPart}>
           <div className={s.mobileCardName}>{product.productName}</div>
-          {
-            product.linkedProducts.length > 0 && <div className={s.mobileCategoryName}>{product.categoryName}</div>
-          }
+          <div className={s.mobileCategoryName}>{product.categoryName}</div>          
         </div>
         <div className={s.menuBlock}>
           <ContextMenu product={product} getProducts={getProducts}/>
@@ -73,7 +71,8 @@ const MobileProductCard = ({product, collapsedProducts, getProducts, setCollapse
       }
 
       {
-        hasLinked && !collapsed && <MobileLinkedProducts linkedProducts={product.linkedProducts} getProducts={getProducts} />
+        hasLinked && !collapsed &&
+        <MobileLinkedProducts linkedProducts={product.linkedProducts} getProducts={getProducts}/>
       }
     </div>
   )

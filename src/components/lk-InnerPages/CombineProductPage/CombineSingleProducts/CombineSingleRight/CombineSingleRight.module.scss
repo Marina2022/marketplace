@@ -1,0 +1,19 @@
+@import "@/assets/styles/mixins";
+
+
+.combineSingleRight {
+  width: 227px;
+  flex-shrink: 0;
+
+  @include t {
+    width: 207px;
+  }
+}
+
+.rightHeader {
+  height: 60px;  
+  font-weight: 500;
+  background: #F0F1F5;
+  padding-left: 10px;
+  padding-top: 16px;
+}

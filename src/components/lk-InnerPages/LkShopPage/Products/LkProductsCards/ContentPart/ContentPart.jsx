@@ -107,7 +107,7 @@ const ContentPart = ({products, getProducts}) => {
         </div>
       }
       {
-        checkedProducts.length > 0 && <UniteProductBlock checkedProducts={checkedProducts} />
+        checkedProducts.length > 0 && <UniteProductBlock checkedProducts={checkedProducts} products={products} />
       }
     </>
 

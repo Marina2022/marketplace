@@ -1,0 +1,53 @@
+@import '@/assets/styles/mixins';
+
+.combineSingleProductsWrapper {
+  background: white;
+  padding: 10px 15px 15px 15px;
+  width: 100%;
+  
+  @include t {
+    padding-inline: 0;
+  }
+}
+
+.combineProductsHeader {  
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  @include t {
+    padding-inline: 15px;
+  }
+}
+
+.title {
+  color: #131D2A;
+  font-weight: 600;
+  font-size: 28px;
+}
+
+.combineBtn {
+  font-weight: 500;
+  font-size: 12px;
+  background: #658092;
+  
+  &:hover {
+    background: #5a7181;
+  }
+}
+
+
+
+.tableWrapper {
+  position: relative;
+  border: #F0F1F1 1px solid;
+  display: flex;
+  font-size: 13px;
+  color: #131D2A;
+  width: 100%;
+
+  @include t {
+    font-size: 12px;
+  }
+}

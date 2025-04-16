@@ -29,16 +29,16 @@ const ContentMiddleRow = ({
             <div className={s.name}>
               {product.productName}
             </div>
-            {
-              hasLinked && <div className={s.catName}>{product.categoryName}</div>
-            }
+
+            <div className={s.catName}>{product.categoryName}</div>
+            
           </div>
           <div className={s.barcode}>{product.barcode}</div>
           <div className={s.brand}>{product.brand}</div>
           <div className={s.price}>{product.price.toLocaleString('ru')}&nbsp;₽</div>
 
-          <div className={s.rating}>{product.rating ? product.rating : 'Без рейтинга' }</div>
-          
+          <div className={s.rating}>{product.rating ? product.rating : 'Без рейтинга'}</div>
+
           <div className={s.reviews}>{product.reviewCount}</div>
           <div className={s.inStock}>{product.inventoryLevel}</div>
           <div className={s.createDate}>{formatDateToDDMMYYYY(product.createDate)}</div>
@@ -51,7 +51,7 @@ const ContentMiddleRow = ({
           linkedProducts={product.linkedProducts}
           handleMouseOut={handleMouseOut}
           handleMouseIn={handleMouseIn}
-          hoveredProducts={hoveredProducts}          
+          hoveredProducts={hoveredProducts}
         />
       }
     </div>
