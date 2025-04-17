@@ -19,18 +19,18 @@ const CombineSingleProducts = ({checkedProducts, setCheckedProducts}) => {
   console.log('productsToMerge', productsToMerge)
   console.log('attributes', attributes)
 
-  useEffect(() => {
-
-    const getData = async () => {
-      try {
-        const resp1 = await axiosInstance.post(`/seller/${profileId}/products/single-merge-details`, checkedProducts)
-        setProductsToMerge(resp1.data)
-        const resp2 = await axiosInstance(`/seller/${profileId}/categories/${resp1.data[0].productCategoryId}/product-variation-data`)
-        setAttributes(resp2.data)
-      } catch (err) {
-        console.log(err)
-      }
+  const getData = async () => {
+    try {
+      const resp1 = await axiosInstance.post(`/seller/${profileId}/products/single-merge-details`, checkedProducts)
+      setProductsToMerge(resp1.data)
+      const resp2 = await axiosInstance(`/seller/${profileId}/categories/${resp1.data[0].productCategoryId}/product-variation-data`)
+      setAttributes(resp2.data)
+    } catch (err) {
+      console.log(err)
     }
+  }
+  
+  useEffect(() => {
 
     getData()
 
@@ -46,7 +46,7 @@ const CombineSingleProducts = ({checkedProducts, setCheckedProducts}) => {
       </div>
 
       <div className={s.tableWrapper}>
-        <CombineSingleLeft productsToMerge={productsToMerge} attributes={attributes} />
+        <CombineSingleLeft productsToMerge={productsToMerge} attributes={attributes} getData={getData} />
         
         <CombineSingleRight setCheckedProducts={setCheckedProducts} productsToMerge={productsToMerge} />
       </div>

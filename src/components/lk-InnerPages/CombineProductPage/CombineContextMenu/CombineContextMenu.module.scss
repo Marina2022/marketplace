@@ -26,13 +26,19 @@
   align-items: center;
   padding-left: 20px;
   width: 98.5%;
-  
-  &:hover {
-    background: #E6E9F0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
     
+  &:hover {
+    background: #E6E9F0;    
   }
 }
 
 .valueItem100 {
   width: 100%;
 } 
+
+.check {
+  margin-right: 15px;
+}

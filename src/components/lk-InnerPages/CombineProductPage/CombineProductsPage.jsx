@@ -16,18 +16,18 @@ const CombineProductsPage = () => {
 
   useEffect(() => {
     
-    // todo - вернуть:  
-    // if (!location.state) {
-    //   navigate('/lk/shop')      
-    // } else {
-    //   const {combineWithCard, checkedProducts} = location.state;
-    //   setCheckedProducts(checkedProducts)      
-    //   setCombineWithCard(combineWithCard)
-    // }
+  
+    if (!location.state) {
+      navigate('/lk/shop')      
+    } else {
+      const {combineWithCard, checkedProducts} = location.state;
+      setCheckedProducts(checkedProducts)      
+      setCombineWithCard(combineWithCard)
+    }
 
     // todo - убрать (до конца юзэффекта):
-    setCheckedProducts(["0dc76b67-165c-4491-8637-11ab5ae2a80c", "ae936814-0b64-4fff-9042-d618a11f6d8c"])
-    setCombineWithCard(false)
+    // setCheckedProducts(["0dc76b67-165c-4491-8637-11ab5ae2a80c", "ae936814-0b64-4fff-9042-d618a11f6d8c"])
+    // setCombineWithCard(false)
   }, []);
     
   const handleCancel = () => {

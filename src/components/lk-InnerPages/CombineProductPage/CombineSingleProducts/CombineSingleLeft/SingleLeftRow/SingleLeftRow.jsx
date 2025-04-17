@@ -6,7 +6,7 @@ import BrandOption
 import TypeOption
   from "@/components/lk-InnerPages/CombineProductPage/CombineSingleProducts/CombineSingleLeft/SingleLeftRow/TypeOption/TypeOption.jsx";
 
-const SingleLeftRow = ({productToMerge, attributes}) => {
+const SingleLeftRow = ({productToMerge, attributes, getData}) => {
   return (
     <div className={s.singleLeftRow}>
 
@@ -17,20 +17,19 @@ const SingleLeftRow = ({productToMerge, attributes}) => {
         <div className={s.article}>Артикул: {productToMerge.article}</div>
         <div className={s.cat}>{productToMerge.categoryOption.categoryName}</div>
       </div>
-
-      {/*<div className={s.brand}>{productToMerge.brand}</div>*/}
-      
-      <BrandOption productToMerge={productToMerge} attributes={attributes} />
-      <TypeOption productToMerge={productToMerge} attributes={attributes} />
-      
-      
-      {/*<div className={s.type}>{productToMerge.productType}</div>*/}
+            
+      <BrandOption productToMerge={productToMerge} attributes={attributes} getData={getData} />
+      <TypeOption productToMerge={productToMerge} attributes={attributes} getData={getData} />
 
       {
-        attributes.attributes.map(attribute => <VariantOption
+        attributes.attributes.map(attribute => <VariantOption          
           key={attribute.optionId}
           attribute={attribute}
-          productToMerge={productToMerge}/>)
+          attributes={attributes}
+          productToMerge={productToMerge}
+          getData={getData}  
+          
+        />)
       }
 
     </div>

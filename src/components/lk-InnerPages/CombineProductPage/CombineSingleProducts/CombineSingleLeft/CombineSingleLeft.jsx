@@ -4,7 +4,7 @@ import SingleLeftRow
 import SingleLeftHeader
   from "@/components/lk-InnerPages/CombineProductPage/CombineSingleProducts/CombineSingleLeft/SingleLeftHeader/SingleLeftHeader.jsx";
 
-const CombineSingleLeft = ({productsToMerge, attributes}) => {
+const CombineSingleLeft = ({productsToMerge, attributes, getData}) => {
   return (
     <div className={s.combineSingleLeftWrapper}>
       <div className={s.combineSingleLeft}>
@@ -14,6 +14,7 @@ const CombineSingleLeft = ({productsToMerge, attributes}) => {
             key={productToMerge.productVariantId} 
             productToMerge={productToMerge}
             attributes={attributes}
+            getData={getData}
           />)
         }       
       </div>

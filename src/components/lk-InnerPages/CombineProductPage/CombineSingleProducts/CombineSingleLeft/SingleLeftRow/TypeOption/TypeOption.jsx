@@ -4,7 +4,7 @@ import CombineContextMenu
   from "@/components/lk-InnerPages/CombineProductPage/CombineContextMenu/CombineContextMenu.jsx";
 
 
-const TypeOption = ({productToMerge, attributes}) => {
+const TypeOption = ({productToMerge, attributes, getData}) => {
 
   const buttonRef = useRef();
   const menuRef = useRef();
@@ -80,9 +80,12 @@ const TypeOption = ({productToMerge, attributes}) => {
           <CombineContextMenu 
             position={menuPosition}
             values={attributes.productTypes}
-            currentValueLabel={productToMerge.brand}  //
+            currentValueLabel={productToMerge.productType}  //
             productToMerge={productToMerge}
             setMenuOpen={setMenuOpen}
+            forType='type'
+            attributes={attributes}
+            getData={getData}
           />
         </div>
       )}

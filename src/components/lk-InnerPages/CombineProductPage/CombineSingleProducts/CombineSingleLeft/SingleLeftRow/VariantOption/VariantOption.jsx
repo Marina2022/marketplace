@@ -2,12 +2,10 @@ import s from './VariantOption.module.scss';
 import CombineContextMenu from "@/components/lk-InnerPages/CombineProductPage/CombineContextMenu/CombineContextMenu.jsx";
 import {useEffect, useRef, useState} from "react";
 
-const VariantOption = ({ productToMerge, attribute }) => {
+const VariantOption = ({ productToMerge, attribute, attributes, getData }) => {
   const productCharacteristicsValue = productToMerge.variantCharacteristicsOptions.find(
     item => item.optionId === attribute.optionId
   );
-
-  
 
   const buttonRef = useRef();
   const menuRef = useRef();
@@ -84,7 +82,10 @@ const VariantOption = ({ productToMerge, attribute }) => {
             values={attribute.values}
             currentValueLabel={productCharacteristicsValue.optionValue} 
             productToMerge={productToMerge}
-            setMenuOpen={setMenuOpen}          
+            setMenuOpen={setMenuOpen}
+            attributes={attributes}
+            currentAttribute={attribute}
+            getData={getData}
           />
         </div>
       )}
