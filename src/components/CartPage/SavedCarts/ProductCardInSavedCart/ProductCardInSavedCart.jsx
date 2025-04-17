@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 const ProductCardInSavedCart = ({product}) => { 
   return (
     <div className={s.product}>
-      <img className={s.productImage} src={`${BASE_URL}${product.productImageUrl}`} alt="product.productName"/>
+      <img className={s.productImage} src={product.productImageUrl} alt="product.productName"/>
       <div className={s.content}>
         <div className={s.nameBlock}>
           <Link to={`/product/${product.productHandle}?sku=${product.sku}`} className={s.name}>{product.productName}</Link>

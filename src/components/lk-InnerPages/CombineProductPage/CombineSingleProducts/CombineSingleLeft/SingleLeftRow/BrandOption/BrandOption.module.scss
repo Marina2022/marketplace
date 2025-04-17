@@ -1,20 +1,13 @@
-.attribute {
-  padding-inline: 10px;
-  width: 150px;
-  flex-shrink: 0;
-  position: relative;
-  text-align: right;
-  cursor: pointer;
+.brand {
   padding-block: 10px;
-  
-  
-  &:nth-child(5) {
-    margin-left: auto;
-  } 
-  
+  padding-inline: 10px;
+  width: 130px;
+  flex-shrink: 0;
+  cursor: pointer;
+
   &:hover {
     background: #F9FAFB;
-    
+
     & .menuBtn {
       width: 13px;
     }
@@ -22,16 +15,16 @@
     & .value {
       gap: 10px;
     }
-  }  
+  }
 }
 
 .value {
-  display: flex;  
+  display: flex;
   align-items: center;
   justify-content: right;
 }
 
-.menuBtn {  
+.menuBtn {
   width: 0;
 }
 

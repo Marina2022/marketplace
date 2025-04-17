@@ -57,11 +57,10 @@ const SavedCartItem = ({savedCart, checkedItems, setCheckedItems}) => {
         </div>
         <div className={s.pictureDropdownBlock}>
           <div className={s.picturesAndMore}>
-
             <ul className={s.pictureList}>
               {
                 savedCart.shortCartItemImagesPreview.map((image, i) => <img key={i} className={s.image}
-                                                                            src={`${BASE_URL}${image.imageUrl}`}
+                                                                            src={image.imageUrl}
                                                                             alt=""/>)
               }
             </ul>

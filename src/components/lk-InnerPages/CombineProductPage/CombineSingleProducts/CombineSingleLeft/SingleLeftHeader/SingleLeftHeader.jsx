@@ -11,10 +11,6 @@ const SingleLeftHeader = ({attributes}) => {
       {
         attributes.attributes.map(attribute => <div key={attribute.optionId} className={s.attributesHeader}>{attribute.optionName}</div>)
       }
-
-      {
-        attributes.attributes.map(attribute => <div key={attribute.optionId} className={s.attributesHeader}>{attribute.optionName}</div>)
-      }
       
     </div>
   );

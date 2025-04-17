@@ -1,13 +1,10 @@
-import s from './VariantOption.module.scss';
-import CombineContextMenu from "@/components/lk-InnerPages/CombineProductPage/CombineContextMenu/CombineContextMenu.jsx";
+import s from './TypeOption.module.scss';
 import {useEffect, useRef, useState} from "react";
+import CombineContextMenu
+  from "@/components/lk-InnerPages/CombineProductPage/CombineContextMenu/CombineContextMenu.jsx";
 
-const VariantOption = ({ productToMerge, attribute }) => {
-  const productCharacteristicsValue = productToMerge.variantCharacteristicsOptions.find(
-    item => item.optionId === attribute.optionId
-  );
 
-  
+const TypeOption = ({productToMerge, attributes}) => {
 
   const buttonRef = useRef();
   const menuRef = useRef();
@@ -57,11 +54,12 @@ const VariantOption = ({ productToMerge, attribute }) => {
     };
   }, [menuOpen]);
 
+
   return (
-    <div className={s.attribute} onClick={openMenu}>
+    <div className={s.type} onClick={openMenu}>
       <div className={`${s.value} ${menuOpen ? s.valueMenuOpen : ''} `}  >
-        <span>{productCharacteristicsValue.optionValue}</span>
-        <svg          
+        <span>{productToMerge.productType}</span>
+        <svg
           className={`${s.menuBtn} ${menuOpen ? s.menuBtnMenuOpen : ''}`}
           ref={buttonRef}
           width="14"
@@ -80,16 +78,17 @@ const VariantOption = ({ productToMerge, attribute }) => {
       {menuOpen && (
         <div ref={menuRef}>
           <CombineContextMenu 
-            position={menuPosition} 
-            values={attribute.values}
-            currentValueLabel={productCharacteristicsValue.optionValue} 
+            position={menuPosition}
+            values={attributes.productTypes}
+            currentValueLabel={productToMerge.brand}  //
             productToMerge={productToMerge}
-            setMenuOpen={setMenuOpen}          
+            setMenuOpen={setMenuOpen}
           />
         </div>
       )}
-    </div>
-  );
-};
 
-export default VariantOption;
+    </div>
+  )
+}
+
+export default TypeOption;

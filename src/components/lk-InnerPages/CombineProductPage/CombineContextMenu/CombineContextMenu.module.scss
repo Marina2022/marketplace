@@ -1,8 +1,38 @@
 .combineContextMenu {
   position: fixed;
-  width: 203px;
-  min-height: 100px; // todo - потом убери
+  width: 203px; 
+  
   background: white;  
   z-index: 1;
   box-shadow: 0 4px 16px rgb(0 0 0 /.25);
 }
+
+.innerContainer {  
+  margin-block: 5px;
+  margin-right: 5px;
+  max-height: 190px;
+  overflow: auto;  
+  color: #131D2A;
+  font-size: 14px;
+}
+
+.innerContainerNoPadding {
+  margin-right: 0;
+}
+
+.valueItem {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  width: 98.5%;
+  
+  &:hover {
+    background: #E6E9F0;
+    
+  }
+}
+
+.valueItem100 {
+  width: 100%;
+} 

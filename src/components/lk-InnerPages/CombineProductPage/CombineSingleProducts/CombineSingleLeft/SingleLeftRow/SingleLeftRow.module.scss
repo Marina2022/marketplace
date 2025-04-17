@@ -2,6 +2,7 @@
   display: flex;  
   height: 94px;
   border-top: 1px solid #F0F1F1;
+  min-width: 100%;
   width: max-content;
 }
 
@@ -20,8 +21,7 @@
   object-position: center;
 }
 
-.nameWrapper {
-  
+.nameWrapper {  
   padding-block: 10px;
   width: 190px;
   flex-shrink: 0;
@@ -51,22 +51,6 @@
 .cat {  
   font-size: 12px;
   color: #658092;
-}
-
-.brand {
-  
-  padding-block: 10px;
-  padding-inline: 10px;  
-  width: 100px;
-  flex-shrink: 0;
-}
-
-.type {
-  
-  padding-block: 10px;
-  padding-inline: 10px;
-  width: 150px;
-  flex-shrink: 0;
 }
 
 .attribute {  
