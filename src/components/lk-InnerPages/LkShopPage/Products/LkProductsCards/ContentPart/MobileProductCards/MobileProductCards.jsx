@@ -6,10 +6,10 @@ const MobileProductCards = ({products, collapsedProducts, getProducts, setCollap
   return (
     <div className={s.mobileProductCardsWrapper}>
       {
-        currentProfile?.type === 'company' &&  products.map(product=><MobileProductCard 
-          key={product.productVariantId} 
-          product={product} 
-          collapsedProducts={collapsedProducts} 
+        currentProfile?.type === 'company' && currentProfile?.isHasShop && products.map(product => <MobileProductCard
+          key={product.productVariantId}
+          product={product}
+          collapsedProducts={collapsedProducts}
           getProducts={getProducts}
           setCollapsedProducts={setCollapsedProducts}
         />)

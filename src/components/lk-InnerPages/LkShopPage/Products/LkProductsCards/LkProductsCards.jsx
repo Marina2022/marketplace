@@ -31,7 +31,7 @@ const LkProductsCards = () => {
 
     if (!currentProfile) return
     
-    if (currentProfile.type !== 'company') {
+    if (currentProfile.type !== 'company' || currentProfile.isHasShop === false ) {
       setProductsData({
         products: [],
         filters: [],

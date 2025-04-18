@@ -21,7 +21,7 @@ const ContentLeft = ({
       <ContentLeftHeader />
       
       {
-        currentProfile?.type === 'company' &&  products.map(product=><ContentLeftRow 
+        currentProfile?.type === 'company' && currentProfile?.isHasShop &&  products.map(product=><ContentLeftRow 
           product={product} 
           key={product.productVariantId} 
           checkedProducts={checkedProducts} 
@@ -32,8 +32,7 @@ const ContentLeft = ({
           handleMouseOut={handleMouseOut}
           hoveredProducts={hoveredProducts}
         />)
-      }
-          
+      }          
     </div>
   );
 };

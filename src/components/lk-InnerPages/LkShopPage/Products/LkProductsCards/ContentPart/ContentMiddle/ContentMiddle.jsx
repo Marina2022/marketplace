@@ -11,7 +11,7 @@ const ContentMiddle = ({products, handleMouseIn, handleMouseOut, hoveredProducts
       <div className={s.contentMiddle}>
         <ContentMiddleHeader/>
         {
-          currentProfile?.type === 'company' && products.map(product => <ContentMiddleRow
+          currentProfile?.type === 'company' && currentProfile?.isHasShop && products.map(product => <ContentMiddleRow
             key={product.productVariantId}
             product={product}
             handleMouseIn={handleMouseIn}

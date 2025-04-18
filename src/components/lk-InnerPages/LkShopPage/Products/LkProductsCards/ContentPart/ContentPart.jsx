@@ -57,8 +57,13 @@ const ContentPart = ({products, getProducts, productsLoading}) => {
             {
               currentProfile && currentProfile.type === 'company' && !productsLoading && products && products.length === 0 && <NoProducts/>
             }
+            
             {
               currentProfile && currentProfile.type !== 'company' && <NoProducts noCompany={true}/>
+            }
+
+            {
+              currentProfile && currentProfile.type === 'company' && !currentProfile.isHasShop && <NoProducts noShop={true}/>
             }
             
             <ContentLeft
@@ -82,7 +87,6 @@ const ContentPart = ({products, getProducts, productsLoading}) => {
               collapsedProducts={collapsedProducts}
             />
 
-
             <ContentRight
               currentProfile={currentProfile}
               products={products}
@@ -92,8 +96,6 @@ const ContentPart = ({products, getProducts, productsLoading}) => {
               collapsedProducts={collapsedProducts}
               getProducts={getProducts}
             />
-
-
           </div>
         )
       }

@@ -18,7 +18,7 @@ const ContentRight = ({
       </div>
 
       {
-        currentProfile?.type === 'company' && products.map(product => <ContentRightRow
+        currentProfile?.type === 'company' && currentProfile?.isHasShop && products.map(product => <ContentRightRow
           key={product.productVariantId}
           product={product}
           handleMouseIn={handleMouseIn}

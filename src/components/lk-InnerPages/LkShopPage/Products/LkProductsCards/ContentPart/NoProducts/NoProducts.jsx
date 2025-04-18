@@ -1,11 +1,11 @@
 import s from './NoProducts.module.scss';
 
-const NoProducts = ({noCompany=false, shopRegistered=false}) => {
+const NoProducts = ({noCompany=false, noShop=false}) => {
   return (         
     <div className={s.noProducts}>
 
       {
-        !noCompany && !shopRegistered && <span>Нет активных товаров</span>
+        !noCompany && !noShop && <span>Нет активных товаров</span>
       }
 
       {
@@ -13,7 +13,13 @@ const NoProducts = ({noCompany=false, shopRegistered=false}) => {
           <div>Вам недоступна продажа товаров</div>
         <p className={s.text}>Чтобы начать продавать в IRIF, добавьте вашу компанию и зарегистрируйте магазин. Это просто и откроет новые возможности для вашего бизнеса!</p>
         </div>
-
+      }
+      
+      {
+        noShop && <div className={s.textWrapper}>
+          <div>Магазин не зарегистрирован</div>
+          <p className={s.text}>Чтобы добавить товары и начать продавать, зарегистрируйте магазин в IRif. Это ваш первый шаг к новым возможностям!</p>
+        </div>
       }
 
     </div>
