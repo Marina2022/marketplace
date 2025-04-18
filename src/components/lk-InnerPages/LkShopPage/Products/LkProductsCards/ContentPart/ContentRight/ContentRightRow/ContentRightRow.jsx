@@ -34,7 +34,6 @@ const ContentRightRow = ({
             <ContextMenu product={product} getProducts={getProducts} />        
           </div>
         </div>
-
       </div>
       {
         hasLinked && !collapsed && <LinkedProductsRight
@@ -42,6 +41,7 @@ const ContentRightRow = ({
           handleMouseOut={handleMouseOut}
           handleMouseIn={handleMouseIn}
           hoveredProducts={hoveredProducts}
+          getProducts={getProducts}
         />
       }
     </div>

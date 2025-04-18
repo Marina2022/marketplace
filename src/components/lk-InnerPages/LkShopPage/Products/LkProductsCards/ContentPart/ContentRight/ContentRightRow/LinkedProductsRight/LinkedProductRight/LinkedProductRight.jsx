@@ -4,7 +4,7 @@ import ProductStatus
 import ContextMenu
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/ContextMenu/ContextMenu.jsx";
 
-const LinkedProductRight = ({product, handleMouseOut, handleMouseIn, hoveredProducts}) => {
+const LinkedProductRight = ({product, handleMouseOut, handleMouseIn, hoveredProducts, getProducts}) => {
 
   const hovered = hoveredProducts.includes(product.productVariantId)
 
@@ -17,7 +17,7 @@ const LinkedProductRight = ({product, handleMouseOut, handleMouseIn, hoveredProd
 
       <div className={s.rightRowContent}>
         <ProductStatus product={product}/>
-        <ContextMenu product={product} linked={true} />
+        <ContextMenu product={product} linked={true} getProducts={getProducts} />
       </div>
 
 

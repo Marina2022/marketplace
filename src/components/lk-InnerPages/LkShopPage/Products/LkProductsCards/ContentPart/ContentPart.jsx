@@ -21,15 +21,7 @@ import UniteProductBlock
 
 const ContentPart = ({products, getProducts}) => {
 
-  //для теста linkedProducts  
-  //const [searchParams, setSearchParams] = useSearchParams();
-  // const statusTab = searchParams.get('statusTab')
-  // if (products && products[1] && (!statusTab || statusTab === 'all')) {
-  //   products[1].linkedProducts = linkedProducts
-  // }
-
   const isMobile = useMobileScreen()
-
   const [checkedProducts, setCheckedProducts] = useState([])
   const [collapsedProducts, setCollapsedProducts] = useState([])
   const [hoveredProducts, setHoveredProducts] = useState([])

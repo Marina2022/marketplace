@@ -12,54 +12,16 @@ const russianNameMapping = {
 const OneFilter = ({filter, selectedFilters, setSelectedFilters}) => {
 
   const [showAll, setShowAll] = useState(false)
-
   let valuesToShow = filter.filterValues
 
   if (filter.filterName !== 'rating' && filter.filterValues.length > 4 && !showAll) {
     valuesToShow = filter.filterValues.slice(0, 4)
   }
 
-  // todo Не забыть потом убрать
-  if (filter.filterName === 'status') {
-    filter.filterValues = [
-      {
-        filterDisplay: "Продается",
-        filterValue: "active"
-      },
-      {
-        filterDisplay: "Ожидает действия",
-        filterValue: "approved"
-      },
-      {
-        filterDisplay: "На модерации",
-        filterValue: "pendingApproval"
-      },
-      {
-        filterDisplay: "Снят с продажи",
-        filterValue: "removed"
-      },
-      {
-        filterDisplay: "Снова в продаже",
-        filterValue: "again"
-      },
-      {
-        filterDisplay: "Никак не продается",
-        filterValue: "never"
-      },
-
-
-    ]
-  }
-
   if (filter.filterName === 'rating') return <div className={s.oneFilter}>
 
     <div className={s.filterHeader}>
       <div className={s.filterTitle}>{russianNameMapping[filter.filterName]}</div>
-
-      {/*{*/}
-      {/*  filter.filterValues.length > 4 && !showAll &&*/}
-      {/*  <button onClick={() => setShowAll(prev => !prev)} className={s.showMoreBtn}>Показать все</button>*/}
-      {/*}*/}
     </div>
 
     <ul className={s.valuesListRating}>
@@ -69,7 +31,7 @@ const OneFilter = ({filter, selectedFilters, setSelectedFilters}) => {
             filterName={filter.filterName}
             key={filterValue.filterValue}
             filterValue={filterValue}
-            selectedFilters={selectedFilters} 
+            selectedFilters={selectedFilters}
             setSelectedFilters={setSelectedFilters}
             ratingValue={true}
           />
@@ -83,13 +45,11 @@ const OneFilter = ({filter, selectedFilters, setSelectedFilters}) => {
     <div className={s.oneFilter}>
       <div className={s.filterHeader}>
         <div className={s.filterTitle}>{russianNameMapping[filter.filterName]}</div>
-
         {
           filter.filterValues.length > 4 && !showAll &&
           <button onClick={() => setShowAll(prev => !prev)} className={s.showMoreBtn}>Показать все</button>
         }
       </div>
-
       <ul className={s.valuesList}>
         {
           valuesToShow.map(filterValue => {
