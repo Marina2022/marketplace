@@ -8,6 +8,8 @@ import CombineSingleLeft
   from "@/components/lk-InnerPages/CombineProductPage/CombineSingleProducts/CombineSingleLeft/CombineSingleLeft.jsx";
 import CombineSingleRight
   from "@/components/lk-InnerPages/CombineProductPage/CombineSingleProducts/CombineSingleRight/CombineSingleRight.jsx";
+import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
+import {useNavigate} from "react-router-dom";
 
 const CombineSingleProducts = ({checkedProducts, setCheckedProducts}) => {
 
@@ -16,8 +18,9 @@ const CombineSingleProducts = ({checkedProducts, setCheckedProducts}) => {
   const [productsToMerge, setProductsToMerge] = useState(null)
   const [attributes, setAttributes] = useState(null)
 
-  console.log('productsToMerge', productsToMerge)
-  console.log('attributes', attributes)
+  // console.log('productsToMerge', productsToMerge)
+  // console.log('attributes', attributes)
+  const navigate = useNavigate()
 
   const getData = async () => {
     try {
@@ -29,12 +32,40 @@ const CombineSingleProducts = ({checkedProducts, setCheckedProducts}) => {
       console.log(err)
     }
   }
-  
+
   useEffect(() => {
-
     getData()
-
   }, [checkedProducts]);
+
+
+  const [isCombinable, setIsCombinable] = useState(false)
+  const [sending, setSending] = useState(false)
+
+  useEffect(() => {
+    if (productsToMerge) {
+      setIsCombinable(productsToMerge.every(product => {
+        return product.mergeStatus === 'Готов к объеденению'
+      }))
+    }
+  }, [productsToMerge])
+  
+    const handleCombine = async () => {
+
+    const payload = checkedProducts.map(product => ({
+      productVariantId: product,
+      isCardProduct: false
+    }))
+
+    try {
+      setSending(true)
+      await axiosInstance.post(`seller/${profileId}/products/link`, payload)
+      navigate("/lk/shop")
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setSending(false)
+    }
+  }
 
   if (!attributes) return null
 
@@ -42,13 +73,14 @@ const CombineSingleProducts = ({checkedProducts, setCheckedProducts}) => {
     <div className={s.combineSingleProductsWrapper}>
       <div className={s.combineProductsHeader}>
         <h1 className={s.title}>Объединение товаров</h1>
-        <Button className={s.combineBtn}>Объединить в карточку</Button>
+        <Button disabled={!isCombinable || sending} onClick={handleCombine} className={s.combineBtn}>Объединить в карточку </Button>
       </div>
 
       <div className={s.tableWrapper}>
-        <CombineSingleLeft productsToMerge={productsToMerge} attributes={attributes} getData={getData} />
-        
-        <CombineSingleRight setCheckedProducts={setCheckedProducts} productsToMerge={productsToMerge} />
+        <CombineSingleLeft productsToMerge={productsToMerge} attributes={attributes} getData={getData}/>
+
+        <CombineSingleRight setCheckedProducts={setCheckedProducts} checkedProducts={checkedProducts}
+                            productsToMerge={productsToMerge}/>
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ const CombineProductsPage = () => {
       setCombineWithCard(combineWithCard)
     }
 
-    // todo - убрать (до конца юзэффекта):
+    // для теста:
     // setCheckedProducts(["0dc76b67-165c-4491-8637-11ab5ae2a80c", "ae936814-0b64-4fff-9042-d618a11f6d8c"])
     // setCombineWithCard(false)
   }, []);

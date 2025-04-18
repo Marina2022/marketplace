@@ -1,0 +1,32 @@
+.goodStatus {
+  font-size: 12px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background: #D1F4D5;
+  color: #1B7F32;
+  width: 147px;  
+}
+
+.badStatus {
+  font-size: 12px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background: #FDE2E2;
+  color: #E32636;
+  width: 170px;
+}
+
+.wrapperForAnnotation {
+  cursor: pointer;
+  position: relative;
+}
+
+.annot {
+  line-height: 140%;
+}

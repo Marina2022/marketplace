@@ -22,13 +22,12 @@ const SingleLeftRow = ({productToMerge, attributes, getData}) => {
       <TypeOption productToMerge={productToMerge} attributes={attributes} getData={getData} />
 
       {
-        attributes.attributes.map(attribute => <VariantOption          
+        productToMerge.variantCharacteristicsOptions.length > 0 && attributes.attributes.map(attribute => <VariantOption          
           key={attribute.optionId}
           attribute={attribute}
           attributes={attributes}
           productToMerge={productToMerge}
-          getData={getData}  
-          
+          getData={getData}            
         />)
       }
 
