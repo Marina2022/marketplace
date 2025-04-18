@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import {getActiveProfileId} from "@/store/userSlice.js";
+import {getActiveProfileId, getUserProfilesData} from "@/store/userSlice.js";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
@@ -11,8 +11,13 @@ import SearchProductCard
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/SearchProductCard/SearchProductCard.jsx";
 import ProductCardFilters
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ProductCardFilters/ProductCardFilters.jsx";
+import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 
 const LkProductsCards = () => {
+
+  const profiles = useSelector(getUserProfilesData)
+  const activeProfileId = useSelector(getActiveProfileId)
+  const currentProfile = profiles?.find(profile => profile.profileId === activeProfileId)
 
   const profileId = useSelector(getActiveProfileId)
   const [productsLoading, setProductsLoading] = useState(true)
@@ -21,7 +26,26 @@ const LkProductsCards = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate()
 
-  const getProducts = async () => {       
+  console.log('productsData', productsData)
+  const getProducts = async () => {
+
+    if (!currentProfile) return
+    
+    if (currentProfile.type !== 'company') {
+      setProductsData({
+        products: [],
+        filters: [],
+        tabsCount: {
+          active: 0,
+          all: 0,
+          approved: 0,
+          archived: 0,
+          pendingApproval: 0,
+          removed: 0
+        }
+      })
+      return
+    }
 
     let url = `seller/${profileId}/products?`
 
@@ -35,20 +59,18 @@ const LkProductsCards = () => {
     if (sortColumn) url += `sortColumn=${sortColumn}&`
     const sortOrder = searchParams.get('sortOrder')
     if (sortOrder) url += `sortOrder=${sortOrder}&`
-    
+
     const filterNames = ['status', 'brand', 'category', 'rating']
 
-    filterNames.forEach(filterName=>{      
+    filterNames.forEach(filterName => {
       const currentFilter = searchParams.get(filterName)
-      if (currentFilter) url += `${filterName}=${currentFilter}&`      
+      if (currentFilter) url += `${filterName}=${currentFilter}&`
     })
-
 
     try {
       setProductsLoading(true)
       const resp = await axiosInstance(url)
       setProductsData(resp.data)
-      // console.log(resp.data)
     } catch (err) {
       console.log(err)
     } finally {
@@ -60,10 +82,11 @@ const LkProductsCards = () => {
     if (!profileId) return
     getProducts()
 
-  }, [profileId, searchParams]);
+  }, [profileId, searchParams, currentProfile]);
 
+  
   return (
-    <div className={`${s.productsCardsWrapper} ${ productsData?.products.length === 0 ? s.noProductsVariant : '' }`}>
+    <div className={`${s.productsCardsWrapper} ${productsData?.products?.length === 0 ? s.noProductsVariant : ''}`}>
 
       <div className={s.topPart}>
         <div className={s.header}>
@@ -75,12 +98,12 @@ const LkProductsCards = () => {
             <Tabs tabsCount={productsData.tabsCount}/>
             <div className={s.searchAndFilters}>
               <SearchProductCard/>
-              <ProductCardFilters filters={productsData.filters} />
+              <ProductCardFilters filters={productsData.filters}/>
             </div>
           </div>
         }
-      </div>     
-      <ContentPart productsLoading={productsLoading} products={productsData?.products} getProducts={getProducts}/>
+      </div>
+      <ContentPart productsLoading={productsLoading} products={productsData?.products} getProducts={getProducts} productsLoading={productsLoading}/>
     </div>
   );
 };

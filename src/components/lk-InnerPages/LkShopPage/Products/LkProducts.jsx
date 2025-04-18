@@ -8,6 +8,7 @@ const LkProducts = () => {
   const secondFromTopTab = useSelector(getSecondFromTopTab)
   const dispatch = useDispatch()
 
+   
   return (
     <>
       <div className={s.secondFromTopTabs}>

@@ -2,11 +2,11 @@ import s from './MobileProductCards.module.scss';
 import MobileProductCard
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/MobileProductCards/MobileProductCard/MobileProductCard.jsx";
 
-const MobileProductCards = ({products, collapsedProducts, getProducts, setCollapsedProducts}) => {
+const MobileProductCards = ({products, collapsedProducts, getProducts, setCollapsedProducts, currentProfile}) => {
   return (
     <div className={s.mobileProductCardsWrapper}>
       {
-        products.map(product=><MobileProductCard 
+        currentProfile?.type === 'company' &&  products.map(product=><MobileProductCard 
           key={product.productVariantId} 
           product={product} 
           collapsedProducts={collapsedProducts} 

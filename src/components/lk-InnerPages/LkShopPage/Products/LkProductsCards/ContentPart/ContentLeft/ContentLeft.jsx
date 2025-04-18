@@ -12,15 +12,16 @@ const ContentLeft = ({
                        setCollapsedProducts, 
                        handleMouseIn, 
                        handleMouseOut,
-                       hoveredProducts
+                       hoveredProducts,
+                       currentProfile
 }) => {
     
   return (
     <div className={s.contentLeft}>
       <ContentLeftHeader />
-
+      
       {
-        products.map(product=><ContentLeftRow 
+        currentProfile?.type === 'company' &&  products.map(product=><ContentLeftRow 
           product={product} 
           key={product.productVariantId} 
           checkedProducts={checkedProducts} 

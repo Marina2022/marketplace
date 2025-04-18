@@ -6,20 +6,23 @@ import ContentMiddle
 import ContentRight
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/ContentRight/ContentRight.jsx";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
-import {useSearchParams} from "react-router-dom";
 import {useState} from "react";
-
 import {flushSync} from 'react-dom';
 import useMobileScreen from "@/hooks/useMobileScreen.js";
 import MobileProductCards
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/MobileProductCards/MobileProductCards.jsx";
-import {linkedProducts} from "@/dev-data/linkedProducts.js";
 import NoProducts
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/NoProducts/NoProducts.jsx";
 import UniteProductBlock
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/UniteProductBlock/UniteProductBlock.jsx";
+import {useSelector} from "react-redux";
+import {getActiveProfileId, getUserProfilesData} from "@/store/userSlice.js";
 
-const ContentPart = ({products, getProducts}) => {
+const ContentPart = ({products, getProducts, productsLoading}) => {
+
+  const profiles = useSelector(getUserProfilesData)
+  const activeProfileId = useSelector(getActiveProfileId)
+  const currentProfile = profiles?.find(profile => profile.profileId === activeProfileId)
 
   const isMobile = useMobileScreen()
   const [checkedProducts, setCheckedProducts] = useState([])
@@ -44,7 +47,7 @@ const ContentPart = ({products, getProducts}) => {
       });
   }
 
-  if (!products) return <Spinner/>
+  if (!products ) return <Spinner/>
 
   return (
     <>
@@ -52,9 +55,14 @@ const ContentPart = ({products, getProducts}) => {
         !isMobile && (
           <div className={s.contentPartWrapper}>
             {
-              products.length === 0 && <NoProducts/>
+              currentProfile && currentProfile.type === 'company' && !productsLoading && products && products.length === 0 && <NoProducts/>
             }
+            {
+              currentProfile && currentProfile.type !== 'company' && <NoProducts noCompany={true}/>
+            }
+            
             <ContentLeft
+              currentProfile={currentProfile}
               products={products}
               checkedProducts={checkedProducts}
               setCheckedProducts={setCheckedProducts}
@@ -63,9 +71,10 @@ const ContentPart = ({products, getProducts}) => {
               handleMouseIn={handleMouseIn}
               handleMouseOut={handleMouseOut}
               hoveredProducts={hoveredProducts}
-
             />
+
             <ContentMiddle
+              currentProfile={currentProfile}
               products={products}
               handleMouseIn={handleMouseIn}
               handleMouseOut={handleMouseOut}
@@ -73,7 +82,9 @@ const ContentPart = ({products, getProducts}) => {
               collapsedProducts={collapsedProducts}
             />
 
+
             <ContentRight
+              currentProfile={currentProfile}
               products={products}
               handleMouseIn={handleMouseIn}
               handleMouseOut={handleMouseOut}
@@ -81,25 +92,33 @@ const ContentPart = ({products, getProducts}) => {
               collapsedProducts={collapsedProducts}
               getProducts={getProducts}
             />
+
+
           </div>
         )
       }
 
       {
         isMobile && <div className={s.mobileWrapper}>
+
           {
-            products.length === 0 && <NoProducts/>
+            products?.length === 0 && <NoProducts/>
           }
+          {
+            currentProfile?.type !== 'company' && <NoProducts noCompany={true}/>
+          }
+                
           <MobileProductCards
             products={products}
             collapsedProducts={collapsedProducts}
             getProducts={getProducts}
             setCollapsedProducts={setCollapsedProducts}
+            currentProfile={currentProfile}
           />
         </div>
       }
       {
-        checkedProducts.length > 0 && <UniteProductBlock checkedProducts={checkedProducts} products={products} />
+        checkedProducts.length > 0 && <UniteProductBlock checkedProducts={checkedProducts} products={products}/>
       }
     </>
 

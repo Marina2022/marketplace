@@ -8,7 +8,8 @@ const ContentRight = ({
                         handleMouseIn,
                         handleMouseOut,
                         hoveredProducts,
-                        getProducts
+                        getProducts,
+                        currentProfile
                       }) => {
   return (
     <div className={s.contentRight}>
@@ -17,7 +18,7 @@ const ContentRight = ({
       </div>
 
       {
-        products.map(product => <ContentRightRow
+        currentProfile?.type === 'company' && products.map(product => <ContentRightRow
           key={product.productVariantId}
           product={product}
           handleMouseIn={handleMouseIn}

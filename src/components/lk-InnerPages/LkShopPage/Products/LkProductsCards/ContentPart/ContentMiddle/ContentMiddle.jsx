@@ -4,14 +4,14 @@ import ContentMiddleHeader
 import ContentMiddleRow
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/ContentMiddle/ContentMiddleRow/ContentMiddleRow.jsx";
 
-const ContentMiddle = ({products, handleMouseIn, handleMouseOut, hoveredProducts, collapsedProducts}) => {
+const ContentMiddle = ({products, handleMouseIn, handleMouseOut, hoveredProducts, collapsedProducts, currentProfile}) => {
   return (
 
     <div className={`${s.contentMiddleWrapper} `}>
       <div className={s.contentMiddle}>
         <ContentMiddleHeader/>
         {
-          products.map(product => <ContentMiddleRow
+          currentProfile?.type === 'company' && products.map(product => <ContentMiddleRow
             key={product.productVariantId}
             product={product}
             handleMouseIn={handleMouseIn}
