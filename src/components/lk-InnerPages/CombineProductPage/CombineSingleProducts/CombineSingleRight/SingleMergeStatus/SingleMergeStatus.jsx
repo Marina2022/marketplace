@@ -2,10 +2,11 @@ import s from './SingleMergeStatus.module.scss';
 import Annotation from "@/components/ui/Annotation/Annotation.jsx";
 import {useState} from "react";
 
-const SingleMergeStatus = ({status}) => {
+// const SingleMergeStatus = ({status}) => {
+const SingleMergeStatus = ({isValidToMerge}) => {
 
   let isGood = false
-  if (status === 'Готов к объеденению') isGood = true
+  if (isValidToMerge) isGood = true
   
   const [showAnnotation, setShowAnnotation] = useState(false)
   

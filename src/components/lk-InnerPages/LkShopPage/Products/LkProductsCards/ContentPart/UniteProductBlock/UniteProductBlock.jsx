@@ -5,20 +5,21 @@ import {useNavigate} from "react-router-dom";
 
 const UniteProductBlock = ({checkedProducts, products}) => {
 
-  const hasCheckedWithLinkedProducts = (products, checkedProducts) => {
-    return products.some(product =>
-      checkedProducts.includes(product.productVariantId) && product.linkedProducts.length > 0
-    );
-  };
+  let sum = 0
+
+  products.forEach(product => {
+    if (checkedProducts.includes(product.productVariantId) && product.linkedProducts.length > 0) sum++
+  })
 
   const hasScrollbar = useHasVerticalScrollbar()
-  
   const navigate = useNavigate()
-  const handleUnite = ()=>{
-    navigate('/lk/combine-products', 
+  const handleUnite = () => {
+    const combineWithCard = sum > 0
+        
+    navigate('/lk/combine-products',
       {
         state: {
-          combineWithCard: hasCheckedWithLinkedProducts(products, checkedProducts),
+          combineWithCard,
           checkedProducts
         }
       })
@@ -30,7 +31,8 @@ const UniteProductBlock = ({checkedProducts, products}) => {
         Выбрано:
         <span className={s.number}>{checkedProducts.length}</span>
       </div>
-      <Button onClick={handleUnite} className={s.uniteBtn} disabled={checkedProducts.length === 1}>Объединить</Button>
+      <Button onClick={handleUnite} className={s.uniteBtn}
+              disabled={checkedProducts.length === 1 || sum > 1}>Объединить</Button>
     </div>
   );
 };

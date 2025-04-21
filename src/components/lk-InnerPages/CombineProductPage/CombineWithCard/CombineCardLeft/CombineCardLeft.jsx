@@ -1,20 +1,21 @@
-import s from './CombineSingleLeft.module.scss';
+import s from './CombineCardLeft.module.scss';
 import SingleLeftRow
   from "@/components/lk-InnerPages/CombineProductPage/CombineSingleProducts/CombineSingleLeft/SingleLeftRow/SingleLeftRow.jsx";
 import SingleLeftHeader
   from "@/components/lk-InnerPages/CombineProductPage/CombineSingleProducts/CombineSingleLeft/SingleLeftHeader/SingleLeftHeader.jsx";
+import CardLeftRow
+  from "@/components/lk-InnerPages/CombineProductPage/CombineWithCard/CombineCardLeft/CardLeftRow/CardLeftRow.jsx";
 
-const CombineSingleLeft = ({productsToMerge, attributes, getData}) => {
+const CombineCardLeft = ({productsInCard, attributes}) => {
   return (
     <div className={s.combineSingleLeftWrapper}>
       <div className={s.combineSingleLeft}>
-        <SingleLeftHeader attributes={attributes}/>
+        <SingleLeftHeader attributes={attributes} />
         {
-          productsToMerge.map(productToMerge => <SingleLeftRow
+          productsInCard.map(productToMerge=><CardLeftRow
             key={productToMerge.productVariantId}
             productToMerge={productToMerge}
-            attributes={attributes}
-            getData={getData}            
+            attributes={attributes}            
           />)
         }
       </div>
@@ -22,4 +23,4 @@ const CombineSingleLeft = ({productsToMerge, attributes, getData}) => {
   );
 };
 
-export default CombineSingleLeft;
+export default CombineCardLeft;

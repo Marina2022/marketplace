@@ -3,6 +3,7 @@ import CombineContextMenu from "@/components/lk-InnerPages/CombineProductPage/Co
 import {useEffect, useRef, useState} from "react";
 
 const VariantOption = ({ productToMerge, attribute, attributes, getData }) => {
+  
   const productCharacteristicsValue = productToMerge.variantCharacteristicsOptions.find(
     item => item.optionId === attribute.optionId
   );
@@ -12,13 +13,37 @@ const VariantOption = ({ productToMerge, attribute, attributes, getData }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuPosition, setMenuPosition] = useState(null);
 
+  // const openMenu = () => {
+  //   if (buttonRef.current) {
+  //     const rect = buttonRef.current.getBoundingClientRect();
+  //     setMenuPosition({
+  //       top: rect.bottom,
+  //       left: rect.left
+  //     });
+  //     setMenuOpen(true);
+  //   }
+  // };
+
   const openMenu = () => {
+
+    console.log('productCharacteristicsValue', productCharacteristicsValue)
+    
     if (buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
+
+      const menuHeight = attribute.values.length >= 5 ? 190 : attribute.values.length * 38;
+
+      const bottomSpace = window.innerHeight - rect.bottom;
+      let top = rect.bottom;
+
+      if (bottomSpace < menuHeight) {
+        top = Math.max(rect.top - menuHeight, 0) + 50; // вверх, но не выше окна
+      }
       setMenuPosition({
-        top: rect.bottom + window.scrollY,
-        left: rect.left + window.scrollX
+        top,
+        left: rect.left
       });
+
       setMenuOpen(true);
     }
   };
@@ -36,22 +61,37 @@ const VariantOption = ({ productToMerge, attribute, attributes, getData }) => {
 
   const handleKeyDown = (event) => {
     if (event.key === "Escape") {
-      setMenuOpen(false);
+      setMenuOpen(false)
+    }
+  }
+
+  const handleScroll = (event) => {
+    // если скролл произошёл ВНЕ меню, закрываем
+    if (
+      menuRef.current &&
+      !menuRef.current.contains(document.activeElement) &&
+      !menuRef.current.contains(event.target)
+    ) {
+      setMenuOpen(false)
     }
   };
+  
 
   useEffect(() => {
     if (menuOpen) {
       document.addEventListener("mousedown", handleClickOutside);
       document.addEventListener("keydown", handleKeyDown);
+      window.addEventListener("scroll", handleScroll, true);
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("scroll", handleScroll, true);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("scroll", handleScroll, true);
     };
   }, [menuOpen]);
 

@@ -19,6 +19,7 @@ const SingleLeftRow = ({productToMerge, attributes, getData}) => {
       </div>
             
       <BrandOption productToMerge={productToMerge} attributes={attributes} getData={getData} />
+      
       <TypeOption productToMerge={productToMerge} attributes={attributes} getData={getData} />
 
       {

@@ -8,18 +8,14 @@ import CombineSingleLeft
   from "@/components/lk-InnerPages/CombineProductPage/CombineSingleProducts/CombineSingleLeft/CombineSingleLeft.jsx";
 import CombineSingleRight
   from "@/components/lk-InnerPages/CombineProductPage/CombineSingleProducts/CombineSingleRight/CombineSingleRight.jsx";
-import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 import {useNavigate} from "react-router-dom";
 
 const CombineSingleProducts = ({checkedProducts, setCheckedProducts}) => {
 
   const profileId = useSelector(getActiveProfileId)
-
   const [productsToMerge, setProductsToMerge] = useState(null)
   const [attributes, setAttributes] = useState(null)
 
-  // console.log('productsToMerge', productsToMerge)
-  // console.log('attributes', attributes)
   const navigate = useNavigate()
 
   const getData = async () => {
@@ -43,13 +39,13 @@ const CombineSingleProducts = ({checkedProducts, setCheckedProducts}) => {
 
   useEffect(() => {
     if (productsToMerge) {
-      setIsCombinable(productsToMerge.every(product => {
-        return product.mergeStatus === 'Готов к объеденению'
+      setIsCombinable(productsToMerge.every(product => {        
+        return product.isValidToMerge
       }))
     }
   }, [productsToMerge])
-  
-    const handleCombine = async () => {
+
+  const handleCombine = async () => {
 
     const payload = checkedProducts.map(product => ({
       productVariantId: product,
@@ -73,14 +69,22 @@ const CombineSingleProducts = ({checkedProducts, setCheckedProducts}) => {
     <div className={s.combineSingleProductsWrapper}>
       <div className={s.combineProductsHeader}>
         <h1 className={s.title}>Объединение товаров</h1>
-        <Button disabled={!isCombinable || sending} onClick={handleCombine} className={s.combineBtn}>Объединить в карточку </Button>
+        <Button disabled={!isCombinable || sending} onClick={handleCombine} className={s.combineBtn}>Объединить в
+          карточку </Button>
       </div>
 
       <div className={s.tableWrapper}>
-        <CombineSingleLeft productsToMerge={productsToMerge} attributes={attributes} getData={getData}/>
+        <CombineSingleLeft
+          productsToMerge={productsToMerge}
+          attributes={attributes}
+          getData={getData}
+        />
 
-        <CombineSingleRight setCheckedProducts={setCheckedProducts} checkedProducts={checkedProducts}
-                            productsToMerge={productsToMerge}/>
+        <CombineSingleRight
+          setCheckedProducts={setCheckedProducts}
+          checkedProducts={checkedProducts}
+          productsToMerge={productsToMerge}
+        />
       </div>
     </div>
   );

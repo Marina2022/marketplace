@@ -1,0 +1,35 @@
+@import "@/assets/styles/mixins";
+
+.combineSingleLeftWrapper {
+  width: 860px;
+  border-right: #D1D5DB 1px solid;
+  overflow-x: auto;
+
+
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-width: thin;
+    scrollbar-color: #AAB7BF #D9D9D9;
+  }
+
+  &::-webkit-scrollbar {
+    height: 8px !important;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #AAB7BF !important; /* Цвет ползунка */
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #D9D9D9 !important; /* Цвет трека */
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+}
+
+.combineSingleLeft {
+  //width: 1500px;
+}

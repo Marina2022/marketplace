@@ -11,7 +11,6 @@ import SearchProductCard
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/SearchProductCard/SearchProductCard.jsx";
 import ProductCardFilters
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ProductCardFilters/ProductCardFilters.jsx";
-import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 
 const LkProductsCards = () => {
 

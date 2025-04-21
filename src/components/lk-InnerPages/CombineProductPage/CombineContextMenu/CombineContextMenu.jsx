@@ -1,6 +1,5 @@
 import s from './CombineContextMenu.module.scss';
 import {useRef, useState} from "react";
-import characteristics from "@/components/ProductPage/DetailedInfo/tabsContent/Characteristics/Characteristics.jsx";
 import axiosInstance from "@/api/axiosInstance.js";
 import {useSelector} from "react-redux";
 import {getActiveProfileId} from "@/store/userSlice.js";
@@ -18,13 +17,9 @@ const CombineContextMenu = ({
                             }) => {
 
   const innerContainerRef = useRef()
-
-  const profileId = useSelector(getActiveProfileId)
-
-  
+  const profileId = useSelector(getActiveProfileId) 
      
   const handleSelectValue = async (e, selectedValue) => {
-        
 
     e.stopPropagation()
 

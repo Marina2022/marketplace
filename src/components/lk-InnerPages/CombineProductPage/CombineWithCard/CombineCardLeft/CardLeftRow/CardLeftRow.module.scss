@@ -1,0 +1,86 @@
+.singleLeftRow {
+  display: flex;
+  height: 94px;
+  border-top: 1px solid #F0F1F1;
+  min-width: 100%;
+  width: max-content;
+}
+
+
+.photo{
+  padding-block: 10px;
+  width: 80px;
+  padding-left: 20px;
+  flex-shrink: 0;
+}
+
+.photoImg {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.nameWrapper {
+  padding-block: 10px;
+  width: 190px;
+  flex-shrink: 0;
+  padding-inline: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: #658092;
+  font-size: 13px;
+  color: #131D2A;
+
+}
+
+.name {
+  margin-bottom: auto;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.article {
+  font-size: 12px;
+  color: #658092;
+}
+
+.cat {
+  font-size: 12px;
+  color: #658092;
+}
+
+.attribute {
+  padding-block: 10px;
+  padding-inline: 10px;
+  width: 150px;
+  flex-shrink: 0;
+}
+
+.brand {
+  padding-block: 10px;
+  padding-inline: 10px;
+  width: 130px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.type {
+  padding-block: 10px;
+  padding-inline: 10px;
+  width: 150px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.variantOption {
+  padding-block: 10px;
+  padding-inline: 10px;
+  width: 150px;
+  flex-shrink: 0;
+  text-align: right;
+}
+

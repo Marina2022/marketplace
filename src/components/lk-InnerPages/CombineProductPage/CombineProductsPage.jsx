@@ -8,34 +8,38 @@ import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 
 const CombineProductsPage = () => {
 
-  const location = useLocation();  
+  const location = useLocation();
   const navigate = useNavigate()
-  
+
   const [checkedProducts, setCheckedProducts] = useState(null)
   const [combineWithCard, setCombineWithCard] = useState(false)
 
+  console.log('checkedProducts', checkedProducts)
+
   useEffect(() => {
-    
-  
+
     if (!location.state) {
-      navigate('/lk/shop')      
+      navigate('/lk/shop')
     } else {
       const {combineWithCard, checkedProducts} = location.state;
-      setCheckedProducts(checkedProducts)      
+      setCheckedProducts(checkedProducts)
       setCombineWithCard(combineWithCard)
     }
 
     // для теста:
-    // setCheckedProducts(["0dc76b67-165c-4491-8637-11ab5ae2a80c", "ae936814-0b64-4fff-9042-d618a11f6d8c"])
-    // setCombineWithCard(false)
+    // setCheckedProducts([
+    //   "f9320cd5-ab20-4aba-968d-9e18ae15db1f",
+    //   "a88c34ed-2899-4601-b537-0201d8fc2d55"
+    // ])
+    // setCombineWithCard(true)
   }, []);
-    
+
   const handleCancel = () => {
     navigate('/lk/shop')
   }
-  
-  if (!checkedProducts) return <Spinner />
-  
+
+  if (!checkedProducts) return <Spinner/>
+
   return (
     <div className={s.combineWrapper}>
       <button type="button" className={s.backLink} onClick={handleCancel}>
@@ -47,11 +51,12 @@ const CombineProductsPage = () => {
       </button>
 
       {
-        !combineWithCard && <CombineSingleProducts checkedProducts={checkedProducts} setCheckedProducts={setCheckedProducts} />
+        !combineWithCard &&
+        <CombineSingleProducts checkedProducts={checkedProducts} setCheckedProducts={setCheckedProducts}/>
       }
 
       {
-        combineWithCard && <CombineWithCard/>
+        combineWithCard && <CombineWithCard checkedProducts={checkedProducts} setCheckedProducts={setCheckedProducts}/>
       }
 
 
