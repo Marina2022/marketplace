@@ -5,12 +5,10 @@ import SingleMergeStatus
 const CombineSingleRight = ({setCheckedProducts, productsToMerge, checkedProducts}) => {
 
   const handleDelete = (id) => {
-
-     
-
     setCheckedProducts(checkedProducts.filter(productVariantId => productVariantId !== id))
   }
 
+    
   return (
     <div className={s.combineSingleRight}>
       <div className={s.rightHeader}>Статус</div>
@@ -18,8 +16,7 @@ const CombineSingleRight = ({setCheckedProducts, productsToMerge, checkedProduct
         productsToMerge.map(product => <div className={s.row} key={product.productVariantId}>
 
           <div className={s.flexWrapper}>
-            {/*<SingleMergeStatus status={product.mergeStatus}/>*/}
-            <SingleMergeStatus isValidToMerge={product.isValidToMerge}/>
+            <SingleMergeStatus mergeStatus={product.mergeStatus}/>
             <button disabled={checkedProducts.length <= 2} onClick={() => handleDelete(product.productVariantId)}>
               <svg className={checkedProducts.length <= 2 ? s.binIconDisabled : s.binIcon} width="16" height="16" viewBox="0 0 16 16"
                    xmlns="http://www.w3.org/2000/svg">

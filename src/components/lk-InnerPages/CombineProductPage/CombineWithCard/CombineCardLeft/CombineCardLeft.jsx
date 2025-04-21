@@ -1,12 +1,11 @@
 import s from './CombineCardLeft.module.scss';
-import SingleLeftRow
-  from "@/components/lk-InnerPages/CombineProductPage/CombineSingleProducts/CombineSingleLeft/SingleLeftRow/SingleLeftRow.jsx";
 import SingleLeftHeader
   from "@/components/lk-InnerPages/CombineProductPage/CombineSingleProducts/CombineSingleLeft/SingleLeftHeader/SingleLeftHeader.jsx";
 import CardLeftRow
   from "@/components/lk-InnerPages/CombineProductPage/CombineWithCard/CombineCardLeft/CardLeftRow/CardLeftRow.jsx";
 
 const CombineCardLeft = ({productsInCard, attributes}) => {
+  
   return (
     <div className={s.combineSingleLeftWrapper}>
       <div className={s.combineSingleLeft}>

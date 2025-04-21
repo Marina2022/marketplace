@@ -47,32 +47,40 @@ const CombineWithCard = ({checkedProducts, setCheckedProducts}) => {
   console.log('attributes', attributes)
 
 
-  // делает кнопку активной
-  // useEffect(() => {
-  //   if (productsToMerge) {
-  //     setIsCombinable(productsToMerge.every(product => {
-  //       return product.mergeStatus === 'Готов к объеденению'
-  //     }))
-  //   }
-  // }, [productsToMerge])
+  // // делает кнопку активной
+  useEffect(() => {
+    if (mergeData) {
+      
+      const allProductsToMergeAreOK = mergeData.productsToMerge.every(product => {
+        return product.mergeStatus === 'Готов к объеденению'
+      })
+      
+      setIsCombinable(allProductsToMergeAreOK && mergeData.linkedProductsToCard[0].mergeStatus === 'Готов к объединению' )
+    }
+  }, [mergeData])
 
   // Обработчик на кнопку Объединить
   const handleCombine = async () => {
 
-    // const payload = checkedProducts.map(product => ({
-    //   productVariantId: product,
-    //   isCardProduct: false
-    // }))
-    //
-    // try {
-    //   setSending(true)
-    //   await axiosInstance.post(`seller/${profileId}/products/link`, payload)
-    //   navigate("/lk/shop")
-    // } catch (err) {
-    //   console.log(err)
-    // } finally {
-    //   setSending(false)
-    // }
+    let payload = checkedProducts.map(product => ({
+      productVariantId: product,
+      isCardProduct: false
+    }))
+    
+    payload = [...payload, {
+      productVariantId: mergeData.linkedProductsToCard[0].groupedProducts[0].productVariantId,
+      isCardProduct: true
+    }]
+        
+    try {
+      setSending(true)
+      await axiosInstance.post(`seller/${profileId}/products/link`, payload)
+      navigate("/lk/shop")
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setSending(false)
+    }
   }
 
   if (!attributes) return null
@@ -91,10 +99,9 @@ const CombineWithCard = ({checkedProducts, setCheckedProducts}) => {
         товара.</p>
 
       <div className={s.tableWrapper}>
-        <CombineCardLeft productsInCard={mergeData.linkedProductsToCard[0].groupedProducts} attributes={attributes}/>
-
-        <CombineCardRight setCheckedProducts={setCheckedProducts} checkedProducts={checkedProducts}
-                          productsInCard={mergeData.linkedProductsToCard[0].groupedProducts}/>
+        <CombineCardLeft productsInCard={mergeData.linkedProductsToCard[0].groupedProducts} attributes={attributes}  />
+       
+        <CombineCardRight mergeStatus={mergeData.linkedProductsToCard[0].mergeStatus} />       
       </div>
 
       <div className={s.productsToCombineWrapper}>
