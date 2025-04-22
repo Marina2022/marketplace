@@ -9,7 +9,6 @@ const LkShopPage = () => {
   const dispatch = useDispatch()
 
   return (
-
     <div className={s.lkShopWrapper}>
       <div className={s.topTabs}>
         <div onClick={() => dispatch(setTopShopTab(1))}
@@ -28,22 +27,18 @@ const LkShopPage = () => {
       {
         topShopTab === 1 && <LkProducts/>
       }
-
       {
         topShopTab === 2 && <div>Услуги</div>
       }
-
       {
         topShopTab === 3 && <div>Аналитика</div>
       }
-
       {
         topShopTab === 4 && <div>Профиль магазина</div>
       }
     </div>
-
-  );
-};
+  )
+}
 
 export default LkShopPage;
 

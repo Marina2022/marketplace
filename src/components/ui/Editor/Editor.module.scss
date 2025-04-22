@@ -32,7 +32,7 @@
    list-style-type: decimal;
  }
     
-  height: 180px;
+  height: 152px;
   padding: 10px 20px;
   background: white;
     
@@ -88,7 +88,6 @@
   padding-bottom: 22px;    
   background-color: white;
   box-shadow: 0 4px 4px rgb(0 0 0/.25);
-  
   
   @include xs {
     overflow-x: hidden;

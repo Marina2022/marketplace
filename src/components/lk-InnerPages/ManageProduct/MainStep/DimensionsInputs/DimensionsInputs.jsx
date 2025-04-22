@@ -6,10 +6,8 @@ const DimensionsInputs = ({register, errors, trigger, getValues, setValue, setFo
   return (
     <div>
       <h3 className={s.title}>Вес и габариты</h3>
-
       <div className={s.dimensionsWrapper}>
         <div className={s.inputsWrapper}>
-
           <div className={s.inputWrapper}>
             <Input
               setFormWasEdited
@@ -55,13 +53,8 @@ const DimensionsInputs = ({register, errors, trigger, getValues, setValue, setFo
               errors.length && <p className={s.errorMessage}>{errors.length.message}</p>
             }
           </div>
-
-
         </div>
-
         <div className={s.inputsWrapper}>
-
-
           <div className={s.inputWrapper}>
             <Input
               setFormWasEdited
@@ -84,7 +77,6 @@ const DimensionsInputs = ({register, errors, trigger, getValues, setValue, setFo
               errors.width && <p className={s.errorMessage}>{errors.width.message}</p>
             }
           </div>
-
           <div className={s.inputWrapper}>
             <Input
               setFormWasEdited

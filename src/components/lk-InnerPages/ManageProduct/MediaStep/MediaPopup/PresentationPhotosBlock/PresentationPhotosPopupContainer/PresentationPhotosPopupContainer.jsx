@@ -24,7 +24,6 @@ const PresentationPhotosPopupContainer = ({productPhotos, images, index, emptyPh
     isEmpty = index >= editPresentationPhotos.length + images.length;
   }
 
-
   const handleClick = () => {
     // if первый пустой контейнер
     if (firstEmpty) {
@@ -33,10 +32,8 @@ const PresentationPhotosPopupContainer = ({productPhotos, images, index, emptyPh
   }
 
   let imgUrl = ''
-  
-  // при edit будем урлы картинок доставать по-другому
+    
   if (isNew) {
-
     if (index < productPhotos.length) {
       imgUrl = productPhotos[index]?.preview
     } else {
@@ -51,7 +48,6 @@ const PresentationPhotosPopupContainer = ({productPhotos, images, index, emptyPh
       imgUrl = images[index - editPresentationPhotos.length]?.preview
     }
   }
-
 
   return (
     <li className={`${s.productPhotoContainer} ${firstEmpty ? s.firstEmpty : ''}`} onClick={handleClick}>

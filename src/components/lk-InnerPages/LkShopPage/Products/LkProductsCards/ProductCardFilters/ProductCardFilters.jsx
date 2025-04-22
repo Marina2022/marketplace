@@ -1,5 +1,5 @@
 import s from './ProductCardFilters.module.scss';
-import {useState, useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import OneFilter
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ProductCardFilters/OneFilter/OneFilter.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
@@ -11,9 +11,7 @@ const ProductCardFilters = ({filters}) => {
   let initialFilterState = []
 
   filters.forEach(filterItem => {
-
     const filterValues = searchParams.get(filterItem.filterName)
-
     let valuesArray
     if (filterValues) {
       valuesArray = filterValues.split(',')
@@ -22,26 +20,25 @@ const ProductCardFilters = ({filters}) => {
   })
 
   const [selectedFilters, setSelectedFilters] = useState(initialFilterState)
-
-  const [showFilters, setShowFilters] = useState(false);
-  const popupRef = useRef(null);
-  const btnRef = useRef(null);
+  const [showFilters, setShowFilters] = useState(false)
+  const popupRef = useRef(null)
+  const btnRef = useRef(null)
 
   // Закрытие по ESC
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
-        setShowFilters(false);
+        setShowFilters(false)
       }
-    };
+    }
 
     if (showFilters) {
-      document.addEventListener('keydown', handleKeyDown);
+      document.addEventListener('keydown', handleKeyDown)
     }
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
+      document.removeEventListener('keydown', handleKeyDown)
+    }
   }, [showFilters]);
 
   // Закрытие по клику вне попапа
@@ -58,11 +55,11 @@ const ProductCardFilters = ({filters}) => {
     };
 
     if (showFilters) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside)
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside)
     };
   }, [showFilters]);
 
@@ -126,7 +123,6 @@ const ProductCardFilters = ({filters}) => {
       </button>
 
       {showFilters && (
-
         <div className={s.filtersPopup} ref={popupRef}>
           <div className={s.header}>
             <span>
@@ -140,7 +136,6 @@ const ProductCardFilters = ({filters}) => {
               </svg>
             </button>
           </div>
-
           <div className={s.scrollWrapper}>
             <ul>
               {
@@ -157,7 +152,7 @@ const ProductCardFilters = ({filters}) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ProductCardFilters;
+export default ProductCardFilters

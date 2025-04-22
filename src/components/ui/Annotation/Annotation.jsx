@@ -11,7 +11,6 @@ const Annotation = ({position = 'fromRight', children}) => {
   if (position === 'fromTop') svgClass+= ' ' +  s.triangleFromTop
   
   return (
-    // <div className={`${s.annotation} ${position === 'fromLeft' ? s.annotationFromLeft : ""}`}>
     <div className={annotationClass}>
       <svg className={svgClass}  width="17" height="30" viewBox="0 0 17 30" fill="none"
            xmlns="http://www.w3.org/2000/svg">

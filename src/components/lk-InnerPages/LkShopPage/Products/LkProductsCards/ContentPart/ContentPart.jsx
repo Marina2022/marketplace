@@ -106,6 +106,7 @@ const ContentPart = ({products, getProducts, productsLoading}) => {
           {
             products?.length === 0 && <NoProducts/>
           }
+          
           {
             currentProfile?.type !== 'company' && <NoProducts noCompany={true}/>
           }

@@ -5,7 +5,6 @@ import searchGlassIcon from "@/assets/img/cart/seachGlass.svg";
 import {useDebounce} from "@uidotdev/usehooks";
 import {useSearchParams} from "react-router-dom";
 
-
 const SearchProductCard = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -22,7 +21,6 @@ const SearchProductCard = () => {
       setSearchParams(params);
     }
   }, [debouncedSearchTerm]);
-
 
   const searchCancelHandler = () => {
     setSearchTerm('')

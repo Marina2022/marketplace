@@ -29,7 +29,7 @@ const CharacteristicsStep = ({
     const isValid = await trigger(fieldsToValidate);
 
     if (!isValid) {
-      // console.log('ошибки есть, дальше нельзя')
+      console.log('Ошибки есть, дальше нельзя')
     } else {
       setStep('media')
     }

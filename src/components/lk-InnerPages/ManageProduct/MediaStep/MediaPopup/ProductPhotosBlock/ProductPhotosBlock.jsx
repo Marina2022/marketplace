@@ -16,23 +16,20 @@ const ProductPhotosBlock = ({images, setImages, productPhotos, product}) => {
       Object.assign(file, {
         preview: URL.createObjectURL(file),
       })
-    );
+    )
 
-    const totalImages = images.length + newImages.length;
+    const totalImages = images.length + newImages.length
 
-    // Ограничиваем общее количество изображений до 15
-    
+    // Ограничиваем общее количество изображений до 15    
     const lengthToCount = isNew ? productPhotos.length : editProductPhotos.length
-    
-    // if (totalImages > 15 - productPhotos.length) {
-    if (totalImages > 15 - lengthToCount) {
-      // const allowedNewImages = newImages.slice(0, 15 - productPhotos.length - images.length);
-      const allowedNewImages = newImages.slice(0, 15 - lengthToCount - images.length);
-      setImages([...images, ...allowedNewImages]);
+        
+    if (totalImages > 15 - lengthToCount) {      
+      const allowedNewImages = newImages.slice(0, 15 - lengthToCount - images.length)
+      setImages([...images, ...allowedNewImages])
     } else {
-      setImages([...images, ...newImages]);
+      setImages([...images, ...newImages])
     }
-  };
+  }
 
   const {getRootProps, getInputProps} = useDropzone({
     onDrop,
@@ -42,7 +39,7 @@ const ProductPhotosBlock = ({images, setImages, productPhotos, product}) => {
       'image/webp': ['.webp']
     },
     multiple: true,
-  });
+  })
   const emptyPhotoClickHandler = () => {
     getInputProps().ref.current.click()
   }
@@ -50,7 +47,6 @@ const ProductPhotosBlock = ({images, setImages, productPhotos, product}) => {
   return (
     <div className={s.productPhotosBlock}>
       <h2 className={`${s.title} mobile-hidden`}>Загрузка фото</h2>
-
       <div>
         <label
           className={s.filesInput}
@@ -68,7 +64,6 @@ const ProductPhotosBlock = ({images, setImages, productPhotos, product}) => {
         />
       </div>
       <h2 className={s.title}>Добавленные фото</h2>
-
       <ProductPhotosInPopup
         productPhotos={productPhotos}
         images={images}

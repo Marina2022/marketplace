@@ -21,8 +21,11 @@
   height: 44px;
   border: #F0F1F1 1px solid;
   background: white;
-  padding: 12px 20px;
+  padding: 12px 24px 12px 20px;
   user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .requiredStar {
@@ -73,6 +76,7 @@
 
   @include m {
     top: 55%;
+    right: 8px;
   }
 }
 

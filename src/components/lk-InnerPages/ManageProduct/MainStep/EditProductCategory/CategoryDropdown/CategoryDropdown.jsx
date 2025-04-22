@@ -7,12 +7,11 @@ import SearchCats
   from "@/components/lk-InnerPages/ManageProduct/MainStep/EditProductCategory/CategoryDropdown/SearchCats/SearchCats.jsx";
 import {findProductCategoryName} from "@/utils/lkShop.js";
 
-
 const CategoryDropdown = ({cats, setValue, getValues, setEditing, clearErrors, searchCats, setSearchCats, setSelectedCatName, setFormWasEdited}) => {
 
   const [selectedCatId, setSelectedCatId] = useState(getValues("productCategoryId"))
-
-  const submitCategory = () => {
+  const submitCategory = (e) => {
+    e.stopPropagation()
     if (!selectedCatId) return
     setValue('productCategoryId', selectedCatId)
     setFormWasEdited(true)
@@ -20,9 +19,7 @@ const CategoryDropdown = ({cats, setValue, getValues, setEditing, clearErrors, s
     clearErrors("productCategoryId");
     setSelectedCatName(findProductCategoryName(cats, selectedCatId))
   }
-  
-  //if (catsLoading && searchCats==='') return null
-
+    
   return (
     <div className={s.catsDropdown}>      
       <SearchCats

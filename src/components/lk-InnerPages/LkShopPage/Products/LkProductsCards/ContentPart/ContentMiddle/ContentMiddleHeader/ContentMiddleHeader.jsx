@@ -36,8 +36,6 @@ const ContentMiddleHeader = () => {
       setSearchParams(newParams);
     }
   }
-
-
   const handleCreationDateClick = () => {
     const sortColumn = searchParams.get('sortColumn')
     const sortOrder = searchParams.get('sortOrder')
@@ -53,7 +51,6 @@ const ContentMiddleHeader = () => {
       setSearchParams(newParams);
     }
   }
-
   const handleUpdateDateClick = () => {
     const sortColumn = searchParams.get('sortColumn')
     const sortOrder = searchParams.get('sortOrder')
@@ -71,7 +68,6 @@ const ContentMiddleHeader = () => {
     }
   }
 
-
   return (
     <div className={s.middleHeader}>
       <div className={s.nameHeaderCell} onClick={handleNameClick}>
@@ -87,9 +83,7 @@ const ContentMiddleHeader = () => {
           />
         </svg>
       </div>
-
       <div className={s.barcodeHeaderCell}>Штрихкод</div>
-
       <div className={s.brandHeaderCell} onClick={handleBrandClick}>
         <span>Бренд</span>
         <svg
@@ -103,12 +97,10 @@ const ContentMiddleHeader = () => {
           />
         </svg>
       </div>
-
       <div className={s.priceHeaderCell}>Цена товара</div>
       <div className={s.ratingHeaderCell}>Рейтинг</div>
       <div className={s.reviewsHeaderCell}>Отзывы</div>
       <div className={s.inStockHeaderCell}>На складе</div>
-
       <div className={s.creationDateHeaderCell} onClick={handleCreationDateClick}>
         <span>Дата создания</span>
         <svg
@@ -122,7 +114,6 @@ const ContentMiddleHeader = () => {
           />
         </svg>
       </div>
-
       <div className={s.updateDateHeaderCell} onClick={handleUpdateDateClick}>
         <span>Дата обновления</span>
         <svg
@@ -136,9 +127,8 @@ const ContentMiddleHeader = () => {
           />
         </svg>
       </div>
-
     </div>
   )
-};
+}
 
-export default ContentMiddleHeader;
+export default ContentMiddleHeader

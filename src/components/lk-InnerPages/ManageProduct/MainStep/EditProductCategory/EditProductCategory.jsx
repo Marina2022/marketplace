@@ -30,7 +30,6 @@ const EditProductCategory = forwardRef(({
       return !prev
     })
   }
-
   const handleBlur = (e) => {
 
     if (e.relatedTarget && e.currentTarget.contains(e.relatedTarget)) {
@@ -67,7 +66,8 @@ const EditProductCategory = forwardRef(({
         cats={cats}
         setValue={setValue}
         getValues={getValues}
-        setEditing={setEditing} clearErrors={clearErrors}
+        setEditing={setEditing} 
+        clearErrors={clearErrors}
         setSelectedCatName={setSelectedCatName}
         setFormWasEdited={setFormWasEdited}
       />}
@@ -84,6 +84,7 @@ const EditProductCategory = forwardRef(({
           setEditing={setEditing}
           clearErrors={clearErrors}
           setSelectedCatName={setSelectedCatName}
+          setFormWasEdited={setFormWasEdited}
         />
       </CategoriesModalOnMobile>
       }

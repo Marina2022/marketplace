@@ -1,4 +1,3 @@
-import s from './LinkedProductsLeft.module.scss';
 import LinkedProductLeft
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/ContentLeft/ContentLeftRow/LinkedProductsLeft/LinkedProductLeft/LinkedProductLeft.jsx";
 
@@ -17,7 +16,7 @@ const LinkedProductsLeft = ({linkedProducts, handleMouseOut, handleMouseIn, hove
         />)
       }
     </ul>
-  );
-};
+  )
+}
 
-export default LinkedProductsLeft;
+export default LinkedProductsLeft

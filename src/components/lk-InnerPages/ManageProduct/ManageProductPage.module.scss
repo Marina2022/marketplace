@@ -15,7 +15,7 @@
   display: flex;
   gap: 8px;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
   color: #658092;
   font-size: 14px;
   font-weight: 500;
@@ -91,11 +91,11 @@
 }
 
 .stepsContainer {
-  margin-top: -60px;
+  margin-top: -54px;
   width: 780px;
   
   @include t {    
-    margin-top: 0;
+    margin-top: -16px;
     width: 100%;
   }
 }
@@ -105,4 +105,10 @@
   margin-bottom: 40px;
   background: darkgreen;
   white-space: nowrap;
+}
+
+.stepsContainerMore {
+  @include m {
+    margin-top: 40px;
+  }
 }

@@ -15,7 +15,7 @@ const MobileProductCards = ({products, collapsedProducts, getProducts, setCollap
         />)
       }
     </div>
-  );
-};
+  )
+}
 
-export default MobileProductCards;
+export default MobileProductCards

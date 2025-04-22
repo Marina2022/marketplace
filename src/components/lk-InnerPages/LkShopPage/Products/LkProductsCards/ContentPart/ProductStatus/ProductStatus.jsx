@@ -7,7 +7,6 @@ const ProductStatus = ({product, mobile}) => {
   const [showAnnotation, setShowAnnotation] = useState(false)
 
   let annotationText = ''
-
   if (product.productStatus === 'Продается') annotationText = 'Товар успешно размещен в продаже и доступен для покупателей. Он отображается в каталоге и может быть куплен.'
   if (product.productStatus === 'Снят с продажи') annotationText = 'Товар больше не продается, и его нет в активных предложениях. Это может быть связано с окончанием продаж, деактивацией продавцом или нарушением правил площадки.'
   if (product.productStatus === 'На модерации') annotationText = 'Товар проходит проверку перед публикацией. Это может занять некоторое время.'

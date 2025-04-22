@@ -22,7 +22,7 @@ const PresentationPhotosInPopup = ({productPhotos, images, emptyPhotoClickHandle
         }
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default PresentationPhotosInPopup;
+export default PresentationPhotosInPopup

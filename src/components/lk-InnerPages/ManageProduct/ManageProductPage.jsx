@@ -50,7 +50,7 @@ const ManageProductPage = () => {
     handleSubmit,
     watch,
     clearErrors,
-    formState: {errors, isDirty}
+    formState: {errors}
   } = useForm({
     defaultValues: {
       fields: [
@@ -67,7 +67,7 @@ const ManageProductPage = () => {
         {value: 'length'}
       ]
     }
-  });
+  })
 
 
   const {fields, append} = useFieldArray({
@@ -108,7 +108,6 @@ const ManageProductPage = () => {
       })) {
         append({value: attributeField.name})
       } else {
-
         //если поле найдено, сбросить значение
         setValue(attributeField.name, null)
       }
@@ -144,15 +143,11 @@ const ManageProductPage = () => {
   }, [profilesData, profileId]);
 
   // подгрузка данных для редактирования товара
-
   const [product, setProduct] = useState(null)
   const [productLoading, setProductLoading] = useState(isNew ? true : false)
 
-  useEffect(() => {
-    // if (!isNew) return
-
+  useEffect(() => {    
     // грузим категории  (будут зависеть от searchCats)
-
     const getCats = async () => {
       try {
         setCatsLoading(true)
@@ -171,22 +166,17 @@ const ManageProductPage = () => {
   }, [productIdParam, profileId, searchCats]);
 
 
-  useEffect(() => {
-    // if (!isNew) return
+  useEffect(() => {    
     if (!profileId) return
 
     // грузим атрибуты
     const getAttributes = async () => {
-
       try {
         if (!cats) setLoading(true)
-
         let categoryURL = `/seller/${profileId}/attributes`
         if (categoryValue) categoryURL += `?categoryId=${categoryValue}`
         const response = await axiosInstance(categoryURL)
-
         setAttributes(response.data)
-
       } catch (err) {
         console.log(err)
       } finally {
@@ -229,8 +219,7 @@ const ManageProductPage = () => {
     if (!cats) return
 
 
-    if (!formWasEdited) {
-      // чтобы поля в форме не вернулись в initial при переподгрузке продукта после загрузки доков и картинок
+    if (!formWasEdited) {     
 
       setValue('productName', product.productName)
       setValue('productCategoryId', product.productCategoryId)
@@ -250,8 +239,7 @@ const ManageProductPage = () => {
       setSelectedCatName(result)
     }
 
-    if (!formWasEdited) {
-      // чтобы поля в форме не вернулись в initial при переподгрузке продукта после загрузки доков и картинок
+    if (!formWasEdited) {      
 
       if (attributes) {
         attributes.standartFields.forEach((field) => {
@@ -277,7 +265,6 @@ const ManageProductPage = () => {
 
   // При нажатии "Назад к списку товаров" и кнопки Cancel
   const handleCancel = () => {
-
     // проверяем, вносились ли изменения в форму
     let formEdited = false
     const newArr = fields.map(field => {
@@ -285,7 +272,6 @@ const ManageProductPage = () => {
     })
 
     formEdited = newArr.some(item => item !== undefined)
-
     // если хоть одно поле заполнено, либо загружено фото либо документ:    
 
     if (isNew) {
@@ -352,8 +338,7 @@ const ManageProductPage = () => {
       }
 
       if (!isNew) {
-        response = await axiosInstance.post(`seller/${profileId}/products/${product.productVariantId}/update`, payloadFields)
-        console.log(response.data)
+        response = await axiosInstance.post(`seller/${profileId}/products/${product.productVariantId}/update`, payloadFields)        
       }
 
       if (isNew) {
@@ -398,7 +383,6 @@ const ManageProductPage = () => {
         } catch (err) {
           console.log(err)
         }
-
 
         // отправка документов:
 
@@ -468,7 +452,7 @@ const ManageProductPage = () => {
         </nav>
       </div>
 
-      <div className={s.stepsContainer}>
+      <div className={`${s.stepsContainer}  ${ navItems.length > 2 ? s.stepsContainerMore : ''}`}  >
         <form onSubmit={handleSubmit(onSubmit)}>
           {
             step === 'main' &&
@@ -527,6 +511,7 @@ const ManageProductPage = () => {
               product={product}
               setProduct={setProduct}
               trigger={trigger}
+              navItems={navItems}
             />
           }
 
@@ -538,7 +523,6 @@ const ManageProductPage = () => {
               cats={cats}
               onSubmit={onSubmit}
               sending={sending}
-
             />
           }
         </form>

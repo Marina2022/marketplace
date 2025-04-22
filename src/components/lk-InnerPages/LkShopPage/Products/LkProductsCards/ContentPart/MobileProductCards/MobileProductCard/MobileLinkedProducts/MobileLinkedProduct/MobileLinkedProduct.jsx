@@ -20,11 +20,7 @@ const MobileLinkedProduct = ({product, getProducts}) => {
           <ContextMenu product={product} getProducts={getProducts} linked={true} />
         </div>
       </div>
-      <div className={s.centralBlock}>     
-        {/*<div className={s.row}>*/}
-        {/*  <div className={s.label}>Бренд:</div>*/}
-        {/*  <div className={s.value}>{product.brand}</div>*/}
-        {/*</div>*/}
+      <div className={s.centralBlock}>
         <div className={s.row}>
           <div className={s.label}>Количество:</div>
           <div className={s.value}>{product.inventoryLevel}</div>

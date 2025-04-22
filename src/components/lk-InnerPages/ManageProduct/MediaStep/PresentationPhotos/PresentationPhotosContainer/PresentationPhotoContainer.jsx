@@ -19,32 +19,31 @@ const PresentationPhotoContainer = ({index, productPhotos, setPopupOpen, setProd
   let firstEmpty
 
   if (isNew) {
-    firstEmpty = index === productPhotos.length;
+    firstEmpty = index === productPhotos.length
   } else {
-    firstEmpty = index === editPresentationPhotos.length;
+    firstEmpty = index === editPresentationPhotos.length
   }
 
   let isEmpty
 
   if (isNew) {
-    isEmpty = index >= productPhotos.length;
+    isEmpty = index >= productPhotos.length
   } else {
-    isEmpty = index >= editPresentationPhotos.length;
+    isEmpty = index >= editPresentationPhotos.length
   }
   
   const handleClick = () => {
     if (firstEmpty) {
-      setPopupOpen('presentationPhotos');
+      setPopupOpen('presentationPhotos')
     }
   };
 
-  const [deleting, setDeleting] = useState(false)
-  const [moving, setMoving] = useState(false)
+  const [deleting, setDeleting] = useState(false)  
   const handleDelete = async() => {
 
     if (isNew) {
-      const newPhotosArray = productPhotos.filter((photo, i) => i !== index);
-      setProductPhotos(newPhotosArray);  
+      const newPhotosArray = productPhotos.filter((photo, i) => i !== index)
+      setProductPhotos(newPhotosArray) 
     } else {
 
       try {
@@ -60,54 +59,41 @@ const PresentationPhotoContainer = ({index, productPhotos, setPopupOpen, setProd
         setDeleting(false)
       }
     }
+  }
 
-  };
-
-  const handleDragStart = (e, index) => {
-    // Сохраняем индекс перетаскиваемого элемента в dataTransfer
-    e.dataTransfer.setData('index', index);
-  };
+  const handleDragStart = (e, index) => {    
+    e.dataTransfer.setData('index', index)
+  }
 
   const handleDragOver = (event) => {
-    event.preventDefault(); // Нужно, чтобы работало drop
-  };
+    event.preventDefault() // Нужно, чтобы работало drop
+  }
 
   const handleDrop = async (event, index) => {
-    // Получаем индекс перетаскиваемого элемента
-    const draggedIndex = event.dataTransfer.getData('index');
-
-
-    if (draggedIndex === null || draggedIndex === index) return; // Если перетаскиваем на тот же элемент, ничего не делаем
+    
+    const draggedIndex = event.dataTransfer.getData('index')
+    if (draggedIndex === null || draggedIndex === index) return // Если перетаскиваем на тот же элемент, ничего не делаем
 
     if (isNew) {
-      const updatedImages = [...productPhotos];
-      const [movedItem] = updatedImages.splice(draggedIndex, 1);
-      updatedImages.splice(index, 0, movedItem);
-      setProductPhotos(updatedImages);
+      const updatedImages = [...productPhotos]
+      const [movedItem] = updatedImages.splice(draggedIndex, 1)
+      updatedImages.splice(index, 0, movedItem)
+      setProductPhotos(updatedImages)
     } else {
       // edit
 
-      try {
-        setMoving(true)
-
+      try {        
         await axiosInstance.post(`seller/${profileId}/products/${product.productVariantId}/update-overview-imgs`, {
           "imageId":  editPresentationPhotos[draggedIndex].imageId,
           "newOrder": index
         })
-
         const resp = await axiosInstance(`seller/${profileId}/products/${product.productVariantId}/update-details`)
         setProduct(resp.data)
-
       } catch (err) {
         console.log(err)
-
-      } finally {
-        setMoving(false)
-      }
+      } 
     }
-    
-    
-  };
+  }
 
   return (
     <li
@@ -169,7 +155,7 @@ const PresentationPhotoContainer = ({index, productPhotos, setPopupOpen, setProd
 
       {isEmpty && index === 0 && <img src={cameraIcon} alt="icon"/>}
     </li>
-  );
-};
+  )
+}
 
-export default PresentationPhotoContainer;
+export default PresentationPhotoContainer

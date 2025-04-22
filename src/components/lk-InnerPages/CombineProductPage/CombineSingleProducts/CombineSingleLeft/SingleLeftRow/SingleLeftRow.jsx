@@ -9,19 +9,14 @@ import TypeOption
 const SingleLeftRow = ({productToMerge, attributes, getData}) => {
   return (
     <div className={s.singleLeftRow}>
-
       <div className={s.photo}><img className={s.photoImg} src={productToMerge.productImagePath} alt="photo"/></div>
-
       <div className={s.nameWrapper}>
         <div className={s.name}>{productToMerge.productName}</div>
         <div className={s.article}>Артикул: {productToMerge.article}</div>
         <div className={s.cat}>{productToMerge.categoryOption.categoryName}</div>
-      </div>
-            
-      <BrandOption productToMerge={productToMerge} attributes={attributes} getData={getData} />
-      
+      </div>            
+      <BrandOption productToMerge={productToMerge} attributes={attributes} getData={getData} />      
       <TypeOption productToMerge={productToMerge} attributes={attributes} getData={getData} />
-
       {
         productToMerge.variantCharacteristicsOptions.length > 0 && attributes.attributes.map(attribute => <VariantOption          
           key={attribute.optionId}
@@ -31,10 +26,8 @@ const SingleLeftRow = ({productToMerge, attributes, getData}) => {
           getData={getData}            
         />)
       }
-
     </div>
-
-  );
-};
+  )
+}
 
 export default SingleLeftRow;

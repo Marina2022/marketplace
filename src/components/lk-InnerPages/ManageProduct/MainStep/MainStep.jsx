@@ -13,7 +13,7 @@ import DocsFileInputs from "@/components/lk-InnerPages/ManageProduct/MainStep/Do
 
 
 const MainStep = ({
-                    register,                    
+                    register,
                     errors,
                     getValues,
                     cats,
@@ -27,23 +27,19 @@ const MainStep = ({
                     selectedCatName,
                     attributes,
                     watch,
-
                     instructionFile, setInstructionFile,
                     documentationFile, setDocumentationFile,
                     certificateFile, setCertificateFile,
-
                     handleCancel,
                     setStep,
-
                     product,
                     setProduct,
                     setFormWasEdited
-
                   }) => {
 
 
   const goToNextStep = async () => {
-    
+
     let fieldsToValidate = ["productName", "productCategoryId", "article", "model",
       "price", "regularPrice", "weight", "height", "width", "length"]
 
@@ -55,16 +51,13 @@ const MainStep = ({
         fieldsToValidate.push(field.name)
       }
     )
-        
     const isValid = await trigger(fieldsToValidate);
-
     if (!isValid) {
-      console.log('ошибки есть, дальше нельзя')
+      console.log('Ошибки есть, дальше нельзя')
     } else {
       setStep('characteristics')
     }
   }
-
 
   return (
     <div className={s.wrapper}>
@@ -169,7 +162,6 @@ const MainStep = ({
               {
                 commonField.type === 'select' && <div>
                   <EditProductPageSelect
-
                     {...register(commonField.name,
                       commonField.isRequired && {
                         required: notEmptyMessage,
@@ -189,13 +181,13 @@ const MainStep = ({
               }
 
               {
-                commonField.type === 'input' && <div >
+                commonField.type === 'input' && <div>
                   <Input
                     setFormWasEdited={setFormWasEdited}
                     isError={errors[commonField.name]}
                     trigger={trigger}
                     getValues={getValues}
-                    required={commonField.isRequired}                    
+                    required={commonField.isRequired}
                     setValue={setValue}
                     placeholder={commonField.label}
                     {...register(commonField.name,
@@ -221,9 +213,8 @@ const MainStep = ({
             (
               <div key={standardField.name}>
                 <EditProductPageSelect
-
                   {...register(standardField.name,
-                    standardField.isRequired && {  
+                    standardField.isRequired && {
                       required: notEmptyMessage,
                     })}
                   data={standardField}
@@ -243,17 +234,29 @@ const MainStep = ({
         })
       }
 
-      <ProductDescription        
+      <ProductDescription
         name='productDescription'
         setValue={setValue}
-        getValues={getValues}        
+        getValues={getValues}
+        setFormWasEdited={setFormWasEdited}
+      />
+      <PriceInputs
+        register={register}
+        errors={errors}
+        trigger={trigger}
+        getValues={getValues}
+        setValue={setValue}
         setFormWasEdited={setFormWasEdited}
       />
 
-      <PriceInputs register={register} errors={errors} trigger={trigger} getValues={getValues} setValue={setValue} setFormWasEdited={setFormWasEdited}/>
-
-      <DimensionsInputs register={register} errors={errors} trigger={trigger} getValues={getValues} setFormWasEdited={setFormWasEdited}
-                        setValue={setValue}/>
+      <DimensionsInputs
+        register={register}
+        errors={errors}
+        trigger={trigger}
+        getValues={getValues}
+        setFormWasEdited={setFormWasEdited}
+        setValue={setValue}
+      />
 
       <DocsFileInputs
         instructionFile={instructionFile}
@@ -270,7 +273,6 @@ const MainStep = ({
         <Button className={s.backButton} type="button" onClick={handleCancel}>Отменить</Button>
         <Button className={s.continueBtn} type="button" onClick={goToNextStep}>Далее</Button>
       </div>
-
     </div>
   );
 };

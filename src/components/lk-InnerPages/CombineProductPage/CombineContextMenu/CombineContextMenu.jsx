@@ -42,9 +42,7 @@ const CombineContextMenu = ({
     let options = []
 
     productToMerge.variantCharacteristicsOptions.forEach(characteristic => {
-
       // currentAttribute - объект опции, для которой открывается меню (цвет, например)
-
       let optionValueId = characteristic.optionValueId
       if (currentAttribute && currentAttribute.optionId === characteristic.optionId) optionValueId = selectedValue
 
@@ -87,7 +85,6 @@ const CombineContextMenu = ({
 
   if (!position) return null
 
-
   return (
     <div className={s.combineContextMenu} style={{top: position?.top - 20, left: position?.left + 26}}>
       <div ref={innerContainerRef}
@@ -104,9 +101,7 @@ const CombineContextMenu = ({
               if (forType === 'type') valueItemName = valueItem.typeName
               if (forType === 'brand') valueItemName = valueItem.brandName
 
-
               return (
-
                 <li
                   key={i}
                   className={`${s.valueItem} ${heightIsSmall ? s.valueItem100 : ''}`}
@@ -118,7 +113,6 @@ const CombineContextMenu = ({
                          xmlns="http://www.w3.org/2000/svg">
                       <path d="M1 3.5L5 7.5L11 0.5" stroke="#E32636" strokeWidth="1.5"/>
                     </svg>
-
                   }
                 </li>
               )

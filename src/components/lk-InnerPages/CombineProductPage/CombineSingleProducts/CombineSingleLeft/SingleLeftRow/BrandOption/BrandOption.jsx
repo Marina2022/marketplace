@@ -4,42 +4,27 @@ import CombineContextMenu
   from "@/components/lk-InnerPages/CombineProductPage/CombineContextMenu/CombineContextMenu.jsx";
 
 const BrandOption = ({productToMerge, attributes, getData}) => {
-  const buttonRef = useRef();
-  const menuRef = useRef();
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [menuPosition, setMenuPosition] = useState(null);
-
-  // const openMenu = () => {
-  //   if (buttonRef.current) {
-  //     const rect = buttonRef.current.getBoundingClientRect();
-  //     setMenuPosition({
-  //       top: rect.bottom,
-  //       left: rect.left
-  //     });
-  //     setMenuOpen(true);
-  //   }
-  // };
+  const buttonRef = useRef()
+  const menuRef = useRef()
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [menuPosition, setMenuPosition] = useState(null)
 
   const openMenu = () => {
     if (buttonRef.current) {
-      const rect = buttonRef.current.getBoundingClientRect();
-
-      const menuHeight = attributes.brands.length >= 5 ? 190 : attributes.brands.length * 38;
-           
-      const bottomSpace = window.innerHeight - rect.bottom;
+      const rect = buttonRef.current.getBoundingClientRect()
+      const menuHeight = attributes.brands.length >= 5 ? 190 : attributes.brands.length * 38
+      const bottomSpace = window.innerHeight - rect.bottom
       let top = rect.bottom;
-
       if (bottomSpace < menuHeight) {
-        top = Math.max(rect.top - menuHeight, 0) + 50; // вверх, но не выше окна
+        top = Math.max(rect.top - menuHeight, 0) + 50
       }
       setMenuPosition({
         top,
         left: rect.left
-      });
-
-      setMenuOpen(true);
+      })
+      setMenuOpen(true)
     }
-  };
+  }
 
   const handleClickOutside = (event) => {
     if (
@@ -50,16 +35,14 @@ const BrandOption = ({productToMerge, attributes, getData}) => {
     ) {
       setMenuOpen(false);
     }
-  };
+  }
 
   const handleKeyDown = (event) => {
     if (event.key === "Escape") {
-      setMenuOpen(false);
+      setMenuOpen(false)
     }
-  };
-
+  }
   const handleScroll = (event) => {
-    // если скролл произошёл ВНЕ меню, закрываем
     if (
       menuRef.current &&
       !menuRef.current.contains(document.activeElement) &&
@@ -71,19 +54,19 @@ const BrandOption = ({productToMerge, attributes, getData}) => {
 
   useEffect(() => {
     if (menuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-      document.addEventListener("keydown", handleKeyDown);
-      window.addEventListener("scroll", handleScroll, true);
+      document.addEventListener("mousedown", handleClickOutside)
+      document.addEventListener("keydown", handleKeyDown)
+      window.addEventListener("scroll", handleScroll, true)
     } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("scroll", handleScroll, true);
+      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("keydown", handleKeyDown)
+      window.removeEventListener("scroll", handleScroll, true)
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("scroll", handleScroll, true);
+      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("keydown", handleKeyDown)
+      window.removeEventListener("scroll", handleScroll, true)
     };
   }, [menuOpen]);
 

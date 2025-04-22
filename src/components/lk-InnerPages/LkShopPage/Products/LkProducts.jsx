@@ -7,7 +7,6 @@ const LkProducts = () => {
 
   const secondFromTopTab = useSelector(getSecondFromTopTab)
   const dispatch = useDispatch()
-
    
   return (
     <>
@@ -27,7 +26,6 @@ const LkProducts = () => {
           Доставка
         </div>
       </div>
-
       {
         secondFromTopTab === 1 && <LkProductsCards/>
       }
@@ -40,7 +38,6 @@ const LkProducts = () => {
         secondFromTopTab === 3 && <div>Доставка</div>
       }
     </>
-
   )
 }
 

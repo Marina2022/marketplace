@@ -2,7 +2,6 @@ import s from './StepsNav.module.scss';
 
 const StepsNav = ({navItems, setStep, step, trigger, productPhotos, product}) => {
   const onSelectStep = async (name) => {
-
     if (name === 'preview') {
       const isValid = await trigger();
 
@@ -30,7 +29,7 @@ const StepsNav = ({navItems, setStep, step, trigger, productPhotos, product}) =>
         })
       }
     </ul>
-  );
-};
+  )
+}
 
-export default StepsNav;
+export default StepsNav

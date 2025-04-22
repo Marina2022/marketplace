@@ -18,7 +18,6 @@ const SingleMergeStatus = ({mergeStatus}) => {
           isGood ? 'Готов к объединению' : 'Невозможно объединить'
         }
       </div>
-
       {
         showAnnotation && <Annotation position="fromLeft">
           {
@@ -27,7 +26,6 @@ const SingleMergeStatus = ({mergeStatus}) => {
               товаров, содержащая все связанные позиции. После прохождения модерации товар станет доступен для дальнейших
               действий.</div>
           }
-
           {
             !isGood &&
             <div className={s.annot}>Товар не может быть объединен с другими вариантами. Чтобы объединение стало

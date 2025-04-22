@@ -1,52 +1,34 @@
-import s from './VariantOption.module.scss';
-import CombineContextMenu from "@/components/lk-InnerPages/CombineProductPage/CombineContextMenu/CombineContextMenu.jsx";
-import {useEffect, useRef, useState} from "react";
+import s from './VariantOption.module.scss'
+import CombineContextMenu from "@/components/lk-InnerPages/CombineProductPage/CombineContextMenu/CombineContextMenu.jsx"
+import {useEffect, useRef, useState} from "react"
 
-const VariantOption = ({ productToMerge, attribute, attributes, getData }) => {
-  
+const VariantOption = ({productToMerge, attribute, attributes, getData}) => {
+
   const productCharacteristicsValue = productToMerge.variantCharacteristicsOptions.find(
     item => item.optionId === attribute.optionId
-  );
+  )
 
-  const buttonRef = useRef();
+  const buttonRef = useRef()
   const menuRef = useRef();
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [menuPosition, setMenuPosition] = useState(null);
-
-  // const openMenu = () => {
-  //   if (buttonRef.current) {
-  //     const rect = buttonRef.current.getBoundingClientRect();
-  //     setMenuPosition({
-  //       top: rect.bottom,
-  //       left: rect.left
-  //     });
-  //     setMenuOpen(true);
-  //   }
-  // };
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [menuPosition, setMenuPosition] = useState(null)
 
   const openMenu = () => {
-
-    console.log('productCharacteristicsValue', productCharacteristicsValue)
-    
     if (buttonRef.current) {
-      const rect = buttonRef.current.getBoundingClientRect();
-
-      const menuHeight = attribute.values.length >= 5 ? 190 : attribute.values.length * 38;
-
-      const bottomSpace = window.innerHeight - rect.bottom;
-      let top = rect.bottom;
-
+      const rect = buttonRef.current.getBoundingClientRect()
+      const menuHeight = attribute.values.length >= 5 ? 190 : attribute.values.length * 38
+      const bottomSpace = window.innerHeight - rect.bottom
+      let top = rect.bottom
       if (bottomSpace < menuHeight) {
-        top = Math.max(rect.top - menuHeight, 0) + 50; // вверх, но не выше окна
+        top = Math.max(rect.top - menuHeight, 0) + 50
       }
       setMenuPosition({
         top,
         left: rect.left
-      });
-
-      setMenuOpen(true);
+      })
+      setMenuOpen(true)
     }
-  };
+  }
 
   const handleClickOutside = (event) => {
     if (
@@ -55,7 +37,7 @@ const VariantOption = ({ productToMerge, attribute, attributes, getData }) => {
       buttonRef.current &&
       !buttonRef.current.contains(event.target)
     ) {
-      setMenuOpen(false);
+      setMenuOpen(false)
     }
   };
 
@@ -64,9 +46,7 @@ const VariantOption = ({ productToMerge, attribute, attributes, getData }) => {
       setMenuOpen(false)
     }
   }
-
   const handleScroll = (event) => {
-    // если скролл произошёл ВНЕ меню, закрываем
     if (
       menuRef.current &&
       !menuRef.current.contains(document.activeElement) &&
@@ -74,32 +54,31 @@ const VariantOption = ({ productToMerge, attribute, attributes, getData }) => {
     ) {
       setMenuOpen(false)
     }
-  };
-  
+  }
 
   useEffect(() => {
     if (menuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-      document.addEventListener("keydown", handleKeyDown);
-      window.addEventListener("scroll", handleScroll, true);
+      document.addEventListener("mousedown", handleClickOutside)
+      document.addEventListener("keydown", handleKeyDown)
+      window.addEventListener("scroll", handleScroll, true)
     } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("scroll", handleScroll, true);
+      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("keydown", handleKeyDown)
+      window.removeEventListener("scroll", handleScroll, true)
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("scroll", handleScroll, true);
+      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("keydown", handleKeyDown)
+      window.removeEventListener("scroll", handleScroll, true)
     };
-  }, [menuOpen]);
+  }, [menuOpen])
 
   return (
     <div className={s.attribute} onClick={openMenu}>
-      <div className={`${s.value} ${menuOpen ? s.valueMenuOpen : ''} `}  >
+      <div className={`${s.value} ${menuOpen ? s.valueMenuOpen : ''} `}>
         <span>{productCharacteristicsValue.optionValue}</span>
-        <svg          
+        <svg
           className={`${s.menuBtn} ${menuOpen ? s.menuBtnMenuOpen : ''}`}
           ref={buttonRef}
           width="14"
@@ -117,10 +96,10 @@ const VariantOption = ({ productToMerge, attribute, attributes, getData }) => {
 
       {menuOpen && (
         <div ref={menuRef}>
-          <CombineContextMenu 
-            position={menuPosition} 
+          <CombineContextMenu
+            position={menuPosition}
             values={attribute.values}
-            currentValueLabel={productCharacteristicsValue.optionValue} 
+            currentValueLabel={productCharacteristicsValue.optionValue}
             productToMerge={productToMerge}
             setMenuOpen={setMenuOpen}
             attributes={attributes}
@@ -130,7 +109,7 @@ const VariantOption = ({ productToMerge, attribute, attributes, getData }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
 export default VariantOption;

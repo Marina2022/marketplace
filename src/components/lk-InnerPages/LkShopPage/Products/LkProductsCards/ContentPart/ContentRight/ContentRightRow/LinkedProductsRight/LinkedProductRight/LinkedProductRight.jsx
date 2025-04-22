@@ -14,16 +14,12 @@ const LinkedProductRight = ({product, handleMouseOut, handleMouseIn, hoveredProd
       onMouseOver={() => handleMouseIn(product.productVariantId)}
       onMouseOut={() => handleMouseOut(product.productVariantId)}
     >
-
       <div className={s.rightRowContent}>
         <ProductStatus product={product}/>
         <ContextMenu product={product} linked={true} getProducts={getProducts} />
       </div>
-
-
     </div>
   )
-    ;
-};
+}
 
 export default LinkedProductRight;

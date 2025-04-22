@@ -6,12 +6,11 @@ import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 const PreviewStep = ({setStep, attributes, getValues, cats, sending}) => {
 
   const categoryString = findCategoryPath(getValues('productCategoryId'), cats)
-  
 
   //показывать ли заголовок для характеристик:  
   const arrOfValues = attributes.categorySpecificFields.characteristics.map(characteristic => getValues('char_' + characteristic.name))
   const someValuesAreFilledOut = arrOfValues.some(value => value !== undefined);
-  
+
   return (
     <div className={s.preview}>
       <h2 className={s.title}>{getValues('productName')}</h2>
@@ -50,7 +49,7 @@ const PreviewStep = ({setStep, attributes, getValues, cats, sending}) => {
           <div className={s.value}>{getValues('weight')}</div>
         </div>
 
-             {
+        {
           getValues('guaranteePeriod') && (
             <div className={s.row}>
               <div className={s.label}>Гарантийный срок, г</div>
@@ -70,14 +69,11 @@ const PreviewStep = ({setStep, attributes, getValues, cats, sending}) => {
       </div>
 
       <div className={s.chars}>
-        
         {
           someValuesAreFilledOut && (
             <h3 className={s.subtitle}>Характеристики</h3>
           )
         }
-
-
         {
           attributes.categorySpecificFields.characteristics.map(characteristic => {
             return (
@@ -87,18 +83,16 @@ const PreviewStep = ({setStep, attributes, getValues, cats, sending}) => {
               </div>
             )
           })
-
         }
-
       </div>
 
       <div className={s.buttons}>
         <Button className={s.backButton} type="button" onClick={() => setStep('media')}>Назад</Button>
-        <Button disabled={sending} className={s.submitBtn} type="submit">{sending ? <MiniSpinner /> : 'Отправить на модерацию' } </Button>
+        <Button disabled={sending} className={s.submitBtn} type="submit">{sending ?
+          <MiniSpinner/> : 'Отправить на модерацию'} </Button>
       </div>
-
     </div>
-  );
-};
+  )
+}
 
-export default PreviewStep;
+export default PreviewStep

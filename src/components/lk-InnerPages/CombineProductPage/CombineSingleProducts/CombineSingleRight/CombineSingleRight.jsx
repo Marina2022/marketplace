@@ -3,11 +3,9 @@ import SingleMergeStatus
   from "@/components/lk-InnerPages/CombineProductPage/CombineSingleProducts/CombineSingleRight/SingleMergeStatus/SingleMergeStatus.jsx";
 
 const CombineSingleRight = ({setCheckedProducts, productsToMerge, checkedProducts}) => {
-
   const handleDelete = (id) => {
     setCheckedProducts(checkedProducts.filter(productVariantId => productVariantId !== id))
   }
-
     
   return (
     <div className={s.combineSingleRight}>
@@ -41,7 +39,7 @@ const CombineSingleRight = ({setCheckedProducts, productsToMerge, checkedProduct
         </div>)
       }
     </div>
-  );
-};
+  )
+}
 
 export default CombineSingleRight;

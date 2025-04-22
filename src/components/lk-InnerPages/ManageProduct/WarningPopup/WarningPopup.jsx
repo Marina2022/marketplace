@@ -6,36 +6,34 @@ import {useNavigate} from "react-router-dom";
 
 const WarningPopup = ({setShowWarningPopup, showWarningPopup}) => {
 
-
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
         setShowWarningPopup(false)
       }
-    };
-    window.addEventListener('keydown', handleKeyDown);
+    }
+    window.addEventListener('keydown', handleKeyDown)
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
+      window.removeEventListener('keydown', handleKeyDown)
+    }
   }, [])
 
   useEffect(() => {
     if (showWarningPopup) {
-      document.documentElement.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden"
     } else {
-      document.documentElement.style.overflow = "";
+      document.documentElement.style.overflow = ""
     }
     return () => {
-      document.documentElement.style.overflow = "";
+      document.documentElement.style.overflow = ""
     };
   }, [showWarningPopup])
 
   const handlePopupClick = (e) => {
-    e.stopPropagation();
+    e.stopPropagation()
   }
   
   const navigate = useNavigate()
-
 
   return (
     <div onClick={() => setShowWarningPopup(false)} className={s.underlay}>

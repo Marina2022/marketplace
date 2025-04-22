@@ -40,12 +40,9 @@
   left: 38px;
 }
 
-
 .verticalLineEraser {
   width: 3px;
-  background: white;
-  //background: red;
-  
+  background: white; 
   position: absolute;  
   left: 13px;
   top: -16px;
@@ -63,7 +60,6 @@
   width: 8px;  
   height: 1px;
   background: #AAB7BF;
-  //background: red;
   top: 13px;
   top: 48%;
   width: 8px;
@@ -80,8 +76,7 @@
   position: absolute;
   top: 15px;
   left: 12px;
-  height: 14px;
-  
+  height: 14px;  
   
   @include m {
     top: 16px;

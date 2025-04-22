@@ -7,11 +7,10 @@ const SingleLeftHeader = ({attributes}) => {
       <div className={s.nameHeader}>Название товара</div>
       <div className={s.brandHeader}>Бренд</div>
       <div className={s.typeHeader}>Тип</div>
-
       {
-        attributes.attributes.map(attribute => <div key={attribute.optionId} className={s.attributesHeader}>{attribute.optionName}</div>)
+        attributes.attributes.map(attribute => <div key={attribute.optionId}
+                                                    className={s.attributesHeader}>{attribute.optionName}</div>)
       }
-      
     </div>
   );
 };

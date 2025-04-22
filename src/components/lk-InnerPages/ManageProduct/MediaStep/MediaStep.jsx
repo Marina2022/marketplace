@@ -14,41 +14,50 @@ const MediaStep = ({
                      setStep,
                      product: productToSort,
                      setProduct,
-                     trigger
-  
+                     trigger,
+                     navItems
                    }) => {
 
-  const product = JSON.parse(JSON.stringify(productToSort))
-  if (product) {
-    product.mediaContent.productImages.sort((a,b)=>a.sortOrder - b.sortOrder)
-    product.mediaContent.productPresentationImages.sort((a,b)=>a.sortOrder - b.sortOrder)  
-  }
-  
+    const product = JSON.parse(JSON.stringify(productToSort))
+    if (product) {
+      product.mediaContent.productImages.sort((a, b) => a.sortOrder - b.sortOrder)
+      product.mediaContent.productPresentationImages.sort((a, b) => a.sortOrder - b.sortOrder)
+    }
 
-
-  console.log('sortedProduct ===', product)
-  
     const [popupOpen, setPopupOpen] = useState(null)  // productPhotos, presentationPhotos
     const goToNextStep = async () => {
-
       const isValid = await trigger();
       if (!isValid || (productPhotos.length === 0 && product?.mediaContent?.productImages.length === 0)) return
       setStep('preview')
     }
+        const goToPreviousStep = ()=>{      
+      if (navItems.length > 2 ){
+        setStep('characteristics')  
+      } else {
+        setStep('main')
+      }            
+    }
 
     return (
-
       <div className={s.mediaPage}>
-
         <h2 className={s.title}>Медиа</h2>
 
-        <ProductPhotos productPhotos={productPhotos} setProductPhotos={setProductPhotos} setPopupOpen={setPopupOpen} product={product} setProduct={setProduct} />
+        <ProductPhotos
+          productPhotos={productPhotos}
+          setProductPhotos={setProductPhotos}
+          setPopupOpen={setPopupOpen}
+          product={product}
+          setProduct={setProduct}/>
 
-        <PresentationPhotos presentationPhotos={presentationPhotos} setPresentationPhotos={setPresentationPhotos}
-                            setPopupOpen={setPopupOpen} product={product} setProduct={setProduct} />
+        <PresentationPhotos
+          presentationPhotos={presentationPhotos}
+          setPresentationPhotos={setPresentationPhotos}
+          setPopupOpen={setPopupOpen}
+          product={product}
+          setProduct={setProduct}/>
 
         <div className={s.buttons}>
-          <Button className={s.backButton} type="button" onClick={() => setStep('characteristics')}>Назад</Button>
+          <Button className={s.backButton} type="button" onClick={goToPreviousStep}>Назад</Button>
           <Button className={s.continueBtn} type="button" onClick={goToNextStep}>Далее</Button>
         </div>
 

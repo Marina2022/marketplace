@@ -3,30 +3,26 @@ import {useEffect, useState} from "react";
 import {useDebounce} from "@uidotdev/usehooks";
 
 const SearchCats = ({searchCats, setSearchCats}) => {
-   
-  const [showIcon, setShowIcon] = useState(searchCats === '')  
-  const [innerSearchValue, setInnerSearchValue] = useState(searchCats)  
+
+  const [showIcon, setShowIcon] = useState(searchCats === '')
+  const [innerSearchValue, setInnerSearchValue] = useState(searchCats)
   const debouncedSearchValue = useDebounce(innerSearchValue, 300);
 
   useEffect(() => {
     setSearchCats(debouncedSearchValue)
   }, [debouncedSearchValue]);
-
   const handleFocus = () => {
     setShowIcon(false)
   }
   const handleBlur = () => {
     setShowIcon(searchCats === '' ? true : false)
   }
- 
   const handleChange = (e) => {
     setInnerSearchValue(e.target.value)
-    // setSearchCats(e.target.value)
   }
 
   return (
     <div className={s.wrapper}>
-
       {
         showIcon && <svg className={s.searchIcon} width="14" height="14" viewBox="0 0 14 14" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
@@ -38,20 +34,16 @@ const SearchCats = ({searchCats, setSearchCats}) => {
             fill="#658092"/>
         </svg>
       }
-
-
       <input
         className={s.searchBlock}
         placeholder="Название категории"
         onFocus={handleFocus}
-        onBlur={handleBlur}        
-        // value={searchCats}
+        onBlur={handleBlur}
         value={innerSearchValue}
         onChange={handleChange}
       ></input>
     </div>
   )
-    ;
-};
+}
 
 export default SearchCats;

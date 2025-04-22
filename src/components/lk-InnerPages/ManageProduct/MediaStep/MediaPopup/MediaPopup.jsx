@@ -28,8 +28,8 @@ const MediaPopup = ({
   if (productIdParam !== 'new') isNew = false
 
 // images - это загруженные из попапа файлы (не сохраненные в Апп еще)  - файлы с фото товаров
-  const [images, setImages] = useState([]);
-  const [presentationImages, setPresentationImages] = useState([]);
+  const [images, setImages] = useState([])
+  const [presentationImages, setPresentationImages] = useState([])
 
   // productPhotos, presentationPhotos 
 
@@ -38,33 +38,32 @@ const MediaPopup = ({
     if (popupOpen === 'presentationPhotos') {
       presentationalPhotosRef.current.scrollIntoView({behavior: 'smooth'})
     }
-  }, [popupOpen]);
+  }, [popupOpen])
 
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
         setPopupOpen(false)
       }
-    };
-    window.addEventListener('keydown', handleKeyDown);
+    }
+    window.addEventListener('keydown', handleKeyDown)
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
+      window.removeEventListener('keydown', handleKeyDown)
+    }
   }, [])
 
   useEffect(() => {
     if (popupOpen) {
-      document.documentElement.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden"
     } else {
-      document.documentElement.style.overflow = "";
+      document.documentElement.style.overflow = ""
     }
     return () => {
-      document.documentElement.style.overflow = "";
-    };
+      document.documentElement.style.overflow = ""
+    }
   }, [popupOpen])
 
   const [sending, setSending] = useState(false)
-  
   const handleAddClick = async () => {
     if (images.length === 0 && presentationImages.length === 0) return
 
@@ -72,17 +71,17 @@ const MediaPopup = ({
       setProductPhotos([...productPhotos, ...images])
       setPresentationPhotos([...presentationPhotos, ...presentationImages])
     } else {
-      
+
       // Редактирование
-      
+
       try {
         setSending(true)
         if (images.length > 0) {
-          const formData = new FormData();
+          const formData = new FormData()
 
           images.forEach((photoFile, index) => {
-            formData.append(`images[${index}].File`, photoFile);
-            formData.append(`images[${index}].Order`, index + product.mediaContent.productImages.length );
+            formData.append(`images[${index}].File`, photoFile)
+            formData.append(`images[${index}].Order`, index + product.mediaContent.productImages.length)
           })
 
           await axiosInstance.post(`seller/${profileId}/products/${product.productVariantId}/add-main-imgs`, formData, {
@@ -93,20 +92,19 @@ const MediaPopup = ({
         }
 
         if (presentationImages.length > 0) {
-          const formDataPresentations = new FormData();
+          const formDataPresentations = new FormData()
 
           presentationImages.forEach((photoFile, index) => {
-            formDataPresentations.append(`images[${index}].File`, photoFile);
-            formDataPresentations.append(`images[${index}].Order`, index + product.mediaContent.productPresentationImages.length);
+            formDataPresentations.append(`images[${index}].File`, photoFile)
+            formDataPresentations.append(`images[${index}].Order`, index + product.mediaContent.productPresentationImages.length)
           })
 
           await axiosInstance.post(`seller/${profileId}/products/${product.productVariantId}/add-overview-imgs`, formDataPresentations, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
-          })              
+          })
         }
-
 
         const resp = await axiosInstance(`seller/${profileId}/products/${product.productVariantId}/update-details`)
         setProduct(resp.data)
@@ -115,15 +113,12 @@ const MediaPopup = ({
       } finally {
         setSending(false)
       }
-
-
     }
-
 
     setPopupOpen(false)
   }
   const handlePopupClick = (e) => {
-    e.stopPropagation();
+    e.stopPropagation()
   }
 
   return (
@@ -156,25 +151,24 @@ const MediaPopup = ({
             <ProductPhotosBlock productPhotos={productPhotos} images={images} setImages={setImages} product={product}/>
 
             <div ref={presentationalPhotosRef} className={s.bottomDiv}>
-
               <PresentationPhotosBlock
                 presentationPhotos={presentationPhotos}
                 presentationImages={presentationImages}
                 setPresentationImages={setPresentationImages}
                 product={product}
               />
-
             </div>
           </div>
         </div>
 
         <div className={s.buttons}>
           <Button onClick={() => setPopupOpen(false)} className={s.cancelBtn}>Отмена</Button>
-          <Button onClick={handleAddClick} className={s.addBtn} disabled={sending} > {sending ? <MiniSpinner /> : 'Добавить' } </Button>
+          <Button onClick={handleAddClick} className={s.addBtn} disabled={sending}> {sending ?
+            <MiniSpinner/> : 'Добавить'} </Button>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MediaPopup;
+export default MediaPopup

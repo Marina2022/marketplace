@@ -22,7 +22,7 @@ const ContentMiddle = ({products, handleMouseIn, handleMouseOut, hoveredProducts
         }
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ContentMiddle;
+export default ContentMiddle

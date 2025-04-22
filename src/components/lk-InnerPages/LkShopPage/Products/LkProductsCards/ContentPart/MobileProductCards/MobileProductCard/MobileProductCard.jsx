@@ -3,8 +3,6 @@ import ContextMenu
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/ContextMenu/ContextMenu.jsx";
 import ProductStatus
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/ProductStatus/ProductStatus.jsx";
-import LinkedProductsLeft
-  from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/ContentLeft/ContentLeftRow/LinkedProductsLeft/LinkedProductsLeft.jsx";
 import MobileLinkedProducts
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ContentPart/MobileProductCards/MobileProductCard/MobileLinkedProducts/MobileLinkedProducts.jsx";
 

@@ -6,17 +6,14 @@ import PresentationPhotoContainer
 const PresentationPhotos = ({presentationPhotos, setPresentationPhotos, setPopupOpen, product, setProduct}) => {
 
   const placeholders = Array.from({length: 5})
-
   const handleAddPhoto = () => setPopupOpen('presentationPhotos')
 
   return (
     <div className={s.productPhotosWrapper}>
-
       <div className={s.headerWrapper}>
         <h3 className={s.subtitle}>Презентационные материалы</h3>
         <Button onClick={handleAddPhoto} className={s.addPhotoBtn}>Добавить фото</Button>
       </div>
-
       <div className={s.mobileScrollWrapper}>
         <ul className={s.photosWrapper}>
           {

@@ -14,8 +14,6 @@ const ContentLeftRow = ({
                         }) => {
 
   const hasLinked = product.linkedProducts?.length > 0
-
-  //  потом брать нужно из внешнего стейта (сравнивать с массивом чекнутых карточек)
   const checked = checkedProducts.includes(product.productVariantId)
   const collapsed = collapsedProducts.includes(product.productVariantId)
   const hovered = hoveredProducts.includes(product.productVariantId)
@@ -29,7 +27,6 @@ const ContentLeftRow = ({
       setCheckedProducts(tempCheckedProducts)
     }
   }
-
   const handleCollapse = () => {
     const tempCollapsedProducts = [...collapsedProducts]
 
@@ -42,7 +39,6 @@ const ContentLeftRow = ({
   }
 
   return (
-
     <div className={s.leftRowWrapper}>
       <div
         className={`${s.leftRow} ${hovered ? s.hovered : ''}`}
@@ -64,7 +60,6 @@ const ContentLeftRow = ({
           }
           <img className={s.photo} src={product.productImgPath} alt="photo"/>
         </div>
-
         <div className={s.rightPartOfLeftColumn}>
           <div className={s.article}>{product.article}</div>
           {
@@ -89,8 +84,7 @@ const ContentLeftRow = ({
         />        
       }
     </div>
-
-  );
-};
+  )
+}
 
 export default ContentLeftRow;

@@ -20,7 +20,6 @@ const SubCategory = ({subCat, searchCats, lastOne, selectedCatId, setSelectedCat
   }
 
   return (
-
     <div className={s.subCategoryWrapper}>
       <div className={s.subCatHeader} onClick={handleClick}>
         <div className={s.horizontalLine}></div>
@@ -50,7 +49,7 @@ const SubCategory = ({subCat, searchCats, lastOne, selectedCatId, setSelectedCat
                 productCategory={productCategory}
                 lastOne={subCat.productCategories.length - 1 === i}
                 selectedCatId={selectedCatId}
-                setSelectedCatId={setSelectedCatId}                
+                setSelectedCatId={setSelectedCatId}
               />)
             }
           </ul>

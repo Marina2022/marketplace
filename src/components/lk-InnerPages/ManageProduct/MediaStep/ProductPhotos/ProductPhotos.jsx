@@ -6,7 +6,6 @@ import ProductPhotoContainer
 const ProductPhotos = ({productPhotos, setPopupOpen, setProductPhotos, product, setProduct}) => {
 
   const placeholders = Array.from({length: 15})
-
   const handleAddPhoto = ()=>setPopupOpen(true)
   
   return (

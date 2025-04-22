@@ -18,25 +18,24 @@ const ContextMenu = ({product, linked = false, getProducts}) => {
       if (e.key === 'Escape') {
         setOpen(false);
       }
-    };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [])
 
-  // Закрытие по клику вне
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
-        setOpen(false);
+        setOpen(false)
       }
-    };
-    if (open) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
     }
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [open]);
+    if (open) {
+      document.addEventListener('mousedown', handleClickOutside)
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [open])
 
 
   const handleEdit = () => {
@@ -84,11 +83,9 @@ const ContextMenu = ({product, linked = false, getProducts}) => {
 
           {/*Пункты для обычного товара*/}
           {!linked && product.productStatus !== 'В архиве' && <ul>
-
             <li onClick={handleEdit} className={s.menuItem}>Редактировать товар</li>
             <li onClick={handleCopy} className={s.menuItem}>Создать копию</li>
             <li onClick={handleArchive} className={s.menuItem}>Перенести в архив</li>
-
           </ul>}
 
           {/*Пункты для товара в архиве*/}
@@ -105,7 +102,6 @@ const ContextMenu = ({product, linked = false, getProducts}) => {
         </div>
       )}
     </div>
-  );
-};
-
+  )
+}
 export default ContextMenu;

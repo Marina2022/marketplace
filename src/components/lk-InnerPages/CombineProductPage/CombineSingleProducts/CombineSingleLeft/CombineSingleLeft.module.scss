@@ -3,8 +3,7 @@
 .combineSingleLeftWrapper {
   width: 860px;
   border-right: #D1D5DB 1px solid;
-  overflow-x: auto;
-  
+  overflow-x: auto; 
 
   @supports not selector(::-webkit-scrollbar) {
     scrollbar-width: thin;
@@ -28,8 +27,4 @@
     width: 0 !important;
     height: 0 !important;
   }  
-}
-
-.combineSingleLeft {  
-  //width: 1500px;
 }

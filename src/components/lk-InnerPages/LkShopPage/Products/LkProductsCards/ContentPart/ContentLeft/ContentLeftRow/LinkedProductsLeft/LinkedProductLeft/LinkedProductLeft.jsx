@@ -9,8 +9,6 @@ const LinkedProductLeft = ({product, index, linkedProducts, handleMouseOut, hand
          className={`${s.linkedProductLeft} ${hovered ? s.hovered : ''}`}
          onMouseOver={() => handleMouseIn(product.productVariantId)}
          onMouseOut={() => handleMouseOut(product.productVariantId)}
-
-
     >
       <div className={s.linkedProductLeftPhoto}>
         <div className={`${s.verticalLine} ${index === linkedProducts.length - 1 ? s.lastChild : ''} `}></div>
@@ -19,7 +17,7 @@ const LinkedProductLeft = ({product, index, linkedProducts, handleMouseOut, hand
       </div>
       <div className={s.linkedProductLeftArticle}>{product.article}</div>
     </div>
-  );
-};
+  )
+}
 
-export default LinkedProductLeft;
+export default LinkedProductLeft

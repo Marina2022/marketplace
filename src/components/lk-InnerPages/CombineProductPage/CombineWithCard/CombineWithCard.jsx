@@ -43,15 +43,15 @@ const CombineWithCard = ({checkedProducts, setCheckedProducts}) => {
     getData()
   }, [checkedProducts]);
 
- 
+
   // // делает кнопку активной
   useEffect(() => {
     if (mergeData) {
-      
+
       const allProductsToMergeAreOK = mergeData.productsToMerge.every(product => {
         return product.mergeStatus === 'Готов к объеденению'
-      })      
-      setIsCombinable(allProductsToMergeAreOK && mergeData.linkedProductsToCard[0].mergeStatus === 'Готов к объединению' )
+      })
+      setIsCombinable(allProductsToMergeAreOK && mergeData.linkedProductsToCard[0].mergeStatus === 'Готов к объединению')
     }
   }, [mergeData])
 
@@ -63,24 +63,21 @@ const CombineWithCard = ({checkedProducts, setCheckedProducts}) => {
       isCardProduct: false
     }))
 
-    console.log('mergeData.linkedProductsToCard', mergeData.linkedProductsToCard)
-    
     let mainProductId = ''
 
-    mergeData.linkedProductsToCard[0].groupedProducts.forEach(product=>{
-      
+    mergeData.linkedProductsToCard[0].groupedProducts.forEach(product => {
+
       if (product.isDefault) {
-        mainProductId = product.productVariantId 
-        return 
-      }      
+        mainProductId = product.productVariantId
+        return
+      }
     })
-    
+
     payload = [...payload, {
       productVariantId: mainProductId,
       isCardProduct: true
     }]
 
-            
     try {
       setSending(true)
       await axiosInstance.post(`seller/${profileId}/products/link`, payload)
@@ -107,9 +104,8 @@ const CombineWithCard = ({checkedProducts, setCheckedProducts}) => {
         товара.</p>
 
       <div className={s.tableWrapper}>
-        <CombineCardLeft productsInCard={mergeData.linkedProductsToCard[0].groupedProducts} attributes={attributes}  />
-       
-        <CombineCardRight mergeStatus={mergeData.linkedProductsToCard[0].mergeStatus} />       
+        <CombineCardLeft productsInCard={mergeData.linkedProductsToCard[0].groupedProducts} attributes={attributes}/>
+        <CombineCardRight mergeStatus={mergeData.linkedProductsToCard[0].mergeStatus}/>
       </div>
 
       <div className={s.productsToCombineWrapper}>
@@ -124,7 +120,6 @@ const CombineWithCard = ({checkedProducts, setCheckedProducts}) => {
             getData={getData}
             combineWithCardVariant={true}
           />
-
           <CombineSingleRight
             setCheckedProducts={setCheckedProducts}
             checkedProducts={checkedProducts}

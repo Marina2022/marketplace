@@ -3,11 +3,8 @@ import {useParams, useSearchParams} from "react-router-dom";
 
 const Tabs = ({tabsCount}) => {
 
-
   const [searchParams, setSearchParams] = useSearchParams('statusTab');
-
   const activeTab = searchParams.get('statusTab')
-
 
   const tabs = [
     {label: "Все", value: 'all'},

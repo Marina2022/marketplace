@@ -6,9 +6,8 @@ import {EditorContent, useEditor} from "@tiptap/react";
 import Placeholder from "@tiptap/extension-placeholder";
 import {useEffect} from "react";
 
-
 const TiptapEditor = ({setValue, maxValue = 1000, getValues, setFormWasEdited}) => {
-  const productDescription = getValues("productDescription") || "";
+  const productDescription = getValues("productDescription") || ""
   const editor = useEditor({
     onBlur: () => {
       setValue('productDescription', editor.getHTML())
@@ -16,11 +15,11 @@ const TiptapEditor = ({setValue, maxValue = 1000, getValues, setFormWasEdited}) 
     },
 
     onUpdate: ({editor}) => {
-      let text = editor.getText().replace(/\s+/g, '');
+      let text = editor.getText().replace(/\s+/g, '')
       if (text.length > maxValue) {
-        editor.commands.setContent(editor.storage.prevContent || ''); // Откат к предыдущему состоянию
+        editor.commands.setContent(editor.storage.prevContent || '') // Откат к предыдущему состоянию
       } else {
-        editor.storage.prevContent = editor.getHTML(); // Сохраняем текущее состояние
+        editor.storage.prevContent = editor.getHTML() // Сохраняем текущее состояние
       }
     },
 
@@ -28,25 +27,22 @@ const TiptapEditor = ({setValue, maxValue = 1000, getValues, setFormWasEdited}) 
       Placeholder.configure({
         placeholder: "Опишите ваш товар максимально подробно. Укажите преимущества и особенности, которые выделяют его среди других.",
       }),
-
     ],
     content: productDescription,
-  });
+  })
 
   useEffect(() => {
     if (editor && productDescription !== editor.getHTML()) {
-      editor.commands.setContent(productDescription);
+      editor.commands.setContent(productDescription)
     }
-  }, [productDescription, editor]);
-
+  }, [productDescription, editor])
 
   if (!editor) {
-    return null;
+    return null
   }
 
   return (
     <div className={s.wrapper}>
-      {/* Панель кнопок */}
       <div className={s.buttonsWrapper}>
         <button type="button"
                 className={`${s.formatBtn} ${editor?.isActive('bold') ? s.active : ''} `}

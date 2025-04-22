@@ -22,7 +22,7 @@ const LkProductsCards = () => {
   const [productsLoading, setProductsLoading] = useState(true)
   const [productsData, setProductsData] = useState(null)
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate()
   const getProducts = async () => {
 
@@ -80,7 +80,6 @@ const LkProductsCards = () => {
     getProducts()
 
   }, [profileId, searchParams, currentProfile]);
-
   
   return (
     <div className={`${s.productsCardsWrapper} ${productsData?.products?.length === 0 ? s.noProductsVariant : ''}`}>
@@ -102,7 +101,7 @@ const LkProductsCards = () => {
       </div>
       <ContentPart productsLoading={productsLoading} products={productsData?.products} getProducts={getProducts} productsLoading={productsLoading}/>
     </div>
-  );
-};
+  )
+}
 
 export default LkProductsCards;

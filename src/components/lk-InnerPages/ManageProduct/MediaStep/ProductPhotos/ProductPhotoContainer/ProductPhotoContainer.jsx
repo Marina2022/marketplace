@@ -39,7 +39,6 @@ const ProductPhotoContainer = ({index, productPhotos, setPopupOpen, setProductPh
   };
 
   const [deleting, setDeleting] = useState(false)
-  const [moving, setMoving] = useState(false)
   const handleDelete = async () => {
 
     if (isNew) {
@@ -50,10 +49,8 @@ const ProductPhotoContainer = ({index, productPhotos, setPopupOpen, setProductPh
       try {
         setDeleting(true)
         await axiosInstance.delete(`seller/${profileId}/products/images/${currentProductImage.imageId}`)
-
         const resp = await axiosInstance(`seller/${profileId}/products/${product.productVariantId}/update-details`)
         setProduct(resp.data)
-
       } catch (err) {
         console.log(err)
       } finally {
@@ -65,45 +62,38 @@ const ProductPhotoContainer = ({index, productPhotos, setPopupOpen, setProductPh
   const handleDragStart = (e, index) => {
     // Сохраняем индекс перетаскиваемого элемента в dataTransfer
     e.dataTransfer.setData('index', index);
-  };
+  }
 
   const handleDragOver = (event) => {
     event.preventDefault(); // Нужно, чтобы работало drop
-  };
+  }
 
   const handleDrop = async (event, index) => {
     // Получаем индекс перетаскиваемого элемента
-    const draggedIndex = event.dataTransfer.getData('index');
+    const draggedIndex = event.dataTransfer.getData('index')
 
     if (draggedIndex === null || draggedIndex === index) return; // Если перетаскиваем на тот же элемент, ничего не делаем
 
     if (isNew) {
-      const updatedImages = [...productPhotos];
-      const [movedItem] = updatedImages.splice(draggedIndex, 1);
-      updatedImages.splice(index, 0, movedItem);
-      setProductPhotos(updatedImages);
+      const updatedImages = [...productPhotos]
+      const [movedItem] = updatedImages.splice(draggedIndex, 1)
+      updatedImages.splice(index, 0, movedItem)
+      setProductPhotos(updatedImages)
     } else {
       // edit  
 
       try {
-        setMoving(true)
-
         await axiosInstance.post(`seller/${profileId}/products/${product.productVariantId}/update-main-imgs`, {
-          "imageId":  editProductPhotos[draggedIndex].imageId,
+          "imageId": editProductPhotos[draggedIndex].imageId,
           "newOrder": index
         })
-
         const resp = await axiosInstance(`seller/${profileId}/products/${product.productVariantId}/update-details`)
         setProduct(resp.data)
-
       } catch (err) {
         console.log(err)
-
-      } finally {
-        setMoving(false)
       }
     }
-  };
+  }
 
   return (
     <li
@@ -163,7 +153,6 @@ const ProductPhotoContainer = ({index, productPhotos, setPopupOpen, setProductPh
                alt="image"/>
         </div>
       )}
-
       {isEmpty && index === 0 && <img src={cameraIcon} alt="icon"/>}
     </li>
   );

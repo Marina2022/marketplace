@@ -6,9 +6,7 @@ const PriceInputs = ({register, errors, trigger, getValues, setValue, setFormWas
   return (
     <div>
       <h3 className={s.title}>Цена товара</h3>
-
       <div className={s.inputsWrapper}>
-
         <div className={s.inputWrapper}>
           <Input
             setFormWasEdited={setFormWasEdited}
@@ -42,7 +40,7 @@ const PriceInputs = ({register, errors, trigger, getValues, setValue, setFormWas
             setValue={setValue}
             placeholder="Цена до скидки"
             {...register('regularPrice',
-              {                
+              {
                 pattern: {
                   value: /^[0-9]+$/,
                   message: 'Можно вводить только цифры'

@@ -5,7 +5,12 @@ import PresentationPhotosInPopup
   from "@/components/lk-InnerPages/ManageProduct/MediaStep/MediaPopup/PresentationPhotosBlock/PresentationPhotosInPopup/PresentationPhotosInPopup/PresentationPhotosInPopup.jsx";
 import {useParams} from "react-router-dom";
 
-const PresentationPhotosBlock = ({presentationImages: images, setPresentationImages: setImages, presentationPhotos: productPhotos, product}) => {
+const PresentationPhotosBlock = ({
+                                   presentationImages: images,
+                                   setPresentationImages: setImages,
+                                   presentationPhotos: productPhotos,
+                                   product
+                                 }) => {
 
   const {productIdParam} = useParams()
   const isNew = productIdParam === 'new'
@@ -15,20 +20,19 @@ const PresentationPhotosBlock = ({presentationImages: images, setPresentationIma
       Object.assign(file, {
         preview: URL.createObjectURL(file),
       })
-    );
+    )
 
-    const totalImages = images.length + newImages.length;
-
+    const totalImages = images.length + newImages.length
     const lengthToCount = isNew ? productPhotos.length : editPresentationPhotos.length
-    
+
     // Ограничиваем общее количество изображений до 5
     if (totalImages > 5 - lengthToCount) {
-      const allowedNewImages = newImages.slice(0, 5 - lengthToCount - images.length);
-      setImages([...images, ...allowedNewImages]);
+      const allowedNewImages = newImages.slice(0, 5 - lengthToCount - images.length)
+      setImages([...images, ...allowedNewImages])
     } else {
-      setImages([...images, ...newImages]);
+      setImages([...images, ...newImages])
     }
-  };
+  }
 
   const {getRootProps, getInputProps} = useDropzone({
     onDrop,
@@ -39,9 +43,8 @@ const PresentationPhotosBlock = ({presentationImages: images, setPresentationIma
       'image/webp': ['.webp']
     },
     multiple: true,
-  });
+  })
 
-  // передать этот хендлер на клик фото-контейнеру
   const emptyPhotoClickHandler = () => {
     getInputProps().ref.current.click()
   }
@@ -49,7 +52,8 @@ const PresentationPhotosBlock = ({presentationImages: images, setPresentationIma
   return (
     <div className={s.productPhotosBlock}>
       <h2 className={`${s.title} mobile-hidden`}>Загрузка презентационных изображений</h2>
-      <p className={s.someText}>Обновление изображений повлияет на все связанные товары, так как они используют общие презентационные материалы</p>
+      <p className={s.someText}>Обновление изображений повлияет на все связанные товары, так как они используют общие
+        презентационные материалы</p>
 
       <div>
         <label

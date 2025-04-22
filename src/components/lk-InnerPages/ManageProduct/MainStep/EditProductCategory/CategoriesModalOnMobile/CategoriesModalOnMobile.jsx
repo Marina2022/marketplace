@@ -3,7 +3,6 @@ import {useEffect} from "react";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
 
 const CategoriesModalOnMobile = ({setEditing,  children, trigger}) => {
-
   const handleClose = () =>{
     trigger('productCategoryId')
     setEditing(false)  

@@ -4,7 +4,6 @@ import {useSearchParams} from "react-router-dom";
 const ContentLeftHeader = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
-
   const handleArticleClick = () => {
     const sortColumn = searchParams.get('sortColumn')
     const sortOrder = searchParams.get('sortOrder')
