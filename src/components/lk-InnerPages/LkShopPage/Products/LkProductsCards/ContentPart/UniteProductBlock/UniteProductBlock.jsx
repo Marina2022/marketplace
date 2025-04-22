@@ -8,7 +8,7 @@ const UniteProductBlock = ({checkedProducts, products}) => {
   let sum = 0
 
   products.forEach(product => {
-    if (checkedProducts.includes(product.productVariantId) && product.linkedProducts.length > 0) sum++
+    if (checkedProducts.includes(product.productVariantId) && product.linkedProducts && product.linkedProducts.length > 0) sum++
   })
 
   const hasScrollbar = useHasVerticalScrollbar()
