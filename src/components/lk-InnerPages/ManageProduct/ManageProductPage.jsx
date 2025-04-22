@@ -17,27 +17,20 @@ import {findProductCategoryName} from "@/utils/lkShop.js";
 const ManageProductPage = () => {
 
   const [step, setStep] = useState('main')
-
   const [loading, setLoading] = useState(true)
-
   const [showWarningPopup, setShowWarningPopup] = useState(false)
 
   const [sending, setSending] = useState(false)
   const [error, setError] = useState(null)
 
-
   const {productIdParam} = useParams()
   const isNew = productIdParam === 'new'
-
 
   const [cats, setCats] = useState(null)
   const [attributes, setAttributes] = useState(null)
 
-
   const navigate = useNavigate()
-
   const profileId = useSelector(getActiveProfileId)
-
 
   const [instructionFile, setInstructionFile] = useState(null)
   const [documentationFile, setDocumentationFile] = useState(null)
@@ -45,7 +38,7 @@ const ManageProductPage = () => {
 
   const [productPhotos, setProductPhotos] = useState([])
   const [presentationPhotos, setPresentationPhotos] = useState([])
-  
+
   const [formWasEdited, setFormWasEdited] = useState(false)
 
   const {
@@ -57,7 +50,7 @@ const ManageProductPage = () => {
     handleSubmit,
     watch,
     clearErrors,
-    formState: {errors}
+    formState: {errors, isDirty}
   } = useForm({
     defaultValues: {
       fields: [
@@ -125,7 +118,7 @@ const ManageProductPage = () => {
       if (!fields.find(field => {
         return field.value === attributeField.name
       })) {
-        append({value: 'char_' + attributeField.name})   // будут имена полей в форме с приставкой, типа char_memory, чтобы не пересеклись с другими  
+        append({value: 'char_' + attributeField.name})   // будут имена полей в форме с приставкой char_ (напр., char_memory), чтобы не пересеклись с другими  
       }
     })
 
@@ -139,12 +132,9 @@ const ManageProductPage = () => {
 
 
   const profilesData = useSelector(getUserProfilesData)
-  // console.log(profilesData)
 
   useEffect(() => {
-
     // редирект на страницу с магазином, если профиль не = company или если isHasShop = false
-
     if (profileId && profilesData) {
       const currentProfile = profilesData.find(item => item.profileId === profileId)
       const type = currentProfile.type
@@ -152,7 +142,6 @@ const ManageProductPage = () => {
       if (type !== 'company' || !isHasShop) navigate('/lk/shop')
     }
   }, [profilesData, profileId]);
-
 
   // подгрузка данных для редактирования товара
 
@@ -239,46 +228,53 @@ const ManageProductPage = () => {
     if (!product) return
     if (!cats) return
 
-    console.log('attributes', attributes)
 
-    setValue('productName', product.productName)
-    setValue('productCategoryId', product.productCategoryId)
-    setValue('article', product.article)
-    setValue('model', product.model)
-    setValue('productDescription', product.productDescription)
-    setValue('price', product.price)
-    setValue('regularPrice', product.regularPrice)
-    setValue('weight', product.weight)
-    setValue('height', product.height)
-    setValue('width', product.width)
-    setValue('length', product.length)
+    if (!formWasEdited) {
+      // чтобы поля в форме не вернулись в initial при переподгрузке продукта после загрузки доков и картинок
+
+      setValue('productName', product.productName)
+      setValue('productCategoryId', product.productCategoryId)
+      setValue('article', product.article)
+      setValue('model', product.model)
+      setValue('productDescription', product.productDescription)
+      setValue('price', product.price)
+      setValue('regularPrice', product.regularPrice)
+      setValue('weight', product.weight)
+      setValue('height', product.height)
+      setValue('width', product.width)
+      setValue('length', product.length)
+    }
 
     if (cats) {
       const result = findProductCategoryName(cats.categories, product.productCategoryId)
       setSelectedCatName(result)
     }
 
-    if (attributes) {
-      attributes.standartFields.forEach((field) => {
-        setValue(field.name, product[field.name])
-      })
+    if (!formWasEdited) {
+      // чтобы поля в форме не вернулись в initial при переподгрузке продукта после загрузки доков и картинок
 
-      attributes.categorySpecificFields.commonFields.forEach((field) => {
-        setValue(field.name, product[field.name])
-      })
+      if (attributes) {
+        attributes.standartFields.forEach((field) => {
+          setValue(field.name, product[field.name])
+        })
 
-      attributes.categorySpecificFields.characteristics.forEach((field) => {
-        const foundItem = product.characteristics.find(item => item.name === field.name)
+        attributes.categorySpecificFields.commonFields.forEach((field) => {
+          setValue(field.name, product[field.name])
+        })
 
-        if (foundItem) {
-          setValue('char_' + field.name, {...foundItem, value: foundItem['valueName'], isVariant: field.isVariant})
-        }
-      })
+        attributes.categorySpecificFields.characteristics.forEach((field) => {
+          const foundItem = product.characteristics.find(item => item.name === field.name)
+
+          if (foundItem) {
+            setValue('char_' + field.name, {...foundItem, value: foundItem['valueName'], isVariant: field.isVariant})
+          }
+        })
+      }
     }
 
   }, [product, attributes, cats]);
 
-  
+
   // При нажатии "Назад к списку товаров" и кнопки Cancel
   const handleCancel = () => {
 
@@ -291,43 +287,38 @@ const ManageProductPage = () => {
     formEdited = newArr.some(item => item !== undefined)
 
     // если хоть одно поле заполнено, либо загружено фото либо документ:    
-    
+
     if (isNew) {
       if (formEdited || productPhotos.length > 0 || presentationPhotos.length > 0 || instructionFile || documentationFile || certificateFile) {
         setShowWarningPopup(true)
       } else {
         navigate(`/lk/shop`)
-      }  
+      }
     } else {
       if (formWasEdited) {
         setShowWarningPopup(true)
       } else {
         navigate(`/lk/shop`)
       }
-    }            
+    }
   }
 
-  const onSubmit = async (data) => {
-    // console.log('data ===', data)
+  const onSubmit = async () => {
     let payloadFields = {}
     let characteristics = []
 
     fields.forEach(field => {
       const value = getValues(field.value)
-
       // это значение отправится в форме
       let payloadValue
       // если это select
       if (value?.value) {
         payloadValue = value.valueId
       } else {
-
         payloadValue = typeof value === 'string' ? value?.trim() : value
-        //payloadValue = value 
       }
 
       if (!payloadValue) return  // undefined (для необязат.полей) не посылаем
-
 
       if (attributes && attributes.categorySpecificFields.characteristics.find(item => ('char_' + item.name) === field.value)) {
         if (!getValues(field.value)) return
@@ -361,16 +352,14 @@ const ManageProductPage = () => {
       }
 
       if (!isNew) {
-        // seller/{profileId}/products/{productVariantId}/update
         response = await axiosInstance.post(`seller/${profileId}/products/${product.productVariantId}/update`, payloadFields)
         console.log(response.data)
       }
 
-
       if (isNew) {
 
         // Отправка фотографий:
-        
+
         try {
           const formData = new FormData();
 
@@ -384,14 +373,14 @@ const ManageProductPage = () => {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
-          })  
-        } catch(err) {
+          })
+        } catch (err) {
           console.log(err)
         }
 
         // Отправка презентационных материалов:
-                
-        try {       
+
+        try {
           if (presentationPhotos.length > 0) {
             const formDataPresentations = new FormData();
 
@@ -405,12 +394,12 @@ const ManageProductPage = () => {
                 'Content-Type': 'multipart/form-data',
               },
             })
-          }  
-        } catch(err) {
+          }
+        } catch (err) {
           console.log(err)
         }
-        
-        
+
+
         // отправка документов:
 
         const formDataDocs = new FormData();
@@ -447,13 +436,9 @@ const ManageProductPage = () => {
     }
   }
 
-  console.log('formWasEdited', formWasEdited)
-
   if (isNew && loading) return <Spinner/>
-
   if (error) return <div>{error}</div>
   if (!isNew && (catsLoading || productLoading)) return <Spinner/>
-
 
   return (
     <div className={s.manageProductWrapper}>

@@ -14,10 +14,7 @@ const DocsFileInputs = ({
                         }) => {
   return (
     <div>
-
       <h3 className={s.title}>Документация к товару</h3>
-
-
       <div className={s.filesList}>
         <DocsFileInput file={instructionFile} 
                        setFile={setInstructionFile} 
@@ -27,7 +24,6 @@ const DocsFileInputs = ({
                        type="instruction"
                        setProduct={setProduct}
         />
-
         <DocsFileInput file={documentationFile}
                        setFile={setDocumentationFile}
                        label="Техническая документация"
@@ -36,7 +32,6 @@ const DocsFileInputs = ({
                        type="documentation"
                        setProduct={setProduct}
         />
-
         <DocsFileInput file={certificateFile}
                        setFile={setCertificateFile}
                        label="Cертификат к товару"

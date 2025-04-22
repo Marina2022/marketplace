@@ -43,10 +43,7 @@ const CombineWithCard = ({checkedProducts, setCheckedProducts}) => {
     getData()
   }, [checkedProducts]);
 
-  console.log('mergeData', mergeData)
-  console.log('attributes', attributes)
-
-
+ 
   // // делает кнопку активной
   useEffect(() => {
     if (mergeData) {
@@ -66,12 +63,25 @@ const CombineWithCard = ({checkedProducts, setCheckedProducts}) => {
       productVariantId: product,
       isCardProduct: false
     }))
+
+    console.log('mergeData.linkedProductsToCard', mergeData.linkedProductsToCard)
+    
+    let mainProductId = ''
+
+    mergeData.linkedProductsToCard[0].groupedProducts.forEach(product=>{
+      
+      if (product.isDefault) {
+        mainProductId = product.productVariantId 
+        return 
+      }      
+    })
     
     payload = [...payload, {
-      productVariantId: mergeData.linkedProductsToCard[0].groupedProducts[0].productVariantId,
+      productVariantId: mainProductId,
       isCardProduct: true
     }]
-        
+
+            
     try {
       setSending(true)
       await axiosInstance.post(`seller/${profileId}/products/link`, payload)
@@ -84,7 +94,6 @@ const CombineWithCard = ({checkedProducts, setCheckedProducts}) => {
   }
 
   if (!attributes) return null
-
 
   return (
     <div className={s.combineWithCardProductsWrapper}>

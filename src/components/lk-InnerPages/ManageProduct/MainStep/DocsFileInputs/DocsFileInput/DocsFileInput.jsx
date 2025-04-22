@@ -7,9 +7,8 @@ import {useState} from "react";
 import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 
 const DocsFileInput = ({file, setFile, label, id, product, type, setProduct}) => {
-  
-  const [sending, setSending] = useState(false)
 
+  const [sending, setSending] = useState(false)
   const profileId = useSelector(getActiveProfileId)
 
   let doc, docExists
@@ -21,7 +20,6 @@ const DocsFileInput = ({file, setFile, label, id, product, type, setProduct}) =>
 
   const {productIdParam} = useParams()
   const isNew = productIdParam === 'new'
-
 
   const handleDelete = async (e) => {
     e.stopPropagation()
@@ -97,18 +95,13 @@ const DocsFileInput = ({file, setFile, label, id, product, type, setProduct}) =>
           </svg>
         </button>
       }
-
-
       <input className={s.realFileInput} id={id} type="file" onChange={(e) => setFile(e.target.files[0])}/>
     </div>
   );
 
-
   // Edit
   if (!isNew) {
     const handleChange = async (file) => {
-      console.log('handleChange')
-
       const formDataDocs = new FormData();
       formDataDocs.append(`documents[0].File`, file);
       formDataDocs.append(`documents[0].DocumentType`, type);
@@ -122,8 +115,8 @@ const DocsFileInput = ({file, setFile, label, id, product, type, setProduct}) =>
         })
         const resp = await axiosInstance(`seller/${profileId}/products/${product.productVariantId}/update-details`)
         setProduct(resp.data)
-        
-      } catch(err){
+
+      } catch (err) {
         console.log(err)
       } finally {
         setSending(false)
@@ -134,7 +127,6 @@ const DocsFileInput = ({file, setFile, label, id, product, type, setProduct}) =>
       <div className={s.outerWrapper}>
 
         <label className={`${s.docWrapper} ${docExists ? s.fileExists : ''}`} htmlFor={id}>
-
           {
             !docExists &&
             <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -164,9 +156,9 @@ const DocsFileInput = ({file, setFile, label, id, product, type, setProduct}) =>
         </label>
 
         {
-          sending && <div className={s.loading}><MiniSpinner /></div> 
+          sending && <div className={s.loading}><MiniSpinner/></div>
         }
-        
+
         {
           docExists && !sending && <button onClick={handleDelete} type="button" className={s.deleteBtn}>
             <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">

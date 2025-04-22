@@ -24,8 +24,6 @@ const LkProductsCards = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate()
-
-  console.log('productsData', productsData)
   const getProducts = async () => {
 
     if (!currentProfile) return

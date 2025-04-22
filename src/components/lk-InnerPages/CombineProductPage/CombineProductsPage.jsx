@@ -13,9 +13,7 @@ const CombineProductsPage = () => {
 
   const [checkedProducts, setCheckedProducts] = useState(null)
   const [combineWithCard, setCombineWithCard] = useState(false)
-
-  console.log('checkedProducts', checkedProducts)
-
+  
   useEffect(() => {
 
     if (!location.state) {
