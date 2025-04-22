@@ -9,22 +9,23 @@ import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 import {useSelector} from "react-redux";
 import {getIsAuthenticated} from "@/store/userSlice.js";
 import {useNavigate} from "react-router-dom";
+
 const Questions = ({product, questionsRef}) => {
 
   const PAGE_SIZE = 10
   const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState(null)  
+  const [error, setError] = useState(null)
   const [questions, setQuestions] = useState(null)
   const [cursorPaging, setCursorPaging] = useState(null)
   const [cursor, setCursor] = useState(0)
   const [pagesCount, setPagesCount] = useState(0)
-  
+
   let showMoreBtn = false
 
   const isAuthenticated = useSelector(getIsAuthenticated)
-  
+
   if (cursorPaging) {
-    showMoreBtn = cursorPaging.cursorLimit  >  pagesCount * PAGE_SIZE
+    showMoreBtn = cursorPaging.cursorLimit > pagesCount * PAGE_SIZE
   }
 
   useEffect(() => {
@@ -44,7 +45,7 @@ const Questions = ({product, questionsRef}) => {
         if (productResponse.status === 200) {
           setQuestions(productResponse.data.productQuestions)
           setCursorPaging(productResponse.data.cursorPaging)
-          setPagesCount(prev=>prev+1)
+          setPagesCount(prev => prev + 1)
         } else throw new Error('response status not equal 200')
       } catch (err) {
         console.log('err = ', err)
@@ -62,18 +63,18 @@ const Questions = ({product, questionsRef}) => {
     getData()
   }, [cursor]);
 
-  const showMoreHandler = ()=>{
-    setCursor((pagesCount+1)*PAGE_SIZE)    
+  const showMoreHandler = () => {
+    setCursor((pagesCount + 1) * PAGE_SIZE)
   }
-  
+
   const navigate = useNavigate()
-  const  createQuestion = () => {
+  const createQuestion = () => {
     navigate('new-question')
   }
 
   if (isLoading && pagesCount === 0) return <Spinner className={s.spinner}/>
 
-  if (error) return <div className={s.globalWrapper} ref={questionsRef} >
+  if (error) return <div className={s.globalWrapper} ref={questionsRef}>
     <div className={s.sideBlock}>
       <h3 className={s.mobileHeader}>Вопросы</h3>
       <Button onClick={createQuestion} disabled={!isAuthenticated} className={s.writeQuestionBtn}>
@@ -82,12 +83,12 @@ const Questions = ({product, questionsRef}) => {
       </Button>
     </div>
     {
-      window.innerWidth > 960 && !(questions?.length > 0)  && <div className={s.noQuestions}>{error}</div>
+      window.innerWidth > 960 && !(questions?.length > 0) && <div className={s.noQuestions}>{error}</div>
     }
-  </div>   
+  </div>
 
   return (
-    <div className={s.reviews}  >
+    <div className={s.reviews}>
       <div className={s.globalWrapper}>
         <div className={s.sideBlock}>
           <h3 className={s.mobileTitle}>Вопросы</h3>
@@ -97,16 +98,15 @@ const Questions = ({product, questionsRef}) => {
           </Button>
         </div>
         <div className={s.mainBlock}>
-          <QuestionList questions={questions} productId ={product.productId} />
-        </div>
-        {
-          showMoreBtn && <button className={s.moreBtn} onClick={showMoreHandler}>
-            {
-              isLoading && (pagesCount > 0) ? <MiniSpinner /> : 'Показать еще'  
-            }  
-            
-          </button>
-        }
+          <QuestionList questions={questions} productId={product.productId}/>
+          {
+            showMoreBtn && <button className={s.moreBtn} onClick={showMoreHandler}>
+              {
+                isLoading && (pagesCount > 0) ? <MiniSpinner/> : 'Показать еще'
+              }
+            </button>
+          }          
+        </div>   
       </div>
     </div>
   );

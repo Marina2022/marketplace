@@ -50,8 +50,7 @@ const CombineWithCard = ({checkedProducts, setCheckedProducts}) => {
       
       const allProductsToMergeAreOK = mergeData.productsToMerge.every(product => {
         return product.mergeStatus === 'Готов к объеденению'
-      })
-      
+      })      
       setIsCombinable(allProductsToMergeAreOK && mergeData.linkedProductsToCard[0].mergeStatus === 'Готов к объединению' )
     }
   }, [mergeData])

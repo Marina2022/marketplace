@@ -4,7 +4,6 @@ import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import backArrow from "@/assets/img/back-arror.svg";
-import {BASE_URL} from "@/consts/baseURL.js";
 import QuestionForm from "@/components/ProductPage/CreateQuestion/ReviewFormQuestion/QuestionForm.jsx";
 
 const CreateQuestion = () => {
@@ -12,11 +11,9 @@ const CreateQuestion = () => {
 
   const [product, setProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
-
   
   useEffect(() => {
     const getProduct = async () => {
-
       try {
         const resp = await axios(`/products/${slug}`)       
         setProduct(resp.data)

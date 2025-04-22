@@ -18,9 +18,9 @@ import CreateReview from "@/components/ProductPage/CreateReview/CreateReview.jsx
 import CreateQuestion from "@/components/ProductPage/CreateQuestion/CreateQuestion.jsx";
 import CreateMessage from "@/components/ProductPage/CreateMessage/CreateMessage.jsx";
 import Order from "@/pages/Order.jsx";
-import ManageProductPage from "@/components/lk-InnerPages/ManageProduct/ManageProductPage.jsx";
 import CombineProductPage from "@/components/lk-InnerPages/CombineProductPage/CombineProductsPage.jsx";
 import EditAndCreateProduct from "@/pages/Lk/LkShop/EditAndCreateProduct.jsx";
+
 function App() {
 
 
