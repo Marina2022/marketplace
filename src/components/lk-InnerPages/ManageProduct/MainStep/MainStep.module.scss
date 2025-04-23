@@ -20,9 +20,14 @@
   color: #3E5067;
   font-weight: 600;
   font-size: 20px;
+  margin-bottom: 4px;
+  
+  @include t {
+    margin-bottom: 12px;
+  }
   
   @include xs {
-    font-size: 18px;
+    font-size: 18px;    
   }
 }
 
