@@ -445,7 +445,8 @@ const Company = ({isCompanyDataLoading, company}) => {
                 //company.documents.map((doc, i) => {
                 documents && documents.map((doc, i) => {
                   return <li key={i} className={s.docItem}>
-                    <a target="_blank" className={s.docItemLink} href={`${BASE_URL}${doc.docPath}`}>
+                    {/*<a target="_blank" className={s.docItemLink} href={`${BASE_URL}${doc.docPath}`}>*/}
+                    <a target="_blank" className={s.docItemLink} href={doc.docPath}>
                       <img src={docIcon} alt="doc icon"/>
                       <span className={s.docName}>{doc.docName}</span>
                     </a>

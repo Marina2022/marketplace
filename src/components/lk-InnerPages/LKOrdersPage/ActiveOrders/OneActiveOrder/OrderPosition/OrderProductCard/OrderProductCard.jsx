@@ -11,7 +11,8 @@ const OrderProductCard = ({product}) => {
   
   return (
     <li onClick={handleCardClick} className={s.orderProductCard}>
-      <img className={s.img} src={`${BASE_URL}${product.productImageUrl}`} alt={product.productName}/>
+      {/*<img className={s.img} src={`${BASE_URL}${product.productImageUrl}`} alt={product.productName}/>*/}
+      <img className={s.img} src={product.productImageUrl} alt={product.productName}/>
       <div>
         <p className={s.productName}>{product.productName}</p>
         <p className={s.productQuantity}>{product.productCount} шт</p>

@@ -26,7 +26,8 @@ const Description = ({text, images}) => {
                   {
                     images.map((image, i) => {
                       return (
-                        <img className={s.img} key={i} src={`${BASE_URL}${image.imageUrl}`} alt={image.imageName}/>
+                        // <img className={s.img} key={i} src={`${BASE_URL}${image.imageUrl}`} alt={image.imageName}/>
+                        <img className={s.img} key={i} src={image.imageUrl} alt={image.imageName}/>
                       )
                     })
                   }

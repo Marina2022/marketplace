@@ -6,8 +6,13 @@ import {Link} from "react-router-dom";
 const ProductCardForMessage = ({product, sku}) => {
   return (
     <Link to={`/product/${product.productHandle}?sku=${sku}`} className={s.wrapper}>
-      <img className={s.image} src={BASE_URL + product.productImages[0].imageUrl}
-           alt={BASE_URL + product.productImages[0].imgName}/>
+      <img
+        className={s.image}
+        // src={BASE_URL + product.productImages[0].imageUrl}
+        src={product.productImages[0].imageUrl}
+        // alt={BASE_URL + product.productImages[0].imgName}
+        alt={product.productImages[0].imgName}
+      />
       <div className={s.content}>
         <div className={s.productName}>
           {product.productName}

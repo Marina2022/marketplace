@@ -21,7 +21,8 @@ const AdditionalPart = ({order}) => {
       <div className={s.bottomBlock}>
         {
           order.orderStatus === 'completed' &&
-          <a className={s.downloadLink} download href={`${BASE_URL}${order.orderDocs}`} target="_blank" >
+          // <a className={s.downloadLink} download href={`${BASE_URL}${order.orderDocs}`} target="_blank" >
+          <a className={s.downloadLink} download href={order.orderDocs} target="_blank" >
             <svg className={s.downloadIcon} width="20" height="20" viewBox="0 0 20 20"
                  xmlns="http://www.w3.org/2000/svg">
               <path

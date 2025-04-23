@@ -15,7 +15,8 @@ const OrderLineProductCard = ({product, status}) => {
   
   return (
     <li className={s.orderLineProductCardWrapper} onClick={cardClickHandle}>
-      <img className={s.productImg} src={`${BASE_URL}${product.productImageUrl}`} alt={product.productName}/>
+      {/*<img className={s.productImg} src={`${BASE_URL}${product.productImageUrl}`} alt={product.productName}/>*/}
+      <img className={s.productImg} src={product.productImageUrl} alt={product.productName}/>
       <div className={s.rightPart}>
         <div className={s.productName}>{product.productName}</div>
         <div><span className={s.sellerLabel}>Продавец: </span><span className={s.sellerName}>{product.sellerName}</span>

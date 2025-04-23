@@ -10,7 +10,8 @@ const AllOrdersProductCard = ({product}) => {
   
   return (
     <li onClick={handleCardClick} className={s.productWrapper}>
-      <img className={s.img} src={`${BASE_URL}${product.productImageUrl}`} alt={product.productName}/>
+      {/*<img className={s.img} src={`${BASE_URL}${product.productImageUrl}`} alt={product.productName}/>*/}
+      <img className={s.img} src={product.productImageUrl} alt={product.productName}/>
       
       <div className={s.cardRightPart}>
         <div className={s.mainInfo}>

@@ -11,7 +11,8 @@ const VendorInfo = ({vendor}) => {
   return (
     <div className={s.wrapper}>      
       <div className={s.header}>
-        <img className={s.logo} src={`${BASE_URL}${vendor.shopProfileImageUrl}`} alt="company logo"/>
+        {/*<img className={s.logo} src={`${BASE_URL}${vendor.shopProfileImageUrl}`} alt="company logo"/>*/}
+        <img className={s.logo} src={vendor.shopProfileImageUrl} alt="company logo"/>
         <div>
           <div className={s.shopName}>{vendor.shopName}</div>
           <div className={s.companyName}>{vendor.companyName}</div>

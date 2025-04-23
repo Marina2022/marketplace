@@ -40,22 +40,15 @@ const About = ({product}) => {
     <div className={s.about}>
       <h2 className={s.title}>О компании</h2>
       <div className={s.topBlock}>
-
-
-        {/*<div className={s.imgWrapper}>*/}
-        {/*  {*/}
-        {/*    company.galery.length > 0 &&*/}
-        {/*    <img className={s.profileImage} src={`${BASE_URL}${company.galery[1].images[0].imageUrl}`}*/}
-        {/*         alt={company.galery[1].images[0].imageName}/>*/}
-        {/*  }*/}
-        {/*</div>*/}
-
         {
           company.galery.length > 0 &&
           <div className={s.imgWrapper}>
-            <img className={s.profileImage} src={`${BASE_URL}${company.galery[1].images[0].imageUrl}`}
-                 alt={company.galery[1].images[0].imageName}/>
-
+            <img 
+              className={s.profileImage} 
+              // src={`${BASE_URL}${company.galery[1].images[0].imageUrl}`}
+              src={company.galery[1].images[0].imageUrl}
+              alt={company.galery[1].images[0].imageName}
+            />
           </div>
         }
 
@@ -74,7 +67,8 @@ const About = ({product}) => {
               company.galery[2].images.map((img, i) => <img
                 key={i}
                 className={s.certImg}
-                src={`${BASE_URL}${img.imageUrl}`}
+                // src={`${BASE_URL}${img.imageUrl}`}
+                src={img.imageUrl}
                 alt={img.imageName}/>)
             }
           </ul>

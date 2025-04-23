@@ -20,7 +20,8 @@ const WriteToSeller = ({product, sku}) => {
     <div className={s.writeToSeller}>
       <h3 className={s.title}>Написать продавцу</h3>
       <div className={s.sellerDesc}>
-        <img className={s.avatar} src={`${BASE_URL}${seller.contactImageUrl}`} alt="seller avatar"/>
+        {/*<img className={s.avatar} src={`${BASE_URL}${seller.contactImageUrl}`} alt="seller avatar"/>*/}
+        <img className={s.avatar} src={seller.contactImageUrl} alt="seller avatar"/>
         <div>
           <div className={s.name}>{seller.shopContact}</div>
           <div className={s.position}>{seller.contactPersonPosition}</div>

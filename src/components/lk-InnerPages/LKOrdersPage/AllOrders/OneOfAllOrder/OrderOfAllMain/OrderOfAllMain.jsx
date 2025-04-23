@@ -40,7 +40,8 @@ const OrderOfAllMain = ({order, productListIsOpen, setProductListIsOpen}) => {
           {
             order.productImages.map((img, i) => {
               return <li key={i}>
-                <img className={s.productImg} src={`${BASE_URL}${img.productImageUrl}`} alt={`image-${i}`}/>
+                {/*<img className={s.productImg} src={`${BASE_URL}${img.productImageUrl}`} alt={`image-${i}`}/>*/}
+                <img className={s.productImg} src={img.productImageUrl} alt={`image-${i}`}/>
               </li>
             })
           }
@@ -75,7 +76,8 @@ const OrderOfAllMain = ({order, productListIsOpen, setProductListIsOpen}) => {
                       />
                     </svg>
                     <a onClick={handleDownloadClick} download target="_blank"
-                       href={`${BASE_URL}${order.orderBilsLink.slice(1)}`}>Документы по заказу</a>
+                       // href={`${BASE_URL}${order.orderBilsLink.slice(1)}`}>Документы по заказу</a>
+                       href={order.orderBilsLink.slice(1)}>Документы по заказу</a>
                   </div>
                 )
               }
