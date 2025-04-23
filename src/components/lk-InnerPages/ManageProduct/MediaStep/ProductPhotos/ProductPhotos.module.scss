@@ -76,11 +76,18 @@
   
   @include m {
     margin-top: 12px;
+    font-size: 12px;
   }
 }
 
 .addPhotoBtn {
   
+  @include m {
+    display: none;
+  }
+}
+
+.mobileHidden {
   @include m {
     display: none;
   }

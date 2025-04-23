@@ -39,9 +39,11 @@
 .subtitle {
   color: #131D2A;
   font-size: 19px;
-  font-weight: 500;
-  top: 23px;
-  //padding-inline: 15px;
+  font-weight: 500;  
+
+  @include t {
+    padding-inline: 15px;
+  }
 }
 
 .desc {
@@ -49,7 +51,10 @@
   margin-bottom: 20px;
   color: #131D2A;
   font-size: 14px;
-  //padding-inline: 15px;
+
+  @include t {
+    padding-inline: 15px;
+  }  
 }
 
 .tableWrapper {
