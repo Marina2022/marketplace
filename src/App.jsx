@@ -20,9 +20,11 @@ import CreateMessage from "@/components/ProductPage/CreateMessage/CreateMessage.
 import Order from "@/pages/Order.jsx";
 import CombineProductPage from "@/components/lk-InnerPages/CombineProductPage/CombineProductsPage.jsx";
 import EditAndCreateProduct from "@/pages/Lk/LkShop/EditAndCreateProduct.jsx";
+import {useViewportHeight} from "@/hooks/useViewportHeight.js";
 
 function App() {
 
+  useViewportHeight()
 
   return (
     <Router>

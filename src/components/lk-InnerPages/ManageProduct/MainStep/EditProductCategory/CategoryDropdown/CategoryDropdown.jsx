@@ -9,7 +9,7 @@ import {findProductCategoryName} from "@/utils/lkShop.js";
 import {useViewportHeight} from "@/hooks/useViewportHeight.js";
 
 const CategoryDropdown = ({cats, setValue, getValues, setEditing, clearErrors, searchCats, setSearchCats, setSelectedCatName, setFormWasEdited}) => {
-  useViewportHeight()
+  // useViewportHeight()
   const [selectedCatId, setSelectedCatId] = useState(getValues("productCategoryId"))
   const submitCategory = (e) => {
     e.stopPropagation()

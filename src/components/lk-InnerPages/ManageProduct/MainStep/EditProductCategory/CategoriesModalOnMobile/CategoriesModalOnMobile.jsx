@@ -9,7 +9,7 @@ const CategoriesModalOnMobile = ({setEditing, children, trigger}) => {
     setEditing(false)
   }
 
-  useViewportHeight()
+  // useViewportHeight()
 
   const isMobile = useMobileScreen()
   useEffect(() => {
