@@ -1,22 +1,25 @@
 import s from './CategoriesModalOnMobile.module.scss';
 import {useEffect} from "react";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
+import {useViewportHeight} from "@/hooks/useViewportHeight.js";
 
-const CategoriesModalOnMobile = ({setEditing,  children, trigger}) => {
-  const handleClose = () =>{
+const CategoriesModalOnMobile = ({setEditing, children, trigger}) => {
+  const handleClose = () => {
     trigger('productCategoryId')
-    setEditing(false)  
+    setEditing(false)
   }
-  
-const isMobile = useMobileScreen()
-  useEffect(()=>{
+
+  useViewportHeight()
+
+  const isMobile = useMobileScreen()
+  useEffect(() => {
     document.documentElement.style.overflow = 'hidden';
-    
-    return ()=>{
+
+    return () => {
       document.documentElement.style.overflow = 'auto';
     }
   }, [isMobile])
-  
+
   return (
     <div className={s.modal}>
       <div className={s.header}>
@@ -31,7 +34,7 @@ const isMobile = useMobileScreen()
       </div>
       {children}
     </div>
-    
+
   );
 };
 

@@ -99,7 +99,7 @@ const LkProductsCards = () => {
           </div>
         }
       </div>
-      <ContentPart productsLoading={productsLoading} products={productsData?.products} getProducts={getProducts} productsLoading={productsLoading}/>
+      <ContentPart productsLoading={productsLoading} products={productsData?.products} getProducts={getProducts} />
     </div>
   )
 }
