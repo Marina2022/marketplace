@@ -6,9 +6,10 @@ import {useState} from "react";
 import SearchCats
   from "@/components/lk-InnerPages/ManageProduct/MainStep/EditProductCategory/CategoryDropdown/SearchCats/SearchCats.jsx";
 import {findProductCategoryName} from "@/utils/lkShop.js";
+import {useViewportHeight} from "@/hooks/useViewportHeight.js";
 
 const CategoryDropdown = ({cats, setValue, getValues, setEditing, clearErrors, searchCats, setSearchCats, setSelectedCatName, setFormWasEdited}) => {
-
+  useViewportHeight()
   const [selectedCatId, setSelectedCatId] = useState(getValues("productCategoryId"))
   const submitCategory = (e) => {
     e.stopPropagation()
