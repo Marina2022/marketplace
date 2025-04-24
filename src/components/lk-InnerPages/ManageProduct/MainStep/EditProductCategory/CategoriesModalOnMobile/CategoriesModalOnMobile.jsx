@@ -9,8 +9,6 @@ const CategoriesModalOnMobile = ({setEditing, children, trigger}) => {
     setEditing(false)
   }
 
-  // useViewportHeight()
-
   const isMobile = useMobileScreen()
   useEffect(() => {
     document.documentElement.style.overflow = 'hidden';

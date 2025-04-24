@@ -4,8 +4,17 @@ import OneFilter
   from "@/components/lk-InnerPages/LkShopPage/Products/LkProductsCards/ProductCardFilters/OneFilter/OneFilter.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
 import {useSearchParams} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {getActiveProfileId, getUserProfilesData} from "@/store/userSlice.js";
 
 const ProductCardFilters = ({filters}) => {
+
+  const profiles = useSelector(getUserProfilesData)
+  const activeProfileId = useSelector(getActiveProfileId)
+  const currentProfile = profiles?.find(profile => profile.profileId === activeProfileId)
+  
+  const disabledFilterButton = currentProfile.type !== 'company' || (currentProfile.type === 'company' && !currentProfile.isHasShop) 
+  
 
   const [searchParams, setSearchParams] = useSearchParams();
   let initialFilterState = []
@@ -79,10 +88,15 @@ const ProductCardFilters = ({filters}) => {
     setSearchParams(params);
     setShowFilters(false)
   }
+  
+  const handleFilterBtnClick = ()=>{
+    if (disabledFilterButton) return
+    setShowFilters(prev => !prev)
+  }
 
   return (
     <div className={s.filtersWrapper}>
-      <button ref={btnRef} className={s.filterBtn} onClick={() => setShowFilters(prev => !prev)}>
+      <button ref={btnRef} className={s.filterBtn} onClick={handleFilterBtnClick} >
         <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
           <mask id="path-1-inside-1_1218_18211" fill="white">
             <path
