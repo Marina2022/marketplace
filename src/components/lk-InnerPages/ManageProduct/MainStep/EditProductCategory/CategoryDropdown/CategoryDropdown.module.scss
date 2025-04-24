@@ -14,7 +14,6 @@
   
   @include m {
     padding-left: 8px;
-    //max-height: calc(100vh - 312px);
     max-height: calc(var(--vh) * 100 - 312px);
     width: 96.2%;    
   }

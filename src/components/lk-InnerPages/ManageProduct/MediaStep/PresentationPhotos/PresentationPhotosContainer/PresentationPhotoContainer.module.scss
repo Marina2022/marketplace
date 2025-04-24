@@ -5,7 +5,7 @@
   background: white;
   display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
   position: relative;
   width: 141px;
   height: 141px;
@@ -17,10 +17,10 @@
 
   @include m {
     width: 65px;
-    height: 65px;    
+    height: 65px;
   }
 
-  &:first-child {    
+  &:first-child {
     width: 160px;
     height: 160px;
 
@@ -31,13 +31,13 @@
 
     @include m {
       width: 65px;
-      height: 65px;      
+      height: 65px;
     }
   }
 }
 
 .containerWithPhoto {
-  @media (hover: hover) {
+  @media (hover: hover) and (min-width: 960px) {
     &:hover {
       border: rgba(101, 128, 146, 0.51) 1px solid;
       box-shadow: 0 4px 4px 0 rgb(0 0 0 / .25);
