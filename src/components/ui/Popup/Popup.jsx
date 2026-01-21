@@ -1,21 +1,26 @@
 import s from './Popup.module.scss';
 import {useEffect} from "react";
 import closeBtn from '@/assets/img/closeBtn.svg'
-const Popup = ({setIsPopupOpen, popupClassName, children, withCloseBtn = false}) => {
+const Popup = ({onPopupClose, setIsPopupOpen, popupClassName="", children, withCloseBtn = false}) => {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
         setIsPopupOpen(false);
       }
-    };
+    }
 
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
+
+      if (onPopupClose) {
+        onPopupClose()
+      }
     };
-  }, []);
+
+    }, []);
 
   return (
     <div className={s.wrapper}>      

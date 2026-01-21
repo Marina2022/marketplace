@@ -20,7 +20,7 @@ const Login = () => {
         <div className={s.loginBtn}>Войти</div>
       </button>
       {
-        isPopupOpen && <Popup setIsPopupOpen={setIsPopupOpen}>
+        isPopupOpen && <Popup setIsPopupOpen={setIsPopupOpen} onPopupClose={()=>setStep(1)} >
           {
             step === 1 && <InputPhone value={phoneInputValue} setValue={setPhoneInputValue} setIsPopupOpen={setIsPopupOpen} setStep={setStep}  />
           }

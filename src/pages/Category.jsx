@@ -32,7 +32,7 @@ const Category = () => {
     getFilters()
   }, [location]);
   
-  if (error) return <Error></Error>
+  if (error) return <Error>Не удалось подгрузить данные для Каталога :(</Error>
   
   return (
       <CategoryBlock                   
