@@ -8,7 +8,6 @@ import catalogBtnIcon from '@/assets/img/header/catalogBtnIcon.svg'
 import heartIcon from '@/assets/img/header/userMenu/heart.svg'
 import orderIcon from '@/assets/img/header/userMenu/orders.svg'
 import cartIcon from '@/assets/img/header/userMenu/cart.svg'
-import hamburger from '@/assets/img/header/hamburger.svg'
 import {getCart} from "@/store/cartSlice.js";
 import HeaderSearch from "@/components/layout/Header/HeaderSearch/HeaderSearch.jsx";
 import UserDropdown from "@/components/layout/Header/UserDropdown/UserDropdown.jsx";

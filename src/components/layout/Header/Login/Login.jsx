@@ -10,7 +10,12 @@ const Login = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)  
   const [step, setStep] = useState(1)  // 1,2
   const [phoneInputValue, setPhoneInputValue] = useState('');
-  
+
+  const onPopupClose = () => {
+    setStep(1)
+    setPhoneInputValue('')
+  }
+
   return (
     <div>      
       <button onClick={()=>setIsPopupOpen(true)} className={s.menuItemLink}>
@@ -20,7 +25,7 @@ const Login = () => {
         <div className={s.loginBtn}>Войти</div>
       </button>
       {
-        isPopupOpen && <Popup setIsPopupOpen={setIsPopupOpen} onPopupClose={()=>setStep(1)} >
+        isPopupOpen && <Popup setIsPopupOpen={setIsPopupOpen} onPopupClose={onPopupClose} >
           {
             step === 1 && <InputPhone value={phoneInputValue} setValue={setPhoneInputValue} setIsPopupOpen={setIsPopupOpen} setStep={setStep}  />
           }

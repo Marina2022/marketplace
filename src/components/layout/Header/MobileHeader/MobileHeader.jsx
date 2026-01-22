@@ -1,14 +1,39 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './MobileHeader.module.scss'
 import hamburger from "@/assets/img/header/hamburger.svg";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import logo from "@/assets/img/header/logo.svg";
 import HeaderSearch from "@/components/layout/Header/HeaderSearch/HeaderSearch.jsx";
 import cartIcon from "@/assets/img/header/userMenu/cart.svg";
+import chatIcon from "@/assets/img/header/userMenu/chat.svg";
+import MobileHeaderLk from "@/components/layout/Header/MobileHeader/MobileHeaderLK/MobileHeaderLK.jsx";
 
 const MobileHeader = () => {
+
+
+  const location = useLocation();
+  console.log('location', location);
+
+  const {pathname} = location;
+
+  const [headerType, setHeaderType] = useState("default");
+
+  useEffect(() => {
+
+    console.log('location useEffect')
+
+    if (pathname.startsWith("/lk")) {
+      setHeaderType('lk')
+    } else {
+      setHeaderType('none')
+    }
+  }, [pathname]);
+
+
+  if (headerType === 'lk') return <MobileHeaderLk />
+
   return (
-    <header className={s.header}>      
+    <header className={s.header}>
       <div className='container'>
         <div className={s.wrapper}>
           <button className={s.mobileMenuBtn}><img src={hamburger} alt="menu"/></button>

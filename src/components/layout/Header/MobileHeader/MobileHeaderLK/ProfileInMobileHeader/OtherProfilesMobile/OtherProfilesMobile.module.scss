@@ -1,0 +1,74 @@
+.wrapper {
+  border-radius: 10px;
+  color: #658092;
+  font-size: 14px;
+}
+
+.hideProfiles {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 9px 8px 12px;
+  border-bottom: #F0F1F1 1px solid;
+  font-size: 12px;
+
+  .showProfilesBtn {
+    transform: rotate(180deg);
+  }
+}
+
+.hiddenProfiles {
+  cursor: pointer;
+  padding: 21px 24px 21px 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.showProfiles {
+  margin-right: 14px;
+}
+
+.showProfilesBtn {
+  margin-left: auto;
+}
+
+.profileItem {
+  cursor: pointer;
+  padding-top: 12px;
+  padding-bottom: 10px;
+
+}
+
+.letterOtherProfiles {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: white;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #658092;
+  border-radius: 50%;
+}
+
+.name {
+  font-size: 12px;
+  color: #131D2A;
+  font-weight: 600;
+}
+
+.shopName {
+  font-size: 12px;
+  color: #658092;
+  margin-top: 6px;
+}
+
+.letterAndName {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+

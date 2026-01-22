@@ -23,6 +23,11 @@ const LoginMobile = () => {
     }
   }
 
+  const onPopupClose = () => {
+    setStep(1)
+    setPhoneInputValue('')
+  }
+
   return (
     <div>      
       <button onClick={handleUserButtonClick}>
@@ -38,7 +43,7 @@ const LoginMobile = () => {
       </button>
 
       {
-        isPopupOpen && <Popup setIsPopupOpen={setIsPopupOpen} popupClassName={s.popup} onPopupClose={()=>setStep(1)}  >
+        isPopupOpen && <Popup setIsPopupOpen={setIsPopupOpen} popupClassName={s.popup} onPopupClose={onPopupClose}  >
           {
             step === 1 && <InputPhoneMobile value={phoneInputValue} setValue={setPhoneInputValue} setIsPopupOpen={setIsPopupOpen} setStep={setStep}  />
           }

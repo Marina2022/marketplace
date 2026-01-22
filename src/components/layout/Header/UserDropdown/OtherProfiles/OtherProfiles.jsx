@@ -29,6 +29,8 @@ const OtherProfiles = ({activeProfile, userProfiles, setIsDropdownOpen}) => {
     setIsDropdownOpen(false)
   }
 
+
+
   return (
     <div className={s.wrapper}>
       {
