@@ -1,6 +1,6 @@
 import s from './ProfileInMobileHeader.module.scss';
 import {useDispatch, useSelector} from "react-redux";
-import {getActiveProfileId, getUserProfilesData, getUserProfilesLoadingStatus, logout} from "@/store/userSlice.js";
+import {getActiveProfileId, getUserProfilesData, logout} from "@/store/userSlice.js";
 import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 import OtherProfilesMobile
@@ -10,7 +10,6 @@ import logoutIcon from "@/assets/img/header/userMenu/logout.svg";
 
 const ProfileInMobileHeader = () => {
 
-  const userProfilesLoadingStatus = useSelector(getUserProfilesLoadingStatus);
   const userProfiles = useSelector(getUserProfilesData);
   const activeProfileId = useSelector(getActiveProfileId);
 
@@ -41,30 +40,30 @@ const ProfileInMobileHeader = () => {
   }
 
   const underlayClickHandler = () => {
-    console.log("underlayClickHandler")
     setIsDropdownOpen(false)
   }
 
+
+  const dropdownClickHandler = (e) => {
+    e.stopPropagation();
+  }
+
   return (
-    <div className={s.userDropdownWrapper}
-    >
-      <button className={s.dropdownButton} onClick={() => setIsDropdownOpen(prev => !prev)} >
+    <div className={s.userDropdownWrapper}>
+      <button className={s.dropdownButton} onClick={() => setIsDropdownOpen(prev => !prev)}>
         <div
           className={s.userLetter}
         >
           {letter}
         </div>
-
         <div className={s.dropdownButtonText}>
           {activeProfile && activeProfile.profileName}
         </div>
-
       </button>
       {isDropdownOpen && (
-        <div className={s.underlay} onClick={underlayClickHandler} >
-          <div className={s.dropWrapper}>
+        <div className={s.underlay} onClick={underlayClickHandler}>
+          <div className={s.dropWrapper} onClick={dropdownClickHandler} >
             <div className={s.dropdown}>
-
               {
                 userProfiles?.length > 1 && (
 
@@ -83,14 +82,13 @@ const ProfileInMobileHeader = () => {
                   <img src={logoutIcon} alt="logout"/>
                   <span>Выход</span>
                 </button>
-
               </div>
             </div>
           </div>
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
 export default ProfileInMobileHeader;

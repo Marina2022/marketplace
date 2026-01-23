@@ -16,7 +16,6 @@ const OtherProfilesMobile = ({activeProfile, userProfiles, setIsDropdownOpen}) =
     return {...item, letter}
   })
 
-
   const dispatch = useDispatch()
   const profileItemClickHandler = (profileId) => {
     localStorage.setItem('activeProfile', profileId)
@@ -24,28 +23,25 @@ const OtherProfilesMobile = ({activeProfile, userProfiles, setIsDropdownOpen}) =
     setIsDropdownOpen(false)
   }
 
-
   return (
     <div className={s.wrapper}>
       {
         <div>
-
           <ul>
             {
               improvedRestProfiles.map((profile, i) => (
-                  <div onClick={() => profileItemClickHandler(profile.profileId)} className={s.profileItem} key={i}>
-                    <div className={s.letterAndName}>
-                      <div className={s.letterOtherProfiles}>{profile.letter}</div>
-                      <div className={s.name}>{profile.profileName}</div>
-                    </div>
-
-                    <div>
-                      {
-                        profile.shopName && <div className={s.shopName}>{profile.shopName }</div>
-                        //<div className={s.shopName}>{profile.shopName || 'Company'}</div>
-                      }
-                    </div>
+                <div onClick={() => profileItemClickHandler(profile.profileId)} className={s.profileItem} key={i}>
+                  <div className={s.letterAndName}>
+                    <div className={s.letterOtherProfiles}>{profile.letter}</div>
+                    <div className={s.name}>{profile.profileName}</div>
                   </div>
+                  <div>
+                    {
+                      profile.shopName && <div className={s.shopName}>{profile.shopName}</div>
+                      //<div className={s.shopName}>{profile.shopName || 'Company'}</div>
+                    }
+                  </div>
+                </div>
               ))
             }
           </ul>
