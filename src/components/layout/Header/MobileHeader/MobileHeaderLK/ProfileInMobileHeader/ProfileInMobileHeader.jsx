@@ -63,11 +63,19 @@ const ProfileInMobileHeader = () => {
       {isDropdownOpen && (
         <div className={s.dropWrapper}>
           <div className={s.dropdown}>
-            <h2 className={s.title}>Другие профили</h2>
-            {userProfilesLoadingStatus === 'success' && userProfiles?.length > 1 && (
-              <OtherProfilesMobile activeProfile={activeProfile} userProfiles={userProfiles}
-                                   setIsDropdownOpen={setIsDropdownOpen}/>
-            )}
+
+            {
+              userProfilesLoadingStatus === 'success' && userProfiles?.length > 1 && (
+
+                <div className={s.topPart}>
+                  <h2 className={s.title}>Другие профили</h2>
+                  {userProfilesLoadingStatus === 'success' && userProfiles?.length > 1 && (
+                    <OtherProfilesMobile activeProfile={activeProfile} userProfiles={userProfiles}
+                                         setIsDropdownOpen={setIsDropdownOpen}/>
+                  )}
+                </div>
+              )
+            }
 
             <div className={s.bottomPart}>
               <button onClick={logoutHandler} className={s.logoutBtn}>

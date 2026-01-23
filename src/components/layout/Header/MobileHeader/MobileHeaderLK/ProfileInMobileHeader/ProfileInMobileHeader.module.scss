@@ -110,8 +110,12 @@
   display: block;
 }
 
+.topPart {
+  border-bottom: #F0F1F1 1px solid;
+}
+
 .bottomPart {
-  border-top: #F0F1F1 1px solid;
+  //border-top: #F0F1F1 1px solid;
 }
 
 .logoutBtn {
