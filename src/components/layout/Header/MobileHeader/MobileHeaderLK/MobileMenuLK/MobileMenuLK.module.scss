@@ -4,13 +4,11 @@
 
 .userDropdownWrapper {
   position: relative;
-  background: white;
+  background: transparent;
   z-index: 10;
 }
 
 .dropdown {
-  padding-inline: 16px;
-  background: white;
   width: 100%;
   position: fixed;
   left: 0;
@@ -40,6 +38,34 @@
   height: 24px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: right;
   cursor: pointer;
+}
+
+.menuHeader {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 12px;
+  align-items: flex-start;
+  padding-bottom: 12px;
+  background: #fff;
+  padding-inline: 16px;
+}
+
+.menuTitle {
+  font-weight: 500;
+  color: #131D2A;
+}
+
+.menuSection {
+  background: #fff;
+  margin-bottom: 4px;
+  border-radius: 8px;
+  padding-inline: 16px;
+
+  &:nth-child(2) {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
 }
