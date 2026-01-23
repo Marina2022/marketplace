@@ -2,7 +2,7 @@ import s from './MobileMenuLK.module.scss';
 import hamburger from "@/assets/img/header/hamburger.svg";
 import closeBtn from "@/assets/img/header/mobileMenu/closeBtn.svg";
 import {useLocation} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 const MobileMenuLk = () => {
 
@@ -21,17 +21,37 @@ const MobileMenuLk = () => {
     e.stopPropagation();
   }
 
+  const userDropdownWrapperRef = useRef();
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+
+      console.log('handleClickOutside')
+
+      if (
+        userDropdownWrapperRef.current &&
+        !userDropdownWrapperRef.current.contains(event.target)
+    ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
 
-    <div className={s.userDropdownWrapper}>
+    <div className={s.userDropdownWrapper} ref={userDropdownWrapperRef}  >
       <button className={s.hamburgerBtn} onClick={() => setIsDropdownOpen(prev => !prev)}>
         <img src={isDropdownOpen ? closeBtn : hamburger} alt="menu"/>
       </button>
 
       {isDropdownOpen && (
         <div className={s.underlay} onClick={underlayClickHandler}>
-          <div className={s.dropWrapper} onClick={dropdownClickHandler}>
+          <div className={s.dropWrapper} onClick={dropdownClickHandler}  >
             <div className={s.dropdown}>
               <div className={s.menuHeader}>
                 <h4 className={s.menuTitle}>Меню</h4>

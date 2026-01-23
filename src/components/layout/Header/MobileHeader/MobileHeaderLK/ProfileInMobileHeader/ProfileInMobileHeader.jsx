@@ -1,7 +1,7 @@
 import s from './ProfileInMobileHeader.module.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {getActiveProfileId, getUserProfilesData, logout} from "@/store/userSlice.js";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useLocation} from "react-router-dom";
 import OtherProfilesMobile
   from "@/components/layout/Header/MobileHeader/MobileHeaderLK/ProfileInMobileHeader/OtherProfilesMobile/OtherProfilesMobile.jsx";
@@ -15,6 +15,31 @@ const ProfileInMobileHeader = () => {
 
   const location = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  console.log('isDropdownOpen = ', isDropdownOpen)
+
+  const userDropdownWrapperRef = useRef();
+
+  // клик вне
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+
+      console.log('handleClickOutside')
+
+      if (
+        userDropdownWrapperRef.current &&
+        !userDropdownWrapperRef.current.contains(event.target)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
 
   useEffect(() => {
     setIsDropdownOpen(false);
@@ -49,7 +74,7 @@ const ProfileInMobileHeader = () => {
   }
 
   return (
-    <div className={s.userDropdownWrapper}>
+    <div className={s.userDropdownWrapper} ref={userDropdownWrapperRef} >
       <button className={s.dropdownButton} onClick={() => setIsDropdownOpen(prev => !prev)}>
         <div
           className={s.userLetter}
