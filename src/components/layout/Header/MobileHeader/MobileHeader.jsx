@@ -5,23 +5,15 @@ import {Link, useLocation} from "react-router-dom";
 import logo from "@/assets/img/header/logo.svg";
 import HeaderSearch from "@/components/layout/Header/HeaderSearch/HeaderSearch.jsx";
 import cartIcon from "@/assets/img/header/userMenu/cart.svg";
-import chatIcon from "@/assets/img/header/userMenu/chat.svg";
 import MobileHeaderLk from "@/components/layout/Header/MobileHeader/MobileHeaderLK/MobileHeaderLK.jsx";
 
 const MobileHeader = () => {
 
-
   const location = useLocation();
-  console.log('location', location);
-
   const {pathname} = location;
-
   const [headerType, setHeaderType] = useState("default");
 
   useEffect(() => {
-
-    console.log('location useEffect')
-
     if (pathname.startsWith("/lk")) {
       setHeaderType('lk')
     } else {

@@ -156,3 +156,12 @@
   margin-block: 4px;
 
 }
+
+.underlay {
+  position: fixed;
+  inset: 0;
+  top: 56px;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0,0,0, .2);
+}

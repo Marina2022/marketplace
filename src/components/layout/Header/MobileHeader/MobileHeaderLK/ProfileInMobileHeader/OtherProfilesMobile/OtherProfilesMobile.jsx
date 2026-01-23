@@ -52,7 +52,7 @@ const OtherProfilesMobile = ({activeProfile, userProfiles, setIsDropdownOpen}) =
         </div>
       }
     </div>
-  );
-};
+  )
+}
 
 export default OtherProfilesMobile;

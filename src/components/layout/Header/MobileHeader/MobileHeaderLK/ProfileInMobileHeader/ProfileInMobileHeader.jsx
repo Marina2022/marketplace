@@ -2,7 +2,7 @@ import s from './ProfileInMobileHeader.module.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {getActiveProfileId, getUserProfilesData, getUserProfilesLoadingStatus, logout} from "@/store/userSlice.js";
 import {useEffect, useState} from "react";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import OtherProfilesMobile
   from "@/components/layout/Header/MobileHeader/MobileHeaderLK/ProfileInMobileHeader/OtherProfilesMobile/OtherProfilesMobile.jsx";
 import logoutIcon from "@/assets/img/header/userMenu/logout.svg";
@@ -40,15 +40,15 @@ const ProfileInMobileHeader = () => {
     dispatch(logout())
   }
 
-  const navigate = useNavigate()
-
-  console.log({activeProfile})
+  const underlayClickHandler = () => {
+    console.log("underlayClickHandler")
+    setIsDropdownOpen(false)
+  }
 
   return (
     <div className={s.userDropdownWrapper}
-         onClick={() => setIsDropdownOpen(true)}
     >
-      <button className={s.dropdownButton}>
+      <button className={s.dropdownButton} onClick={() => setIsDropdownOpen(prev => !prev)} >
         <div
           className={s.userLetter}
         >
@@ -61,28 +61,30 @@ const ProfileInMobileHeader = () => {
 
       </button>
       {isDropdownOpen && (
-        <div className={s.dropWrapper}>
-          <div className={s.dropdown}>
+        <div className={s.underlay} onClick={underlayClickHandler} >
+          <div className={s.dropWrapper}>
+            <div className={s.dropdown}>
 
-            {
-              userProfilesLoadingStatus === 'success' && userProfiles?.length > 1 && (
+              {
+                userProfiles?.length > 1 && (
 
-                <div className={s.topPart}>
-                  <h2 className={s.title}>Другие профили</h2>
-                  {userProfilesLoadingStatus === 'success' && userProfiles?.length > 1 && (
-                    <OtherProfilesMobile activeProfile={activeProfile} userProfiles={userProfiles}
-                                         setIsDropdownOpen={setIsDropdownOpen}/>
-                  )}
-                </div>
-              )
-            }
+                  <div className={s.topPart}>
+                    <h2 className={s.title}>Другие профили</h2>
+                    {userProfiles?.length > 1 && (
+                      <OtherProfilesMobile activeProfile={activeProfile} userProfiles={userProfiles}
+                                           setIsDropdownOpen={setIsDropdownOpen}/>
+                    )}
+                  </div>
+                )
+              }
 
-            <div className={s.bottomPart}>
-              <button onClick={logoutHandler} className={s.logoutBtn}>
-                <img src={logoutIcon} alt="logout"/>
-                <span>Выход</span>
-              </button>
+              <div className={s.bottomPart}>
+                <button onClick={logoutHandler} className={s.logoutBtn}>
+                  <img src={logoutIcon} alt="logout"/>
+                  <span>Выход</span>
+                </button>
 
+              </div>
             </div>
           </div>
         </div>
