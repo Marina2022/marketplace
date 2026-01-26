@@ -1,13 +1,22 @@
 import s from './MobileMenuLK.module.scss';
 import hamburger from "@/assets/img/header/hamburger.svg";
 import closeBtn from "@/assets/img/header/mobileMenu/closeBtn.svg";
-import {useLocation} from "react-router-dom";
+import lkIcon from "@/assets/img/header/mobileMenu/lk.svg";
+import shopIcon from "@/assets/img/header/mobileMenu/shop.svg";
+import ordersIcon from "@/assets/img/header/mobileMenu/orders.svg";
+import appIcon from "@/assets/img/header/mobileMenu/applications.svg";
+import settingsIcon from "@/assets/img/header/mobileMenu/settings.svg";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
+import {setActiveTabInMain} from "@/store/lkSlice.js";
+import {useDispatch} from "react-redux";
+
 
 const MobileMenuLk = () => {
-
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const location = useLocation();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(true);
 
   useEffect(() => {
     setIsDropdownOpen(false);
@@ -31,7 +40,7 @@ const MobileMenuLk = () => {
       if (
         userDropdownWrapperRef.current &&
         !userDropdownWrapperRef.current.contains(event.target)
-    ) {
+      ) {
         setIsDropdownOpen(false);
       }
     };
@@ -42,16 +51,41 @@ const MobileMenuLk = () => {
     };
   }, []);
 
+  const handleOrganizationsClick = (e) => {
+    e.preventDefault()
+    dispatch(setActiveTabInMain(1))
+    navigate("/lk/main")
+  }
+
+  const handleMainClick = (e) => {
+    e.preventDefault()
+    dispatch(setActiveTabInMain(0))
+    navigate("/lk/main")
+  }
+
+  const handleProfileClick = (e) => {
+    e.preventDefault()
+    dispatch(setActiveTabInMain(2))
+    navigate("/lk/main")
+  }
+
+  const handleSettingsClick = (e) => {
+    e.preventDefault()
+    dispatch(setActiveTabInMain(3))
+    navigate("/lk/main")
+  }
+
+
   return (
 
-    <div className={s.userDropdownWrapper} ref={userDropdownWrapperRef}  >
+    <div className={s.userDropdownWrapper} ref={userDropdownWrapperRef}>
       <button className={s.hamburgerBtn} onClick={() => setIsDropdownOpen(prev => !prev)}>
         <img src={isDropdownOpen ? closeBtn : hamburger} alt="menu"/>
       </button>
 
       {isDropdownOpen && (
         <div className={s.underlay} onClick={underlayClickHandler}>
-          <div className={s.dropWrapper} onClick={dropdownClickHandler}  >
+          <div className={s.dropWrapper} onClick={dropdownClickHandler}>
             <div className={s.dropdown}>
               <div className={s.menuHeader}>
                 <h4 className={s.menuTitle}>Меню</h4>
@@ -61,23 +95,107 @@ const MobileMenuLk = () => {
               </div>
 
               <div className={s.menuSection}>
-                <br/>
-                <br/>
+                <h5 className={s.sectionHeader}>
+                  <img src={lkIcon} alt="userIcon"/>
+                  <span>Личный кабинет</span>
+                </h5>
+                <div className={s.menuItem}>
+                  <Link onClick={handleMainClick} to='lk' className={s.menuItemLink}>
+                    Главная
+                  </Link>
+                </div>
+                <div className={s.menuItem}>
+                  <Link onClick={handleOrganizationsClick} to='lk' className={s.menuItemLink}>
+                    Организации
+                  </Link>
+                </div>
+                <div className={s.menuItem}>
+                  <Link onClick={handleProfileClick} to='lk' className={s.menuItemLink}>
+                    Профиль пользователя
+                  </Link>
+                </div>
+                <div className={s.menuItem}>
+                  <Link onClick={handleSettingsClick} to='lk' className={s.menuItemLink}>
+                    Настройки аккаунта
+                  </Link>
+                </div>
               </div>
 
               <div className={s.menuSection}>
-                <br/>
-                <br/>
+                <h5 className={s.sectionHeader}>
+                  <img src={shopIcon} alt="shopIcon"/>
+                  <span>Магазин</span>
+                </h5>
+                <div className={s.menuItem}>
+                  <Link to='catalog' className={s.menuItemLink}>
+                    Карточки товаров
+                  </Link>
+                </div>
+                <div className={s.menuItem}>
+                  <Link to='catalog' className={s.menuItemLink}>
+                    Профиль магазина
+                  </Link>
+                </div>
               </div>
 
               <div className={s.menuSection}>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
+                <h5 className={s.sectionHeader}>
+                  <img src={ordersIcon} alt="ordersIcon"/>
+                  <span>Заказы</span>
+                </h5>
+                <div className={s.menuItem}>
+                  <Link to='orders' className={s.menuItemLink}>
+                    Активные заказы
+                  </Link>
+                </div>
+                <div className={s.menuItem}>
+                  <Link to='orders' className={s.menuItemLink}>
+                    Все заказы
+                  </Link>
+                </div>
               </div>
 
+              <div className={s.menuSection}>
+                <h5 className={s.sectionHeader}>
+                  <img src={appIcon} alt="appIcon"/>
+                  <span>Заявки</span>
+                </h5>
+                <div className={s.menuItem}>
+                  <Link to='#' className={s.menuItemLink}>
+                    Управление заявками
+                  </Link>
+                </div>
+                <div className={s.menuItem}>
+                  <Link to='#' className={s.menuItemLink}>
+                    Принятые заявки
+                  </Link>
+                </div>
+
+                <div className={s.menuItem}>
+                  <Link to='#' className={s.menuItemLink}>
+                    История заявок
+                  </Link>
+                </div>
+
+                <div className={s.menuItem}>
+                  <Link to='#' className={s.menuItemLink}>
+                    Предложения
+                  </Link>
+                </div>
+
+                <div className={s.menuItem}>
+                  <Link to='#' className={s.menuItemLink}>
+                    Предложения в работе
+                  </Link>
+                </div>
+              </div>
+
+              <div className={s.menuSection}>
+                <Link to='#' className={s.sectionHeader}>
+                  <img src={settingsIcon} alt="settingsIcon"/>
+                  <span>Настройки</span>
+                </Link>
+              </div>
 
             </div>
           </div>

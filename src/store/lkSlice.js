@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-  activeTabInMain: 0,  
+  activeTabInMain: 0,
 }
 
 const lkSlice = createSlice({
@@ -15,7 +15,6 @@ const lkSlice = createSlice({
 })
 export const {
    setActiveTabInMain,
-
 } = lkSlice.actions
 export const getActiveTabInMain = state => state.lk.activeTabInMain
 
