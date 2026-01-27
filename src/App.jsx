@@ -46,7 +46,7 @@ function App() {
             <Route path='main' element={<LkMain/>}/>
             <Route path='shop' element={<LkShop/>}/>
             <Route path='orders' element={<LkOrders/>}/>
-            <Route path='search-requests' element={<LkRequests/>}/>
+            <Route path='requests' element={<LkRequests/>}/>
             <Route path='chat' element={<LkChat/>}/>
             <Route path='orders/:orderId' element={<Order/>}/>
             

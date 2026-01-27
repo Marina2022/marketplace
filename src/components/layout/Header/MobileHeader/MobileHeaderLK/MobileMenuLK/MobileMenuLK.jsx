@@ -10,6 +10,8 @@ import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 import {setActiveTabInMain} from "@/store/lkSlice.js";
 import {useDispatch} from "react-redux";
+import {setOrdersTab} from "@/store/ordersSlice.js";
+import {setSecondFromTopTab, setTopShopTab} from "@/store/lkShopSlice.js";
 
 
 const MobileMenuLk = () => {
@@ -75,6 +77,30 @@ const MobileMenuLk = () => {
     navigate("/lk/main")
   }
 
+  const handleAllOrdersClick = (e) => {
+    e.preventDefault()
+    dispatch(setOrdersTab(2))
+    navigate("/lk/orders")
+  }
+
+  const handleActiveOrdersClick = (e) => {
+    e.preventDefault()
+    dispatch(setOrdersTab(1))
+    navigate("/lk/orders")
+  }
+
+  const handleShopProfile = (e) => {
+    e.preventDefault()
+    dispatch(setTopShopTab(4))
+    navigate("/lk/shop")
+  }
+
+  const handleProductCard = (e) => {
+    e.preventDefault()
+    dispatch(setTopShopTab(1))
+    dispatch(setSecondFromTopTab(1))
+    navigate("/lk/shop")
+  }
 
   return (
 
@@ -127,12 +153,12 @@ const MobileMenuLk = () => {
                   <span>Магазин</span>
                 </h5>
                 <div className={s.menuItem}>
-                  <Link to='catalog' className={s.menuItemLink}>
-                    Карточки товаров
+                  <Link onClick={handleProductCard} to='lk/shop' className={s.menuItemLink}>
+                    Карточки товара
                   </Link>
                 </div>
                 <div className={s.menuItem}>
-                  <Link to='catalog' className={s.menuItemLink}>
+                  <Link onClick={handleShopProfile} to='lk/shop' className={s.menuItemLink}>
                     Профиль магазина
                   </Link>
                 </div>
@@ -144,12 +170,15 @@ const MobileMenuLk = () => {
                   <span>Заказы</span>
                 </h5>
                 <div className={s.menuItem}>
-                  <Link to='orders' className={s.menuItemLink}>
+
+                  <Link onClick={handleActiveOrdersClick} to='lk/orders' className={s.menuItemLink}>
                     Активные заказы
                   </Link>
+
                 </div>
                 <div className={s.menuItem}>
-                  <Link to='orders' className={s.menuItemLink}>
+
+                  <Link onClick={handleAllOrdersClick} to='lk/orders' className={s.menuItemLink}>
                     Все заказы
                   </Link>
                 </div>
@@ -161,12 +190,12 @@ const MobileMenuLk = () => {
                   <span>Заявки</span>
                 </h5>
                 <div className={s.menuItem}>
-                  <Link to='#' className={s.menuItemLink}>
+                  <Link to='lk/requests' className={s.menuItemLink}>
                     Управление заявками
                   </Link>
                 </div>
                 <div className={s.menuItem}>
-                  <Link to='#' className={s.menuItemLink}>
+                  <Link to='lk/requests' className={s.menuItemLink}>
                     Принятые заявки
                   </Link>
                 </div>
