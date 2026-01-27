@@ -83,6 +83,13 @@
   cursor: pointer;
   color: #3E5067;
   font-size: 14px;
+  transition: background .1s ease-in-out;
+
+  &:hover {
+    background: #F5F6F8;
+    transition: background .1s ease-in-out;
+
+  }
 }
 
 
