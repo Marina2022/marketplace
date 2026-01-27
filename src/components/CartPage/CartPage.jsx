@@ -4,7 +4,7 @@ import {getIsAuthenticated} from "@/store/userSlice.js";
 import {useEffect, useState} from "react";
 import CurrentCart from "@/components/CartPage/CurrentCart/CurrentCart.jsx";
 import SavedCarts from "@/components/CartPage/SavedCarts/SavedCarts.jsx";
-import ViewedProducts from "@/components/ViewedProducts/ViewedProducts.jsx";
+import ViewedProducts from "@/components/common/ViewedProducts/ViewedProducts.jsx";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
 import {getCartStatus, getSavedCartsStatus} from "@/store/cartSlice.js";
 

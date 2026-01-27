@@ -3,7 +3,7 @@ import s from "./TopBlock.module.scss"
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
-import Error from "@/components/Error/Error.jsx";
+import Error from "@/components/common/Error/Error.jsx";
 
 const TopBlock = () => {
 

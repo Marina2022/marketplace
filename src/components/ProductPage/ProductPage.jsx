@@ -9,7 +9,7 @@ import Details from "@/components/ProductPage/Details/Details.jsx";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import RightSidebar from "@/components/ProductPage/RightSidebar/RightSidebar.jsx";
 import DetailedInfo from "@/components/ProductPage/DetailedInfo/DetailedInfo.jsx";
-import ViewedProducts from "@/components/ViewedProducts/ViewedProducts.jsx";
+import ViewedProducts from "@/components/common/ViewedProducts/ViewedProducts.jsx";
 import {getFavs, updateFavs} from "@/store/favSlice.js";
 import {useDispatch, useSelector} from "react-redux";
 import {getIsAuthenticated} from "@/store/userSlice.js";

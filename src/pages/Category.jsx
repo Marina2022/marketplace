@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import {useLocation, useParams} from "react-router-dom";
 import CategoryBlock from "@/components/CategoryBlock/CategoryBlock.jsx";
-import Error from '@/components/Error/Error.jsx'
+import Error from '@/components/common/Error/Error.jsx'
 
 const Category = () => {
   const {category} = useParams()   

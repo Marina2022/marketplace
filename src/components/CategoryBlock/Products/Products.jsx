@@ -5,7 +5,7 @@ import {getCartView} from "@/store/catalogSlice.js";
 import {useParams, useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
-import Error from "@/components/Error/Error.jsx";
+import Error from "@/components/common/Error/Error.jsx";
 import axiosInstance from "@/api/axiosInstance.js";
 import {PAGE_SIZE} from "@/consts/pageSize.js";
 import Pagination from "@/components/CategoryBlock/Pagination/Pagination.jsx";

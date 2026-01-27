@@ -1,7 +1,7 @@
 import s from './FavPage.module.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {getFavCategories, getFavs, getFavsLoadingStatus, loadFavs} from "@/store/favSlice.js";
-import ViewedProducts from "@/components/ViewedProducts/ViewedProducts.jsx";
+import ViewedProducts from "@/components/common/ViewedProducts/ViewedProducts.jsx";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
 import FavList from "@/components/FavPage/FavList/FavList.jsx";
 import FavCategoriesDesktop from "@/components/FavPage/FavCategories/FavCategoriesDesktop.jsx";

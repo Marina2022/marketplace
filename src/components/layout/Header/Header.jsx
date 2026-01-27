@@ -15,6 +15,11 @@ import Login from "@/components/layout/Header/Login/Login.jsx";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
 import MobileHeader from "@/components/layout/Header/MobileHeader/MobileHeader.jsx";
 import {getActiveOrders} from "@/store/ordersSlice.js";
+import CategoryDropdownDesktop
+  from "@/components/layout/categoryDropdowns/CategoryDropdownDesktop/CategoryDropdownDesktop.jsx";
+import categoryDropdownDesktop
+  from "@/components/layout/categoryDropdowns/CategoryDropdownDesktop/CategoryDropdownDesktop.jsx";
+import {useEffect, useState} from "react";
 
 const Header = () => {
 
@@ -24,7 +29,23 @@ const Header = () => {
   const favs = useSelector(getFavs)
   const cart = useSelector(getCart)
   const orders = useSelector(getActiveOrders)
-  
+
+
+  const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false)
+
+  const handleCatalogBtnClick = () => {
+    setCategoryDropdownOpen(prev => !prev)
+  }
+
+  // скроллбар убираем
+  useEffect(() => {
+    if (categoryDropdownOpen) {
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = 'auto';
+    }
+  }, [categoryDropdownOpen]);
+
   let productsTotal
   if (cart?.cartItems) {
     productsTotal = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0)
@@ -42,8 +63,12 @@ const Header = () => {
           <Link className={s.logoLink} to="/">
             <img className={s.logo} src={logo} alt="logo"/>
           </Link>
-          <Link to="/category/smartfoni-781001bc-3a72-4e5b-8d2a-ee22e0ea7b0a" className={s.catalogBtn}><img
-            className={s.catalogBtnIcon} src={catalogBtnIcon}/><span>Каталог</span></Link>
+
+
+          <button onClick={handleCatalogBtnClick} className={s.catalogBtn}>
+            <img className={s.catalogBtnIcon} src={catalogBtnIcon}/>
+            <span>Каталог</span>
+          </button>
 
           <HeaderSearch/>
 
@@ -95,6 +120,11 @@ const Header = () => {
           </ul>
         </div>
       </div>
+
+      {
+        categoryDropdownOpen && <CategoryDropdownDesktop setCategoryDropdownOpen={setCategoryDropdownOpen} />
+      }
+
     </header>
   )
 }

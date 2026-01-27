@@ -1,0 +1,99 @@
+@import "@/assets/styles/mixins";
+
+.categoryDropdown {
+  z-index: 3;
+  background: #fff;
+  position: fixed;
+  top: 121px;
+  left: 0;
+  right: 0;
+  height: calc(100vh - 121px);
+}
+
+.globalWrapper {
+  display: flex;
+}
+
+.leftPart {
+  margin-top: 8px;
+  padding-right: 6px;
+  width: 306px;
+  max-height: calc(100vh - 121px - 32px);
+  overflow-y: auto;
+
+
+  @-moz-document url-prefix() {
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--lime) rgba(37, 37, 38, 0.1) !important;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px !important; /* Ширина скроллбара */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #AAB7BF !important;
+    border-radius: 10px !important;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #F0F1F1 !important;
+    border-radius: 10px !important;
+  }
+}
+
+.dropdownWrapper {
+  position: relative;
+}
+
+
+.trigger {
+  height: 46px;
+  width: 100%;
+  margin-right: 6px;
+  padding-inline: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: #F0F1F1 1px solid;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.typeDropdown {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  background: #93A6B2;
+  border: #F0F1F1 1px solid;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.typeDropdownItem {
+  background: #F9FAFB;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  padding-inline: 10px;
+  cursor: pointer;
+  color: #3E5067;
+  font-size: 14px;
+}
+
+
+.svgUpBtn {
+  position: absolute;
+  right: 12px;
+  top: 20px;
+  cursor: pointer;
+  align-items: flex-start;
+  width: 20px;
+  height: 20px;
+  justify-content: flex-end;
+  display: flex;
+}

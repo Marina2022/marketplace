@@ -5,7 +5,7 @@ import useBigScreen from "@/hooks/useBigScreen.js";
 import {useRef} from "react";
 import TopBlock from "@/components/CategoryBlock/TopBlock/TopBlock.jsx";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
-import ViewedProducts from "@/components/ViewedProducts/ViewedProducts.jsx"
+import ViewedProducts from "@/components/common/ViewedProducts/ViewedProducts.jsx"
 const CategoryBlock = ({allFilters}) => {
 
   const isBigScreen = useBigScreen()
