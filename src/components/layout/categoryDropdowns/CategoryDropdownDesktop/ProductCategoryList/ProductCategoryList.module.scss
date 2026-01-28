@@ -1,0 +1,21 @@
+@import "@/assets/styles/mixins";
+
+.catItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  padding: 8px 10px;
+  border: 1px solid #fff;
+  cursor: pointer;
+
+  &:hover {
+    background: #F9FAFB;
+    //border: 1px solid #F0F1F1;
+  }
+}
+
+.activeItem {
+  background: #F9FAFB;
+  border: 1px solid #F0F1F1;
+}

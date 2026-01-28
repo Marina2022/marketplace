@@ -1,0 +1,35 @@
+@import "@/assets/styles/mixins";
+
+.subCatTitle {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+
+.subSubCats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #658092;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.showMore {
+  font-size: 12px;
+  color: #0093FD;
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.subCatItem {
+
+  color: inherit;
+
+  &:hover {
+    color: #131D2A;
+  }
+}

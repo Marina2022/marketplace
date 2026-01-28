@@ -1,6 +1,6 @@
 import s from './Header.module.scss'
 import logo from '@/assets/img/header/logo.svg'
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {getIsAuthenticated, getUserStatus} from "@/store/userSlice.js";
 import {getFavs} from "@/store/favSlice.js";
@@ -17,9 +17,8 @@ import MobileHeader from "@/components/layout/Header/MobileHeader/MobileHeader.j
 import {getActiveOrders} from "@/store/ordersSlice.js";
 import CategoryDropdownDesktop
   from "@/components/layout/categoryDropdowns/CategoryDropdownDesktop/CategoryDropdownDesktop.jsx";
-import categoryDropdownDesktop
-  from "@/components/layout/categoryDropdowns/CategoryDropdownDesktop/CategoryDropdownDesktop.jsx";
 import {useEffect, useState} from "react";
+import axiosInstance from "@/api/axiosInstance.js";
 
 const Header = () => {
 
@@ -30,8 +29,51 @@ const Header = () => {
   const cart = useSelector(getCart)
   const orders = useSelector(getActiveOrders)
 
-
   const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false)
+
+  const [categoriesForDropdown, setCategoriesForDropdown] = useState(null)
+  const [requestsForDropdown, setRequestsForDropdown] = useState(null)
+  const [categoriesForDropdownLoading, setCategoriesForDropdownLoading] = useState(false)
+  const [requestsForDropdownLoading, setRequestsForDropdownLoading] = useState(false)
+
+
+  const location = useLocation();
+
+  useEffect(() => {
+    setTimeout(()=>{
+      setCategoryDropdownOpen(false)
+    }, 400)
+
+  }, [location]);
+
+  useEffect(() => {
+    const getCatsForCatsDropdown = async () => {
+      try {
+        setCategoriesForDropdownLoading(true)
+        const response = await axiosInstance('categories-tree')
+        setCategoriesForDropdown(response.data.categories)
+      } catch(err) {
+        console.log(err)
+      } finally {
+        setCategoriesForDropdownLoading(false)
+      }
+    }
+
+    const getRequestForCatsDropdown = async () => {
+      try {
+        setRequestsForDropdownLoading(true)
+        const response = await axiosInstance('request-categories-tree')
+        setRequestsForDropdown(response.data.requestCategories)
+      } catch(err) {
+        console.log(err)
+      } finally {
+        setRequestsForDropdownLoading(false)
+      }
+    }
+
+    getCatsForCatsDropdown()
+    getRequestForCatsDropdown()
+  }, [])
 
   const handleCatalogBtnClick = () => {
     setCategoryDropdownOpen(prev => !prev)
@@ -63,7 +105,6 @@ const Header = () => {
           <Link className={s.logoLink} to="/">
             <img className={s.logo} src={logo} alt="logo"/>
           </Link>
-
 
           <button onClick={handleCatalogBtnClick} className={s.catalogBtn}>
             <img className={s.catalogBtnIcon} src={catalogBtnIcon}/>
@@ -122,10 +163,17 @@ const Header = () => {
       </div>
 
       {
-        categoryDropdownOpen && <CategoryDropdownDesktop setCategoryDropdownOpen={setCategoryDropdownOpen} />
+        categoryDropdownOpen && <CategoryDropdownDesktop
+          setCategoryDropdownOpen={setCategoryDropdownOpen}
+          categoriesForDropdown={categoriesForDropdown}
+          requestsForDropdown={requestsForDropdown}
+          categoriesForDropdownLoading={categoriesForDropdownLoading}
+          requestsForDropdownLoading={requestsForDropdownLoading}
+        />
       }
 
     </header>
   )
 }
 export default Header;
+

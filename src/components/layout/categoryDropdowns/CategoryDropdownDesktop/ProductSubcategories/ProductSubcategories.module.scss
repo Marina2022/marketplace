@@ -1,0 +1,26 @@
+@import "@/assets/styles/mixins";
+
+.subCatWrapper {
+  padding: 12px 22px;
+}
+
+.title {
+  color: #131D2A;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 15px;
+
+  @include t {
+    font-size: 24px;
+  }
+}
+
+.subCatList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+
+  @include t {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
