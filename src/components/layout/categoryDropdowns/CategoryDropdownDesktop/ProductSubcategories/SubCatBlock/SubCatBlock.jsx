@@ -35,7 +35,7 @@ const SubCatBlock = ({subCat}) => {
         )
       }
     </li>
-  );
-};
+  )
+}
 
 export default SubCatBlock;

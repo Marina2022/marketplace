@@ -5,8 +5,6 @@ import fallbackPhoto from '@/assets/img/fallbackFoto.png'
 
 const ProductCategoryList = ({categoriesForDropdown, setCurrentProductCat, categoriesForDropdownLoading, currentProductCat}) => {
 
-  console.log('categoriesForDropdown ??', categoriesForDropdown)
-
   if (categoriesForDropdownLoading) return <Spinner />
 
 

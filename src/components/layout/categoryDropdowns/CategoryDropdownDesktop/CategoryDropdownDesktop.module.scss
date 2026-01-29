@@ -12,6 +12,7 @@
 
 .globalWrapper {
   display: flex;
+  position: relative;
 }
 
 .leftPart {
@@ -45,7 +46,6 @@
 .dropdownWrapper {
   position: relative;
 }
-
 
 .trigger {
   height: 46px;
@@ -133,3 +133,8 @@
   }
 }
 
+.closeBtn {
+  position: absolute;
+  top: 18px;
+  right: 00px;
+}

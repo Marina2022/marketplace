@@ -4,7 +4,7 @@ import closeBtn from "@/assets/img/header/mobileMenu/closeBtn.svg";
 import lkIcon from "@/assets/img/header/mobileMenu/lk.svg";
 import shopIcon from "@/assets/img/header/mobileMenu/shop.svg";
 import ordersIcon from "@/assets/img/header/mobileMenu/orders.svg";
-import appIcon from "@/assets/img/header/mobileMenu/applications.svg";
+import appIcon from "@/assets/img/header/mobileMenu/requests.svg";
 import settingsIcon from "@/assets/img/header/mobileMenu/settings.svg";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";

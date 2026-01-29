@@ -19,9 +19,7 @@ const CategoryDropdownDesktop = ({
                                    requestsForDropdownLoading
                                  }) => {
 
-  console.log('categoriesForDropdown = ', categoriesForDropdown)
   const [catalogType, setCatalogType] = useState('products')  // products/requests
-
   const [typeDropdownOpen, setTypeDropdownOpen] = useState(false)
 
   const handleTriggerClick = () => {
@@ -33,11 +31,17 @@ const CategoryDropdownDesktop = ({
   ]
 
   const [currentProductCat, setCurrentProductCat] = useState(null)
+  const [currentRequestCat, setCurrentRequestCat] = useState(null)
 
   return (
     <div className={s.categoryDropdown}>
       <div className="container">
         <div className={s.globalWrapper}>
+          <button className={s.closeBtn} onClick={()=>setCategoryDropdownOpen(false)}><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.330758 0.331352C0.770106 -0.107882 1.48244 -0.107953 1.92175 0.331352L6.69334 5.10294L11.4663 0.329971C11.9056 -0.109326 12.6179 -0.109241 13.0573 0.329971C13.4966 0.769311 13.4966 1.48162 13.0573 1.92096L8.28433 6.69393L13.0587 11.4683C13.498 11.9076 13.4979 12.6199 13.0587 13.0593C12.6193 13.4986 11.907 13.4986 11.4677 13.0593L6.69334 8.28492L1.92037 13.0579C1.48103 13.4972 0.768717 13.4972 0.329377 13.0579C-0.109835 12.6185 -0.10992 11.9062 0.329377 11.4669L5.10235 6.69393L0.330758 1.92234C-0.108582 1.483 -0.108582 0.770692 0.330758 0.331352Z" fill="#3E5067"/>
+          </svg>
+          </button>
+
           <div className={s.leftPart}>
             <div className={s.dropdownWrapper}>
               <div className={s.trigger} onClick={handleTriggerClick}>
@@ -65,8 +69,6 @@ const CategoryDropdownDesktop = ({
                     </button>
                     {
                       dropdownArray.map((item, i) => {
-
-
                         const handleItemClick = (item) => {
                           setCatalogType(item.value)
                           setTypeDropdownOpen(false)
@@ -82,7 +84,6 @@ const CategoryDropdownDesktop = ({
                   </div>
                 )
               }
-
             </div>
 
             {
@@ -95,9 +96,13 @@ const CategoryDropdownDesktop = ({
             }
 
             {
-              catalogType === 'requests' && <RequestCategoryList/>
+              catalogType === 'requests' && <RequestCategoryList
+                requestsForDropdown={requestsForDropdown}
+                currentRequestCat={currentRequestCat}
+                setCurrentRequestCat={setCurrentRequestCat}
+                requestsForDropdownLoading={requestsForDropdownLoading}
+              />
             }
-
           </div>
 
           <div className={s.middlePart}></div>
@@ -109,7 +114,7 @@ const CategoryDropdownDesktop = ({
             }
 
             {
-              catalogType === 'requests' && <RequestSubcategories/>
+              catalogType === 'requests' && <RequestSubcategories currentRequestCat={currentRequestCat}/>
             }
           </div>
         </div>
