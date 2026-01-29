@@ -19,7 +19,7 @@ const RequestCategoryList = ({requestsForDropdown, currentRequestCat, setCurrent
         </li>)
       }
     </ul>
-  );
-};
+  )
+}
 
 export default RequestCategoryList;

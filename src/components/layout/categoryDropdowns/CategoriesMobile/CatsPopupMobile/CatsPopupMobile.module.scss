@@ -1,0 +1,71 @@
+.catsPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 64px;
+  background: #fff;
+  padding: 16px;
+  max-width: 100%;
+  overflow-y: auto;
+}
+
+.dropdownWrapper {
+  position: relative;
+}
+
+.trigger {
+  height: 46px;
+  width: 100%;
+  margin-right: 6px;
+  padding-inline: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: #F0F1F1 1px solid;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.typeDropdown {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #93A6B2;
+  border: #F0F1F1 1px solid;
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.typeDropdownItem {
+  background: #F9FAFB;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  padding-inline: 10px;
+  cursor: pointer;
+  color: #3E5067;
+  font-size: 14px;
+  transition: background .1s ease-in-out;
+
+  &:hover {
+    background: #F5F6F8;
+    transition: background .1s ease-in-out;
+  }
+}
+
+.svgUpBtn {
+  position: absolute;
+  right: 12px;
+  top: 20px;
+  cursor: pointer;
+  align-items: flex-start;
+  width: 20px;
+  height: 20px;
+  justify-content: flex-end;
+  display: flex;
+}

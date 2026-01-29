@@ -1,0 +1,43 @@
+.catItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  padding: 8px 10px;
+  border: 1px solid #fff;
+  cursor: pointer;
+
+  &:hover {
+    background: #F9FAFB;
+  }
+}
+
+.activeItem {
+  background: #F9FAFB;
+  border: 1px solid #F0F1F1;
+}
+
+.arrow {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.categoryName {
+  margin-right: 10px;
+}
+
+.title {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 16px;
+
+  svg {
+    position: relative;
+    top: 4px;
+  }
+
+}

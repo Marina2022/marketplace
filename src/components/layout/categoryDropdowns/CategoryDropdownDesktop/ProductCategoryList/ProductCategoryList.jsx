@@ -1,6 +1,5 @@
 import s from './ProductCategoryList.module.scss';
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
-
 import fallbackPhoto from '@/assets/img/fallbackFoto.png'
 
 const ProductCategoryList = ({categoriesForDropdown, setCurrentProductCat, categoriesForDropdownLoading, currentProductCat}) => {
