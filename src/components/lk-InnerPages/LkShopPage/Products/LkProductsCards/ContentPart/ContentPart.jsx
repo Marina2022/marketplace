@@ -47,13 +47,21 @@ const ContentPart = ({products, getProducts, productsLoading}) => {
       });
   }
 
-  if (!products ) return <Spinner/>
+  if (productsLoading ) return <Spinner/>
+
+  if (!products) return <NoProducts noCompany={false}/>
 
   return (
     <>
       {
         !isMobile && (
           <div className={s.contentPartWrapper}>
+
+            {/* нет товаров, компания, право на все есть - сделала заглушку, потом убрать надо, т.к. этот случай уже предусмотрен todo */}
+            {
+              currentProfile && currentProfile.type === 'company' && !productsLoading && !products === 0 && <NoProducts/>
+            }
+
             {
               currentProfile && currentProfile.type === 'company' && !productsLoading && products && products.length === 0 && <NoProducts/>
             }

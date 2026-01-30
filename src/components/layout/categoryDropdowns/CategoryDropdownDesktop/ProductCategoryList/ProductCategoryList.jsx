@@ -12,7 +12,7 @@ const ProductCategoryList = ({categoriesForDropdown, setCurrentProductCat, categ
       {
         categoriesForDropdown.map(cat => <li
           key={cat.categoryId}
-          onClick={()=>setCurrentProductCat(cat)}
+          onMouseEnter={()=>setCurrentProductCat(cat)}
           className={`${s.catItem} ${currentProductCat?.categoryId === cat.categoryId ? s.activeItem : ''}`}
 
         >

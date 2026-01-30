@@ -10,7 +10,7 @@ const RequestCategoryList = ({requestsForDropdown, currentRequestCat, setCurrent
       {
         requestsForDropdown.map(cat => <li
           key={cat.categoryId}
-          onClick={()=>setCurrentRequestCat(cat)}
+          onMouseEnter={()=>setCurrentRequestCat(cat)}
           className={`${s.catItem} ${currentRequestCat?.categoryId === cat.categoryId ? s.activeItem : ''}`}
 
         >

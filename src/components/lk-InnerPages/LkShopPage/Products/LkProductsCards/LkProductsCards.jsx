@@ -90,11 +90,11 @@ const LkProductsCards = () => {
           <Button onClick={() => navigate('/lk/edit-product/new')} className={s.createProductBtn}>Создать товар</Button>
         </div>
         {
-          productsData && <div className={s.underHeader}>
+          productsData && productsData.products && <div className={s.underHeader}>
             <Tabs tabsCount={productsData.tabsCount}/>
             <div className={s.searchAndFilters}>
               <SearchProductCard/>
-              <ProductCardFilters filters={productsData.filters}/>
+              <ProductCardFilters filters={productsData?.filters || []}/>
             </div>
           </div>
         }
