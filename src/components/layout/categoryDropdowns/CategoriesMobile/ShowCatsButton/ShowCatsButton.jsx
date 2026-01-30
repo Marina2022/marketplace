@@ -2,29 +2,24 @@ import s from './ShowCatsButton.module.scss';
 import {useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
-import CategoryDropdownDesktop
-  from "@/components/layout/categoryDropdowns/CategoryDropdownDesktop/CategoryDropdownDesktop.jsx";
 import CatsPopupMobile
   from "@/components/layout/categoryDropdowns/CategoriesMobile/CatsPopupMobile/CatsPopupMobile.jsx";
 
 const ShowCatsButton = () => {
 
   const location = useLocation()
-  const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(true)  // todo должно быть false
-
-  console.log({categoryDropdownOpen})
-
+  const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false)
   const [categoriesForDropdown, setCategoriesForDropdown] = useState(null)
   const [requestsForDropdown, setRequestsForDropdown] = useState(null)
   const [categoriesForDropdownLoading, setCategoriesForDropdownLoading] = useState(false)
   const [requestsForDropdownLoading, setRequestsForDropdownLoading] = useState(false)
 
-  // useEffect(() => {  // todo - раскомментируй
-  //   setTimeout(() => {
-  //     setCategoryDropdownOpen(false)
-  //   }, 400)
-  //
-  // }, [location]);
+  useEffect(() => {
+    setTimeout(() => {
+      setCategoryDropdownOpen(false)
+    }, 400)
+
+  }, [location]);
 
   useEffect(() => {
     const getCatsForCatsDropdown = async () => {
@@ -74,8 +69,6 @@ const ShowCatsButton = () => {
           <path d="M15.9375 18.1719L17.625 19.7509" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       </button>
-
-
       {
         categoryDropdownOpen && <CatsPopupMobile
           setCategoryDropdownOpen={setCategoryDropdownOpen}
@@ -84,10 +77,7 @@ const ShowCatsButton = () => {
           categoriesForDropdownLoading={categoriesForDropdownLoading}
           requestsForDropdownLoading={requestsForDropdownLoading}
         />
-
-
       }
-
     </div>
   )
 }

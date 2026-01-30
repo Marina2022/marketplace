@@ -58,8 +58,13 @@
   border: #F0F1F1 1px solid;
   border-radius: 4px;
   font-size: 14px;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
   cursor: pointer;
+
+  svg {
+    position: relative;
+    top: -1px;
+  }
 }
 
 .typeDropdown {

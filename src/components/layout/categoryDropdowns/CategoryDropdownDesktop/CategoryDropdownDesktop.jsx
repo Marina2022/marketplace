@@ -1,5 +1,5 @@
 import s from './CategoryDropdownDesktop.module.scss';
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import ProductCategoryList
   from "@/components/layout/categoryDropdowns/CategoryDropdownDesktop/ProductCategoryList/ProductCategoryList.jsx";
 import RequestCategoryList
@@ -33,6 +33,27 @@ const CategoryDropdownDesktop = ({
   const [currentProductCat, setCurrentProductCat] = useState(null)
   const [currentRequestCat, setCurrentRequestCat] = useState(null)
 
+  const dropdownWrapperRef = useRef()
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        dropdownWrapperRef.current &&
+        !dropdownWrapperRef.current.contains(e.target)
+      ) {
+        setTypeDropdownOpen(false);
+      }
+    };
+
+    if (typeDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [typeDropdownOpen]);
+
   return (
     <div className={s.categoryDropdown}>
       <div className="container">
@@ -42,8 +63,8 @@ const CategoryDropdownDesktop = ({
           </svg>
           </button>
           <div className={s.leftPart}>
-            <div className={s.dropdownWrapper}>
-              <div className={s.trigger} onClick={handleTriggerClick}>
+            <div className={s.dropdownWrapper} ref={dropdownWrapperRef} >
+              <div className={s.trigger} onClick={handleTriggerClick} >
                 <span>
                   {
                     catalogType === 'products' ? 'Каталог товаров' : 'Каталог заявок'

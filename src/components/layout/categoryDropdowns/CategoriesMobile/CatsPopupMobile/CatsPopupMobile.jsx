@@ -1,15 +1,21 @@
 import s from './CatsPopupMobile.module.scss';
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import ProductCatsList
   from "@/components/layout/categoryDropdowns/CategoriesMobile/CatsPopupMobile/ProductCatsList/ProductCatsList.jsx";
 import RequestCatsList
   from "@/components/layout/categoryDropdowns/CategoriesMobile/CatsPopupMobile/RequestCatsList/RequestCatsList.jsx";
 import ProductCatsFinalLinks
   from "@/components/layout/categoryDropdowns/CategoriesMobile/CatsPopupMobile/ProductCatsFinalLinks/ProductCatsFinalLinks.jsx";
+import RequestCatsFinalLinks
+  from "@/components/layout/categoryDropdowns/CategoriesMobile/CatsPopupMobile/RequestCatsFinalLinks/RequestCatsFinalLinks.jsx";
 
-const CatsPopupMobile = ({ setCategoryDropdownOpen, categoriesForDropdown, requestsForDropdown, categoriesForDropdownLoading, requestsForDropdownLoading}) => {
-
-
+const CatsPopupMobile = ({
+                           setCategoryDropdownOpen,
+                           categoriesForDropdown,
+                           requestsForDropdown,
+                           categoriesForDropdownLoading,
+                           requestsForDropdownLoading
+                         }) => {
 
   const [catalogType, setCatalogType] = useState('products')  // products/requests
   const [typeDropdownOpen, setTypeDropdownOpen] = useState(false)
@@ -24,8 +30,6 @@ const CatsPopupMobile = ({ setCategoryDropdownOpen, categoriesForDropdown, reque
 
   const [currentProductCat, setCurrentProductCat] = useState(null)
   const [currentProductSubCat, setCurrentProductSubCat] = useState(null)
-
-
   const [currentRequestCat, setCurrentRequestCat] = useState(null)
 
   console.log('currentProductCat', currentProductCat)
@@ -36,16 +40,39 @@ const CatsPopupMobile = ({ setCategoryDropdownOpen, categoriesForDropdown, reque
     setCurrentProductSubCat(null)
   }, [catalogType]);
 
+  const dropdownWrapperRef = useRef()
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        dropdownWrapperRef.current &&
+        !dropdownWrapperRef.current.contains(e.target)
+      ) {
+        setTypeDropdownOpen(false);
+      }
+    };
+
+    if (typeDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [typeDropdownOpen]);
+
+  console.log('currentRequestCat = ', currentRequestCat)
+
   return (
     <div className={s.catsPopup}>
 
       <div className={s.dropdownWrapper}>
         <div className={s.trigger} onClick={handleTriggerClick}>
-                <span>
-                  {
-                    catalogType === 'products' ? 'Каталог товаров' : 'Каталог заявок'
-                  }
-                </span>
+            <span>
+              {
+                catalogType === 'products' ? 'Каталог товаров' : 'Каталог заявок'
+              }
+            </span>
           <svg width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M5.77833 5.73167C5.31167 5.73167 4.845 5.55167 4.49167 5.19833L0.145 0.851666C-0.0483333 0.658333 -0.0483333 0.338333 0.145 0.145C0.338333 -0.0483333 0.658333 -0.0483333 0.851667 0.145L5.19833 4.49167C5.51833 4.81167 6.03833 4.81167 6.35833 4.49167L10.705 0.145C10.8983 -0.0483333 11.2183 -0.0483333 11.4117 0.145C11.605 0.338333 11.605 0.658333 11.4117 0.851666L7.065 5.19833C6.71167 5.55167 6.245 5.73167 5.77833 5.73167Z"
@@ -54,7 +81,7 @@ const CatsPopupMobile = ({ setCategoryDropdownOpen, categoriesForDropdown, reque
         </div>
         {
           typeDropdownOpen && (
-            <div className={s.typeDropdown}>
+            <div className={s.typeDropdown} ref={dropdownWrapperRef} >
               <button className={s.svgUpBtn} onClick={() => setTypeDropdownOpen(false)}>
                 <svg width="12" height="6"
                      viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -82,7 +109,7 @@ const CatsPopupMobile = ({ setCategoryDropdownOpen, categoriesForDropdown, reque
         }
       </div>
 
-       {/*тип категорий = Товары, категория не выбрана*/}
+      {/*тип категорий = Товары, категория не выбрана*/}
       {
         catalogType === "products" && !currentProductCat && <ProductCatsList
           setCurrentProductCat={setCurrentProductCat}
@@ -123,6 +150,15 @@ const CatsPopupMobile = ({ setCategoryDropdownOpen, categoriesForDropdown, reque
           currentRequestCat={currentRequestCat}
           setCurrentRequestCat={setCurrentRequestCat}
           requestsForDropdownLoading={requestsForDropdownLoading}
+        />
+      }
+
+      {/* тип категорий = Заявка, категория выбрана  */}
+      {
+        catalogType === "requests" && currentRequestCat && <RequestCatsFinalLinks
+          currentRequestCat={currentRequestCat}
+          setCurrentRequestCat={setCurrentRequestCat}
+          finalLinks={currentRequestCat.subCategories}
         />
       }
 
