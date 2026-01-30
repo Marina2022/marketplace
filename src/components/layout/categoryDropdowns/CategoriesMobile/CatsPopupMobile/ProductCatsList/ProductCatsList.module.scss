@@ -5,11 +5,12 @@
   font-size: 14px;
   padding: 8px 10px;
   border: 1px solid #fff;
-  cursor: pointer;
 
-  &:hover {
-    background: #F9FAFB;
+  svg {
+    align-self: center;
+    vertical-align: middle;
   }
+
 }
 
 .activeItem {
