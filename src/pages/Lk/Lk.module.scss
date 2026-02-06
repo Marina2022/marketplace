@@ -14,10 +14,20 @@
   border-bottom-right-radius: 6px;
   border-top-right-radius: 6px;
   z-index: 0;
+
+  @include m {
+    display: none;
+  }
 }
 
 .content {
   margin-left: 64px;
   padding-left: 100px;  // todo убрать
   padding-top: 134px;
+
+  @include m {
+    margin-left: 0;
+    padding-left: 0;
+    padding-top: 14px;
+  }
 }
