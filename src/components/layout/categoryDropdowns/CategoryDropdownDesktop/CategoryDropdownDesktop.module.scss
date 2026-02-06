@@ -139,6 +139,10 @@
 
 .closeBtn {
   position: absolute;
-  top: 18px;
-  right: 20px;
+  top: 0px;
+  right: 6px;
+
+  @include t {
+    right: 16px;
+  }
 }

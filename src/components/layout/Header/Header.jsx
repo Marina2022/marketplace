@@ -82,9 +82,9 @@ const Header = () => {
   // скроллбар убираем
   useEffect(() => {
     if (categoryDropdownOpen) {
-      document.documentElement.style.overflow = 'hidden';
+      document.documentElement.style.overflowY = 'hidden';
     } else {
-      document.documentElement.style.overflow = 'auto';
+      document.documentElement.style.overflowY = 'auto';
     }
   }, [categoryDropdownOpen]);
 
@@ -100,7 +100,8 @@ const Header = () => {
   return (
     <header className={s.header}>
       <div className={s.topHeaderPart}></div>
-      <div className='container'>
+      <div className='container-wide'>
+      {/*<div className='container'>*/}
         <div className={s.wrapper}>
           <Link className={s.logoLink} to="/">
             <img className={s.logo} src={logo} alt="logo"/>

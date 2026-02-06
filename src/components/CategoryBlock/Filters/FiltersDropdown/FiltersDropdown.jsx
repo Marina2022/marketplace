@@ -36,8 +36,6 @@ const FiltersDropdown = ({children, title, filtersWrapper, rightPartRef, filter}
             
       if (filtersHeigthAfterClosing <= (window.innerHeight - 40)) {
         if (rightPartRef.current.getBoundingClientRect().top <= 0) {
-          console.log('я должон произойти')
-
           filtersWrapper.current.style = 'position: fixed; top: 20px'
         } else {
           filtersWrapper.current.style = 'position: static; '

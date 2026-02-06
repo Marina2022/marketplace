@@ -3,8 +3,6 @@ import fallbackPhoto from "@/assets/img/fallbackFoto.png";
 import {Link} from "react-router-dom";
 
 const RequestCatsFinalLinks = ({finalLinks, currentRequestCat, setCurrentRequestCat}) => {
-  console.log('finalLinks= ', finalLinks)
-  console.log('currentRequestCat = ', currentRequestCat)
 
   if (!finalLinks) return null
 

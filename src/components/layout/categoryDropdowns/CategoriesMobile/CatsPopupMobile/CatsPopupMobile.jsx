@@ -32,8 +32,6 @@ const CatsPopupMobile = ({
   const [currentProductSubCat, setCurrentProductSubCat] = useState(null)
   const [currentRequestCat, setCurrentRequestCat] = useState(null)
 
-  console.log('currentProductCat', currentProductCat)
-
   useEffect(() => {
     setCurrentProductCat(null)
     setCurrentRequestCat(null)
@@ -60,8 +58,6 @@ const CatsPopupMobile = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [typeDropdownOpen]);
-
-  console.log('currentRequestCat = ', currentRequestCat)
 
   return (
     <div className={s.catsPopup}>

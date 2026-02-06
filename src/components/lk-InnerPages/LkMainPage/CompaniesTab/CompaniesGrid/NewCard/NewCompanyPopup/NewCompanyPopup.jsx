@@ -27,7 +27,6 @@ const NewCompanyPopup = ({setPopupIsOpen}) => {
       const resp = await axios.post('companies/addDetails', body)
       setPopupIsOpen(false)
       dispatch(getUserCompanies())
-      console.log(resp.data)
     } catch (err) {
       console.log(err)
     } finally {
@@ -40,7 +39,6 @@ const NewCompanyPopup = ({setPopupIsOpen}) => {
       setInfoIsLoading(true)
       const resp = await axios.post('companies/findDetails', {inn: innValue})
       setInfo(resp.data)
-      console.log(resp.data)
     } catch (err) {
       console.log(err)
     } finally {

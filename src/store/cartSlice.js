@@ -500,7 +500,6 @@ export const cartSlice = createSlice({
       state.deleteSavedCart = 'loading'
     })
     .addCase(deleteSavedCart.fulfilled, (state, action) => {
-      console.log('deleteSavedCart', action.payload)
       state.deleteSavedCartStatus = 'success'
     })
     .addCase(deleteSavedCart.rejected, (state, action) => {

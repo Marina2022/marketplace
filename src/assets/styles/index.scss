@@ -73,6 +73,22 @@ a {
   font-family: inherit;
 }
 
+.container-wide {
+  margin: 0 auto;
+  width: 100%;
+  //max-width: 1872px;
+  padding-inline: 24px;
+
+  @include t {
+    max-width: 920px;
+  }
+
+  @include m {
+    max-width: unset;
+    padding-inline: 16px;
+  }
+}
+
 .container {
   margin: 0 auto;
   width: 100%;

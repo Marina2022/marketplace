@@ -3,8 +3,6 @@ import fallbackPhoto from "@/assets/img/fallbackFoto.png";
 import {Link} from "react-router-dom";
 
 const ProductCatsFinalLinks = ({finalLinks, currentProductSubCat, setCurrentProductSubCat}) => {
-  console.log('finalLinks= ', finalLinks)
-  console.log('currentProductSubCat = ', currentProductSubCat)
 
   if (!finalLinks) return null
 

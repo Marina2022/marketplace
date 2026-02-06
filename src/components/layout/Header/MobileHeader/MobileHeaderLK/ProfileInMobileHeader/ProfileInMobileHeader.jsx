@@ -16,15 +16,12 @@ const ProfileInMobileHeader = () => {
   const location = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  console.log('isDropdownOpen = ', isDropdownOpen)
-
   const userDropdownWrapperRef = useRef();
 
   // клик вне
   useEffect(() => {
     const handleClickOutside = (event) => {
 
-      console.log('handleClickOutside')
 
       if (
         userDropdownWrapperRef.current &&

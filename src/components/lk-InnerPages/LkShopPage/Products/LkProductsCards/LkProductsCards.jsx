@@ -19,6 +19,9 @@ const LkProductsCards = () => {
   const currentProfile = profiles?.find(profile => profile.profileId === activeProfileId)
 
   const profileId = useSelector(getActiveProfileId)
+
+  console.log('profileId = ', profileId)
+
   const [productsLoading, setProductsLoading] = useState(true)
   const [productsData, setProductsData] = useState(null)
 

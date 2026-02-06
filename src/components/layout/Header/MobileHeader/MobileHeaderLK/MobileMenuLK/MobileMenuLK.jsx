@@ -36,9 +36,6 @@ const MobileMenuLk = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-
-      console.log('handleClickOutside')
-
       if (
         userDropdownWrapperRef.current &&
         !userDropdownWrapperRef.current.contains(event.target)
