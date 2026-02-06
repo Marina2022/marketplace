@@ -192,4 +192,14 @@
   width: 100%;
 }
 
+.LkHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  z-index: 1;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.02);
+}
+
 

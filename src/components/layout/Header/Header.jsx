@@ -97,8 +97,11 @@ const Header = () => {
     return <MobileHeader/>
   }
 
+  let isLkHeader = false
+  if (location.pathname.startsWith('/lk')) {isLkHeader = true}
+
   return (
-    <header className={s.header}>
+    <header className={isLkHeader ? s.LkHeader : s.header}>
       <div className={s.topHeaderPart}></div>
       <div className='container-wide'>
       {/*<div className='container'>*/}

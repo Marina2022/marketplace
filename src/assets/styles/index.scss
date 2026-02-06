@@ -45,8 +45,8 @@ img {
 }
 
 html {
-  overflow-x: hidden;
-  margin-right: calc(-1 * (100vw - 100%));
+  //overflow-x: hidden;
+  //margin-right: calc(-1 * (100vw - 100%));
 
   @include m {
     margin-right: 0;

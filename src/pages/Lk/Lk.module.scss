@@ -1,86 +1,23 @@
 @import "@/assets/styles/mixins";
 
-.wrapper {  
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  padding-top: 18px;
-  
-  @include m {
-    flex-direction: column;
-    gap: 11px;
-    padding-top: 8px;    
-  }
+.lk {
+  background: #F9F9FB;
+  min-height: 100vh;
 }
 
-.menu {   
-  background: white;
-  padding: 20px;
-  width: 301px;
-  min-width: 301px;
-  border: #F0F1F1 1px solid;
-
-  @include t {
-    min-width: 215px;
-    width: 215px;
-  }
-  
-  @include m {
-    display: none;
-  }
+.sideBar {
+  width: 64px;
+  position: fixed;
+  top: 134px;
+  bottom: 12px;
+  background: #DDE2E8;
+  border-bottom-right-radius: 6px;
+  border-top-right-radius: 6px;
+  z-index: 0;
 }
 
-.menuItemLink {
-  height: 45px;  
-  padding-inline: 10px;
-  margin-bottom: 10px;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  color: #658092;
-  font-weight: 600;
-  font-size: 18px;
-
-  @include t {
-    height: 44px;
-    font-size: 14px;
-    font-weight: 500;
-  }
-  
-  &:hover, &:active {
-    color: #131D2A;
-    
-    svg {
-      fill: #131D2A;
-    }
-  }
+.content {
+  margin-left: 64px;
+  padding-left: 100px;  // todo убрать
+  padding-top: 134px;
 }
-
-.menuItemLinkActive {
-  margin-bottom: 10px;
-  height: 45px;
-  border: #F0F1F1 solid 1px;
-  padding-inline: 10px;
-  display: flex;  
-  gap: 10px;
-  align-items: center;
-  background: #F9FAFB;
-  color: #131D2A;
-  font-weight: 600;
-  font-size: 18px;  
-  
-  @include t {
-    height: 44px;
-    font-size: 14px;
-    font-weight: 500;
-  }
-  
-  &:hover, &:active {
-    color: #131D2A;
-  }
-
-  svg {
-    fill: #131D2A;
-  }
-}
-
