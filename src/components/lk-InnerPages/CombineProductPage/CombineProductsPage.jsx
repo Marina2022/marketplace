@@ -23,13 +23,6 @@ const CombineProductsPage = () => {
       setCheckedProducts(checkedProducts)
       setCombineWithCard(combineWithCard)
     }
-
-    // для теста:
-    // setCheckedProducts([
-    //   "f9320cd5-ab20-4aba-968d-9e18ae15db1f",
-    //   "a88c34ed-2899-4601-b537-0201d8fc2d55"
-    // ])
-    // setCombineWithCard(true)
   }, []);
 
   const handleCancel = () => {

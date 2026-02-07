@@ -97,3 +97,85 @@
     border-top: #F0F1F1 1px solid;
   }
 }
+
+// --------------------
+
+.leftSideMenu {
+  padding-block: 14px;
+  padding-inline: 12px;
+  position: fixed;
+  top: 134px;
+  left: 64px;
+  width: 250px;
+  bottom: 12px;
+
+  @include t {
+    width: 174px;
+    padding-block: 10px;
+    padding-inline: 10px;
+  }
+
+  @include m {
+    display: none;
+  }
+}
+
+.contentWrapper {
+  top: 134px;
+  position: fixed;
+  left: calc(250px + 64px);  // ширина двух левых боковых меню
+  background: #fff;
+  padding: 16px 24px;
+  padding-right: 10px;
+  right: calc( 24px + 16px);  // отступ + ширина правой панели
+  bottom: 12px;
+  border: #F0F1F1 1px solid;
+
+  @include t {
+    left: calc(174px + 64px);  // ширина двух левых боковых меню
+  }
+
+  @include m {
+    position: static;
+    background: transparent;
+    padding: 0;
+    border: none;
+  }
+}
+
+.content {
+  overflow: auto;
+  padding-right: 12px;
+  height: 100%;
+
+  @-moz-document url-prefix() {
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--lime) rgba(37, 37, 38, 0.1) !important;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px !important; /* Ширина скроллбара */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #AAB7BF !important;
+    border-radius: 10px !important;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #F0F1F1 !important;
+    border-radius: 10px !important;
+  }
+
+  @include m {
+    max-height: unset;
+  }
+}
+
+.contentWrapperRightPanelOpen {
+  right: calc( 24px + 16px + 365px);  // отступ + ширина правой панели
+
+  @include t {
+    right: calc( 24px + 16px);  // панель ляжет сверху
+  }
+}

@@ -5,53 +5,67 @@ import ProfileTab from "@/components/lk-InnerPages/LkMainPage/ProfileTab/Profile
 import SettingsTab from "@/components/lk-InnerPages/LkMainPage/SettingsTab/SettingsTab.jsx";
 import {getActiveTabInMain, setActiveTabInMain} from "@/store/lkSlice.js";
 import {useDispatch, useSelector} from "react-redux";
+import {useOutletContext} from "react-router-dom";
 
 const LkMainPage = () => {
-  
+
   const activeTab = useSelector(getActiveTabInMain)
   const tabs = ['Главная', 'Организации', 'Профиль пользователя', 'Настройки аккаунта']
   const dispatch = useDispatch()
+
+
+  const {rightPanelOpen} = useOutletContext();
+
   return (
     <div className={s.lkMain}>
 
-      <div className={s.mobileTabsWrapper}>
-        <ul className={s.mobileTabs}>
-          {
-            tabs.map((tab, i) => <div
-              className={activeTab === i ? s.mobileTabItemActive : s.mobileTabItem}
-              key={i}
-              onClick={() => dispatch(setActiveTabInMain(i))}>
-              {tab}
-            </div>)
-          }
-        </ul>
+      <div className={s.leftSideMenu}>
+        Главная
       </div>
 
-      <ul className={s.tabs}>
-        {
-          tabs.map((tab, i) => <div
-            className={activeTab === i ? s.tabItemActive : s.tabItem}
-            key={i}
-            onClick={() => dispatch(setActiveTabInMain(i))}>
-            {tab}
-          </div>)
-        }
-      </ul>
-      {
-        activeTab === 0 && <MainTab/>
-      }
+      <div className={`${s.contentWrapper} ${rightPanelOpen ? s.contentWrapperRightPanelOpen : ''}`}>
+        <div className={s.content}>
 
-      {
-        activeTab === 1 && <CompaniesTab/>
-      }
+          <div className={s.mobileTabsWrapper}>
+            <ul className={s.mobileTabs}>
+              {
+                tabs.map((tab, i) => <div
+                  className={activeTab === i ? s.mobileTabItemActive : s.mobileTabItem}
+                  key={i}
+                  onClick={() => dispatch(setActiveTabInMain(i))}>
+                  {tab}
+                </div>)
+              }
+            </ul>
+          </div>
 
-      {
-        activeTab === 2 && <ProfileTab/>
-      }
+          <ul className={s.tabs}>
+            {
+              tabs.map((tab, i) => <div
+                className={activeTab === i ? s.tabItemActive : s.tabItem}
+                key={i}
+                onClick={() => dispatch(setActiveTabInMain(i))}>
+                {tab}
+              </div>)
+            }
+          </ul>
+          {
+            activeTab === 0 && <MainTab/>
+          }
 
-      {
-        activeTab === 3 && <SettingsTab/>
-      }
+          {
+            activeTab === 1 && <CompaniesTab/>
+          }
+
+          {
+            activeTab === 2 && <ProfileTab/>
+          }
+
+          {
+            activeTab === 3 && <SettingsTab/>
+          }
+        </div>
+      </div>
     </div>
   );
 };

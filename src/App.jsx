@@ -11,7 +11,7 @@ import Lk from "@/pages/Lk/Lk.jsx";
 import LkMain from "@/pages/Lk/LkMain.jsx";
 import LkShop from "@/pages/Lk/LkShop/LkShop.jsx";
 import LkOrders from "@/pages/Lk/LKOrders/LkOrders.jsx";
-import LkRequests from "@/pages/Lk/LkRequests.jsx";
+import LkRequests from "@/pages/Lk/LKRequests/LkRequests.jsx";
 import LkChat from "@/pages/Lk/LkChat.jsx";
 import ProtectedRoute from "@/components/layout/ProtectedRoute/ProtectedRoute.jsx";
 import CreateReview from "@/components/ProductPage/CreateReview/CreateReview.jsx";

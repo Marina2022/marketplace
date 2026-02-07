@@ -3,6 +3,9 @@
 .productsCardsWrapper {
   background: white;
   padding: 10px 15px;
+
+  max-width: 1120px;
+  border: 1px solid #F0F1F1;
   
   @include m {
     background: transparent;
