@@ -13,7 +13,7 @@
   background: #DDE2E8;
   border-bottom-right-radius: 6px;
   border-top-right-radius: 6px;
-  z-index: 0;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -51,76 +51,8 @@
 .rightBar {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding-block: 12px;
+  //gap: 20px;
   width: min-content; /* Ширина подстроится под высоту текста */
-  background: #D1F4D5;
-
 }
 
-.rightBarItem {
-  user-select: none;
 
-  cursor: pointer;
-  /* Основное свойство для поворота текста */
-  writing-mode: vertical-rl;
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-  white-space: nowrap;
-  padding-inline: 10px;
-  padding-left: 5px;
-
-}
-
-.rightPanel {
-  width: 365px;
-  background: #fff;
-  position: fixed;
-  right: 24px;
-  top: 121px;
-  bottom: 0;
-  z-index: 10;
-  border: 1px #F0F1F1 solid;
-
-
-  @include t {
-
-    box-shadow: -2px 10px 16px -8px rgba(0, 0, 0, 0.15);
-
-  }
-}
-
-.menuItem {
-  cursor: pointer;
-}
-
-.menuItemLink {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  svg {
-    position: relative;
-    top: 0;
-    fill: #658092;
-  }
-}
-
-.menuItemLinkActive {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #fff;
-  border-radius: 4px;
-
-  svg {
-    position: relative;
-    top: 0;
-    fill: #000;
-  }
-}

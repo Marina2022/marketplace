@@ -1,0 +1,76 @@
+@import "@/assets/styles/mixins";
+
+.item {
+  display: flex;
+  flex-direction: column;
+}
+
+.product {
+  display: flex;
+  gap: 16px;
+  padding-block: 10px;
+}
+
+.img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.name {
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.sku {
+  font-size: 12px;
+  color: #658092;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  svg {
+    cursor: pointer;
+    position: relative;
+    top: -1px;
+    fill: #AAB7BF;
+  }
+}
+
+.desc {
+  flex: 1;
+  padding-right: 10px;
+}
+
+.list {
+  max-height: calc(100vh - 156px);
+  overflow: auto;
+  padding-bottom: 20px;
+
+
+  @include m {
+    max-height: calc(100vh - 48px); // todo посмотреть
+  }
+}
+
+.chat {
+  display: none;
+  width: 122px;
+  height: 32px;
+
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #AAB7BF;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 12px;
+  margin-bottom: 12px;
+
+  @include m {
+    display: flex;
+  }
+  color: #658092;
+
+}

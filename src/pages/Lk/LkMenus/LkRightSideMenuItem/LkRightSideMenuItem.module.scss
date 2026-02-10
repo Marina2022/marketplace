@@ -1,0 +1,21 @@
+@import "@/assets/styles/mixins";
+
+
+.rightBarItem {
+  user-select: none;
+  cursor: pointer;
+  writing-mode: vertical-rl;
+  text-decoration: none;
+  color: #658092;
+  font-weight: 500;
+  font-size: 12px;
+  white-space: nowrap;
+  padding-inline: 8px;
+  padding-left: 5px;
+}
+
+.rightBarItemActive {
+  border-left: 3px solid #658092;
+}
+
+

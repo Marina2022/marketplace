@@ -1,0 +1,84 @@
+@import "@/assets/styles/mixins";
+
+.rightPanel {
+  width: 365px;
+  background: #fff;
+  position: fixed;
+  right: 24px;
+  top: 121px;
+  bottom: 0;
+  z-index: 10;
+  border: 1px #F0F1F1 solid;
+  padding: 12px;
+  padding-right: 2px; // внутренний блок добавит паддинга, т.к скролл надо еще туда
+
+  @include t {
+    box-shadow: -2px 10px 16px -8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+  padding-right: 10px;
+}
+
+.heading {
+  margin-right: 10px;
+  color: #3E5067;
+  font-size: 14px;
+  font-weight: 500;
+
+}
+
+.dropdownBtn {
+  margin-right: 18px;
+
+  svg {
+    position: relative;
+    top: -3px;
+  }
+}
+
+.pinBtn {
+  svg {
+    position: relative;
+    top: 1px;
+  }
+}
+
+.rightPartHeader {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.listBtn {
+  margin-right: 10px;
+}
+
+.hideBtn {
+
+}
+
+
+.hideBtnWrapper {
+  position: relative;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: -32px;
+  right: 0px;
+  background: #253246;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  z-index: 1;
+}

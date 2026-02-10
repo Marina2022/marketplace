@@ -1,0 +1,52 @@
+@import "@/assets/styles/mixins";
+
+.menuItem {
+  cursor: pointer;
+  position: relative;
+}
+
+.menuItemLink {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    position: relative;
+    top: 0;
+    fill: #658092;
+  }
+}
+
+.menuItemLinkActive {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 4px;
+
+  svg {
+    position: relative;
+    top: 0;
+    fill: #000;
+  }
+}
+
+.tooltip {
+  position: absolute;
+  bottom: -12px;
+  left: 52px;
+  background: #253246;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  z-index: 20;
+}
