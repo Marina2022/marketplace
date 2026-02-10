@@ -12,6 +12,7 @@ import {setActiveTabInMain} from "@/store/lkSlice.js";
 import {useDispatch} from "react-redux";
 import {setOrdersTab} from "@/store/ordersSlice.js";
 import {setSecondFromTopTab, setTopShopTab} from "@/store/lkShopSlice.js";
+import {setRequestsTab} from "@/store/requestsSlice.js";
 
 
 const MobileMenuLk = () => {
@@ -97,6 +98,37 @@ const MobileMenuLk = () => {
     dispatch(setTopShopTab(1))
     dispatch(setSecondFromTopTab(1))
     navigate("/lk/shop")
+  }
+
+  const handleRequestsTab1 = (e) => {
+    e.preventDefault()
+    dispatch(setRequestsTab(1))
+    navigate("/lk/requests")
+  }
+
+  //4.5.6
+  const handleRequestsTab3 = (e) => {
+    e.preventDefault()
+    dispatch(setRequestsTab(3))
+    navigate("/lk/requests")
+  }
+
+  const handleRequestsTab4 = (e) => {
+    e.preventDefault()
+    dispatch(setRequestsTab(4))
+    navigate("/lk/requests")
+  }
+
+  const handleRequestsTab5 = (e) => {
+    e.preventDefault()
+    dispatch(setRequestsTab(5))
+    navigate("/lk/requests")
+  }
+
+  const handleRequestsTab6 = (e) => {
+    e.preventDefault()
+    dispatch(setRequestsTab(6))
+    navigate("/lk/requests")
   }
 
   return (
@@ -187,30 +219,30 @@ const MobileMenuLk = () => {
                   <span>Заявки</span>
                 </h5>
                 <div className={s.menuItem}>
-                  <Link to='lk/requests' className={s.menuItemLink}>
+                  <Link onClick={handleRequestsTab1} to='lk/requests' className={s.menuItemLink}>
                     Управление заявками
                   </Link>
                 </div>
                 <div className={s.menuItem}>
-                  <Link to='lk/requests' className={s.menuItemLink}>
+                  <Link onClick={handleRequestsTab3} to='lk/requests' className={s.menuItemLink}>
                     Принятые заявки
                   </Link>
                 </div>
 
                 <div className={s.menuItem}>
-                  <Link to='#' className={s.menuItemLink}>
+                  <Link onClick={handleRequestsTab4} to='#' className={s.menuItemLink}>
                     История заявок
                   </Link>
                 </div>
 
                 <div className={s.menuItem}>
-                  <Link to='#' className={s.menuItemLink}>
+                  <Link onClick={handleRequestsTab5} to='#' className={s.menuItemLink}>
                     Предложения
                   </Link>
                 </div>
 
                 <div className={s.menuItem}>
-                  <Link to='#' className={s.menuItemLink}>
+                  <Link onClick={handleRequestsTab6} to='#' className={s.menuItemLink}>
                     Предложения в работе
                   </Link>
                 </div>

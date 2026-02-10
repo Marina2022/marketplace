@@ -17,9 +17,11 @@
   border: 1px solid #fff;
   cursor: pointer;
   color: inherit;
+
+  svg {
+    position: relative;
+    top: 4px;
+  }
+
 }
 
-svg {
-  position: relative;
-  top: 4px;
-}
