@@ -1,0 +1,36 @@
+@import "@/assets/styles/mixins";
+
+
+.card {
+  border: 2px solid #5a7181;
+  width: 200px;
+  height: 300px;
+  cursor: pointer;
+}
+
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  @include m {
+    display: none;
+  }
+}
+
+.creatRequestButton {
+  background: #658092;
+  font-weight: 500;
+  font-size: 12px;
+
+  &:hover {
+    background: #566F80;
+  }
+}
+
+.title {
+  font-weight: 600;
+  font-size: 20px;
+}

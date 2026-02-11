@@ -7,10 +7,6 @@ const LeftSideMenuRequests = () => {
   const tab = useSelector(getRequestsTab)
   const dispatch = useDispatch()
 
-
-  //  dispatch(setRequestsTab(tab))
-
-
   return (
     <div className={s.leftSideMenu}>
       <h4 className={s.title}>Заявки</h4>

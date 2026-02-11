@@ -5,9 +5,11 @@ import {getRequestsTab} from "@/store/requestsSlice.js";
 import {useSelector} from "react-redux";
 import LeftSideMenuRequests
   from "@/components/lk-InnerPages/LkRequestsPage/LeftSideMenuRequests/LeftSideMenuRequests.jsx";
+import ManageRequests from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/ManageRequests.jsx";
 
 const LkRequestsPage = () => {
   const {rightBarRef, rightPanelOpen} = useOutletContext();
+  const tab = useSelector(getRequestsTab)
 
   useEffect(() => {
     if (!rightBarRef.current) return
@@ -16,11 +18,11 @@ const LkRequestsPage = () => {
 
   const [showRightBarItem, setShowRightBarItem] = useState(false);
 
-  const handlePushClick = () => {
+  const handleCardClick = () => {
     setShowRightBarItem(prev => !prev)
   }
 
-  const tab = useSelector(getRequestsTab)
+
 
   return (
     <>
@@ -29,13 +31,13 @@ const LkRequestsPage = () => {
       }
 
       <div className={s.requestsPage}>
-        <LeftSideMenuRequests />
+        <LeftSideMenuRequests  />
 
         <div className={`${s.contentWrapper} ${rightPanelOpen ? s.contentWrapperRightPanelOpen : ''}`}>
           <div className={s.content}>
 
             {
-              tab === 1 && <div>Управление заявками</div>
+              tab === 1 && <ManageRequests handleCardClick={handleCardClick} />
             }
 
             {
