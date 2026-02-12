@@ -136,6 +136,7 @@ const Lk = () => {
   }, []);
 
   const [rightPanelOpen, setRightPanelOpen] = useState(false);
+  const [requestDetails, setRequestDetails] = useState(null);
 
   const menuItems = [
     {
@@ -217,7 +218,7 @@ const Lk = () => {
 
       </ul>
       <div className={s.lkContent}>
-        <Outlet context={{rightBarRef, rightPanelOpen}}/>
+        <Outlet context={{rightBarRef, rightPanelOpen, requestDetails, setRequestDetails}}/>
       </div>
       <div className={s.rightBarWrapper}>
         <ul className={s.rightBar} ref={rightBarRef}>
@@ -229,6 +230,8 @@ const Lk = () => {
                 rightPanelOpen={rightPanelOpen}
                 currentRightPanelItem={currentRightPanelItem}
                 setCurrentRightPanelItem={setCurrentRightPanelItem}
+                requestDetails={requestDetails}
+                setRequestDetails={setRequestDetails}
               />
             )
           }

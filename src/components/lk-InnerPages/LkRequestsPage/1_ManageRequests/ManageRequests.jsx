@@ -3,9 +3,6 @@ import Button from "@/components/ui/Button/Button.jsx";
 
 const ManageRequests = ({handleCardClick}) => {
 
-
-
-
   return (
     <div>
       <div className={s.header}>
@@ -15,7 +12,7 @@ const ManageRequests = ({handleCardClick}) => {
       </div>
       <br/>
       <br/>
-      <div className={s.card} onClick={handleCardClick}>Card</div>
+      <div className={s.card} onClick={()=>handleCardClick({id: 123, name: "Заявка №1"})}>Card</div>
     </div>
   );
 };

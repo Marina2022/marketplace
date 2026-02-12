@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 import LeftSideMenuRequests
   from "@/components/lk-InnerPages/LkRequestsPage/LeftSideMenuRequests/LeftSideMenuRequests.jsx";
 import ManageRequests from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/ManageRequests.jsx";
+import RightPanelDetails from "@/components/lk-InnerPages/LkRequestsPage/RightPanelDetails/RightPanelDetails.jsx";
 
 const LkRequestsPage = () => {
   const {rightBarRef, rightPanelOpen} = useOutletContext();
@@ -18,22 +19,36 @@ const LkRequestsPage = () => {
 
   const [showRightBarItem, setShowRightBarItem] = useState(false);
 
-  const handleCardClick = () => {
+
+  const {requestDetails, setRequestDetails} =  useOutletContext()
+
+  const handleCardClick = (cardInfo) => {
     setShowRightBarItem(prev => !prev)
+    setRequestDetails(cardInfo)
+
+    if (requestDetails) setRequestDetails(null)
+
   }
-
-
 
   return (
     <>
       {
-        showRightBarItem && rightBarRef.current && <div className={s.rightBarAdditionalItem} style={{top: rightBarRef.current.getBoundingClientRect().bottom}}>Y</div>
+        showRightBarItem && rightBarRef.current && <div className={s.rightBarAdditionalItem} style={{top: rightBarRef.current.getBoundingClientRect().bottom}}>
+          {requestDetails?.name}
+
+        </div>
       }
 
       <div className={s.requestsPage}>
+
+        {
+          requestDetails && <RightPanelDetails />
+        }
+
+
         <LeftSideMenuRequests  />
 
-        <div className={`${s.contentWrapper} ${rightPanelOpen ? s.contentWrapperRightPanelOpen : ''}`}>
+        <div className={`${s.contentWrapper} ${rightPanelOpen || requestDetails ? s.contentWrapperRightPanelOpen : ''}`}>
           <div className={s.content}>
 
             {

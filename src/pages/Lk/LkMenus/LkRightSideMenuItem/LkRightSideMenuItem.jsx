@@ -6,11 +6,14 @@ const LkRightSideMenuItem = ({
                                setRightPanelOpen,
                                rightPanelOpen,
                                currentRightPanelItem,
-                               setCurrentRightPanelItem
+                               setCurrentRightPanelItem,
+                               requestDetails,
+                               setRequestDetails,
 }) => {
 
   const handleClick = () => {
-    //setRightPanelOpen(prev => !prev)
+
+    if (requestDetails) setRequestDetails(null)
 
     if (!currentRightPanelItem) {
       setRightPanelOpen(true)

@@ -13,8 +13,7 @@ const LkMainPage = () => {
   const tabs = ['Главная', 'Организации', 'Профиль пользователя', 'Настройки аккаунта']
   const dispatch = useDispatch()
 
-
-  const {rightPanelOpen} = useOutletContext();
+  const {rightPanelOpen } = useOutletContext();
 
   return (
     <div className={s.lkMain}>
@@ -23,7 +22,7 @@ const LkMainPage = () => {
         Главная
       </div>
 
-      <div className={`${s.contentWrapper} ${rightPanelOpen ? s.contentWrapperRightPanelOpen : ''}`}>
+      <div className={`${s.contentWrapper} ${rightPanelOpen  ? s.contentWrapperRightPanelOpen : ''}`}>
         <div className={s.content}>
 
           <div className={s.mobileTabsWrapper}>
