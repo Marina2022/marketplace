@@ -23,17 +23,14 @@ const LkRequestsPage = () => {
   const {requestDetails, setRequestDetails} =  useOutletContext()
 
   const handleCardClick = (cardInfo) => {
-    setShowRightBarItem(prev => !prev)
     setRequestDetails(cardInfo)
-
     if (requestDetails) setRequestDetails(null)
-
   }
 
   return (
     <>
       {
-        showRightBarItem && rightBarRef.current && <div className={s.rightBarAdditionalItem} style={{top: rightBarRef.current.getBoundingClientRect().bottom}}>
+        requestDetails && rightBarRef.current && <div className={s.rightBarAdditionalItem} style={{top: rightBarRef.current.getBoundingClientRect().bottom}}>
           {requestDetails?.name}
 
         </div>

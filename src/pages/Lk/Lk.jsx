@@ -208,6 +208,14 @@ const Lk = () => {
     }
   ]
 
+  useEffect(() => {
+    if (requestDetails) {
+      setRightPanelOpen(false)
+      setCurrentRightPanelItem(null)
+    }
+
+  }, [requestDetails]);
+
 
   return (
     <div className={s.lk}>
