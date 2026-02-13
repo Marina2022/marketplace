@@ -1,0 +1,39 @@
+@import "@/assets/styles/mixins";
+
+.tabs {
+  display: flex;
+  font-size: 14px;
+  color: #658092;
+  margin-bottom: 16px;
+
+  @media (max-width: 1200px) {
+    flex-wrap: wrap;
+  }
+
+}
+
+.tab {
+  border-bottom: 2px solid #D1D5DB;
+  padding-inline: 4px;
+  padding-block: 12px;
+  cursor: pointer;
+
+  @media (max-width: 1200px) {
+    border: none;
+    padding-block: 8px;
+  }
+
+}
+
+.tabActive {
+  color: #3E5067;
+  border-bottom: 2px solid #658092;
+  padding-inline: 4px;
+  padding-block: 12px;
+
+  @media (max-width: 1200px) {
+    //border: none;
+    padding-block: 8px;
+  }
+}
+

@@ -14,10 +14,7 @@ const LkRequestsPage = () => {
 
   useEffect(() => {
     if (!rightBarRef.current) return
-    console.log('rightBarRef = ', rightBarRef.current.getBoundingClientRect().bottom);
   }, [rightBarRef]);
-
-  const [showRightBarItem, setShowRightBarItem] = useState(false);
 
 
   const {requestDetails, setRequestDetails} =  useOutletContext()

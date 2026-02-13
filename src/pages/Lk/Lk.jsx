@@ -1,4 +1,4 @@
-import {NavLink, Outlet} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import s from './Lk.module.scss'
 import {useEffect, useRef, useState} from "react";
 import LkMenuItem from "@/pages/Lk/LkMenus/LkMenuItem/LkMenuItem.jsx";
@@ -8,12 +8,8 @@ const Lk = () => {
 
 
   const rightBarRef = useRef(null)
-
   const [sidePanel, setSidePanel] = useState([])   // правая панель
-
   const [currentRightPanelItem, setCurrentRightPanelItem] = useState(null)
-
-  console.log('currentRightPanelItem', currentRightPanelItem)
 
   const browserData = {
     type: "process",
@@ -208,12 +204,12 @@ const Lk = () => {
     }
   ]
 
+  // закрытие Process-панелей при открытии details-панели
   useEffect(() => {
     if (requestDetails) {
       setRightPanelOpen(false)
       setCurrentRightPanelItem(null)
     }
-
   }, [requestDetails]);
 
 

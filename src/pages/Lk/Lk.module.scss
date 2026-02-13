@@ -3,6 +3,10 @@
 .lk {
   background: #F9F9FB;
   min-height: 100vh;
+
+  @include m {
+    background: #fff;
+  }
 }
 
 .sideBar {
