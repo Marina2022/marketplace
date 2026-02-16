@@ -19,8 +19,8 @@ const LkRequestsPage = () => {
 
   const {requestDetails, setRequestDetails} =  useOutletContext()
 
-  const handleCardClick = (cardInfo) => {
-    setRequestDetails(cardInfo)
+  const handleCardClick = (request) => {
+    setRequestDetails(request)
     if (requestDetails) setRequestDetails(null)
   }
 

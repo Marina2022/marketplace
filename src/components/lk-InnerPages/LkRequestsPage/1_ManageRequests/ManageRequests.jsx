@@ -9,6 +9,8 @@ import RequestsSearch
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/RequestsSearch/RequestsSearch.jsx";
 import RequestFilters
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/RequestFilters/RequestFilters.jsx";
+import Spinner from "@/components/ui/Spinner/Spinner.jsx";
+import RequestCard from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/RequestCard/RequestCard.jsx";
 
 const ManageRequests = ({handleCardClick}) => {
 
@@ -17,7 +19,7 @@ const ManageRequests = ({handleCardClick}) => {
   const [tab, setTab] = useState("all")
   const [searchTerm, setSearchTerm] = useState("")
   const [requests, setRequests] = useState(null)
-  const [mainLoading, setMainLoading] = useState(null)
+  const [mainLoading, setMainLoading] = useState(true)
   const [page, setPage] = useState(1)
 
   const activeProfileId = useSelector(getActiveProfileId)
@@ -34,9 +36,7 @@ const ManageRequests = ({handleCardClick}) => {
 
         let queryParam = ""
         if (tab !== "all") queryParam = `&tab=${tab}`
-
         if (searchTerm) queryParam += `&searchTerms=${searchTerm}`
-
 
         setMainLoading(true)
         const requests = await axiosInstance(`requests/my?pageNumber=${page}&pageSize=${PAGE_SIZE}&profileId=${activeProfileId}${queryParam}`)
@@ -53,7 +53,6 @@ const ManageRequests = ({handleCardClick}) => {
 
   }, [tab, activeProfileId, searchTerm]);
 
-
   return (
     <div>
       <div className={s.header}>
@@ -68,7 +67,14 @@ const ManageRequests = ({handleCardClick}) => {
         <RequestFilters/>
       </div>
 
-      <div className={s.card} onClick={() => handleCardClick({id: 123, name: "Заявка №1"})}>Card</div>
+
+
+      <ul className={s.requestsList}>
+      {
+        requests && requests.items.map((request) => <RequestCard request={request} key={request.requestId} handleCardClick={handleCardClick} />)
+      }
+      </ul>
+
     </div>
   );
 };

@@ -41,3 +41,19 @@
   align-items: center;
   margin-bottom: 16px;
 }
+
+.requestsList {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, 346px);
+
+
+  @include t {
+    //grid-template-columns: repeat(auto-fill, 310px);
+    grid-template-columns: repeat(auto-fill, 310px);
+  }
+
+  @include m {
+    grid-template-columns: 1fr;
+  }
+}
