@@ -11,6 +11,7 @@ import RequestFilters
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/RequestFilters/RequestFilters.jsx";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import RequestCard from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/RequestCard/RequestCard.jsx";
+import {getPreviewPayload, getRequestsWithPictures} from "@/utils/lkRequests.js";
 
 const ManageRequests = ({handleCardClick}) => {
 
@@ -23,9 +24,6 @@ const ManageRequests = ({handleCardClick}) => {
   const [page, setPage] = useState(1)
 
   const activeProfileId = useSelector(getActiveProfileId)
-
-  console.log('requests = ', requests)
-
 
   useEffect(() => {
 
@@ -40,7 +38,15 @@ const ManageRequests = ({handleCardClick}) => {
 
         setMainLoading(true)
         const requests = await axiosInstance(`requests/my?pageNumber=${page}&pageSize=${PAGE_SIZE}&profileId=${activeProfileId}${queryParam}`)
-        setRequests(requests.data)
+        const payload = getPreviewPayload(requests.data.items)
+        const pictures = await axiosInstance.post(`/requests/preview?profileId=${activeProfileId}`, payload)
+
+        const requestsWithPictures = getRequestsWithPictures({requests, pictures})
+        console.log('requestsWithPictures = ', requestsWithPictures)
+
+
+        setRequests(requestsWithPictures)
+
 
       } catch (err) {
         console.log(err)
@@ -52,6 +58,8 @@ const ManageRequests = ({handleCardClick}) => {
     getRequests()
 
   }, [tab, activeProfileId, searchTerm]);
+
+  console.log("requests = ", requests)
 
   return (
     <div>
@@ -68,11 +76,11 @@ const ManageRequests = ({handleCardClick}) => {
       </div>
 
 
-
       <ul className={s.requestsList}>
-      {
-        requests && requests.items.map((request) => <RequestCard request={request} key={request.requestId} handleCardClick={handleCardClick} />)
-      }
+        {
+          requests && requests.items.map((request) => <RequestCard request={request} key={request.requestId}
+                                                                   handleCardClick={handleCardClick}/>)
+        }
       </ul>
 
     </div>

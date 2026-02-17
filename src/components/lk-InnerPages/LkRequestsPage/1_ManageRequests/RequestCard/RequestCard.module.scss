@@ -2,19 +2,21 @@
 
 .requestCard {
   width: 346px;
-  height: 300px;
   border: 1px solid #D1D5DB;
   padding: 16px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
 
   @include t {
     width: 310px;
-    height: 270px;
+    //height: 270px;
   }
 
   @include m {
     max-width: 400px;
     width: 100%;
-    height: 300px;
+    //height: 300px;
   }
 }
 
@@ -62,4 +64,116 @@
   @include m {
     font-size: 14px;
   }
+}
+
+.imageAndTitle {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.img {
+  width: 80px;
+  height: 64px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 500;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.desc {
+  font-size: 14px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  @include t {
+    font-size: 12px;
+  }
+
+  @include m {
+    font-size: 14px;
+  }
+}
+
+.date {
+  color: #3E5067;
+  font-size: 12px;
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+  margin-bottom: 12px;
+
+  @include t {
+    font-size: 10px;
+  }
+
+  @include m {
+    font-size: 12px;
+  }
+}
+
+.bottomBlock {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+
+  @include t {
+    font-size: 10px;
+  }
+
+  @include m {
+    font-size: 12px;
+  }
+}
+
+.bottomButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  border: #D1D5DB 1px solid;
+  margin-left: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.activeTo {
+  display: flex;
+  gap: 4px;
+  padding-right: 10px;
+  border-right: #D1D5DB 1px solid;
+  margin-right: 10px;
+
+  @include t {
+    padding-right: 8px;
+    margin-right: 8px;
+  }
+
+  @include m {
+    padding-right: 10px;
+    margin-right: 10px;
+  }
+
+  span {
+    flex-shrink: 0;
+  }
+}
+
+
+.menuButton {
+
 }

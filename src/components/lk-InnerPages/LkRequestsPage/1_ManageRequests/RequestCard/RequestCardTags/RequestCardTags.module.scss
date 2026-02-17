@@ -1,0 +1,26 @@
+@import '@/assets/styles/mixins';
+
+.tags {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  color: #3E5067;
+  font-size: 12px;
+  background: #F0F1F5;
+  padding: 5px 10px;
+  border-radius: 5px;
+  flex-shrink: 0;
+
+  @include t {
+    font-size: 10px;
+  }
+
+  @include m {
+    font-size: 12px;
+  }
+}
