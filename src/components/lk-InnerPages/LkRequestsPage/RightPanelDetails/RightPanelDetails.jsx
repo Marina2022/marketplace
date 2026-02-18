@@ -1,48 +1,54 @@
 import s from "./RightPanelDetails.module.scss";
 // import BrowserPanel
 //   from "@/pages/Lk/LkMenus/LkRightSideMenuItem/RightPanelContent/panels/BrowserPanel/BrowserPanel.jsx";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
+import {statusColors} from "@/consts/lk-consts.js";
 
 // const RightPanelDetails = ({currentRightPanelItem, collapse}) => {
-const RightPanelDetails = () => {
+const RightPanelDetails = ({requestDetails, setRequestDetails}) => {
 
   const [showTooltip, setShowTooltip] = useState(false)
 
+  const panelRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        panelRef.current &&
+        !panelRef.current.contains(event.target)
+    ) {
+        setRequestDetails(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setRequestDetails]);
+
+
+  console.log('requestDetails = ', requestDetails)
+
   return (
-    <div className={s.rightPanel}>
+    <div className={s.rightPanel} ref={panelRef} >
 
       <div className={s.header}>
-        <div className={s.heading}>Заявка+++</div>
-
-        <button className={s.dropdownBtn}>
-          <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M1.76039 3.11677C1.58265 2.95834 1.29944 2.96193 1.12692 3.12454C0.954386 3.28716 0.958292 3.54782 1.13538 3.70625L4.70251 6.88262L5.01501 6.58788L4.70251 6.88382C4.8809 7.04225 5.16476 7.03806 5.33729 6.87485C5.34249 6.87007 5.34705 6.86528 5.35161 6.8605L8.86405 3.70625C9.04179 3.54782 9.04569 3.28716 8.87316 3.12454C8.70063 2.96193 8.41677 2.95774 8.23969 3.11677L5.01371 6.01395L1.76039 3.11677Z"
-              fill="#AAB7BF"/>
-          </svg>
-        </button>
+        <div className={s.heading}>Заявка №{requestDetails.requestNumber}</div>
 
 
-        <button className={s.pinBtn}>
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clipPath="url(#clip0_3548_36201)">
-              <path fillRule="evenodd" clipRule="evenodd"
-                    d="M3.33899 0.238895L8.66303 0.239303C8.74618 0.23917 8.81413 0.307126 8.81414 0.390409L8.81402 2.20337C8.81416 2.28665 8.74622 2.3546 8.663 2.35439L8.1477 2.3545L8.14761 4.74409C9.42542 5.48577 10.2852 6.86854 10.2851 8.45189C10.2853 8.48877 10.2847 8.52537 10.2837 8.56204C10.2803 8.69732 10.291 8.68579 10.157 8.68578L6.77474 8.68561L6.00091 14.4853L5.2282 8.6856L1.84108 8.68557C1.70587 8.68542 1.72216 8.69039 1.71877 8.55414C1.71801 8.52024 1.71753 8.48591 1.71746 8.45146C1.71738 6.86825 2.577 5.48514 3.85473 4.74374L3.85468 2.35429L3.33917 2.35433C3.25616 2.35432 3.1882 2.28637 3.18806 2.20322L3.18783 0.390054C3.18803 0.306839 3.25598 0.238891 3.33899 0.238895Z"
-                    fill="#658092"/>
-            </g>
-            <defs>
-              <clipPath id="clip0_3548_36201">
-                <rect width="12" height="12" fill="white"/>
-              </clipPath>
-            </defs>
-          </svg>
-        </button>
         <div className={s.rightPartHeader}>
-          <button className={s.listBtn}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10 18H14V16H10V18ZM3 6V8H21V6H3ZM6 13H18V11H6V13Z" fill="#AAB7BF"/>
-            </svg>
-          </button>
+
+          <div
+            className={s.requestStatus}
+            style={{
+              color: statusColors[requestDetails.status.theme].color,
+              background: statusColors[requestDetails.status.theme].backgroundColor,
+            }}
+          >
+            {requestDetails.status.label}
+          </div>
 
           <div className={s.hideBtnWrapper}>
             <button className={s.hideBtn}
@@ -51,15 +57,30 @@ const RightPanelDetails = () => {
                     onMouseLeave={() => setShowTooltip(false)}
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M15 3V21M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
-                  stroke="#AAB7BF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M4.57367 11.9943V5.5678H9.95028V7.8582H6.44556V11.9943H4.57367ZM2.78889 0H21.2115C21.976 0 22.6725 0.384522 23.1795 1.00396L23.1814 1.00157C23.6865 1.61958 24 2.47322 24 3.41242V20.5881C24 21.5215 23.6865 22.374 23.1814 22.9936L23.1758 23.0011C22.6687 23.6176 21.9738 24 21.2115 24H2.78889C2.02111 24 1.32364 23.6164 0.818561 22.9984C0.797467 22.9729 0.777741 22.9461 0.758991 22.9186C0.28887 22.3056 0 21.4845 0 20.5878V3.41218C0 2.47251 0.313479 1.6191 0.818366 1.00133C1.32345 0.383566 2.02072 0 2.78889 0ZM21.2115 2.3284H2.78889C2.54631 2.3284 2.32502 2.45076 2.16388 2.64768C2.00295 2.84484 1.90295 3.11561 1.90295 3.41242V20.5881C1.90295 20.8662 1.9881 21.1198 2.12736 21.3098L2.16388 21.3523C2.32502 21.5497 2.54631 21.6721 2.78869 21.6721H21.2113C21.4562 21.6721 21.6771 21.5512 21.8357 21.3571L21.8396 21.3523C21.9984 21.158 22.0971 20.8875 22.0971 20.5883V3.41266C22.0971 3.11609 21.9971 2.84508 21.8357 2.64816L21.8377 2.64601L21.8357 2.64362C21.6775 2.44909 21.4562 2.3284 21.2115 2.3284ZM19.4265 12.0057V18.4324H14.0497V16.142H17.5546V12.0057H19.4265Z" fill="#AAB7BF"/>
               </svg>
+
             </button>
             {
-              showTooltip && <div className={s.tooltip}>Свернуть</div>
+              showTooltip && <div className={s.tooltip}>Развернуть</div>
             }
           </div>
+
+          <button className={s.menuBtn}>
+            <svg width="4" height="18" viewBox="0 0 4 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 10C2.55228 10 3 9.55228 3 9C3 8.44772 2.55228 8 2 8C1.44772 8 1 8.44772 1 9C1 9.55228 1.44772 10 2 10Z" fill="#AAB7BF"/>
+              <path d="M2 3C2.55228 3 3 2.55228 3 2C3 1.44772 2.55228 1 2 1C1.44772 1 1 1.44772 1 2C1 2.55228 1.44772 3 2 3Z" fill="#AAB7BF"/>
+              <path d="M2 17C2.55228 17 3 16.5523 3 16C3 15.4477 2.55228 15 2 15C1.44772 15 1 15.4477 1 16C1 16.5523 1.44772 17 2 17Z" fill="#AAB7BF"/>
+              <path d="M2 10C2.55228 10 3 9.55228 3 9C3 8.44772 2.55228 8 2 8C1.44772 8 1 8.44772 1 9C1 9.55228 1.44772 10 2 10Z" stroke="#AAB7BF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M2 3C2.55228 3 3 2.55228 3 2C3 1.44772 2.55228 1 2 1C1.44772 1 1 1.44772 1 2C1 2.55228 1.44772 3 2 3Z" stroke="#AAB7BF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M2 17C2.55228 17 3 16.5523 3 16C3 15.4477 2.55228 15 2 15C1.44772 15 1 15.4477 1 16C1 16.5523 1.44772 17 2 17Z" stroke="#AAB7BF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+
+
+          </button>
+
+
+
         </div>
 
       </div>

@@ -13,7 +13,7 @@ import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import RequestCard from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/RequestCard/RequestCard.jsx";
 import {getPreviewPayload, getRequestsWithPictures} from "@/utils/lkRequests.js";
 
-const ManageRequests = ({handleCardClick}) => {
+const ManageRequests = ({setRequestDetails}) => {
 
   const PAGE_SIZE = 12
 
@@ -42,7 +42,7 @@ const ManageRequests = ({handleCardClick}) => {
         const pictures = await axiosInstance.post(`/requests/preview?profileId=${activeProfileId}`, payload)
 
         const requestsWithPictures = getRequestsWithPictures({requests, pictures})
-        console.log('requestsWithPictures = ', requestsWithPictures)
+        // console.log('requestsWithPictures = ', requestsWithPictures)
 
 
         setRequests(requestsWithPictures)
@@ -59,7 +59,7 @@ const ManageRequests = ({handleCardClick}) => {
 
   }, [tab, activeProfileId, searchTerm]);
 
-  console.log("requests = ", requests)
+  // console.log("requests = ", requests)
 
   return (
     <div>
@@ -79,7 +79,7 @@ const ManageRequests = ({handleCardClick}) => {
       <ul className={s.requestsList}>
         {
           requests && requests.items.map((request) => <RequestCard request={request} key={request.requestId}
-                                                                   handleCardClick={handleCardClick}/>)
+                                                                   setRequestDetails={setRequestDetails}/>)
         }
       </ul>
 

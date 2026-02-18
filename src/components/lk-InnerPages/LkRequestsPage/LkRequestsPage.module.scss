@@ -6,13 +6,25 @@
 
 .rightBarAdditionalItem {
   width: 24px;
-  height: 100px;
-  background: #0093FD;
+  background: #DDE2E8;
   position: fixed;
   right: 0;
   top: 134px;
   z-index: 100;
   cursor: pointer;
+
+
+  user-select: none;
+  writing-mode: vertical-rl;
+  text-decoration: none;
+  color: #658092;
+  font-weight: 500;
+  font-size: 12px;
+  white-space: nowrap;
+  padding-inline: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-left: 3px solid #658092;
 }
 
 

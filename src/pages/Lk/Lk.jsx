@@ -128,7 +128,8 @@ const Lk = () => {
 
   // получаем в апи состав боковой панели, пока - моки
   useEffect(() => {
-    setSidePanel([browserData, browserData2])
+    // setSidePanel([browserData, browserData2])
+    setSidePanel([browserData])
   }, []);
 
   const [rightPanelOpen, setRightPanelOpen] = useState(false);

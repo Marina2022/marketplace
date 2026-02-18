@@ -5,12 +5,12 @@ import RequestCardTags
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/RequestCard/RequestCardTags/RequestCardTags.jsx";
 import {formatDate} from "@/utils/lkRequests.js";
 
-const RequestCard = ({request, handleCardClick}) => {
+const RequestCard = ({request, setRequestDetails}) => {
 
   return (
     <li
       className={s.requestCard}
-      onClick={() => handleCardClick(request)}
+      onClick={() => setRequestDetails(request)}
     >
 
       <div className={s.cardHeader}>

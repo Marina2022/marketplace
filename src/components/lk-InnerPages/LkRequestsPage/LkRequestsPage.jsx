@@ -19,24 +19,23 @@ const LkRequestsPage = () => {
 
   const {requestDetails, setRequestDetails} =  useOutletContext()
 
-  const handleCardClick = (request) => {
-    setRequestDetails(request)
-    if (requestDetails) setRequestDetails(null)
-  }
+  // const handleCardClick = (request) => {
+  //   setRequestDetails(request)
+  //   if (requestDetails) setRequestDetails(null)
+  // }
 
   return (
     <>
       {
         requestDetails && rightBarRef.current && <div className={s.rightBarAdditionalItem} style={{top: rightBarRef.current.getBoundingClientRect().bottom}}>
-          {requestDetails?.name}
-
+          Заявка #{requestDetails.requestNumber}
         </div>
       }
 
       <div className={s.requestsPage}>
 
         {
-          requestDetails && <RightPanelDetails />
+          requestDetails && <RightPanelDetails requestDetails={requestDetails} setRequestDetails={setRequestDetails} />
         }
 
 
@@ -46,7 +45,7 @@ const LkRequestsPage = () => {
           <div className={s.content}>
 
             {
-              tab === 1 && <ManageRequests handleCardClick={handleCardClick} />
+              tab === 1 && <ManageRequests setRequestDetails={setRequestDetails} />
             }
 
             {
