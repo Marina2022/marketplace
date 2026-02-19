@@ -1,0 +1,72 @@
+@import "@/assets/styles/mixins";
+
+.detailsWrapper {
+  padding-right: 12px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.heading {
+  margin-right: 10px;
+  color: #3E5067;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.rightPartHeader {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.hideBtn {
+  margin-left: 16px;
+  height: 24px;
+  width: 24px;
+}
+
+.hideBtnWrapper {
+  position: relative;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: -32px;
+  right: 0px;
+  background: #253246;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  z-index: 1;
+}
+
+.requestStatus {
+  margin-right: auto;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 5px;
+
+  @include t {
+    font-size: 10px;
+  }
+
+  @include m {
+    font-size: 12px;
+  }
+}
+
+.menuBtn {
+  width: 24px;
+  justify-content: center;
+  display: flex;
+  margin-left: 8px;
+}

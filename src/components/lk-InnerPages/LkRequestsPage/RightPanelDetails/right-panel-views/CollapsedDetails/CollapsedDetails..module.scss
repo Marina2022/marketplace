@@ -1,0 +1,128 @@
+@import "@/assets/styles/mixins";
+
+.detailsWrapper {
+  padding-right: 12px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+
+}
+
+.heading {
+  margin-right: 10px;
+  color: #3E5067;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.rightPartHeader {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.hideBtn {
+  margin-left: 16px;
+  height: 24px;
+  width: 24px;
+}
+
+.hideBtnWrapper {
+  position: relative;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: -32px;
+  right: 0px;
+  background: #253246;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  z-index: 1;
+}
+
+.requestStatus {
+  margin-right: auto;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 5px;
+
+  @include t {
+    font-size: 10px;
+  }
+
+  @include m {
+    font-size: 12px;
+  }
+}
+
+.menuBtn {
+  width: 24px;
+  justify-content: center;
+  display: flex;
+  margin-left: 8px;
+}
+
+.imageAndTitleBlock {
+  display:  flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  object-position: center;
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #3E5067;
+  width: 260px;
+}
+
+.datesBlock {
+  display: flex;
+  color: #131D2A;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.activeTo {
+  padding-right: 10px;
+  border-right: #D1D5DB 1px solid;
+  margin-right: 10px;
+}
+
+.responses {
+  color: #3E5067;
+  font-size: 14px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 16px;
+
+  button {
+    height: 20px;
+  }
+}
+
+.desc {
+  width: 340px;
+  font-size: 14px;
+  color: #131D2A;
+
+}
