@@ -7,7 +7,7 @@
 .header {
   display: flex;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: 4px;
 
 }
 
@@ -51,7 +51,8 @@
 }
 
 .requestStatus {
-  margin-right: auto;
+  display: inline-block;
+  margin-bottom: 12px;
   font-size: 12px;
   padding: 5px 10px;
   border-radius: 5px;
@@ -125,4 +126,11 @@
   font-size: 14px;
   color: #131D2A;
 
+}
+
+.wrapperForTitleAndStatus {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
 }

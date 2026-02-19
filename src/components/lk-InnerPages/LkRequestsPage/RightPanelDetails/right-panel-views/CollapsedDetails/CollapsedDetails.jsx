@@ -7,17 +7,10 @@ const CollapsedDetails = ({request, setExpanded, setShowTooltip, showTooltip}) =
   return (
     <div className={s.detailsWrapper}>
       <div className={s.header}>
+
         <div className={s.heading}>Заявка №{request.requestNumber}</div>
         <div className={s.rightPartHeader}>
-          <div
-            className={s.requestStatus}
-            style={{
-              color: statusColors[request.status.theme].color,
-              background: statusColors[request.status.theme].backgroundColor,
-            }}
-          >
-            {request.status.label}
-          </div>
+
           <div className={s.hideBtnWrapper}>
             <button className={s.hideBtn}
                     onClick={() => setExpanded(true)}
@@ -59,6 +52,16 @@ const CollapsedDetails = ({request, setExpanded, setShowTooltip, showTooltip}) =
         </div>
       </div>
 
+      <div
+        className={s.requestStatus}
+        style={{
+          color: statusColors[request.status.theme].color,
+          background: statusColors[request.status.theme].backgroundColor,
+        }}
+      >
+        {request.status.label}
+      </div>
+
       <div className={s.imageAndTitleBlock}>
         <img className={s.img} src={request.picture ? request.picture : placeholder} alt="image"/>
 
@@ -72,11 +75,14 @@ const CollapsedDetails = ({request, setExpanded, setShowTooltip, showTooltip}) =
 
       <div className={s.responses}>
         <span>Откликов получено: {request.responsesCount}</span>
-        <button><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="0.5" y="0.5" width="19" height="19" rx="1.5" fill="white"/>
-          <rect x="0.5" y="0.5" width="19" height="19" rx="1.5" stroke="#D1D5DB"/>
-          <path d="M12.975 10C12.975 10.4846 12.7881 10.9691 12.4212 11.336L7.90778 15.8494C7.70703 16.0502 7.37475 16.0502 7.174 15.8494C6.97325 15.6487 6.97325 15.3164 7.174 15.1157L11.6874 10.6023C12.0197 10.27 12.0197 9.73003 11.6874 9.39775L7.174 4.88434C6.97325 4.68359 6.97325 4.35131 7.174 4.15056C7.37475 3.94981 7.70703 3.94981 7.90778 4.15056L12.4212 8.66397C12.7881 9.03086 12.975 9.51543 12.975 10Z" fill="black"/>
-        </svg>
+        <button>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="0.5" width="19" height="19" rx="1.5" fill="white"/>
+            <rect x="0.5" y="0.5" width="19" height="19" rx="1.5" stroke="#D1D5DB"/>
+            <path
+              d="M12.975 10C12.975 10.4846 12.7881 10.9691 12.4212 11.336L7.90778 15.8494C7.70703 16.0502 7.37475 16.0502 7.174 15.8494C6.97325 15.6487 6.97325 15.3164 7.174 15.1157L11.6874 10.6023C12.0197 10.27 12.0197 9.73003 11.6874 9.39775L7.174 4.88434C6.97325 4.68359 6.97325 4.35131 7.174 4.15056C7.37475 3.94981 7.70703 3.94981 7.90778 4.15056L12.4212 8.66397C12.7881 9.03086 12.975 9.51543 12.975 10Z"
+              fill="black"/>
+          </svg>
         </button>
       </div>
 
