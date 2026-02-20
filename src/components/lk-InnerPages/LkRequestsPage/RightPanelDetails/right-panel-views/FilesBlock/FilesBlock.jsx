@@ -2,6 +2,10 @@ import s from './FilesBlock.module.scss';
 import pdfIcon from '@/assets/img/pdfIcon.svg';
 
 const FilesBlock = ({files}) => {
+
+  if (files.length === 0) return null
+
+
   return (
     <div className={s.filesBlock}>
       <h4 className={s.title}>Файлы и изображения</h4>
