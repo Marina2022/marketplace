@@ -90,7 +90,7 @@ const RightPanelDetails = ({requestDetails, setRequestDetails}) => {
 
   if (loading) return (
       <div className={s.rightPanel} ref={panelRef} style={{width: expanded ? '40%' : 'unset'}}>
-        <div style={{width: 365}}>
+        <div style={{width: 354}}>
         <Spinner />
         </div>
       </div>
