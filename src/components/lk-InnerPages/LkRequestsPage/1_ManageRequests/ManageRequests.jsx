@@ -42,11 +42,8 @@ const ManageRequests = ({setRequestDetails}) => {
         const pictures = await axiosInstance.post(`/requests/preview?profileId=${activeProfileId}`, payload)
 
         const requestsWithPictures = getRequestsWithPictures({requests, pictures})
-        // console.log('requestsWithPictures = ', requestsWithPictures)
-
-
+        console.log('requestsWithPictures = ', requestsWithPictures)
         setRequests(requestsWithPictures)
-
 
       } catch (err) {
         console.log(err)

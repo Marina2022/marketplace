@@ -108,7 +108,9 @@ const CollapsedDetails = ({request, requestDetails, setExpanded, setShowTooltip,
         }
       </div>
 
-      <RequestCardTags tags={request.tags}/>
+      <div className={s.tagsWrapper}>
+        <RequestCardTags tags={request.tags} showAll={true}/>
+      </div>
 
       <div className={s.filesBlock}>
         <FilesBlock files={request.attachments}/>
