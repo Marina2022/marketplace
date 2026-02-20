@@ -2,8 +2,20 @@ import s from './CollapsedDetails..module.scss';
 import {statusColors} from "@/consts/lk-consts.js";
 import placeholder from "@/assets/img/lk/lk-requests/placeholder.png";
 import {formatDate} from "@/utils/lkRequests.js";
+import {useState} from "react";
+import RequestCardTags
+  from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/RequestCard/RequestCardTags/RequestCardTags.jsx";
+import FilesBlock
+  from "@/components/lk-InnerPages/LkRequestsPage/RightPanelDetails/right-panel-views/FilesBlock/FilesBlock.jsx";
 
-const CollapsedDetails = ({request, setExpanded, setShowTooltip, showTooltip}) => {
+const CollapsedDetails = ({request, requestDetails, setExpanded, setShowTooltip, showTooltip}) => {
+
+  const DESC_LIMIT = 650
+
+  let initialDesc = request.description.slice(0, DESC_LIMIT)
+  if (request.description > initialDesc) initialDesc = initialDesc + '...'
+  const [description, setDescription] = useState(initialDesc)
+
   return (
     <div className={s.detailsWrapper}>
       <div className={s.header}>
@@ -63,18 +75,18 @@ const CollapsedDetails = ({request, setExpanded, setShowTooltip, showTooltip}) =
       </div>
 
       <div className={s.imageAndTitleBlock}>
-        <img className={s.img} src={request.picture ? request.picture : placeholder} alt="image"/>
+        <img className={s.img} src={request.picture ? request.picture.url : placeholder} alt="image"/>
 
         <h3 className={s.title}>{request.title}</h3>
       </div>
 
       <div className={s.datesBlock}>
-        <div className={s.activeTo}>Активна до: {formatDate(request.expiration)}</div>
-        <div>Дата создания: {formatDate(request.createdAt)}</div>
+        <div className={s.activeTo}>Активна до: {formatDate(requestDetails.expiration)}</div>
+        <div>Дата создания: {formatDate(requestDetails.createdAt)}</div>
       </div>
 
       <div className={s.responses}>
-        <span>Откликов получено: {request.responsesCount}</span>
+        <span>Откликов получено: {requestDetails.responsesCount}</span>
         <button>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="0.5" y="0.5" width="19" height="19" rx="1.5" fill="white"/>
@@ -86,9 +98,21 @@ const CollapsedDetails = ({request, setExpanded, setShowTooltip, showTooltip}) =
         </button>
       </div>
 
-      <div className={s.desc}>{request.description}</div>
+      <div className={s.descBlock}>
+        <div className={s.desc}>{description}</div>
+        {
+          description.length < request.description.length && (
+            <button onClick={() => setDescription(request.description)} className={s.showAllBtn}>Просмотреть
+              полностью</button>
+          )
+        }
+      </div>
 
+      <RequestCardTags tags={request.tags}/>
 
+      <div className={s.filesBlock}>
+        <FilesBlock files={request.attachments}/>
+      </div>
     </div>
   )
 }

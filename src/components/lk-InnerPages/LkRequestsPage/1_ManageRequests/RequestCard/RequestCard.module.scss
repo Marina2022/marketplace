@@ -10,13 +10,11 @@
 
   @include t {
     width: 310px;
-    //height: 270px;
   }
 
   @include m {
     max-width: 400px;
     width: 100%;
-    //height: 300px;
   }
 }
 
@@ -33,7 +31,6 @@
     margin-bottom: 20px;
   }
 }
-
 
 .requestStatus {
   margin-right: auto;
@@ -172,6 +169,3 @@
 }
 
 
-.menuButton {
-
-}

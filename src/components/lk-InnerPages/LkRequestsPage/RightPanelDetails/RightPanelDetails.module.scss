@@ -10,7 +10,29 @@
   z-index: 10;
   border: 1px #F0F1F1 solid;
   padding: 12px;
-  padding-right: 2px; // внутренний блок добавит паддинга, т.к скролл надо еще туда
+  padding-right: 2px;
+
+  overflow: auto;
+  height: calc(100% - 120px);
+
+  @-moz-document url-prefix() {
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--lime) rgba(37, 37, 38, 0.1) !important;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px !important; /* Ширина скроллбара */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #AAB7BF !important;
+    border-radius: 10px !important;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #F0F1F1 !important;
+    border-radius: 10px !important;
+  }
 
   @include t {
     box-shadow: -2px 10px 16px -8px rgba(0, 0, 0, 0.15);
