@@ -9,8 +9,10 @@ import ExpandedDetails
 import axiosInstance from "@/api/axiosInstance.js";
 import {useSelector} from "react-redux";
 import {getActiveProfileId} from "@/store/userSlice.js";
-import {getPreviewPayload, getRequestsWithPictures} from "@/utils/lkRequests.js";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
+import useMobileScreen from "@/hooks/useMobileScreen.js";
+import MobileDetails
+  from "@/components/lk-InnerPages/LkRequestsPage/RightPanelDetails/right-panel-views/MobileDetails/MobileDetails.jsx";
 
 // const RightPanelDetails = ({currentRightPanelItem, collapse}) => {
 const RightPanelDetails = ({requestDetails, setRequestDetails}) => {
@@ -19,7 +21,9 @@ const RightPanelDetails = ({requestDetails, setRequestDetails}) => {
   const [loading, setLoading] = useState(true);
   const activeProfileId = useSelector(getActiveProfileId)
 
-  useEffect(()=>{
+  const isMobile = useMobileScreen()
+
+  useEffect(() => {
     if (!activeProfileId) return
 
     const getRequest = async () => {
@@ -70,12 +74,15 @@ const RightPanelDetails = ({requestDetails, setRequestDetails}) => {
 
   // клик вне окна
   useEffect(() => {
+
+    if (isMobile) return
+
     const handleClickOutside = (event) => {
       if (
         panelRef.current &&
         !panelRef.current.contains(event.target)
       ) {
-        setRequestDetails(null);
+        setRequestDetails(null)
       }
     };
 
@@ -88,25 +95,43 @@ const RightPanelDetails = ({requestDetails, setRequestDetails}) => {
 
   console.log('request = ', request)
 
-  if (loading) return (
-      <div className={s.rightPanel} ref={panelRef} style={{width: expanded ? '40%' : 'unset'}}>
-        <div style={{width: 354}}>
-        <Spinner />
-        </div>
+  if (loading && !isMobile) return (
+    <div className={s.rightPanel} style={{width: expanded ? '40%' : 'unset'}}>
+      <div style={{width: 354}}>
+        <Spinner/>
       </div>
-    )
+    </div>
+  )
 
   return (
-    <div className={s.rightPanel} ref={panelRef} style={{width: expanded ? '40%' : 'unset'}}>
+    <>
+
+      <div className={s.rightPanel} ref={panelRef} style={{width: expanded ? '42.5%' : 'unset'}}>
+
+        {
+          !expanded && !isMobile &&
+          <CollapsedDetails requestDetails={requestDetails} request={request} setExpanded={setExpanded}
+                            setShowTooltip={setShowTooltip} showTooltip={showTooltip}/>
+        }
+
+        {
+          expanded && !isMobile &&
+          <ExpandedDetails requestDetails={requestDetails} request={request} setExpanded={setExpanded}
+                           setShowTooltip={setShowTooltip} showTooltip={showTooltip}/>
+        }
+
+      </div>
 
       {
-        !expanded && <CollapsedDetails requestDetails={requestDetails} request={request} setExpanded={setExpanded} setShowTooltip={setShowTooltip} showTooltip={showTooltip} />
+        isMobile && loading && <div className={s.mobileSpinnerWrapper}><Spinner/></div>
       }
 
       {
-        expanded && <ExpandedDetails requestDetails={requestDetails} request={request} setExpanded={setExpanded} setShowTooltip={setShowTooltip} showTooltip={showTooltip}/>
+        isMobile && !loading &&
+        <MobileDetails requestDetails={requestDetails} request={request} setRequestDetails={setRequestDetails}/>
       }
-    </div>
+    </>
+
   );
 };
 

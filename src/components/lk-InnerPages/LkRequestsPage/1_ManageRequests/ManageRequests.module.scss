@@ -38,6 +38,12 @@
   gap: 8px;
   align-items: center;
   margin-bottom: 16px;
+
+  @include m {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
 }
 
 .requestsList {

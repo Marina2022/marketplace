@@ -1,0 +1,70 @@
+@import "@/assets/styles/mixins";
+
+.filesBlock {
+}
+
+.title {
+  color: #3E5067;
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 12px;
+
+  @include m {
+    margin-bottom: 16px;
+  }
+}
+
+.filesList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 175px));
+  row-gap: 12px;
+  column-gap: 12px;
+  width: 100%;
+}
+
+.fileItem {
+  border: 1px solid #D1D5DB;
+  padding: 5px;
+  //width: 160px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.fileLink {
+  color: inherit;
+  display: flex;
+  gap: 10px;
+}
+
+
+.img {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  object-position: center;
+  margin-top: 5px;
+  margin-left: 4px;
+  flex-shrink: 0;
+}
+
+.imgBorder {
+  border: 1px solid #F0F1F1;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  object-position: center;
+  flex-shrink: 0;
+}
+
+.name {
+  font-size: 12px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* максимум 3 строки */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  word-break: break-word; /* перенос по словам */
+  overflow-wrap: anywhere; /* перенос длинных слов */
+}
+

@@ -27,7 +27,10 @@ const LkRequestsPage = () => {
   return (
     <>
       {
-        requestDetails && rightBarRef.current && <div className={s.rightBarAdditionalItem} style={{top: rightBarRef.current.getBoundingClientRect().bottom}}>
+        requestDetails && rightBarRef.current && <div
+          className={s.rightBarAdditionalItem}
+          style={{top: rightBarRef.current.getBoundingClientRect().bottom}}
+        >
           Заявка #{requestDetails.requestNumber}
         </div>
       }

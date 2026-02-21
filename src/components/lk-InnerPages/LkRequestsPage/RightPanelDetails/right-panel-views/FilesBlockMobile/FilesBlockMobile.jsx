@@ -1,7 +1,7 @@
-import s from './FilesBlock.module.scss';
+import s from './FilesBlockMobile.module.scss';
 import pdfIcon from '@/assets/img/pdfIcon.svg';
 
-const FilesBlock = ({files}) => {
+const FilesBlockMobile = ({files}) => {
 
   if (files.length === 0) return null
 
@@ -32,4 +32,4 @@ const FilesBlock = ({files}) => {
   );
 };
 
-export default FilesBlock;
+export default FilesBlockMobile;

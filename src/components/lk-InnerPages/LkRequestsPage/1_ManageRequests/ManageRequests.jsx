@@ -9,7 +9,6 @@ import RequestsSearch
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/RequestsSearch/RequestsSearch.jsx";
 import RequestFilters
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/RequestFilters/RequestFilters.jsx";
-import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import RequestCard from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/RequestCard/RequestCard.jsx";
 import {getPreviewPayload, getRequestsWithPictures} from "@/utils/lkRequests.js";
 
@@ -56,7 +55,6 @@ const ManageRequests = ({setRequestDetails}) => {
 
   }, [tab, activeProfileId, searchTerm]);
 
-  // console.log("requests = ", requests)
 
   return (
     <div>

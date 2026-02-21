@@ -76,7 +76,6 @@ const CollapsedDetails = ({request, requestDetails, setExpanded, setShowTooltip,
 
       <div className={s.imageAndTitleBlock}>
         <img className={s.img} src={request.picture ? request.picture.url : placeholder} alt="image"/>
-
         <h3 className={s.title}>{request.title}</h3>
       </div>
 

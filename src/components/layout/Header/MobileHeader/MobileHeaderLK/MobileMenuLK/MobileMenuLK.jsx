@@ -19,7 +19,7 @@ const MobileMenuLk = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     setIsDropdownOpen(false);
