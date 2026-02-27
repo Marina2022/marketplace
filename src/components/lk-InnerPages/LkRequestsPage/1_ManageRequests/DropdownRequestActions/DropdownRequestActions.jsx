@@ -46,7 +46,6 @@ const DropdownRequestActions = ({request, onClose, mobileFixed = false, requestD
     || request.status.code === "draft"
     || request.status.code === "rejected"
     || request.status.code === "paused"
-    || request.status.code === "archived"
 
   const canRestore = request.status.code === "archived"
   const canPause = request.status.code === "active"
@@ -94,7 +93,7 @@ const DropdownRequestActions = ({request, onClose, mobileFixed = false, requestD
     }
   }
 
-  // todo - потестить, когда получиться заархивировать
+
   const handleRestore = async () => {
     try {
       const result = await axiosInstance.post(`/requests/${request.requestId}/restore?profileId=${profileId}`)

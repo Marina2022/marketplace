@@ -4,26 +4,18 @@ import searchGlassIcon from "@/assets/img/cart/seachGlass.svg";
 import {useDebounce} from "@uidotdev/usehooks";
 import {useEffect, useState} from "react";
 
-
 const RequestsSearch = ({searchTerm, setSearchTerm}) => {
-
-
   const searchCancelHandler = () => {
     setSearchTerm('')
   }
 
-
   const [inputValue, setInputValue] = useState(searchTerm)
-
   const debouncedValue = useDebounce(inputValue, 500);
-
 
   useEffect(() => {
     setSearchTerm(debouncedValue)
     console.log(debouncedValue)
   }, [debouncedValue]);
-
-
 
   return (
     <div className={s.searchInputWrapper}>

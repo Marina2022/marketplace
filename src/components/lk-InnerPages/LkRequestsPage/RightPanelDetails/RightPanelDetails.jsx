@@ -61,7 +61,7 @@ const RightPanelDetails = ({requestDetails, setRequestDetails, resetRequests}) =
   //   console.log('requestDetails.requestId = ', requestDetails.requestId)
   //
   //   try {
-  //     const res = axiosInstance(`/requests/${requestDetails.requestId}/edit-info`)
+  //     const res = axiosInstance(`/requests/${requestDetails.requestId}/edit-info?profileId=${activeProfileId}`)
   //     console.log("res.data = ", res.data)
   //   } catch(err) {
   //     console.log(err)
