@@ -1,12 +1,11 @@
 import s from './LkRequestsPage.module.scss';
 import {useOutletContext} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {getRequestsTab} from "@/store/requestsSlice.js";
 import {useSelector} from "react-redux";
 import LeftSideMenuRequests
   from "@/components/lk-InnerPages/LkRequestsPage/LeftSideMenuRequests/LeftSideMenuRequests.jsx";
 import ManageRequests from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/ManageRequests.jsx";
-import RightPanelDetails from "@/components/lk-InnerPages/LkRequestsPage/RightPanelDetails/RightPanelDetails.jsx";
 
 const LkRequestsPage = () => {
   const {rightBarRef, rightPanelOpen} = useOutletContext();
@@ -16,13 +15,7 @@ const LkRequestsPage = () => {
     if (!rightBarRef.current) return
   }, [rightBarRef]);
 
-
   const {requestDetails, setRequestDetails} =  useOutletContext()
-
-  // const handleCardClick = (request) => {
-  //   setRequestDetails(request)
-  //   if (requestDetails) setRequestDetails(null)
-  // }
 
   return (
     <>
@@ -37,18 +30,13 @@ const LkRequestsPage = () => {
 
       <div className={s.requestsPage}>
 
-        {
-          requestDetails && <RightPanelDetails requestDetails={requestDetails} setRequestDetails={setRequestDetails} />
-        }
-
-
         <LeftSideMenuRequests  />
 
         <div className={`${s.contentWrapper} ${rightPanelOpen || requestDetails ? s.contentWrapperRightPanelOpen : ''}`}>
           <div className={s.content}>
 
             {
-              tab === 1 && <ManageRequests setRequestDetails={setRequestDetails} />
+              tab === 1 && <ManageRequests setRequestDetails={setRequestDetails} requestDetails={requestDetails} />
             }
 
             {

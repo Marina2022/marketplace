@@ -7,9 +7,27 @@ import FilesBlockExpanded
   from "@/components/lk-InnerPages/LkRequestsPage/RightPanelDetails/right-panel-views/FilesBlockExpanded/FilesBlockExpanded.jsx";
 import RequestCardTags
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/RequestCard/RequestCardTags/RequestCardTags.jsx";
+import DropdownRequestActions
+  from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/DropdownRequestActions/DropdownRequestActions.jsx";
+import {useState} from "react";
 
 
-const ExpandedDetails = ({request, setExpanded, setShowTooltip, showTooltip, requestDetails}) => {
+const ExpandedDetails = ({
+                           request,
+                           setExpanded,
+                           setShowTooltip,
+                           showTooltip,
+                           requestDetails,
+                           resetRequests,
+                           resetRequest
+                         }) => {
+
+  const [showMenu, setShowMenu] = useState(false)
+  const handleMenuClick = (e) => {
+    setShowMenu(true)
+    e.stopPropagation();
+  }
+
   return (
     <div className={s.detailsWrapper}>
       <div className={s.header}>
@@ -46,10 +64,11 @@ const ExpandedDetails = ({request, setExpanded, setShowTooltip, showTooltip, req
           </button>
         </div>
         <div className={s.hideBtnWrapper}>
-          <button className={s.hideBtn}
-                  onClick={() => setExpanded(false)}
-                  onMouseEnter={() => setShowTooltip(true)}
-                  onMouseLeave={() => setShowTooltip(false)}
+          <button
+            className={s.hideBtn}
+            onClick={() => setExpanded(false)}
+            onMouseEnter={() => setShowTooltip(true)}
+            onMouseLeave={() => setShowTooltip(false)}
           >
 
             <img src={collapseButton} alt="btn"/>
@@ -59,31 +78,43 @@ const ExpandedDetails = ({request, setExpanded, setShowTooltip, showTooltip, req
             }
           </button>
         </div>
-        <button className={s.menuBtn}>
-          <svg width="4" height="18" viewBox="0 0 4 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M2 10C2.55228 10 3 9.55228 3 9C3 8.44772 2.55228 8 2 8C1.44772 8 1 8.44772 1 9C1 9.55228 1.44772 10 2 10Z"
-              fill="#AAB7BF"/>
-            <path
-              d="M2 3C2.55228 3 3 2.55228 3 2C3 1.44772 2.55228 1 2 1C1.44772 1 1 1.44772 1 2C1 2.55228 1.44772 3 2 3Z"
-              fill="#AAB7BF"/>
-            <path
-              d="M2 17C2.55228 17 3 16.5523 3 16C3 15.4477 2.55228 15 2 15C1.44772 15 1 15.4477 1 16C1 16.5523 1.44772 17 2 17Z"
-              fill="#AAB7BF"/>
-            <path
-              d="M2 10C2.55228 10 3 9.55228 3 9C3 8.44772 2.55228 8 2 8C1.44772 8 1 8.44772 1 9C1 9.55228 1.44772 10 2 10Z"
-              stroke="#AAB7BF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path
-              d="M2 3C2.55228 3 3 2.55228 3 2C3 1.44772 2.55228 1 2 1C1.44772 1 1 1.44772 1 2C1 2.55228 1.44772 3 2 3Z"
-              stroke="#AAB7BF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path
-              d="M2 17C2.55228 17 3 16.5523 3 16C3 15.4477 2.55228 15 2 15C1.44772 15 1 15.4477 1 16C1 16.5523 1.44772 17 2 17Z"
-              stroke="#AAB7BF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
+
+        <div className={s.menuBtnWrapper}>
+          <button className={s.menuBtn} onClick={handleMenuClick}>
+            <svg width="4" height="18" viewBox="0 0 4 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M2 10C2.55228 10 3 9.55228 3 9C3 8.44772 2.55228 8 2 8C1.44772 8 1 8.44772 1 9C1 9.55228 1.44772 10 2 10Z"
+                fill="#AAB7BF"/>
+              <path
+                d="M2 3C2.55228 3 3 2.55228 3 2C3 1.44772 2.55228 1 2 1C1.44772 1 1 1.44772 1 2C1 2.55228 1.44772 3 2 3Z"
+                fill="#AAB7BF"/>
+              <path
+                d="M2 17C2.55228 17 3 16.5523 3 16C3 15.4477 2.55228 15 2 15C1.44772 15 1 15.4477 1 16C1 16.5523 1.44772 17 2 17Z"
+                fill="#AAB7BF"/>
+              <path
+                d="M2 10C2.55228 10 3 9.55228 3 9C3 8.44772 2.55228 8 2 8C1.44772 8 1 8.44772 1 9C1 9.55228 1.44772 10 2 10Z"
+                stroke="#AAB7BF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path
+                d="M2 3C2.55228 3 3 2.55228 3 2C3 1.44772 2.55228 1 2 1C1.44772 1 1 1.44772 1 2C1 2.55228 1.44772 3 2 3Z"
+                stroke="#AAB7BF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path
+                d="M2 17C2.55228 17 3 16.5523 3 16C3 15.4477 2.55228 15 2 15C1.44772 15 1 15.4477 1 16C1 16.5523 1.44772 17 2 17Z"
+                stroke="#AAB7BF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+          {
+            showMenu && (
+              <DropdownRequestActions
+                resetRequests={resetRequests}
+                request={request}
+                onClose={() => setShowMenu(false)}
+                requestDetails={requestDetails}
+                resetRequest={resetRequest}
+              />
+            )
+          }
+        </div>
       </div>
-
-
       <div className={s.responsesTablet}>
         <span>Откликов получено: {requestDetails.responsesCount}</span>
         <button>
@@ -96,21 +127,17 @@ const ExpandedDetails = ({request, setExpanded, setShowTooltip, showTooltip, req
           </svg>
         </button>
       </div>
-
       <h3 className={s.title}>{request.title}</h3>
       <RequestCardTags tags={request.tags} showAll={true}/>
-
       <div className={s.descWrapper}>
         <img className={s.img} src={request.picture ? request.picture.url : placeholder} alt="image"/>
         <p>
           {request.description}
         </p>
       </div>
-
       <div className={s.filesBlock}>
         <FilesBlockExpanded files={request.attachments}/>
       </div>
-
     </div>
   );
 };

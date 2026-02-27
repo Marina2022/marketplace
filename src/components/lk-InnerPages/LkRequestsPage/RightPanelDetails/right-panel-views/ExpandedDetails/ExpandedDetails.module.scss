@@ -64,8 +64,7 @@
 .menuBtn {
   width: 24px;
   height: 24px;
-  justify-content: center;
-  margin-left: 8px;
+  justify-content: flex-end;
   display: flex;
   align-items: center;
 }
@@ -219,4 +218,10 @@
   color: #131D2A;
   font-size: 14px;
 }
+
+.menuBtnWrapper {
+  position: relative;
+  margin-right: 8px;
+}
+
 

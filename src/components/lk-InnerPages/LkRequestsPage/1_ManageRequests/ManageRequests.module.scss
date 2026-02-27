@@ -59,3 +59,13 @@
     grid-template-columns: 1fr;
   }
 }
+
+.onScrollSpinnerWrapper {
+  padding-block: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.observerDiv {
+  padding-block: 10px;
+}

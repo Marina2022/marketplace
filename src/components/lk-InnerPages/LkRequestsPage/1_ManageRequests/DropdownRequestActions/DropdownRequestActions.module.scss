@@ -1,0 +1,27 @@
+@import "@/assets/styles/mixins";
+
+.dropdownRequestActions {
+  position: absolute;
+  width: 166px;
+  background: #fff;
+  padding: 5px 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+  font-size: 13px;
+  top: 28px;
+  right: 0;
+}
+
+.fixed {
+  @include m {
+    position: fixed;
+    right: 0;
+    top: 46px;
+  }
+}
+
+.menuItem {
+  cursor: pointer;
+  height: 32px;
+  display: flex;
+  align-items: center;
+}

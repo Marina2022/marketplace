@@ -4,33 +4,66 @@ import {formatDate} from "@/utils/lkRequests.js";
 import placeholder from "@/assets/img/lk/lk-requests/placeholder.png";
 import RequestCardTags
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/RequestCard/RequestCardTags/RequestCardTags.jsx";
-import FilesBlock
-  from "@/components/lk-InnerPages/LkRequestsPage/RightPanelDetails/right-panel-views/FilesBlock/FilesBlock.jsx";
 import FilesBlockMobile
   from "@/components/lk-InnerPages/LkRequestsPage/RightPanelDetails/right-panel-views/FilesBlockMobile/FilesBlockMobile.jsx";
+import DropdownRequestActions
+  from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/DropdownRequestActions/DropdownRequestActions.jsx";
+import {useState} from "react";
 
 
-const MobileDetails = ({request, requestDetails, setRequestDetails}) => {
+const MobileDetails = ({request, requestDetails, setRequestDetails, resetRequests, resetRequest}) => {
+
+  const [showMenu, setShowMenu] = useState(false)
+
+  const handleMenuClick = (e) => {
+    setShowMenu(true)
+    e.stopPropagation();
+  }
+
   return (
-    <div className={s.detailsWrapper} onClick={()=>setRequestDetails(null)} >
-
-      <div className={s.topFixedBlock}>
+    <div className={s.detailsWrapper}>
+      <div className={s.topFixedBlock} onClick={() => setRequestDetails(null)}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M15 18L9 12L15 6" stroke="#131D2A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
         <span>Заявка №{request.requestNumber}</span>
-        <button className={s.menuBtn}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" fill="#131D2A"/>
-            <path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" fill="#131D2A"/>
-            <path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" fill="#131D2A"/>
-            <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#131D2A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#131D2A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#131D2A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
+        <div className={s.menuBtnWrapper}>
+          <button className={s.menuBtn} onClick={handleMenuClick}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
+                fill="#131D2A"/>
+              <path
+                d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
+                fill="#131D2A"/>
+              <path
+                d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
+                fill="#131D2A"/>
+              <path
+                d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
+                stroke="#131D2A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path
+                d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
+                stroke="#131D2A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path
+                d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
+                stroke="#131D2A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+          {
+            showMenu && (
+              <DropdownRequestActions
+                request={request}
+                mobileFixed={true}
+                onClose={() => setShowMenu(false)}
+                requestDetails={requestDetails}
+                resetRequests={resetRequests}
+                resetRequest={resetRequest}
+              />
+            )
+          }
+        </div>
       </div>
-
       <div className={s.responsesAndStatus}>
         <div className={s.responsesMobile}>
           <span>Откликов получено: {requestDetails.responsesCount}</span>
@@ -44,7 +77,6 @@ const MobileDetails = ({request, requestDetails, setRequestDetails}) => {
             </svg>
           </button>
         </div>
-
         <div
           className={s.requestStatus}
           style={{
@@ -55,29 +87,21 @@ const MobileDetails = ({request, requestDetails, setRequestDetails}) => {
           {request.status.label}
         </div>
       </div>
-
       <div className={s.dates}>
         <div className={s.activeTo}>Активна до: {formatDate(requestDetails.expiration)}</div>
         <div>Дата создания: {formatDate(requestDetails.createdAt)}</div>
       </div>
-
-
-
       <h3 className={s.title}>{request.title}</h3>
-
       <RequestCardTags tags={request.tags} showAll={true}/>
-
       <div className={s.descWrapper}>
         <img className={s.img} src={request.picture ? request.picture.url : placeholder} alt="image"/>
         <p>
           {request.description}
         </p>
       </div>
-
       <div className={s.filesBlock}>
         <FilesBlockMobile files={request.attachments}/>
       </div>
-
     </div>
   );
 };

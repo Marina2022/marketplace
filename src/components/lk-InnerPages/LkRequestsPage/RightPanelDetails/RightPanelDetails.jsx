@@ -15,40 +15,42 @@ import MobileDetails
   from "@/components/lk-InnerPages/LkRequestsPage/RightPanelDetails/right-panel-views/MobileDetails/MobileDetails.jsx";
 
 // const RightPanelDetails = ({currentRightPanelItem, collapse}) => {
-const RightPanelDetails = ({requestDetails, setRequestDetails}) => {
+const RightPanelDetails = ({requestDetails, setRequestDetails, resetRequests}) => {
 
   const [request, setRequest] = useState(null);
   const [loading, setLoading] = useState(true);
   const activeProfileId = useSelector(getActiveProfileId)
-
   const isMobile = useMobileScreen()
+
+  const resetRequest = async () => {
+    try {
+      setLoading(true)
+      const requestResponse = await axiosInstance(`/requests/${requestDetails.requestId}/details?profileId=${activeProfileId}`)
+      let requestToState = requestResponse.data
+
+      const filesForRequest = await axiosInstance(`/requests/${requestResponse.data.requestId}/files?profileId=${activeProfileId}`)
+
+      if (filesForRequest.data.preview) {
+        requestToState.picture = filesForRequest.data.preview
+      } else {
+        requestToState.picture = null
+      }
+      requestToState.attachments = filesForRequest.data.attachments
+
+      setRequest(requestToState)
+
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
     if (!activeProfileId) return
 
     const getRequest = async () => {
-
-      try {
-        setLoading(true)
-        const requestResponse = await axiosInstance(`/requests/${requestDetails.requestId}/details?profileId=${activeProfileId}`)
-        let requestToState = requestResponse.data
-
-        const filesForRequest = await axiosInstance(`/requests/${requestResponse.data.requestId}/files?profileId=${activeProfileId}`)
-
-        if (filesForRequest.data.preview) {
-          requestToState.picture = filesForRequest.data.preview
-        } else {
-          requestToState.picture = null
-        }
-        requestToState.attachments = filesForRequest.data.attachments
-
-        setRequest(requestToState)
-
-      } catch (err) {
-        console.log(err)
-      } finally {
-        setLoading(false)
-      }
+      resetRequest()
     }
 
     getRequest()
@@ -69,15 +71,13 @@ const RightPanelDetails = ({requestDetails, setRequestDetails}) => {
 
   const [showTooltip, setShowTooltip] = useState(false)
   const [expanded, setExpanded] = useState(false)
-
   const panelRef = useRef(null);
 
   // клик вне окна
   useEffect(() => {
-
     if (isMobile) return
-
     const handleClickOutside = (event) => {
+
       if (
         panelRef.current &&
         !panelRef.current.contains(event.target)
@@ -91,11 +91,11 @@ const RightPanelDetails = ({requestDetails, setRequestDetails}) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [setRequestDetails]);
+  }, [setRequestDetails, isMobile]);
 
   console.log('request = ', request)
 
-  if (loading && !isMobile) return (
+  if (loading && !request && !isMobile) return (
     <div className={s.rightPanel} style={{width: expanded ? '40%' : 'unset'}}>
       <div style={{width: 354}}>
         <Spinner/>
@@ -105,34 +105,46 @@ const RightPanelDetails = ({requestDetails, setRequestDetails}) => {
 
   return (
     <>
-
       <div className={s.rightPanel} ref={panelRef} style={{width: expanded ? '42.5%' : 'unset'}}>
-
         {
           !expanded && !isMobile &&
-          <CollapsedDetails requestDetails={requestDetails} request={request} setExpanded={setExpanded}
-                            setShowTooltip={setShowTooltip} showTooltip={showTooltip}/>
+          <CollapsedDetails
+            requestDetails={requestDetails}
+            request={request}
+            setExpanded={setExpanded}
+            setShowTooltip={setShowTooltip}
+            showTooltip={showTooltip}
+            resetRequests={resetRequests}
+            resetRequest={resetRequest}/>
         }
-
         {
           expanded && !isMobile &&
-          <ExpandedDetails requestDetails={requestDetails} request={request} setExpanded={setExpanded}
-                           setShowTooltip={setShowTooltip} showTooltip={showTooltip}/>
+          <ExpandedDetails
+            requestDetails={requestDetails}
+            request={request}
+            setExpanded={setExpanded}
+            setShowTooltip={setShowTooltip}
+            showTooltip={showTooltip}
+            resetRequests={resetRequests}
+            resetRequest={resetRequest}
+          />
         }
-
       </div>
-
       {
         isMobile && loading && <div className={s.mobileSpinnerWrapper}><Spinner/></div>
       }
-
       {
         isMobile && !loading &&
-        <MobileDetails requestDetails={requestDetails} request={request} setRequestDetails={setRequestDetails}/>
+        <MobileDetails
+          requestDetails={requestDetails}
+          request={request}
+          setRequestDetails={setRequestDetails}
+          resetRequests={resetRequests}
+          resetRequest={resetRequest}
+        />
       }
     </>
-
-  );
-};
+  )
+}
 
 export default RightPanelDetails;

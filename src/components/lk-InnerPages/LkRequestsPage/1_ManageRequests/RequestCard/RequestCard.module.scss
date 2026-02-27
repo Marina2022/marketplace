@@ -187,4 +187,16 @@
   z-index: 1;
 }
 
+.menuBtnWrapper {
+  position: relative;
+}
+
+.menuButton {
+  //border: red 1px solid;
+  width: 24px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  right: -10px;
+}
 

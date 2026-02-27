@@ -7,22 +7,36 @@ import RequestCardTags
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/RequestCard/RequestCardTags/RequestCardTags.jsx";
 import FilesBlock
   from "@/components/lk-InnerPages/LkRequestsPage/RightPanelDetails/right-panel-views/FilesBlock/FilesBlock.jsx";
+import DropdownRequestActions
+  from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/DropdownRequestActions/DropdownRequestActions.jsx";
 
-const CollapsedDetails = ({request, requestDetails, setExpanded, setShowTooltip, showTooltip}) => {
+const CollapsedDetails = ({
+                            request,
+                            requestDetails,
+                            setExpanded,
+                            setShowTooltip,
+                            showTooltip,
+                            resetRequests,
+                            resetRequest
+                          }) => {
 
   const DESC_LIMIT = 650
 
   let initialDesc = request.description.slice(0, DESC_LIMIT)
   if (request.description > initialDesc) initialDesc = initialDesc + '...'
   const [description, setDescription] = useState(initialDesc)
+  const [showMenu, setShowMenu] = useState(false)
+
+  const handleMenuClick = (e) => {
+    setShowMenu(true)
+    e.stopPropagation();
+  }
 
   return (
     <div className={s.detailsWrapper}>
       <div className={s.header}>
-
         <div className={s.heading}>Заявка №{request.requestNumber}</div>
         <div className={s.rightPartHeader}>
-
           <div className={s.hideBtnWrapper}>
             <button className={s.hideBtn}
                     onClick={() => setExpanded(true)}
@@ -39,31 +53,38 @@ const CollapsedDetails = ({request, requestDetails, setExpanded, setShowTooltip,
               }
             </button>
           </div>
-          <button className={s.menuBtn}>
-            <svg width="4" height="18" viewBox="0 0 4 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M2 10C2.55228 10 3 9.55228 3 9C3 8.44772 2.55228 8 2 8C1.44772 8 1 8.44772 1 9C1 9.55228 1.44772 10 2 10Z"
-                fill="#AAB7BF"/>
-              <path
-                d="M2 3C2.55228 3 3 2.55228 3 2C3 1.44772 2.55228 1 2 1C1.44772 1 1 1.44772 1 2C1 2.55228 1.44772 3 2 3Z"
-                fill="#AAB7BF"/>
-              <path
-                d="M2 17C2.55228 17 3 16.5523 3 16C3 15.4477 2.55228 15 2 15C1.44772 15 1 15.4477 1 16C1 16.5523 1.44772 17 2 17Z"
-                fill="#AAB7BF"/>
-              <path
-                d="M2 10C2.55228 10 3 9.55228 3 9C3 8.44772 2.55228 8 2 8C1.44772 8 1 8.44772 1 9C1 9.55228 1.44772 10 2 10Z"
-                stroke="#AAB7BF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path
-                d="M2 3C2.55228 3 3 2.55228 3 2C3 1.44772 2.55228 1 2 1C1.44772 1 1 1.44772 1 2C1 2.55228 1.44772 3 2 3Z"
-                stroke="#AAB7BF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path
-                d="M2 17C2.55228 17 3 16.5523 3 16C3 15.4477 2.55228 15 2 15C1.44772 15 1 15.4477 1 16C1 16.5523 1.44772 17 2 17Z"
-                stroke="#AAB7BF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
+          <div className={s.menuBtnWrapper}>
+            <button className={s.menuBtn} onClick={handleMenuClick}>
+              <svg width="4" height="18" viewBox="0 0 4 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M2 10C2.55228 10 3 9.55228 3 9C3 8.44772 2.55228 8 2 8C1.44772 8 1 8.44772 1 9C1 9.55228 1.44772 10 2 10Z"
+                  fill="#AAB7BF"/>
+                <path
+                  d="M2 3C2.55228 3 3 2.55228 3 2C3 1.44772 2.55228 1 2 1C1.44772 1 1 1.44772 1 2C1 2.55228 1.44772 3 2 3Z"
+                  fill="#AAB7BF"/>
+                <path
+                  d="M2 17C2.55228 17 3 16.5523 3 16C3 15.4477 2.55228 15 2 15C1.44772 15 1 15.4477 1 16C1 16.5523 1.44772 17 2 17Z"
+                  fill="#AAB7BF"/>
+                <path
+                  d="M2 10C2.55228 10 3 9.55228 3 9C3 8.44772 2.55228 8 2 8C1.44772 8 1 8.44772 1 9C1 9.55228 1.44772 10 2 10Z"
+                  stroke="#AAB7BF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path
+                  d="M2 3C2.55228 3 3 2.55228 3 2C3 1.44772 2.55228 1 2 1C1.44772 1 1 1.44772 1 2C1 2.55228 1.44772 3 2 3Z"
+                  stroke="#AAB7BF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path
+                  d="M2 17C2.55228 17 3 16.5523 3 16C3 15.4477 2.55228 15 2 15C1.44772 15 1 15.4477 1 16C1 16.5523 1.44772 17 2 17Z"
+                  stroke="#AAB7BF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+            {
+              showMenu && (
+                <DropdownRequestActions resetRequests={resetRequests} request={request} onClose={() => setShowMenu(false)}
+                                        requestDetails={requestDetails} resetRequest={resetRequest}/>
+              )
+            }
+          </div>
         </div>
       </div>
-
       <div
         className={s.requestStatus}
         style={{
@@ -101,16 +122,17 @@ const CollapsedDetails = ({request, requestDetails, setExpanded, setShowTooltip,
         <div className={s.desc}>{description}</div>
         {
           description.length < request.description.length && (
-            <button onClick={() => setDescription(request.description)} className={s.showAllBtn}>Просмотреть
-              полностью</button>
+            <button
+              onClick={() => setDescription(request.description)}
+              className={s.showAllBtn}>
+              Просмотреть полностью
+            </button>
           )
         }
       </div>
-
       <div className={s.tagsWrapper}>
         <RequestCardTags tags={request.tags} showAll={true}/>
       </div>
-
       <div className={s.filesBlock}>
         <FilesBlock files={request.attachments}/>
       </div>
