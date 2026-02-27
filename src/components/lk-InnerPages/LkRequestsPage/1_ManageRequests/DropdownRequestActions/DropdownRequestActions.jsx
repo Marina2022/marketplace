@@ -36,21 +36,26 @@ const DropdownRequestActions = ({request, onClose, mobileFixed = false, requestD
 
   const responseCount = requestDetails ? requestDetails.responsesCount : request.responsesCount
 
-  const canEdit = request.status.code === "active" && responseCount === 0
-    || request.status.code === "draft"
+  const canEdit =  request.status.code === "draft"
     || request.status.code === "rejected"
     || request.status.code === "paused"
-    || request.status.code === "archived"
 
-  const canArchive = request.status.code === "active" && responseCount === 0
-    || request.status.code === "draft"
+
+  const canArchive = request.status.code === "draft"
     || request.status.code === "rejected"
     || request.status.code === "paused"
 
   const canRestore = request.status.code === "archived"
   const canPause = request.status.code === "active"
   const canResume = request.status.code === "expired" || request.status.code === "paused"
-  const canCancel = request.status.code !== "expired"
+
+  //Rejected, Moderation, Active, Paused
+  const canCancel = request.status.code !== "rejected"
+    || request.status.code === "moderation"
+    || request.status.code === "active"
+    || request.status.code === "paused"
+
+
 
   const handlePause = async () => {
     try {
