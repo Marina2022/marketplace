@@ -50,11 +50,10 @@ const DropdownRequestActions = ({request, onClose, mobileFixed = false, requestD
   const canResume = request.status.code === "expired" || request.status.code === "paused"
 
   //Rejected, Moderation, Active, Paused
-  const canCancel = request.status.code !== "rejected"
+  const canCancel = request.status.code === "rejected"
     || request.status.code === "moderation"
     || request.status.code === "active"
     || request.status.code === "paused"
-
 
 
   const handlePause = async () => {
@@ -84,7 +83,6 @@ const DropdownRequestActions = ({request, onClose, mobileFixed = false, requestD
     }
   }
 
-  // todo - потестить, пока не работает - ошибка 500
   const handleArchive = async () => {
     try {
       const result = await axiosInstance.post(`/requests/${request.requestId}/archive?profileId=${profileId}`)
@@ -125,6 +123,8 @@ const DropdownRequestActions = ({request, onClose, mobileFixed = false, requestD
       console.log(err)
     }
   }
+
+  console.log('canCancel = ', canCancel)
 
   // status.code = "unknown" - для тестов можно оставить
   return (
