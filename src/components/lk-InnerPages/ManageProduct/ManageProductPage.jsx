@@ -1,6 +1,6 @@
 import s from './ManageProductPage.module.scss';
 import {useEffect, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useOutletContext, useParams} from "react-router-dom";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import {useSelector} from "react-redux";
 import {getActiveProfileId, getUserProfilesData} from "@/store/userSlice.js";
@@ -40,6 +40,8 @@ const ManageProductPage = () => {
   const [presentationPhotos, setPresentationPhotos] = useState([])
 
   const [formWasEdited, setFormWasEdited] = useState(false)
+
+  const {rightPanelOpen} = useOutletContext();
 
   const {
     trigger,
@@ -128,7 +130,6 @@ const ManageProductPage = () => {
   const [selectedCatName, setSelectedCatName] = useState('')
   const [searchCats, setSearchCats] = useState('')
   const [catsLoading, setCatsLoading] = useState(true)
-
 
   const profilesData = useSelector(getUserProfilesData)
 
@@ -423,111 +424,128 @@ const ManageProductPage = () => {
   if (isNew && loading) return <Spinner/>
   if (error) return <div>{error}</div>
   if (!isNew && (catsLoading || productLoading)) return <Spinner/>
+  console.log('rightPanelOpen ' , rightPanelOpen)
+
 
   return (
-    <div className={s.manageProductWrapper}>
-      {
-        showWarningPopup &&
-        <WarningPopup setShowWarningPopup={setShowWarningPopup} showWarningPopup={showWarningPopup}/>
-      }
-      <div className={s.topPart}>
-        <div className={s.linkAndTitleWrapper}>
-          <button type="button" className={s.backLink} onClick={handleCancel}>
-            <svg className={s.backArrow} width="6" height="11" viewBox="0 0 6 11" fill="none"
-                 xmlns="http://www.w3.org/2000/svg">
-              <path d="M5 10L1 5.5L5 1" stroke="#658092"/>
-            </svg>
-            <span className={s.backLinkText}>Назад к списку товаров</span>
-          </button>
-          <h1 className={s.mainTitle}>
-            {
-              isNew ? "Создание товара" : "Редактирование товара"
-            }
-          </h1>
+
+    <div>
+      <div className={s.leftSideMenu}>
+        Магазин
+      </div>
+      <div className={`${s.contentWrapper} ${rightPanelOpen ? s.contentWrapperRightPanelOpen : ''}`}>
+
+        <div className={s.manageProductWrapper}>
+          {
+            showWarningPopup &&
+            <WarningPopup setShowWarningPopup={setShowWarningPopup} showWarningPopup={showWarningPopup}/>
+          }
+
+          <div className={s.topPart}>
+            <div className={s.linkAndTitleWrapper}>
+              <button type="button" className={s.backLink} onClick={handleCancel}>
+                <svg className={s.backArrow} width="6" height="11" viewBox="0 0 6 11" fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 10L1 5.5L5 1" stroke="#658092"/>
+                </svg>
+                <span className={s.backLinkText}>Назад к списку товаров</span>
+              </button>
+              <h1 className={s.mainTitle}>
+                {
+                  isNew ? "Создание товара" : "Редактирование товара"
+                }
+              </h1>
+            </div>
+
+            <nav className={s.stepsNav}>
+              <StepsNav navItems={navItems} step={step} setStep={setStep} trigger={trigger} productPhotos={productPhotos}
+                        product={product}/>
+            </nav>
+          </div>
+
+          <div className={`${s.stepsContainer}  ${ navItems.length > 2 ? s.stepsContainerMore : ''}`}  >
+            <form onSubmit={handleSubmit(onSubmit)}>
+              {
+                step === 'main' &&
+                <MainStep
+                  trigger={trigger}
+                  register={register}
+                  append={append}
+                  errors={errors}
+                  getValues={getValues}
+                  cats={cats}
+                  setValue={setValue}
+                  clearErrors={clearErrors}
+                  searchCats={searchCats}
+                  setSearchCats={setSearchCats}
+                  catsLoading={catsLoading}
+                  setSelectedCatName={setSelectedCatName}
+                  selectedCatName={selectedCatName}
+                  attributes={attributes}
+                  instructionFile={instructionFile}
+                  setInstructionFile={setInstructionFile}
+                  documentationFile={documentationFile}
+                  setDocumentationFile={setDocumentationFile}
+                  certificateFile={certificateFile}
+                  setCertificateFile={setCertificateFile}
+                  handleCancel={handleCancel}
+                  setStep={setStep}
+                  watch={watch}
+                  product={product}
+                  setProduct={setProduct}
+                  setFormWasEdited={setFormWasEdited}
+                />
+              }
+
+              {
+                step === 'characteristics' && <CharacteristicsStep
+                  attributes={attributes}
+                  getValues={getValues}
+                  setValue={setValue}
+                  clearErrors={clearErrors}
+                  trigger={trigger}
+                  errors={errors}
+                  register={register}
+                  setStep={setStep}
+                  watch={watch}
+                  setFormWasEdited={setFormWasEdited}
+                />
+              }
+
+              {
+                step === 'media' && <MediaStep
+                  setStep={setStep}
+                  productPhotos={productPhotos}
+                  setProductPhotos={setProductPhotos}
+                  presentationPhotos={presentationPhotos}
+                  setPresentationPhotos={setPresentationPhotos}
+                  product={product}
+                  setProduct={setProduct}
+                  trigger={trigger}
+                  navItems={navItems}
+                />
+              }
+
+              {
+                step === 'preview' && <PreviewStep
+                  setStep={setStep}
+                  attributes={attributes}
+                  getValues={getValues}
+                  cats={cats}
+                  onSubmit={onSubmit}
+                  sending={sending}
+                />
+              }
+            </form>
+          </div>
         </div>
 
-        <nav className={s.stepsNav}>
-          <StepsNav navItems={navItems} step={step} setStep={setStep} trigger={trigger} productPhotos={productPhotos}
-                    product={product}/>
-        </nav>
       </div>
 
-      <div className={`${s.stepsContainer}  ${ navItems.length > 2 ? s.stepsContainerMore : ''}`}  >
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {
-            step === 'main' &&
-            <MainStep
-              trigger={trigger}
-              register={register}
-              append={append}
-              errors={errors}
-              getValues={getValues}
-              cats={cats}
-              setValue={setValue}
-              clearErrors={clearErrors}
-              searchCats={searchCats}
-              setSearchCats={setSearchCats}
-              catsLoading={catsLoading}
-              setSelectedCatName={setSelectedCatName}
-              selectedCatName={selectedCatName}
-              attributes={attributes}
-              instructionFile={instructionFile}
-              setInstructionFile={setInstructionFile}
-              documentationFile={documentationFile}
-              setDocumentationFile={setDocumentationFile}
-              certificateFile={certificateFile}
-              setCertificateFile={setCertificateFile}
-              handleCancel={handleCancel}
-              setStep={setStep}
-              watch={watch}
-              product={product}
-              setProduct={setProduct}
-              setFormWasEdited={setFormWasEdited}
-            />
-          }
 
-          {
-            step === 'characteristics' && <CharacteristicsStep
-              attributes={attributes}
-              getValues={getValues}
-              setValue={setValue}
-              clearErrors={clearErrors}
-              trigger={trigger}
-              errors={errors}
-              register={register}
-              setStep={setStep}
-              watch={watch}
-              setFormWasEdited={setFormWasEdited}
-            />
-          }
-
-          {
-            step === 'media' && <MediaStep
-              setStep={setStep}
-              productPhotos={productPhotos}
-              setProductPhotos={setProductPhotos}
-              presentationPhotos={presentationPhotos}
-              setPresentationPhotos={setPresentationPhotos}
-              product={product}
-              setProduct={setProduct}
-              trigger={trigger}
-              navItems={navItems}
-            />
-          }
-
-          {
-            step === 'preview' && <PreviewStep
-              setStep={setStep}
-              attributes={attributes}
-              getValues={getValues}
-              cats={cats}
-              onSubmit={onSubmit}
-              sending={sending}
-            />
-          }
-        </form>
-      </div>
     </div>
+
+
   )
 }
 

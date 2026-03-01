@@ -1,0 +1,56 @@
+@import "@/assets/styles/mixins";
+
+.steps {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+
+  @include m {
+    margin-top: 48px;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+}
+
+.step {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 14px;
+  line-height: 140%;
+  color: #658092;
+
+  @media (max-width: 982px) {
+    font-size: 13px;
+  }
+
+  @include m {
+    font-size: 14px;
+  }
+}
+
+.stepActive {
+  color: #3E5067;
+
+  .stepNumber {
+    color: #fff;
+    background: #E32636;
+    border: none;
+  }
+
+}
+
+.stepNumber {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: #658092 1px solid;
+  color: #658092;
+  font-size: 12px;
+  flex-shrink: 0;
+}

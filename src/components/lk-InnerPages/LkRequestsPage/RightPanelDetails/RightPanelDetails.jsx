@@ -15,7 +15,7 @@ import MobileDetails
   from "@/components/lk-InnerPages/LkRequestsPage/RightPanelDetails/right-panel-views/MobileDetails/MobileDetails.jsx";
 
 // const RightPanelDetails = ({currentRightPanelItem, collapse}) => {
-const RightPanelDetails = ({requestDetails, setRequestDetails, resetRequests}) => {
+const RightPanelDetails = ({requestDetails, setRequestDetails, resetRequests, setRequestToEdit}) => {
 
   const [request, setRequest] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -115,7 +115,9 @@ const RightPanelDetails = ({requestDetails, setRequestDetails, resetRequests}) =
             setShowTooltip={setShowTooltip}
             showTooltip={showTooltip}
             resetRequests={resetRequests}
-            resetRequest={resetRequest}/>
+            resetRequest={resetRequest}
+            setRequestToEdit={setRequestToEdit}
+          />
         }
         {
           expanded && !isMobile &&
@@ -127,6 +129,7 @@ const RightPanelDetails = ({requestDetails, setRequestDetails, resetRequests}) =
             showTooltip={showTooltip}
             resetRequests={resetRequests}
             resetRequest={resetRequest}
+            setRequestToEdit={setRequestToEdit}
           />
         }
       </div>
@@ -141,6 +144,7 @@ const RightPanelDetails = ({requestDetails, setRequestDetails, resetRequests}) =
           setRequestDetails={setRequestDetails}
           resetRequests={resetRequests}
           resetRequest={resetRequest}
+          setRequestToEdit={setRequestToEdit}
         />
       }
     </>

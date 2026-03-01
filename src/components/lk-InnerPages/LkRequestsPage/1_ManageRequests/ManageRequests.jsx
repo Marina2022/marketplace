@@ -13,6 +13,8 @@ import RequestCard from "@/components/lk-InnerPages/LkRequestsPage/1_ManageReque
 import {getPreviewPayload, getRequestsWithPictures} from "@/utils/lkRequests.js";
 import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 import RightPanelDetails from "@/components/lk-InnerPages/LkRequestsPage/RightPanelDetails/RightPanelDetails.jsx";
+import EditRequest from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/EditRequest/EditRequest.jsx";
+import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 
 const ManageRequests = ({setRequestDetails, requestDetails}) => {
 
@@ -24,6 +26,8 @@ const ManageRequests = ({setRequestDetails, requestDetails}) => {
   const [mainLoading, setMainLoading] = useState(true)
   const [page, setPage] = useState(1)
   const [isOnScrollLoading, setIsOnScrollLoading] = useState(false)
+
+  const [requestToEdit, setRequestToEdit] = useState(null)
 
   const activeProfileId = useSelector(getActiveProfileId)
   const observerRef = useRef(null);
@@ -115,20 +119,24 @@ const ManageRequests = ({setRequestDetails, requestDetails}) => {
       }
     }
   }, [requests]);
+
+  if (mainLoading) return <Spinner />
+
   return (
-    <>
+    <div className={s.manageRequestsWrapper}>
       {
         requestDetails && <RightPanelDetails
           requestDetails={requestDetails}
           setRequestDetails={setRequestDetails}
           resetRequests={resetRequests}
+          setRequestToEdit={setRequestToEdit}
         />
       }
 
       <div>
         <div className={s.header}>
           <h1 className={s.title}>Управление заявками</h1>
-          <Button className={s.creatRequestButton}>Создать заявку</Button>
+          <Button onClick={()=>setRequestToEdit('new')} className={s.createRequestButton}>Создать заявку</Button>
         </div>
         <RequestsTabs requests={requests} setTab={setTab} tab={tab}/>
         <div className={s.searchAndFilters}>
@@ -142,9 +150,12 @@ const ManageRequests = ({setRequestDetails, requestDetails}) => {
               request={request}
               key={request.requestId}
               setRequestDetails={setRequestDetails}
+              setRequestToEdit={setRequestToEdit}
             />)
           }
         </ul>
+
+        <Button onClick={()=>setRequestToEdit('new')} className={s.createRequestButtonMobile}>Создать заявку</Button>
         {
           requests && (requests.items.length < requests.totalItems) && (
             <div ref={observerRef} className={s.observerDiv}>
@@ -155,7 +166,15 @@ const ManageRequests = ({setRequestDetails, requestDetails}) => {
           )
         }
       </div>
-    </>
+
+      {
+        requestToEdit && <EditRequest
+          requestToEdit={requestToEdit}
+          setRequestToEdit={setRequestToEdit}
+          resetRequests={resetRequests}
+        />
+      }
+    </div>
   )
 }
 

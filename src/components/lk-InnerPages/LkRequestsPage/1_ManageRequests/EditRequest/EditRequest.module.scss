@@ -1,0 +1,127 @@
+@import "@/assets/styles/mixins";
+
+.editRequestForm {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  max-width: 100%;
+  overflow: auto;
+  padding: 16px 24px;
+
+  @include t {
+    padding: 16px;
+  }
+
+  @include m {
+    position: fixed;
+    z-index: 10;
+  }
+
+  @-moz-document url-prefix() {
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--lime) rgba(37, 37, 38, 0.1) !important;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px !important; /* Ширина скроллбара */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #AAB7BF !important;
+    border-radius: 10px !important;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #F0F1F1 !important;
+    border-radius: 10px !important;
+  }
+}
+
+.headerDesktop {
+  display: flex;
+  gap: 12px;
+  //align-items: flex-start;
+  align-items: center;
+  margin-bottom: 24px;
+
+  @include m {
+    display: none;
+  }
+}
+
+.headerMobile {
+  display: none;
+
+  @include m {
+    display: block;
+  }
+
+}
+
+.title {
+  color: #131D2A;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.backButton {
+  border-radius: 4px;
+  border: #D1D5DB 1px solid;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+
+.headerMobile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  height: 48px;
+  background: #F0F1F5;
+
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 12px 16px;
+  font-weight: 500;
+}
+
+.menuBtnWrapper {
+  position: relative;
+  margin-left: auto;
+}
+
+.menuBtn {
+  margin-left: auto;
+  width: 24px;
+  height: 24px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.spinnerWrapper {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input {
+  max-width: 850px;
+  margin-top: 16px;
+}
+
+.submitBtn {
+  margin-top: 36px;
+}
+

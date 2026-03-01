@@ -11,7 +11,7 @@ import DropdownRequestActions
 import {useState} from "react";
 
 
-const MobileDetails = ({request, requestDetails, setRequestDetails, resetRequests, resetRequest}) => {
+const MobileDetails = ({request, requestDetails, setRequestDetails, resetRequests, resetRequest, setRequestToEdit}) => {
 
   const [showMenu, setShowMenu] = useState(false)
 
@@ -59,6 +59,7 @@ const MobileDetails = ({request, requestDetails, setRequestDetails, resetRequest
                 requestDetails={requestDetails}
                 resetRequests={resetRequests}
                 resetRequest={resetRequest}
+                setRequestToEdit={setRequestToEdit}
               />
             )
           }

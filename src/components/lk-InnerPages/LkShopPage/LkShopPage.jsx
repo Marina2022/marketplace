@@ -11,9 +11,8 @@ const LkShopPage = () => {
   const {rightPanelOpen} = useOutletContext();
 
   return (
-    // <div className={s.lkShopWrapper}>
-    <div >
 
+    <div >
       <div className={s.leftSideMenu}>
         Магазин
       </div>

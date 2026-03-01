@@ -18,7 +18,7 @@
   }
 }
 
-.creatRequestButton {
+.createRequestButton {
   background: #658092;
   font-weight: 500;
   font-size: 12px;
@@ -26,7 +26,27 @@
   &:hover {
     background: #566F80;
   }
+
+  @include m {
+    display:  none;
+  }
 }
+
+.createRequestButtonMobile {
+  display: none;
+
+  @include m {
+    display:  flex;
+    background: #658092;
+    font-weight: 500;
+    font-size: 12px;
+    width: 100%;
+    margin-top: 32px;
+  }
+
+
+}
+
 
 .title {
   font-weight: 600;

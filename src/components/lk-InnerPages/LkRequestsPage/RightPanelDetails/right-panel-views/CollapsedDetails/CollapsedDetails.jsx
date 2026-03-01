@@ -17,7 +17,8 @@ const CollapsedDetails = ({
                             setShowTooltip,
                             showTooltip,
                             resetRequests,
-                            resetRequest
+                            resetRequest,
+                            setRequestToEdit
                           }) => {
 
   const DESC_LIMIT = 650
@@ -78,8 +79,11 @@ const CollapsedDetails = ({
             </button>
             {
               showMenu && (
-                <DropdownRequestActions resetRequests={resetRequests} request={request} onClose={() => setShowMenu(false)}
-                                        requestDetails={requestDetails} resetRequest={resetRequest}/>
+                <DropdownRequestActions
+                  resetRequests={resetRequests} request={request} onClose={() => setShowMenu(false)}
+                  requestDetails={requestDetails} resetRequest={resetRequest}
+                  setRequestToEdit={setRequestToEdit}
+                />
               )
             }
           </div>

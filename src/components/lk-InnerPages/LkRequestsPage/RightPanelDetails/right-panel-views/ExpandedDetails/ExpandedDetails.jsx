@@ -19,7 +19,8 @@ const ExpandedDetails = ({
                            showTooltip,
                            requestDetails,
                            resetRequests,
-                           resetRequest
+                           resetRequest,
+                           setRequestToEdit
                          }) => {
 
   const [showMenu, setShowMenu] = useState(false)
@@ -110,6 +111,7 @@ const ExpandedDetails = ({
                 onClose={() => setShowMenu(false)}
                 requestDetails={requestDetails}
                 resetRequest={resetRequest}
+                setRequestToEdit={setRequestToEdit}
               />
             )
           }

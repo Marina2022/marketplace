@@ -8,7 +8,7 @@ import {useState} from "react";
 import DropdownRequestActions
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/DropdownRequestActions/DropdownRequestActions.jsx";
 
-const RequestCard = ({request, setRequestDetails, resetRequests}) => {
+const RequestCard = ({request, setRequestDetails, resetRequests, setRequestToEdit}) => {
 
   const [showTooltip, setShowTooltip] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
@@ -46,7 +46,11 @@ const RequestCard = ({request, setRequestDetails, resetRequests}) => {
           </button>
           {
             showMenu && (
-              <DropdownRequestActions request={request} onClose={() => setShowMenu(false)} resetRequests={resetRequests} />
+              <DropdownRequestActions
+                request={request}
+                onClose={() => setShowMenu(false)}
+                resetRequests={resetRequests}
+                setRequestToEdit={setRequestToEdit}/>
             )
           }
         </div>

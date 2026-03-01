@@ -4,7 +4,7 @@ import axiosInstance from "@/api/axiosInstance.js";
 import {useSelector} from "react-redux";
 import {getActiveProfileId} from "@/store/userSlice.js";
 
-const DropdownRequestActions = ({request, onClose, mobileFixed = false, requestDetails = null, resetRequests, resetRequest=null}) => {
+const DropdownRequestActions = ({request, onClose, mobileFixed = false, resetRequests, resetRequest=null, setRequestToEdit}) => {
 
   const dropdownRef = useRef(null);
   const profileId = useSelector(getActiveProfileId)
@@ -33,8 +33,6 @@ const DropdownRequestActions = ({request, onClose, mobileFixed = false, requestD
       document.removeEventListener('keydown', handleEsc);
     };
   }, []);
-
-  const responseCount = requestDetails ? requestDetails.responsesCount : request.responsesCount
 
   const canEdit =  request.status.code === "draft"
     || request.status.code === "rejected"
@@ -124,15 +122,13 @@ const DropdownRequestActions = ({request, onClose, mobileFixed = false, requestD
     }
   }
 
-  console.log('canCancel = ', canCancel)
-
   // status.code = "unknown" - для тестов можно оставить
   return (
     <ul className={`${s.dropdownRequestActions} ${mobileFixed ? s.fixed : ''}`} ref={dropdownRef}
         onClick={(e) => e.stopPropagation()}>
 
       {
-        canEdit && <li className={s.menuItem}>Редактировать</li>
+        canEdit && <li className={s.menuItem}  onClick={()=>setRequestToEdit(request)}  >Редактировать</li>
       }
 
       {
