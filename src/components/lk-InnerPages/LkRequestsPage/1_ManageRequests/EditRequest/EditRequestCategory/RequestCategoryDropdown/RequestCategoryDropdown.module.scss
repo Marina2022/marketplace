@@ -1,0 +1,67 @@
+@import '@/assets/styles/mixins';
+
+.content {
+  padding-left: 20px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  color: #131D2A;
+  font-size: 14px;
+  max-height: 472px;
+  overflow-y: auto;
+  width: 97.5%;
+  margin-bottom: 20px;
+  user-select: none;
+  
+  @include m {
+    padding-left: 8px;
+    max-height: calc(var(--vh) * 100 - 312px);
+    width: 96.2%;    
+  }
+}
+
+.catsDropdown {
+  border: 1px solid #F0F1F1;
+  padding-top: 10px;
+  background: white;
+  margin-top: 5px;
+  box-shadow: 0 4px 16px rgb(0 0 0/.2);
+  
+  @include m {
+    box-shadow: none;
+  }
+}
+
+.dropdownFooter {
+  background: #EAEAEA;  
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  
+  @include m {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.footerLeft {
+  color: #3E5067;
+  font-size: 14px;
+  line-height: 140%;
+  width: 280px;
+  
+  @include m {
+    width: 100%;
+  }
+}
+
+.btn {
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  
+  @include m {
+    align-self: center ;
+  }
+}
+
+

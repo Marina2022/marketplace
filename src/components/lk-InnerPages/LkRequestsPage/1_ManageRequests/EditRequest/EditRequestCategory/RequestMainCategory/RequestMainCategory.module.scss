@@ -1,0 +1,51 @@
+@import '@/assets/styles/mixins';
+
+.mainCategoryWrapper {
+  cursor: pointer;
+}
+
+.subCats {  
+  width: 100%;
+}
+
+.mainCatName {
+  margin-bottom: 5px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+}
+
+.mainCatHeader {
+  padding-left: 7px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.arrowBtn {
+  position: relative;
+  top: -2px;
+  transform: rotate(270deg);
+  flex-shrink: 0;
+}
+
+.arrowBtnOpened {
+  position: relative;
+  top: -2px;
+  flex-shrink: 0;
+}
+
+.outerWrapper {
+  display:  flex;
+  position: relative;
+}
+
+.verticalLine {
+  background: #AAB7BF;
+  width: 1px;
+  position: relative;
+  top: -6px;
+  left: 14px;
+}
+
+

@@ -441,6 +441,7 @@ const ManageProductPage = () => {
             <WarningPopup setShowWarningPopup={setShowWarningPopup} showWarningPopup={showWarningPopup}/>
           }
 
+
           <div className={s.topPart}>
             <div className={s.linkAndTitleWrapper}>
               <button type="button" className={s.backLink} onClick={handleCancel}>

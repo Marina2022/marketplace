@@ -10,6 +10,8 @@ import {getActiveProfileId} from "@/store/userSlice.js";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import InputSimple from "@/components/ui/InputSimple/InputSimple.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
+import EditRequestCategory
+  from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/EditRequest/EditRequestCategory/EditRequestCategory.jsx";
 
 const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
@@ -30,7 +32,9 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
   // const [request, setRequest] = useState(null)
 
   const [title, setTitle] = useState("")
+
   const [catId, setCatId] = useState("")
+
   const [description, setDescription] = useState("")
 
   const [cover, setCover] = useState("")
@@ -42,10 +46,12 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
 
   const [loading, setLoading] = useState(!isNew)
-  console.log({loading})
 
   const [tempCoverFile, setTempCoverFile] = useState(null)
   const [tempfiles, setTempFiles] = useState([])  // файлы в стейте при подгрузке
+
+  console.log('catId = ', catId)
+
 
   useEffect(() => {
 
@@ -59,6 +65,7 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
         console.log('requestResponse = ', requestResponse)
 
         setTitle(requestResponse.data.title)
+        setCatId(requestResponse.data.categoryId)
 
         // const payload = getPreviewPayload(requests.data.items)
         // const pictures = await axiosInstance.post(`/requests/preview?profileId=${activeProfileId}`, payload)
@@ -187,8 +194,9 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
         errors={errors}
         setErrors={setErrors}
         name="title"
-
       />
+
+      <EditRequestCategory catId={catId} setValue={setCatId}   />
 
       <Button className={s.submitBtn} onClick={handleSubmit}>Создать заявку</Button>
     </div>

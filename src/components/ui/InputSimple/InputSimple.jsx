@@ -79,9 +79,14 @@ const InputSimple = ({
         </div>}
 
         {editing && (
-          <div>
-            <input autoFocus value={value} className={`${s.input} `} onFocus={onFocus} onChange={handleChange} onBlur={handleBlur}/>
-          </div>
+          <input
+            autoFocus
+            value={value}
+            className={`${s.input} `}
+            onFocus={onFocus}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
         )}
       </div>
 

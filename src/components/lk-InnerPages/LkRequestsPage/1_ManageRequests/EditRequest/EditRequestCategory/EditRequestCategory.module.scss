@@ -1,0 +1,54 @@
+@import '@/assets/styles/mixins';
+
+.wrapper {
+  margin-top: 16px;
+  max-width: 850px;
+}
+
+.empty {
+  color: #658092;
+  font-size: 14px;
+  user-select: none;
+}
+
+.requiredStar {
+  color: red;
+  margin-left: 2px;
+}
+
+.catInput {
+  height: 44px;
+  border: #F0F1F1 1px solid;
+  background: white;
+  padding: 12px 20px;
+}
+
+.catInputError {
+  height: 44px;
+  border: #F0F1F1 1px solid;
+  background: white;
+  padding: 12px 20px;
+  border: 1px solid #E32636;
+  background: #FFDEE1;  
+}
+
+.catInputBordered {
+  outline: #D1DCE8 1px solid;
+  height: 44px;
+  border: #F0F1F1 1px solid;
+  background: white;
+  padding: 12px 20px;
+  user-select: none;
+}
+
+.catName {
+  color: #658092;
+  font-size: 14px;
+  font-weight: 500;  
+}
+
+.errorInput {
+  border: 1px solid #E32636;
+  background: #FFDEE1;
+}
+

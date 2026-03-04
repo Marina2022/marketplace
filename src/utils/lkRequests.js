@@ -41,3 +41,30 @@ export const formatDate = (dateString) => {
 
   return `${day}.${month}.${year}`
 }
+
+
+// export function findBySubCategoryId(arr, targetId) {
+//
+//   console.log('arr = ', arr)
+//   console.log('targetId ============= ', targetId)
+//
+//   const result =  arr.find(item =>
+//     item.subCategories.some(
+//       sub => {
+//         console.log("sub.subCategoryId = ", sub.subCategoryId)
+//         console.log("targetId = ", targetId)
+//         return sub.subCategoryId === targetId
+//       }
+//     )
+//   )
+//
+//   console.log('result = ', result)
+//
+//   return result
+// }
+
+export function findSubCategoryById(arr, targetId) {
+  return arr
+    .flatMap(item => item.subCategories)
+    .find(sub => sub.subCategoryId === targetId)
+}

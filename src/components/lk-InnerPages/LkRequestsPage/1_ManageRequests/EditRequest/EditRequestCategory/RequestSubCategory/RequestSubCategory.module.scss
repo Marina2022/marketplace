@@ -1,0 +1,93 @@
+@import '@/assets/styles/mixins';
+
+.subCategoryWrapper {
+  cursor: pointer;
+}
+
+.subCatHeader {
+  padding-left: 30px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 30px;
+  position: relative;
+  margin-block: 2px;
+}
+
+.arrowBtn {
+  position: relative;
+  top: -1px;
+  transform: rotate(270deg);
+  flex-shrink: 0;
+}
+
+.arrowBtnOpened {
+  position: relative;
+  top: -1px;
+  flex-shrink: 0;
+}
+
+.outerWrapper {
+  display:  flex;
+  position: relative;
+}
+
+.verticalLine {
+  background: #AAB7BF;
+  width: 1px;
+  position: relative;
+  top: -6px;
+  left: 38px;
+}
+
+.verticalLineEraser {
+  width: 3px;
+  background: white; 
+  position: absolute;  
+  left: 13px;
+  top: -16px;
+  height: 135%;  
+  
+  @include t {
+    left: 12px;
+  }
+}
+
+.horizontalLine {
+  position: absolute;
+  top: 0;
+  left: 14px;
+  width: 8px;  
+  height: 1px;
+  background: #AAB7BF;
+  top: 13px;
+  top: 48%;
+  width: 8px;
+  height: 1px;
+  
+  @include m {
+    top: 47%;
+  }
+}
+
+.verticalTickEraser {
+  background: white;  
+  width: 5px;
+  position: absolute;
+  top: 15px;
+  left: 12px;
+  height: 14px;  
+  
+  @include m {
+    top: 16px;
+    top: 50%;
+  }
+}
+
+.list {
+  width: 100%;
+}
+
+.selectedCategory {
+  outline: #D1DCE8 2px solid;
+}
