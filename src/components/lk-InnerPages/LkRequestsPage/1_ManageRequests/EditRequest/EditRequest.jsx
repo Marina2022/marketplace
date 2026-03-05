@@ -12,6 +12,8 @@ import InputSimple from "@/components/ui/InputSimple/InputSimple.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
 import EditRequestCategory
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/EditRequest/EditRequestCategory/EditRequestCategory.jsx";
+import RequestEditor
+  from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/EditRequest/RequestEditor/RequestEditor.jsx";
 
 const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
@@ -50,7 +52,8 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
   const [tempCoverFile, setTempCoverFile] = useState(null)
   const [tempfiles, setTempFiles] = useState([])  // файлы в стейте при подгрузке
 
-  console.log('catId = ', catId)
+  // console.log('catId = ', catId)
+  // console.log('description = ', description)
 
 
   useEffect(() => {
@@ -66,6 +69,8 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
         setTitle(requestResponse.data.title)
         setCatId(requestResponse.data.categoryId)
+
+        setDescription(requestResponse.data.description) // todo - посмотреть, что там в описании приходит
 
         // const payload = getPreviewPayload(requests.data.items)
         // const pictures = await axiosInstance.post(`/requests/preview?profileId=${activeProfileId}`, payload)
@@ -186,6 +191,8 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
         tempCoverFile={tempCoverFile}
       />
 
+      <h2 className={s.subTitle}>Главное о заявке</h2>
+
       <InputSimple
         value={title}
         setValue={setTitle}
@@ -198,7 +205,13 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
       <EditRequestCategory catId={catId} setValue={setCatId}   />
 
+
+      <h3 className={s.littleTitle}>Описание заявки</h3>
+      <RequestEditor value={description} setValue={setDescription} />
+
       <Button className={s.submitBtn} onClick={handleSubmit}>Создать заявку</Button>
+
+
     </div>
   );
 };

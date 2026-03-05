@@ -14,11 +14,7 @@ const InputSimple = ({
                        name
                      }) => {
 
-  console.log('value = ', value)
-
-
   const [editing, setEditing] = useState(false);
-
 
   const handleClick = () => {
     if (!editing) setEditing(true)

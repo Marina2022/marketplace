@@ -125,3 +125,20 @@
   margin-top: 36px;
 }
 
+.subTitle {
+  font-size: 19px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.littleTitle {
+  font-size: 19px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  margin-top: 16px;
+
+  @include m {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+}

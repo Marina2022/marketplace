@@ -4,7 +4,14 @@ import axiosInstance from "@/api/axiosInstance.js";
 import {useSelector} from "react-redux";
 import {getActiveProfileId} from "@/store/userSlice.js";
 
-const DropdownRequestActions = ({request, onClose, mobileFixed = false, resetRequests, resetRequest=null, setRequestToEdit}) => {
+const DropdownRequestActions = ({
+                                  request,
+                                  onClose,
+                                  mobileFixed = false,
+                                  resetRequests,
+                                  resetRequest = null,
+                                  setRequestToEdit
+                                }) => {
 
   const dropdownRef = useRef(null);
   const profileId = useSelector(getActiveProfileId)
@@ -34,7 +41,7 @@ const DropdownRequestActions = ({request, onClose, mobileFixed = false, resetReq
     };
   }, []);
 
-  const canEdit =  request.status.code === "draft"
+  const canEdit = request.status.code === "draft"
     || request.status.code === "rejected"
     || request.status.code === "paused"
 
@@ -45,7 +52,8 @@ const DropdownRequestActions = ({request, onClose, mobileFixed = false, resetReq
 
   const canRestore = request.status.code === "archived"
   const canPause = request.status.code === "active"
-  const canResume = request.status.code === "expired" || request.status.code === "paused"
+  const canResumeFromPause = request.status.code === "paused"
+  const canResumeFromExpired = request.status.code === "expired"
 
   //Rejected, Moderation, Active, Paused
   const canCancel = request.status.code === "rejected"
@@ -128,15 +136,15 @@ const DropdownRequestActions = ({request, onClose, mobileFixed = false, resetReq
         onClick={(e) => e.stopPropagation()}>
 
       {
-        canEdit && <li className={s.menuItem}  onClick={()=>setRequestToEdit(request)}  >Редактировать</li>
+        canEdit && <li className={s.menuItem} onClick={() => setRequestToEdit(request)}>Редактировать</li>
       }
 
       {
-        canArchive && <li className={s.menuItem} onClick={handleArchive} >Архивировать</li>
+        canArchive && <li className={s.menuItem} onClick={handleArchive}>Архивировать</li>
       }
 
       {
-        canRestore && <li className={s.menuItem} onClick={handleRestore} >Восстановить</li>
+        canRestore && <li className={s.menuItem} onClick={handleRestore}>Восстановить</li>
       }
 
       {
@@ -144,7 +152,10 @@ const DropdownRequestActions = ({request, onClose, mobileFixed = false, resetReq
       }
 
       {
-        canResume && <li className={s.menuItem} onClick={handleResume}>Возобновить показ</li>
+        canResumeFromPause && <li className={s.menuItem} onClick={handleResume}>Возобновить показ</li>
+      }
+      {
+        canResumeFromExpired && <li className={s.menuItem}>Возобновить показ</li>
       }
 
       {

@@ -29,7 +29,10 @@ const EditRequestCategory = ({
         const response = await axiosInstance(url)
         setCats(response.data.requestCategories)
         const selectedCat = findSubCategoryById(response.data.requestCategories, catId)
-        setSelectedCatName(selectedCat.subCategoryName)
+        if (selectedCat) {
+          setSelectedCatName(selectedCat.subCategoryName)
+        }
+
 
       } catch (err) {
         console.log(err)
