@@ -88,11 +88,29 @@
 
 .desc {
   font-size: 14px;
-
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+
+  ol {
+    padding-left: 20px;
+    margin-bottom: 20px;
+
+    li {
+      list-style: decimal !important;
+    }
+  }
+
+  ul {
+    padding-left: 20px;
+    margin-bottom: 20px;
+
+    li {
+      list-style: disc !important;
+    }
+  }
+
 
   @include t {
     font-size: 12px;

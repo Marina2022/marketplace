@@ -61,8 +61,7 @@ const RequestCard = ({request, setRequestDetails, resetRequests, setRequestToEdi
         <div className={s.title}>{request.title}</div>
       </div>
 
-      <div className={s.desc}>
-        {request.description}
+      <div className={s.desc} dangerouslySetInnerHTML={{__html: request.description}} >
       </div>
 
       <RequestCardTags tags={request.tags}/>

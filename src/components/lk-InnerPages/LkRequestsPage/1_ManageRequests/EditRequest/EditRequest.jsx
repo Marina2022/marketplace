@@ -1,5 +1,5 @@
 import s from './EditRequest.module.scss';
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import DropdownRequestActions
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/DropdownRequestActions/DropdownRequestActions.jsx";
 import Steps from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/EditRequest/Steps/Steps.jsx";
@@ -14,11 +14,12 @@ import EditRequestCategory
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/EditRequest/EditRequestCategory/EditRequestCategory.jsx";
 import RequestEditor
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/EditRequest/RequestEditor/RequestEditor.jsx";
+import RequestPreview
+  from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/EditRequest/RequestPreview/RequestPreview.jsx";
+import RequestFiles
+  from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/EditRequest/RequestFiles/RequestFiles.jsx";
 
 const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
-
-
-  console.log('requestToEdit = ', requestToEdit)
 
   const isNew = requestToEdit === "new"
   const [showMenu, setShowMenu] = useState(false)
@@ -27,33 +28,39 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
     e.stopPropagation();
   }
 
-  const activeProfileId = useSelector(getActiveProfileId)
+  // console.log('request из пропсов = ', requestToEdit)
 
+  const activeProfileId = useSelector(getActiveProfileId)
 
   // вроде и не надо
   // const [request, setRequest] = useState(null)
 
+  const [requestId, setRequestId] = useState(requestToEdit.requestId);
+
   const [title, setTitle] = useState("")
-
   const [catId, setCatId] = useState("")
-
   const [description, setDescription] = useState("")
 
-  const [cover, setCover] = useState("")
+  const [initialPreview, setInitialPreview] = useState()  // загружаемое вместе с заявкой привью
+  const [preview, setPreview] = useState() // привью, загружаемое пользователем
+
+  const [initialFiles, setInitialFiles] = useState([]) // файлы, загружаемые вместе с заявкой
+  const [files, setFiles] = useState([]) // файлы, загружаемые пользователем
 
   const [tags, setTags] = useState([])
-  const [files, setFiles] = useState([])
+
+  const [filesLoading, setFilesLoading] = useState([])  // массив айди загружаемых файлов
 
   const [errors, setErrors] = useState({})
 
 
   const [loading, setLoading] = useState(!isNew)
 
-  const [tempCoverFile, setTempCoverFile] = useState(null)
-  const [tempfiles, setTempFiles] = useState([])  // файлы в стейте при подгрузке
-
   // console.log('catId = ', catId)
   // console.log('description = ', description)
+
+  // console.log('initialFiles', initialFiles)
+  // console.log('initialPreview', initialPreview)
 
 
   useEffect(() => {
@@ -65,18 +72,22 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
         setLoading(true)
         const requestResponse = await axiosInstance(`requests/${requestToEdit.requestId}/edit-info?profileId=${activeProfileId}`)
 
-        console.log('requestResponse = ', requestResponse)
+        // console.log('requestResponse для формы = ', requestResponse)
 
         setTitle(requestResponse.data.title)
         setCatId(requestResponse.data.categoryId)
+        setDescription(requestResponse.data.description)
 
-        setDescription(requestResponse.data.description) // todo - посмотреть, что там в описании приходит
+        const filesForRequest = await axiosInstance(`/requests/${requestToEdit.requestId}/files?profileId=${activeProfileId}`)
 
-        // const payload = getPreviewPayload(requests.data.items)
-        // const pictures = await axiosInstance.post(`/requests/preview?profileId=${activeProfileId}`, payload)
-        // const requestsWithPictures = getRequestsWithPictures({requests, pictures})
-        //setRequest(requestResponse.data)
+        // console.log("filesForRequest = ", filesForRequest)
 
+        if (filesForRequest.data.preview) {
+          setInitialPreview(filesForRequest.data.preview)
+        } else {
+          setInitialPreview(null)
+        }
+        setInitialFiles(filesForRequest.data.attachments)
       } catch (err) {
         console.log(err)
       } finally {
@@ -111,6 +122,65 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
     }
   }
 
+
+  const isDirty = useRef(false)  // было ли редактирование
+
+  console.log('requestId', requestId)
+
+  const saveDraft = async () => {
+    console.log('------------ savingDraft ---------------')
+
+    const tagsForPayload = tags.map((tag) => tag.id)
+
+    const body = {
+      profileId: activeProfileId,
+      categoryId: catId ? catId : null,
+      title: title,
+      description: description,
+      tags: tagsForPayload
+    }
+
+    console.log('body = ', body)
+
+    if (!requestId) {
+      // создание драфта
+      try {
+        const response = await axiosInstance.post(`/requests`, body)
+        setRequestId(response.data.requestId)
+      } catch (err) {
+        console.log(err)
+      }
+    } else {
+      // update драфта.
+
+      try {
+        const response = await axiosInstance.put(`/requests/${requestId}/draft`, body)
+        console.log("response - update драфта = ", response)
+
+      } catch (err) {
+        console.log(err)
+      }
+
+    }
+
+
+    isDirty.current = false;
+  };
+
+  useEffect(() => {
+
+    if (requestToEdit !== "new" && requestToEdit.status.code !== "draft") return
+
+    const interval = setInterval(() => {
+      if (isDirty.current) {
+
+        console.log('почему  я тут isDirty.current = ', isDirty.current)
+        saveDraft();
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [title, description, tags, catId]);
 
   return (
     <div className={s.editRequestForm}>
@@ -186,9 +256,9 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
         title={title}
         catId={catId}
         description={description}
-        cover={cover}
         tags={tags}
-        tempCoverFile={tempCoverFile}
+        initialPreview={initialPreview}
+        preview={preview}
       />
 
       <h2 className={s.subTitle}>Главное о заявке</h2>
@@ -201,16 +271,56 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
         errors={errors}
         setErrors={setErrors}
         name="title"
+        isDirty={isDirty}
       />
 
-      <EditRequestCategory catId={catId} setValue={setCatId}   />
-
+      <EditRequestCategory
+        catId={catId}
+        setValue={setCatId}
+        isDirty={isDirty}
+      />
 
       <h3 className={s.littleTitle}>Описание заявки</h3>
-      <RequestEditor value={description} setValue={setDescription} />
+      <RequestEditor
+        value={description}
+        setValue={setDescription}
+        isDirty={isDirty}
+        requestToEdit={requestToEdit}
+      />
+
+      <h3 className={s.littleTitle}>Обложка заявки</h3>
+
+      <RequestPreview
+        initialPreview={initialPreview}
+        preview={preview}
+        setPreview={setPreview}
+        setInitialPreview={setInitialPreview}
+        filesLoading={filesLoading}
+        setFilesLoading={setFilesLoading}
+        requestId={requestId}
+      />
+
+
+      <h3 className={s.littleTitle}>Ключевые слова</h3>
+      <div>tags</div>
+
+      <h3 className={`mobile-hidden ${s.littleTitle}`}>Дополнительные файлы</h3>
+      <h3 className={`mobile-visible ${s.littleTitle}`}>Прикрепляемые файлы</h3>
+      <RequestFiles
+        initialFiles={initialFiles}
+        setInitialFiles={setInitialFiles}
+        files={files}
+        setFiles={setFiles}
+        filesLoading={filesLoading}
+        setFilesLoading={setFilesLoading}
+        requestId={requestId}
+      />
+
 
       <Button className={s.submitBtn} onClick={handleSubmit}>Создать заявку</Button>
 
+
+      {/*в tags тоже пойдет пропс, не забыть применить - isDirty={isDirty}  isDirty.current = true  */}
 
     </div>
   );

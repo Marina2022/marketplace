@@ -219,3 +219,10 @@ a {
     display: none;
   }
 }
+
+.mobile-visible {
+  display: none;
+  @include m {
+    display: block;
+  }
+}

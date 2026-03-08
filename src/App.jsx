@@ -21,43 +21,49 @@ import Order from "@/pages/Order.jsx";
 import CombineProductPage from "@/components/lk-InnerPages/CombineProductPage/CombineProductsPage.jsx";
 import EditAndCreateProduct from "@/pages/Lk/LkShop/EditAndCreateProduct.jsx";
 import {useViewportHeight} from "@/hooks/useViewportHeight.js";
+import { Toaster } from "sonner";
 
 function App() {
 
   useViewportHeight()
 
   return (
-    <Router>
-      <Routes>
-        <Route element={<MainLayout/>}>
-          <Route path='/' index element={<Home/>}/>
-          <Route path='/category/:category' element={<Category/>}/>
-          <Route path='/login' element={<Auth/>}/>
-          <Route path='/product/:slug' element={<Product/>}/>                    
-          <Route path='/product/:slug/new-review' element={<ProtectedRoute><CreateReview/></ProtectedRoute>}/>
-          <Route path='/product/:slug/new-question' element={<ProtectedRoute><CreateQuestion/></ProtectedRoute>}/>
-          <Route path='/product/:productHandle/:sku/new-message' element={<ProtectedRoute><CreateMessage/></ProtectedRoute>}/>
-                              
-          <Route path='/favourites' element={<Favourites/>}/>
-          <Route path='/cart' element={<Cart/>}/>          
-          
-          <Route path='/lk' element={<ProtectedRoute> <Lk/> </ProtectedRoute>}>
-            <Route index element={<Navigate to="main" replace/>}/> {/* Перенаправление на /lk/main */}
-            <Route path='main' element={<LkMain/>}/>
-            <Route path='shop' element={<LkShop/>}/>
-            <Route path='orders' element={<LkOrders/>}/>
-            <Route path='requests' element={<LkRequests/>}/>
-            <Route path='chat' element={<LkChat/>}/>
-            <Route path='orders/:orderId' element={<Order/>}/>
-            
-            <Route path='edit-product/:productIdParam' element={<EditAndCreateProduct/>}/>
-            <Route path='combine-products' element={<CombineProductPage/>}/>
-          </Route>
+    <>
+      <Toaster position="top-right" richColors />
 
-          <Route path='*' element={<NotFound/>}/>
-        </Route>
-      </Routes>
-    </Router>
+      <Router>
+        <Routes>
+          <Route element={<MainLayout/>}>
+            <Route path='/' index element={<Home/>}/>
+            <Route path='/category/:category' element={<Category/>}/>
+            <Route path='/login' element={<Auth/>}/>
+            <Route path='/product/:slug' element={<Product/>}/>
+            <Route path='/product/:slug/new-review' element={<ProtectedRoute><CreateReview/></ProtectedRoute>}/>
+            <Route path='/product/:slug/new-question' element={<ProtectedRoute><CreateQuestion/></ProtectedRoute>}/>
+            <Route path='/product/:productHandle/:sku/new-message' element={<ProtectedRoute><CreateMessage/></ProtectedRoute>}/>
+
+            <Route path='/favourites' element={<Favourites/>}/>
+            <Route path='/cart' element={<Cart/>}/>
+
+            <Route path='/lk' element={<ProtectedRoute> <Lk/> </ProtectedRoute>}>
+              <Route index element={<Navigate to="main" replace/>}/> {/* Перенаправление на /lk/main */}
+              <Route path='main' element={<LkMain/>}/>
+              <Route path='shop' element={<LkShop/>}/>
+              <Route path='orders' element={<LkOrders/>}/>
+              <Route path='requests' element={<LkRequests/>}/>
+              <Route path='chat' element={<LkChat/>}/>
+              <Route path='orders/:orderId' element={<Order/>}/>
+
+              <Route path='edit-product/:productIdParam' element={<EditAndCreateProduct/>}/>
+              <Route path='combine-products' element={<CombineProductPage/>}/>
+            </Route>
+
+            <Route path='*' element={<NotFound/>}/>
+          </Route>
+        </Routes>
+      </Router>
+    </>
+
   );
 }
 

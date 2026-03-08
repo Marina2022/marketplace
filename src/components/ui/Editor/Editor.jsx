@@ -17,7 +17,7 @@ const TiptapEditor = ({setValue, maxValue = 1000, getValues, setFormWasEdited}) 
     onUpdate: ({editor}) => {
       let text = editor.getText().replace(/\s+/g, '')
       if (text.length > maxValue) {
-        editor.commands.setContent(editor.storage.prevContent || '') // Откат к предыдущему состоянию
+        editor.commands.setContent(editor.storage.prevContent || text.slice(0, maxValue)) // Откат к предыдущему состоянию
       } else {
         editor.storage.prevContent = editor.getHTML() // Сохраняем текущее состояние
       }

@@ -11,7 +11,8 @@ const InputSimple = ({
                        infoButton = false,
                        setValue,
                        className = "",
-                       name
+                       name,
+                       isDirty
                      }) => {
 
   const [editing, setEditing] = useState(false);
@@ -31,6 +32,7 @@ const InputSimple = ({
   const handleChange = (e) => {
     // setErrors(prev => ({...prev, [name]: ''}))
     setValue(e.target.value)
+     isDirty.current = true
   }
 
   const onFocus = () => {

@@ -8,7 +8,7 @@ import RequestMainCategory
 import RequestSearchCats
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/EditRequest/EditRequestCategory/RequestCategoryDropdown/RequestSearchCats/RequestSearchCats.jsx";
 
-const RequestCategoryDropdown = ({cats, setValue, catId, setEditing, searchCats, setSearchCats, setSelectedCatName}) => {
+const RequestCategoryDropdown = ({cats, setValue, catId, setEditing, searchCats, setSearchCats, setSelectedCatName, isDirty}) => {
 
   const [selectedCatId, setSelectedCatId] = useState(catId)
 
@@ -18,6 +18,7 @@ const RequestCategoryDropdown = ({cats, setValue, catId, setEditing, searchCats,
     setValue(selectedCatId)
     setEditing(false)
     setSelectedCatName(findProductCategoryName(cats, selectedCatId))
+    isDirty.current = true
   }
     
   return (

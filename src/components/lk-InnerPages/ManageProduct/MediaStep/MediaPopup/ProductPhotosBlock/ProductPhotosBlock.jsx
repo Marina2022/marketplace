@@ -52,7 +52,7 @@ const ProductPhotosBlock = ({images, setImages, productPhotos, product}) => {
           className={s.filesInput}
           {...getRootProps()}
         >
-          <img className={s.cameraIcon} src={cameraIcon} alt="icon"/>
+         
           <div className={s.filesInputText}>
             Выберите или перетащите изображения в эту область
           </div>

@@ -42,7 +42,7 @@ const RequestMainCategory = ({cat, searchCats, selectedCatId, setSelectedCatId})
                 searchCats={searchCats}
                 lastOne={cat.subCategories.length-1 === i}
                 selectedCatId={selectedCatId}
-                setSelectedCatId={setSelectedCatId}                
+                setSelectedCatId={setSelectedCatId}
               />)
             }
           </ul>

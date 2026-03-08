@@ -11,13 +11,13 @@ import RequestCategoriesModalOnMobile
 const EditRequestCategory = ({
                                catId,
                                setValue,
-                               isError
+                               isError,
+                               isDirty
                              }) => {
   const [catsLoading, setCatsLoading] = useState(true)
   const [cats, setCats] = useState(null)
   const [selectedCatName, setSelectedCatName] = useState("")
   const [searchCats, setSearchCats] = useState('')
-
 
   useEffect(() => {
     const getCats = async () => {
@@ -32,15 +32,12 @@ const EditRequestCategory = ({
         if (selectedCat) {
           setSelectedCatName(selectedCat.subCategoryName)
         }
-
-
       } catch (err) {
         console.log(err)
       } finally {
         setCatsLoading(false)
       }
     }
-
     getCats()
   }, [catId, searchCats]);
 
@@ -87,6 +84,7 @@ const EditRequestCategory = ({
         catId={catId}
         setEditing={setEditing}
         setSelectedCatName={setSelectedCatName}
+        isDirty={isDirty}
       />}
 
 
@@ -100,6 +98,7 @@ const EditRequestCategory = ({
           catId={catId}
           setEditing={setEditing}
           setSelectedCatName={setSelectedCatName}
+          isDirty={isDirty}
         />
       </RequestCategoriesModalOnMobile>
       }

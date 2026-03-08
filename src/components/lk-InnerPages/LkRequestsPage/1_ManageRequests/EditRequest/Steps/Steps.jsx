@@ -4,15 +4,15 @@ const Steps = ({
                  title,
                  catId,
                  description,
-                 cover,
                  tags,
-                 tempCoverFile
+                 initialPreview,
+                 preview
 
                }) => {
 
   const step2Active = title && catId && description
 
-  const step3Active = step2Active && cover || tempCoverFile   // todo - потестить, когда будет tempCoverFile
+  const step3Active = step2Active && (preview || initialPreview)
   const step4Active = step3Active && tags
 
   return (
