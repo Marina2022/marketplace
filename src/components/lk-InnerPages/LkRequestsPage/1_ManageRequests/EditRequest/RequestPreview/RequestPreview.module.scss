@@ -40,11 +40,15 @@
 
 .clockIndicator {
   position: absolute;
-  bottom: 5px;
+  bottom: 6px;
   right: 10px;
 
   @include m {
     bottom: 0px;
     right: 3px;
   }
+}
+
+.clockIcon {
+  fill: #3E5067 !important;
 }

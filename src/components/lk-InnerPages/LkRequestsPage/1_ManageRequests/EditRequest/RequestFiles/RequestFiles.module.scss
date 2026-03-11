@@ -55,8 +55,22 @@
   align-items: center;
 }
 
-
 .text {
   font-size: 12px;
   color: #658092;
 }
+
+.filesGrid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  row-gap: 12px;
+  column-gap: 11px;
+  width: 100%;
+  max-width: 850px;
+
+  @include xs {
+    grid-template-columns: repeat(auto-fill, 60px);
+  }
+}
+

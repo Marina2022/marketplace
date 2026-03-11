@@ -4,7 +4,6 @@ import DropdownRequestActions
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/DropdownRequestActions/DropdownRequestActions.jsx";
 import Steps from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/EditRequest/Steps/Steps.jsx";
 import axiosInstance from "@/api/axiosInstance.js";
-import {getPreviewPayload, getRequestsWithPictures} from "@/utils/lkRequests.js";
 import {useSelector} from "react-redux";
 import {getActiveProfileId} from "@/store/userSlice.js";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
@@ -62,6 +61,9 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
   // console.log('initialFiles', initialFiles)
   // console.log('initialPreview', initialPreview)
 
+
+  console.log('preview = ', preview)
+  console.log('initialPreview = ', initialPreview)
 
   useEffect(() => {
 
@@ -140,12 +142,13 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
       tags: tagsForPayload
     }
 
-    console.log('body = ', body)
+//    console.log('body = ', body)
 
     if (!requestId) {
       // создание драфта
       try {
         const response = await axiosInstance.post(`/requests`, body)
+        console.log("response - создание драфта = ", response)
         setRequestId(response.data.requestId)
       } catch (err) {
         console.log(err)
@@ -160,7 +163,6 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
       } catch (err) {
         console.log(err)
       }
-
     }
 
 
@@ -173,8 +175,6 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
     const interval = setInterval(() => {
       if (isDirty.current) {
-
-        console.log('почему  я тут isDirty.current = ', isDirty.current)
         saveDraft();
       }
     }, 3000);
@@ -182,13 +182,19 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
     return () => clearInterval(interval);
   }, [title, description, tags, catId]);
 
+
+  const handleCancel = async () => {
+    setRequestToEdit(null)
+    resetRequests()
+  }
+
   return (
     <div className={s.editRequestForm}>
       {
         loading && <div className={s.spinnerWrapper}><Spinner/></div>
       }
       <div className={s.headerDesktop}>
-        <button className={s.backButton} onClick={() => setRequestToEdit(null)}>
+        <button className={s.backButton} onClick={handleCancel}>
           <svg width="9" height="18" viewBox="0 0 9 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M0.000157356 8.6675C0.000157356 7.9675 0.270156 7.2675 0.800156 6.7375L7.32016 0.2175C7.61016 -0.0725 8.09016 -0.0725 8.38016 0.2175C8.67016 0.5075 8.67016 0.9875 8.38016 1.2775L1.86016 7.7975C1.38016 8.2775 1.38016 9.0575 1.86016 9.5375L8.38016 16.0575C8.67016 16.3475 8.67016 16.8275 8.38016 17.1175C8.09016 17.4075 7.61016 17.4075 7.32016 17.1175L0.800156 10.5975C0.270156 10.0675 0.000157356 9.3675 0.000157356 8.6675Z"
@@ -298,6 +304,9 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
         filesLoading={filesLoading}
         setFilesLoading={setFilesLoading}
         requestId={requestId}
+        activeProfileId={activeProfileId}
+        files={files}
+        initialFiles={initialFiles}
       />
 
 
@@ -306,6 +315,7 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
       <h3 className={`mobile-hidden ${s.littleTitle}`}>Дополнительные файлы</h3>
       <h3 className={`mobile-visible ${s.littleTitle}`}>Прикрепляемые файлы</h3>
+
       <RequestFiles
         initialFiles={initialFiles}
         setInitialFiles={setInitialFiles}
@@ -314,10 +324,16 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
         filesLoading={filesLoading}
         setFilesLoading={setFilesLoading}
         requestId={requestId}
+        activeProfileId={activeProfileId}
+        initialPreview={initialPreview}
+        preview={preview}
       />
 
 
-      <Button className={s.submitBtn} onClick={handleSubmit}>Создать заявку</Button>
+      <div className={s.buttons}>
+        <Button className={s.cancelBtn} onClick={handleCancel}>Отменить</Button>
+        <Button className={s.submitBtn} onClick={handleSubmit}>Создать заявку</Button>
+      </div>
 
 
       {/*в tags тоже пойдет пропс, не забыть применить - isDirty={isDirty}  isDirty.current = true  */}

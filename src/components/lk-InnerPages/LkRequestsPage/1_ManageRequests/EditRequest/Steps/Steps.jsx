@@ -13,7 +13,7 @@ const Steps = ({
   const step2Active = title && catId && description
 
   const step3Active = step2Active && (preview || initialPreview)
-  const step4Active = step3Active && tags
+  const step4Active = step3Active && tags.length > 0
 
   return (
     <div className={s.steps}>
