@@ -20,7 +20,8 @@ const RequestPreview = ({
                           requestId,
                           activeProfileId,
                           files,
-                          initialFiles
+                          initialFiles,
+                          setErrors
                         }) => {
 
   // console.log('filesLoading = ', filesLoading)
@@ -34,6 +35,12 @@ const RequestPreview = ({
   }
 
   const onDrop = async (acceptedFiles) => {
+    setErrors(prev => (
+      {
+        ...prev,
+        preview: false
+      }
+    ))
 
     if (!requestId) {
       toast.error('Сначала введите название')
@@ -175,6 +182,13 @@ const RequestPreview = ({
           return;
         }
         open();
+
+        setErrors(prev => (
+          {
+            ...prev,
+            preview: false
+          }
+        ))
       }}
     >
       {

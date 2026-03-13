@@ -5,9 +5,10 @@ import Underline from "@tiptap/extension-underline";
 import {EditorContent, useEditor} from "@tiptap/react";
 import Placeholder from "@tiptap/extension-placeholder";
 import {useEffect, useRef} from "react";
+import description from "@/components/ProductPage/DetailedInfo/tabsContent/About/Description/Description.jsx";
 
-const RequestEditor = ({setValue, maxValue = 5000, value, isDirty, requestToEdit}) => {
-
+const RequestEditor = ({setValue, maxValue = 5000, value, isDirty, requestToEdit, setErrors}) => {
+  // setErrors
 
   const productDescription = value
   const editor = useEditor({
@@ -59,6 +60,10 @@ const RequestEditor = ({setValue, maxValue = 5000, value, isDirty, requestToEdit
 
   if (!editor) {
     return null
+  }
+
+  const resetError = () => {
+    setErrors(prev=>({...prev, description: false}))
   }
 
   return (
@@ -119,7 +124,7 @@ const RequestEditor = ({setValue, maxValue = 5000, value, isDirty, requestToEdit
         </button>
       </div>
 
-      <div className={s.editorWrapper}>
+      <div className={s.editorWrapper} onClick={resetError}  >
         <EditorContent
           editor={editor}
           className={`${s.editor} lk-scroll`}

@@ -6,13 +6,15 @@ const OneTag = ({tag, selectedTags, setSelectedTags}) => {
     if (!active) {
       setSelectedTags([...selectedTags, tag]);
     } else {
-      const filteredTags = selectedTags.filter((tag) => tag.id !== tag.id);
+      const filteredTags = selectedTags.filter((item) => item.tagId !== tag.tagId);
+
+      console.log("filteredTags = ", filteredTags)
+
       setSelectedTags(filteredTags)
     }
   }
 
   const active = selectedTags.find(selectedTag => selectedTag.tagId === tag.tagId);
-
 
 
   return (

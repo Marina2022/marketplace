@@ -12,7 +12,8 @@ const EditRequestCategory = ({
                                catId,
                                setValue,
                                isError,
-                               isDirty
+                               isDirty,
+                               setErrors
                              }) => {
   const [catsLoading, setCatsLoading] = useState(true)
   const [cats, setCats] = useState(null)
@@ -43,9 +44,13 @@ const EditRequestCategory = ({
 
   const isMobile = useMobileScreen()
   const [editing, setEditing] = useState(false);
+
   const handleClick = () => {
     setEditing(prev => !prev)
-    // setErrors - ''
+    setErrors(prev => ({
+      ...prev,
+      catId: false
+    }))
   }
 
   const handleBlur = (e) => {
@@ -101,6 +106,10 @@ const EditRequestCategory = ({
           isDirty={isDirty}
         />
       </RequestCategoriesModalOnMobile>
+      }
+
+      {
+        isError && <div className={s.errorMessage}>Выберите категорию</div>
       }
 
 

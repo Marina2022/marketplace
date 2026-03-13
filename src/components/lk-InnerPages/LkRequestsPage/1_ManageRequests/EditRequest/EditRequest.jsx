@@ -96,17 +96,6 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
       } finally {
         setLoading(false)
       }
-
-
-      // getRequest to edit
-
-      // setCover
-      // setTags
-      // setFiles
-      // setTitle
-      // setCatId
-      // setDescription
-
     }
 
     if (!isNew) {
@@ -115,15 +104,32 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
   }, [isNew]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async () => {
     // валидация
 
     if (!title) {
-      //alert('Введите название заявки')
-      setErrors({title: 'Введите название заявки'})
+      console.log('туту')
+      setErrors(prev => ({...prev, title: 'Введите название заявки'}))
+    }
+
+    if (!catId) {
+      setErrors(prev=>({...prev, catId: 'Выберите категорию'}))
+    }
+    if (!description) {
+      setErrors(prev=>({...prev, description: 'Добавьте описание заявки'}))
+    }
+
+    if (!initialPreview && !preview) {
+      setErrors(prev=>({...prev, preview: 'Добавьте обложку'}))
+    }
+
+
+    if (!title || !catId || !description) {
       return
     }
   }
+
+  console.log('errors = ', errors)
 
   const isDirty = useRef(false)  // было ли редактирование
 
@@ -255,7 +261,6 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
             </div>
           )
         }
-
       </div>
 
       <Steps
@@ -284,15 +289,22 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
         catId={catId}
         setValue={setCatId}
         isDirty={isDirty}
+        isError={errors.catId}
+        setErrors={setErrors}
       />
 
       <h3 className={s.littleTitle}>Описание заявки</h3>
+
       <RequestEditor
         value={description}
         setValue={setDescription}
         isDirty={isDirty}
         requestToEdit={requestToEdit}
+        setErrors={setErrors}
       />
+      {
+        errors.description && <div className={s.errorMessage}>Добавьте описание заявки</div>
+      }
 
       <h3 className={s.littleTitle}>Обложка заявки</h3>
 
@@ -307,7 +319,11 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
         activeProfileId={activeProfileId}
         files={files}
         initialFiles={initialFiles}
+        setErrors={setErrors}
       />
+      {
+        errors.preview && <div className={s.errorMessage}>Добавьте обложку</div>
+      }
 
 
       <h3 className={s.littleTitle}>Ключевые слова</h3>

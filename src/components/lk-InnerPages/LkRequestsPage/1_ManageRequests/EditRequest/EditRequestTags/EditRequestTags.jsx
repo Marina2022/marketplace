@@ -8,9 +8,6 @@ const EditRequestTags = ({catId, selectedTags, setSelectedTags}) => {
 
   const [tagsByCat, setTagsByCat] = useState([])  // все теги, возможные для выбранной категории
 
-  console.log('selectedTags = ', selectedTags)
-  console.log('tagsByCat = ', tagsByCat)
-
   useEffect(() => {
 
     const getTags = async () => {
