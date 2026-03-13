@@ -78,16 +78,12 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
         setLoading(true)
         const requestResponse = await axiosInstance(`requests/${requestToEdit.requestId}/edit-info?profileId=${activeProfileId}`)
 
-        // console.log('requestResponse для формы = ', requestResponse)
-
         setTitle(requestResponse.data.title)
         setCatId(requestResponse.data.categoryId)
         setDescription(requestResponse.data.description)
         setSelectedTags(requestResponse.data.tags)
 
         const filesForRequest = await axiosInstance(`/requests/${requestToEdit.requestId}/files?profileId=${activeProfileId}`)
-
-        // console.log("filesForRequest = ", filesForRequest)
 
         if (filesForRequest.data.preview) {
           setInitialPreview(filesForRequest.data.preview)
@@ -315,7 +311,7 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
 
       <h3 className={s.littleTitle}>Ключевые слова</h3>
-      <EditRequestTags catId={catId} selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
+      <EditRequestTags catId={catId} selectedTags={selectedTags} setSelectedTags={setSelectedTags}/>
 
 
       <h3 className={`mobile-hidden ${s.littleTitle}`}>Дополнительные файлы</h3>
