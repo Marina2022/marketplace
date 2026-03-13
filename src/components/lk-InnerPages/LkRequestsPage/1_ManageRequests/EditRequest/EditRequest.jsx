@@ -83,6 +83,7 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
         setTitle(requestResponse.data.title)
         setCatId(requestResponse.data.categoryId)
         setDescription(requestResponse.data.description)
+        setSelectedTags(requestResponse.data.tags)
 
         const filesForRequest = await axiosInstance(`/requests/${requestToEdit.requestId}/files?profileId=${activeProfileId}`)
 
