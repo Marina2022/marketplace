@@ -17,6 +17,8 @@ import RequestPreview
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/EditRequest/RequestPreview/RequestPreview.jsx";
 import RequestFiles
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/EditRequest/RequestFiles/RequestFiles.jsx";
+import EditRequestTags
+  from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/EditRequest/EditRequestTags/EditRequestTags.jsx";
 
 const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
@@ -46,7 +48,9 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
   const [initialFiles, setInitialFiles] = useState([]) // файлы, загружаемые вместе с заявкой
   const [files, setFiles] = useState([]) // файлы, загружаемые пользователем
 
-  const [tags, setTags] = useState([])
+
+  const [selectedTags, setSelectedTags] = useState([]) // выбранные теги
+
 
   const [filesLoading, setFilesLoading] = useState([])  // массив айди загружаемых файлов
 
@@ -124,7 +128,6 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
     }
   }
 
-
   const isDirty = useRef(false)  // было ли редактирование
 
   console.log('requestId', requestId)
@@ -132,7 +135,7 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
   const saveDraft = async () => {
     console.log('------------ savingDraft ---------------')
 
-    const tagsForPayload = tags.map((tag) => tag.id)
+    const tagsForPayload = selectedTags.map((tag) => tag.tagId)
 
     const body = {
       profileId: activeProfileId,
@@ -180,7 +183,7 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [title, description, tags, catId]);
+  }, [title, description, selectedTags, catId]);
 
 
   const handleCancel = async () => {
@@ -262,7 +265,7 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
         title={title}
         catId={catId}
         description={description}
-        tags={tags}
+        tags={selectedTags}
         initialPreview={initialPreview}
         preview={preview}
       />
@@ -311,7 +314,8 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
 
       <h3 className={s.littleTitle}>Ключевые слова</h3>
-      <div>tags</div>
+      <EditRequestTags catId={catId} selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
+
 
       <h3 className={`mobile-hidden ${s.littleTitle}`}>Дополнительные файлы</h3>
       <h3 className={`mobile-visible ${s.littleTitle}`}>Прикрепляемые файлы</h3>

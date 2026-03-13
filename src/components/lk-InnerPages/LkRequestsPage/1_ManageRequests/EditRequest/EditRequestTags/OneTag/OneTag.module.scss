@@ -1,0 +1,22 @@
+@import '@/assets/styles/mixins';
+
+.tag {
+  height: 27px;
+  background: #F0F1F5;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.tagActive {
+  cursor: pointer;
+  height: 27px;
+  background: #D1D5DB;
+  border-radius: 5px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
