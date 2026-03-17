@@ -7,7 +7,7 @@ import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 import {getUserCompanies} from "@/store/userSlice.js";
 import {useDispatch} from "react-redux";
 
-const GridCard = ({company, activeCompanyName}) => {
+const GridCard = ({company, activeCompanyName, setActiveCompanyIndex, index}) => {
 
   let active = false
   if (company.companyName === activeCompanyName) active = true
@@ -52,7 +52,7 @@ const GridCard = ({company, activeCompanyName}) => {
 
   return (
     <>
-      <div className={active ? s.gridCardActive : s.gridCard}>
+      <div className={active ? s.gridCardActive : s.gridCard} onClick={() => setActiveCompanyIndex(index)} >
         <div className={s.cardContent}>
           <div className={s.titleWrapper}>
             <h3 className={s.title}>{company.companyName}</h3>

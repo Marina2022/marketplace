@@ -42,6 +42,7 @@ const RequestFiles = ({
       }
 
       const respA = await axiosInstance.post(`requests/${requestId}/uploads/init?profileId=${activeProfileId}`, bodyA)
+
       const {mediaFileId, uploadUrl} = respA.data;
 
       let respB;
@@ -103,8 +104,6 @@ const RequestFiles = ({
       setFilesLoading(prev => prev.filter(item => item !== file.id))
     }
   }
-
-  // console.log('filesLoading = ', filesLoading)
 
   const isMobile = useMobileScreen();
 

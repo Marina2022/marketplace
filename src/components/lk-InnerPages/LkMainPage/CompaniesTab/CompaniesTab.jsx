@@ -14,7 +14,9 @@ const CompaniesTab = () => {
   const [grid, setGrid] = useState(null)
   const activeProfileId = useSelector(getActiveProfileId)
   const profiles = useSelector(getUserProfilesData)
-  
+
+  const [activeCompanyIndex, setActiveCompanyIndex] = useState(0)
+
   useEffect(() => {
     const getGrid = async () => {
 
@@ -49,14 +51,16 @@ const CompaniesTab = () => {
         setActiveCompany(activeCompany)
       }
 
-      if (activeProfile.type === 'user' && profiles.length > 1) {        
-        setActiveCompany(grid[0])  
-      } else {
-        setActiveCompany(null)
-      }
+      setActiveCompany(grid[activeCompanyIndex])
+
+      // if (activeProfile.type === 'user' && profiles.length > 1) {
+      //   setActiveCompany(grid[0])
+      // } else {
+      //   setActiveCompany(null)
+      // }
     }
     
-  }, [activeProfileId, profiles, grid])
+  }, [activeProfileId, profiles, grid, activeCompanyIndex])
 
   
   const [isCompanyDataLoading, setIsCompanyDataLoading] = useState(true)
@@ -81,7 +85,12 @@ const CompaniesTab = () => {
   
   return (
     <div className={s.companiesTab}>     
-      <CompaniesGrid isGridLoading={isGridLoading} grid={grid} activeCompanyName={activeCompany?.companyName} />
+      <CompaniesGrid
+        isGridLoading={isGridLoading}
+        grid={grid}
+        activeCompanyName={activeCompany?.companyName}
+        setActiveCompanyIndex={setActiveCompanyIndex}
+      />
       {
         activeCompany && <div className={s.activeCompanyInfo}>
           <Company isCompanyDataLoading={isCompanyDataLoading} company={activeCompanyData} />

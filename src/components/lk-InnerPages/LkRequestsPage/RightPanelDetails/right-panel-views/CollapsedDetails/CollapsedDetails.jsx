@@ -123,7 +123,7 @@ const CollapsedDetails = ({
       </div>
 
       <div className={s.descBlock}>
-        <div className={s.desc}>{description}</div>
+        <div className={s.desc} dangerouslySetInnerHTML={{__html: description}} ></div>
         {
           description.length < request.description.length && (
             <button

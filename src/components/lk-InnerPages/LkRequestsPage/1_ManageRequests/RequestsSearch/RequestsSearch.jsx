@@ -14,7 +14,6 @@ const RequestsSearch = ({searchTerm, setSearchTerm}) => {
 
   useEffect(() => {
     setSearchTerm(debouncedValue)
-    console.log(debouncedValue)
   }, [debouncedValue]);
 
   return (

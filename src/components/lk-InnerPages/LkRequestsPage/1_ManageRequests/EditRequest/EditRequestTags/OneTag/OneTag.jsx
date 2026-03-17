@@ -1,15 +1,13 @@
 import s from './OneTag.module.scss';
 
-const OneTag = ({tag, selectedTags, setSelectedTags}) => {
+const OneTag = ({tag, selectedTags, setSelectedTags, isDirty}) => {
 
   const handleSelect = () => {
+    isDirty.current = true;
     if (!active) {
       setSelectedTags([...selectedTags, tag]);
     } else {
       const filteredTags = selectedTags.filter((item) => item.tagId !== tag.tagId);
-
-      console.log("filteredTags = ", filteredTags)
-
       setSelectedTags(filteredTags)
     }
   }

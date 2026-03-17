@@ -96,8 +96,7 @@ const MobileDetails = ({request, requestDetails, setRequestDetails, resetRequest
       <RequestCardTags tags={request.tags} showAll={true}/>
       <div className={s.descWrapper}>
         <img className={s.img} src={request.picture ? request.picture.url : placeholder} alt="image"/>
-        <p>
-          {request.description}
+        <p dangerouslySetInnerHTML={{__html: request.description}}>
         </p>
       </div>
       <div className={s.filesBlock}>

@@ -12,7 +12,7 @@ const FilesBlockExpanded = ({files}) => {
         {
           files.map(file => {
 
-            const isImage = file.contentType === "image/png"
+            const isImage = file.contentType.startsWith("image")
             const imgSrc = isImage ? file.url : pdfIcon
 
             return (

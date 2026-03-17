@@ -65,7 +65,6 @@ const DropdownRequestActions = ({
   const handlePause = async () => {
     try {
       const result = await axiosInstance.post(`/requests/${request.requestId}/pause?profileId=${profileId}`)
-      console.log(result)
       onClose()
       resetRequests()
 
@@ -79,7 +78,6 @@ const DropdownRequestActions = ({
   const handleResume = async () => {
     try {
       const result = await axiosInstance.post(`/requests/${request.requestId}/resume?profileId=${profileId}`)
-      console.log(result)
       onClose()
       resetRequests()
       if (resetRequest) resetRequest()
@@ -92,7 +90,6 @@ const DropdownRequestActions = ({
   const handleArchive = async () => {
     try {
       const result = await axiosInstance.post(`/requests/${request.requestId}/archive?profileId=${profileId}`)
-      console.log(result)
       onClose()
       resetRequests()
       if (resetRequest) resetRequest()

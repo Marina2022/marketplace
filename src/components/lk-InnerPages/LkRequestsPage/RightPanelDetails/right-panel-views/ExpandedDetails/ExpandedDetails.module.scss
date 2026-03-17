@@ -219,6 +219,12 @@
   font-size: 14px;
 }
 
+.descWrapper::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
 .menuBtnWrapper {
   position: relative;
   margin-right: 8px;

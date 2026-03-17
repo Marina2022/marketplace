@@ -4,7 +4,7 @@ import axiosInstance from "@/api/axiosInstance.js";
 import OneTag
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/EditRequest/EditRequestTags/OneTag/OneTag.jsx";
 
-const EditRequestTags = ({catId, selectedTags, setSelectedTags}) => {
+const EditRequestTags = ({catId, selectedTags, setSelectedTags, isDirty}) => {
 
   const [tagsByCat, setTagsByCat] = useState([])  // все теги, возможные для выбранной категории
 
@@ -34,7 +34,7 @@ const EditRequestTags = ({catId, selectedTags, setSelectedTags}) => {
   return (
     <ul className={s.tagsList}>
       {
-        tagsByCat.map(tag => <OneTag key={tag.tagId} tag={tag} selectedTags={selectedTags} setSelectedTags={setSelectedTags} />)
+        tagsByCat.map(tag => <OneTag key={tag.tagId} tag={tag} selectedTags={selectedTags} setSelectedTags={setSelectedTags} isDirty={isDirty} />)
       }
     </ul>
   );

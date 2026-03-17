@@ -56,19 +56,6 @@ const RightPanelDetails = ({requestDetails, setRequestDetails, resetRequests, se
     getRequest()
   }, [activeProfileId])
 
-  // тест - edit-info
-  // useEffect(() => {
-  //   console.log('requestDetails.requestId = ', requestDetails.requestId)
-  //
-  //   try {
-  //     const res = axiosInstance(`/requests/${requestDetails.requestId}/edit-info?profileId=${activeProfileId}`)
-  //     console.log("res.data = ", res.data)
-  //   } catch(err) {
-  //     console.log(err)
-  //   }
-  //
-  // }, []);
-
   const [showTooltip, setShowTooltip] = useState(false)
   const [expanded, setExpanded] = useState(false)
   const panelRef = useRef(null);
@@ -93,7 +80,6 @@ const RightPanelDetails = ({requestDetails, setRequestDetails, resetRequests, se
     };
   }, [setRequestDetails, isMobile]);
 
-  console.log('request = ', request)
 
   if (loading && !request && !isMobile) return (
     <div className={s.rightPanel} style={{width: expanded ? '40%' : 'unset'}}>

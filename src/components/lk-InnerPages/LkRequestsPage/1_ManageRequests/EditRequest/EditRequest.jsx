@@ -19,6 +19,7 @@ import RequestFiles
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/EditRequest/RequestFiles/RequestFiles.jsx";
 import EditRequestTags
   from "@/components/lk-InnerPages/LkRequestsPage/1_ManageRequests/EditRequest/EditRequestTags/EditRequestTags.jsx";
+import {toast} from "sonner";
 
 const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
@@ -29,45 +30,20 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
     e.stopPropagation();
   }
 
-  // console.log('request из пропсов = ', requestToEdit)
-
   const activeProfileId = useSelector(getActiveProfileId)
-
-  // вроде и не надо
-  // const [request, setRequest] = useState(null)
-
   const [requestId, setRequestId] = useState(requestToEdit.requestId);
-
   const [title, setTitle] = useState("")
   const [catId, setCatId] = useState("")
   const [description, setDescription] = useState("")
-
   const [initialPreview, setInitialPreview] = useState()  // загружаемое вместе с заявкой привью
   const [preview, setPreview] = useState() // привью, загружаемое пользователем
-
   const [initialFiles, setInitialFiles] = useState([]) // файлы, загружаемые вместе с заявкой
   const [files, setFiles] = useState([]) // файлы, загружаемые пользователем
-
-
   const [selectedTags, setSelectedTags] = useState([]) // выбранные теги
-
-
   const [filesLoading, setFilesLoading] = useState([])  // массив айди загружаемых файлов
-
   const [errors, setErrors] = useState({})
-
-
   const [loading, setLoading] = useState(!isNew)
 
-  // console.log('catId = ', catId)
-  // console.log('description = ', description)
-
-  // console.log('initialFiles', initialFiles)
-  // console.log('initialPreview', initialPreview)
-
-
-  console.log('preview = ', preview)
-  console.log('initialPreview = ', initialPreview)
 
   useEffect(() => {
 
@@ -105,39 +81,88 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
   }, [isNew]);
 
   const handleSubmit = async () => {
+
     // валидация
 
     if (!title) {
-      console.log('туту')
       setErrors(prev => ({...prev, title: 'Введите название заявки'}))
     }
 
     if (!catId) {
-      setErrors(prev=>({...prev, catId: 'Выберите категорию'}))
+      setErrors(prev => ({...prev, catId: 'Выберите категорию'}))
     }
     if (!description) {
-      setErrors(prev=>({...prev, description: 'Добавьте описание заявки'}))
+      setErrors(prev => ({...prev, description: 'Добавьте описание заявки'}))
     }
 
     if (!initialPreview && !preview) {
-      setErrors(prev=>({...prev, preview: 'Добавьте обложку'}))
+      setErrors(prev => ({...prev, preview: 'Добавьте обложку'}))
     }
 
-
-    if (!title || !catId || !description) {
+    if (!title || !catId || !description || !(preview || initialPreview)) {
       return
+    }
+
+    if (filesLoading.length) {
+      toast.error("Пожалуйста, дождитесь загрузки всех файлов")
+      return
+    }
+
+    const payloadForLinking = {}
+    if (initialPreview) {
+      payloadForLinking.previewMediaFileId = initialPreview.mediaFileId
+    }
+
+    if (preview) {
+      payloadForLinking.previewMediaFileId = preview.mediaFileId
+    }
+
+    if (initialFiles.length) {
+      payloadForLinking.attachmentMediaFileIds = initialFiles.map(file => file.mediaFileId) || []
+    }
+
+    if (files.length) {
+
+      payloadForLinking.attachmentMediaFileIds = [
+        ...(payloadForLinking.attachmentMediaFileIds || []),
+        ...files.map(file => file.mediaFileId)
+      ]
+    }
+
+    try {
+      const response = await axiosInstance.put(`/requests/${requestId}/files?profileId=${activeProfileId}`, payloadForLinking)
+
+      // сохранение драфта или новой заявки
+      if (requestToEdit === "new" || requestToEdit.status.code === "draft") {
+        const response2 = await axiosInstance.post(`/requests/${requestId}/submit?profileId=${activeProfileId}`, {})
+      }
+
+      // update заявки
+      if (requestToEdit !== "new" && requestToEdit.status.code !== "draft") {
+
+        const tagsForPayload = selectedTags.map((tag) => tag.tagId)
+
+        const body = {
+          profileId: activeProfileId,
+          categoryId: catId ? catId : null,
+          title: title,
+          description: description,
+          tags: tagsForPayload
+        }
+        const response = await axiosInstance.put(`/requests/${requestId}/`, body)
+      }
+
+      setRequestToEdit(null)
+      resetRequests()
+
+    } catch (err) {
+      console.log(err)
+      toast.error(err.response?.data?.detail || "Ошибка при сохранении заявки")
     }
   }
 
-  console.log('errors = ', errors)
-
   const isDirty = useRef(false)  // было ли редактирование
-
-  console.log('requestId', requestId)
-
   const saveDraft = async () => {
-    console.log('------------ savingDraft ---------------')
-
     const tagsForPayload = selectedTags.map((tag) => tag.tagId)
 
     const body = {
@@ -148,29 +173,23 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
       tags: tagsForPayload
     }
 
-//    console.log('body = ', body)
-
     if (!requestId) {
       // создание драфта
       try {
         const response = await axiosInstance.post(`/requests`, body)
-        console.log("response - создание драфта = ", response)
         setRequestId(response.data.requestId)
       } catch (err) {
         console.log(err)
       }
     } else {
       // update драфта.
-
       try {
         const response = await axiosInstance.put(`/requests/${requestId}/draft`, body)
-        console.log("response - update драфта = ", response)
 
       } catch (err) {
         console.log(err)
       }
     }
-
 
     isDirty.current = false;
   };
@@ -327,7 +346,12 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
 
       <h3 className={s.littleTitle}>Ключевые слова</h3>
-      <EditRequestTags catId={catId} selectedTags={selectedTags} setSelectedTags={setSelectedTags}/>
+      <EditRequestTags
+        catId={catId}
+        selectedTags={selectedTags}
+        setSelectedTags={setSelectedTags}
+        isDirty={isDirty}
+      />
 
 
       <h3 className={`mobile-hidden ${s.littleTitle}`}>Дополнительные файлы</h3>

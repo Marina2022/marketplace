@@ -3,15 +3,14 @@ import CombineContextMenu from "@/components/lk-InnerPages/CombineProductPage/Co
 import {useEffect, useRef, useState} from "react"
 
 const VariantOption = ({productToMerge, attribute, attributes, getData}) => {
-
-  const productCharacteristicsValue = productToMerge.variantCharacteristicsOptions.find(
-    item => item.optionId === attribute.optionId
-  )
-
   const buttonRef = useRef()
   const menuRef = useRef();
   const [menuOpen, setMenuOpen] = useState(false)
   const [menuPosition, setMenuPosition] = useState(null)
+
+  const productCharacteristicsValue = productToMerge.variantCharacteristicsOptions.find(
+    item => item.optionId === attribute.optionId
+  )
 
   const openMenu = () => {
     if (buttonRef.current) {
@@ -73,6 +72,16 @@ const VariantOption = ({productToMerge, attribute, attributes, getData}) => {
       window.removeEventListener("scroll", handleScroll, true)
     };
   }, [menuOpen])
+
+  // если нет у товара значения для данного столбца (атрибут - название столбца для вариации)
+  if (!productCharacteristicsValue) return (
+    <div className={s.attribute} onClick={openMenu}>
+      <div className={`${s.value} ${menuOpen ? s.valueMenuOpen : ''} `}>
+        <span>-</span>
+      </div>
+    </div>
+  )
+
 
   return (
     <div className={s.attribute} onClick={openMenu}>
