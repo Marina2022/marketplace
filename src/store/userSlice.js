@@ -7,9 +7,9 @@ import {loadActiveOrders} from "@/store/ordersSlice.js";
 export const getUserCompanies = createAsyncThunk('cart/getUserCompanies', async (_, thunkAPI) => {
 
   try {
-    const resp = await axios('user',)
-    if (resp.status === 200) {      
-      thunkAPI.dispatch(getUserProfiles())      
+    const resp = await axios('user')
+    if (resp.status === 200) {
+      thunkAPI.dispatch(getUserProfiles())
       return resp.data
     }
   } catch (err) {
@@ -18,53 +18,58 @@ export const getUserCompanies = createAsyncThunk('cart/getUserCompanies', async 
   return
 })
 
-
 export const getUser = createAsyncThunk('cart/getUser', async (_, thunkAPI) => {
 
+  thunkAPI.dispatch(getUserProfiles())
+
   try {
-    const resp = await axios('user',)
+    const resp = await axios('users/me',)
 
     if (resp.status === 200) {
 
-      try {
+      // пока убираем объединение корзин и Избранного при логине
+      // try {
+      //
+      //   // объединение корзин, если в LS есть непустая корзина:
+      //   const lsCart = JSON.parse(localStorage.getItem('cart'))
+      //
+      //   if (lsCart && lsCart.cartItems.length > 0) {
+      //
+      //     const itemsToSend = lsCart.cartItems.map(item => {
+      //       return ({productVriantId: item.productVariantId, count: item.quantity})
+      //     })
+      //
+      //     await axios.post(`carts/cartItems`, itemsToSend)
+      //     localStorage.removeItem('cart')
+      //   }
+      //
+      // } catch (err) {
+      //   console.log('Ошибка при обединении корзин')
+      // }
+      //
+      // try {
+      //   // объединение Избранного, если в LS есть непустой массив favs:
+      //
+      //   const lsFavs = JSON.parse(localStorage.getItem('favs'))
+      //
+      //   if (lsFavs && lsFavs.length > 0) {
+      //     const favsToSend = lsFavs.map(fav => {
+      //       return ({productVariantId: fav.productVariantId})
+      //     })
+      //     await axios.post(`favourites/addRange`, favsToSend)
+      //     localStorage.removeItem('favs')
+      //   }
+      // } catch (err) {
+      //   console.log('Ошибка при обединении Избранного')
+      // }
 
-        // объединение корзин, если в LS есть непустая корзина:
-        const lsCart = JSON.parse(localStorage.getItem('cart'))
-
-        if (lsCart && lsCart.cartItems.length > 0) {
-
-          const itemsToSend = lsCart.cartItems.map(item => {
-            return ({productVriantId: item.productVariantId, count: item.quantity})
-          })
-
-          await axios.post(`carts/cartItems`, itemsToSend)
-          localStorage.removeItem('cart')
-        }
-
-      } catch (err) {
-        console.log('Ошибка при обединении корзин')
-      }
-
-      try {
-        // объединение Избранного, если в LS есть непустой массив favs:
-
-        const lsFavs = JSON.parse(localStorage.getItem('favs'))
-
-        if (lsFavs && lsFavs.length > 0) {
-          const favsToSend = lsFavs.map(fav => {
-            return ({productVariantId: fav.productVariantId})
-          })
-          await axios.post(`favourites/addRange`, favsToSend)
-          localStorage.removeItem('favs')
-        }
-      } catch (err) {
-        console.log('Ошибка при обединении Избранного')
-      }
-
+      thunkAPI.dispatch(setUser(resp.data))
       thunkAPI.dispatch(setIsAuthenticated(true))
-      thunkAPI.dispatch(getUserProfiles())
-      thunkAPI.dispatch(loadCart())
-      thunkAPI.dispatch(loadFavs())      
+
+
+      // thunkAPI.dispatch(getUserProfiles())
+      // thunkAPI.dispatch(loadCart())
+      // thunkAPI.dispatch(loadFavs())
 
       return resp.data
     }
@@ -83,20 +88,20 @@ export const getUserProfiles = createAsyncThunk('cart/getUserProfiles', async (_
     const lsProfileFoundInProfiles = resp.data.find(item => item.profileId === lsProfile)
 
     const activeProfileId = lsProfileFoundInProfiles ? lsProfile : resp.data[0].profileId
-    
-    if(!lsProfileFoundInProfiles) localStorage.setItem("activeProfile", resp.data[0].profileId)
-    
+
+    if (!lsProfileFoundInProfiles) localStorage.setItem("activeProfile", resp.data[0].profileId)
+
     thunkAPI.dispatch(setActiveProfileId(activeProfileId))
-    
-            
+
+
     // запрос - Active Orders
-    const userProfiles = resp.data      
-    
-    const currentProfile = userProfiles.find(item=>item.profileId === activeProfileId)
-    const type = currentProfile.type    
-    
+    const userProfiles = resp.data
+
+    const currentProfile = userProfiles.find(item => item.profileId === activeProfileId)
+    const type = currentProfile.type
+
     thunkAPI.dispatch(loadActiveOrders({activeProfileId, type}))
-    
+
     //return resp.data
     return userProfiles
   }
@@ -104,18 +109,24 @@ export const getUserProfiles = createAsyncThunk('cart/getUserProfiles', async (_
 })
 
 export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
+  try {
+    await axios.post('auth/revoke')
+  } catch (err) {
+    console.log("ошибка revoke", err)
+  }
+
   localStorage.removeItem('token')
-  thunkAPI.dispatch(setToken(null))
+
   thunkAPI.dispatch(setUser(null))
   thunkAPI.dispatch(setUserProfiles(null))
   thunkAPI.dispatch(setIsAuthenticated(false))
-  thunkAPI.dispatch(loadCart())
-  thunkAPI.dispatch(loadFavs())
+  // временно убираем
+  // thunkAPI.dispatch(loadCart())
+  // thunkAPI.dispatch(loadFavs())
   thunkAPI.dispatch(loadActiveOrders())
   localStorage.removeItem('userProfile')
   return true
 })
-
 
 const initialState = {
   user: null,
@@ -135,9 +146,6 @@ const userSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload
     },
-    setToken: (state, action) => {
-      state.token = action.payload
-    },
     setIsAuthenticated: (state, action) => {
       state.isAuthenticated = action.payload
     },
@@ -152,7 +160,6 @@ const userSlice = createSlice({
     },
   },
   extraReducers: builder => builder
-
     .addCase(logout.pending, (state) => {
       state.logoutStatus = 'loading'
     })
@@ -163,13 +170,11 @@ const userSlice = createSlice({
       state.logoutStatus = 'error'
       console.log('Не удалось разлогиниться', action.error.message)
     })
-
     .addCase(getUser.pending, (state) => {
       state.getUserStatus = 'loading'
     })
     .addCase(getUser.fulfilled, (state, action) => {
       state.getUserStatus = 'success'
-      // state.isAuthenticated = true
       if (action.payload) {
         state.user = action.payload
       }
@@ -184,7 +189,6 @@ const userSlice = createSlice({
     })
     .addCase(getUserCompanies.fulfilled, (state, action) => {
       state.getUserCompaniesStatus = 'success'
-      // state.isAuthenticated = true
       if (action.payload) {
         state.user = action.payload
       }
@@ -193,8 +197,6 @@ const userSlice = createSlice({
       state.getUserCompaniesStatus = 'error'
       console.log('Не удалось получить данные пользователя', action.error.message)
     })
-
-
     .addCase(getUserProfiles.pending, (state) => {
       state.userProfilesLoadingStatus = 'loading'
     })
@@ -209,8 +211,8 @@ const userSlice = createSlice({
       state.userProfilesLoadingStatus = 'error'
       console.log('Не удалось получить данные пользователя', action.error.message)
     })
-
 })
+
 export const {
   setUser,
   setToken,

@@ -27,7 +27,7 @@ const UserDropdown = () => {
   if (activeProfile?.type === 'company') {
     letter = 'K'
   } else {
-    letter = activeProfile?.profileName?.slice(0, 1);
+    letter = activeProfile?.displayName?.slice(0, 1);
   }
 
   const dispatch = useDispatch()
@@ -54,7 +54,7 @@ const UserDropdown = () => {
               <div className={s.user}>
                 {userProfilesLoadingStatus === 'success' && <div className={s.letterInDropdown}>{letter}</div>}
                 {userProfilesLoadingStatus === 'success' &&
-                  <div className={s.userName}>{activeProfile?.profileName}</div>}
+                  <div className={s.userName}>{activeProfile?.displayName}</div>}
               </div>
               <ul className={s.dropdownMenu}>
                 <li><Link className={s.dropdownLink} to="/lk">Личный кабинет</Link></li>

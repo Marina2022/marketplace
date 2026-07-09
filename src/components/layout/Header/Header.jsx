@@ -153,7 +153,7 @@ const Header = () => {
                 <div className={s.menuItemLabel}>Корзина</div>
               </Link>
             </li>
-            <li className={s.userMenuItem}>
+            <li className={s.userMenuItemLogin}>
               {
                 isAuthenticated && userLoadingStatus !== 'loading' && <UserDropdown/>
               }

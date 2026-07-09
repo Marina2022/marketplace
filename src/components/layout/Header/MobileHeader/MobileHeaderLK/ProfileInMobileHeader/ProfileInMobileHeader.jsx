@@ -53,7 +53,7 @@ const ProfileInMobileHeader = () => {
   if (activeProfile?.type === 'company') {
     letter = 'K'
   } else {
-    letter = activeProfile?.profileName?.slice(0, 1);
+    letter = activeProfile?.displayName?.slice(0, 1);
   }
 
   const dispatch = useDispatch()
@@ -79,7 +79,7 @@ const ProfileInMobileHeader = () => {
           {letter}
         </div>
         <div className={s.dropdownButtonText}>
-          {activeProfile && activeProfile.profileName}
+          {activeProfile && activeProfile.displayName}
         </div>
       </button>
       {isDropdownOpen && (

@@ -47,7 +47,7 @@ const CompaniesTab = () => {
     if (activeProfile && grid) {      
       if (activeProfile.type === 'company') {
         
-        const activeCompany = grid.find(company=>company.companyName === activeProfile.profileName)
+        const activeCompany = grid.find(company=>company.companyName === activeProfile.displayName)
         setActiveCompany(activeCompany)
       }
 

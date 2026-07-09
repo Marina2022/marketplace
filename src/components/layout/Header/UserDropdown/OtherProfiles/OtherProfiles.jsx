@@ -3,10 +3,16 @@ import showProfilesBtn from '@/assets/img/header/showProfilesBtn.svg'
 import HiddenBlockProfiles
   from "@/components/layout/Header/UserDropdown/OtherProfiles/HiddenBlockProfiles/HiddenBlockProfiles.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {getProfilesInDropdownAreShown, getUserProfiles, setProfilesInDropdownAreShown} from "@/store/userSlice.js";
+import {
+  getProfilesInDropdownAreShown,
+  getUserProfiles,
+  logout,
+  setProfilesInDropdownAreShown
+} from "@/store/userSlice.js";
 
 const OtherProfiles = ({activeProfile, userProfiles, setIsDropdownOpen}) => {
 
+  console.log("userProfiles = ", userProfiles)
 
   const profilesAreShown = useSelector(getProfilesInDropdownAreShown)
   const restProfiles = userProfiles.filter(item => item.profileId !== activeProfile.profileId)
@@ -16,7 +22,8 @@ const OtherProfiles = ({activeProfile, userProfiles, setIsDropdownOpen}) => {
     if (item.type === 'company') {
       letter = "К"
     } else {
-      letter = item.profileName.slice(0, 1)
+
+      letter = item.displayName ? item.displayName.slice(0, 1) : ""
     }
     return {...item, letter}
   })
@@ -47,7 +54,7 @@ const OtherProfiles = ({activeProfile, userProfiles, setIsDropdownOpen}) => {
                   <div onClick={() => profileItemClickHandler(profile.profileId)} className={s.profileItem} key={i}>
                     <div className={s.letterOtherProfiles}>{profile.letter}</div>
                     <div>
-                      <div className={s.name}>{profile.profileName}</div>
+                      <div className={s.name}>{profile.displayName}</div>
                       {
                         profile.shopName && <div className={s.shopName}>{profile.shopName}</div>
                       }

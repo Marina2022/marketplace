@@ -11,7 +11,8 @@ const OtherProfilesMobile = ({activeProfile, userProfiles, setIsDropdownOpen}) =
     if (item.type === 'company') {
       letter = "К"
     } else {
-      letter = item.profileName.slice(0, 1)
+      // letter = item.displayName.slice(0, 1)
+      letter = item.displayName ? item.displayName.slice(0, 1) : ""
     }
     return {...item, letter}
   })
@@ -33,7 +34,7 @@ const OtherProfilesMobile = ({activeProfile, userProfiles, setIsDropdownOpen}) =
                 <div onClick={() => profileItemClickHandler(profile.profileId)} className={s.profileItem} key={i}>
                   <div className={s.letterAndName}>
                     <div className={s.letterOtherProfiles}>{profile.letter}</div>
-                    <div className={s.name}>{profile.profileName}</div>
+                    <div className={s.name}>{profile.displayName}</div>
                   </div>
                   <div>
                     {

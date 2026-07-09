@@ -38,7 +38,6 @@ const LeftSideMenuRequests = () => {
         </li>
       </ul>
 
-
       <div className={s.subtitle}>
         <span >Исполнение заявок</span>
         <div className={s.badge}>1</div>

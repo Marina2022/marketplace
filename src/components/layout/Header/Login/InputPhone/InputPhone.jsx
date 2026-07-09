@@ -43,7 +43,7 @@ const InputPhone = ({setIsPopupOpen, setStep, value, setValue}) => {
     } else {
 
       try {
-        await axios.post('auth/generate', {phoneNumber: value})
+        await axios.post('auth/send-sms', {phoneNumber: value})
         setStep(2)
       } catch (err) {
         console.log(err)

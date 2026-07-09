@@ -6,7 +6,7 @@ import {useEffect, useRef, useState} from "react";
 import {formatPhone, formatTime} from "@/utils/authDialog.js";
 import axios from "@/api/axiosInstance.js";
 import {useDispatch} from "react-redux";
-import {getUser, setToken} from "@/store/userSlice.js";
+import {getUser} from "@/store/userSlice.js";
 
 const INITIAL_TIME = 120
 const InputCode = ({setStep, phoneInputValue, setIsPopupOpen}) => {
@@ -27,7 +27,7 @@ const InputCode = ({setStep, phoneInputValue, setIsPopupOpen}) => {
 
     return () => clearInterval(intervalIdRef.current)
   }, []);
- 
+
 
   useEffect(() => {
 
@@ -55,9 +55,10 @@ const InputCode = ({setStep, phoneInputValue, setIsPopupOpen}) => {
     }
   }
 
-  const repeatCodeHandler = async ()=>{
+  const repeatCodeHandler = async () => {
     try {
-      await axios.post('auth/generate', {phoneNumber: value})
+      // await axios.post('auth/generate', {phoneNumber: value})
+      await axios.post('auth/send-sms', {phoneNumber: value})
       setTimerValue(INITIAL_TIME)
       setTimerTicking(true)
       intervalIdRef.current = setInterval(() => {
@@ -77,11 +78,17 @@ const InputCode = ({setStep, phoneInputValue, setIsPopupOpen}) => {
 
     try {
       setIsSubmitting(true)
-      const resp = await axios.post('auth/validate', {phoneNumber: phoneInputValue, code: value})
-      localStorage.setItem('token', resp.data.token)
-      dispatch(setToken(resp.data.token))      
+      // const resp = await axios.post('auth/validate', {phoneNumber: phoneInputValue, code: value})
+      // localStorage.setItem('token', resp.data.token)
+
+      const resp = await axios.post('auth/validate-otp',
+        {phoneNumber: phoneInputValue, code: value},
+        {withCredentials: true}
+      )
+
+      localStorage.setItem('token', resp.data.accessToken)
       dispatch(getUser())
-      setIsPopupOpen(false)     
+      setIsPopupOpen(false)
 
     } catch (err) {
       if (err.response.data.description === 'Invalid otp') {

@@ -77,9 +77,13 @@ const InputCodeMobile = ({setStep, phoneInputValue, setIsPopupOpen}) => {
 
     try {
       setIsSubmitting(true)
-      const resp = await axios.post('auth/validate', {phoneNumber: phoneInputValue, code: value})
-      localStorage.setItem('token', resp.data.token)
-      dispatch(setToken(resp.data.token))
+
+      const resp = await axios.post('auth/validate-otp',
+        {phoneNumber: phoneInputValue, code: value},
+        {withCredentials: true}
+      )
+
+      localStorage.setItem('token', resp.data.accessToken)
       dispatch(getUser())
       setIsPopupOpen(false)
 
