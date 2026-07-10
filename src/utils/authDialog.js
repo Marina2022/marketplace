@@ -14,17 +14,33 @@ export const formatPhone = (phone) => {
 
   const newPhone = newArr.join("")
   return newPhone
-
 }
-
 
 export const formatTime = (seconds) => {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
 
-  // Форматируем минуты и секунды, чтобы они всегда были двухзначными
-  const formattedMinutes = String(minutes).padStart(2, '0');
   const formattedSeconds = String(remainingSeconds).padStart(2, '0');
 
-  return `${formattedMinutes}:${formattedSeconds}`;
+  return `${minutes}:${formattedSeconds}`;
+};
+
+export function formatMinutes(seconds) {
+  if (seconds < 60) {
+    return '1 минуту';
+  }
+
+  const minutes = Math.floor(seconds / 60);
+
+  const getMinutesWord = (n) => {
+    const lastDigit = n % 10;
+    const lastTwoDigits = n % 100;
+
+    if (lastTwoDigits >= 11 && lastTwoDigits <= 14) return 'минут';
+    if (lastDigit === 1) return 'минуту';
+    if (lastDigit >= 2 && lastDigit <= 4) return 'минуты';
+    return 'минут';
+  };
+
+  return `${minutes} ${getMinutesWord(minutes)}`;
 }

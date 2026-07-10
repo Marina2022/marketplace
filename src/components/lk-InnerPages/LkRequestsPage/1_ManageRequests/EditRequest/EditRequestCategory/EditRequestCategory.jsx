@@ -25,7 +25,7 @@ const EditRequestCategory = ({
       try {
         setCatsLoading(true)
 
-        let url = `/request-categories-tree`
+        let url = `/request-categories/tree`
         if (searchCats) url += `?searchTerms=${searchCats}`
         const response = await axiosInstance(url)
         setCats(response.data.requestCategories)

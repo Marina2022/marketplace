@@ -20,7 +20,7 @@ export const getUserCompanies = createAsyncThunk('cart/getUserCompanies', async 
 
 export const getUser = createAsyncThunk('cart/getUser', async (_, thunkAPI) => {
 
-  thunkAPI.dispatch(getUserProfiles())
+  await thunkAPI.dispatch(getUserProfiles())
 
   try {
     const resp = await axios('users/me',)
@@ -66,7 +66,6 @@ export const getUser = createAsyncThunk('cart/getUser', async (_, thunkAPI) => {
       thunkAPI.dispatch(setUser(resp.data))
       thunkAPI.dispatch(setIsAuthenticated(true))
 
-
       // thunkAPI.dispatch(getUserProfiles())
       // thunkAPI.dispatch(loadCart())
       // thunkAPI.dispatch(loadFavs())
@@ -110,7 +109,7 @@ export const getUserProfiles = createAsyncThunk('cart/getUserProfiles', async (_
 
 export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
   try {
-    await axios.post('auth/revoke')
+    axios.post('auth/revoke')
   } catch (err) {
     console.log("ошибка revoke", err)
   }

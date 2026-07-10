@@ -1,10 +1,12 @@
 import s from './LoginMobile.module.scss';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Popup from "@/components/ui/Popup/Popup.jsx";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import InputPhoneMobile from "@/components/layout/Header/LoginMobile/InputPhoneMobile/InputPhoneMobile.jsx";
 import InputCodeMobile from "@/components/layout/Header/LoginMobile/InputCodeMobile/InputCodeMobile.jsx";
+import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
+import TimeoutIcon from "@/components/ui/ToastCustom/icons/TimeoutIcon.jsx";
 
 const LoginMobile = () => {
 
@@ -29,7 +31,7 @@ const LoginMobile = () => {
   }
 
   return (
-    <div>      
+    <div>
       <button onClick={handleUserButtonClick}>
         <svg className={location.pathname.startsWith('/lk') ? s.menuItemActive : s.menuItem}
              width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -43,12 +45,23 @@ const LoginMobile = () => {
       </button>
 
       {
-        isPopupOpen && <Popup setIsPopupOpen={setIsPopupOpen} popupClassName={s.popup} onPopupClose={onPopupClose}  >
+        isPopupOpen && <Popup setIsPopupOpen={setIsPopupOpen} popupClassName={s.popup} onPopupClose={onPopupClose}>
           {
-            step === 1 && <InputPhoneMobile value={phoneInputValue} setValue={setPhoneInputValue} setIsPopupOpen={setIsPopupOpen} setStep={setStep}  />
+            step === 1 &&
+            <InputPhoneMobile
+              phoneInputValue={phoneInputValue}
+              setPhoneInputValue={setPhoneInputValue}
+              setIsPopupOpen={setIsPopupOpen}
+              setStep={setStep}
+            />
           }
           {
-            step === 2 && <InputCodeMobile setStep={setStep} phoneInputValue={phoneInputValue} setIsPopupOpen={setIsPopupOpen} />
+            step === 2 &&
+            <InputCodeMobile
+              setStep={setStep}
+              phoneInputValue={phoneInputValue}
+              setIsPopupOpen={setIsPopupOpen}
+            />
           }
         </Popup>
       }

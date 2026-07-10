@@ -1,21 +1,23 @@
 import s from './InputCodeMobile.module.scss';
 import backBtn from "@/assets/img/header/backArrow.svg";
-import logo from "@/assets/img/header/logo.svg";
 import Button from "@/components/ui/Button/Button.jsx";
 import {useEffect, useRef, useState} from "react";
-import {formatPhone, formatTime} from "@/utils/authDialog.js";
+import {formatMinutes, formatPhone, formatTime} from "@/utils/authDialog.js";
 import axios from "@/api/axiosInstance.js";
 import {useDispatch} from "react-redux";
-import {getUser, setToken} from "@/store/userSlice.js";
+import {getUser} from "@/store/userSlice.js";
+import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
+import TimeoutIcon from "@/components/ui/ToastCustom/icons/TimeoutIcon.jsx";
 
-const INITIAL_TIME = 120
 const InputCodeMobile = ({setStep, phoneInputValue, setIsPopupOpen}) => {
+
+  const DEFAULT_TIMEOUT = 60
+  const [timerValue, setTimerValue] = useState(DEFAULT_TIMEOUT)
 
   const [value, setValue] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isInvalidOtp, setIsInvalidOtp] = useState(false)
   const [timerTicking, setTimerTicking] = useState(true)
-  const [timerValue, setTimerValue] = useState(INITIAL_TIME)
   const intervalIdRef = useRef(null)
 
   useEffect(() => {
@@ -30,12 +32,10 @@ const InputCodeMobile = ({setStep, phoneInputValue, setIsPopupOpen}) => {
 
 
   useEffect(() => {
-
     if (timerValue === 0) {
       clearInterval(intervalIdRef.current)
       setTimerTicking(false)
     }
-
   }, [timerValue]);
 
   useEffect(() => {
@@ -56,22 +56,87 @@ const InputCodeMobile = ({setStep, phoneInputValue, setIsPopupOpen}) => {
   }
 
   const repeatCodeHandler = async () => {
+    if (timerTicking) return
+
+    const now = Date.now(); // текущий timestamp (мс)
+
     try {
-      await axios.post('auth/generate', {phoneNumber: value})
-      setTimerValue(INITIAL_TIME)
+      await axios.post('auth/send-sms', {phoneNumber: phoneInputValue})
+      setTimerValue(DEFAULT_TIMEOUT)
+
+      let timers = [];
+
+      const LSTimers = localStorage.getItem('smsTimer');
+      if (LSTimers) {
+        timers = JSON.parse(LSTimers);
+      }
+
+      const timer = {
+        phone: phoneInputValue,
+        timerTill: now + DEFAULT_TIMEOUT * 1000
+      };
+
+      const index = timers.findIndex(t => t.phone === phoneInputValue);
+
+      if (index !== -1) {
+        timers[index] = timer;
+      } else {
+        timers.push(timer);
+      }
+
+      localStorage.setItem('smsTimer', JSON.stringify(timers));
+
       setTimerTicking(true)
       intervalIdRef.current = setInterval(() => {
         setTimerValue(prev => prev - 1)
       }, 1000)
 
-    } catch (err) {
-      console.log(err)
+    } catch (error) {
+      if (error.response?.status === 429) {
+
+        const retryAfter = error.response.headers['retry-after'];
+        setTimerValue(retryAfter);
+        showErrorToast("Слишком много запросов",
+          `Превышен лимит действий. Повторите примерно через ${formatMinutes(retryAfter)}`, <TimeoutIcon />)
+
+        const timerTill = now + retryAfter * 1000;
+
+        let timers = [];
+
+        const LSTimers = localStorage.getItem('smsTimer');
+        if (LSTimers) {
+          timers = JSON.parse(LSTimers);
+        }
+
+        const timer = {
+          phone: phoneInputValue,
+          timerTill
+        };
+
+        const index = timers.findIndex(t => t.phone === phoneInputValue);
+
+        if (index !== -1) {
+          timers[index] = timer;
+        } else {
+          timers.push(timer);
+        }
+
+        localStorage.setItem('smsTimer', JSON.stringify(timers));
+
+        setTimerTicking(true)
+
+        clearInterval(intervalIdRef.current);
+        intervalIdRef.current = setInterval(() => {
+          setTimerValue(prev => prev - 1);
+        }, 1000);
+      }
+      console.log(error)
     }
   }
+
   const focusHandler = () => {
     setIsInvalidOtp(false)
   }
-
   const dispatch = useDispatch()
   const sendCode = async () => {
 
@@ -79,8 +144,7 @@ const InputCodeMobile = ({setStep, phoneInputValue, setIsPopupOpen}) => {
       setIsSubmitting(true)
 
       const resp = await axios.post('auth/validate-otp',
-        {phoneNumber: phoneInputValue, code: value},
-        {withCredentials: true}
+        {phoneNumber: phoneInputValue, code: value}
       )
 
       localStorage.setItem('token', resp.data.accessToken)
@@ -88,23 +152,28 @@ const InputCodeMobile = ({setStep, phoneInputValue, setIsPopupOpen}) => {
       setIsPopupOpen(false)
 
     } catch (err) {
-      if (err.response.data.description === 'Invalid otp') {
-        setIsInvalidOtp(true)
-        setValue("")
-      } else {
-        console.log(err.response.data)
-      }
+
+      console.log(err)
+
+      err.response.data.errors.forEach(error => {
+
+        if (error.code === 'Auth.OtpInvalid') {
+          setIsInvalidOtp(true)
+          setValue("")
+        }
+        showErrorToast("Ошибка", error.message)
+      })
+
     } finally {
       setIsSubmitting(false)
     }
   }
 
+
   return (
     <div className={s.wrapper}>
       <div className={s.topPart}>
-
         <button onClick={() => setStep(1)} className={s.backBtn}><img src={backBtn} alt=""/></button>
-
           <button className={s.closeBtn} onClick={() => setIsPopupOpen(false)}>
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -113,7 +182,6 @@ const InputCodeMobile = ({setStep, phoneInputValue, setIsPopupOpen}) => {
             </svg>
           </button>
         </div>
-
       <h3 className={s.title}>Введите код</h3>
       <p className={s.text}>Отправили код подтверждения на номер <br/> +7 {formatPhone(phoneInputValue)}</p>
 
@@ -131,16 +199,17 @@ const InputCodeMobile = ({setStep, phoneInputValue, setIsPopupOpen}) => {
       {
         isInvalidOtp && <div className={s.invalidCode}>Неверный код, попробуйте еще раз</div>
       }
-
       <div>
-        {
-          timerTicking
-            ? <div className={s.timerString}>Запросить новый код через: {formatTime(timerValue)}</div>
-            : <Button onClick={repeatCodeHandler} className={s.btn}>Отправить код повторно</Button>
-        }
+        <Button disabled={timerTicking} onClick={repeatCodeHandler} className={s.btn}>
+          {
+            timerTicking
+              ? <span> Повторить через <span className={s.time}>{formatTime(timerValue)}</span></span>
+              : <span>Отправить код повторно</span>
+          }
+        </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default InputCodeMobile;

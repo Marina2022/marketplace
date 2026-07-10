@@ -29,7 +29,7 @@ function App() {
 
   return (
     <>
-      <Toaster position="top-right" richColors />
+      <Toaster position="bottom-right" closeButton  />
 
       <Router>
         <Routes>
@@ -57,7 +57,6 @@ function App() {
               <Route path='edit-product/:productIdParam' element={<EditAndCreateProduct/>}/>
               <Route path='combine-products' element={<CombineProductPage/>}/>
             </Route>
-
             <Route path='*' element={<NotFound/>}/>
           </Route>
         </Routes>

@@ -17,10 +17,10 @@
 }
 
 .input {
-  background: #F9FAFB;
+  background: #fff;
   width: 100%;
   border: 1px solid #F0F1F1;
-  border-radius: 5px;
+  border-radius: 8px;
   height: 48px;
   padding: 13px 17px 14px 15px;
   margin-bottom: 12px;
@@ -40,11 +40,17 @@
 
 .btn {
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   height: 40px;
-  width: 250px!important;
+  width: 100%!important;
   margin: 0 auto;
-  padding: 0;
+  background: #1B2233!important;
+  border-radius: 8px!important;
+
+  &:disabled {
+    background: #EEF0F3!important;
+    color: #A9AEB7;
+  }
 }
 
 .redBorder {
@@ -54,8 +60,7 @@
 .invalidCode {
   color: #E32636;
   text-align: center;
-  margin-top: 8px;
-  font-size: 16px;
+  font-size: 14px;
   margin-bottom: 16px;
 }
 
@@ -77,4 +82,17 @@
 .closeBtn {
   position: relative;
   top: 2px;
+}
+
+.timerString {
+  text-align: center;
+  color: #658092;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.time {
+  display: inline-block;
+  min-width: 40px;
+  text-align: left;
 }

@@ -62,7 +62,7 @@ const Header = () => {
     const getRequestForCatsDropdown = async () => {
       try {
         setRequestsForDropdownLoading(true)
-        const response = await axiosInstance('request-categories-tree')
+        const response = await axiosInstance('request-categories/tree')
         setRequestsForDropdown(response.data.requestCategories)
       } catch(err) {
         console.log(err)

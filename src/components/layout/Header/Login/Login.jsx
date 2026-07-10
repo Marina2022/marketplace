@@ -17,7 +17,7 @@ const Login = () => {
   }
 
   return (
-    <div>      
+    <div>
       <button onClick={()=>setIsPopupOpen(true)} className={s.menuItemLink}>
         <div className={s.menuItemImgWrapper}>
           <img className={s.menuItemImg} src={userIcon} alt="login"/>
@@ -25,12 +25,21 @@ const Login = () => {
         <div className={s.loginBtn}>Войти</div>
       </button>
       {
-        isPopupOpen && <Popup setIsPopupOpen={setIsPopupOpen} onPopupClose={onPopupClose} >
+        isPopupOpen && <Popup setIsPopupOpen={setIsPopupOpen} onPopupClose={onPopupClose} popupClassName={s.popupClassName} >
           {
-            step === 1 && <InputPhone value={phoneInputValue} setValue={setPhoneInputValue} setIsPopupOpen={setIsPopupOpen} setStep={setStep}  />
+            step === 1 && <InputPhone
+              phoneInputValue={phoneInputValue}
+              setPhoneInputValue={setPhoneInputValue}
+              setIsPopupOpen={setIsPopupOpen}
+              setStep={setStep}
+            />
           }
           {
-            step === 2 && <InputCode setStep={setStep} phoneInputValue={phoneInputValue} setIsPopupOpen={setIsPopupOpen} />
+            step === 2 && <InputCode
+              setStep={setStep}
+              phoneInputValue={phoneInputValue}
+              setIsPopupOpen={setIsPopupOpen}
+            />
           }
         </Popup>
       }
