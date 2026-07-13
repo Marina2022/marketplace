@@ -7,7 +7,6 @@ import OtherProfilesMobile
   from "@/components/layout/Header/MobileHeader/MobileHeaderLK/ProfileInMobileHeader/OtherProfilesMobile/OtherProfilesMobile.jsx";
 import logoutIcon from "@/assets/img/header/userMenu/logout.svg";
 
-
 const ProfileInMobileHeader = () => {
 
   const userProfiles = useSelector(getUserProfilesData);

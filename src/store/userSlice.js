@@ -115,6 +115,7 @@ export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
   }
 
   localStorage.removeItem('token')
+  localStorage.removeItem("activeProfile");
 
   thunkAPI.dispatch(setUser(null))
   thunkAPI.dispatch(setUserProfiles(null))
@@ -123,7 +124,6 @@ export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
   // thunkAPI.dispatch(loadCart())
   // thunkAPI.dispatch(loadFavs())
   thunkAPI.dispatch(loadActiveOrders())
-  localStorage.removeItem('userProfile')
   return true
 })
 
