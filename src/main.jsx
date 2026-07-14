@@ -12,7 +12,7 @@ import lkSlice from "@/store/lkSlice.js";
 import ordersSlice from "@/store/ordersSlice.js";
 import lkShopSlice from "@/store/lkShopSlice.js";
 import requestsSlice from "@/store/requestsSlice.js";
-
+import { injectStore } from "@/api/axiosInstance.js";
 
 export const store = configureStore({
       reducer: {        
@@ -28,6 +28,8 @@ export const store = configureStore({
       }
     }
 )
+
+injectStore(store);
 
 store.dispatch(getUser())
 

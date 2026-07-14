@@ -1,18 +1,38 @@
-import Header from "@/components/layout/Header/Header.jsx";
+// import Header from "@/components/layout/Header/Header.jsx";
 import {Outlet} from "react-router-dom";
 import MobileBottomMenu from "@/components/layout/MobileBottomMenu/MobileBottomMenu.jsx";
+import s from './MainLayout.module.scss'
+import Header from "@/components/layout/Header/Header.jsx";
+import MainMenu from "@/components/layout/MainMenu/MainMenu.jsx";
 
 const MainLayout = () => {
   return (
-      <div>
-        <Header/>
-        <main>
-          <Outlet/>
-        </main>
-        {/*<Footer />*/}
-        <MobileBottomMenu />
+    <main>
+      <div className={s.layoutDesk}>
+          <MainMenu/>
+
+        <div className={s.rightPart}>
+          <Header/>
+
+          <div className={s.underHeaderPart}>
+            <div className={s.submenu}>submenu</div>
+            <div className={s.contentWithTabs}>
+              <div className={s.tabs}>tabs</div>
+              <div className={s.contentWrapper}>
+                <Outlet/>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+      <MobileBottomMenu/>
+    </main>
   );
 };
 
 export default MainLayout;
+
+{/*<SideMainMenu/>*/
+}
+{/*<SideSubMenu/>*/
+}

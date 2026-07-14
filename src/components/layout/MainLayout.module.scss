@@ -1,0 +1,100 @@
+@import "@/assets/styles/mixins";
+
+.layoutDesk {
+  min-height: 100vh;
+  background: #F9F9FB;
+  display: flex;
+}
+
+.rightPart {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.submenu {
+  width: 240px;
+  background: #fff;
+  height: 100%;
+  border-radius: 12px;
+
+  @include t {
+    width: 162px;
+    border-radius: 8px;
+  }
+
+  @include m {
+    display: none;
+  }
+}
+
+
+.header {
+  background: #fff;
+  height: 76px;
+  width: 100%;
+}
+
+.underHeaderPart {
+  display: flex;
+  gap: 6px;
+  height: calc(100vh - 76px - 12px);
+  padding-inline: 8px;
+}
+
+.contentWithTabs {
+  background: #fff;
+  flex: 1;
+  border-radius: 12px;
+
+  @include t {
+    border-radius: 8px;
+  }
+}
+
+.tabs {
+  border-bottom: 1px solid #F0F1F1;
+  height: 48px;
+
+  @include m {
+    display: none;
+  }
+}
+
+.contentWrapper {
+  height: calc(100vh - 48px - 76px - 12px);
+  overflow: auto;
+  padding-top: 14px;
+  padding-inline: 16px;
+
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-width: thin;
+    scrollbar-color: #AAB7BF #F0F1F1;
+  }
+
+  &::-webkit-scrollbar {
+    width: 8px !important;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #AAB7BF !important; /* Цвет ползунка */
+    border-radius: 3px !important; /* Закругление краев */
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #F0F1F1 !important; /* Цвет трека */
+    border-radius: 3px !important; /* Закругление краев */
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  @include m {
+    padding-bottom: 50px;
+  }
+}
+

@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "@/api/axiosInstance.js";
-import {loadCart} from "@/store/cartSlice.js";
-import {loadFavs} from "@/store/favSlice.js";
+// import {loadCart} from "@/store/cartSlice.js";
+// import {loadFavs} from "@/store/favSlice.js";
 import {loadActiveOrders} from "@/store/ordersSlice.js";
 
 export const getUserCompanies = createAsyncThunk('cart/getUserCompanies', async (_, thunkAPI) => {

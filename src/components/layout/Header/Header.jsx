@@ -19,6 +19,7 @@ import CategoryDropdownDesktop
   from "@/components/layout/categoryDropdowns/CategoryDropdownDesktop/CategoryDropdownDesktop.jsx";
 import {useEffect, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
+import MobileHeaderLk from "@/components/layout/Header/MobileHeader/MobileHeaderLK/MobileHeaderLK.jsx";
 
 const Header = () => {
 
@@ -94,66 +95,58 @@ const Header = () => {
   }
 
   if (isMobile) {
-    return <MobileHeader/>
+    // return <MobileHeader/>
+    return <MobileHeaderLk/>
   }
 
-  let isLkHeader = false
-  if (location.pathname.startsWith('/lk')) {isLkHeader = true}
+  // let isLkHeader = true
+  // if (location.pathname.startsWith('/lk')) {isLkHeader = true}
 
   return (
-    <header className={isLkHeader ? s.LkHeader : s.header}>
-      <div className={s.topHeaderPart}></div>
-      <div className='container-wide'>
-      {/*<div className='container'>*/}
+    // <header className={isLkHeader ? s.LkHeader : s.header}>
+    <header className={s.header}>
+
         <div className={s.wrapper}>
-          <Link className={s.logoLink} to="/">
-            <img className={s.logo} src={logo} alt="logo"/>
-          </Link>
-
-          <button onClick={handleCatalogBtnClick} className={s.catalogBtn}>
-            <img className={s.catalogBtnIcon} src={catalogBtnIcon}/>
-            <span>Каталог</span>
-          </button>
-
-          <HeaderSearch/>
-
-          <ul className={s.userMenu}>
-            <li className={s.userMenuItem}>
-              <Link className={s.menuItemLink} to="/favourites">
-                <div className={s.menuItemImgWrapper}>
-                  <img className={s.menuItemImg} src={heartIcon} alt="favourites"/>
-                  {
-                    favs?.length > 0 && <div className={s.menuItemBadge}>{favs.length}</div>
-                  }
-                </div>
-                <div className={s.menuItemLabel}>Избранное</div>
-              </Link>
-            </li>
-            <li className={s.userMenuItem}>
-              <Link className={s.menuItemLink} to="/lk/orders">
-                <div className={s.menuItemImgWrapper}>
-                  <img className={s.menuItemImg} src={orderIcon} alt="orders"/>
-                  {
-                    orders && orders.length > 0 && <div className={s.menuItemBadge}>{orders.length}</div>
-                  }
-                </div>
-                <div className={s.menuItemLabel}>Заказы</div>
-              </Link>
-            </li>
-            <li className={s.userMenuItem}>
-              <Link className={s.menuItemLink} to="/cart">
-                <div className={s.menuItemImgWrapper}>
-                  <img className={s.menuItemImg} src={cartIcon} alt="cart"/>
-                  {
-                    cart?.cartItems?.length > 0 && <div className={s.menuItemBadge}>
-                      {productsTotal}
-                    </div>
-                  }
-                </div>
-                <div className={s.menuItemLabel}>Корзина</div>
-              </Link>
-            </li>
-            <li className={s.userMenuItemLogin}>
+          <div className={s.geoWrapper}>Geo</div>
+            <HeaderSearch/>
+          {/*<ul className={s.userMenu}>*/}
+          {/*  <li className={s.userMenuItem}>*/}
+          {/*    <Link className={s.menuItemLink} to="/favourites">*/}
+          {/*      <div className={s.menuItemImgWrapper}>*/}
+          {/*        <img className={s.menuItemImg} src={heartIcon} alt="favourites"/>*/}
+          {/*        {*/}
+          {/*          favs?.length > 0 && <div className={s.menuItemBadge}>{favs.length}</div>*/}
+          {/*        }*/}
+          {/*      </div>*/}
+          {/*      <div className={s.menuItemLabel}>Избранное</div>*/}
+          {/*    </Link>*/}
+          {/*  </li>*/}
+          {/*  <li className={s.userMenuItem}>*/}
+          {/*    <Link className={s.menuItemLink} to="/lk/orders">*/}
+          {/*      <div className={s.menuItemImgWrapper}>*/}
+          {/*        <img className={s.menuItemImg} src={orderIcon} alt="orders"/>*/}
+          {/*        {*/}
+          {/*          orders && orders.length > 0 && <div className={s.menuItemBadge}>{orders.length}</div>*/}
+          {/*        }*/}
+          {/*      </div>*/}
+          {/*      <div className={s.menuItemLabel}>Заказы</div>*/}
+          {/*    </Link>*/}
+          {/*  </li>*/}
+          {/*  <li className={s.userMenuItem}>*/}
+          {/*    <Link className={s.menuItemLink} to="/cart">*/}
+          {/*      <div className={s.menuItemImgWrapper}>*/}
+          {/*        <img className={s.menuItemImg} src={cartIcon} alt="cart"/>*/}
+          {/*        {*/}
+          {/*          cart?.cartItems?.length > 0 && <div className={s.menuItemBadge}>*/}
+          {/*            {productsTotal}*/}
+          {/*          </div>*/}
+          {/*        }*/}
+          {/*      </div>*/}
+          {/*      <div className={s.menuItemLabel}>Корзина</div>*/}
+          {/*    </Link>*/}
+          {/*  </li>*/}
+          {/*  <li className={s.userMenuItemLogin}>*/}
+          <div style={{marginLeft: "auto", marginRight: 30}}>
               {
                 isAuthenticated && userLoadingStatus !== 'loading' && <UserDropdown/>
               }
@@ -161,20 +154,10 @@ const Header = () => {
               {
                 !isAuthenticated && userLoadingStatus !== 'loading' && <Login/>
               }
-            </li>
-          </ul>
+          </div>
+          {/*  </li>*/}
+          {/*</ul>*/}
         </div>
-      </div>
-
-      {
-        categoryDropdownOpen && <CategoryDropdownDesktop
-          setCategoryDropdownOpen={setCategoryDropdownOpen}
-          categoriesForDropdown={categoriesForDropdown}
-          requestsForDropdown={requestsForDropdown}
-          categoriesForDropdownLoading={categoriesForDropdownLoading}
-          requestsForDropdownLoading={requestsForDropdownLoading}
-        />
-      }
 
     </header>
   )

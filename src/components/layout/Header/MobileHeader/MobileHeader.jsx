@@ -11,7 +11,8 @@ const MobileHeader = () => {
 
   const location = useLocation();
   const {pathname} = location;
-  const [headerType, setHeaderType] = useState("default");
+
+  const [headerType, setHeaderType] = useState("lk"); // lk, default
 
   useEffect(() => {
     if (pathname.startsWith("/lk")) {

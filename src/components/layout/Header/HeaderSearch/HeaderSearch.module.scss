@@ -1,4 +1,4 @@
-@import '@/assets/styles/mixins';
+@import "@/assets/styles/mixins";
 
 .searchInputWrapper {  
   position: relative;
@@ -10,7 +10,6 @@
   }
 
   @include m {
-    display: none;
     width: 100%;
     display: block;
     margin-bottom: 8px;
@@ -25,6 +24,7 @@
   width: 100%;
   font-size: 14px;
   background: #F9FAFB;
+  height: 44px;
   
   @include m {
     height: 30px;
@@ -33,7 +33,6 @@
     align-items: center;
     font-size: 11px;
   }
-
 
   &::placeholder {
     font-size: 14px;

@@ -220,7 +220,6 @@ const Lk = () => {
         {
           menuItems.map((item, i) => <LkMenuItem item={item} key={i}/>)
         }
-
       </ul>
       <div className={s.lkContent}>
         <Outlet context={{rightBarRef, rightPanelOpen, requestDetails, setRequestDetails}}/>

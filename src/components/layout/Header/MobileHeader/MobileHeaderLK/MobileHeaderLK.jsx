@@ -15,7 +15,6 @@ const MobileHeaderLk = () => {
             <Link className={s.cartBtnOnMobile} to="/chat">
               <img src={chatIcon} alt="chat"/>
             </Link>
-
             <MobileMenuLK />
           </div>
         </div>

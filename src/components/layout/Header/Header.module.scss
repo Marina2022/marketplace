@@ -3,14 +3,16 @@
 .header {
   background: white;
   position: relative;
+  height: 76px;
+  width: 100%;
+  border-bottom: 1px solid #E8EAED;
 }
 
 .wrapper {
-  padding-bottom: 16px;
-  padding-top: 18px;
+  padding-block: 16px;
   display: flex;
   align-items: center;
-  //padding-right: 20px;
+  padding-inline: 14px;
   
   @include t {
     padding-right: 0;
@@ -205,4 +207,12 @@
   width: 35px;
 }
 
+
+.geoWrapper {
+  width: 240px;
+
+  @include t {
+    width: 162px;
+  }
+}
 

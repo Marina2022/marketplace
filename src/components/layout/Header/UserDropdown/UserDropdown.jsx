@@ -57,21 +57,21 @@ const UserDropdown = () => {
                   <div className={s.userName}>{activeProfile?.displayName}</div>}
               </div>
               <ul className={s.dropdownMenu}>
-                <li><Link className={s.dropdownLink} to="/lk">Личный кабинет</Link></li>
-                <li><Link className={s.dropdownLink} to="/lk/orders">Заказы</Link></li>
-                <li><Link className={s.dropdownLink} to="/favourites">Избранное</Link></li>
-                <li><Link className={s.dropdownLink} to="/messages">Сообщения</Link></li>
+                {/*<li><Link className={s.dropdownLink} to="/lk">Личный кабинет</Link></li>*/}
+                {/*<li><Link className={s.dropdownLink} to="/lk/orders">Заказы</Link></li>*/}
+                {/*<li><Link className={s.dropdownLink} to="/favourites">Избранное</Link></li>*/}
+                {/*<li><Link className={s.dropdownLink} to="/messages">Сообщения</Link></li>*/}
               </ul>
-              <div
-                className={s.companiesLink}
+              {/*<div*/}
+              {/*  className={s.companiesLink}*/}
 
-                onClick={() => {
-                  dispatch(setActiveTabInMain(1))
-                  navigate("/lk/main")
-                }}
-              >
-                Мои организации
-              </div>
+              {/*  onClick={() => {*/}
+              {/*    dispatch(setActiveTabInMain(1))*/}
+              {/*    navigate("/lk/main")*/}
+              {/*  }}*/}
+              {/*>*/}
+              {/*  Мои организации*/}
+              {/*</div>*/}
               <button onClick={logoutHandler} className={s.logoutBtn}>Выход</button>
             </div>
             {userProfilesLoadingStatus === 'success' && userProfiles.length > 1 && (

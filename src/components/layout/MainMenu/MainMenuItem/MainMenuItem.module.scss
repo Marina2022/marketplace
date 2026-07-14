@@ -1,0 +1,72 @@
+@import "@/assets/styles/mixins";
+
+.menuItem {
+  cursor: pointer;
+  position: relative;
+
+  @include t {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+.menuItemLink {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    position: relative;
+    top: 0;
+    color: rgba(255 255 255/.5);
+    //fill: rgba(255 255 255/.5);
+    //stroke: rgba(255 255 255/.5);
+  }
+
+  @include t {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+.menuItemLinkActive {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);;
+  border-radius: 4px;
+
+  @include t {
+    width: 36px;
+    height: 36px;
+  }
+
+  svg {
+    position: relative;
+    top: 0;
+    color: rgba(255 255 255/1);
+    //fill: rgba(255 255 255/1);
+    //stroke: rgba(255 255 255/1);
+  }
+}
+
+.tooltip {
+  position: absolute;
+  bottom: -12px;
+  left: 44px;
+  background: #DDE2E8;
+  border-radius: 4px;
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  color: black;
+  font-size: 12px;
+  font-weight: 500;
+  z-index: 20;
+}
