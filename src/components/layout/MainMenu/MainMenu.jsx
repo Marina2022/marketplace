@@ -7,21 +7,21 @@ const MainMenu = () => {
   const menuItems = [
     {
       svg:<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M9 3H5C3.89543 3 3 3.89543 3 5V9C3 10.1046 3.89543 11 5 11H9C10.1046 11 11 10.1046 11 9V5C11 3.89543 10.1046 3 9 3Z" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M19 3H15C13.8954 3 13 3.89543 13 5V9C13 10.1046 13.8954 11 15 11H19C20.1046 11 21 10.1046 21 9V5C21 3.89543 20.1046 3 19 3Z" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M9 13H5C3.89543 13 3 13.8954 3 15V19C3 20.1046 3.89543 21 5 21H9C10.1046 21 11 20.1046 11 19V15C11 13.8954 10.1046 13 9 13Z" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M19 13H15C13.8954 13 13 13.8954 13 15V19C13 20.1046 13.8954 21 15 21H19C20.1046 21 21 20.1046 21 19V15C21 13.8954 20.1046 13 19 13Z" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M9 3H5C3.89543 3 3 3.89543 3 5V9C3 10.1046 3.89543 11 5 11H9C10.1046 11 11 10.1046 11 9V5C11 3.89543 10.1046 3 9 3Z" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M19 3H15C13.8954 3 13 3.89543 13 5V9C13 10.1046 13.8954 11 15 11H19C20.1046 11 21 10.1046 21 9V5C21 3.89543 20.1046 3 19 3Z" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M9 13H5C3.89543 13 3 13.8954 3 15V19C3 20.1046 3.89543 21 5 21H9C10.1046 21 11 20.1046 11 19V15C11 13.8954 10.1046 13 9 13Z" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M19 13H15C13.8954 13 13 13.8954 13 15V19C13 20.1046 13.8954 21 15 21H19C20.1046 21 21 20.1046 21 19V15C21 13.8954 20.1046 13 19 13Z" stroke="currentColor" strokeWidth="1.5"/>
         <path d="M5.5 8H8.5H5.5Z" fill="currentColor"/>
-        <path d="M5.5 8H8.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M5.5 8H8.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
         <path d="M15.5 8H18.5H15.5Z" fill="currentColor"/>
-        <path d="M15.5 8H18.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M15.5 8H18.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
         <path d="M5.5 18H8.5H5.5Z" fill="currentColor"/>
-        <path d="M5.5 18H8.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M5.5 18H8.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
         <path d="M15.5 18H18.5H15.5Z" fill="currentColor"/>
-        <path d="M15.5 18H18.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M15.5 18H18.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
       </svg>
       ,
-      url: 'requests',
+      url: '/requests',
       tooltip: 'Каталог заявок'
     },
     {
@@ -39,7 +39,7 @@ const MainMenu = () => {
         <path d="M12 22.75C6.07 22.75 1.25 17.93 1.25 12C1.25 6.07 6.07 1.25 12 1.25C17.93 1.25 22.75 6.07 22.75 12C22.75 17.93 17.93 22.75 12 22.75ZM12 2.75C6.9 2.75 2.75 6.9 2.75 12C2.75 17.1 6.9 21.25 12 21.25C17.1 21.25 21.25 17.1 21.25 12C21.25 6.9 17.1 2.75 12 2.75Z" fill="currentColor" />
       </svg>
       ,
-      url: 'dashboard',
+      url: '/dashboard/main',
       tooltip: 'Личный кабинет'
     },
     {
@@ -50,7 +50,7 @@ const MainMenu = () => {
         <path d="M14.7207 6.97656H9.7207C9.3107 6.97656 8.9707 6.63656 8.9707 6.22656C8.9707 5.81656 9.3107 5.47656 9.7207 5.47656H14.7207C15.1307 5.47656 15.4707 5.81656 15.4707 6.22656C15.4707 6.63656 15.1407 6.97656 14.7207 6.97656Z" fill="currentColor"/>
       </svg>
       ,
-      url: 'manage-requests',
+      url: '/manage-requests/my-requests',
       tooltip: 'Управление заявками'
     },
 
@@ -60,7 +60,7 @@ const MainMenu = () => {
         <path d="M4.57782 22.7537C4.31782 22.7537 4.06781 22.6838 3.83781 22.5338C3.38781 22.2438 3.14782 21.7437 3.20782 21.2137L3.40782 19.6737C2.05782 18.5737 1.25781 16.9437 1.25781 15.2337C1.25781 13.2837 2.27782 11.4637 3.98782 10.3737C5.01782 9.70372 6.23781 9.34375 7.50781 9.34375C10.9578 9.34375 13.7578 11.9837 13.7578 15.2337C13.7578 16.5537 13.2778 17.8537 12.3978 18.8837C11.2678 20.2537 9.57782 21.0537 7.71782 21.1137L5.27782 22.5637C5.05782 22.6937 4.81782 22.7537 4.57782 22.7537ZM7.49782 10.8438C6.51782 10.8438 5.57781 11.1137 4.78781 11.6337C3.50781 12.4537 2.74782 13.7937 2.74782 15.2337C2.74782 16.6237 3.42782 17.8937 4.62782 18.7137C4.85782 18.8737 4.97781 19.1437 4.94781 19.4237L4.72781 21.1337L7.11781 19.7137C7.23781 19.6437 7.36782 19.6037 7.49782 19.6037C8.96782 19.6037 10.3578 18.9737 11.2378 17.9037C11.8978 17.1237 12.2478 16.2037 12.2478 15.2237C12.2478 12.8137 10.1178 10.8438 7.49782 10.8438Z" fill="currentColor"/>
       </svg>
       ,
-      url: 'chat',
+      url: '/chat',
       tooltip: 'Чат'
     }
   ]

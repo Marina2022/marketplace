@@ -124,14 +124,14 @@ const ManageRequests = ({setRequestDetails, requestDetails}) => {
 
   return (
     <div className={s.manageRequestsWrapper}>
-      {
-        requestDetails && <RightPanelDetails
-          requestDetails={requestDetails}
-          setRequestDetails={setRequestDetails}
-          resetRequests={resetRequests}
-          setRequestToEdit={setRequestToEdit}
-        />
-      }
+      {/*{*/}
+      {/*  requestDetails && <RightPanelDetails*/}
+      {/*    requestDetails={requestDetails}*/}
+      {/*    setRequestDetails={setRequestDetails}*/}
+      {/*    resetRequests={resetRequests}*/}
+      {/*    setRequestToEdit={setRequestToEdit}*/}
+      {/*  />*/}
+      {/*}*/}
 
       <div>
         <div className={s.header}>

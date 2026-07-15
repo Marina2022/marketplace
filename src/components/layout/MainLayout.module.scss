@@ -13,22 +13,6 @@
   flex: 1;
 }
 
-.submenu {
-  width: 240px;
-  background: #fff;
-  height: 100%;
-  border-radius: 12px;
-
-  @include t {
-    width: 162px;
-    border-radius: 8px;
-  }
-
-  @include m {
-    display: none;
-  }
-}
-
 
 .header {
   background: #fff;
@@ -46,10 +30,11 @@
 .contentWithTabs {
   background: #fff;
   flex: 1;
-  border-radius: 12px;
+  border-radius: 8px;
+  border: 1px solid #F0F1F1;
 
   @include t {
-    border-radius: 8px;
+    border-radius: 4px;
   }
 }
 

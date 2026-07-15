@@ -1,0 +1,44 @@
+@import "@/assets/styles/mixins";
+
+.submenuItem {
+  position: relative;
+  cursor: pointer;
+  border-radius: 8px;
+  min-height: 34px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding-block: 10px;
+  padding-inline: 10px;
+  color: #565C68;
+  font-weight: 500;
+  font-size: 13px;
+
+  @include t {
+    padding-inline: 10px;
+  }
+}
+
+.submenuItemActive {
+  background: #ECEFF5;
+  color: #3D4A66;
+  font-weight: 600;
+}
+
+.responseItems {
+
+}
+
+.currentItemIndicator {
+  background: #3D4A66;
+  height: 16px;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+}
+
+.iconWrapper {
+  flex-shrink: 0;
+}

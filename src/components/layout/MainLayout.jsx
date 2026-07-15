@@ -4,18 +4,20 @@ import MobileBottomMenu from "@/components/layout/MobileBottomMenu/MobileBottomM
 import s from './MainLayout.module.scss'
 import Header from "@/components/layout/Header/Header.jsx";
 import MainMenu from "@/components/layout/MainMenu/MainMenu.jsx";
+import Submenu from "@/components/layout/Submenu/Submenu.jsx";
 
 const MainLayout = () => {
   return (
     <main>
       <div className={s.layoutDesk}>
-          <MainMenu/>
+        <MainMenu/>
 
         <div className={s.rightPart}>
           <Header/>
 
           <div className={s.underHeaderPart}>
-            <div className={s.submenu}>submenu</div>
+            <Submenu/>
+
             <div className={s.contentWithTabs}>
               <div className={s.tabs}>tabs</div>
               <div className={s.contentWrapper}>

@@ -5,7 +5,6 @@ import ProfileTab from "@/components/lk-InnerPages/LkMainPage/ProfileTab/Profile
 import SettingsTab from "@/components/lk-InnerPages/LkMainPage/SettingsTab/SettingsTab.jsx";
 import {getActiveTabInMain, setActiveTabInMain} from "@/store/lkSlice.js";
 import {useDispatch, useSelector} from "react-redux";
-import {useOutletContext} from "react-router-dom";
 
 const LkMainPage = () => {
 
@@ -13,16 +12,16 @@ const LkMainPage = () => {
   const tabs = ['Главная', 'Организации', 'Профиль пользователя', 'Настройки аккаунта']
   const dispatch = useDispatch()
 
-  const {rightPanelOpen } = useOutletContext();
+
 
   return (
     <div className={s.lkMain}>
 
-      <div className={s.leftSideMenu}>
-        Главная
-      </div>
+      {/*<div className={s.leftSideMenu}>*/}
+      {/*  Главная*/}
+      {/*</div>*/}
 
-      <div className={`${s.contentWrapper} ${rightPanelOpen  ? s.contentWrapperRightPanelOpen : ''}`}>
+      <div className={s.contentWrapper}>
         <div className={s.content}>
 
           <div className={s.mobileTabsWrapper}>

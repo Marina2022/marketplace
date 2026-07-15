@@ -1,0 +1,276 @@
+@import "@/assets/styles/mixins";
+
+.profile {
+  background: white;
+  border: 1px solid #F5F5F5;
+  padding: 24px;
+  width: 806px;
+
+  @include t {
+    padding: 20px;
+    width: 454px;
+  }
+  @include m {
+    padding: 16px;
+    width: 100%;
+  }
+}
+
+.titleWrapper {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+  align-items: center;
+
+  @include t {
+    margin-bottom: 14px;
+    justify-content: space-between;
+  }
+
+  @include m {
+    gap: 11px;
+    justify-content: flex-start;
+  }
+}
+
+.title {
+  font-weight: 600;
+  font-size: 24px;
+  color: #131D2A;
+
+  @include t {
+    font-weight: 500;
+    font-size: 18px;
+  }
+}
+
+.edit {
+  display: flex;
+  gap: 10px;
+  color: #E32636;
+  font-size: 14px;
+  align-items: center;
+}
+
+.editText {
+  @include m {
+    display: none;
+  }
+}
+
+.subTitle {
+  font-size: 18px;
+  color: #131D2A;
+  font-weight: 600;
+  margin-bottom: 24px;
+
+  @include t {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+.control {
+  display: flex;
+  border: #F0F1F1 1px solid;
+  border-bottom: none;
+  font-weight: 500;
+  font-size: 15px;
+  color: #658092;
+
+  @include t {
+    font-size: 12px;
+  }
+
+  @include m {
+    font-size: 11px;
+  }
+}
+
+.label {
+  height: 38px;
+  width: 320px;
+  padding: 10px;  
+
+  @include t {
+    height: 29px;
+    width: 165px;
+    padding: 7px 10px;
+  }
+
+  @include m {
+    width: 38%;
+  }
+}
+
+.input {
+  color: #658092;
+  width: 433px;
+  border: none;
+  outline: none;
+  padding: 10px;
+  height: 38px;
+  resize: none;
+  height: 100%;
+  border-left: #F0F1F1 1px solid;
+  font-weight: 500;
+
+  @include t {
+    height: 29px;
+    width: 204px;
+    width: 60%;   
+    padding: 7px 10px;
+  }
+
+  @include m {
+    width: 62%;
+  }
+
+  &::placeholder {
+    color: #658092;
+    font-weight: 400;
+  }  
+}
+
+.textarea {
+  font-weight: 500;
+  color: #658092;
+  height: 38px;
+  overflow: hidden;
+  width: 433px;
+  border: none;
+  outline: none;
+  padding: 10px;
+  resize: none;
+  border-left: #F0F1F1 1px solid;
+
+  @include t {
+    height: 29px;
+    width: 204px;
+    width: 60%;
+    padding: 7px 10px;
+  }
+
+  @include m {
+    width: 62%;
+  }
+
+  &::placeholder {
+    color: #658092;
+    font-weight: 400;
+  }
+}
+
+.fieldset {
+  border-bottom: #F0F1F1 1px solid;
+  margin-bottom: 40px;
+  
+  @include t {
+    margin-bottom: 16px;
+  }
+}
+
+.lastFieldset {
+  border-bottom: #F0F1F1 1px solid;  
+}
+
+.saveBtn {
+  font-size: 16px;
+  font-weight: 500;
+  width: 212px;
+  
+  @include m {
+    padding: 5px;
+    width: 100%;
+    max-width: 160px;
+    font-size: 12px;
+  }
+}
+
+.textareaDisabled {
+  font-weight: 500;
+  color: #658092;
+  height: 38px;
+  overflow: hidden;
+  width: 433px;
+  border: none;
+  outline: none;
+  padding: 10px;
+  resize: none;
+  background: #F7F7F9;
+  border-left: #F0F1F1 1px solid;
+
+  @include t {
+    height: 29px;
+    width: 204px;
+    width: 60%;
+    padding: 7px 10px;
+  }
+
+  @include m {
+    width: 62%;
+  }
+
+  &::placeholder {
+    color: #658092;
+    font-weight: 400;
+  } 
+}
+
+.inputDisabled {
+  font-weight: 500;
+  color: #658092;
+  background: #F7F7F9;
+  width: 433px;
+  border: none;
+  outline: none;
+  padding: 10px;
+  height: 38px;
+  resize: none;
+  height: 100%;
+  border-left: #F0F1F1 1px solid;
+
+  @include t {
+    height: 29px;
+    width: 204px;    
+    width: 60%;
+    padding: 7px 10px;
+  }
+
+  @include m {
+    width: 62%;
+  }
+
+  &::placeholder {
+    color: #658092;
+    font-weight: 400;
+  }  
+}
+
+.invalid {
+  border: #E32636 1px solid;
+}
+
+.textareaDisabledDiv {
+  font-weight: 500;
+  color: #658092;
+  overflow: hidden;
+  width: 433px;
+  border: none;
+  outline: none;
+  padding: 10px;
+  resize: none;
+  background: #F7F7F9;
+  border-left: #F0F1F1 1px solid;
+  flex-grow: 1;
+
+  @include t {
+    width: 60%;
+    padding: 7px 10px;
+  }
+  
+  @include m {
+    width: 62%;
+  }
+}

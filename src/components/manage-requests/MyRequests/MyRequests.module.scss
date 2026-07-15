@@ -34,15 +34,15 @@
 
 
 .contentWrapper {
-  top: 134px;
-  position: fixed;
-  left: calc(250px + 64px);  // ширина двух левых боковых меню
-  background: #fff;
+  //top: 134px;
+  //position: fixed;
+  //left: calc(250px + 64px);  // ширина двух левых боковых меню
+  //background: #fff;
   padding: 16px 24px;
   padding-right: 10px;
   right: calc( 24px + 16px);  // отступ + ширина правой панели
   bottom: 12px;
-  border: #F0F1F1 1px solid;
+  //border: #F0F1F1 1px solid;
 
   @include t {
     left: calc(174px + 64px);  // ширина двух левых боковых меню

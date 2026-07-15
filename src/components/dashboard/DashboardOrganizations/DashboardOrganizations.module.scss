@@ -1,0 +1,27 @@
+@import "@/assets/styles/mixins";
+
+.companiesTab {
+  padding-bottom: 66px;
+  max-width: 1120px;
+}
+
+.activeCompanyInfo {
+  width: 100%;
+  margin-top: 24px;
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+
+
+  @include t {
+    margin-top: 16px;
+    gap: 21px;
+  }
+
+  @include m {
+    margin-top: 8px;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+}
