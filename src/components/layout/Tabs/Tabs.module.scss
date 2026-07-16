@@ -10,11 +10,6 @@
 
   min-width: 0;
   overflow: hidden;
-  //max-width: calc(100vw - 316px);
-
-  @include t {
-    //max-width: calc(100vw - 316px);
-  }
 
   @include m {
     display: none;

@@ -21,9 +21,7 @@ const Tab = ({tab, nextTab}) => {
     e.stopPropagation()
     const newTabs = tabs.filter(tabItem => tabItem !== tab)
     dispatch(setTabs(newTabs))
-
     if (newTabs.length > 0) {
-      console.log("newTabs[newTabs.length - 1] = ", newTabs[newTabs.length - 1])
       navigate(newTabs[newTabs.length - 1]);
     } else {
       navigate('/requests'); // fallback

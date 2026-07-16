@@ -33,10 +33,8 @@ const Submenu = () => {
       {
         location.pathname.startsWith('/chat') && <ChatSubmenu />
       }
-
-
     </div>
-  );
-};
+  )
+}
 
 export default Submenu;

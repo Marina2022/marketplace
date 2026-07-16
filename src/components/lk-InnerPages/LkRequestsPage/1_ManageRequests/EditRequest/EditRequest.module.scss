@@ -1,8 +1,8 @@
 @import "@/assets/styles/mixins";
 
 .editRequestForm {
-  //position: absolute;
-  //inset: 0;
+  position: absolute;
+  inset: 0;
   background: #fff;
   max-width: 100%;
   overflow: auto;
@@ -41,7 +41,6 @@
 .headerDesktop {
   display: flex;
   gap: 12px;
-  //align-items: flex-start;
   align-items: center;
   margin-bottom: 24px;
 
@@ -56,7 +55,6 @@
   @include m {
     display: block;
   }
-
 }
 
 .title {
@@ -75,7 +73,6 @@
   justify-content: center;
   cursor: pointer;
 }
-
 
 .headerMobile {
   position: fixed;
@@ -159,7 +156,6 @@
     width: 40%;
     padding: 0;
   }
-
 }
 
 .buttons {

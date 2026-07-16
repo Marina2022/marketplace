@@ -22,9 +22,9 @@ const MobileBottomMenu = () => {
             </svg>
           </Link>
         </li>
-        <li>
-          <ShowCatsButton />
-        </li>
+        {/*<li>*/}
+        {/*  <ShowCatsButton />*/}
+        {/*</li>*/}
         <li>
           <Link to="/favourites">
             <svg className={location.pathname.startsWith('/favourites') ? s.menuItemActive : s.menuItem}

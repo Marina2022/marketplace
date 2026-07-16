@@ -48,17 +48,17 @@ const Header = () => {
   }, [location]);
 
   useEffect(() => {
-    const getCatsForCatsDropdown = async () => {
-      try {
-        setCategoriesForDropdownLoading(true)
-        const response = await axiosInstance('categories-tree')
-        setCategoriesForDropdown(response.data.categories)
-      } catch(err) {
-        console.log(err)
-      } finally {
-        setCategoriesForDropdownLoading(false)
-      }
-    }
+    // const getCatsForCatsDropdown = async () => {
+    //   try {
+    //     setCategoriesForDropdownLoading(true)
+    //     const response = await axiosInstance('categories-tree')
+    //     setCategoriesForDropdown(response.data.categories)
+    //   } catch(err) {
+    //     console.log(err)
+    //   } finally {
+    //     setCategoriesForDropdownLoading(false)
+    //   }
+    // }
 
     const getRequestForCatsDropdown = async () => {
       try {
@@ -72,7 +72,7 @@ const Header = () => {
       }
     }
 
-    getCatsForCatsDropdown()
+    // getCatsForCatsDropdown()
     getRequestForCatsDropdown()
   }, [])
 

@@ -44,12 +44,12 @@
   }
 }
 
-
 .contentWrapper {
   height: calc(100vh - 48px - 76px - 12px);
   overflow: auto;
   padding-top: 14px;
   padding-inline: 16px;
+  position: relative;
 
   @supports not selector(::-webkit-scrollbar) {
     scrollbar-width: thin;

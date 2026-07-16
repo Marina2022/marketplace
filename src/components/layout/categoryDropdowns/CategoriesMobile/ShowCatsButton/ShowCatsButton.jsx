@@ -22,32 +22,32 @@ const ShowCatsButton = () => {
   }, [location]);
 
   useEffect(() => {
-    const getCatsForCatsDropdown = async () => {
-      try {
-        setCategoriesForDropdownLoading(true)
-        const response = await axiosInstance('categories-tree')
-        setCategoriesForDropdown(response.data.categories)
-      } catch (err) {
-        console.log(err)
-      } finally {
-        setCategoriesForDropdownLoading(false)
-      }
-    }
+    // const getCatsForCatsDropdown = async () => {
+    //   try {
+    //     setCategoriesForDropdownLoading(true)
+    //     const response = await axiosInstance('categories-tree')
+    //     setCategoriesForDropdown(response.data.categories)
+    //   } catch (err) {
+    //     console.log(err)
+    //   } finally {
+    //     setCategoriesForDropdownLoading(false)
+    //   }
+    // }
 
-    const getRequestForCatsDropdown = async () => {
-      try {
-        setRequestsForDropdownLoading(true)
-        const response = await axiosInstance('request-categories/tree')
-        setRequestsForDropdown(response.data.requestCategories)
-      } catch (err) {
-        console.log(err)
-      } finally {
-        setRequestsForDropdownLoading(false)
-      }
-    }
+    // const getRequestForCatsDropdown = async () => {
+    //   try {
+    //     setRequestsForDropdownLoading(true)
+    //     const response = await axiosInstance('request-categories/tree')
+    //     setRequestsForDropdown(response.data.requestCategories)
+    //   } catch (err) {
+    //     console.log(err)
+    //   } finally {
+    //     setRequestsForDropdownLoading(false)
+    //   }
+    // }
 
-    getCatsForCatsDropdown()
-    getRequestForCatsDropdown()
+    // getCatsForCatsDropdown()
+    // getRequestForCatsDropdown()
   }, [])
 
   const handleCatsBtnClick = () => {
