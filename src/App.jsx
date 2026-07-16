@@ -13,6 +13,7 @@ import DashboardMainPage from "@/pages/dashboard/DashboardMainPage/DashboardMain
 import DashboardOrganizationsPage from "@/pages/dashboard/DashboardOrganizationsPage/DashboardOrganizationsPage.jsx";
 import DashboardProfilePage from "@/pages/dashboard/DashboardProfilePage/DashboardProfilePage.jsx";
 import ChatPage from "@/pages/chat/ChatPage.jsx";
+import TabsInitializer from "@/components/common/TabsInitializer/TabsInitializer.jsx";
 
 function App() {
 
@@ -23,9 +24,10 @@ function App() {
       <Toaster position="bottom-right" closeButton/>
 
       <Router>
+        <TabsInitializer />
         <Routes>
           <Route element={<MainLayout/>}>
-            <Route path='/' index element={<Home/>}/>
+            <Route path='/' index element={<RequestsPage/>}/>
 
             {/*
 

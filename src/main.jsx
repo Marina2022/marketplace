@@ -6,13 +6,15 @@ import {Provider} from "react-redux";
 import cartSlice from "@/store/cartSlice.js";
 import userSlice, {getUser} from "@/store/userSlice.js";
 import catalogSlice from "@/store/catalogSlice.js";
-import reviewsSlice, {loadReviewLikes} from "@/store/reviewsSlice.js";
+import reviewsSlice from "@/store/reviewsSlice.js";
 import favSlice from "@/store/favSlice.js";
 import lkSlice from "@/store/lkSlice.js";
 import ordersSlice from "@/store/ordersSlice.js";
 import lkShopSlice from "@/store/lkShopSlice.js";
 import requestsSlice from "@/store/requestsSlice.js";
 import { injectStore } from "@/api/axiosInstance.js";
+import tabsSlice, {setTabs} from "@/store/tabsSlice.js";
+import {tabLabels} from "@/components/layout/Tabs/tabUtils.js";
 
 export const store = configureStore({
       reducer: {        
@@ -24,7 +26,8 @@ export const store = configureStore({
         lk: lkSlice,
         orders: ordersSlice,
         shop: lkShopSlice,
-        requests: requestsSlice
+        requests: requestsSlice,
+        tabs: tabsSlice,
       }
     }
 )
@@ -33,7 +36,8 @@ injectStore(store);
 
 store.dispatch(getUser())
 
-store.dispatch(loadReviewLikes())
+
+// store.dispatch(loadReviewLikes())
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     // <React.StrictMode>

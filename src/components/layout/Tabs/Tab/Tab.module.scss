@@ -1,0 +1,71 @@
+@import "@/assets/styles/mixins";
+
+.tab {
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  max-width: 167px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  font-weight: 600;
+  font-size: 12px;
+  color: #3E5067;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 11px 12px;
+
+  flex: 1 1 167px;
+  min-width: 0;
+  max-width: 167px;
+}
+
+.activeTab {
+  border: 1px solid #E8EAED;
+  background-color: #F9F9FB;
+  color: #131D2A;
+  max-width: 186px;
+
+  flex: 1 1 186px;
+  max-width: 186px;
+}
+
+.label {
+  //max-width: 144px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  max-width: calc(100%);
+}
+
+.labelActive {
+  max-width: calc(100% - 30px);
+}
+
+.closeBtn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.withDivider {
+  &:after {
+    content: "";
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 18px;
+    background-color: #DFE2E7;
+  }
+
+  &:last-child {
+    &:after {
+      display: none;
+    }
+  }
+}

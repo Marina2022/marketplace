@@ -19,7 +19,7 @@ const Submenu = () => {
       }
 
       {
-        location.pathname.startsWith('/requests') && <RequestsSubmenu />
+        (location.pathname.startsWith('/requests') || location.pathname === "/") && <RequestsSubmenu />
       }
 
       {

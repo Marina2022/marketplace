@@ -5,6 +5,7 @@ import s from './MainLayout.module.scss'
 import Header from "@/components/layout/Header/Header.jsx";
 import MainMenu from "@/components/layout/MainMenu/MainMenu.jsx";
 import Submenu from "@/components/layout/Submenu/Submenu.jsx";
+import Tabs from "@/components/layout/Tabs/Tabs.jsx";
 
 const MainLayout = () => {
   return (
@@ -19,7 +20,7 @@ const MainLayout = () => {
             <Submenu/>
 
             <div className={s.contentWithTabs}>
-              <div className={s.tabs}>tabs</div>
+              <Tabs/>
               <div className={s.contentWrapper}>
                 <Outlet/>
               </div>
