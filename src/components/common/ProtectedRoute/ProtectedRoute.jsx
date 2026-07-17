@@ -1,22 +1,29 @@
-import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
-import {useSelector} from "react-redux";
+import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
-// import {getUserStatus} from "@/store/userSlice.js";
 
-const ProtectedRoute = ({children}) => {
-  
-  const {isAuthenticated, getUserStatus} = useSelector(state => state.user)
-  const navigate = useNavigate()
+const ProtectedRoute = ({ children }) => {
+  const {
+    isAuthenticated,
+    getUserStatus
+  } = useSelector(state => state.user);
 
-  useEffect(() => {
-    if (!isAuthenticated && getUserStatus !=='loading') navigate('/')
-  }, [navigate, isAuthenticated, getUserStatus])
 
-  if (getUserStatus =='loading') return <Spinner/>
+  // Пока узнаём пользователя — не показываем защищённую страницу
+  if (getUserStatus === "loading") {
+    return <Spinner />;
+  }
 
-  if (isAuthenticated) return children
 
+  // Проверка закончилась, пользователь не найден
+  if (getUserStatus === "error" || !isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
+
+
+  // Пользователь есть
+  return children;
 };
 
 export default ProtectedRoute;
+

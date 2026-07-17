@@ -6,8 +6,14 @@ import Header from "@/components/layout/Header/Header.jsx";
 import MainMenu from "@/components/layout/MainMenu/MainMenu.jsx";
 import Submenu from "@/components/layout/Submenu/Submenu.jsx";
 import Tabs from "@/components/layout/Tabs/Tabs.jsx";
+import {getIsLoginPopupShown} from "@/store/userSlice.js";
+import {useSelector} from "react-redux";
+import LoginPopup from "@/components/layout/LoginPopup/LoginPopup.jsx";
 
 const MainLayout = () => {
+
+  const isLoginPopupOpened = useSelector(getIsLoginPopupShown)
+
   return (
     <main>
       <div className={s.layoutDesk}>
@@ -29,6 +35,11 @@ const MainLayout = () => {
         </div>
       </div>
       <MobileBottomMenu/>
+
+      {
+        isLoginPopupOpened && <LoginPopup />
+      }
+
     </main>
   );
 };

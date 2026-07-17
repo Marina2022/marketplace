@@ -1,41 +1,35 @@
 .userDropdownBtn {
-  background: white;
-  border: #658092 2px solid;
-  color: #658092;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+  height: 44px;
+  width: 210px;
+  border-radius: 8px;
+  padding: 5px 6px;
+  gap: 8px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  margin-left: 8px;
-  font-size: 25px;
+
+  @media (hover: hover) {
+    &:hover {
+      outline: #E0E3E8 1px solid;
+      background: #F6F7F9;
+    }
+  }
+}
+
+.userDropdownBtnClicked {
+  outline: #E0E3E8 1px solid;
+  background: #F6F7F9;
 }
 
 .userDropdownWrapper {
   position: relative;
   background: white;
   z-index: 10;
+  height: 44px;
+  width: 210px;
 }
 
-.dropdown {  
-  border: #F0F1F1 solid 1px;
-  padding: 6px;
-  background: white;
-  border-radius: 10px; 
-  min-width: 324px;
-}
-
-.user {
-  min-height: 72px;
-  background: #F9FAFB;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 12px;
+.dropdown {
+  width: 324px;
 }
 
 .letterInDropdown {
@@ -55,6 +49,7 @@
   color: #131D2A;
   font-weight: 600;
   font-size: 16px;
+  flex: 1;
 }
 
 .dropdownMenu {
@@ -91,8 +86,10 @@
   font-size: 14px;
   font-weight: 500;
 
-  &:hover {
-    color: black;
+  @media (hover: hover) {
+    &:hover {
+      color: black;
+    }
   }
 
   &:active {
@@ -102,8 +99,183 @@
 
 .dropWrapper {
   position: absolute;
-  right: -26px;
-  top: 64px;
-  top: 30px;
-  padding-top: 32px;  
+  right: 0;
+  top: 54px;
+  box-shadow: 0 2px 8px 0 #E8EAED;
+  border-radius: 18px;
+  background: #fff;
+  padding-bottom: 14px;
+}
+
+.roundLetter {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #3E5067;
+  color: white;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.btnText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+}
+
+.btnName {
+  color: #1F232B;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 13px;
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btnInn {
+  color: #9AA1AC;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.personalProfileLabel {
+  color: #9AA1AC;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.btnArrow {
+  margin-left: auto;
+}
+
+.activeProfile {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-bottom: 1px solid #E8EAED;
+}
+
+.subtitle {
+  padding-inline: 20px;
+  color: #9AA1AC;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subtitleCompanies {
+  margin-bottom: 12px;
+}
+
+.personalProfile {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-bottom: 1px solid #E8EAED;
+  padding-bottom: 14px;
+}
+
+.personalProfileName {
+  color: #1F232B;
+  font-weight: 500;
+  font-size: 13px;
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.companiesProfile {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #E8EAED;
+}
+
+.profileBlockActive {
+  cursor: unset !important;
+  padding-top: 0 !important;
+
+  &:hover {
+    background: white !important;
+  }
+}
+
+.profileBlock {
+  position: relative;
+  margin-inline: 6px;
+  padding-inline: 12px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-block: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  @media (hover: hover) {
+    &:hover {
+      background: #FBFBFC;
+    }
+  }
+}
+
+.companiesNumber {
+  background: #F1F3F5;
+  border-radius: 50%;
+  height: 19px;
+  width: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8A8F98;
+  font-weight: bold;
+}
+
+.activeItem {
+  background: #ECEFF5;
+
+  @media (hover: hover) {
+    &:hover {
+      background: #ECEFF5 !important;
+    }
+  }
+}
+
+.activeProfileIcon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.menuItemButton {
+  margin-inline: 10px;
+  padding: 11px 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: #3A3F49;
+  cursor: pointer;
+
+  @media (hover: hover) {
+    &:hover {
+      color: black;
+    }
+  }
+}
+
+.bottomItems {
+  margin-top: 10px;
 }

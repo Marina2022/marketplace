@@ -18,12 +18,12 @@ const Login = () => {
 
   return (
     <div>
-      <button onClick={()=>setIsPopupOpen(true)} className={s.menuItemLink}>
-        <div className={s.menuItemImgWrapper}>
-          <img className={s.menuItemImg} src={userIcon} alt="login"/>
-        </div>
-        <div className={s.loginBtn}>Войти</div>
-      </button>
+      {/*<button onClick={()=>setIsPopupOpen(true)} className={s.menuItemLink}>*/}
+      {/*  <div className={s.menuItemImgWrapper}>*/}
+      {/*    <img className={s.menuItemImg} src={userIcon} alt="login"/>*/}
+      {/*  </div>*/}
+      {/*  <div className={s.loginBtn}>Войти</div>*/}
+      {/*</button>*/}
       {
         isPopupOpen && <Popup setIsPopupOpen={setIsPopupOpen} onPopupClose={onPopupClose} popupClassName={s.popupClassName} >
           {

@@ -1,6 +1,7 @@
 @import "@/assets/styles/mixins";
 
 .tab {
+  user-select: none;
   cursor: pointer;
   position: relative;
   width: 100%;

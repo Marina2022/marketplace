@@ -5,33 +5,38 @@ import FavoritesSubmenu from "@/components/FavoritesNewPage/FavoritesSubmenu/Fav
 import ManageRequestsSubmenu from "@/components/manage-requests/ManageRequestsSubmenu/ManageRequestsSubmenu.jsx";
 import ChatSubmenu from "@/components/chat/ChatSubmenu/ChatSubmenu.jsx";
 import DashboardSubmenu from "@/components/dashboard/DashboardSubmenu/DashboardSubmenu.jsx";
+import {useSelector} from "react-redux";
+import {getUserStatus} from "@/store/userSlice.js";
 
 const Submenu = () => {
 
   const location = useLocation();
+
+  const userStatus = useSelector(getUserStatus)
+
 
 
   return (
     <div className={s.submenu}>
 
       {
-        location.pathname.startsWith('/dashboard') && <DashboardSubmenu />
+        userStatus !== "loading" && location.pathname.startsWith('/dashboard') && <DashboardSubmenu />
       }
 
       {
-        (location.pathname.startsWith('/requests') || location.pathname === "/") && <RequestsSubmenu />
+        userStatus !== "loading" &&  (location.pathname.startsWith('/requests') || location.pathname === "/") && <RequestsSubmenu />
       }
 
       {
-        location.pathname.startsWith('/favorites') && <FavoritesSubmenu />
+        userStatus !== "loading" &&  location.pathname.startsWith('/favorites') && <FavoritesSubmenu />
       }
 
       {
-        location.pathname.startsWith('/manage-requests') && <ManageRequestsSubmenu />
+        userStatus !== "loading" &&  location.pathname.startsWith('/manage-requests') && <ManageRequestsSubmenu />
       }
 
       {
-        location.pathname.startsWith('/chat') && <ChatSubmenu />
+        userStatus !== "loading" &&  location.pathname.startsWith('/chat') && <ChatSubmenu />
       }
     </div>
   )

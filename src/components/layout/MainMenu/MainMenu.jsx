@@ -22,7 +22,8 @@ const MainMenu = () => {
       </svg>
       ,
       url: '/requests',
-      tooltip: 'Каталог заявок'
+      tooltip: 'Каталог заявок',
+      public: true
     },
     {
       svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -30,7 +31,8 @@ const MainMenu = () => {
       </svg>
       ,
       url: '/favorites',
-      tooltip: 'Избранное'
+      tooltip: 'Избранное',
+      public: false
     },
     {
       svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,7 +42,8 @@ const MainMenu = () => {
       </svg>
       ,
       url: '/dashboard/main',
-      tooltip: 'Личный кабинет'
+      tooltip: 'Личный кабинет',
+      public: false
     },
     {
       svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,7 +54,8 @@ const MainMenu = () => {
       </svg>
       ,
       url: '/manage-requests/my-requests',
-      tooltip: 'Управление заявками'
+      tooltip: 'Управление заявками',
+      public: false
     },
 
     {
@@ -61,7 +65,8 @@ const MainMenu = () => {
       </svg>
       ,
       url: '/chat',
-      tooltip: 'Чат'
+      tooltip: 'Чат',
+      public: false
     }
   ]
 

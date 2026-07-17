@@ -1,0 +1,55 @@
+@import "@/assets/styles/mixins";
+
+.balance {
+  position: relative;
+  height: 44px;
+  width: 220px;
+  display: flex;
+  overflow: hidden;
+  cursor: pointer;
+
+  @include t {
+    width: 150px;
+  }
+}
+
+.plusBlock {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background: #1A2332;
+  width: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.textBlock {
+  border: 1px solid #E0E3E8;
+  padding-left: 12px;
+  padding-block: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex:1;
+  border-radius: 8px;
+}
+
+.balanceText {
+  color: #9AA1AC;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 140%;
+  text-transform: uppercase;
+}
+
+.balanceValue {
+  color: #1F232B;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 140%;
+}

@@ -2,11 +2,12 @@
 
 .searchInputWrapper {  
   position: relative;
-  width: 820px;
-  margin-right: 25px;
+  width: 100%;
+  max-width: 1078px;
+  margin-right: 40px;
 
   @include t {
-    width: 357px;
+    margin-right: 20px;
   }
 
   @include m {
@@ -19,12 +20,15 @@
 .searchInput {
   border: #F0F1F1 solid 1px;
   outline: none;
-  padding: 10px 15px;
+  padding-block: 10px;
+  padding-left: 36px;
+  padding-right: 80px;
   color: #000;
   width: 100%;
   font-size: 14px;
-  background: #F9FAFB;
+  background: #F6F7F9;
   height: 44px;
+  border-radius: 8px;
   
   @include m {
     height: 30px;
@@ -36,16 +40,54 @@
 
   &::placeholder {
     font-size: 14px;
-    
+    color: #9AA1AC;
+
+    @include t {
+      font-size: 12px;
+    }
+
     @include m {
       font-size: 11px;  
     }
   }
 }
 
-.searchIconWrapper {
+.closeIconWrapper {
   position: absolute;
-  right: 15px;
+  right: 60px;
+  top: 52%;
+  transform: translateY(-50%);
+}
+
+.searchIcon {
+  position: absolute;
+  left: 14px;
   top: 50%;
   transform: translateY(-50%);
 }
+
+.keySearchBtn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 1px solid #E8EAED;
+  border-radius: 6px;
+  width: 42px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: #fff;
+  color: #9AA1AC;
+  font-size: 14px;
+  font-weight: 500;
+
+  @media (hover: hover) {
+    &:hover {
+      color: #3E5067;
+    }
+  }
+}
+

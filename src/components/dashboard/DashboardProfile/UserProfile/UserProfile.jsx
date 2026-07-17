@@ -4,7 +4,7 @@ import s from './UserProfile.module.scss';
 import pencil from '@/assets/img/lk/lk-main/pencil.svg';
 import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from "react-redux";
-import {getUserCompanies, getUserData} from "@/store/userSlice.js";
+import {getUserCompanies, getUserData, logout} from "@/store/userSlice.js";
 import {useEffect, useState} from "react";
 import Button from "@/components/ui/Button/Button.jsx";
 
@@ -42,6 +42,9 @@ const UserProfile = () => {
     }
   });
 
+
+
+
   useEffect(() => {
     if (userData) {
 
@@ -64,7 +67,11 @@ const UserProfile = () => {
   }, [userData, setValue]);
 
   const dispatch = useDispatch()
+
   const onSubmit = async (data) => {
+
+    console.log("submit")
+
     const numericPhone = data.phone.replace(/\D/g, '').slice(1);
     const numericWhatsApp = data.whatsAppMsg.replace(/\D/g, '').slice(1);
     const numericTelegram = data.telegramMsg.replace(/\D/g, '').slice(1);
@@ -106,7 +113,7 @@ const UserProfile = () => {
           }
 
           {
-            editing && <Button className={s.saveBtn}>Сохранить&nbsp;изменения</Button>
+            editing && <Button type="submit" className={s.saveBtn}>Сохранить&nbsp;изменения</Button>
           }
 
         </div>

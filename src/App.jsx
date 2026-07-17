@@ -14,6 +14,7 @@ import DashboardOrganizationsPage from "@/pages/dashboard/DashboardOrganizations
 import DashboardProfilePage from "@/pages/dashboard/DashboardProfilePage/DashboardProfilePage.jsx";
 import ChatPage from "@/pages/chat/ChatPage.jsx";
 import TabsInitializer from "@/components/common/TabsInitializer/TabsInitializer.jsx";
+import ProtectedRoute from "@/components/common/ProtectedRoute/ProtectedRoute.jsx";
 
 function App() {
 
@@ -24,28 +25,23 @@ function App() {
       <Toaster position="bottom-right" closeButton/>
 
       <Router>
-        <TabsInitializer />
+        <TabsInitializer/>
         <Routes>
           <Route element={<MainLayout/>}>
             <Route path='/' index element={<RequestsPage/>}/>
 
-            {/*
-
-            Новые рауты
-
-
-            */}
+            {/* Новые рауты */}
 
             <Route path='/favorites' element={<FavouritesNew/>}/>
-            <Route path='manage-requests/my-requests' element={<MyRequestsPage/>}/>
-            <Route path='manage-requests/my-responses' element={<MyResponsesPage/>}/>
+            <Route path='manage-requests/my-requests' element={<ProtectedRoute><MyRequestsPage/></ProtectedRoute>}/>
+            <Route path='manage-requests/my-responses' element={<ProtectedRoute><MyResponsesPage/></ProtectedRoute>}/>
 
-            <Route path='dashboard/main' element={<DashboardMainPage/>}/>
-            <Route path='dashboard/organizations' element={<DashboardOrganizationsPage/>}/>
-            <Route path='dashboard/profile' element={<DashboardProfilePage/>}/>
+            <Route path='dashboard/main' element={<ProtectedRoute><DashboardMainPage/></ProtectedRoute>}/>
+            <Route path='dashboard/organizations' element={<ProtectedRoute><DashboardOrganizationsPage/></ProtectedRoute>}/>
+            <Route path='dashboard/profile' element={<ProtectedRoute><DashboardProfilePage/></ProtectedRoute>}/>
 
             <Route path='requests' element={<RequestsPage/>}/>
-            <Route path='chat' element={<ChatPage/>}/>
+            <Route path='chat' element={<ProtectedRoute><ChatPage/></ProtectedRoute>}/>
 
             {/*<Route path='/category/:category' element={<Category/>}/>*/}
             {/*<Route path='/login' element={<Auth/>}/>*/}

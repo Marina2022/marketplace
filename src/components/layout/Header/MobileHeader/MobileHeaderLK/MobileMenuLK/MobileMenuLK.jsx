@@ -1,6 +1,6 @@
 import s from './MobileMenuLK.module.scss';
 import hamburger from "@/assets/img/header/hamburger.svg";
-import closeBtn from "@/assets/img/header/mobileMenu/closeBtn.svg";
+import closeBtn from "@/assets/img/header/mobileMenu/closeBtnNew.svg";
 import lkIcon from "@/assets/img/header/mobileMenu/lk.svg";
 import shopIcon from "@/assets/img/header/mobileMenu/shop.svg";
 import ordersIcon from "@/assets/img/header/mobileMenu/orders.svg";
@@ -15,8 +15,9 @@ import {setSecondFromTopTab, setTopShopTab} from "@/store/lkShopSlice.js";
 import {setRequestsTab} from "@/store/requestsSlice.js";
 
 
-const MobileMenuLk = () => {
-  const dispatch = useDispatch()
+const MobileMenuLk = ({showCloseBtn, setShowCloseBtn}) => {
+
+    const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -32,6 +33,16 @@ const MobileMenuLk = () => {
   const dropdownClickHandler = (e) => {
     e.stopPropagation();
   }
+
+  useEffect(() => {
+    if (isDropdownOpen) {
+      setShowCloseBtn(true)
+    } else {
+      setShowCloseBtn(false)
+    }
+
+  }, [isDropdownOpen]);
+
 
   const userDropdownWrapperRef = useRef();
 
@@ -50,6 +61,8 @@ const MobileMenuLk = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+
 
   const handleOrganizationsClick = (e) => {
     e.preventDefault()
@@ -131,11 +144,16 @@ const MobileMenuLk = () => {
     navigate("/lk/requests")
   }
 
+  const handleMenuClick = (e) => {
+    e.stopPropagation()
+    if (!showCloseBtn) setIsDropdownOpen(prev => !prev)
+  }
+
   return (
 
     <div className={s.userDropdownWrapper} ref={userDropdownWrapperRef}>
-      <button className={s.hamburgerBtn} onClick={() => setIsDropdownOpen(prev => !prev)}>
-        <img src={isDropdownOpen ? closeBtn : hamburger} alt="menu"/>
+      <button className={s.hamburgerBtn} onClick={handleMenuClick}>
+        <img src={showCloseBtn ? closeBtn : hamburger} alt="menu"/>
       </button>
 
       {isDropdownOpen && (
@@ -144,9 +162,6 @@ const MobileMenuLk = () => {
             <div className={s.dropdown}>
               <div className={s.menuHeader}>
                 <h4 className={s.menuTitle}>Меню</h4>
-                <button onClick={() => setIsDropdownOpen(false)}>
-                  <img src={closeBtn} alt="close"/>
-                </button>
               </div>
 
               <div className={s.menuSection}>
@@ -171,7 +186,7 @@ const MobileMenuLk = () => {
                 </div>
                 <div className={s.menuItem}>
                   <Link onClick={handleSettingsClick} to='lk' className={s.menuItemLink}>
-                    Настройки аккаунта
+                    Натройки аккаунта
                   </Link>
                 </div>
               </div>

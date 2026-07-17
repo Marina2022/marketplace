@@ -13,10 +13,6 @@
   display: flex;
   align-items: center;
   padding-inline: 14px;
-  
-  @include t {
-    padding-right: 0;
-  }
 }
 
 .loginWrapper {
@@ -207,12 +203,44 @@
   width: 35px;
 }
 
-
 .geoWrapper {
   width: 240px;
+  flex-shrink: 0;
 
   @include t {
     width: 162px;
   }
 }
+
+.userMenu {
+  margin-left: auto;
+}
+
+.userMenuWithAuth {
+  display: flex;
+  gap: 40px;
+
+  @include t {
+    gap: 20px;
+  }
+}
+
+.loginBtn {
+  height: 40px;
+  width: 110px;
+  background: #1B2233;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+
+  &:hover {
+    background: black;
+  }
+}
+
 

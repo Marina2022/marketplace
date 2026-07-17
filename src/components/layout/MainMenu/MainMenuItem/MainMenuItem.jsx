@@ -1,14 +1,13 @@
 import s from './MainMenuItem.module.scss';
-import {NavLink, useLocation, useNavigate} from "react-router-dom";
-import {useMemo, useState} from "react";
+import {useLocation, useNavigate} from "react-router-dom";
+import {useState} from "react";
 import {getTabs, setTabs} from "@/store/tabsSlice.js";
 import {useDispatch, useSelector} from "react-redux";
+import {setIsLoginPopupOpened} from "@/store/userSlice.js";
 
 const MainMenuItem = ({item}) => {
 
-  const canHover = useMemo(() => {
-    return window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  }, []);
+  const canHover = window.matchMedia('(hover: hover)').matches;
 
   const [showTooltip, setShowTooltip] = useState(false)
 
@@ -19,14 +18,20 @@ const MainMenuItem = ({item}) => {
   let isActive =
     getFirstSegment(item.url) === getFirstSegment(location.pathname);
 
-  if (getFirstSegment(item.url) === "requests" && getFirstSegment(location.pathname) === "" ) isActive = true;
-
+  if (getFirstSegment(item.url) === "requests" && getFirstSegment(location.pathname) === "") isActive = true;
 
   const navigate = useNavigate();
   const tabs = useSelector(getTabs)
   const dispatch = useDispatch()
 
+  const {isAuthenticated} = useSelector(state => state.user)
+
   const handleClick = () => {
+
+    if (!item.public && !isAuthenticated) {
+      dispatch(setIsLoginPopupOpened(true))
+      return
+    }
 
     const isInTabs = tabs.find((tab) => tab === item.url)
     navigate(item.url)
@@ -38,16 +43,16 @@ const MainMenuItem = ({item}) => {
   }
 
   return (
-    <li className={s.menuItem} onMouseEnter={() => canHover && setShowTooltip(true)} onMouseLeave={() => canHover && setShowTooltip(false)}>
-      <NavLink
+    <li className={s.menuItem} onMouseEnter={() => canHover && setShowTooltip(true)}
+        onMouseLeave={() => canHover && setShowTooltip(false)}>
+      <button
         onClick={handleClick}
         className={isActive ? s.menuItemLinkActive : s.menuItemLink}
-        to={item.url}>
+      >
         {
           item.svg
         }
-      </NavLink>
-
+      </button>
       {
         showTooltip && <div className={s.tooltip}>{item.tooltip}</div>
       }

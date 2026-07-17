@@ -38,21 +38,16 @@
   border-radius: 50%;
 }
 
-.userDropdownWrapper {
-  position: relative;
-  background: white;
-  z-index: 10;
-}
-
 .dropdown {
-  padding-inline: 16px;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #E8EAED;
   background: white;
-  width: 100%;
   position: fixed;
   left: 0;
-  top: 60px;
-  padding-bottom: 8px;
-  padding-top: 6px;
+  top: 72px;
+  height: calc(100vh - 56px - 72px);
+  width: 100%;
 }
 
 .user {
@@ -81,16 +76,6 @@
   font-weight: 500;
 }
 
-.companiesLink {
-  cursor: pointer;
-  padding-left: 76px;
-  margin-top: 24px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #131D2A !important;
-  display: block;
-}
-
 .topPart {
   border-bottom: #F0F1F1 1px solid;
 }
@@ -110,10 +95,6 @@
   color: #131D2A;
   font-size: 14px;
   font-weight: 500;
-
-  &:hover {
-    color: black;
-  }
 
   &:active {
     color: black;
@@ -141,4 +122,293 @@
   height: 100vh;
   background: rgba(0,0,0, .2);
   z-index: 5;
+}
+
+.userDropdownBtn {
+  height: 44px;
+  width: 236px;
+  border-radius: 100px;
+  padding: 5px 6px;
+  gap: 8px;
+  display: flex;
+  align-items: center;
+  background: #F6F7F9;
+}
+
+.userDropdownWrapper {
+  position: relative;
+  background: white;
+  z-index: 10;
+  height: 44px;
+  width: 100%;
+}
+
+.letterInDropdown {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  color: white;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #3E5067;
+  border-radius: 50%;
+}
+
+.userName {
+  color: #131D2A;
+  font-weight: 600;
+  font-size: 16px;
+  flex: 1;
+}
+
+.dropdownMenu {
+  margin-top: 15px;
+  padding-left: 76px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.companiesLink {
+  cursor: pointer;
+  padding-left: 76px;
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #131D2A !important;
+  display: block;
+}
+
+.logoutBtn {
+  padding-left: 76px;
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #131D2A;
+  margin-bottom: 30px;
+}
+
+.dropdownLink {
+  color: #131D2A;
+  font-size: 14px;
+  font-weight: 500;
+
+  &:active {
+    color: black;
+  }
+}
+
+.dropWrapper {
+  position: absolute;
+  right: 0;
+  top: 54px;
+  box-shadow: 0 2px 8px 0 #E8EAED;
+  border-radius: 18px;
+  background: #fff;
+  padding-bottom: 14px;
+}
+
+.roundLetter {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #3E5067;
+  color: white;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.btnText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+}
+
+.btnTextActiveProfile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+.btnName {
+  color: #1F232B;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 13px;
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btnInn {
+  color: #9AA1AC;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.personalProfileLabel {
+  color: #9AA1AC;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.btnArrow {
+  margin-left: auto;
+}
+
+.activeProfile {
+  height: 142px;
+  border-radius: 8px;
+  display: flex;
+  background: #F1F3F8;
+  margin-inline: 16px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  border-bottom: 1px solid #E8EAED;
+}
+
+.subtitle {
+  background: #F1F3F8;
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin-left: 28px;
+  color: #131D2A;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 16px;
+  min-height: 18px;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.subtitleCompanies {
+  background: #F1F3F8;
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin-left: 12px;
+  color: #131D2A;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 0;
+  min-height: 18px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.personalProfile {
+  padding-bottom: 14px;
+}
+
+.personalProfileName {
+  color: #1F232B;
+  font-weight: 500;
+  font-size: 13px;
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.companiesProfile {
+  padding-bottom: 14px;
+}
+
+.profileBlockActive {
+  cursor: unset!important;
+  padding-top: 0!important;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px!important;
+}
+
+.profileBlock {
+  position: relative;
+  margin-inline: 16px;
+  padding-inline: 12px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-block: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.companiesNumber {
+  font-size: 10px;
+  background: #F1F3F5;
+  border-radius: 4px;
+  height: 18px;
+  width: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.activeItem {
+  background: #ECEFF5;
+}
+
+.activeProfileIcon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.menuItemButton {
+  margin-inline: 10px;
+  padding: 11px 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: #3A3F49;
+  cursor: pointer;
+}
+
+.bottomItems {
+  margin-top: auto;
+  margin-bottom: 26px;
+}
+
+.dropdownHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+}
+
+.dropdownTitle {
+  color: #0F1822;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.closeImg {
+  width: 24px;
+  height: 24px;
+}
+
+.companiesBlockHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-inline: 16px;
+  padding-block: 8px;
 }

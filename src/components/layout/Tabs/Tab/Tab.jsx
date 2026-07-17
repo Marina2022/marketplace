@@ -3,10 +3,13 @@ import {useNavigate} from "react-router-dom";
 import {tabLabels} from "@/components/layout/Tabs/tabUtils.js";
 import {useDispatch, useSelector} from "react-redux";
 import {getTabs, setTabs} from "@/store/tabsSlice.js";
+import {setIsLoginPopupOpened} from "@/store/userSlice.js";
 
 const Tab = ({tab, nextTab}) => {
-  const tabs = useSelector(getTabs)
 
+  const {isAuthenticated} = useSelector(state => state.user)
+
+  const tabs = useSelector(getTabs)
   const navigate = useNavigate()
   const isActive = location.pathname === tab
   const nextIsActive = nextTab && location.pathname === nextTab;
@@ -14,6 +17,13 @@ const Tab = ({tab, nextTab}) => {
   const dispatch = useDispatch()
 
   const handleClick = () => {
+
+    const item = tabLabels.find(item => item.url === tab)
+
+    if (!item.public && !isAuthenticated) {
+      dispatch(setIsLoginPopupOpened(true))
+      return
+    }
     navigate(tab)
   }
 
@@ -39,7 +49,6 @@ const Tab = ({tab, nextTab}) => {
       <span className={`${s.label} ${isActive ? s.labelActive : ''}`}>
       {label}
       </span>
-
       {
         isActive && (
           <button className={s.closeBtn} onClick={handleClose}>
