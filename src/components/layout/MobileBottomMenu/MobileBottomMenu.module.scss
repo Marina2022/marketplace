@@ -23,7 +23,6 @@
   
   @include m {
     display: block;
-    //max-width: 100vw;
   }
 }
 
@@ -33,11 +32,10 @@
 }
 
 .menuItem {
-  fill: #658092;
+  color: #658092;
 }
 
-
 .menuItemActive {
-  fill: #131D2A;
+  color: #131D2A;
 }
 

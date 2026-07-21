@@ -15,6 +15,7 @@ import DashboardProfilePage from "@/pages/dashboard/DashboardProfilePage/Dashboa
 import ChatPage from "@/pages/chat/ChatPage.jsx";
 import TabsInitializer from "@/components/common/TabsInitializer/TabsInitializer.jsx";
 import ProtectedRoute from "@/components/common/ProtectedRoute/ProtectedRoute.jsx";
+import SettingsPage from "@/pages/settings/SettingsPage.jsx";
 
 function App() {
 
@@ -29,19 +30,15 @@ function App() {
         <Routes>
           <Route element={<MainLayout/>}>
             <Route path='/' index element={<RequestsPage/>}/>
-
-            {/* Новые рауты */}
-
             <Route path='/favorites' element={<FavouritesNew/>}/>
             <Route path='manage-requests/my-requests' element={<ProtectedRoute><MyRequestsPage/></ProtectedRoute>}/>
             <Route path='manage-requests/my-responses' element={<ProtectedRoute><MyResponsesPage/></ProtectedRoute>}/>
-
             <Route path='dashboard/main' element={<ProtectedRoute><DashboardMainPage/></ProtectedRoute>}/>
             <Route path='dashboard/organizations' element={<ProtectedRoute><DashboardOrganizationsPage/></ProtectedRoute>}/>
             <Route path='dashboard/profile' element={<ProtectedRoute><DashboardProfilePage/></ProtectedRoute>}/>
-
             <Route path='requests' element={<RequestsPage/>}/>
             <Route path='chat' element={<ProtectedRoute><ChatPage/></ProtectedRoute>}/>
+            <Route path='settings' element={<ProtectedRoute><SettingsPage/></ProtectedRoute>}/>
 
             {/*<Route path='/category/:category' element={<Category/>}/>*/}
             {/*<Route path='/login' element={<Auth/>}/>*/}

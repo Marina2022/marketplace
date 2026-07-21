@@ -1,0 +1,64 @@
+@import "@/assets/styles/mixins";
+
+.menuItem {
+
+}
+
+.menuItemTop {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 14px;
+}
+
+.iconWrapper {
+  width: 39px;
+  height: 39px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F7F8FB;
+  color: #1A2332;
+}
+
+.iconWrapperActive {
+  width: 39px;
+  height: 39px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0F1822;
+  color: #fff;
+}
+
+.itemName {
+  color: #16181D;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.menuItemOpened {
+  outline: #E8EAED 1px solid;
+  border-radius: 8px;
+  box-shadow: 2px 2px 4px rgba(232, 234, 237, 0.4);
+}
+
+.arrow {
+  margin-left: auto;
+  position: relative;
+  top: -2px;
+}
+
+.arrowActive {
+  margin-left: auto;
+  position: relative;
+  top: 2px;
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  border-top: #E8EAED 1px solid;
+  padding: 6px 14px 16px;
+}

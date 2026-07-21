@@ -10,27 +10,17 @@
   width: 100%;
   position: fixed;
   left: 0;
-  top: 54px;
-  padding-bottom: 8px;
-  padding-top: 6px;
-  max-height: calc(100vh - 98px);
+  top: 72px;
+
+  height: calc(100vh - 72px);
   overflow-y: auto;
+  border-top: 1px solid #E8EAED;
+  background-color: #fff;
+  padding-bottom: 76px;
+  padding-inline: 16px;
 }
 
-.underlay {
-  position: fixed;
-  inset: 0;
-  top: 56px;
-  width: 100%;
-  height: 100vh;
-  background: rgba(0,0,0, .2);
-}
 
-.dropWrapper {
-  position: absolute;
-  top: 30px;
-  padding-top: 32px;
-}
 
 
 .hamburgerBtn {
@@ -45,57 +35,14 @@
 .menuHeader {
   display: flex;
   justify-content: space-between;
-  padding-top: 12px;
   align-items: flex-start;
   background: #fff;
-  padding-inline: 16px;
 }
 
 .menuTitle {
   font-weight: 500;
-  color: #131D2A;
-}
-
-.menuSection {
-  background: #fff;
-  margin-bottom: 4px;
-  border-radius: 8px;
-  padding-inline: 16px;
-  padding-bottom: 6px;
-  padding-top: 6px;
-
-  &:nth-child(2) {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-}
-
-.sectionHeader {
-  display: flex;
-  gap: 6px;
-  padding-block: 1px;
-  align-items: center;
-  color: #131D2A;
-  font-weight: 500;
-  font-size: 14px;
-  margin-bottom: 4px;
-  margin-top: 4px;
-}
-
-.menuItem {
-  padding-left: 25px;
-  padding-right: 16px;
-  padding-block: 4px;
-  border-bottom: 1px solid #F0F1F1;
-
-  &:last-child {
-    border-bottom: none;
-  }
-}
-
-.menuItemLink {
-  color: #658092;
-  font-weight: 500;
-  font-size: 12px;
+  font-size: 22px;
+  color: #0F1822;
+  padding-block: 12px;
 }
 

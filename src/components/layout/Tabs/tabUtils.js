@@ -39,4 +39,9 @@ export const tabLabels = [
     url: "/chat",
     public: false
   },
+  {
+    label: "Настройки",
+    url: "/settings",
+    public: false
+  },
 ]

@@ -1,34 +1,21 @@
 import s from './MobileMenuLK.module.scss';
 import hamburger from "@/assets/img/header/hamburger.svg";
 import closeBtn from "@/assets/img/header/mobileMenu/closeBtnNew.svg";
-import lkIcon from "@/assets/img/header/mobileMenu/lk.svg";
-import shopIcon from "@/assets/img/header/mobileMenu/shop.svg";
-import ordersIcon from "@/assets/img/header/mobileMenu/orders.svg";
-import appIcon from "@/assets/img/header/mobileMenu/requests.svg";
-import settingsIcon from "@/assets/img/header/mobileMenu/settings.svg";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
-import {setActiveTabInMain} from "@/store/lkSlice.js";
-import {useDispatch} from "react-redux";
-import {setOrdersTab} from "@/store/ordersSlice.js";
-import {setSecondFromTopTab, setTopShopTab} from "@/store/lkShopSlice.js";
-import {setRequestsTab} from "@/store/requestsSlice.js";
+import MobileMenuItem
+  from "@/components/layout/Header/MobileHeader/MobileHeaderLK/MobileMenuLK/MobileMenuItem/MobileMenuItem.jsx";
 
 
 const MobileMenuLk = ({showCloseBtn, setShowCloseBtn}) => {
 
-    const dispatch = useDispatch()
-  const navigate = useNavigate()
   const location = useLocation();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(true); // todo поменяй
 
   useEffect(() => {
     setIsDropdownOpen(false);
   }, [location]);
 
-  const underlayClickHandler = () => {
-    setIsDropdownOpen(false)
-  }
 
   const dropdownClickHandler = (e) => {
     e.stopPropagation();
@@ -63,91 +50,120 @@ const MobileMenuLk = ({showCloseBtn, setShowCloseBtn}) => {
   }, []);
 
 
-
-  const handleOrganizationsClick = (e) => {
-    e.preventDefault()
-    dispatch(setActiveTabInMain(1))
-    navigate("/lk/main")
-  }
-
-  const handleMainClick = (e) => {
-    e.preventDefault()
-    dispatch(setActiveTabInMain(0))
-    navigate("/lk/main")
-  }
-
-  const handleProfileClick = (e) => {
-    e.preventDefault()
-    dispatch(setActiveTabInMain(2))
-    navigate("/lk/main")
-  }
-
-  const handleSettingsClick = (e) => {
-    e.preventDefault()
-    dispatch(setActiveTabInMain(3))
-    navigate("/lk/main")
-  }
-
-  const handleAllOrdersClick = (e) => {
-    e.preventDefault()
-    dispatch(setOrdersTab(2))
-    navigate("/lk/orders")
-  }
-
-  const handleActiveOrdersClick = (e) => {
-    e.preventDefault()
-    dispatch(setOrdersTab(1))
-    navigate("/lk/orders")
-  }
-
-  const handleShopProfile = (e) => {
-    e.preventDefault()
-    dispatch(setTopShopTab(4))
-    navigate("/lk/shop")
-  }
-
-  const handleProductCard = (e) => {
-    e.preventDefault()
-    dispatch(setTopShopTab(1))
-    dispatch(setSecondFromTopTab(1))
-    navigate("/lk/shop")
-  }
-
-  const handleRequestsTab1 = (e) => {
-    e.preventDefault()
-    dispatch(setRequestsTab(1))
-    navigate("/lk/requests")
-  }
-
-  //4.5.6
-  const handleRequestsTab3 = (e) => {
-    e.preventDefault()
-    dispatch(setRequestsTab(3))
-    navigate("/lk/requests")
-  }
-
-  const handleRequestsTab4 = (e) => {
-    e.preventDefault()
-    dispatch(setRequestsTab(4))
-    navigate("/lk/requests")
-  }
-
-  const handleRequestsTab5 = (e) => {
-    e.preventDefault()
-    dispatch(setRequestsTab(5))
-    navigate("/lk/requests")
-  }
-
-  const handleRequestsTab6 = (e) => {
-    e.preventDefault()
-    dispatch(setRequestsTab(6))
-    navigate("/lk/requests")
-  }
-
   const handleMenuClick = (e) => {
-    e.stopPropagation()
-    if (!showCloseBtn) setIsDropdownOpen(prev => !prev)
+     e.stopPropagation()
+     setIsDropdownOpen(prev => !prev)
   }
+
+  const menuItems = [
+    {
+      title: "Личный кабинет",
+      icon: <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M10.1004 11.2786C10.0837 11.2786 10.0587 11.2786 10.0421 11.2786C10.0171 11.2786 9.98372 11.2786 9.95872 11.2786C8.06706 11.2203 6.65039 9.74531 6.65039 7.92865C6.65039 6.07865 8.15872 4.57031 10.0087 4.57031C11.8587 4.57031 13.3671 6.07865 13.3671 7.92865C13.3587 9.75365 11.9337 11.2203 10.1254 11.2786C10.1087 11.2786 10.1087 11.2786 10.1004 11.2786ZM10.0004 5.81198C8.83372 5.81198 7.89206 6.76198 7.89206 7.92031C7.89206 9.06198 8.78372 9.98698 9.91706 10.0286C9.94206 10.0203 10.0254 10.0203 10.1087 10.0286C11.2254 9.97031 12.1004 9.05365 12.1087 7.92031C12.1087 6.76198 11.1671 5.81198 10.0004 5.81198Z"
+          fill="currentColor"/>
+        <path
+          d="M10 18.9547C7.75836 18.9547 5.61669 18.1214 3.95836 16.6047C3.80836 16.4714 3.74169 16.2714 3.75836 16.0797C3.86669 15.088 4.48336 14.163 5.50836 13.4797C7.99169 11.8297 12.0167 11.8297 14.4917 13.4797C15.5167 14.1714 16.1334 15.088 16.2417 16.0797C16.2667 16.2797 16.1917 16.4714 16.0417 16.6047C14.3834 18.1214 12.2417 18.9547 10 18.9547ZM5.06669 15.913C6.45003 17.0714 8.19169 17.7047 10 17.7047C11.8084 17.7047 13.55 17.0714 14.9334 15.913C14.7834 15.4047 14.3834 14.913 13.7917 14.513C11.7417 13.1464 8.26669 13.1464 6.20003 14.513C5.60836 14.913 5.21669 15.4047 5.06669 15.913Z"
+          fill="currentColor"/>
+        <path
+          d="M9.99935 18.9557C5.05768 18.9557 1.04102 14.9391 1.04102 9.9974C1.04102 5.05573 5.05768 1.03906 9.99935 1.03906C14.941 1.03906 18.9577 5.05573 18.9577 9.9974C18.9577 14.9391 14.941 18.9557 9.99935 18.9557ZM9.99935 2.28906C5.74935 2.28906 2.29102 5.7474 2.29102 9.9974C2.29102 14.2474 5.74935 17.7057 9.99935 17.7057C14.2493 17.7057 17.7077 14.2474 17.7077 9.9974C17.7077 5.7474 14.2493 2.28906 9.99935 2.28906Z"
+          fill="currentColor"/>
+      </svg>,
+      urlStartsWith: "/dashboard",
+      kids: [
+        {
+          itemTitle: "Главная",
+          itemLink: "/dashboard/main",
+        },
+        {
+          itemTitle: "Организации",
+          itemLink: "/dashboard/organizations",
+        },
+        {
+          itemTitle: "Профиль пользователя",
+          itemLink: "/dashboard/profile",
+        }
+      ]
+    },
+
+    {
+      title: "Избранное",
+      icon: <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M10.0013 18.0443C9.74297 18.0443 9.49297 18.0109 9.28464 17.9359C6.1013 16.8443 1.04297 12.9693 1.04297 7.24427C1.04297 4.3276 3.4013 1.96094 6.3013 1.96094C7.70964 1.96094 9.0263 2.51094 10.0013 3.49427C10.9763 2.51094 12.293 1.96094 13.7013 1.96094C16.6013 1.96094 18.9596 4.33594 18.9596 7.24427C18.9596 12.9776 13.9013 16.8443 10.718 17.9359C10.5096 18.0109 10.2596 18.0443 10.0013 18.0443ZM6.3013 3.21094C4.09297 3.21094 2.29297 5.01927 2.29297 7.24427C2.29297 12.9359 7.76797 16.1026 9.69297 16.7609C9.84297 16.8109 10.168 16.8109 10.318 16.7609C12.2346 16.1026 17.718 12.9443 17.718 7.24427C17.718 5.01927 15.918 3.21094 13.7096 3.21094C12.443 3.21094 11.268 3.8026 10.5096 4.8276C10.2763 5.14427 9.74297 5.14427 9.50964 4.8276C8.73464 3.79427 7.56797 3.21094 6.3013 3.21094Z"
+          fill="currentColor"/>
+      </svg>,
+      urlStartsWith: "/favorites",
+      kids: null,
+    },
+
+    {
+      title: "Заявки",
+      icon: <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M10.1004 11.2786C10.0837 11.2786 10.0587 11.2786 10.0421 11.2786C10.0171 11.2786 9.98372 11.2786 9.95872 11.2786C8.06706 11.2203 6.65039 9.74531 6.65039 7.92865C6.65039 6.07865 8.15872 4.57031 10.0087 4.57031C11.8587 4.57031 13.3671 6.07865 13.3671 7.92865C13.3587 9.75365 11.9337 11.2203 10.1254 11.2786C10.1087 11.2786 10.1087 11.2786 10.1004 11.2786ZM10.0004 5.81198C8.83372 5.81198 7.89206 6.76198 7.89206 7.92031C7.89206 9.06198 8.78372 9.98698 9.91706 10.0286C9.94206 10.0203 10.0254 10.0203 10.1087 10.0286C11.2254 9.97031 12.1004 9.05365 12.1087 7.92031C12.1087 6.76198 11.1671 5.81198 10.0004 5.81198Z"
+          fill="currentColor"/>
+        <path
+          d="M10 18.9547C7.75836 18.9547 5.61669 18.1214 3.95836 16.6047C3.80836 16.4714 3.74169 16.2714 3.75836 16.0797C3.86669 15.088 4.48336 14.163 5.50836 13.4797C7.99169 11.8297 12.0167 11.8297 14.4917 13.4797C15.5167 14.1714 16.1334 15.088 16.2417 16.0797C16.2667 16.2797 16.1917 16.4714 16.0417 16.6047C14.3834 18.1214 12.2417 18.9547 10 18.9547ZM5.06669 15.913C6.45003 17.0714 8.19169 17.7047 10 17.7047C11.8084 17.7047 13.55 17.0714 14.9334 15.913C14.7834 15.4047 14.3834 14.913 13.7917 14.513C11.7417 13.1464 8.26669 13.1464 6.20003 14.513C5.60836 14.913 5.21669 15.4047 5.06669 15.913Z"
+          fill="currentColor"/>
+        <path
+          d="M9.99935 18.9557C5.05768 18.9557 1.04102 14.9391 1.04102 9.9974C1.04102 5.05573 5.05768 1.03906 9.99935 1.03906C14.941 1.03906 18.9577 5.05573 18.9577 9.9974C18.9577 14.9391 14.941 18.9557 9.99935 18.9557ZM9.99935 2.28906C5.74935 2.28906 2.29102 5.7474 2.29102 9.9974C2.29102 14.2474 5.74935 17.7057 9.99935 17.7057C14.2493 17.7057 17.7077 14.2474 17.7077 9.9974C17.7077 5.7474 14.2493 2.28906 9.99935 2.28906Z"
+          fill="currentColor"/>
+      </svg>,
+      urlStartsWith: "/manage-requests",
+      kids: [
+        {
+          itemTitle: "Мои заявки",
+          itemLink: "/manage-requests/my-requests",
+        },
+        {
+          itemTitle: "Мои отклики",
+          itemLink: "/manage-requests/my-responses",
+        }
+      ],
+    },
+    {
+      title: "Чат",
+      icon: <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M13.3333 18.9583H6.66667C1.875 18.9583 1.875 16.4167 1.875 14.1667V13.3333C1.875 11.475 1.875 9.375 5.83333 9.375C6.825 9.375 7.19167 9.61667 7.70833 10C7.73333 10.025 7.76667 10.0417 7.79167 10.075L8.64167 10.975C9.35833 11.7333 10.6583 11.7333 11.375 10.975L12.225 10.075C12.25 10.05 12.275 10.025 12.3083 10C12.825 9.60833 13.1917 9.375 14.1833 9.375C18.1417 9.375 18.1417 11.475 18.1417 13.3333V14.1667C18.125 17.35 16.5167 18.9583 13.3333 18.9583ZM5.83333 10.625C3.125 10.625 3.125 11.475 3.125 13.3333V14.1667C3.125 16.45 3.125 17.7083 6.66667 17.7083H13.3333C15.8167 17.7083 16.875 16.65 16.875 14.1667V13.3333C16.875 11.475 16.875 10.625 14.1667 10.625C13.5667 10.625 13.4417 10.7 13.0833 10.9667L12.275 11.825C11.675 12.4583 10.8667 12.8083 10 12.8083C9.13333 12.8083 8.325 12.4583 7.725 11.825L6.91667 10.9667C6.55833 10.7 6.43333 10.625 5.83333 10.625Z"
+          fill="currentColor"/>
+        <path
+          d="M15.8327 10.6224C15.491 10.6224 15.2077 10.3391 15.2077 9.9974V4.9974C15.2077 3.13906 15.2077 2.28906 12.4993 2.28906H7.49935C4.79102 2.28906 4.79102 3.13906 4.79102 4.9974V9.9974C4.79102 10.3391 4.50768 10.6224 4.16602 10.6224C3.82435 10.6224 3.54102 10.3391 3.54102 9.9974V4.9974C3.54102 3.13906 3.54102 1.03906 7.49935 1.03906H12.4993C16.4577 1.03906 16.4577 3.13906 16.4577 4.9974V9.9974C16.4577 10.3391 16.1743 10.6224 15.8327 10.6224Z"
+          fill="currentColor"/>
+        <path
+          d="M11.566 8.32031H8.79102C8.44935 8.32031 8.16602 8.03698 8.16602 7.69531C8.16602 7.35365 8.44935 7.07031 8.79102 7.07031H11.566C11.9077 7.07031 12.191 7.35365 12.191 7.69531C12.191 8.03698 11.916 8.32031 11.566 8.32031Z"
+          fill="currentColor"/>
+        <path
+          d="M12.2663 5.82031H8.09961C7.75794 5.82031 7.47461 5.53698 7.47461 5.19531C7.47461 4.85365 7.75794 4.57031 8.09961 4.57031H12.2663C12.6079 4.57031 12.8913 4.85365 12.8913 5.19531C12.8913 5.53698 12.6163 5.82031 12.2663 5.82031Z"
+          fill="currentColor"/>
+      </svg>,
+      urlStartsWith: "/chat",
+      kids: null,
+    },
+
+    {
+      title: "Настройки",
+      icon: <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clipPath="url(#clip0_4886_40021)">
+          <path
+            d="M10.0007 12.5026C11.3814 12.5026 12.5007 11.3833 12.5007 10.0026C12.5007 8.62189 11.3814 7.5026 10.0007 7.5026C8.61994 7.5026 7.50065 8.62189 7.50065 10.0026C7.50065 11.3833 8.61994 12.5026 10.0007 12.5026Z"
+            stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <path
+            d="M16.1673 12.5026C16.0564 12.754 16.0233 13.0328 16.0723 13.3031C16.1213 13.5734 16.2502 13.8229 16.4423 14.0193L16.4923 14.0693C16.6473 14.2241 16.7702 14.4079 16.8541 14.6102C16.938 14.8125 16.9811 15.0294 16.9811 15.2484C16.9811 15.4675 16.938 15.6843 16.8541 15.8867C16.7702 16.089 16.6473 16.2728 16.4923 16.4276C16.3375 16.5826 16.1537 16.7055 15.9514 16.7894C15.7491 16.8732 15.5322 16.9164 15.3132 16.9164C15.0941 16.9164 14.8772 16.8732 14.6749 16.7894C14.4726 16.7055 14.2888 16.5826 14.134 16.4276L14.084 16.3776C13.8876 16.1855 13.6381 16.0566 13.3678 16.0076C13.0975 15.9586 12.8187 15.9917 12.5673 16.1026C12.3208 16.2082 12.1106 16.3836 11.9626 16.6072C11.8145 16.8308 11.7351 17.0928 11.734 17.3609V17.5026C11.734 17.9446 11.5584 18.3686 11.2458 18.6811C10.9333 18.9937 10.5093 19.1693 10.0673 19.1693C9.62529 19.1693 9.20137 18.9937 8.88881 18.6811C8.57625 18.3686 8.40065 17.9446 8.40065 17.5026V17.4276C8.3942 17.1518 8.30492 16.8843 8.14441 16.6599C7.9839 16.4354 7.7596 16.2645 7.50065 16.1693C7.2493 16.0583 6.97049 16.0253 6.70016 16.0743C6.42983 16.1233 6.18038 16.2522 5.98398 16.4443L5.93398 16.4943C5.7792 16.6492 5.59538 16.7722 5.39305 16.856C5.19072 16.9399 4.97384 16.9831 4.75482 16.9831C4.53579 16.9831 4.31891 16.9399 4.11658 16.856C3.91425 16.7722 3.73044 16.6492 3.57565 16.4943C3.42069 16.3395 3.29776 16.1557 3.21388 15.9533C3.13001 15.751 3.08684 15.5341 3.08684 15.3151C3.08684 15.0961 3.13001 14.8792 3.21388 14.6769C3.29776 14.4745 3.42069 14.2907 3.57565 14.1359L3.62565 14.0859C3.81777 13.8895 3.94664 13.6401 3.99565 13.3698C4.04467 13.0994 4.01158 12.8206 3.90065 12.5693C3.79502 12.3228 3.61961 12.1126 3.39604 11.9645C3.17246 11.8165 2.91047 11.737 2.64232 11.7359H2.50065C2.05862 11.7359 1.6347 11.5603 1.32214 11.2478C1.00958 10.9352 0.833984 10.5113 0.833984 10.0693C0.833984 9.62724 1.00958 9.20332 1.32214 8.89076C1.6347 8.5782 2.05862 8.4026 2.50065 8.4026H2.57565C2.85148 8.39615 3.11899 8.30687 3.3434 8.14636C3.56781 7.98586 3.73875 7.76155 3.83398 7.5026C3.94491 7.25126 3.978 6.97244 3.92899 6.70211C3.87997 6.43178 3.7511 6.18234 3.55898 5.98594L3.50898 5.93594C3.35402 5.78115 3.23109 5.59733 3.14722 5.395C3.06334 5.19267 3.02017 4.9758 3.02017 4.75677C3.02017 4.53775 3.06334 4.32087 3.14722 4.11854C3.23109 3.91621 3.35402 3.73239 3.50898 3.5776C3.66377 3.42264 3.84759 3.29971 4.04992 3.21584C4.25225 3.13196 4.46913 3.08879 4.68815 3.08879C4.90718 3.08879 5.12405 3.13196 5.32639 3.21584C5.52872 3.29971 5.71253 3.42264 5.86732 3.5776L5.91732 3.6276C6.11372 3.81972 6.36316 3.94859 6.63349 3.99761C6.90382 4.04662 7.18264 4.01353 7.43398 3.9026H7.50065C7.74713 3.79697 7.95733 3.62157 8.1054 3.39799C8.25346 3.17442 8.33292 2.91243 8.33398 2.64427V2.5026C8.33398 2.06058 8.50958 1.63665 8.82214 1.32409C9.1347 1.01153 9.55862 0.835938 10.0007 0.835938C10.4427 0.835938 10.8666 1.01153 11.1792 1.32409C11.4917 1.63665 11.6673 2.06058 11.6673 2.5026V2.5776C11.6684 2.84576 11.7478 3.10775 11.8959 3.33133C12.044 3.5549 12.2542 3.7303 12.5007 3.83594C12.752 3.94687 13.0308 3.97996 13.3011 3.93094C13.5715 3.88193 13.8209 3.75305 14.0173 3.56094L14.0673 3.51094C14.2221 3.35598 14.4059 3.23305 14.6083 3.14917C14.8106 3.0653 15.0275 3.02213 15.2465 3.02213C15.4655 3.02213 15.6824 3.0653 15.8847 3.14917C16.087 3.23305 16.2709 3.35598 16.4257 3.51094C16.5806 3.66573 16.7035 3.84954 16.7874 4.05187C16.8713 4.2542 16.9145 4.47108 16.9145 4.6901C16.9145 4.90913 16.8713 5.12601 16.7874 5.32834C16.7035 5.53067 16.5806 5.71448 16.4257 5.86927L16.3757 5.91927C16.1835 6.11567 16.0547 6.36512 16.0056 6.63545C15.9566 6.90578 15.9897 7.18459 16.1007 7.43594V7.5026C16.2063 7.74908 16.3817 7.95929 16.6053 8.10735C16.8288 8.25541 17.0908 8.33487 17.359 8.33594H17.5007C17.9427 8.33594 18.3666 8.51153 18.6792 8.82409C18.9917 9.13665 19.1673 9.56058 19.1673 10.0026C19.1673 10.4446 18.9917 10.8686 18.6792 11.1811C18.3666 11.4937 17.9427 11.6693 17.5007 11.6693H17.4257C17.1575 11.6703 16.8955 11.7498 16.6719 11.8979C16.4484 12.0459 16.273 12.2561 16.1673 12.5026Z"
+            stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </g>
+        <defs>
+          <clipPath id="clip0_4886_40021">
+            <rect width="20" height="20" fill="white"/>
+          </clipPath>
+        </defs>
+      </svg>,
+      urlStartsWith: "/settings",
+      kids: null,
+    },
+  ]
+
 
   return (
 
@@ -157,125 +173,21 @@ const MobileMenuLk = ({showCloseBtn, setShowCloseBtn}) => {
       </button>
 
       {isDropdownOpen && (
-        <div className={s.underlay} onClick={underlayClickHandler}>
-          <div className={s.dropWrapper} onClick={dropdownClickHandler}>
-            <div className={s.dropdown}>
-              <div className={s.menuHeader}>
-                <h4 className={s.menuTitle}>Меню</h4>
-              </div>
-
-              <div className={s.menuSection}>
-                <h5 className={s.sectionHeader}>
-                  <img src={lkIcon} alt="userIcon"/>
-                  <span>Личный кабинет</span>
-                </h5>
-                <div className={s.menuItem}>
-                  <Link onClick={handleMainClick} to='lk' className={s.menuItemLink}>
-                    Главная
-                  </Link>
-                </div>
-                <div className={s.menuItem}>
-                  <Link onClick={handleOrganizationsClick} to='lk' className={s.menuItemLink}>
-                    Организации
-                  </Link>
-                </div>
-                <div className={s.menuItem}>
-                  <Link onClick={handleProfileClick} to='lk' className={s.menuItemLink}>
-                    Профиль пользователя
-                  </Link>
-                </div>
-                <div className={s.menuItem}>
-                  <Link onClick={handleSettingsClick} to='lk' className={s.menuItemLink}>
-                    Натройки аккаунта
-                  </Link>
-                </div>
-              </div>
-
-              <div className={s.menuSection}>
-                <h5 className={s.sectionHeader}>
-                  <img src={shopIcon} alt="shopIcon"/>
-                  <span>Магазин</span>
-                </h5>
-                <div className={s.menuItem}>
-                  <Link onClick={handleProductCard} to='lk/shop' className={s.menuItemLink}>
-                    Карточки товара
-                  </Link>
-                </div>
-                <div className={s.menuItem}>
-                  <Link onClick={handleShopProfile} to='lk/shop' className={s.menuItemLink}>
-                    Профиль магазина
-                  </Link>
-                </div>
-              </div>
-
-              <div className={s.menuSection}>
-                <h5 className={s.sectionHeader}>
-                  <img src={ordersIcon} alt="ordersIcon"/>
-                  <span>Заказы</span>
-                </h5>
-                <div className={s.menuItem}>
-
-                  <Link onClick={handleActiveOrdersClick} to='lk/orders' className={s.menuItemLink}>
-                    Активные заказы
-                  </Link>
-
-                </div>
-                <div className={s.menuItem}>
-
-                  <Link onClick={handleAllOrdersClick} to='lk/orders' className={s.menuItemLink}>
-                    Все заказы
-                  </Link>
-                </div>
-              </div>
-
-              <div className={s.menuSection}>
-                <h5 className={s.sectionHeader}>
-                  <img src={appIcon} alt="appIcon"/>
-                  <span>Заявки</span>
-                </h5>
-                <div className={s.menuItem}>
-                  <Link onClick={handleRequestsTab1} to='lk/requests' className={s.menuItemLink}>
-                    Управление заявками
-                  </Link>
-                </div>
-                <div className={s.menuItem}>
-                  <Link onClick={handleRequestsTab3} to='lk/requests' className={s.menuItemLink}>
-                    Принятые заявки
-                  </Link>
-                </div>
-
-                <div className={s.menuItem}>
-                  <Link onClick={handleRequestsTab4} to='#' className={s.menuItemLink}>
-                    История заявок
-                  </Link>
-                </div>
-
-                <div className={s.menuItem}>
-                  <Link onClick={handleRequestsTab5} to='#' className={s.menuItemLink}>
-                    Предложения
-                  </Link>
-                </div>
-
-                <div className={s.menuItem}>
-                  <Link onClick={handleRequestsTab6} to='#' className={s.menuItemLink}>
-                    Предложения в работе
-                  </Link>
-                </div>
-              </div>
-
-              <div className={s.menuSection}>
-                <Link to='#' className={s.sectionHeader}>
-                  <img src={settingsIcon} alt="settingsIcon"/>
-                  <span>Настройки</span>
-                </Link>
-              </div>
-
+        <div className={s.dropWrapper} onClick={dropdownClickHandler}>
+          <div className={s.dropdown}>
+            <div className={s.menuHeader}>
+              <h4 className={s.menuTitle}>Меню</h4>
             </div>
+            <ul>
+              {
+                menuItems.map((item, index) => <MobileMenuItem item={item} key={index}/>)
+              }
+            </ul>
           </div>
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
 export default MobileMenuLk;

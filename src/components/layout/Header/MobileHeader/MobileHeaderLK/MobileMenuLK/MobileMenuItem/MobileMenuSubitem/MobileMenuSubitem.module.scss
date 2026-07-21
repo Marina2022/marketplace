@@ -1,0 +1,31 @@
+@import "@/assets/styles/mixins";
+
+.subitem {
+  display: flex;
+  padding: 11px 12px;
+  gap: 14px;
+  align-items: center;
+}
+
+.indicator {
+  height: 20px;
+  width: 2px;
+  background: #E6E8EE;
+}
+
+.indicatorActive {
+  height: 20px;
+  width: 2px;
+  background: #3D4A66;
+}
+
+.itemName {
+  color: #16181D;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.arrow {
+  margin-left: auto;
+}
+

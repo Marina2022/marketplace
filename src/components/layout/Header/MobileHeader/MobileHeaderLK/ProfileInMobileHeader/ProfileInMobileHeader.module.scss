@@ -126,7 +126,9 @@
 
 .userDropdownBtn {
   height: 44px;
-  width: 236px;
+  width:96%;
+
+  max-width: 236px;
   border-radius: 100px;
   padding: 5px 6px;
   gap: 8px;

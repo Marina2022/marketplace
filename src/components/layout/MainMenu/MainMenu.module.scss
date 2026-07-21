@@ -1,6 +1,5 @@
 @import "@/assets/styles/mixins";
 
-
 .mainMenu {
   background: #1A2332;
   width: 64px;
@@ -64,4 +63,9 @@
     width: 36px;
     height: 36px;
   }
+}
+
+.bottomPart {
+  margin-top: auto;
+  margin-bottom: 16px;
 }
