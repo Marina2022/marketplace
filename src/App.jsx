@@ -38,7 +38,8 @@ function App() {
             <Route path='dashboard/profile' element={<ProtectedRoute><DashboardProfilePage/></ProtectedRoute>}/>
             <Route path='requests' element={<RequestsPage/>}/>
             <Route path='chat' element={<ProtectedRoute><ChatPage/></ProtectedRoute>}/>
-            <Route path='settings' element={<ProtectedRoute><SettingsPage/></ProtectedRoute>}/>
+            {/*<Route path='settings' element={<ProtectedRoute><SettingsPage/></ProtectedRoute>}/>*/}
+            <Route path='settings' element={<SettingsPage/>}/>
 
             {/*<Route path='/category/:category' element={<Category/>}/>*/}
             {/*<Route path='/login' element={<Auth/>}/>*/}

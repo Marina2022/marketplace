@@ -9,10 +9,16 @@ import Tabs from "@/components/layout/Tabs/Tabs.jsx";
 import {getIsLoginPopupShown} from "@/store/userSlice.js";
 import {useSelector} from "react-redux";
 import LoginPopup from "@/components/layout/LoginPopup/LoginPopup.jsx";
+import useMobileScreen from "@/hooks/useMobileScreen.js";
+import LoginMobile from "@/components/layout/Header/LoginMobile/LoginMobile.jsx";
 
 const MainLayout = () => {
 
+  const isMobile = useMobileScreen()
   const isLoginPopupOpened = useSelector(getIsLoginPopupShown)
+
+  console.log("isLoginPopupOpened = ", isLoginPopupOpened)
+
 
   return (
     <main>
@@ -36,8 +42,17 @@ const MainLayout = () => {
       </div>
       <MobileBottomMenu/>
 
+      {/*{*/}
+      {/*  isLoginPopupOpened && <LoginPopup />*/}
+      {/*}*/}
+
+
       {
-        isLoginPopupOpened && <LoginPopup />
+        isLoginPopupOpened && !isMobile && <LoginPopup />
+      }
+
+      {
+        isLoginPopupOpened && isMobile && <LoginMobile />
       }
 
     </main>

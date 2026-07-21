@@ -3,6 +3,8 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import MobileMenuSubitem
   from "@/components/layout/Header/MobileHeader/MobileHeaderLK/MobileMenuLK/MobileMenuItem/MobileMenuSubitem/MobileMenuSubitem.jsx";
+import {setIsLoginPopupOpened} from "@/store/userSlice.js";
+import {useDispatch, useSelector} from "react-redux";
 
 const MobileMenuItem = ({item}) => {
 
@@ -10,8 +12,15 @@ const MobileMenuItem = ({item}) => {
   const isActive = location.pathname.startsWith(item.urlStartsWith)
   const navigate = useNavigate()
   const [dropdownOpen, setDropdownOpen] = useState(item.kids)
+  const dispatch = useDispatch();
+  const isAuth = useSelector(state => state.user.isAuthenticated)
 
   const handleClick = () => {
+
+    if (!item.public && !isAuth ) {
+      dispatch(setIsLoginPopupOpened(true))
+      return
+    }
 
     if (!item.kids) {
       navigate(item.urlStartsWith)

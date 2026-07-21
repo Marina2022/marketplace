@@ -70,18 +70,22 @@ const MobileMenuLk = ({showCloseBtn, setShowCloseBtn}) => {
           fill="currentColor"/>
       </svg>,
       urlStartsWith: "/dashboard",
+      public: false,
       kids: [
         {
           itemTitle: "Главная",
           itemLink: "/dashboard/main",
+          public: false
         },
         {
           itemTitle: "Организации",
           itemLink: "/dashboard/organizations",
+          public: false
         },
         {
           itemTitle: "Профиль пользователя",
           itemLink: "/dashboard/profile",
+          public: false
         }
       ]
     },
@@ -94,6 +98,7 @@ const MobileMenuLk = ({showCloseBtn, setShowCloseBtn}) => {
           fill="currentColor"/>
       </svg>,
       urlStartsWith: "/favorites",
+      public: false,
       kids: null,
     },
 
@@ -111,14 +116,17 @@ const MobileMenuLk = ({showCloseBtn, setShowCloseBtn}) => {
           fill="currentColor"/>
       </svg>,
       urlStartsWith: "/manage-requests",
+      public: false,
       kids: [
         {
           itemTitle: "Мои заявки",
           itemLink: "/manage-requests/my-requests",
+          public: false
         },
         {
           itemTitle: "Мои отклики",
           itemLink: "/manage-requests/my-responses",
+          public: false
         }
       ],
     },
@@ -140,6 +148,7 @@ const MobileMenuLk = ({showCloseBtn, setShowCloseBtn}) => {
       </svg>,
       urlStartsWith: "/chat",
       kids: null,
+      public: false
     },
 
     {
@@ -161,6 +170,7 @@ const MobileMenuLk = ({showCloseBtn, setShowCloseBtn}) => {
       </svg>,
       urlStartsWith: "/settings",
       kids: null,
+      public: true
     },
   ]
 
