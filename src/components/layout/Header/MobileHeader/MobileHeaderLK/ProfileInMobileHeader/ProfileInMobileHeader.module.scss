@@ -46,7 +46,7 @@
   position: fixed;
   left: 0;
   top: 72px;
-  height: calc(100vh - 56px - 72px);
+  height: calc(var(--vh)*100 - 56px - 72px);
   width: 100%;
 }
 
