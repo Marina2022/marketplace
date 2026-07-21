@@ -60,6 +60,7 @@ const ProfileInMobileHeader = ({setShowCloseBtn}) => {
   const dispatch = useDispatch()
   const logoutHandler = () => {
     dispatch(logout())
+    setShowCloseBtn(false);
   }
 
   const profileItemClickHandler = (profileId) => {
