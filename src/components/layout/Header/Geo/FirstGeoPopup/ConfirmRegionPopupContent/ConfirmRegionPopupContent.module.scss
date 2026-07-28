@@ -1,0 +1,36 @@
+@import "@/assets/styles/mixins";
+
+.header {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.icon {
+  width: 39px;
+  height: 39px;
+  border-radius: 4px;
+  background-color: #1B2233;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #000;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.blackBtn {
+  width: 100%!important;
+}
+
+.grayBtn {
+  width: 100%!important;
+}

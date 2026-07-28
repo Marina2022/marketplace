@@ -4,12 +4,10 @@ import chatIcon from "@/assets/img/header/userMenu/chat.svg";
 import ProfileInMobileHeader
   from "@/components/layout/Header/MobileHeader/MobileHeaderLK/ProfileInMobileHeader/ProfileInMobileHeader.jsx";
 import MobileMenuLK from "@/components/layout/Header/MobileHeader/MobileHeaderLK/MobileMenuLK/MobileMenuLK.jsx";
-import {useState} from "react";
 import {useSelector} from "react-redux";
 
 const MobileHeaderLk = () => {
 
-  const [showCloseBtn, setShowCloseBtn] = useState(false);
   const isAuth = useSelector(state => state.user.isAuthenticated)
 
   return (
@@ -19,7 +17,7 @@ const MobileHeaderLk = () => {
 
           {
             isAuth && (
-              <ProfileInMobileHeader setShowCloseBtn={setShowCloseBtn}/>
+              <ProfileInMobileHeader/>
             )
           }
 
@@ -34,7 +32,7 @@ const MobileHeaderLk = () => {
             }
 
             <div className={s.burgerBtn}>
-              <MobileMenuLK showCloseBtn={showCloseBtn} setShowCloseBtn={setShowCloseBtn}/>
+              <MobileMenuLK/>
             </div>
           </div>
         </div>

@@ -1,8 +1,10 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "@/api/axiosInstance.js";
+import axiosInstance from "@/api/axiosInstance.js";
 // import {loadCart} from "@/store/cartSlice.js";
 // import {loadFavs} from "@/store/favSlice.js";
 import {loadActiveOrders} from "@/store/ordersSlice.js";
+import {loadGeoContext} from "@/store/geoSlice.js";
 
 export const getUserCompanies = createAsyncThunk('cart/getUserCompanies', async (_, thunkAPI) => {
 
@@ -63,8 +65,21 @@ export const getUser = createAsyncThunk('cart/getUser', async (_, thunkAPI) => {
       //   console.log('Ошибка при обединении Избранного')
       // }
 
+      // при логине -  отправка regionId из LS (если оно там есть)
+      const regionIdFromLS = localStorage.getItem("regionId")
+      if (regionIdFromLS) {
+
+        try {
+          await axiosInstance.post('/geo/confirm', {regionId: regionIdFromLS})
+        } catch (err) {
+          console.error(err)
+        }
+        localStorage.removeItem("regionId")
+      }
+
       thunkAPI.dispatch(setUser(resp.data))
       thunkAPI.dispatch(setIsAuthenticated(true))
+      thunkAPI.dispatch(loadGeoContext())
 
       // thunkAPI.dispatch(getUserProfiles())
       // thunkAPI.dispatch(loadCart())
@@ -120,6 +135,9 @@ export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
   thunkAPI.dispatch(setUser(null))
   thunkAPI.dispatch(setUserProfiles(null))
   thunkAPI.dispatch(setIsAuthenticated(false))
+
+  thunkAPI.dispatch(loadGeoContext())
+
   // временно убираем
   // thunkAPI.dispatch(loadCart())
   // thunkAPI.dispatch(loadFavs())

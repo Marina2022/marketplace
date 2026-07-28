@@ -4,8 +4,9 @@ import {getActiveProfileId, getUserProfilesData, logout, setActiveProfileId} fro
 import {useEffect, useRef, useState} from "react";
 import {useLocation} from "react-router-dom";
 import closeBtn from "@/assets/img/header/mobileMenu/closeBtnNew.svg";
+import {setShowCloseBtn} from "@/store/mobileMenuSlice.js";
 
-const ProfileInMobileHeader = ({setShowCloseBtn}) => {
+const ProfileInMobileHeader = () => {
 
   const userProfiles = useSelector(getUserProfilesData);
   const activeProfileId = useSelector(getActiveProfileId);
@@ -13,11 +14,13 @@ const ProfileInMobileHeader = ({setShowCloseBtn}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const userDropdownWrapperRef = useRef();
 
+  const dispatch = useDispatch()
+
   useEffect(() => {
     if (isDropdownOpen) {
-      setShowCloseBtn(true);
+      dispatch(setShowCloseBtn(true))
     } else {
-      setShowCloseBtn(false);
+      dispatch(setShowCloseBtn(false))
     }
   }, [isDropdownOpen]);
 
@@ -57,7 +60,7 @@ const ProfileInMobileHeader = ({setShowCloseBtn}) => {
     letter = activeProfile?.displayName?.slice(0, 1) || "-"
   }
 
-  const dispatch = useDispatch()
+
   const logoutHandler = () => {
     dispatch(logout())
     setShowCloseBtn(false);

@@ -5,12 +5,14 @@ import {useLocation} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 import MobileMenuItem
   from "@/components/layout/Header/MobileHeader/MobileHeaderLK/MobileMenuLK/MobileMenuItem/MobileMenuItem.jsx";
+import {useDispatch, useSelector} from "react-redux";
+import {getShowCloseBtn, setShowCloseBtn} from "@/store/mobileMenuSlice.js";
 
 
-const MobileMenuLk = ({showCloseBtn, setShowCloseBtn}) => {
-
+const MobileMenuLk = () => {
+  const dispatch = useDispatch()
   const location = useLocation();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(true); // todo поменяй
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     setIsDropdownOpen(false);
@@ -23,9 +25,10 @@ const MobileMenuLk = ({showCloseBtn, setShowCloseBtn}) => {
 
   useEffect(() => {
     if (isDropdownOpen) {
-      setShowCloseBtn(true)
+      dispatch(setShowCloseBtn(true))
+
     } else {
-      setShowCloseBtn(false)
+      dispatch(setShowCloseBtn(false))
     }
 
   }, [isDropdownOpen]);
@@ -174,6 +177,7 @@ const MobileMenuLk = ({showCloseBtn, setShowCloseBtn}) => {
     },
   ]
 
+  const showCloseBtn = useSelector(getShowCloseBtn)
 
   return (
 

@@ -1,0 +1,24 @@
+@import "@/assets/styles/mixins";
+
+.popup {
+  padding: 14px;
+  top: 82px;
+  left: 78px;
+  width: 328px;
+  min-height: 125px;
+  transform: translate(0);
+  height: unset;
+  box-shadow: 0 2px 8px 0 #E8EAED;
+
+  @include t {
+    left: 62px;
+  }
+
+  @include m {
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100vw - 40px);
+    max-width: 460px;
+  }
+}

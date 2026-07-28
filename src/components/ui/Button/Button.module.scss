@@ -26,3 +26,69 @@
     cursor: unset;
   }
 }
+
+
+.blackBtn {
+  width: 205px;
+  height: 36px;
+  padding: 10px 20px;
+  background: #1B2233;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s ease-in-out;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 500;
+
+  @media (hover: hover) {
+    &:hover {
+      background: #262F44;
+    }
+  }
+
+  &:active {
+    background: #141A28;
+  }
+
+  &:disabled {
+    background: #D5D8DD;
+    color: #F3F4F6;
+    cursor: unset;
+  }
+}
+
+.greyBtn {
+  width: 200px;
+  height: 36px;
+  padding: 10px 20px;
+  background: #F6F7F9;
+  border: 1px solid #E6E8EE;
+  color: #0F1822;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s ease-in-out;
+  border-radius: 4px;
+  white-space: nowrap;
+
+  @media (hover: hover) {
+    &:hover {
+      background: #EDEFF2;
+    }
+  }
+
+  &:active {
+    background: #D5DAE0;
+  }
+
+  &:disabled {
+    background: #FFFFFF;
+    color: #EDEEF0;
+    cursor: unset;
+  }
+}

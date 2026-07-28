@@ -18,7 +18,8 @@
   transform: translate(-50%, -50%);
   overflow: auto;  
   border: 1px solid #F0F1F1;
-  padding: 51px 57px;  
+  padding: 51px 57px;
+  border-radius: 14px;
   
   @include m {
     padding-bottom: 66px;

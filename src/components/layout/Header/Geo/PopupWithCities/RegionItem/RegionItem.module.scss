@@ -1,0 +1,41 @@
+@import "@/assets/styles/mixins";
+
+.regionItem {
+  display: flex;
+  height: 38px;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #16181D;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 98%;
+
+  @media (hover: hover) {
+    &:hover {
+      background: #FBFBFC;
+    }
+  }
+
+  @include m {
+    width: 99%;
+  }
+
+  @include xs {
+    width: 98%;
+  }
+}
+
+.regionItemActive {
+  background-color: #ECEFF5;
+
+  @media (hover: hover) {
+    &:hover {
+      background: #ECEFF5;
+    }
+  }
+}
+
+.activeIndicator {
+  margin-left: auto;
+}

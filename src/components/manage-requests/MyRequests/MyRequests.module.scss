@@ -83,11 +83,10 @@
 
   @include m {
     max-height: unset;
-  }
-
-  @include m {
     padding-inline: 16px;
   }
+
+
 }
 
 .contentWrapperRightPanelOpen {

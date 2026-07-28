@@ -17,6 +17,13 @@ export const injectStore = (store) => {
 axios.interceptors.request.use((request) => {
   const token = localStorage.getItem('token');
   const profileId = localStorage.getItem('activeProfile');
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  request.headers['X-Client-Timezone'] = timezone;          // все, всегда
+
+  const regionId = localStorage.getItem('regionId');
+  if (regionId) request.headers['X-User-Region'] = regionId; // только анонимы
+
   if (token) {
     request.headers["authorization"] = `Bearer ${token}`;
   }

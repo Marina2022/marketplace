@@ -11,14 +11,19 @@ import {useSelector} from "react-redux";
 import LoginPopup from "@/components/layout/LoginPopup/LoginPopup.jsx";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
 import LoginMobile from "@/components/layout/Header/LoginMobile/LoginMobile.jsx";
+import {getIsFirstGeoPopupOpen, getIsPopupWithCitiesOpen} from "@/store/geoSlice.js";
+import FirstGeoPopup from "@/components/layout/Header/Geo/FirstGeoPopup/FirstGeoPopup.jsx";
+import PopupWithCities from "@/components/layout/Header/Geo/PopupWithCities/PopupWithCities.jsx";
 
 const MainLayout = () => {
 
   const isMobile = useMobileScreen()
   const isLoginPopupOpened = useSelector(getIsLoginPopupShown)
 
-  console.log("isLoginPopupOpened = ", isLoginPopupOpened)
+  const isFirstGeoPopupOpen = useSelector(getIsFirstGeoPopupOpen)
+  const isPopupWithCitiesOpen = useSelector(getIsPopupWithCitiesOpen)
 
+  console.log({isFirstGeoPopupOpen, isPopupWithCitiesOpen})
 
   return (
     <main>
@@ -42,17 +47,20 @@ const MainLayout = () => {
       </div>
       <MobileBottomMenu/>
 
-      {/*{*/}
-      {/*  isLoginPopupOpened && <LoginPopup />*/}
-      {/*}*/}
-
-
       {
         isLoginPopupOpened && !isMobile && <LoginPopup />
       }
 
       {
         isLoginPopupOpened && isMobile && <LoginMobile />
+      }
+
+      {
+        isFirstGeoPopupOpen && <FirstGeoPopup />
+      }
+
+      {
+        isPopupWithCitiesOpen && <PopupWithCities />
       }
 
     </main>

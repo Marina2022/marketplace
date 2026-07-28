@@ -9,6 +9,7 @@ import {useEffect, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import MobileHeaderLk from "@/components/layout/Header/MobileHeader/MobileHeaderLK/MobileHeaderLK.jsx";
 import UserBalance from "@/components/layout/Header/UserBalance/UserBalance.jsx";
+import Geo from "@/components/layout/Header/Geo/Geo.jsx";
 
 const Header = () => {
 
@@ -68,7 +69,11 @@ const Header = () => {
   return (
     <header className={s.header}>
       <div className={s.wrapper}>
-        <div className={s.geoWrapper}>Geo</div>
+        <div className={s.geoWrapper}>
+
+          <Geo />
+
+        </div>
         <HeaderSearch/>
 
         <div className={s.userMenu}>

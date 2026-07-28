@@ -12,9 +12,10 @@ import lkSlice from "@/store/lkSlice.js";
 import ordersSlice from "@/store/ordersSlice.js";
 import lkShopSlice from "@/store/lkShopSlice.js";
 import requestsSlice from "@/store/requestsSlice.js";
-import { injectStore } from "@/api/axiosInstance.js";
-import tabsSlice, {setTabs} from "@/store/tabsSlice.js";
-import {tabLabels} from "@/components/layout/Tabs/tabUtils.js";
+import {injectStore} from "@/api/axiosInstance.js";
+import tabsSlice from "@/store/tabsSlice.js";
+import mobileMenuSlice from "@/store/mobileMenuSlice.js";
+import geoSlice, {loadGeoContext, loadRegions}  from "@/store/geoSlice.js";
 
 export const store = configureStore({
       reducer: {        
@@ -28,13 +29,17 @@ export const store = configureStore({
         shop: lkShopSlice,
         requests: requestsSlice,
         tabs: tabsSlice,
+        geo: geoSlice,
+        mobileMenu: mobileMenuSlice
       }
     }
 )
 
 injectStore(store);
-
 store.dispatch(getUser())
+
+store.dispatch(loadGeoContext())
+store.dispatch(loadRegions())
 
 
 // store.dispatch(loadReviewLikes())
