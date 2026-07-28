@@ -35,10 +35,8 @@ export const store = configureStore({
     }
 )
 
-injectStore(store);
-store.dispatch(getUser())
-
-store.dispatch(loadGeoContext())
+injectStore(store)
+store.dispatch(getUser())  // geoContext подгружается в getUser
 store.dispatch(loadRegions())
 
 
