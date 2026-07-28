@@ -6,8 +6,6 @@ const Geo = () => {
 
   const geoContext = useSelector(getContext)
 
-  console.log("geoContext = ", geoContext)
-
   const dispatch = useDispatch()
 
   const handleClick = () => {

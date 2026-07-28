@@ -2,17 +2,27 @@ import s from './MobileMenuLK.module.scss';
 import hamburger from "@/assets/img/header/hamburger.svg";
 import closeBtn from "@/assets/img/header/mobileMenu/closeBtnNew.svg";
 import {useLocation} from "react-router-dom";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import MobileMenuItem
   from "@/components/layout/Header/MobileHeader/MobileHeaderLK/MobileMenuLK/MobileMenuItem/MobileMenuItem.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {getShowCloseBtn, setShowCloseBtn} from "@/store/mobileMenuSlice.js";
+import {
+  getIsFirstGeoPopupOpen,
+  getIsPopupWithCitiesOpen,
+  setIsFirstGeoPopupOpen,
+  setIsPopupWithCitiesOpen
+} from "@/store/geoSlice.js";
+import {getIsProfileDropdownOpened, setIsProfileDropdownOpened} from "@/store/userSlice.js";
 
 
 const MobileMenuLk = () => {
   const dispatch = useDispatch()
   const location = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const isPopupWithCitiesOpen = useSelector(getIsPopupWithCitiesOpen)
+  const isFirstGeoPopupOpen = useSelector(getIsFirstGeoPopupOpen)
+  const isProfileDropdownOpen = useSelector(getIsProfileDropdownOpened)
 
   useEffect(() => {
     setIsDropdownOpen(false);
@@ -25,38 +35,50 @@ const MobileMenuLk = () => {
 
   useEffect(() => {
     if (isDropdownOpen) {
-      dispatch(setShowCloseBtn(true))
+      setShowCloseBtn(true)
 
     } else {
-      dispatch(setShowCloseBtn(false))
+      setShowCloseBtn(false)
     }
 
   }, [isDropdownOpen]);
 
 
-  const userDropdownWrapperRef = useRef();
+  const handleHamburgerBtnClick = () => {
+    setIsDropdownOpen(true)
+    setShowCloseBtn(false)
+  }
+
+  const handleCloseBtnClick = () => {
+    if (isDropdownOpen) {
+      setIsDropdownOpen(false)
+      setShowCloseBtn(false)
+    }
+
+    // собираем закрывалки для всех мобильных менюшек/попапов
+    if (isPopupWithCitiesOpen) {
+      dispatch(setIsPopupWithCitiesOpen(false))
+    }
+
+    if (isProfileDropdownOpen) {
+      dispatch(setIsProfileDropdownOpened(false))
+    }
+
+    if (isFirstGeoPopupOpen) {
+      dispatch(setIsFirstGeoPopupOpen(false))
+    }
+
+    setShowCloseBtn(false)
+  }
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        userDropdownWrapperRef.current &&
-        !userDropdownWrapperRef.current.contains(event.target)
-      ) {
-        setIsDropdownOpen(false);
-      }
-    };
+    if (isPopupWithCitiesOpen || isFirstGeoPopupOpen || isProfileDropdownOpen || isDropdownOpen ) {  /// или какое-либо другое мобильное меню, добавить - todo
+      setShowCloseBtn(true)
+    } else {
+      setShowCloseBtn(false)
+    }
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-
-  const handleMenuClick = (e) => {
-     e.stopPropagation()
-     setIsDropdownOpen(prev => !prev)
-  }
+  }, [isPopupWithCitiesOpen, isFirstGeoPopupOpen, isProfileDropdownOpen, isDropdownOpen]);
 
   const menuItems = [
     {
@@ -176,15 +198,23 @@ const MobileMenuLk = () => {
       public: true
     },
   ]
-
-  const showCloseBtn = useSelector(getShowCloseBtn)
+  const [showCloseBtn, setShowCloseBtn] = useState(false)
 
   return (
 
-    <div className={s.userDropdownWrapper} ref={userDropdownWrapperRef}>
-      <button className={s.hamburgerBtn} onClick={handleMenuClick}>
-        <img src={showCloseBtn ? closeBtn : hamburger} alt="menu"/>
-      </button>
+    <div className={s.userDropdownWrapper}>
+
+      {
+        showCloseBtn && (
+          <button className={s.closeBtn} onClick={handleCloseBtnClick}><img src={closeBtn} alt="close"/></button>
+        )
+      }
+
+      {
+        !showCloseBtn && (
+          <button className={s.hamburgerBtn} onClick={handleHamburgerBtnClick}><img src={hamburger} alt="menu"/></button>
+        )
+      }
 
       {isDropdownOpen && (
         <div className={s.dropWrapper} onClick={dropdownClickHandler}>

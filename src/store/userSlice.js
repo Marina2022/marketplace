@@ -154,7 +154,8 @@ const initialState = {
   getUserStatus: 'loading',
   activeProfileId: null,
   profilesInDropdownAreShown: true,
-  isLoginPopupOpened: false
+  isLoginPopupOpened: false,
+  isProfileDropdownOpened: false,
 }
 
 const userSlice = createSlice({
@@ -178,6 +179,9 @@ const userSlice = createSlice({
     },
     setIsLoginPopupOpened: (state, action) => {
       state.isLoginPopupOpened = action.payload
+    },
+    setIsProfileDropdownOpened: (state, action) => {
+      state.isProfileDropdownOpened = action.payload
     }
   },
   extraReducers: builder => builder
@@ -241,7 +245,8 @@ export const {
   setUserProfiles,
   setActiveProfileId,
   setProfilesInDropdownAreShown,
-  setIsLoginPopupOpened
+  setIsLoginPopupOpened,
+  setIsProfileDropdownOpened
 } = userSlice.actions
 export const getIsAuthenticated = state => state.user.isAuthenticated
 export const getUserData = state => state.user.user
@@ -251,4 +256,5 @@ export const getUserProfilesData = state => state.user.userProfiles
 export const getActiveProfileId = state => state.user.activeProfileId
 export const getProfilesInDropdownAreShown = state => state.user.profilesInDropdownAreShown
 export const getIsLoginPopupShown = state => state.user.isLoginPopupOpened
+export const getIsProfileDropdownOpened = state => state.user.isProfileDropdownOpened
 export default userSlice.reducer

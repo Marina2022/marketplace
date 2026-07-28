@@ -11,7 +11,6 @@
   position: fixed;
   left: 0;
   top: 72px;
-
   height: calc(100vh - 72px);
   overflow-y: auto;
   border-top: 1px solid #E8EAED;
@@ -20,8 +19,16 @@
   padding-inline: 16px;
 }
 
-
-
+.closeBtn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  cursor: pointer;
+  z-index: 100;
+  position: relative;
+}
 
 .hamburgerBtn {
   width: 36px;
@@ -30,6 +37,9 @@
   align-items: center;
   justify-content: right;
   cursor: pointer;
+  z-index: 100;
+  position: relative;
+  right: 6px;
 }
 
 .menuHeader {

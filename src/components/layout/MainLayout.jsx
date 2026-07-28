@@ -23,8 +23,6 @@ const MainLayout = () => {
   const isFirstGeoPopupOpen = useSelector(getIsFirstGeoPopupOpen)
   const isPopupWithCitiesOpen = useSelector(getIsPopupWithCitiesOpen)
 
-  console.log({isFirstGeoPopupOpen, isPopupWithCitiesOpen})
-
   return (
     <main>
       <div className={s.layoutDesk}>

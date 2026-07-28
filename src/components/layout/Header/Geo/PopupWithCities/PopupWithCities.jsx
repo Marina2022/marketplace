@@ -1,18 +1,11 @@
 import s from './PopupWithCities.module.scss';
 import Popup from "@/components/ui/Popup/Popup.jsx";
-import {
-  getContext,
-  getIsPopupWithCitiesOpen,
-  getRegions,
-  loadGeoContext, setIsFirstGeoPopupOpen,
-  setIsPopupWithCitiesOpen
-} from "@/store/geoSlice.js";
+import {getContext, getRegions, loadGeoContext, setIsPopupWithCitiesOpen} from "@/store/geoSlice.js";
 import {useDispatch, useSelector} from "react-redux";
-import {useCallback, useEffect, useState} from "react";
+import {useState} from "react";
 import RegionItem from "@/components/layout/Header/Geo/PopupWithCities/RegionItem/RegionItem.jsx";
 import closeIcon from "@/assets/img/cart/closeSearch.svg"
 import {getIsAuthenticated} from "@/store/userSlice.js";
-import {getShowCloseBtn, setShowCloseBtn} from "@/store/mobileMenuSlice.js";
 import axiosInstance from "@/api/axiosInstance.js";
 
 const PopupWithCities = () => {
@@ -24,46 +17,26 @@ const PopupWithCities = () => {
   const setIsPopupOpen = () => {
     dispatch(setIsPopupWithCitiesOpen(false));
   }
-
-  const isPopupWithCitiesOpen = useSelector(getIsPopupWithCitiesOpen)
-
-  useEffect(() => {
-    return () => {
-      dispatch(setShowCloseBtn(false))
-    }
-  }, []);
-
-  useEffect(() => {
-
-    if (isPopupWithCitiesOpen) {
-      dispatch(setShowCloseBtn(true))
-    } else {
-      dispatch(setShowCloseBtn(false))
-    }
-  }, [isPopupWithCitiesOpen]);
-
-
   const [inputValue, setInputValue] = useState("")
 
   const regions = useSelector(getRegions)
   const geoContext = useSelector(getContext)
-
   const currentRegion = geoContext.savedRegion
 
   const filteredRegions = regions?.filter(r =>
     r.name.toLowerCase().includes(inputValue.toLowerCase())
   ) || [];
 
-  const defineRegion = async(region) => {
+  const defineRegion = async (region) => {
 
     if (isAuthenticated) {
-        try {
-          await axiosInstance.put('/geo/region', {regionId: region.regionId})
-          dispatch(loadGeoContext())
-          dispatch(setIsPopupWithCitiesOpen(false))
-        } catch (err) {
-          console.error(err)
-        }
+      try {
+        await axiosInstance.put('/geo/region', {regionId: region.regionId})
+        dispatch(loadGeoContext())
+        dispatch(setIsPopupWithCitiesOpen(false))
+      } catch (err) {
+        console.error(err)
+      }
     }
 
     if (!isAuthenticated) {
@@ -80,9 +53,8 @@ const PopupWithCities = () => {
   }
 
   return (
-    <Popup setIsPopupOpen={setIsPopupOpen} popupClassName={s.popup} underlay={false}>
+    <Popup closeOnClickOutside={false} setIsPopupOpen={setIsPopupOpen} popupClassName={s.popup} underlay={false}>
       <div className={s.title}>Выберите регион</div>
-
       <div className={s.inputWrapper}>
         <input
           placeholder="Город или область"
@@ -93,10 +65,9 @@ const PopupWithCities = () => {
           onKeyDown={handleKeyDown}
           className={s.input}
         />
-
         {
           inputValue === "" ? (
-              <svg  className={s.searchIcon} width="14" height="14" viewBox="0 0 14 14" fill="none"
+              <svg className={s.searchIcon} width="14" height="14" viewBox="0 0 14 14" fill="none"
                    xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M7.07722 13.381C3.6003 13.381 0.769531 10.5502 0.769531 7.07331C0.769531 3.59639 3.6003 0.765625 7.07722 0.765625C10.5541 0.765625 13.3849 3.59639 13.3849 7.07331C13.3849 10.5502 10.5541 13.381 7.07722 13.381ZM7.07722 1.6887C4.10491 1.6887 1.69261 4.10716 1.69261 7.07331C1.69261 10.0395 4.10491 12.4579 7.07722 12.4579C10.0495 12.4579 12.4618 10.0395 12.4618 7.07331C12.4618 4.10716 10.0495 1.6887 7.07722 1.6887Z"
@@ -106,11 +77,9 @@ const PopupWithCities = () => {
                   fill="#658092"/>
               </svg>
             )
-            : <img onClick={()=>setInputValue("")} className={s.closeIcon} src={closeIcon} alt="close"/>
+            : <img onClick={() => setInputValue("")} className={s.closeIcon} src={closeIcon} alt="close"/>
         }
-
       </div>
-
       <ul className={s.regions}>
         {
           filteredRegions.map((region) => (
@@ -123,9 +92,8 @@ const PopupWithCities = () => {
           ))
         }
       </ul>
-
     </Popup>
   )
-};
+}
 
 export default PopupWithCities;

@@ -5,6 +5,7 @@ import axios from "@/api/axiosInstance.js";
 export const loadGeoContext = createAsyncThunk(
   'geo/loadContext',
   async (_, {rejectWithValue}) => {
+
     try {
       const resp = await axios("geo/context");
       return resp.data;

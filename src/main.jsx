@@ -15,7 +15,7 @@ import requestsSlice from "@/store/requestsSlice.js";
 import {injectStore} from "@/api/axiosInstance.js";
 import tabsSlice from "@/store/tabsSlice.js";
 import mobileMenuSlice from "@/store/mobileMenuSlice.js";
-import geoSlice, {loadGeoContext, loadRegions}  from "@/store/geoSlice.js";
+import geoSlice, {loadRegions}  from "@/store/geoSlice.js";
 
 export const store = configureStore({
       reducer: {        
@@ -43,9 +43,7 @@ store.dispatch(loadRegions())
 // store.dispatch(loadReviewLikes())
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    // <React.StrictMode>
     <Provider store={store}>
       <App/>
     </Provider>
-    // </React.StrictMode>,
 )

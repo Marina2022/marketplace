@@ -3,7 +3,6 @@ import axios from "axios";
 axios.defaults.baseURL = 'https://i-rif.com/api/';
 axios.defaults.withCredentials = true;
 
-
 // store будет передан позже из main.jsx
 let appStore = null;
 
@@ -11,112 +10,139 @@ export const injectStore = (store) => {
   appStore = store;
 };
 
-
 //********************************  request ******************************
 
 axios.interceptors.request.use((request) => {
+  request.headers = request.headers || {};
+
   const token = localStorage.getItem('token');
   const profileId = localStorage.getItem('activeProfile');
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-  request.headers['X-Client-Timezone'] = timezone;          // все, всегда
-
   const regionId = localStorage.getItem('regionId');
-  if (regionId) request.headers['X-User-Region'] = regionId; // только анонимы
+
+  request.headers['X-Client-Timezone'] = timezone;
+
+  if (regionId) {
+    request.headers['X-User-Region'] = regionId;
+  }
 
   if (token) {
-    request.headers["authorization"] = `Bearer ${token}`;
+    request.headers["Authorization"] = `Bearer ${token}`;
   }
+
   if (profileId) {
     request.headers["X-ProfileId"] = profileId;
   }
+
   return request;
 });
-
 
 //********************************  response ******************************
 
 let isRefreshing = false;
 let queue = [];
 
-// запустить очередь после refresh
+// флаги для отслеживания сессии
+let isSessionExpired = false;
+let logoutPromise = null;
+
+// очередь
 const processQueue = (error, token = null) => {
+  queue.forEach(({ resolve, reject }) => {
+    if (error) reject(error);
+    else resolve(token);
+  });
+  queue = [];
+};
 
-  queue.forEach(({resolve, reject}) => {
+// единый logout
+const runLogoutOnce = async () => {
+  if (!appStore) return;
 
-    if (error) {
-      reject(error)
-    } else {
-      resolve(token)
-    }
-  })
-  queue = []
-}
+  if (!logoutPromise) {
+    const { logout } = await import("@/store/userSlice.js");
+
+    logoutPromise = appStore.dispatch(logout())
+      .finally(() => {
+        logoutPromise = null;
+      });
+  }
+
+  return logoutPromise;
+};
 
 axios.interceptors.response.use(
   (response) => response,
 
   async (error) => {
-    const originalRequest = error.config
-    const status = error.response?.status
+    const originalRequest = error.config;
+    const status = error.response?.status;
 
-    // НЕ обрабатываем refresh
-    if (originalRequest.url.includes('/auth/refresh')) {
+    // не трогаем refresh
+    if (originalRequest?.url?.includes('/auth/refresh')) {
       return Promise.reject(error);
     }
 
-    // не 401
+    // если не 401 — дальше
     if (status !== 401) {
-      return Promise.reject(error)
+      return Promise.reject(error);
     }
 
-    // защита от бесконечного refresh
+    // если уже знаем, что сессия умерла — ничего не делаем
+    if (isSessionExpired) {
+      return Promise.reject(error);
+    }
+
+    // защита от повторного retry
     if (originalRequest._retry) {
+      // тут тоже logout
+      isSessionExpired = true;
+      await runLogoutOnce();
       return Promise.reject(error);
     }
 
     originalRequest._retry = true;
 
-    // если refresh уже идёт
+    // если уже идет refresh
     if (isRefreshing) {
       return new Promise((resolve, reject) => {
         queue.push({
           resolve: (token) => {
-            originalRequest.headers["Authorization"] =
-              `Bearer ${token}`
-            resolve(axios(originalRequest))
+            originalRequest.headers["Authorization"] = `Bearer ${token}`;
+            resolve(axios(originalRequest));
           },
           reject
-        })
-      })
+        });
+      });
     }
 
-    isRefreshing = true
+    isRefreshing = true;
 
     try {
-      const res = await axios.post("/auth/refresh")
-      const newToken = res.data.accessToken
+      const res = await axios.post("/auth/refresh");
+      const newToken = res.data.accessToken;
 
-      localStorage.setItem("token", newToken)
-      processQueue(null, newToken)
-      originalRequest.headers["Authorization"] = `Bearer ${newToken}`
-      return axios(originalRequest)
+      localStorage.setItem("token", newToken);
+
+      processQueue(null, newToken);
+
+      originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
+      return axios(originalRequest);
 
     } catch (refreshError) {
-      processQueue(refreshError, null)
+      processQueue(refreshError, null);
 
-      // теперь store может быть null,
-      // поэтому проверяем
-      if (appStore) {
-        const {logout} = await import("@/store/userSlice.js")
-        appStore.dispatch(logout())
-      }
-      return Promise.reject(refreshError)
+      //  что сессия умерла
+      isSessionExpired = true;
+
+      await runLogoutOnce();
+
+      return Promise.reject(refreshError);
+
     } finally {
-      isRefreshing = false
+      isRefreshing = false;
     }
   }
-)
+);
 
-
-export default axios
+export default axios;

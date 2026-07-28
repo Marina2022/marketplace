@@ -1,7 +1,14 @@
 import s from './ProfileInMobileHeader.module.scss';
 import {useDispatch, useSelector} from "react-redux";
-import {getActiveProfileId, getUserProfilesData, logout, setActiveProfileId} from "@/store/userSlice.js";
-import {useEffect, useRef, useState} from "react";
+import {
+  getActiveProfileId,
+  getIsProfileDropdownOpened,
+  getUserProfilesData,
+  logout,
+  setActiveProfileId,
+  setIsProfileDropdownOpened
+} from "@/store/userSlice.js";
+import {useEffect, useRef} from "react";
 import {useLocation} from "react-router-dom";
 import closeBtn from "@/assets/img/header/mobileMenu/closeBtnNew.svg";
 import {setShowCloseBtn} from "@/store/mobileMenuSlice.js";
@@ -11,19 +18,10 @@ const ProfileInMobileHeader = () => {
   const userProfiles = useSelector(getUserProfilesData);
   const activeProfileId = useSelector(getActiveProfileId);
   const location = useLocation();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const userDropdownWrapperRef = useRef();
 
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    if (isDropdownOpen) {
-      dispatch(setShowCloseBtn(true))
-    } else {
-      dispatch(setShowCloseBtn(false))
-    }
-  }, [isDropdownOpen]);
-
 
   // клик вне
   useEffect(() => {
@@ -32,7 +30,8 @@ const ProfileInMobileHeader = () => {
         userDropdownWrapperRef.current &&
         !userDropdownWrapperRef.current.contains(event.target)
       ) {
-        setIsDropdownOpen(false);
+        // setIsDropdownOpen(false);
+        dispatch(setIsProfileDropdownOpened(false))
       }
     }
 
@@ -43,8 +42,11 @@ const ProfileInMobileHeader = () => {
   }, []);
 
 
+  const isProfileDropdownOpen = useSelector(getIsProfileDropdownOpened)
+
   useEffect(() => {
-    setIsDropdownOpen(false);
+    // setIsDropdownOpen(false);
+    dispatch(setIsProfileDropdownOpened(false))
   }, [location]);
 
   let activeProfile;
@@ -69,13 +71,22 @@ const ProfileInMobileHeader = () => {
   const profileItemClickHandler = (profileId) => {
     localStorage.setItem('activeProfile', profileId)
     dispatch(setActiveProfileId(profileId))
-    setIsDropdownOpen(false)
+    // setIsDropdownOpen(false)
+    dispatch(setIsProfileDropdownOpened(false))
+  }
+
+  const handleClick = () => {
+    if (isProfileDropdownOpen) {
+      dispatch(setIsProfileDropdownOpened(false))
+    } else {
+      dispatch(setIsProfileDropdownOpened(true))
+    }
   }
 
   if (!userProfiles) return (
     <button
       className={s.userDropdownBtn}
-      onClick={() => setIsDropdownOpen(prev => !prev)}
+      onClick={handleClick}
     >
       <svg className={s.btnArrow} width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path
@@ -92,7 +103,7 @@ const ProfileInMobileHeader = () => {
     <div className={s.userDropdownWrapper} ref={userDropdownWrapperRef}>
       <button
         className={s.userDropdownBtn}
-        onClick={() => setIsDropdownOpen(prev => !prev)}
+        onClick={handleClick}
       >
         <div className={s.roundLetter}>{letter}</div>
         <div className={s.btnText}>
@@ -106,13 +117,13 @@ const ProfileInMobileHeader = () => {
         </svg>
       </button>
 
-      {isDropdownOpen && (
+      {isProfileDropdownOpen && (
         <div className={s.dropWrapper}>
           <div className={s.dropdown}>
             <div className={s.dropdownHeader}>
               <h3 className={s.dropdownTitle}>Профили</h3>
               <button>
-                <img className={s.closeImg} src={closeBtn} alt="close" onClick={() => setIsDropdownOpen(false)}/>
+                <img className={s.closeImg} src={closeBtn} alt="close" onClick={() => dispatch(setIsProfileDropdownOpened(false))}/>
               </button>
             </div>
             <div className={s.activeProfile}>

@@ -2,7 +2,15 @@ import s from './Popup.module.scss';
 import {useEffect, useRef} from "react";
 import closeBtn from '@/assets/img/closeBtn.svg'
 
-const Popup = ({onPopupClose, setIsPopupOpen, popupClassName = "", children, withCloseBtn = false, underlay=true}) => {
+const Popup = ({
+                 children,
+                 onPopupClose,
+                 setIsPopupOpen,
+                 popupClassName = "",
+                 withCloseBtn = false,
+                 underlay = true,
+                 closeOnClickOutside = true,
+               }) => {
 
   const popupRef = useRef(null);
 
@@ -25,6 +33,7 @@ const Popup = ({onPopupClose, setIsPopupOpen, popupClassName = "", children, wit
 
 // клик вне
   useEffect(() => {
+    if (!closeOnClickOutside) return
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
         setIsPopupOpen(false);
@@ -36,11 +45,11 @@ const Popup = ({onPopupClose, setIsPopupOpen, popupClassName = "", children, wit
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [closeOnClickOutside]);
 
   return (
     <div className={s.wrapper}>
-      <div onClick={() => setIsPopupOpen(false)} className={ underlay ?  s.underlay : ''}></div>
+      <div onClick={() => setIsPopupOpen(false)} className={underlay ? s.underlay : ''}></div>
       <div ref={popupRef} className={`${s.popup} ${popupClassName}`}>
         {
           withCloseBtn &&
