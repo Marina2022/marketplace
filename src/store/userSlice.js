@@ -137,11 +137,6 @@ export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
   thunkAPI.dispatch(setUserProfiles(null))
   thunkAPI.dispatch(setIsAuthenticated(false))
 
-  const geoContext = thunkAPI.getState().geo.context
-  if (geoContext.savedRegion) {
-    localStorage.setItem("regionId", geoContext.savedRegion.regionId);
-  }
-
   thunkAPI.dispatch(loadGeoContext())
 
 
