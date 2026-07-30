@@ -1,23 +1,42 @@
 import s from './Geo.module.scss';
-import {getContext, getRegions, setIsFirstGeoPopupOpen, setIsPopupWithCitiesOpen} from "@/store/geoSlice.js";
+import {
+  getContext,
+  getIsFirstGeoPopupOpen, getIsPopupWithCitiesOpen,
+  getRegions,
+  setIsFirstGeoPopupOpen,
+  setIsPopupWithCitiesOpen
+} from "@/store/geoSlice.js";
 import {useDispatch, useSelector} from "react-redux";
 
+
 const Geo = () => {
+
+  // const isPopupWithCitiesOpen = useSelector(getIsPopupWithCitiesOpen);
+  // const isFirstGeoPopupOpen = useSelector(getIsFirstGeoPopupOpen);
 
   const geoContext = useSelector(getContext)
 
   const dispatch = useDispatch()
 
   const handleClick = () => {
+
+    // if (isPopupWithCitiesOpen || isFirstGeoPopupOpen) {
+    //   setIsPopupWithCitiesOpen(false)
+    //   setIsPopupWithCitiesOpen(false)
+    //   return
+    // }
+
     if (geoContext.needsConfirmation) {
       dispatch(setIsFirstGeoPopupOpen(true))
     } else {
       dispatch(setIsPopupWithCitiesOpen(true))
     }
+
+
   }
 
   return (
-    <div className={s.geoButton} onClick={handleClick}>
+    <div className={setIsPopupWithCitiesOpen ? s.geoButtonActive : s.geoButton} onClick={handleClick}>
 
       <svg className={s.geoIcon} width="14" height="14" viewBox="0 0 14 14" fill="none"
            xmlns="http://www.w3.org/2000/svg">

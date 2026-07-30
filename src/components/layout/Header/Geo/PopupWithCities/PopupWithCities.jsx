@@ -7,8 +7,11 @@ import RegionItem from "@/components/layout/Header/Geo/PopupWithCities/RegionIte
 import closeIcon from "@/assets/img/cart/closeSearch.svg"
 import {getIsAuthenticated} from "@/store/userSlice.js";
 import axiosInstance from "@/api/axiosInstance.js";
+import useMobileScreen from "@/hooks/useMobileScreen.js";
 
 const PopupWithCities = () => {
+
+  const isMobile = useMobileScreen()
 
   const isAuthenticated = useSelector(getIsAuthenticated);
 
@@ -53,7 +56,7 @@ const PopupWithCities = () => {
   }
 
   return (
-    <Popup closeOnClickOutside={false} setIsPopupOpen={setIsPopupOpen} popupClassName={s.popup} underlay={false}>
+    <Popup closeOnClickOutside={!isMobile} setIsPopupOpen={setIsPopupOpen} popupClassName={s.popup} underlay={false}>
       <div className={s.title}>Выберите регион</div>
       <div className={s.inputWrapper}>
         <input
