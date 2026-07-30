@@ -18,6 +18,9 @@ const Geo = () => {
 
   const dispatch = useDispatch()
 
+  console.log("geoContext = ", geoContext)
+
+
   const handleClick = () => {
 
     // if (isPopupWithCitiesOpen || isFirstGeoPopupOpen) {
