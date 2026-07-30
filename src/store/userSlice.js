@@ -5,6 +5,7 @@ import axiosInstance from "@/api/axiosInstance.js";
 // import {loadFavs} from "@/store/favSlice.js";
 import {loadActiveOrders} from "@/store/ordersSlice.js";
 import {loadGeoContext} from "@/store/geoSlice.js";
+import {useSelector} from "react-redux";
 
 export const getUserCompanies = createAsyncThunk('cart/getUserCompanies', async (_, thunkAPI) => {
 
@@ -136,7 +137,13 @@ export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
   thunkAPI.dispatch(setUserProfiles(null))
   thunkAPI.dispatch(setIsAuthenticated(false))
 
+  const geoContext = thunkAPI.getState().geo.context
+  if (geoContext.savedRegion) {
+    localStorage.setItem("regionId", geoContext.savedRegion.regionId);
+  }
+
   thunkAPI.dispatch(loadGeoContext())
+
 
   // временно убираем
   // thunkAPI.dispatch(loadCart())

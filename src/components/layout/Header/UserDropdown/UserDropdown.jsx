@@ -1,7 +1,7 @@
 import s from './UserDropdown.module.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {getActiveProfileId, getUserProfilesData, logout, setActiveProfileId} from "@/store/userSlice.js";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 
 const UserDropdown = () => {
@@ -16,6 +16,8 @@ const UserDropdown = () => {
   useEffect(() => {
     setIsDropdownOpen(false);
   }, [location]);
+
+  const navigate = useNavigate();
 
   // ESC + клик вне
   useEffect(() => {
@@ -157,7 +159,7 @@ const UserDropdown = () => {
               )
             }
             <div className={s.bottomItems}>
-              <div className={s.menuItemButton}>
+              <div className={s.menuItemButton} onClick={()=>navigate('/settings')} >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clipPath="url(#clip0_4919_39655)">
                     <path d="M7 8.75C7.9665 8.75 8.75 7.9665 8.75 7C8.75 6.0335 7.9665 5.25 7 5.25C6.0335 5.25 5.25 6.0335 5.25 7C5.25 7.9665 6.0335 8.75 7 8.75Z" stroke="#3A3F49" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -169,7 +171,6 @@ const UserDropdown = () => {
                     </clipPath>
                   </defs>
                 </svg>
-
                 <span>Настройки аккаунта</span>
               </div>
               <div className={s.menuItemButton} onClick={logoutHandler}>

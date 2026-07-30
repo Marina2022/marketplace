@@ -9,7 +9,7 @@ import {
   setIsProfileDropdownOpened
 } from "@/store/userSlice.js";
 import {useEffect, useRef} from "react";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import closeBtn from "@/assets/img/header/mobileMenu/closeBtnNew.svg";
 import {setShowCloseBtn} from "@/store/mobileMenuSlice.js";
 
@@ -18,10 +18,11 @@ const ProfileInMobileHeader = () => {
   const userProfiles = useSelector(getUserProfilesData);
   const activeProfileId = useSelector(getActiveProfileId);
   const location = useLocation();
-  // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const userDropdownWrapperRef = useRef();
 
   const dispatch = useDispatch()
+  const navigate = useNavigate();
+
 
   // клик вне
   useEffect(() => {
@@ -193,7 +194,7 @@ const ProfileInMobileHeader = () => {
               )
             }
             <div className={s.bottomItems}>
-              <div className={s.menuItemButton}>
+              <div className={s.menuItemButton} onClick={()=>navigate('/settings')}>
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clipPath="url(#clip0_4919_39655)">
                     <path d="M7 8.75C7.9665 8.75 8.75 7.9665 8.75 7C8.75 6.0335 7.9665 5.25 7 5.25C6.0335 5.25 5.25 6.0335 5.25 7C5.25 7.9665 6.0335 8.75 7 8.75Z" stroke="#3A3F49" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
