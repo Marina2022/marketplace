@@ -11,8 +11,8 @@ import {useDispatch, useSelector} from "react-redux";
 
 const Geo = () => {
 
-  // const isPopupWithCitiesOpen = useSelector(getIsPopupWithCitiesOpen);
-  // const isFirstGeoPopupOpen = useSelector(getIsFirstGeoPopupOpen);
+  const isPopupWithCitiesOpen = useSelector(getIsPopupWithCitiesOpen);
+  const isFirstGeoPopupOpen = useSelector(getIsFirstGeoPopupOpen);
 
   const geoContext = useSelector(getContext)
 
@@ -36,7 +36,7 @@ const Geo = () => {
   }
 
   return (
-    <div className={setIsPopupWithCitiesOpen ? s.geoButtonActive : s.geoButton} onClick={handleClick}>
+    <div className={(isPopupWithCitiesOpen || isFirstGeoPopupOpen) ? s.geoButtonActive : s.geoButton} onClick={handleClick}>
 
       <svg className={s.geoIcon} width="14" height="14" viewBox="0 0 14 14" fill="none"
            xmlns="http://www.w3.org/2000/svg">
