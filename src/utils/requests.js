@@ -43,28 +43,45 @@ export const formatDate = (dateString) => {
 }
 
 
-// export function findBySubCategoryId(arr, targetId) {
-//
-//   console.log('arr = ', arr)
-//   console.log('targetId ============= ', targetId)
-//
-//   const result =  arr.find(item =>
-//     item.subCategories.some(
-//       sub => {
-//         console.log("sub.subCategoryId = ", sub.subCategoryId)
-//         console.log("targetId = ", targetId)
-//         return sub.subCategoryId === targetId
-//       }
-//     )
-//   )
-//
-//   console.log('result = ', result)
-//
-//   return result
-// }
-
 export function findSubCategoryById(arr, targetId) {
   return arr
     .flatMap(item => item.subCategories)
     .find(sub => sub.subCategoryId === targetId)
+}
+
+export function buildCategoryTree(categories) {
+  const map = {};
+  const tree = [];
+
+  // Шаг 1: Инициализируем карту элементов и создаем массив для детей
+  categories.forEach(item => {
+    map[item.id] = { ...item, children: [] };
+  });
+
+  // Шаг 2: Связываем родителей и детей
+  Object.values(map).forEach(item => {
+    if (item.parentId === null) {
+      // Если родителя нет, это корень дерева
+      tree.push(item);
+    } else {
+      // Если родитель есть, добавляем элемент в его массив children
+      const parent = map[item.parentId];
+      if (parent) {
+        parent.children.push(item);
+      }
+    }
+  });
+
+  // Шаг 3: Сортируем элементы по sortOrder (и по shortId, если sortOrder одинаковый)
+  const sortNodes = (nodes) => {
+    nodes.sort((a, b) => a.sortOrder - b.sortOrder || a.shortId - b.shortId);
+    nodes.forEach(node => {
+      if (node.children.length > 0) {
+        sortNodes(node.children);
+      }
+    });
+  };
+
+  sortNodes(tree);
+  return tree;
 }

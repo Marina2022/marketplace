@@ -112,8 +112,6 @@ const EditRequestCategory = ({
       {
         isError && <div className={s.errorMessage}>Выберите категорию</div>
       }
-
-
     </div>
   )
 }

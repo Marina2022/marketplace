@@ -11,7 +11,7 @@ import favSlice from "@/store/favSlice.js";
 import lkSlice from "@/store/lkSlice.js";
 import ordersSlice from "@/store/ordersSlice.js";
 import lkShopSlice from "@/store/lkShopSlice.js";
-import requestsSlice from "@/store/requestsSlice.js";
+import requestsSlice, {loadRequestsTree} from "@/store/requestsSlice.js";
 import {injectStore} from "@/api/axiosInstance.js";
 import tabsSlice from "@/store/tabsSlice.js";
 import mobileMenuSlice from "@/store/mobileMenuSlice.js";
@@ -38,6 +38,7 @@ export const store = configureStore({
 injectStore(store)
 store.dispatch(getUser())  // geoContext подгружается в getUser
 store.dispatch(loadRegions())
+store.dispatch(loadRequestsTree())
 
 
 // store.dispatch(loadReviewLikes())

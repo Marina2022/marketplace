@@ -4,6 +4,8 @@ import {tabLabels} from "@/components/layout/Tabs/tabUtils.js";
 import {useDispatch, useSelector} from "react-redux";
 import {getTabs, setTabs} from "@/store/tabsSlice.js";
 import {setIsLoginPopupOpened} from "@/store/userSlice.js";
+import {getRequestsTree} from "@/store/requestsSlice.js";
+import {useEffect, useState} from "react";
 
 const Tab = ({tab, nextTab}) => {
 
@@ -16,14 +18,17 @@ const Tab = ({tab, nextTab}) => {
 
   const dispatch = useDispatch()
 
+  const requestsTree = useSelector(getRequestsTree)
+
   const handleClick = () => {
 
-    const item = tabLabels.find(item => item.url === tab)
+    let item = tabLabels.find(item => item.url === tab)
 
-    if (!item.public && !isAuthenticated) {
+    if (item && !item.public && !isAuthenticated) {
       dispatch(setIsLoginPopupOpened(true))
       return
     }
+
     navigate(tab)
   }
 
@@ -38,11 +43,27 @@ const Tab = ({tab, nextTab}) => {
     }
   }
 
-  let label = ""
-  const itemWithLabel = tabLabels.find((item) => item.url === tab)
-  if (itemWithLabel) {
-    label = itemWithLabel.label
-  }
+  const [label, setLabel] = useState("")
+
+  useEffect(()=>{
+
+    const itemWithLabel = tabLabels.find((item) => item.url === tab)
+    if (itemWithLabel) {
+      setLabel(itemWithLabel.label)
+    }
+
+    if (tab.startsWith("/requests/") && requestsTree ) {
+
+      // это категория или товар, или поиск, распарсим как-нибудь, все-равно нужно различать для роутинга
+      // пока будем считать, что эта категория
+      const categorySlug = tab.split('/').pop().replace(/-\d+$/, '');
+      const category = requestsTree.find(item => item.slug === categorySlug)
+      setLabel(`${category.name}`)
+    }
+
+  }, [requestsTree])
+
+
 
   return (
     <div className={`${s.tab} ${isActive ? s.activeTab : nextIsActive ? "" : s.withDivider}`} onClick={handleClick}>

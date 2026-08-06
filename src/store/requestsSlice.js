@@ -1,8 +1,10 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "@/api/axiosInstance.js";
+import axiosInstance from "@/api/axiosInstance.js";
+import {buildCategoryTree} from "@/utils/requests.js";
 
 // todo все переписать под requests
-export const loadRequests = createAsyncThunk('orders/loadActiveOrders', async (args, thunkAPI) => {
+export const loadRequests = createAsyncThunk('requests/loadRequests', async (args, thunkAPI) => {
   const state = thunkAPI.getState()
   if (state.user.isAuthenticated) {
     const {activeProfileId, type} = args
@@ -21,10 +23,19 @@ export const loadRequests = createAsyncThunk('orders/loadActiveOrders', async (a
   }
 })
 
+
+export const loadRequestsTree = createAsyncThunk('requests/loadRequestsTree', async () => {
+    // const resp = await axiosInstance.get("/request-categories/tree")
+    const resp = await axiosInstance.get("/request-categories/tree/tags")
+    return resp.data
+})
+
 const initialState = {
   requests: null,
   requestsLoadingStatus: 'loading',
-  requestsTab: 1
+  requestsTab: 1,
+  requestTree: null,
+  requestsTreeLoading: true
 }
 
 const requestsSlice = createSlice({
@@ -34,26 +45,43 @@ const requestsSlice = createSlice({
     setRequestsTab: (state, action) => {
       state.requestsTab = action.payload
     },
+    setRequestTree: (state, action) => {
+      state.requestsTab = action.payload
+    },
   },
 
-   extraReducers: builder => builder
-  .addCase(loadRequests.pending, (state) => {
-    state.requestsLoadingStatus = 'loading'
-  })
-  .addCase(loadRequests.fulfilled, (state, action) => {
-    state.requestsLoadingStatus = 'success'
-    state.requests = action.payload
-  })
-  .addCase(loadRequests.rejected, (state, action) => {
-    state.requestsLoadingStatus = 'error'
-    console.log('ошибка', action.error.message)
-  })
+  extraReducers: builder => builder
+    .addCase(loadRequests.pending, (state) => {
+      state.requestsLoadingStatus = 'loading'
+    })
+    .addCase(loadRequests.fulfilled, (state, action) => {
+      state.requestsLoadingStatus = 'success'
+      state.requests = action.payload
+    })
+    .addCase(loadRequests.rejected, (state, action) => {
+      state.requestsLoadingStatus = 'error'
+      console.log('ошибка', action.error.message)
+    })
+
+    .addCase(loadRequestsTree.pending, (state) => {
+      state.requestsTreeLoading = true
+    })
+    .addCase(loadRequestsTree.fulfilled, (state, action) => {
+      state.requestTree = action.payload
+      state.requestsTreeLoading = false
+    })
+    .addCase(loadRequestsTree.rejected, (state, action) => {
+      state.requestsTreeLoading = false
+      console.log('ошибка', action.error.message)
+    })
 })
 export const {
-  setRequestsTab
+  setRequestsTab, setRequestTree
 } = requestsSlice.actions
 export const getRequests = state => state.requests.requests
 export const getRequestsTab = state => state.requests.requestsTab
 export const getRequestsLoadingStatus = state => state.requests.requestsLoadingStatus
+export const getRequestsTree = state => state.requests.requestTree
+export const getRequestsTreeLoading = state => state.requests.requestsTreeLoading
 
 export default requestsSlice.reducer

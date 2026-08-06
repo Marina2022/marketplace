@@ -15,27 +15,14 @@ const Geo = () => {
   const isFirstGeoPopupOpen = useSelector(getIsFirstGeoPopupOpen);
 
   const geoContext = useSelector(getContext)
-
   const dispatch = useDispatch()
 
-  console.log("geoContext = ", geoContext)
-
-
   const handleClick = () => {
-
-    // if (isPopupWithCitiesOpen || isFirstGeoPopupOpen) {
-    //   setIsPopupWithCitiesOpen(false)
-    //   setIsPopupWithCitiesOpen(false)
-    //   return
-    // }
-
     if (geoContext.needsConfirmation) {
       dispatch(setIsFirstGeoPopupOpen(true))
     } else {
       dispatch(setIsPopupWithCitiesOpen(true))
     }
-
-
   }
 
   return (

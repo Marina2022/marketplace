@@ -6,7 +6,6 @@ import HeaderSearch from "@/components/layout/Header/HeaderSearch/HeaderSearch.j
 import UserDropdown from "@/components/layout/Header/UserDropdown/UserDropdown.jsx";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
 import {useEffect, useState} from "react";
-import axiosInstance from "@/api/axiosInstance.js";
 import MobileHeaderLk from "@/components/layout/Header/MobileHeader/MobileHeaderLK/MobileHeaderLK.jsx";
 import UserBalance from "@/components/layout/Header/UserBalance/UserBalance.jsx";
 import Geo from "@/components/layout/Header/Geo/Geo.jsx";
@@ -19,9 +18,6 @@ const Header = () => {
 
   const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false)
 
-  const [requestsForDropdown, setRequestsForDropdown] = useState(null)
-  const [requestsForDropdownLoading, setRequestsForDropdownLoading] = useState(false)
-
   const location = useLocation();
 
   useEffect(() => {
@@ -30,21 +26,6 @@ const Header = () => {
     }, 400)
 
   }, [location]);
-
-  useEffect(() => {
-    const getRequestForCatsDropdown = async () => {
-      try {
-        setRequestsForDropdownLoading(true)
-        const response = await axiosInstance('request-categories/tree')
-        setRequestsForDropdown(response.data.requestCategories)
-      } catch (err) {
-        console.log(err)
-      } finally {
-        setRequestsForDropdownLoading(false)
-      }
-    }
-    getRequestForCatsDropdown()
-  }, [])
 
 
   // скроллбар убираем
@@ -71,7 +52,7 @@ const Header = () => {
       <div className={s.wrapper}>
         <div className={s.geoWrapper}>
 
-          <Geo />
+          <Geo/>
 
         </div>
         <HeaderSearch/>

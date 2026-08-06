@@ -22,9 +22,7 @@ const SubmenuItem = ({label, url, icon}) => {
   }
 
   const location = useLocation();
-
   const isMyPage = location.pathname === url;
-
 
   return (
     <div className={`${s.submenuItem} ${isMyPage ? s.submenuItemActive : ''}`} onClick={handleClick}>
@@ -33,7 +31,6 @@ const SubmenuItem = ({label, url, icon}) => {
       }
 
       <div className={s.iconWrapper}>{icon}</div>
-
       <span>{label}</span>
 
     </div>
