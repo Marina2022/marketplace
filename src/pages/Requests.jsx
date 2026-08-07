@@ -1,10 +1,10 @@
 import RequestsPage from "@/components/RequestsPage/RequestsPage.jsx";
 
-const Product = () => {
+const Requests = () => {
 
   return (
     <RequestsPage/>
   );
 };
 
-export default Product;
+export default Requests;

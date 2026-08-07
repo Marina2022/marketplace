@@ -19,6 +19,7 @@ const MainMenuItem = ({item}) => {
     getFirstSegment(item.url) === getFirstSegment(location.pathname);
 
   if (getFirstSegment(item.url) === "requests" && getFirstSegment(location.pathname) === "") isActive = true;
+  if (getFirstSegment(item.url) === "requests" && getFirstSegment(location.pathname) === "search-keywords") isActive = true;
 
   const navigate = useNavigate();
   const tabs = useSelector(getTabs)

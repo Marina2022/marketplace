@@ -1,22 +1,32 @@
 import s from './CategoryNode.module.scss';
-import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {getTabs, setTabs} from "@/store/tabsSlice.js";
 import {useDispatch, useSelector} from "react-redux";
+import {getOpenedBranchesInCats, setOpenedBranchesInCats} from "@/store/requestsSlice.js";
 
 const CategoryNode = ({ node, level = 1 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const hasChildren = node.children && node.children.length > 0;
 
-  const toggleOpen = (e) => {
+
+  const openedBranches = useSelector(getOpenedBranchesInCats)
+  const isOpen = openedBranches.some(branch => branch === node.id)
+
+  const hasChildren = node.children && node.children.length > 0;
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+    const toggleOpen = (e) => {
     e.stopPropagation();
-    setIsOpen(!isOpen);
+    let newOpenBranches
+
+    if (!isOpen) {
+      newOpenBranches = [...openedBranches, node.id]
+    } else {
+      newOpenBranches = openedBranches.filter(branch => branch !== node.id)
+    }
+    dispatch(setOpenedBranchesInCats(newOpenBranches))
   }
 
   const isFirstLevel = level === 1;
-
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
 
   const tabs = useSelector(getTabs)
 

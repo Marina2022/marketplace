@@ -1,0 +1,120 @@
+@import "@/assets/styles/mixins";
+
+.searchKeywordsPage {
+  display: flex;
+  padding-left: 16px;
+}
+
+.leftBlock {
+  padding-top: 10px;
+  flex: 1;
+  height: calc(100vh - 48px - 76px - 12px);
+  padding-bottom: 10px;
+}
+
+.rightBlock {
+  width: 340px;
+  border-left: 1px solid #F0F1F1;
+  height: calc(100vh - 48px - 76px - 12px);
+  display: flex;
+  flex-direction: column;
+
+  @include t {
+    width: 220px;
+  }
+
+  @include m {
+    display: none;
+  }
+}
+
+.rightBlockHeader {
+  padding-inline: 16px;
+  height: 56px;
+  border-bottom: 1px solid #F0F1F1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 600;
+  color: #16181D;
+
+  @include t {
+    height: 52px;
+    font-size: 14px;
+  }
+}
+
+.rightBlockFooter {
+  height: 122px;
+  border-top: 1px solid #F0F1F1;
+  padding: 12px 20px;
+
+
+}
+
+.rightBlockContent {
+  flex: 1;
+  height: calc(100vh - 48px - 76px - 12px - 122px - 56px);
+  padding: 12px 16px;
+
+
+  @include t {
+    height: calc(100vh - 48px - 76px - 12px - 122px - 52px);
+  }
+}
+
+.circle {
+  background: #3D4A66;
+  border-radius: 100px;
+  min-width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 7px;
+  font-size: 13px;
+  color: #fff;
+  font-weight: 600;
+
+  @include t {
+    min-width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 5px;
+  }
+}
+
+.btnBlack {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.transparentBtn {
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: #9AA1AC;
+  cursor: pointer;
+  height: 36px;
+
+  @media (hover: hover) {
+    &:hover {
+      color: #6B7488;
+    }
+  }
+}
+
+
+.catGroups {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+}

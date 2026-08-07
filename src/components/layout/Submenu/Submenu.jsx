@@ -24,7 +24,7 @@ const Submenu = () => {
       }
 
       {
-        userStatus !== "loading" &&  (location.pathname.startsWith('/requests') || location.pathname === "/") && <RequestsSubmenu />
+        userStatus !== "loading" &&  (location.pathname.startsWith('/requests') || location.pathname === "/" || location.pathname === "/search-keywords") && <RequestsSubmenu />
       }
 
       {

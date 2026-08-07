@@ -11,6 +11,10 @@
   flex-direction: column;
   gap: 6px;
   flex: 1;
+
+  @include m {
+    gap: 0px;
+  }
 }
 
 
@@ -25,6 +29,10 @@
   gap: 6px;
   height: calc(100vh - 76px - 12px);
   padding-inline: 8px;
+
+  @include m {
+    padding-inline: 0;
+  }
 }
 
 .contentWithTabs {
@@ -46,9 +54,7 @@
 
 .contentWrapper {
   height: calc(100vh - 48px - 76px - 12px);
-  overflow: auto;
-  padding-top: 14px;
-  padding-inline: 16px;
+  //overflow: auto;
   position: relative;
 
   @supports not selector(::-webkit-scrollbar) {
@@ -57,7 +63,11 @@
   }
 
   &::-webkit-scrollbar {
-    width: 8px !important;
+    width: 6px !important;
+
+    @include m {
+      width: 4px !important;
+    }
   }
 
   &::-webkit-scrollbar-thumb {

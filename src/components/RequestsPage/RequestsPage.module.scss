@@ -1,2 +1,12 @@
 @import "@/assets/styles/mixins";
 
+.list {
+  padding-top: 10px;
+  padding-left: 16px;
+}
+
+
+.requestPage {
+  height: calc(100vh - 48px - 76px - 12px);
+  padding-bottom: 10px;
+}

@@ -28,7 +28,6 @@ export const getRequestsWithPictures = ({requests, pictures}) => {
   })
 
   const newRequests = {...requests.data, items: requestsWithPictures}
-
   return newRequests
 }
 
@@ -41,7 +40,6 @@ export const formatDate = (dateString) => {
 
   return `${day}.${month}.${year}`
 }
-
 
 export function findSubCategoryById(arr, targetId) {
   return arr
@@ -84,4 +82,29 @@ export function buildCategoryTree(categories) {
 
   sortNodes(tree);
   return tree;
+}
+
+export const buildGroupedTags = (selectedTagIds, categories) => {
+
+  if (!selectedTagIds.length) return []
+
+  const selectedSet = new Set(selectedTagIds)
+
+  return categories
+    .map(category => {
+      if (!category.tags) return null
+
+      const matchedTags = category.tags.filter(tag =>
+        selectedSet.has(tag.id)
+      )
+
+      if (matchedTags.length === 0) return null
+
+      return {
+        catId: category.id,
+        catName: category.name,
+        catSelectedTags: matchedTags
+      }
+    })
+    .filter(Boolean)
 }

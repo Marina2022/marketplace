@@ -44,4 +44,9 @@ export const tabLabels = [
     url: "/settings",
     public: false
   },
+  {
+    label: "Поиск - Ключевые",
+    url: "/search-keywords",
+    public: true
+  },
 ]

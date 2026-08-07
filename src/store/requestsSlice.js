@@ -1,9 +1,8 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "@/api/axiosInstance.js";
 import axiosInstance from "@/api/axiosInstance.js";
-import {buildCategoryTree} from "@/utils/requests.js";
 
-// todo все переписать под requests
+
 export const loadRequests = createAsyncThunk('requests/loadRequests', async (args, thunkAPI) => {
   const state = thunkAPI.getState()
   if (state.user.isAuthenticated) {
@@ -35,7 +34,10 @@ const initialState = {
   requestsLoadingStatus: 'loading',
   requestsTab: 1,
   requestTree: null,
-  requestsTreeLoading: true
+  requestsTreeLoading: true,
+  openedBranchesInCats: [],
+  openedBranchesInKewSearch: [],
+  tagsSelected: [],
 }
 
 const requestsSlice = createSlice({
@@ -46,8 +48,17 @@ const requestsSlice = createSlice({
       state.requestsTab = action.payload
     },
     setRequestTree: (state, action) => {
-      state.requestsTab = action.payload
+      state.requestTree = action.payload
     },
+    setOpenedBranchesInCats: (state, action) => {
+      state.openedBranchesInCats = action.payload
+    },
+    setOpenedBranchesInKewSearch: (state, action) => {
+      state.openedBranchesInKewSearch = action.payload
+    },
+    setTagsSelected: (state, action) => {
+      state.tagsSelected = action.payload
+    }
   },
 
   extraReducers: builder => builder
@@ -76,12 +87,15 @@ const requestsSlice = createSlice({
     })
 })
 export const {
-  setRequestsTab, setRequestTree
+  setRequestsTab, setRequestTree, setOpenedBranchesInCats, setOpenedBranchesInKewSearch, setTagsSelected
 } = requestsSlice.actions
 export const getRequests = state => state.requests.requests
 export const getRequestsTab = state => state.requests.requestsTab
 export const getRequestsLoadingStatus = state => state.requests.requestsLoadingStatus
 export const getRequestsTree = state => state.requests.requestTree
 export const getRequestsTreeLoading = state => state.requests.requestsTreeLoading
+export const getOpenedBranchesInCats = state => state.requests.openedBranchesInCats
+export const getOpenedBranchesInKeySearch = state => state.requests.openedBranchesInKewSearch
+export const getTagsSelected = state => state.requests.tagsSelected
 
 export default requestsSlice.reducer

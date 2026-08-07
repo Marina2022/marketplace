@@ -1,0 +1,32 @@
+@import "@/assets/styles/mixins";
+
+.tag {
+  height: 28px;
+  border-radius: 8px;
+  padding: 6px 12px;
+  user-select: none;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  max-width: calc(100% - 16px);
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 1;
+}
+
+.tagActive {
+  background-color: #ECEFF5;
+  color: #3D4A66;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}

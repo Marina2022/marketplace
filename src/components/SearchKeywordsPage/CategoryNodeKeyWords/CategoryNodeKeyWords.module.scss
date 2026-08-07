@@ -1,0 +1,37 @@
+@import "@/assets/styles/mixins";
+
+.item {
+  padding-inline: 8px;
+  border-radius: 8px;
+  color: #16181D;
+  cursor: pointer;
+}
+
+.lastItem {
+  padding-left: 16px;
+  padding-right: 8px;
+  border-radius: 8px;
+  color: #16181D;
+  font-size: 14px;
+}
+
+.itemOpened {
+  font-weight: 600;
+  padding-block: 4px;
+}
+
+.itemClosed {
+  padding-block: 4px;
+}
+
+.tagsBlock {
+  padding-left: 32px;
+}
+
+.tagsList {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+  max-width: 700px;
+  flex-wrap: wrap;
+}

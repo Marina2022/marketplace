@@ -16,6 +16,8 @@ import ChatPage from "@/pages/chat/ChatPage.jsx";
 import TabsInitializer from "@/components/common/TabsInitializer/TabsInitializer.jsx";
 import ProtectedRoute from "@/components/common/ProtectedRoute/ProtectedRoute.jsx";
 import SettingsPage from "@/pages/settings/SettingsPage.jsx";
+import Requests from "@/pages/Requests.jsx";
+import SearchKeywords from "@/pages/SearchKeywords.jsx";
 
 function App() {
 
@@ -36,7 +38,8 @@ function App() {
             <Route path='dashboard/main' element={<ProtectedRoute><DashboardMainPage/></ProtectedRoute>}/>
             <Route path='dashboard/organizations' element={<ProtectedRoute><DashboardOrganizationsPage/></ProtectedRoute>}/>
             <Route path='dashboard/profile' element={<ProtectedRoute><DashboardProfilePage/></ProtectedRoute>}/>
-            <Route path='requests' element={<RequestsPage/>}/>
+            <Route path='requests' element={<Requests/>}/>
+            <Route path='search-keywords' element={<SearchKeywords/>}/>
             <Route path='chat' element={<ProtectedRoute><ChatPage/></ProtectedRoute>}/>
             {/*<Route path='settings' element={<ProtectedRoute><SettingsPage/></ProtectedRoute>}/>*/}
             <Route path='settings' element={<SettingsPage/>}/>

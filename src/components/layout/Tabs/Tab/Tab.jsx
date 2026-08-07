@@ -35,6 +35,9 @@ const Tab = ({tab, nextTab}) => {
   const handleClose = (e)=>{
     e.stopPropagation()
     const newTabs = tabs.filter(tabItem => tabItem !== tab)
+
+    console.log("newTabs = ", newTabs)
+
     dispatch(setTabs(newTabs))
     if (newTabs.length > 0) {
       navigate(newTabs[newTabs.length - 1]);
@@ -61,7 +64,7 @@ const Tab = ({tab, nextTab}) => {
       setLabel(`${category.name}`)
     }
 
-  }, [requestsTree])
+  }, [requestsTree, tabs])
 
 
 

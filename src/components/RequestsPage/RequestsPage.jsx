@@ -3,6 +3,7 @@ import {buildCategoryTree} from "@/utils/requests.js";
 import CategoryNode from "@/components/RequestsPage/CategoryNode/CategoryNode.jsx";
 import {getRequestsTree, getRequestsTreeLoading} from "@/store/requestsSlice.js";
 import {useSelector} from "react-redux";
+import s from './RequestsPage.module.scss'
 
 const RequestsPage = () => {
 
@@ -16,8 +17,8 @@ const RequestsPage = () => {
   }
 
   return (
-    <div>
-      <ul>
+    <div className={`${s.requestPage} scroll`}>
+      <ul className={s.list}>
         {buildCategoryTree(tree).map(rootNode => (
           <CategoryNode key={rootNode.id} node={rootNode} />
         ))}
