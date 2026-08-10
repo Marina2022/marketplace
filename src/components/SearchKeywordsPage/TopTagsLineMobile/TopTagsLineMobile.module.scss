@@ -1,0 +1,16 @@
+@import "@/assets/styles/mixins";
+
+.topLineMobile {
+  display: none;
+
+  @include m {
+    padding-inline: 12px;
+    display: flex;
+    gap: 8px;
+    width: 100vw;
+    padding-top: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #E8EAED;
+    overflow: auto;
+  }
+}

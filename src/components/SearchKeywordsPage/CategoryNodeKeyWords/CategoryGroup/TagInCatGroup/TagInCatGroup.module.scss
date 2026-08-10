@@ -9,7 +9,6 @@
   font-size: 12px;
   font-weight: 600;
   max-width: calc(100% - 16px);
-
   display: flex;
   align-items: center;
   gap: 4px;
@@ -29,4 +28,10 @@
   display: flex;
   gap: 4px;
   align-items: center;
+  height: 23px;
+
+  @include m {
+    background-color: #3D4A66;
+    color: #fff;
+  }
 }

@@ -6,6 +6,10 @@ import {buildCategoryTree, buildGroupedTags} from "@/utils/requests.js";
 import CategoryNodeKeyWords from "@/components/SearchKeywordsPage/CategoryNodeKeyWords/CategoryNodeKeyWords.jsx";
 import Button from "@/components/ui/Button/Button.jsx";
 import CategoryGroup from "@/components/SearchKeywordsPage/CategoryNodeKeyWords/CategoryGroup/CategoryGroup.jsx";
+import TopTagsLineMobile from "@/components/SearchKeywordsPage/TopTagsLineMobile/TopTagsLineMobile.jsx";
+import {useNavigate} from "react-router-dom";
+import {useState} from "react";
+import MobileTagsBlock from "@/components/SearchKeywordsPage/MobileTagsBlock/MobileTagsBlock.jsx";
 
 const SearchKeywordsPage = () => {
 
@@ -13,57 +17,84 @@ const SearchKeywordsPage = () => {
   const loading = useSelector(getRequestsTreeLoading)
   const tagsSelected = useSelector(getTagsSelected)
   const groupedTags = buildGroupedTags(tagsSelected, tree)
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const handleClearAll = () => {
     dispatch(setTagsSelected([]))
   }
+
+  const navigate = useNavigate()
+  const [mobileTagsBlockOpen, setMobileTagsBlockOpen] = useState(false)
+
 
   if (loading) {
     return <Spinner/>
   }
 
   return (
-    <div className={s.searchKeywordsPage}>
-      <ul className={`${s.leftBlock} scroll`}>
-        {buildCategoryTree(tree).map(rootNode => (
-          <CategoryNodeKeyWords key={rootNode.id} node={rootNode}/>
-        ))}
-      </ul>
+    <div className={s.searchKeywordsPageWrapper}>
+      <div className={s.mobileHeader}>
+        <button onClick={() => navigate(-1)}>
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="36" height="36" rx="4" fill="#F7F8FB"/>
+            <path d="M21 24L15 18L21 12" stroke="#131D2A" strokeWidth="2" strokeLinecap="round"
+                  strokeLinejoin="round"/>
+          </svg>
+        </button>
+        <span>Поиск по ключевым</span>
+      </div>
 
-      <div className={s.rightBlock}>
-        <div className={s.rightBlockHeader}>
-          <div>Выбрано тегов</div>
+      {
+        tagsSelected.length > 0 &&
+        <TopTagsLineMobile groupedTags={groupedTags} setMobileTagsBlockOpen={setMobileTagsBlockOpen}/>
+      }
+      <div className={s.searchKeywordsPage}>
+        <ul className={`${s.leftBlock} scroll`}>
+          {buildCategoryTree(tree).map(rootNode => (
+            <CategoryNodeKeyWords key={rootNode.id} node={rootNode}/>
+          ))}
+        </ul>
 
-          {
-            tagsSelected.length === 0 && "-"
-          }
+        <div className={s.rightBlock}>
+          <div className={s.rightBlockHeader}>
+            <div>Выбрано тегов</div>
 
-          {
-            tagsSelected.length > 0 && (
-              <div className={s.circle}>
-                {
-                  tagsSelected.length
-                }
-              </div>
-            )
-          }
-
-
-        </div>
-        <div className={`${s.rightBlockContent} scroll`}>
-
-          <ul className={s.catGroups}>
             {
-              groupedTags.map((catGroup) => <CategoryGroup catGroup={catGroup} key={catGroup.catId}/>)
+              tagsSelected.length === 0 && "-"
             }
-          </ul>
-        </div>
-        <div className={s.rightBlockFooter}>
-          <Button className={s.btnBlack} black>Найти заявки</Button>
-          <button onClick={handleClearAll} className={s.transparentBtn}>Сбросить все</button>
+
+            {
+              tagsSelected.length > 0 && (
+                <div className={s.circle}>
+                  {
+                    tagsSelected.length
+                  }
+                </div>
+              )
+            }
+          </div>
+          <div className={`${s.rightBlockContent} scroll`}>
+            <ul className={s.catGroups}>
+              {
+                groupedTags.map((catGroup) => <CategoryGroup catGroup={catGroup} key={catGroup.catId}/>)
+              }
+            </ul>
+          </div>
+          <div className={s.rightBlockFooter}>
+            <Button className={s.btnBlack} black>Найти заявки</Button>
+            <button onClick={handleClearAll} className={s.transparentBtn}>Сбросить все</button>
+          </div>
         </div>
       </div>
+      {
+        mobileTagsBlockOpen &&
+        <MobileTagsBlock
+          groupedTags={groupedTags}
+          tagsSelected={tagsSelected}
+          setTagsSelected={setTagsSelected}
+          setMobileTagsBlockOpen={setMobileTagsBlockOpen}
+        />
+      }
     </div>
   )
 }

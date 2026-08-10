@@ -62,12 +62,8 @@ const MainLayout = () => {
       }
 
     </main>
-  );
-};
+  )
+}
 
 export default MainLayout;
 
-{/*<SideMainMenu/>*/
-}
-{/*<SideSubMenu/>*/
-}

@@ -1,5 +1,5 @@
 import s from './MobileHeaderLK.module.scss';
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import chatIcon from "@/assets/img/header/userMenu/chat.svg";
 import ProfileInMobileHeader
   from "@/components/layout/Header/MobileHeader/MobileHeaderLK/ProfileInMobileHeader/ProfileInMobileHeader.jsx";
@@ -9,6 +9,16 @@ import {useSelector} from "react-redux";
 const MobileHeaderLk = () => {
 
   const isAuth = useSelector(state => state.user.isAuthenticated)
+
+  const urlsWithoutCommonHeader = [
+    "/search-keywords"
+  ]
+
+  const location = useLocation()
+
+  if (urlsWithoutCommonHeader.includes(location.pathname)) {
+    return null
+  }
 
   return (
     <header className={s.headerLK}>

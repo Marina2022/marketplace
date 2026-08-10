@@ -51,9 +51,7 @@ const Header = () => {
     <header className={s.header}>
       <div className={s.wrapper}>
         <div className={s.geoWrapper}>
-
           <Geo/>
-
         </div>
         <HeaderSearch/>
 

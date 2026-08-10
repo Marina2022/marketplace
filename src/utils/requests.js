@@ -87,7 +87,6 @@ export function buildCategoryTree(categories) {
 export const buildGroupedTags = (selectedTagIds, categories) => {
 
   if (!selectedTagIds.length) return []
-
   const selectedSet = new Set(selectedTagIds)
 
   return categories

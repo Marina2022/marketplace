@@ -49,6 +49,7 @@
 
   @include m {
     max-width: unset;
+    border: none;
   }
 }
 
@@ -88,6 +89,7 @@
 
   @include m {
     padding-bottom: 50px;
+
   }
 }
 

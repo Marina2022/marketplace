@@ -1,0 +1,99 @@
+.mobileTagsBlock {
+  max-height: 50vh;
+  position: fixed;
+  bottom: 56px;
+  left: 0;
+  right: 0;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  background-color: #fff;
+  padding-top: 8px;
+  padding-bottom: 16px;
+  width: 100vw;
+}
+
+.line {
+  width: 38px;
+  height: 6px;
+  border-radius: 3px;
+  background-color: #E0E3E8;
+  margin-inline: auto;
+  margin-bottom: 14px;
+}
+
+.mobileTagsBlockWrapper {
+  position: fixed;
+  bottom: 56px;
+  top: 60px;
+  left: 0;
+  right: 0;
+  background: rgb(0, 0, 0, .2);
+}
+
+.circle {
+  background: #3D4A66;
+  border-radius: 100px;
+  min-width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 7px;
+  font-size: 13px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.selectedTags {
+  padding-inline: 16px;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #16181D;
+  gap: 6px;
+}
+
+.tagsChosen {
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #F0F1F1;
+  padding-bottom: 14px;
+}
+
+.transparentBtn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-inline: 16px;
+  color: #9AA1AC;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.selectedText {
+  text-wrap: nowrap;
+}
+
+.catGroups {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding-inline: 16px;
+  margin-bottom: 20px;
+}
+
+.bottomBlock {
+  padding-inline: 16px;
+}
+
+
+.btnBlack {
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}

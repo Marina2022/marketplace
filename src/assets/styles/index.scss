@@ -229,21 +229,16 @@ a {
 
 
 .scroll {
-
   overflow: auto;
 
   @supports not selector(::-webkit-scrollbar) {
     scrollbar-width: thin;
     scrollbar-color: #AAB7BF #F0F1F1;
-
   }
 
   &::-webkit-scrollbar {
     width: 4px !important;
-
-    @include m {
-      width: 4px !important;
-    }
+    height: 4px !important;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -252,7 +247,6 @@ a {
   }
 
   &::-webkit-scrollbar-track {
-    //background-color: #F0F1F1 !important; /* Цвет трека */
     border-radius: 3px !important; /* Закругление краев */
   }
 

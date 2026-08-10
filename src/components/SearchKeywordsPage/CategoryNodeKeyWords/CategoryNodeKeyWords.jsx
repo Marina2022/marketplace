@@ -21,7 +21,7 @@ const CategoryNodeKeyWords = ({node, level = 1}) => {
     dispatch(setOpenedBranchesInKewSearch(newOpenBranches))
   }
 
-  const isFirstLevel = level === 1;
+  const isFirstLevel = level === 1
 
   return (
     <li

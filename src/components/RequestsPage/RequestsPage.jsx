@@ -9,8 +9,6 @@ const RequestsPage = () => {
 
   const tree = useSelector(getRequestsTree)
   const loading = useSelector(getRequestsTreeLoading)
-  console.log("tree = ", tree ? buildCategoryTree(tree) : null)
-  console.log("loading = ", loading)
 
   if (loading) {
     return <Spinner />
