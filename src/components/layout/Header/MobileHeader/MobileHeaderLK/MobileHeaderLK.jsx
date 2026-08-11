@@ -59,7 +59,6 @@ const MobileHeaderLk = () => {
                 </Link>
               )
             }
-
             <div className={s.burgerBtn}>
               <MobileMenuLK/>
             </div>
