@@ -24,9 +24,9 @@ export const loadRequests = createAsyncThunk('requests/loadRequests', async (arg
 
 
 export const loadRequestsTree = createAsyncThunk('requests/loadRequestsTree', async () => {
-    // const resp = await axiosInstance.get("/request-categories/tree")
-    const resp = await axiosInstance.get("/request-categories/tree/tags")
-    return resp.data
+  // const resp = await axiosInstance.get("/request-categories/tree")
+  const resp = await axiosInstance.get("/request-categories/tree/tags")
+  return resp.data
 })
 
 const initialState = {
@@ -38,6 +38,7 @@ const initialState = {
   openedBranchesInCats: [],
   openedBranchesInKewSearch: [],
   tagsSelected: [],
+  recentCategories: JSON.parse(localStorage.getItem("recent_categories") || "[]")
 }
 
 const requestsSlice = createSlice({
@@ -58,36 +59,40 @@ const requestsSlice = createSlice({
     },
     setTagsSelected: (state, action) => {
       state.tagsSelected = action.payload
+    },
+    setRecentCategories: (state, action) => {
+      state.recentCategories = action.payload
     }
   },
 
-  extraReducers: builder => builder
-    .addCase(loadRequests.pending, (state) => {
-      state.requestsLoadingStatus = 'loading'
-    })
-    .addCase(loadRequests.fulfilled, (state, action) => {
-      state.requestsLoadingStatus = 'success'
-      state.requests = action.payload
-    })
-    .addCase(loadRequests.rejected, (state, action) => {
-      state.requestsLoadingStatus = 'error'
-      console.log('ошибка', action.error.message)
-    })
+  extraReducers:
+    builder => builder
+      .addCase(loadRequests.pending, (state) => {
+        state.requestsLoadingStatus = 'loading'
+      })
+      .addCase(loadRequests.fulfilled, (state, action) => {
+        state.requestsLoadingStatus = 'success'
+        state.requests = action.payload
+      })
+      .addCase(loadRequests.rejected, (state, action) => {
+        state.requestsLoadingStatus = 'error'
+        console.log('ошибка', action.error.message)
+      })
 
-    .addCase(loadRequestsTree.pending, (state) => {
-      state.requestsTreeLoading = true
-    })
-    .addCase(loadRequestsTree.fulfilled, (state, action) => {
-      state.requestTree = action.payload
-      state.requestsTreeLoading = false
-    })
-    .addCase(loadRequestsTree.rejected, (state, action) => {
-      state.requestsTreeLoading = false
-      console.log('ошибка', action.error.message)
-    })
+      .addCase(loadRequestsTree.pending, (state) => {
+        state.requestsTreeLoading = true
+      })
+      .addCase(loadRequestsTree.fulfilled, (state, action) => {
+        state.requestTree = action.payload
+        state.requestsTreeLoading = false
+      })
+      .addCase(loadRequestsTree.rejected, (state, action) => {
+        state.requestsTreeLoading = false
+        console.log('ошибка', action.error.message)
+      })
 })
 export const {
-  setRequestsTab, setRequestTree, setOpenedBranchesInCats, setOpenedBranchesInKewSearch, setTagsSelected
+  setRequestsTab, setRequestTree, setOpenedBranchesInCats, setOpenedBranchesInKewSearch, setTagsSelected, setRecentCategories
 } = requestsSlice.actions
 export const getRequests = state => state.requests.requests
 export const getRequestsTab = state => state.requests.requestsTab
@@ -97,5 +102,6 @@ export const getRequestsTreeLoading = state => state.requests.requestsTreeLoadin
 export const getOpenedBranchesInCats = state => state.requests.openedBranchesInCats
 export const getOpenedBranchesInKeySearch = state => state.requests.openedBranchesInKewSearch
 export const getTagsSelected = state => state.requests.tagsSelected
+export const getRecentCategories = state => state.requests.recentCategories
 
 export default requestsSlice.reducer

@@ -1,1 +1,41 @@
 @import "@/assets/styles/mixins";
+
+.submenuWrapper {
+  padding: 16px 8px;
+}
+
+.subheader {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  color: #9AA1AC;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  margin-inline: 8px;
+  text-transform: uppercase;
+}
+
+.catItem {
+  display: flex;
+  align-items: center;
+  padding-inline: 12px;
+  padding-block: 6px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  color: #3E5067;
+
+  @media(hover: hover) {
+    &:hover {
+      background: #ECEFF5;
+    }
+  }
+}
+
+.list1 {
+  padding-bottom: 8px;
+  border-bottom: 1px solid #F0F1F1;
+  margin-bottom: 10px;
+}

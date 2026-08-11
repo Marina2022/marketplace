@@ -1,6 +1,6 @@
 import s from './Submenu.module.scss';
 import {useLocation} from "react-router-dom";
-import RequestsSubmenu from "@/components/RequestsPage/RequestsSubmenu/Requests.jsx";
+import RequestsSubmenu from "@/components/RequestsPage/RequestsSubmenu/RequestsSubmenu.jsx";
 import FavoritesSubmenu from "@/components/FavoritesNewPage/FavoritesSubmenu/FavoritesSubmenu.jsx";
 import ManageRequestsSubmenu from "@/components/manage-requests/ManageRequestsSubmenu/ManageRequestsSubmenu.jsx";
 import ChatSubmenu from "@/components/chat/ChatSubmenu/ChatSubmenu.jsx";

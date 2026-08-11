@@ -107,3 +107,18 @@ export const buildGroupedTags = (selectedTagIds, categories) => {
     })
     .filter(Boolean)
 }
+
+export const getOpenedCategoryIds = (selectedCats, categories) => {
+  const map = new Map(categories.map(cat => [cat.id, cat]))
+  const result = new Set()
+
+  selectedCats.forEach(cat => {
+    let current = map.get(cat.id)
+    while (current) {
+      result.add(current.id)
+      current = current.parentId ? map.get(current.parentId) : null
+    }
+  })
+
+  return Array.from(result)
+}

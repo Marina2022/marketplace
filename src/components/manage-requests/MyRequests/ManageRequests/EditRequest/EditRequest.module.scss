@@ -49,14 +49,6 @@
   }
 }
 
-.headerMobile {
-  display: none;
-
-  @include m {
-    display: block;
-  }
-}
-
 .title {
   color: #131D2A;
   font-size: 20px;
@@ -75,20 +67,24 @@
 }
 
 .headerMobile {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-  height: 48px;
-  background: #F0F1F5;
+  display: none;
 
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  padding: 12px 16px;
-  font-weight: 500;
+  @include m {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    height: 48px;
+    background: #F0F1F5;
+    gap: 8px;
+    align-items: center;
+    padding: 12px 16px;
+    font-weight: 500;
+  }
 }
+
 
 .menuBtnWrapper {
   position: relative;
@@ -146,9 +142,9 @@
 }
 
 .cancelBtn {
-  color: #3E5067!important;
-  background: white!important;
-  border: #AAB7BF 1px solid!important;
+  color: #3E5067 !important;
+  background: white !important;
+  border: #AAB7BF 1px solid !important;
   width: 99px;
   font-weight: 500;
 

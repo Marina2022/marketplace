@@ -1,7 +1,6 @@
 import s from './RequestCategoriesModalOnMobile.module.scss';
 import {useEffect} from "react";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
-import {useViewportHeight} from "@/hooks/useViewportHeight.js";
 
 const RequestCategoriesModalOnMobile = ({setEditing, children, trigger}) => {
   const handleClose = () => {

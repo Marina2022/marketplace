@@ -5,8 +5,7 @@
   padding-left: 16px;
 }
 
-
 .requestPage {
-  height: calc(100vh - 48px - 76px - 12px);
+  height: calc(100 * var(--vh) - 48px - 76px - 12px);
   padding-bottom: 10px;
 }

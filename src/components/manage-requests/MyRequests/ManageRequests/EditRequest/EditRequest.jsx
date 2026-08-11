@@ -22,6 +22,7 @@ import EditRequestTags
   from "@/components/manage-requests/MyRequests/ManageRequests/EditRequest/EditRequestTags/EditRequestTags.jsx";
 import RequestFiles
   from "@/components/manage-requests/MyRequests/ManageRequests/EditRequest/RequestFiles/RequestFiles.jsx";
+import {getContext} from "@/store/geoSlice.js";
 
 const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
@@ -35,7 +36,7 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
   const activeProfileId = useSelector(getActiveProfileId)
   const [requestId, setRequestId] = useState(requestToEdit.requestId);
   const [title, setTitle] = useState("")
-  const [catId, setCatId] = useState("")
+  const [catIds, setCatIds] = useState([])
   const [description, setDescription] = useState("")
   const [initialPreview, setInitialPreview] = useState()  // загружаемое вместе с заявкой привью
   const [preview, setPreview] = useState() // привью, загружаемое пользователем
@@ -46,18 +47,17 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(!isNew)
 
+  const geoContext = useSelector(getContext)
 
   useEffect(() => {
-
     const getRequestAndAll = async () => {
 
       try {
-
         setLoading(true)
         const requestResponse = await axiosInstance(`requests/${requestToEdit.requestId}/edit-info?profileId=${activeProfileId}`)
 
         setTitle(requestResponse.data.title)
-        setCatId(requestResponse.data.categoryId)
+        setCatIds(requestResponse.data.categoryId) // возможно по-другому будет называться? несколько же айдишников сейчас
         setDescription(requestResponse.data.description)
         setSelectedTags(requestResponse.data.tags)
 
@@ -75,11 +75,9 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
         setLoading(false)
       }
     }
-
     if (!isNew) {
       getRequestAndAll()
     }
-
   }, [isNew]);
 
   const handleSubmit = async () => {
@@ -87,11 +85,11 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
     // валидация
 
     if (!title) {
-      setErrors(prev => ({...prev, title: 'Введите название заявки'}))
+      setErrors(prev => ({...prev, title: 'ВыВведите название заявки'}))
     }
 
-    if (!catId) {
-      setErrors(prev => ({...prev, catId: 'Выберите категорию'}))
+    if (!catIds.length) {
+      setErrors(prev => ({...prev, catIds: 'Выберите категорию'}))
     }
     if (!description) {
       setErrors(prev => ({...prev, description: 'Добавьте описание заявки'}))
@@ -101,7 +99,7 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
       setErrors(prev => ({...prev, preview: 'Добавьте обложку'}))
     }
 
-    if (!title || !catId || !description || !(preview || initialPreview)) {
+    if (!title || !catIds || !description || !(preview || initialPreview)) {
       return
     }
 
@@ -132,12 +130,14 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
     }
 
     try {
-      const response = await axiosInstance.put(`/requests/${requestId}/files?profileId=${activeProfileId}`, payloadForLinking)
+      await axiosInstance.put(`/requests/${requestId}/files?profileId=${activeProfileId}`, payloadForLinking)
 
       // сохранение драфта или новой заявки
       if (requestToEdit === "new" || requestToEdit.status.code === "draft") {
-        const response2 = await axiosInstance.post(`/requests/${requestId}/submit?profileId=${activeProfileId}`, {})
+        await axiosInstance.post(`/requests/${requestId}/submit?profileId=${activeProfileId}`, {})
       }
+
+
 
       // update заявки
       if (requestToEdit !== "new" && requestToEdit.status.code !== "draft") {
@@ -146,12 +146,14 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
         const body = {
           profileId: activeProfileId,
-          categoryId: catId ? catId : null,
+          categoryId: catIds ? catIds.map(cat=>cat.id) : null,
           title: title,
           description: description,
-          tags: tagsForPayload
+          tags: tagsForPayload,
+          regionId: geoContext.savedRegion.regionId
         }
         const response = await axiosInstance.put(`/requests/${requestId}/`, body)
+        console.log("draft response = ", response)
       }
 
       setRequestToEdit(null)
@@ -163,16 +165,19 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
     }
   }
 
+
   const isDirty = useRef(false)  // было ли редактирование
+
   const saveDraft = async () => {
     const tagsForPayload = selectedTags.map((tag) => tag.tagId)
 
     const body = {
       profileId: activeProfileId,
-      categoryId: catId ? catId : null,
+      categoryId: catIds ? catIds.map(cat=>cat.id) : null,  // сейчас в catIds объекты вида {id, name}
       title: title,
       description: description,
-      tags: tagsForPayload
+      tags: tagsForPayload,
+      regionId: geoContext.savedRegion.regionId
     }
 
     if (!requestId) {
@@ -186,13 +191,12 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
     } else {
       // update драфта.
       try {
-        const response = await axiosInstance.put(`/requests/${requestId}/draft`, body)
+        await axiosInstance.put(`/requests/${requestId}/draft`, body)
 
       } catch (err) {
         console.log(err)
       }
     }
-
     isDirty.current = false;
   };
 
@@ -207,7 +211,7 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [title, description, selectedTags, catId]);
+  }, [title, description, selectedTags, catIds]);
 
 
   const handleCancel = async () => {
@@ -286,7 +290,7 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
       <Steps
         title={title}
-        catId={catId}
+        catIds={catIds}
         description={description}
         tags={selectedTags}
         initialPreview={initialPreview}
@@ -307,10 +311,10 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
       />
 
       <EditRequestCategory
-        catId={catId}
-        setValue={setCatId}
+        catIds={catIds}
+        setValue={setCatIds}
         isDirty={isDirty}
-        isError={errors.catId}
+        isError={errors.catIds}
         setErrors={setErrors}
       />
 
@@ -347,13 +351,15 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
       }
 
 
-      <h3 className={s.littleTitle}>Ключевые слова</h3>
-      <EditRequestTags
-        catId={catId}
-        selectedTags={selectedTags}
-        setSelectedTags={setSelectedTags}
-        isDirty={isDirty}
-      />
+      {/*// todo - пока скрываю, т.к. запрос на теги нужно менять (вместо catId посылать массив cat Id)*/}
+
+      {/*<h3 className={s.littleTitle}>Ключевые слова</h3>*/}
+      {/*<EditRequestTags*/}
+      {/*  catIds={catIds}*/}
+      {/*  selectedTags={selectedTags}*/}
+      {/*  setSelectedTags={setSelectedTags}*/}
+      {/*  isDirty={isDirty}*/}
+      {/*/>*/}
 
 
       <h3 className={`mobile-hidden ${s.littleTitle}`}>Дополнительные файлы</h3>
@@ -377,9 +383,6 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
         <Button className={s.cancelBtn} onClick={handleCancel}>Отменить</Button>
         <Button className={s.submitBtn} onClick={handleSubmit}>Создать заявку</Button>
       </div>
-
-
-      {/*в tags тоже пойдет пропс, не забыть применить - isDirty={isDirty}  isDirty.current = true  */}
 
     </div>
   );

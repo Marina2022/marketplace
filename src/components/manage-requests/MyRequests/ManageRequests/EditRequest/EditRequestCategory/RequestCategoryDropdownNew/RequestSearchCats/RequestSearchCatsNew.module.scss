@@ -1,0 +1,51 @@
+@import '@/assets/styles/mixins';
+
+.searchBlock {
+  height: 44px;
+  border: #F0F1F1 1px solid;
+  background: white;
+  width: calc(100% - 40px);
+  flex: 1;
+  padding: 12px 20px;
+  margin-inline: 20px;
+  margin-bottom: 20px;
+  background: #F9FAFB;
+  color: #658092;
+  font-size: 14px;
+  font-weight: 500;
+
+  &:focus::placeholder {
+    color: transparent;
+  }
+
+  &:focus {
+    outline: #D1DCE8 1px solid;
+  }
+  
+  &::placeholder {
+    padding-left: 10px;
+    font-size: 14px;
+  }
+  
+  @include m {
+    margin-inline: 16px;
+    width: calc(100% - 32px);
+  }  
+}
+
+.wrapper {
+  position: relative;
+  color: #658092;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 30px;
+  top: 15px;
+  
+  @include m {
+    left: 26px;
+  }
+}
