@@ -7,7 +7,7 @@ import CategoryNodeKeyWords from "@/components/SearchKeywordsPage/CategoryNodeKe
 import Button from "@/components/ui/Button/Button.jsx";
 import CategoryGroup from "@/components/SearchKeywordsPage/CategoryNodeKeyWords/CategoryGroup/CategoryGroup.jsx";
 import TopTagsLineMobile from "@/components/SearchKeywordsPage/TopTagsLineMobile/TopTagsLineMobile.jsx";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import MobileTagsBlock from "@/components/SearchKeywordsPage/MobileTagsBlock/MobileTagsBlock.jsx";
 
@@ -23,9 +23,19 @@ const SearchKeywordsPage = () => {
     dispatch(setTagsSelected([]))
   }
 
+  const location = useLocation()
+
   const navigate = useNavigate()
   const [mobileTagsBlockOpen, setMobileTagsBlockOpen] = useState(false)
 
+  const handleClickBack = () => {
+
+    if (location.state?.fromApp) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  }
 
   if (loading) {
     return <Spinner/>
@@ -34,7 +44,7 @@ const SearchKeywordsPage = () => {
   return (
     <div className={s.searchKeywordsPageWrapper}>
       <div className={s.mobileHeader}>
-        <button onClick={() => navigate(-1)}>
+        <button onClick={handleClickBack}>
           <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="36" height="36" rx="4" fill="#F7F8FB"/>
             <path d="M21 24L15 18L21 12" stroke="#131D2A" strokeWidth="2" strokeLinecap="round"

@@ -82,7 +82,7 @@ const RequestsSubmenu = () => {
         }
       </ul>
     </div>
-  );
-};
+  )
+}
 
 export default RequestsSubmenu;

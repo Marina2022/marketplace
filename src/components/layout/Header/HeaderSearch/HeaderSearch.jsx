@@ -22,7 +22,9 @@ const HeaderSearch = () => {
     const url = '/search-keywords'
 
     const isInTabs = tabs.find((tab) => tab === url)
-    navigate(url)
+    navigate(url, {
+      state: { fromApp: true }
+    })
 
     if (!isInTabs) {
       const newTabs = [...tabs, url]

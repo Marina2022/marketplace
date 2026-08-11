@@ -14,6 +14,7 @@
 .headerLK {
   background: white;
   height: 72px;
+  z-index: 1;
 }
 
 .wrapper {
@@ -23,7 +24,6 @@
   align-items: center;
   justify-content: space-between;
 }
-
 
 .logoLink {
   margin-right: 62px;
@@ -65,4 +65,20 @@
   gap: 16px;
   margin-left: auto;
 }
+
+
+.loginBtn {
+  height: 40px;
+  width: 110px;
+  background: #1B2233;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+}
+
 
