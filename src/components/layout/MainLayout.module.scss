@@ -55,6 +55,7 @@
 
 .contentWrapper {
   height: calc(var(--vh) * 100 - 48px - 76px - 12px);
+  overflow: hidden;
   position: relative;
 
   @supports not selector(::-webkit-scrollbar) {

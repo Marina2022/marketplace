@@ -34,9 +34,6 @@
   color: #3D4A66;
   font-weight: 600;
   font-size: 13px;
-
-
-
 }
 
 .count {
@@ -61,19 +58,17 @@
 .tabsWrapperForScroll {
 
   @include t {
-    width: calc(100vw - 24px - 162px - 48px);
     position: absolute;
-    //left: -14px;
     padding-inline: 14px;
     overflow-x: auto;
+    width: auto;
+    max-width: 100%;
   }
 
   @include m {
-    //width: 100vw;
-
-    width: auto;              // Убираем жесткий calc
-    max-width: 100%;          // Не даем выйти за рамки родителя
-    overflow-x: auto;         // Разрешаем прокрутку вбок
+    width: auto;
+    max-width: 100%;
+    overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
 }

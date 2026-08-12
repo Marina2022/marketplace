@@ -37,7 +37,6 @@
   @include m {
     width: 55px!important;
     padding: 0;
-
   }
 }
 
@@ -69,10 +68,11 @@
     grid-template-columns: repeat(auto-fill, 300px);
     padding-inline: 14px;
     height: calc(100 * var(--vh) - 276px);
+    padding-top: 0;
   }
 
   @include m {
-    padding-block: 14px;
+    padding-bottom: 14px;
     height: calc(100 * var(--vh) - 240px);
     grid-template-columns: 1fr;
     padding-inline: 14px;
@@ -87,10 +87,6 @@
 
 .observerDiv {
   padding-block: 10px;
-}
-
-.manageRequestsWrapper {
-  //overflow: auto;
 }
 
 .plusIconInBtn {
