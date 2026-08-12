@@ -1,6 +1,9 @@
 import s from './RequestsTabs.module.scss';
+import {useNavigate} from "react-router-dom";
+import {getTabs, setTabs} from "@/store/tabsSlice.js";
+import {useDispatch, useSelector} from "react-redux";
 
-const tabs = [
+const pageTabs = [
   {
     label: "Все",
     value: "all"
@@ -10,8 +13,8 @@ const tabs = [
     value: "active"
   },
   {
-    label: "С откликами",
-    value: "withresponses"
+    label: "В работе",
+    value: "inProgress"
   },
   {
     label: "Приостановленные",
@@ -30,33 +33,69 @@ const tabs = [
     value: "expired"
   },
   {
-    label: "Архив",
-    value: "archived"
+    label: "История",
+    value: "history"
   }
+
 ]
 
 const RequestsTabs = ({requests, setTab, tab}) => {
 
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const tabs = useSelector(getTabs)
+
   return (
-    <ul className={s.tabs}>
-      {
-        tabs.map((tabItem, i) => {
-          let count = 0;
-          if (requests) {
-            count = requests.tabCount[tabItem.value] ?? 0
-          }
-            return (
-              <li key={i}
-                  className={tabItem.value === tab ? s.tabActive : s.tab}
-                  onClick={() => setTab(tabItem.value)}
-              >
-                {tabItem.label} ({count})
-              </li>
-            )
-          }
-        )
-      }
-    </ul>
+    <div className={s.tabsWrapperForScroll}>
+      <ul className={s.tabs}>
+        {
+          pageTabs.map((tabItem, i) => {
+              let count = 0;
+              if (requests) {
+                count = requests.tabCount[tabItem.value] ?? 0
+              }
+
+              const handleClick = () => {
+                if (tabItem.value !== "history") {
+                  setTab(tabItem.value)
+                } else {
+
+                  const url = '/requests-history'
+                  const isInTabs = tabs.find((tab) => tab === url)
+                  navigate(url)
+
+                  if (!isInTabs) {
+                    const newTabs = [...tabs, url]
+                    dispatch(setTabs(newTabs))
+                  }
+                }
+              }
+
+              const isActive = tabItem.value === tab
+
+              return (
+                <li key={i}
+                    className={`${s.tab} ${isActive ? s.tabActive : ''}`}
+                    onClick={handleClick}
+                >
+                <span>
+                  {tabItem.label}</span>
+
+                  {
+                    tabItem.value !== "history" &&
+                    <span className={`${s.count} ${isActive ? s.countActive : ''}`}>{count}</span>
+                  }
+
+                </li>
+              )
+            }
+          )
+        }
+
+        <li className={s.tabletEndItem}></li>
+
+      </ul>
+    </div>
   )
 }
 

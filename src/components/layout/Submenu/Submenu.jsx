@@ -11,10 +11,7 @@ import {getUserStatus} from "@/store/userSlice.js";
 const Submenu = () => {
 
   const location = useLocation();
-
   const userStatus = useSelector(getUserStatus)
-
-
 
   return (
     <div className={s.submenu}>

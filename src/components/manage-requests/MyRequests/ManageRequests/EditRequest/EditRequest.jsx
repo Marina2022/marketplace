@@ -57,7 +57,7 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
         const requestResponse = await axiosInstance(`requests/${requestToEdit.requestId}/edit-info?profileId=${activeProfileId}`)
 
         setTitle(requestResponse.data.title)
-        setCatIds(requestResponse.data.categoryId) // возможно по-другому будет называться? несколько же айдишников сейчас
+        setCatIds(requestResponse.data.categoryIds)
         setDescription(requestResponse.data.description)
         setSelectedTags(requestResponse.data.tags)
 
@@ -146,7 +146,7 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
         const body = {
           profileId: activeProfileId,
-          categoryId: catIds ? catIds.map(cat=>cat.id) : null,
+          categoryIds: catIds ? catIds.map(cat=>cat.id) : null,
           title: title,
           description: description,
           tags: tagsForPayload,
@@ -165,7 +165,6 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
     }
   }
 
-
   const isDirty = useRef(false)  // было ли редактирование
 
   const saveDraft = async () => {
@@ -173,7 +172,7 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
     const body = {
       profileId: activeProfileId,
-      categoryId: catIds ? catIds.map(cat=>cat.id) : null,  // сейчас в catIds объекты вида {id, name}
+      categoryIds: catIds ? catIds.map(cat=>cat.id) : null,  // сейчас в catIds объекты вида {id, name}
       title: title,
       description: description,
       tags: tagsForPayload,

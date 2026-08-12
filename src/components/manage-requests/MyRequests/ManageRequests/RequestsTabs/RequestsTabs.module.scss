@@ -5,35 +5,88 @@
   font-size: 14px;
   color: #658092;
   margin-bottom: 16px;
-
-  @media (max-width: 1200px) {
-    flex-wrap: wrap;
-  }
-
+  gap: 6px;
 }
 
 .tab {
-  border-bottom: 2px solid #D1D5DB;
-  padding-inline: 4px;
-  padding-block: 12px;
+  flex-shrink: 0;
+  border: 1px solid #DFE2E7;
+  height: 38px;
+  border-radius: 4px;
+  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   cursor: pointer;
+  padding-inline: 14px;
+  color: #565C68;
+  font-size: 12px;
+  font-weight: 500;
 
-  @media (max-width: 1200px) {
-    border: none;
-    padding-block: 8px;
+  @include m {
+    height: 24px;
   }
-
 }
 
 .tabActive {
-  color: #3E5067;
-  border-bottom: 2px solid #658092;
-  padding-inline: 4px;
-  padding-block: 12px;
+  background-color: #ECEFF5;
+  color: #3D4A66;
+  font-weight: 600;
+  font-size: 13px;
 
-  @media (max-width: 1200px) {
-    //border: none;
-    padding-block: 8px;
+
+
+}
+
+.count {
+  background-color: #EEF0F3;
+  border-radius: 50px;
+  height: 16px;
+  min-width: 20px;
+  padding-inline: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8A8F98;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.countActive {
+  background-color: #3D4A66;
+  color: white;
+}
+
+.tabsWrapperForScroll {
+
+  @include t {
+    width: calc(100vw - 24px - 162px - 48px);
+    position: absolute;
+    //left: -14px;
+    padding-inline: 14px;
+    overflow-x: auto;
+  }
+
+  @include m {
+    //width: 100vw;
+
+    width: auto;              // Убираем жесткий calc
+    max-width: 100%;          // Не даем выйти за рамки родителя
+    overflow-x: auto;         // Разрешаем прокрутку вбок
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.tabletEndItem {
+  display: none;
+
+  @include t {
+    display: block;
+    width: 8px;
+    height: 10px;
+    background-color: transparent;
+    flex-shrink: 0;
   }
 }
 

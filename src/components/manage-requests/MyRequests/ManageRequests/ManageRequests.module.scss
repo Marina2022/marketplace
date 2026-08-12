@@ -9,44 +9,37 @@
 
 .header {
   display: flex;
-  align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 10px;
+  align-items: center;
+  width: 1432%;
+  max-width: 100%;
 
-  @include m {
-    display: none;
+  @include t {
+    margin-block: 14px;
+    padding-inline: 14px;
   }
 }
 
 .createRequestButton {
-  background: #658092;
+  height: 40px;
+  width: 143px;
+  gap: 8px;
+  border-radius: 8px;
+  background: #1B2233;
   font-weight: 500;
   font-size: 12px;
 
   &:hover {
-    background: #566F80;
+    background: #000;
   }
 
   @include m {
-    display:  none;
+    width: 55px!important;
+    padding: 0;
+
   }
 }
-
-.createRequestButtonMobile {
-  display: none;
-
-  @include m {
-    display:  flex;
-    background: #658092;
-    font-weight: 500;
-    font-size: 12px;
-    width: 100%;
-    margin-top: 32px;
-  }
-
-
-}
-
 
 .title {
   font-weight: 600;
@@ -70,13 +63,19 @@
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(auto-fill, 346px);
+  height: calc(100 * var(--vh) - 280px);  // todo
 
   @include t {
-    grid-template-columns: repeat(auto-fill, 310px);
+    grid-template-columns: repeat(auto-fill, 300px);
+    padding-inline: 14px;
+    height: calc(100 * var(--vh) - 276px);
   }
 
   @include m {
+    padding-block: 14px;
+    height: calc(100 * var(--vh) - 240px);
     grid-template-columns: 1fr;
+    padding-inline: 14px;
   }
 }
 
@@ -88,4 +87,48 @@
 
 .observerDiv {
   padding-block: 10px;
+}
+
+.manageRequestsWrapper {
+  //overflow: auto;
+}
+
+.plusIconInBtn {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.leftHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  @include m {
+    gap: 2px;
+  }
+}
+
+.subtitle {
+  font-size: 12px;
+  color: #9AA1AC;
+}
+
+.btnText {
+  @include m {
+    display: none;
+  }
+}
+
+.wrapperForTabs {
+
+  @include t {
+    position: relative;
+    height: 38px;
+    margin-bottom: 16px;
+
+    @include m {
+      height: 24px;
+    }
+  }
 }

@@ -1,11 +1,12 @@
 import s from './Tab.module.scss'
 import {useNavigate} from "react-router-dom";
-import {tabLabels} from "@/components/layout/Tabs/tabUtils.js";
 import {useDispatch, useSelector} from "react-redux";
 import {getTabs, setTabs} from "@/store/tabsSlice.js";
 import {setIsLoginPopupOpened} from "@/store/userSlice.js";
 import {getRequestsTree} from "@/store/requestsSlice.js";
 import {useEffect, useState} from "react";
+
+import {tabLabels} from "@/components/layout/Tabs/tabUtils.js";
 
 const Tab = ({tab, nextTab}) => {
 
@@ -56,9 +57,6 @@ const Tab = ({tab, nextTab}) => {
     }
 
     if (tab.startsWith("/requests/") && requestsTree ) {
-
-      // это категория или товар, или поиск, распарсим как-нибудь, все-равно нужно различать для роутинга
-      // пока будем считать, что эта категория
       const categorySlug = tab.split('/').pop().replace(/-\d+$/, '');
       const category = requestsTree.find(item => item.slug === categorySlug)
       setLabel(`${category.name}`)

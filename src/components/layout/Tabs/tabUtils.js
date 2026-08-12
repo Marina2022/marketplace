@@ -48,5 +48,9 @@ export const tabLabels = [
     label: "Поиск - Ключевые",
     url: "/search-keywords",
     public: true
+  },{
+    label: "История заявок",
+    url: "/requests-history",
+    public: false
   },
 ]

@@ -1,98 +1,26 @@
 @import "@/assets/styles/mixins";
 
-.requestsPage {
-}
-
-
-.rightBarAdditionalItem {
-  width: 24px;
-  background: #DDE2E8;
-  position: fixed;
-  right: 0;
-  top: 134px;
-  z-index: 100;
-  cursor: pointer;
-  user-select: none;
-  writing-mode: vertical-rl;
-  text-decoration: none;
-  color: #658092;
-  font-weight: 500;
-  font-size: 12px;
-  white-space: nowrap;
-  padding-inline: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-left: 3px solid #658092;
-
-  @include m {
-    display: none;
-  }
-}
-
-
-// --------------------
-
-
 .contentWrapper {
-  //top: 134px;
-  //position: fixed;
-  //left: calc(250px + 64px);  // ширина двух левых боковых меню
-  //background: #fff;
-  padding: 16px 24px;
-  padding-right: 10px;
-  right: calc( 24px + 16px);  // отступ + ширина правой панели
-  bottom: 12px;
-  //border: #F0F1F1 1px solid;
+  padding: 16px 10px 16px 14px;
 
   @include t {
-    left: calc(174px + 64px);  // ширина двух левых боковых меню
-  }
-
-  @include m {
     position: static;
     background: transparent;
     padding: 0;
     border: none;
-    padding-bottom: 86px;
+    padding-bottom: 10px;
   }
 }
 
 .content {
-  overflow: auto;
   padding-right: 12px;
-  height: 100%;
 
-  @-moz-document url-prefix() {
-    scrollbar-width: thin !important;
-    scrollbar-color: var(--lime) rgba(37, 37, 38, 0.1) !important;
-  }
-
-  &::-webkit-scrollbar {
-    width: 6px !important; /* Ширина скроллбара */
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #AAB7BF !important;
-    border-radius: 10px !important;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: #F0F1F1 !important;
-    border-radius: 10px !important;
+  @include t {
+    padding-right: 0;
   }
 
   @include m {
-    max-height: unset;
-    padding-inline: 16px;
-  }
-
-
-}
-
-.contentWrapperRightPanelOpen {
-  right: calc( 24px + 16px + 365px);  // отступ + ширина правой панели
-
-  @include t {
-    right: calc( 24px + 16px);  // панель ляжет сверху
+    padding-right: 0;
+    //padding-inline: 16px;
   }
 }
