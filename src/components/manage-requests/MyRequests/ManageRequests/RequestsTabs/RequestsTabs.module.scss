@@ -9,6 +9,7 @@
 }
 
 .tab {
+  user-select: none;
   flex-shrink: 0;
   border: 1px solid #DFE2E7;
   height: 38px;
@@ -25,7 +26,11 @@
   font-weight: 500;
 
   @include m {
+    gap: 4px;
+    padding-inline: 10px;
     height: 24px;
+    border-radius: 16px;
+    font-size: 11px;
   }
 }
 
@@ -34,6 +39,10 @@
   color: #3D4A66;
   font-weight: 600;
   font-size: 13px;
+
+  @include m {
+    font-size: 11px;
+  }
 }
 
 .count {
@@ -48,6 +57,13 @@
   color: #8A8F98;
   font-size: 10px;
   font-weight: 600;
+
+  @include m {
+    font-size: 9px;
+    font-weight: 700;
+    height: 14px;
+    min-width: 12px;
+  }
 }
 
 .countActive {

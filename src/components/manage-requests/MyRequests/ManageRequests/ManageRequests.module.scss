@@ -30,8 +30,10 @@
   font-weight: 500;
   font-size: 12px;
 
-  &:hover {
-    background: #000;
+  @media (hover: hover) {
+    &:hover {
+      background: #000;
+    }
   }
 
   @include m {
@@ -62,7 +64,8 @@
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(auto-fill, 346px);
-  height: calc(100 * var(--vh) - 280px);  // todo
+  height: calc(100 * var(--vh) - 280px);
+  align-items: start;
 
   @include t {
     grid-template-columns: repeat(auto-fill, 300px);
@@ -126,5 +129,17 @@
     @include m {
       height: 24px;
     }
+  }
+}
+
+.emptyPageWrapper {
+  height: calc(100 * var(--vh) - 280px);
+
+  @include t {
+    height: calc(100 * var(--vh) - 276px);
+  }
+
+  @include m {
+    height: calc(100 * var(--vh) - 240px);
   }
 }

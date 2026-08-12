@@ -57,7 +57,7 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
         const requestResponse = await axiosInstance(`requests/${requestToEdit.requestId}/edit-info?profileId=${activeProfileId}`)
 
         setTitle(requestResponse.data.title)
-        setCatIds(requestResponse.data.categoryIds)
+        setCatIds(requestResponse.data.categoryId) // возможно по-другому будет называться? несколько же айдишников сейчас
         setDescription(requestResponse.data.description)
         setSelectedTags(requestResponse.data.tags)
 
@@ -164,6 +164,7 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
       toast.error(err.response?.data?.detail || "Ошибка при сохранении заявки")
     }
   }
+
 
   const isDirty = useRef(false)  // было ли редактирование
 

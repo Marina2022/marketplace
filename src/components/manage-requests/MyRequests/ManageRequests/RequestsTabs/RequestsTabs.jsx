@@ -26,7 +26,7 @@ const pageTabs = [
   }
   , {
     label: "Черновики",
-    value: "draft"
+    value: "drafts"
   },
   {
     label: "Истекшие",
@@ -80,20 +80,16 @@ const RequestsTabs = ({requests, setTab, tab}) => {
                 >
                 <span>
                   {tabItem.label}</span>
-
                   {
                     tabItem.value !== "history" &&
                     <span className={`${s.count} ${isActive ? s.countActive : ''}`}>{count}</span>
                   }
-
                 </li>
               )
             }
           )
         }
-
         <li className={s.tabletEndItem}></li>
-
       </ul>
     </div>
   )

@@ -1,0 +1,72 @@
+@import "@/assets/styles/mixins";
+
+.emptyPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.emptyPageContent {
+  position: relative;
+  top: -60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon {
+  margin-bottom: 24px;
+  width: 104px;
+  height: 104px;
+
+  @include m {
+    width: 52px;
+    height: 52px;
+    margin-bottom: 12px;
+  }
+}
+
+.title {
+  color: #16181D;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 14px;
+
+  @include m {
+    font-size: 18px;
+  }
+}
+
+.text {
+  padding-inline: 16px;
+  color: #6B7280;
+  font-size: 14px;
+  margin-bottom: 26px;
+  width: 100%;
+  max-width: 488px;
+  margin-inline: auto;
+  text-align: center;
+  line-height: 130%;
+
+  @include m {
+    margin-bottom: 20px;
+  }
+}
+
+.createRequestButton {
+  margin-inline: auto;
+  height: 40px;
+  width: 156px;
+  gap: 8px;
+  border-radius: 8px;
+  background: #1B2233;
+  font-weight: 500;
+  font-size: 12px;
+
+  @media (hover: hover) {
+    &:hover {
+      background: #000;
+    }
+  }
+}

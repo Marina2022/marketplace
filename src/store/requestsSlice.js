@@ -38,7 +38,7 @@ const initialState = {
   openedBranchesInCats: [],
   openedBranchesInKewSearch: [],
   tagsSelected: [],
-  recentCategories: JSON.parse(localStorage.getItem("recent_categories") || "[]")
+  recentCategories: JSON.parse(localStorage.getItem("recent_categories") || "[]"),
 }
 
 const requestsSlice = createSlice({
@@ -63,6 +63,7 @@ const requestsSlice = createSlice({
     setRecentCategories: (state, action) => {
       state.recentCategories = action.payload
     }
+
   },
 
   extraReducers:
@@ -103,5 +104,6 @@ export const getOpenedBranchesInCats = state => state.requests.openedBranchesInC
 export const getOpenedBranchesInKeySearch = state => state.requests.openedBranchesInKewSearch
 export const getTagsSelected = state => state.requests.tagsSelected
 export const getRecentCategories = state => state.requests.recentCategories
+
 
 export default requestsSlice.reducer

@@ -61,6 +61,7 @@ const MainLayout = () => {
         isPopupWithCitiesOpen && <PopupWithCities />
       }
 
+
     </main>
   )
 }
