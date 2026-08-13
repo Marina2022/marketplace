@@ -70,7 +70,7 @@ const RequestCard = ({request, setRequestDetails, resetRequests, setRequestToEdi
           </div>
 
           {
-            request.expireAt && request.status !== "draft" && (
+            request.expireAt && request.status.code !== "draft" && (
               <div className={s.date}>
                 <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
