@@ -26,7 +26,7 @@ const pageTabs = [
   }
   , {
     label: "Черновики",
-    value: "drafts"
+    value: "draft"
   },
   {
     label: "Истекшие",
