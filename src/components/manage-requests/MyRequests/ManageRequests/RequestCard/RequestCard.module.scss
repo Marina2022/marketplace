@@ -150,7 +150,6 @@
   color: #8A8F98;
   font-size: 11px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #E8EAED;
   margin-bottom: 11px;
 }
 
@@ -162,6 +161,9 @@
 }
 
 .bottomBlock {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #E8EAED;
   display: flex;
   align-items: center;
   font-size: 12px;

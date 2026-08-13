@@ -1,18 +1,27 @@
 export const statusColors = {
-  neutral: {
-    backgroundColor: "#F0F1F5",
-    color: "#3E5067"
+  success: {
+    backgroundColor: "#E6F0EA",
+    color: "#2C6147",
+    border: "1px solid #E6F0EA"
   },
   waiting: {
-    backgroundColor: "#FFF3CD",
-    color: "#8A6D1D"
+    backgroundColor: "#fff",
+    color: "#9AA1AC",
+    border: "1px solid #E4E6EA"
   },
-  alert: {
-    backgroundColor: "#FDE2E2",
-    color: "#E32636"
+  new: {
+    backgroundColor: "#FAF1DF",
+    color: "#8A6420",
+    border: "1px solid #FAF1DF"
   },
   live: {
-    backgroundColor: "#D1F4D5",
-    color: "#1B7F32"
+    backgroundColor: "#fff",
+    color: "#565C68",
+    border: "1px solid #E4E6EA"
   },
+  neutral: {
+    backgroundColor: "#fff",
+    color: "#565C68",
+    border: "1px solid #E4E6EA"
+  }
 };
