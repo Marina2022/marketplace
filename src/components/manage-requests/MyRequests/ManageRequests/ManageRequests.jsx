@@ -5,7 +5,6 @@ import {useSelector} from "react-redux";
 import {getActiveProfileId} from "@/store/userSlice.js";
 import axiosInstance from "@/api/axiosInstance.js";
 import {getPreviewPayload, getRequestsWithPictures} from "@/utils/requests.js";
-import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import RequestsTabs from "@/components/manage-requests/MyRequests/ManageRequests/RequestsTabs/RequestsTabs.jsx";
 import RequestCard from "@/components/manage-requests/MyRequests/ManageRequests/RequestCard/RequestCard.jsx";
