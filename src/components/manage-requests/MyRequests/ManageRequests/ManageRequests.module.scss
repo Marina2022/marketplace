@@ -32,8 +32,12 @@
 
   @media (hover: hover) {
     &:hover {
-      background: #000;
+      background: #262F44;
     }
+  }
+
+  &:active {
+    background: #141A28;
   }
 
   @include m {
@@ -68,7 +72,8 @@
   align-items: start;
 
   @include t {
-    grid-template-columns: repeat(auto-fill, 300px);
+    gap: 12px;
+    grid-template-columns: repeat(auto-fill, 346px);
     padding-inline: 14px;
     height: calc(100 * var(--vh) - 276px);
     padding-top: 0;

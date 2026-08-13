@@ -3,7 +3,6 @@ export const statusColors = {
     backgroundColor: "#F0F1F5",
     color: "#3E5067"
   },
-
   waiting: {
     backgroundColor: "#FFF3CD",
     color: "#8A6D1D"

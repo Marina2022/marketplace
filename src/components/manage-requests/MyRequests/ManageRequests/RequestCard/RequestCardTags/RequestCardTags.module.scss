@@ -2,17 +2,16 @@
 
 .tags {
   display: flex;
-  gap: 10px;
-  margin-bottom: 12px;
-  margin-top: 16px;
+  column-gap: 10px;
+  row-gap: 8px;
   flex-wrap: wrap;
 }
 
 .tag {
-  color: #3E5067;
+  color: #565C68;
   font-size: 12px;
   background: #F0F1F5;
-  padding: 5px 10px;
+  padding: 3px 8px;
   border-radius: 5px;
   flex-shrink: 0;
 

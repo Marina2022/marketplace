@@ -1,10 +1,10 @@
 import s from './RequestCardTags.module.scss';
 
-const RequestCardTags = ({tags, showAll=false}) => {
+const RequestCardTags = ({tags, extraTagCount, showAll=false}) => {
 
   const tagsToShow = tags.slice(0, 3)
-  const restTags = tags.length - tagsToShow.length
-  if (restTags > 0) tagsToShow.push(`+${restTags}`)
+
+  if (extraTagCount > 0) tagsToShow.push(`+${extraTagCount}`)
 
   if (showAll) return (
     <ul className={s.tags}>

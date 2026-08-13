@@ -3,25 +3,31 @@
 .requestCard {
   width: 346px;
   height: 100%;
-  border: 1px solid #D1D5DB;
-  padding: 16px;
+  border: 1px solid #E8EAED;
+  background: #F9F9FB;
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  border-radius: 4px;
 
   @include t {
-    width: 310px;
   }
 
   @include m {
-    max-width: 500px;
+    min-height: 270px;
+    max-width: 460px;
+    margin-inline: auto;
     width: 100%;
   }
 }
 
 .cardHeader {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 20px;
 
   @include t {
@@ -34,10 +40,18 @@
 }
 
 .requestStatus {
+  height: 24px;
+  display: flex;
+  align-items: center;
   margin-right: auto;
   font-size: 12px;
-  padding: 5px 10px;
+  padding: 4px 12px;
   border-radius: 5px;
+  color: #565C68;
+  font-weight: 600;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 
   @include t {
     font-size: 10px;
@@ -50,8 +64,14 @@
 
 .requestNumber {
   font-weight: 500;
-  font-size: 14px;
-  margin-right: 20px;
+  font-size: 11px;
+  height: 17px;
+  display: flex;
+  align-items: center;
+  background: #2A2E37;
+  color: #fff;
+  border-radius: 4px;
+  padding-inline: 6px;
 
   @include t {
     font-size: 12px;
@@ -70,7 +90,7 @@
 }
 
 .img {
-  width: 80px;
+  width: 64px;
   height: 64px;
   object-fit: cover;
   object-position: center;
@@ -79,6 +99,7 @@
 }
 
 .title {
+  margin-bottom: 12px;
   font-size: 14px;
   font-weight: 500;
   display: -webkit-box;
@@ -122,21 +143,22 @@
   }
 }
 
-.date {
-  color: #3E5067;
-  font-size: 12px;
+.dateBlock {
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  gap: 4px;
+  color: #8A8F98;
+  font-size: 11px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #E8EAED;
+  margin-bottom: 11px;
+}
+
+.date {
+  display: flex;
+  gap: 6px;
   margin-top: auto;
-  margin-bottom: 12px;
-
-  @include t {
-    font-size: 10px;
-  }
-
-  @include m {
-    font-size: 12px;
-  }
+  align-items: center;
 }
 
 .bottomBlock {
@@ -219,3 +241,23 @@
   right: -10px;
 }
 
+
+//********* new
+
+.pictureBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 90px;
+  background: #E8EAED;
+  border-radius: 4px;
+}
+
+.cardContent {
+  padding: 12px;
+}
+
+.tagsWrapper {
+  margin-bottom: 12px;
+}
