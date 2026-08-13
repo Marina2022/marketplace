@@ -69,7 +69,7 @@
   gap: 16px;
   grid-template-columns: repeat(auto-fill, 346px);
   height: calc(100 * var(--vh) - 280px);
-  align-items: start;
+  //align-items: start;
   align-content: start;
 
   @include t {
