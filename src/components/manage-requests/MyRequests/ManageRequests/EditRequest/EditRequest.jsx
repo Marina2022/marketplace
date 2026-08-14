@@ -26,6 +26,8 @@ import {getContext} from "@/store/geoSlice.js";
 
 const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
+  console.log("requestToEdit = ", requestToEdit)
+
   const isNew = requestToEdit === "new"
   const [showMenu, setShowMenu] = useState(false)
   const handleMenuClick = (e) => {
@@ -57,7 +59,7 @@ const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
         const requestResponse = await axiosInstance(`requests/${requestToEdit.requestId}/edit-info?profileId=${activeProfileId}`)
 
         setTitle(requestResponse.data.title)
-        setCatIds(requestResponse.data.categoryId) // возможно по-другому будет называться? несколько же айдишников сейчас
+        setCatIds(requestResponse.data.categoryId || []) // возможно по-другому будет называться? несколько же айдишников сейчас
         setDescription(requestResponse.data.description)
         setSelectedTags(requestResponse.data.tags)
 

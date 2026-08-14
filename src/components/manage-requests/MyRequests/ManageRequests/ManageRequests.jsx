@@ -25,7 +25,7 @@ const ManageRequests = ({setRequestDetails}) => {
 
   console.log('requests = ', requests)
 
-  const activeProfileId = useSelector(getActiveProfileId);
+  const activeProfileId = useSelector(getActiveProfileId)
 
   // Ссылки на элементы в DOM
   const observerRef = useRef(null);
@@ -46,7 +46,7 @@ const ManageRequests = ({setRequestDetails}) => {
       const requestsResponse = await axiosInstance(`requests/my?page=1&pageSize=${PAGE_SIZE}${queryParam}`);
 
       const payload = getPreviewPayload(requestsResponse.data.items);
-      const pictures = await axiosInstance.post(`/requests/preview?profileId=${activeProfileId}`, payload);
+      const pictures = await axiosInstance.post(`/requests/preview`, payload);
       const requestsWithPictures = getRequestsWithPictures({requests: requestsResponse, pictures});
 
       setRequests(requestsWithPictures);
@@ -59,7 +59,7 @@ const ManageRequests = ({setRequestDetails}) => {
     }
   };
 
-  // Вызов при смене вкладок или поиске
+  // Вызов при смене вкладок или профиля
   useEffect(() => {
     if (!activeProfileId) return;
     resetRequests();

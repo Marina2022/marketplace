@@ -15,15 +15,10 @@ export const tabsSlice = createSlice({
   }
 })
 
-export const {setTabs, setActiveTab} = tabsSlice.actions
+export const {setTabs} = tabsSlice.actions
 
 export const getTabs = (state) => {
   return state.tabs.tabs
 }
-
-export const getActiveTab = (state) => {
-  return state.tabs.activeTab
-}
-
 
 export default tabsSlice.reducer

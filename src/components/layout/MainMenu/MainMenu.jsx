@@ -112,7 +112,6 @@ const MainMenu = () => {
 
   return (
     <div>
-
       <ul className={s.mainMenu}>
         <Link className={s.logoBtn} to={"#"}>
           <svg width="23" height="15" viewBox="0 0 23 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -122,12 +121,9 @@ const MainMenu = () => {
               fill="white"/>
           </svg>
         </Link>
-
         {
           menuItems.map((item, i) => <MainMenuItem item={item} key={i}/>)
         }
-
-
         <div className={s.bottomPart}>
           <MainMenuItem item={settingsItem} key={100}/>
         </div>

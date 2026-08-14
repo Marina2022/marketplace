@@ -16,13 +16,11 @@ const Tab = ({tab, nextTab}) => {
   const navigate = useNavigate()
   const isActive = location.pathname === tab
   const nextIsActive = nextTab && location.pathname === nextTab;
-
   const dispatch = useDispatch()
 
   const requestsTree = useSelector(getRequestsTree)
 
   const handleClick = () => {
-
     let item = tabLabels.find(item => item.url === tab)
 
     if (item && !item.public && !isAuthenticated) {
@@ -30,15 +28,18 @@ const Tab = ({tab, nextTab}) => {
       return
     }
 
+    // при клике по вкладке Заявки без авторизации
+    if (tab.startsWith("/request/") && !isAuthenticated) {
+      dispatch(setIsLoginPopupOpened(true))
+      return
+    }
+
     navigate(tab)
   }
 
-  const handleClose = (e)=>{
+  const handleClose = (e) => {
     e.stopPropagation()
     const newTabs = tabs.filter(tabItem => tabItem !== tab)
-
-    console.log("newTabs = ", newTabs)
-
     dispatch(setTabs(newTabs))
     if (newTabs.length > 0) {
       navigate(newTabs[newTabs.length - 1]);
@@ -49,21 +50,29 @@ const Tab = ({tab, nextTab}) => {
 
   const [label, setLabel] = useState("")
 
-  useEffect(()=>{
+  useEffect(() => {
 
+    // обычный label вкладки - из массива
     const itemWithLabel = tabLabels.find((item) => item.url === tab)
     if (itemWithLabel) {
       setLabel(itemWithLabel.label)
     }
 
-    if (tab.startsWith("/requests/") && requestsTree ) {
+    // label для страниц категорий
+    if (tab.startsWith("/requests/") && requestsTree) {
       const categorySlug = tab.split('/').pop().replace(/-\d+$/, '');
       const category = requestsTree.find(item => item.slug === categorySlug)
       setLabel(`${category.name}`)
     }
 
-  }, [requestsTree, tabs])
+    // label для страницы заявки
+    const requestNumber = tab.split('/').filter(Boolean)[1]
+    console.log("requestNumber = ", requestNumber)
+    if (tab.startsWith("/request/") && requestNumber) {
+      setLabel(`Заявка #${requestNumber}`)
+    }
 
+  }, [requestsTree, tabs, tab])
 
 
   return (
@@ -83,7 +92,7 @@ const Tab = ({tab, nextTab}) => {
         )
       }
     </div>
-  );
-};
+  )
+}
 
 export default Tab;

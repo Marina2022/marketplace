@@ -1,8 +1,6 @@
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import MainLayout from "@/components/layout/MainLayout.jsx";
-import Home from "@/pages/Home.jsx";
 import NotFound from "@/pages/NotFound.jsx";
-import LkChat from "@/pages/Lk/LkChat.jsx";
 import {useViewportHeight} from "@/hooks/useViewportHeight.js";
 import {Toaster} from "sonner";
 import FavouritesNew from "@/pages/FavouritesNew.jsx";
@@ -18,6 +16,7 @@ import ProtectedRoute from "@/components/common/ProtectedRoute/ProtectedRoute.js
 import SettingsPage from "@/pages/settings/SettingsPage.jsx";
 import Requests from "@/pages/Requests.jsx";
 import SearchKeywords from "@/pages/SearchKeywords.jsx";
+import RequestDetails from "@/pages/RequestDetails.jsx";
 
 function App() {
 
@@ -36,13 +35,16 @@ function App() {
             <Route path='manage-requests/my-requests' element={<ProtectedRoute><MyRequestsPage/></ProtectedRoute>}/>
             <Route path='manage-requests/my-responses' element={<ProtectedRoute><MyResponsesPage/></ProtectedRoute>}/>
             <Route path='dashboard/main' element={<ProtectedRoute><DashboardMainPage/></ProtectedRoute>}/>
-            <Route path='dashboard/organizations' element={<ProtectedRoute><DashboardOrganizationsPage/></ProtectedRoute>}/>
+            <Route path='dashboard/organizations'
+                   element={<ProtectedRoute><DashboardOrganizationsPage/></ProtectedRoute>}/>
             <Route path='dashboard/profile' element={<ProtectedRoute><DashboardProfilePage/></ProtectedRoute>}/>
             <Route path='requests' element={<Requests/>}/>
             <Route path='search-keywords' element={<SearchKeywords/>}/>
             <Route path='chat' element={<ProtectedRoute><ChatPage/></ProtectedRoute>}/>
-            {/*<Route path='settings' element={<ProtectedRoute><SettingsPage/></ProtectedRoute>}/>*/}
-            <Route path='settings' element={<SettingsPage/>}/>
+            <Route path='settings' element={<ProtectedRoute><SettingsPage/></ProtectedRoute>}/>
+
+            <Route path='request/:number/:id' element={<ProtectedRoute><RequestDetails/></ProtectedRoute>}/>
+
 
             {/*<Route path='/category/:category' element={<Category/>}/>*/}
             {/*<Route path='/login' element={<Auth/>}/>*/}

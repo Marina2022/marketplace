@@ -15,7 +15,6 @@
   }
 
   @include m {
-    min-height: 270px;
     max-width: 460px;
     margin-inline: auto;
     width: 100%;
@@ -50,17 +49,8 @@
   border-radius: 5px;
   color: #565C68;
   font-weight: 600;
-  display: flex;
   gap: 10px;
-  align-items: center;
 
-  @include t {
-    font-size: 10px;
-  }
-
-  @include m {
-    font-size: 12px;
-  }
 }
 
 .requestNumber {
@@ -73,14 +63,6 @@
   color: #fff;
   border-radius: 4px;
   padding-inline: 6px;
-
-  @include t {
-    font-size: 12px;
-  }
-
-  @include m {
-    font-size: 14px;
-  }
 }
 
 .imageAndTitle {
@@ -145,25 +127,24 @@
 }
 
 .dateBlock {
+  margin-top: auto;
   display: flex;
   flex-direction: column;
   gap: 4px;
   color: #8A8F98;
   font-size: 11px;
-  padding-bottom: 12px;
-  margin-bottom: 11px;
+  margin-bottom: 12px;
 }
 
 .date {
   display: flex;
   gap: 6px;
-  margin-top: auto;
+  //margin-top: auto;
   align-items: center;
 }
 
 .bottomBlock {
-  margin-top: auto;
-  padding-top: 16px;
+  padding-top: 11px;
   border-top: 1px solid #E8EAED;
   display: flex;
   align-items: center;
@@ -231,17 +212,19 @@
   z-index: 1;
 }
 
-.menuBtnWrapper {
-  position: relative;
-}
+
 
 .menuButton {
-  //border: red 1px solid;
-  width: 24px;
+  width: 26px;
+  height: 26px;
   display: flex;
   justify-content: center;
+  align-items: center;
   position: relative;
-  right: -10px;
+  border-radius: 4px;
+  border: #E8EAED 1px solid;
+  background: #fff;
+  color: #9CA3AF;
 }
 
 
@@ -268,4 +251,42 @@
 
 .tagsWrapper {
   margin-bottom: 12px;
+}
+
+.bottomButtons {
+  margin-left: auto;
+  height: 26px;
+  display: flex;
+  gap: 4px;
+}
+
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  font-weight: 500;
+
+  @include m {
+    gap: 8px;
+  }
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6B7280;
+
+  @include m {
+    gap: 4px;
+  }
+}
+
+.lightText {
+  color: #9AA1AC;
+}
+
+.btnWrapper {
+  position: relative;
 }

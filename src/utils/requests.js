@@ -122,3 +122,41 @@ export const getOpenedCategoryIds = (selectedCats, categories) => {
 
   return Array.from(result)
 }
+
+export function getChatsCountText(count) {
+  const lastDigit = count % 10;
+  const lastTwoDigits = count % 100;
+
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+    return `${count} чатов`;
+  }
+
+  if (lastDigit === 1) {
+    return `${count} чат`;
+  }
+
+  if (lastDigit >= 2 && lastDigit <= 4) {
+    return `${count} чата`;
+  }
+
+  return `${count} чатов`;
+}
+
+export  function getNewChatsNewText(count) {
+  const lastDigit = count % 10;
+  const lastTwoDigits = count % 100;
+
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+    return `${count} новых`;
+  }
+
+  if (lastDigit === 1) {
+    return `${count} новый`;
+  }
+
+  if (lastDigit >= 2 && lastDigit <= 4) {
+    return `${count} новых`; // не "новые", а "новых"
+  }
+
+  return `${count} новых`;
+}

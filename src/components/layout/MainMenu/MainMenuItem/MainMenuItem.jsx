@@ -12,14 +12,14 @@ const MainMenuItem = ({item}) => {
   const [showTooltip, setShowTooltip] = useState(false)
 
   const location = useLocation();
+  const getFirstSegment = (path) => path.split('/').filter(Boolean)[0] || ""
+  let isActive = getFirstSegment(item.url) === getFirstSegment(location.pathname)
 
-  const getFirstSegment = (path) => path.split('/').filter(Boolean)[0] || "";
+  //item.url - это значение урла, заданное для кнопки менюшки в самом начале, оно по факту будет не только этому урлу соответствовать
+  if (getFirstSegment(item.url) === "requests" && getFirstSegment(location.pathname) === "") isActive = true
+  if (getFirstSegment(item.url) === "requests" && getFirstSegment(location.pathname) === "search-keywords") isActive = true
 
-  let isActive =
-    getFirstSegment(item.url) === getFirstSegment(location.pathname);
-
-  if (getFirstSegment(item.url) === "requests" && getFirstSegment(location.pathname) === "") isActive = true;
-  if (getFirstSegment(item.url) === "requests" && getFirstSegment(location.pathname) === "search-keywords") isActive = true;
+  if (item.url === "/manage-requests/my-requests" && getFirstSegment(location.pathname) === "request") isActive = true
 
   const navigate = useNavigate();
   const tabs = useSelector(getTabs)

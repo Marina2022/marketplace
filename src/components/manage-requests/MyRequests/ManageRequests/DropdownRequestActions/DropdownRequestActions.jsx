@@ -1,20 +1,36 @@
 import s from './DropdownRequestActions.module.scss';
-import {useEffect, useRef} from "react";
-import axiosInstance from "@/api/axiosInstance.js";
-import {useSelector} from "react-redux";
-import {getActiveProfileId} from "@/store/userSlice.js";
+import {useEffect, useRef, useState} from "react";
+import {requestCardMenuButton} from "@/consts/requests.jsx";
+import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
+import useMobileScreen from "@/hooks/useMobileScreen.js";
 
 const DropdownRequestActions = ({
                                   request,
                                   onClose,
-                                  mobileFixed = false,
-                                  resetRequests,
-                                  resetRequest = null,
-                                  setRequestToEdit
+                                  performAction,
+                                  mobileFixed = false
                                 }) => {
 
   const dropdownRef = useRef(null);
-  const profileId = useSelector(getActiveProfileId)
+
+  const [isTop, setIsTop] = useState(false);
+  const isMobile = useMobileScreen()
+
+
+  useEffect(() => {
+    if (!dropdownRef.current) return;
+
+    const rect = dropdownRef.current.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+
+    let ourHeight = viewportHeight
+    if (isMobile) ourHeight = viewportHeight - 56
+    if (rect.bottom > ourHeight) {
+      setIsTop(true);
+    } else {
+      setIsTop(false);
+    }
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -30,7 +46,7 @@ const DropdownRequestActions = ({
       if (event.key === 'Escape') {
         onClose();
       }
-    };
+    }
 
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('keydown', handleEsc);
@@ -41,126 +57,47 @@ const DropdownRequestActions = ({
     };
   }, []);
 
-  const canEdit = request.status.code === "draft"
-    || request.status.code === "rejected"
-    || request.status.code === "paused"
 
-
-  const canArchive = request.status.code === "draft"
-    || request.status.code === "rejected"
-    || request.status.code === "paused"
-
-  const canRestore = request.status.code === "archived"
-  const canPause = request.status.code === "active"
-  const canResumeFromPause = request.status.code === "paused"
-  const canResumeFromExpired = request.status.code === "expired"
-
-  //Rejected, Moderation, Active, Paused
-  const canCancel = request.status.code === "rejected"
-    || request.status.code === "moderation"
-    || request.status.code === "active"
-    || request.status.code === "paused"
-
-
-  const handlePause = async () => {
+  const handleClick = async (action) => {
     try {
-      const result = await axiosInstance.post(`/requests/${request.requestId}/pause?profileId=${profileId}`)
-      onClose()
-      resetRequests()
-
-      if (resetRequest) resetRequest()
-
+      await performAction(action)
     } catch (err) {
       console.log(err)
+      console.log("status = ", err.response.status)
+
+      if (err.response && err.response.status === 400) {
+        err.response.data.errors.forEach((dataItem) => {
+          console.log("dataItem = ", dataItem)
+          showErrorToast(dataItem.message)
+        })
+        return
+      }
+      showErrorToast("Что-то пошло не так :(")
     }
   }
 
-  const handleResume = async () => {
-    try {
-      const result = await axiosInstance.post(`/requests/${request.requestId}/resume?profileId=${profileId}`)
-      onClose()
-      resetRequests()
-      if (resetRequest) resetRequest()
-
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  const handleArchive = async () => {
-    try {
-      const result = await axiosInstance.post(`/requests/${request.requestId}/archive?profileId=${profileId}`)
-      onClose()
-      resetRequests()
-      if (resetRequest) resetRequest()
-
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-
-  const handleRestore = async () => {
-    try {
-      const result = await axiosInstance.post(`/requests/${request.requestId}/restore?profileId=${profileId}`)
-      console.log(result)
-      onClose()
-      resetRequests()
-      if (resetRequest) resetRequest()
-
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  // todo - потестить (если ничего важного не сотру)
-  const handleCancel = async () => {
-    try {
-      const result = await axiosInstance.post(`/requests/${request.requestId}/cancel?profileId=${profileId}`)
-      console.log(result)
-      onClose()
-      resetRequests()
-      if (resetRequest) resetRequest()
-
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  // status.code = "unknown" - для тестов можно оставить
   return (
-    <ul className={`${s.dropdownRequestActions} ${mobileFixed ? s.fixed : ''}`} ref={dropdownRef}
-        onClick={(e) => e.stopPropagation()}>
 
-      {
-        canEdit && <li className={s.menuItem} onClick={() => setRequestToEdit(request)}>Редактировать</li>
-      }
-
-      {
-        canArchive && <li className={s.menuItem} onClick={handleArchive}>Архивировать</li>
-      }
-
-      {
-        canRestore && <li className={s.menuItem} onClick={handleRestore}>Восстановить</li>
-      }
-
-      {
-        canPause && <li className={s.menuItem} onClick={handlePause}>Приостановить показ</li>
-      }
-
-      {
-        canResumeFromPause && <li className={s.menuItem} onClick={handleResume}>Возобновить показ</li>
-      }
-      {
-        canResumeFromExpired && <li className={s.menuItem}>Возобновить показ</li>
-      }
-
-      {
-        canCancel && <li className={s.menuItem} onClick={handleCancel}>Отменить заявку</li>
-      }
-
-    </ul>
-  );
-};
+    <div className={s.wrapper}>
+      {/*<ul className={`${s.dropdownRequestActions} ${mobileFixed ? s.fixed : ''} ${isTop ? s.top : ''}`} ref={dropdownRef}*/}
+      <ul className={`${s.dropdownRequestActions}  ${isTop ? s.top : ''}`} ref={dropdownRef}
+          onClick={(e) => e.stopPropagation()}>
+        {
+          request.actions.secondaryActions.map((action, index) => {
+              const currentItem = requestCardMenuButton.find(act => act.action === action)
+              if (!currentItem) return null
+              return (
+                <li className={s.menuItem} key={index} onClick={() => handleClick(action)}>
+                  <div className={s.svgDiv}>{currentItem.svg}</div>
+                  <div>{currentItem.label}</div>
+                </li>
+              )
+            }
+          )
+        }
+      </ul>
+    </div>
+  )
+}
 
 export default DropdownRequestActions;
