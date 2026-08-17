@@ -45,6 +45,7 @@ const RequestsTabs = ({requests, setTab, tab}) => {
   const dispatch = useDispatch()
   const tabs = useSelector(getTabs)
 
+
   return (
     <div className={s.tabsWrapperForScroll}>
       <ul className={s.tabs}>
@@ -62,7 +63,9 @@ const RequestsTabs = ({requests, setTab, tab}) => {
 
                   const url = '/requests-history'
                   const isInTabs = tabs.find((tab) => tab === url)
-                  navigate(url)
+                  navigate(url, {
+                    state: { fromApp: true }
+                  })
 
                   if (!isInTabs) {
                     const newTabs = [...tabs, url]
@@ -82,7 +85,7 @@ const RequestsTabs = ({requests, setTab, tab}) => {
                   {tabItem.label}</span>
                   {
                     tabItem.value !== "history" &&
-                    <span className={`${s.count} ${isActive ? s.countActive : ''}`}>{count}</span>
+                    <span className={`${s.count} ${isActive ? s.countActive : ''}`}>{requests && count}</span>
                   }
                 </li>
               )

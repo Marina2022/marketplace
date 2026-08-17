@@ -15,6 +15,10 @@ const MobileHeaderLk = () => {
     "/search-keywords"
   ]
 
+  const startsWiths = [
+    "/request/"
+  ]
+
   const location = useLocation()
   const isAuthenticated = useSelector(getIsAuthenticated)
   const userLoadingStatus = useSelector(getUserStatus)
@@ -25,6 +29,10 @@ const MobileHeaderLk = () => {
   }
 
   if (urlsWithoutCommonHeader.includes(location.pathname)) {
+    return null
+  }
+
+  if (startsWiths.some(urlSegment=> location.pathname.startsWith(urlSegment))) {
     return null
   }
 

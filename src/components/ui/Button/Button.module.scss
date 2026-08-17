@@ -60,6 +60,29 @@
   }
 }
 
+.whiteBtn {
+  background: #fff;
+  color: #3A3F49;
+  border: #DBDFE4 1px solid;
+  font-size: 12px;
+  font-weight: 500;
+
+  &:hover {
+    background: #F4F5F7;
+  }
+
+  &:active {
+    background: #ECEEF1;
+  }
+
+  &:disabled {
+    background: #fff;
+    color: #C7CCD3;
+    cursor: unset;
+    border: #EDEEF0 1px solid;
+  }
+}
+
 .greyBtn {
   width: 200px;
   height: 36px;

@@ -13,7 +13,9 @@ const SubmenuItem = ({label, url, icon}) => {
   const handleClick = () => {
 
     const isInTabs = tabs.find((tab) => tab === url)
-    navigate(url)
+    navigate(url, {
+      state: { fromApp: true }
+    })
 
     if (!isInTabs) {
       const newTabs = [...tabs, url]

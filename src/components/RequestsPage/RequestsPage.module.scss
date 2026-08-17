@@ -8,4 +8,16 @@
 .requestPage {
   height: calc(100 * var(--vh) - 48px - 76px - 12px);
   padding-bottom: 10px;
+
+  @include m {
+    height: calc(100 * var(--vh) - 56px);
+  }
+}
+
+.page {
+
+  @include m {
+    //padding-top: 72px;
+  }
+
 }

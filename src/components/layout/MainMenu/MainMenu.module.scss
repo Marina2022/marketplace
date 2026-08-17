@@ -3,7 +3,7 @@
 .mainMenu {
   background: #1A2332;
   width: 64px;
-  height: 100vh;
+  height: calc(100 * var(--vh));
   color: white;
   padding-inline: 8px;
   gap: 12px;
@@ -19,34 +19,6 @@
     display: none;
   }
 }
-//
-//
-//.sideBar {
-//  background: #1A2332;
-//  width: 64px;
-//  height: 100vh;
-//  fill: white;
-//  position: fixed;
-//  top: 134px;
-//  bottom: 12px;
-//  border-bottom-right-radius: 6px;
-//  border-top-right-radius: 6px;
-//  z-index: 1;
-//  display: flex;
-//  flex-direction: column;
-//  gap: 12px;
-//  padding-block: 6px;
-//  padding-inline: 8px;
-//
-//  @include t {
-//    width: 48px;
-//  }
-//
-//
-//  @include m {
-//    display: none;
-//  }
-//}
 
 .logoBtn {
   background: #E32636;

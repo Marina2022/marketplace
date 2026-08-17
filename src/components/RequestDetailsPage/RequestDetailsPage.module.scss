@@ -1,1 +1,12 @@
 @import '@/assets/styles/mixins';
+
+.requestDetailsGlobalWrapper {
+  height: calc(var(--vh) * 100 - 140px);
+  padding-bottom: 10px;
+
+  @include m {
+    height: calc(var(--vh) * 100 - 56px);
+    background: #fff;
+  }
+}
+

@@ -35,7 +35,9 @@ const RequestsSubmenu = () => {
   const handleCatClick = (node) => {
     const url = `/requests/${node.slug}-${node.shortId}`
     const isInTabs = tabs.find((tab) => tab === url)
-    navigate(url)
+    navigate(url, {
+      state: { fromApp: true }
+    })
 
     if (!isInTabs) {
       const newTabs = [...tabs, url]

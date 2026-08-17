@@ -1,0 +1,28 @@
+@import "@/assets/styles/mixins";
+
+.wrapper {
+  display: flex;
+  gap: 12px;
+  padding: 10px 14px;
+}
+
+.mainBlock {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.middleBlock {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rightBlock {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

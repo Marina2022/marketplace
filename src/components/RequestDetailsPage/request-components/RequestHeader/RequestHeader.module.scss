@@ -1,0 +1,84 @@
+@import "@/assets/styles/mixins";
+
+.header {
+  background: #F6F7F9;
+  border: 1px solid #E8EAED;
+  border-radius: 8px;
+  padding: 11px 14px 14px 14px;
+}
+
+.topHeader {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.expires {
+  display: flex;
+  gap: 4px;
+  align-items: flex-start;
+  color: #565C68;
+  font-size: 12px;
+  font-weight: 500;
+  flex-shrink: 0;
+
+}
+
+.requestStatus {
+  height: 22px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 5px;
+  color: #565C68;
+  font-weight: 600;
+  gap: 8px;
+}
+
+.number {
+  color: #9AA1AC;
+  font-size: 12px;
+  font-weight: 500;
+  flex-shrink: 0;
+  margin-right: auto;
+
+  @include m {
+    display: none;
+  }
+}
+
+.mainTitle {
+  color: #16181D;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  margin-top: 11px;
+
+  @include m {
+    font-size: 16px;
+  }
+}
+
+.headerBottom {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  color: #6B7280;
+  font-size: 13px;
+  flex-wrap: wrap;
+
+  @include t {
+    font-size: 12px;
+  }
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  flex-shrink: 0;
+}
+

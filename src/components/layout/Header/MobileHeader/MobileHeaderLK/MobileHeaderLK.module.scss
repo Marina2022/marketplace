@@ -12,9 +12,19 @@
 }
 
 .headerLK {
-  background: white;
-  height: 72px;
-  z-index: 1;
+  display: none;
+
+  @include m {
+    display: block;
+    background: white;
+    height: 72px;
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
 }
 
 .wrapper {

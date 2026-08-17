@@ -1,5 +1,12 @@
 @import "@/assets/styles/mixins";
 
+.searchKeywordsPageWrapper {
+
+  @include m {
+    padding-top: 60px;
+  }
+}
+
 .searchKeywordsPage {
   display: flex;
   padding-left: 16px;
@@ -14,7 +21,7 @@
   @include m {
     max-width: calc(100vw);
     overflow: auto;
-    height: calc(var(--vh) * 100 - 48px - 56px - 12px);
+    height: calc(var(--vh) * 100 - 56px - 60px);
     background: #fff;
   }
 }
@@ -32,6 +39,7 @@
 
   @include m {
     display: none;
+    height: calc(var(--vh) * 100 - 56px);
   }
 }
 
@@ -135,6 +143,10 @@
     font-size: 14px;
     font-weight: 500;
     color: #1F232B;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
   }
 }
 

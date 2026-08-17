@@ -4,6 +4,7 @@ import CategoryNode from "@/components/RequestsPage/CategoryNode/CategoryNode.js
 import {getRequestsTree, getRequestsTreeLoading} from "@/store/requestsSlice.js";
 import {useSelector} from "react-redux";
 import s from './RequestsPage.module.scss'
+import MobileHeaderLk from "@/components/layout/Header/MobileHeader/MobileHeaderLK/MobileHeaderLK.jsx";
 
 const RequestsPage = () => {
 
@@ -11,16 +12,21 @@ const RequestsPage = () => {
   const loading = useSelector(getRequestsTreeLoading)
 
   if (loading) {
-    return <Spinner />
+    return <Spinner/>
   }
 
   return (
     <div className={`${s.requestPage} scroll`}>
-      <ul className={s.list}>
-        {buildCategoryTree(tree).map(rootNode => (
-          <CategoryNode key={rootNode.id} node={rootNode} />
-        ))}
-      </ul>
+
+      <MobileHeaderLk/>
+
+      <div className={s.page}>
+        <ul className={s.list}>
+          {buildCategoryTree(tree).map(rootNode => (
+            <CategoryNode key={rootNode.id} node={rootNode}/>
+          ))}
+        </ul>
+      </div>
     </div>
   )
 }

@@ -23,7 +23,9 @@ const MobileMenuItem = ({item}) => {
     }
 
     if (!item.kids) {
-      navigate(item.urlStartsWith)
+      navigate(item.urlStartsWith, {
+        state: { fromApp: true }
+      })
     }
 
     if (item.kids) {

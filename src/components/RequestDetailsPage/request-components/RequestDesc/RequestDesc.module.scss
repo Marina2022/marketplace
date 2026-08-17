@@ -1,0 +1,27 @@
+@import "@/assets/styles/mixins";
+
+.requestDesc {
+  background: #F6F7F9;
+  border: 1px solid #E8EAED;
+  border-radius: 8px;
+  padding: 11px 14px 14px 14px;
+}
+
+.descTitle {
+  color: #16181D;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.desc {
+  color: #3A3F49;
+  font-size: 13px;
+}
+
+.showAllBtn {
+  color: #565C68;
+  margin-top: 10px;
+  font-weight: 400;
+  font-size: 11px;
+}

@@ -1,0 +1,48 @@
+@import "@/assets/styles/mixins";
+
+.lineThrough {
+  text-decoration: line-through;
+}
+
+.titleChangesWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.oldText {
+  color: #8A8F98;
+  background: #fff;
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+.newText {
+  color: #2A2E37;
+  background: #E6EAF1;
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+.tags {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 10px;
+  border-radius: 5px;
+  background: #fff;
+  color: #8A8F98;
+  font-weight: 500;
+}
+
+.addedTag {
+  background: #E6EAF1;
+  color: #2A2E37;
+}

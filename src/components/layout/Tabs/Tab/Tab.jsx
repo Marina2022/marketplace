@@ -34,7 +34,9 @@ const Tab = ({tab, nextTab}) => {
       return
     }
 
-    navigate(tab)
+    navigate(tab, {
+      state: { fromApp: true }
+    })
   }
 
   const handleClose = (e) => {
@@ -67,7 +69,6 @@ const Tab = ({tab, nextTab}) => {
 
     // label для страницы заявки
     const requestNumber = tab.split('/').filter(Boolean)[1]
-    console.log("requestNumber = ", requestNumber)
     if (tab.startsWith("/request/") && requestNumber) {
       setLabel(`Заявка #${requestNumber}`)
     }

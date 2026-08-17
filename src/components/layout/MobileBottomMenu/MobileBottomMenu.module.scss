@@ -12,17 +12,17 @@
 }
 
 .menuWrapper {
-  border-top: #F0F1F1 solid 1px;
-  z-index: 10;
   display: none;
-  height: 56px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  
+
   @include m {
     display: block;
+    height: 56px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-top: #F0F1F1 solid 1px;
+    z-index: 10;
   }
 }
 

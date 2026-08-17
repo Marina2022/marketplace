@@ -10,6 +10,7 @@ import RequestsTabs from "@/components/manage-requests/MyRequests/ManageRequests
 import RequestCard from "@/components/manage-requests/MyRequests/ManageRequests/RequestCard/RequestCard.jsx";
 import EditRequest from "@/components/manage-requests/MyRequests/ManageRequests/EditRequest/EditRequest.jsx";
 import EmptyPage from "@/components/manage-requests/MyRequests/ManageRequests/EmptyPage/EmptyPage.jsx";
+import MobileHeaderLk from "@/components/layout/Header/MobileHeader/MobileHeaderLK/MobileHeaderLK.jsx";
 
 const ManageRequests = ({setRequestDetails}) => {
   const PAGE_SIZE = 12;
@@ -20,10 +21,7 @@ const ManageRequests = ({setRequestDetails}) => {
   const [page, setPage] = useState(1);
   const [isOnScrollLoading, setIsOnScrollLoading] = useState(false);
 
-
   const [requestToEdit, setRequestToEdit] = useState(null);
-
-  console.log('requests = ', requests)
 
   const activeProfileId = useSelector(getActiveProfileId)
 
@@ -134,6 +132,9 @@ const ManageRequests = ({setRequestDetails}) => {
 
   return (
     <div className={s.manageRequestsWrapper}>
+
+      <MobileHeaderLk/>
+
       <div>
         <div className={s.header}>
           <div className={s.leftHeader}>

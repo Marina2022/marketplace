@@ -8,7 +8,9 @@ const MobileMenuSubitem = ({subitem}) => {
   const navigate = useNavigate();
 
   const handleClick = ()=>{
-    navigate(subitem.itemLink);
+    navigate(subitem.itemLink, {
+      state: { fromApp: true }
+    });
   }
 
   return (

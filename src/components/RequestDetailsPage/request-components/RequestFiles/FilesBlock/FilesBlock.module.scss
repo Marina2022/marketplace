@@ -1,0 +1,143 @@
+@import "@/assets/styles/mixins";
+
+
+.title {
+  color: #3E5067;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 12px;
+
+  @include m {
+    margin-bottom: 16px;
+  }
+}
+
+.filesList {
+  display: flex;
+  flex-wrap: wrap;
+
+  row-gap: 6px;
+  column-gap: 6px;
+}
+
+.fileItem {
+
+  position: relative;
+  border: 1px solid #E8EAEE;
+  width: 187px;
+  min-height: 50px;
+  cursor: pointer;
+  padding-block: 8px;
+  padding-left: 10px;
+  padding-right: 6px;
+  background: #fff;
+  border-radius: 5px;
+  color: #1F232B;
+  font-size: 12px;
+  font-weight: 500;
+
+  @include xs {
+    width: 100%;
+  }
+}
+
+.fileLink {
+  color: inherit;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.img {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  object-position: center;
+  margin-top: 5px;
+  margin-left: 4px;
+  flex-shrink: 0;
+}
+
+.imgBorder {
+  border: 1px solid #F0F1F1;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  object-position: center;
+  flex-shrink: 0;
+}
+
+.name {
+  font-size: 12px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* максимум 3 строки */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  word-break: break-word; /* перенос по словам */
+  overflow-wrap: anywhere; /* перенос длинных слов */
+}
+
+.fileType {
+  width: 33px;
+  height: 33px;
+  border-radius: 4px;
+  border: 1px solid #E8EAEE;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #565C68;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.fileDesc {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.fileSize {
+  color: #9AA1AC;
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.fileItem {
+
+  @media(hover: hover) {
+    &:hover {
+      .iconWrapper {
+        display: block;
+      }
+
+    }
+  }
+}
+
+.iconWrapper {
+
+  svg {
+    display: block;
+  }
+
+  color: #E8EAED;
+  display: none;
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+}
+
+.iconWrapper {
+  @media(hover: hover) {
+    &:hover {
+
+      color: #CFD4DB;
+    }
+
+  }
+}

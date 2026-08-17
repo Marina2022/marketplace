@@ -29,14 +29,14 @@ const SearchKeywordsPage = () => {
   const [mobileTagsBlockOpen, setMobileTagsBlockOpen] = useState(false)
 
   const handleClickBack = () => {
-
     if (location.state?.fromApp) {
-      navigate(-1);
+      navigate(-1, {
+        state: { fromApp: true }
+      });
     } else {
       navigate('/');
     }
   }
-
   if (loading) {
     return <Spinner/>
   }

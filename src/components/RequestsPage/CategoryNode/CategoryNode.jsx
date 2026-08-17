@@ -35,7 +35,9 @@ const CategoryNode = ({node, level = 1}) => {
     if (node.isLeaf) {
       const url = `/requests/${node.slug}-${node.shortId}`
       const isInTabs = tabs.find((tab) => tab === url)
-      navigate(url)
+      navigate(url, {
+        state: { fromApp: true }
+      })
 
       if (!isInTabs) {
         const newTabs = [...tabs, url]

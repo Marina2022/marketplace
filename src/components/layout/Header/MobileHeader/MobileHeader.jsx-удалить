@@ -3,9 +3,9 @@ import s from './MobileHeader.module.scss'
 import hamburger from "@/assets/img/header/hamburger.svg";
 import {Link, useLocation} from "react-router-dom";
 import logo from "@/assets/img/header/logo.svg";
-import HeaderSearch from "@/components/layout/Header/HeaderSearch/HeaderSearch.jsx";
+import HeaderSearch from "@/components/layout/RequestHeader/HeaderSearch/HeaderSearch.jsx";
 import cartIcon from "@/assets/img/header/userMenu/cart.svg";
-import MobileHeaderLk from "@/components/layout/Header/MobileHeader/MobileHeaderLK/MobileHeaderLK.jsx";
+import MobileHeaderLk from "@/components/layout/RequestHeader/MobileHeader/MobileHeaderLK/MobileHeaderLK.jsx";
 
 const MobileHeader = () => {
 

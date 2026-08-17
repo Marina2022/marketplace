@@ -8,7 +8,9 @@ const DropdownRequestActions = ({
                                   request,
                                   onClose,
                                   performAction,
-                                  mobileFixed = false
+                                  menuBtnRef,
+                                  resetRequest=null,
+                                  inMobileHeader = false
                                 }) => {
 
   const dropdownRef = useRef(null);
@@ -34,13 +36,16 @@ const DropdownRequestActions = ({
 
   useEffect(() => {
     const handleClickOutside = (event) => {
+      if (menuBtnRef && menuBtnRef.current.contains(event.target)) return
+
       if (
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target)
+
       ) {
         onClose()
       }
-    };
+    }
 
     const handleEsc = (event) => {
       if (event.key === 'Escape') {
@@ -60,14 +65,12 @@ const DropdownRequestActions = ({
 
   const handleClick = async (action) => {
     try {
-      await performAction(action)
+      await performAction(action, resetRequest)
+      onClose()
     } catch (err) {
       console.log(err)
-      console.log("status = ", err.response.status)
-
       if (err.response && err.response.status === 400) {
         err.response.data.errors.forEach((dataItem) => {
-          console.log("dataItem = ", dataItem)
           showErrorToast(dataItem.message)
         })
         return
@@ -78,8 +81,7 @@ const DropdownRequestActions = ({
 
   return (
 
-    <div className={s.wrapper}>
-      {/*<ul className={`${s.dropdownRequestActions} ${mobileFixed ? s.fixed : ''} ${isTop ? s.top : ''}`} ref={dropdownRef}*/}
+    <div className={`${s.wrapper} ${inMobileHeader ? s.inMobileHeaderWrapper : ''}`}>
       <ul className={`${s.dropdownRequestActions}  ${isTop ? s.top : ''}`} ref={dropdownRef}
           onClick={(e) => e.stopPropagation()}>
         {

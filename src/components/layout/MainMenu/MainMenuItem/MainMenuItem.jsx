@@ -35,7 +35,9 @@ const MainMenuItem = ({item}) => {
     }
 
     const isInTabs = tabs.find((tab) => tab === item.url)
-    navigate(item.url)
+    navigate(item.url, {
+      state: {fromApp: true}
+    })
 
     if (!isInTabs) {
       const newTabs = [...tabs, item.url]

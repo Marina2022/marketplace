@@ -28,6 +28,7 @@ const Header = () => {
   }, [location]);
 
 
+
   // скроллбар убираем
   useEffect(() => {
     if (categoryDropdownOpen) {
@@ -39,9 +40,11 @@ const Header = () => {
 
   const dispatch = useDispatch()
 
-  if (isMobile) {
-    return <MobileHeaderLk/>
-  }
+  // if (isMobile) {
+  //   return <MobileHeaderLk/>
+  // }
+
+  if (isMobile) return null
 
   const handleLogin = () => {
     dispatch(setIsLoginPopupOpened(true))

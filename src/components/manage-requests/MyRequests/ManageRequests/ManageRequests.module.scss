@@ -1,5 +1,13 @@
 @import "@/assets/styles/mixins";
 
+.manageRequestsWrapper {
+
+  @include m {
+    margin-top: 72px;
+    border-top: #E8EAED 1px solid;
+  }
+}
+
 .card {
   border: 2px solid #5a7181;
   width: 200px;

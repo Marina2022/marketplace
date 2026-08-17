@@ -1,0 +1,55 @@
+@import "@/assets/styles/mixins";
+
+.requestButtons {
+  background: #F6F7F9;
+  border: 1px solid #E8EAED;
+  border-radius: 8px;
+  padding: 11px 14px 14px 14px;
+
+  @include m {
+    border: none;
+    border-radius: 0px;
+    border-top: 1px solid #E8EAED;
+    padding-top: 12px;
+    padding-bottom: 16px;
+    background: transparent;
+    margin-top: 14px;
+    padding-inline: 0;
+  }
+}
+
+.blackBtn {
+  border-radius: 8px!important;
+  height: 36px!important;
+  width: 100%!important;
+  gap: 8px;
+
+  @include m {
+    max-width: 300px;
+  }
+
+  @include xs {
+    max-width: unset;
+  }
+
+
+
+}
+
+.secondaryActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+
+  @include m {
+    display: none;
+  }
+}
+
+.whiteBtn {
+  border-radius: 8px!important;
+  height: 36px!important;
+  width: 100%!important;
+  gap: 8px;
+}

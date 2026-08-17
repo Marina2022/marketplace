@@ -4,8 +4,6 @@ import TagInTopLineMobile
 
 const TopTagsLineMobile = ({groupedTags, setMobileTagsBlockOpen}) => {
 
-  console.log("groupedTags = ", groupedTags)
-
   const tags = groupedTags.flatMap(category =>
     category.catSelectedTags.map(tag => ({
       tagId: tag.id,
@@ -19,7 +17,7 @@ const TopTagsLineMobile = ({groupedTags, setMobileTagsBlockOpen}) => {
         tags.map(tag => <TagInTopLineMobile tag={tag} key={tag.tagId} />)
       }
     </ul>
-  );
-};
+  )
+}
 
 export default TopTagsLineMobile;
