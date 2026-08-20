@@ -4,7 +4,7 @@ import {useEffect, useRef, useState} from "react";
 import {useSelector} from "react-redux";
 import {getActiveProfileId} from "@/store/userSlice.js";
 import axiosInstance from "@/api/axiosInstance.js";
-import {getPreviewPayload, getRequestsWithPictures} from "@/utils/requests.js";
+import {formatRequestsNumber, getPreviewPayload, getRequestsWithPictures} from "@/utils/requests.js";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import RequestsTabs from "@/components/manage-requests/MyRequests/ManageRequests/RequestsTabs/RequestsTabs.jsx";
 import RequestCard from "@/components/manage-requests/MyRequests/ManageRequests/RequestCard/RequestCard.jsx";
@@ -12,7 +12,7 @@ import EditRequest from "@/components/manage-requests/MyRequests/ManageRequests/
 import EmptyPage from "@/components/manage-requests/MyRequests/ManageRequests/EmptyPage/EmptyPage.jsx";
 import MobileHeaderLk from "@/components/layout/Header/MobileHeader/MobileHeaderLK/MobileHeaderLK.jsx";
 
-const ManageRequests = ({setRequestDetails}) => {
+const ManageRequests = ({setShowHistoryPage }) => {
   const PAGE_SIZE = 12;
 
   const [tab, setTab] = useState("all");
@@ -32,7 +32,8 @@ const ManageRequests = ({setRequestDetails}) => {
   // Замок для защиты от лишних запросов во время быстрого скролла
   const isLoadingRef = useRef(false);
 
-  // Первичная загрузка и сброс данных
+
+  // Первичная загрузка данных
   const resetRequests = async () => {
     try {
       let queryParam = "";
@@ -139,7 +140,7 @@ const ManageRequests = ({setRequestDetails}) => {
         <div className={s.header}>
           <div className={s.leftHeader}>
             <h1 className={s.title}>Управление заявками</h1>
-            <div className={s.subtitle}>{requests && requests.tabCount.all} заявок
+            <div className={s.subtitle}>{requests && formatRequestsNumber(requests.tabCount.all)}
               {requests && requests.tabCount.active > 0 && ` · ${requests.tabCount.active} активных`}
               {requests && requests.tabCount.inProgress > 0 && ` · ${requests.tabCount.inProgress} в работе`}
               {requests && requests.tabCount.expired > 0 && ` · ${requests.tabCount.expired} истекли`}
@@ -155,7 +156,7 @@ const ManageRequests = ({setRequestDetails}) => {
         </div>
 
         <div className={s.wrapperForTabs}>
-          <RequestsTabs requests={requests} setTab={setTab} tab={tab}/>
+          <RequestsTabs requests={requests} setTab={setTab} tab={tab} setShowHistoryPage={setShowHistoryPage} />
         </div>
 
         {mainLoading && <Spinner/>}
@@ -167,7 +168,6 @@ const ManageRequests = ({setRequestDetails}) => {
                 resetRequests={resetRequests}
                 request={request}
                 key={request.requestId}
-                setRequestDetails={setRequestDetails}
                 setRequestToEdit={setRequestToEdit}
               />
             ))}

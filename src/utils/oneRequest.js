@@ -71,3 +71,137 @@ export const formatFileSize = (bytes) => {
 
   return `${Number((bytes / 1024 ** 3).toFixed(1))} Гб`;
 };
+
+
+export const getWordByCount = (count, word) => {
+  const forms = {
+    Отклик: ['Отклик', 'Отклика', 'Откликов'],
+    Новый: ['Новый', 'Новых', 'Новых'],
+    Просмотр: ['Просмотр', 'Просмотра', 'Просмотров'],
+  };
+
+  const [one, few, many] = forms[word];
+
+  const mod10 = count % 10;
+  const mod100 = count % 100;
+
+  if (mod10 === 1 && mod100 !== 11) return one;
+
+  if (
+    mod10 >= 2 &&
+    mod10 <= 4 &&
+    !(mod100 >= 12 && mod100 <= 14)
+  ) {
+    return few;
+  }
+
+  return many;
+};
+
+
+export const getStartDate = () => {
+  const date = new Date();
+  date.setDate(date.getDate() - 13);
+
+  return date
+    .toLocaleDateString('ru-RU', {
+      day: 'numeric',
+      month: 'short',
+    })
+    .replace('.', '');
+};
+
+
+export const formatDateLongMonth = (date) => {
+  return new Date(date).toLocaleDateString('ru-RU', {
+    day: 'numeric',
+    month: 'long',
+  });
+};
+
+export const getChatsLabel = (count) => {
+  const mod10 = count % 10;
+  const mod100 = count % 100;
+
+  if (mod10 === 1 && mod100 !== 11) {
+    return `${count} чат`;
+  }
+
+  if (
+    mod10 >= 2 &&
+    mod10 <= 4 &&
+    !(mod100 >= 12 && mod100 <= 14)
+  ) {
+    return `${count} чата`;
+  }
+
+  return `${count} чатов`;
+};
+
+export const getInitials = (displayName) => {
+  const words = displayName
+    .replace(/["«»\\]/g, '')
+    .trim()
+    .split(/\s+/);
+
+  return words[1]?.slice(0, 2).toUpperCase() || '';
+}
+
+
+
+export  const formatChatDate = (date) => {
+  const d = new Date(date);
+  const now = new Date();
+
+  const startOfDay = (date) => {
+    const result = new Date(date);
+    result.setHours(0, 0, 0, 0);
+    return result;
+  };
+
+  const diffDays = Math.floor(
+    (startOfDay(now) - startOfDay(d)) / (1000 * 60 * 60 * 24)
+  );
+
+  // Сегодня
+  if (diffDays === 0) {
+    return d.toLocaleTimeString('ru-RU', {
+      hour: 'numeric',
+      minute: '2-digit',
+    });
+  }
+
+  // Вчера
+  if (diffDays === 1) {
+    return 'вчера';
+  }
+
+  // До месяца
+  if (diffDays < 30) {
+    return `${diffDays} ${getDayWord(diffDays)} `;
+  }
+
+  // Месяц и больше
+  return d.toLocaleDateString('ru-RU', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }).replace('.', '');
+};
+
+const getDayWord = (count) => {
+  const mod10 = count % 10;
+  const mod100 = count % 100;
+
+  if (mod10 === 1 && mod100 !== 11) return 'день';
+
+  if (
+    mod10 >= 2 &&
+    mod10 <= 4 &&
+    !(mod100 >= 12 && mod100 <= 14)
+  ) {
+    return 'дня';
+  }
+
+  return 'дней';
+};

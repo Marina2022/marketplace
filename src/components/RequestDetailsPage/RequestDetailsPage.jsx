@@ -1,15 +1,16 @@
 import {useEffect, useState} from "react";
 import s from "./RequestDetailsPage.module.scss"
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getActiveProfileId} from "@/store/userSlice.js";
 import axiosInstance from "@/api/axiosInstance.js";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import RequestDetailsDesktop from "@/components/RequestDetailsPage/RequestDetailsDesktop/RequestDetailsDesktop.jsx";
 import RequestDetailsTablet from "@/components/RequestDetailsPage/RequestDetailsTablet/RequestDetailsTablet.jsx";
 import RequestDetailsMobile from "@/components/RequestDetailsPage/RequestDetailsMobile/RequestDetailsMobile.jsx";
 import {useMediaQuery} from "react-responsive";
 import EditRequest from "@/components/manage-requests/MyRequests/ManageRequests/EditRequest/EditRequest.jsx";
+import {getTabs, setTabs} from "@/store/tabsSlice.js";
 
 const RequestDetailsPage = () => {
   const {id} = useParams();
@@ -21,13 +22,16 @@ const RequestDetailsPage = () => {
   const isMobile = useMediaQuery({maxWidth: 960})
   const isDesktop = useMediaQuery({minWidth: 1341})
   const isTablet = useMediaQuery({minWidth: 961, maxWidth: 1340})
-
-  console.log("request = ", request)
+  const tabs = useSelector(getTabs)
+  const dispatch = useDispatch()
+  const location = useLocation()
 
   const navigate = useNavigate();
 
-  const getRequest = async () => {
-    setLoading(true)
+  const getRequest = async (reload) => {
+
+    // не всегда нужно перезагружать всю страницу - reload передаем в параметре (перезагружать ли)
+    reload && setLoading(true)
     try {
       const requestResponse = await axiosInstance(`/requests/${id}/details`)
       let requestToState = requestResponse.data
@@ -40,30 +44,41 @@ const RequestDetailsPage = () => {
       setRequest(requestToState)
     } catch (err) {
       if (err.response?.data?.errors?.[0]?.code === "Request.NotFound") {
+        const newTabs = tabs.filter(tabItem => tabItem !== location.pathname)
+        dispatch(setTabs(newTabs))
         navigate("/manage-requests/my-requests")
       }
-
       throw err // пробрасываем дальше
     } finally {
-      setLoading(false)
+      reload && setLoading(false)
     }
   }
+  const [responses, setResponses] = useState(null)
+  const [chatsLoading, setChatsLoading] = useState(true)
+
+  useEffect(() => {
+    const getResponses = async () => {
+      setChatsLoading(true)
+      try {
+        const result = await axiosInstance(`/responses/chat-links/by-request/${id}`)
+        setResponses(result.data)
+      } catch (err) {
+        console.log(err)
+      } finally {
+        setChatsLoading(false)
+      }
+    }
+    getResponses()
+  }, [request])
 
   const [requestToEdit, setRequestToEdit] = useState(null);
 
-  const getRequestData = async () => {
+  const getRequestData = async (reload = true) => {
 
     try {
-      await getRequest()
-      // выполнится ТОЛЬКО если resetRequest успешен
-      await Promise.all([
-        //axiosInstance(`/requests/${id}/history`),  //
-        //axiosInstance(`/requests/${id}/something-else`)
-      ])
-
-    } catch (e) {
-      // сюда попадём если resetRequest упал
-      console.log("Основной запрос не прошёл, остальные не вызываем")
+      await getRequest(reload)
+    } catch (err) {
+      console.log(err)
     }
   }
 
@@ -82,15 +97,34 @@ const RequestDetailsPage = () => {
   return <div className={`${s.requestDetailsGlobalWrapper} scroll`}>
 
     {
-      isDesktop && <RequestDetailsDesktop request={request} setRequestToEdit={setRequestToEdit} resetRequest={getRequestData} />
+      isDesktop && <RequestDetailsDesktop
+        request={request}
+        setRequestToEdit={setRequestToEdit}
+        resetRequest={getRequestData}
+        responses={responses}
+        chatsLoading={chatsLoading}
+      />
     }
 
     {
-      isTablet && <RequestDetailsTablet request={request} setRequestToEdit={setRequestToEdit} resetRequest={getRequestData}/>
+      isTablet && <RequestDetailsTablet
+        request={request}
+        setRequestToEdit={setRequestToEdit}
+        resetRequest={getRequestData}
+        responses={responses}
+        chatsLoading={chatsLoading}
+      />
     }
 
     {
-      isMobile && <RequestDetailsMobile request={request} loading={loading} setRequestToEdit={setRequestToEdit} resetRequest={getRequestData} />
+      isMobile && <RequestDetailsMobile
+        request={request}
+        loading={loading}
+        setRequestToEdit={setRequestToEdit}
+        resetRequest={getRequestData}
+        responses={responses}
+        chatsLoading={chatsLoading}
+      />
     }
 
     {requestToEdit && (

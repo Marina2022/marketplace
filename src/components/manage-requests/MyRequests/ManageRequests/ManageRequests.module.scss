@@ -76,7 +76,6 @@
   gap: 16px;
   grid-template-columns: repeat(auto-fill, 346px);
   height: calc(100 * var(--vh) - 280px);
-  //align-items: start;
   align-content: start;
 
   @include t {
@@ -146,7 +145,7 @@
 }
 
 .emptyPageWrapper {
-  height: calc(100 * var(--vh) - 280px);
+  height: calc(100vh - 280px);
 
   @include t {
     height: calc(100 * var(--vh) - 276px);

@@ -7,7 +7,7 @@ import RequestIndicators
 import RequestDesc from "@/components/RequestDetailsPage/request-components/RequestDesc/RequestDesc.jsx";
 import RequestTags from "@/components/RequestDetailsPage/request-components/RequestTags/RequestTags.jsx";
 import RequestFiles from "@/components/RequestDetailsPage/request-components/RequestFiles/RequestFiles.jsx";
-import RequestResponses from "@/components/RequestDetailsPage/request-components/RequestResponses/RequestResponses.jsx";
+import RequestChats from "@/components/RequestDetailsPage/request-components/RequestChats/RequestChats.jsx";
 import RequestHistory from "@/components/RequestDetailsPage/request-components/RequestHistory/RequestHistory.jsx";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import RequestButtons from "@/components/RequestDetailsPage/request-components/RequestButtons/RequestButtons.jsx";
@@ -15,7 +15,7 @@ import axiosInstance from "@/api/axiosInstance.js";
 import DropdownRequestActions
   from "@/components/manage-requests/MyRequests/ManageRequests/DropdownRequestActions/DropdownRequestActions.jsx";
 
-const RequestDetailsMobile = ({request, loading, setRequestToEdit, resetRequest}) => {
+const RequestDetailsMobile = ({request, loading, setRequestToEdit, resetRequest, responses, chatsLoading}) => {
 
   const location = useLocation()
   const navigate = useNavigate()
@@ -217,7 +217,7 @@ const RequestDetailsMobile = ({request, loading, setRequestToEdit, resetRequest}
             {
               currentTab.name === "responses" && (
                 <div>
-                  <RequestResponses request={request}/>
+                  <RequestChats request={request} responses={responses} chatsLoading={chatsLoading} resetRequest={resetRequest}/>
                 </div>
               )
             }

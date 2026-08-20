@@ -7,14 +7,15 @@ import RequestHistory from "@/components/RequestDetailsPage/request-components/R
 import RequestIndicators
   from "@/components/RequestDetailsPage/request-components/RequestIndicators/RequestIndicators.jsx";
 import RequestChart from "@/components/RequestDetailsPage/request-components/RequestChart/RequestChart.jsx";
-import RequestResponses from "@/components/RequestDetailsPage/request-components/RequestResponses/RequestResponses.jsx";
+import RequestChats from "@/components/RequestDetailsPage/request-components/RequestChats/RequestChats.jsx";
 import RequestButtons from "@/components/RequestDetailsPage/request-components/RequestButtons/RequestButtons.jsx";
 import RequestDetailsBlock
   from "@/components/RequestDetailsPage/request-components/RequestDetailsBlock/RequestDetailsBlock.jsx";
 import RequestStats from "@/components/RequestDetailsPage/request-components/RequestStats/RequestStats.jsx";
 import RequestSlots from "@/components/RequestDetailsPage/request-components/RequestSlots/RequestSlots.jsx";
 
-const RequestDetailsDesktop = ({request, setRequestToEdit, resetRequest}) => {
+const RequestDetailsDesktop = ({request, setRequestToEdit, resetRequest, responses, chatsLoading}) => {
+
   return (
     <div className={s.wrapper}>
       <div className={s.mainBlock}>
@@ -30,14 +31,14 @@ const RequestDetailsDesktop = ({request, setRequestToEdit, resetRequest}) => {
       <div className={s.middleBlock}>
         <RequestIndicators request={request} />
         <RequestChart request={request}/>
-        <RequestResponses request={request}/>
+        <RequestChats request={request} responses={responses} chatsLoading={chatsLoading} resetRequest={resetRequest}/>
       </div>
 
       <div className={s.rightBlock}>
         <RequestButtons request={request} setRequestToEdit={setRequestToEdit} resetRequest={resetRequest} />
         <RequestDetailsBlock request={request}/>
         <RequestStats request={request}/>
-        <RequestSlots request={request}/>
+        <RequestSlots request={request} responses={responses} chatsLoading={chatsLoading} />
       </div>
     </div>
   )

@@ -7,11 +7,14 @@ import RequestHistory from "@/components/RequestDetailsPage/request-components/R
 import RequestIndicators
   from "@/components/RequestDetailsPage/request-components/RequestIndicators/RequestIndicators.jsx";
 import RequestChart from "@/components/RequestDetailsPage/request-components/RequestChart/RequestChart.jsx";
-import RequestResponses from "@/components/RequestDetailsPage/request-components/RequestResponses/RequestResponses.jsx";
+import RequestChats from "@/components/RequestDetailsPage/request-components/RequestChats/RequestChats.jsx";
 import RequestButtons from "@/components/RequestDetailsPage/request-components/RequestButtons/RequestButtons.jsx";
 import RequestSlots from "@/components/RequestDetailsPage/request-components/RequestSlots/RequestSlots.jsx";
 
-const RequestDetailsTablet = ({request, setRequestToEdit, resetRequest}) => {
+const RequestDetailsTablet = ({request, setRequestToEdit, resetRequest, responses, chatsLoading}) => {
+
+
+
   return (
     <div className={s.wrapper}>
 
@@ -29,8 +32,8 @@ const RequestDetailsTablet = ({request, setRequestToEdit, resetRequest}) => {
         <RequestButtons request={request} setRequestToEdit={setRequestToEdit} resetRequest={resetRequest} />
         <RequestIndicators request={request}/>
         <RequestChart request={request}/>
-        <RequestSlots request={request}/>
-        <RequestResponses request={request}/>
+        <RequestSlots request={request} responses={responses} chatsLoading={chatsLoading}/>
+        <RequestChats request={request} responses={responses} chatsLoading={chatsLoading} resetRequest={resetRequest}/>
       </div>
     </div>
   )

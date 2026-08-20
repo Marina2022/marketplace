@@ -1,7 +1,4 @@
 import s from './RequestsTabs.module.scss';
-import {useNavigate} from "react-router-dom";
-import {getTabs, setTabs} from "@/store/tabsSlice.js";
-import {useDispatch, useSelector} from "react-redux";
 
 const pageTabs = [
   {
@@ -39,13 +36,7 @@ const pageTabs = [
 
 ]
 
-const RequestsTabs = ({requests, setTab, tab}) => {
-
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const tabs = useSelector(getTabs)
-
-
+const RequestsTabs = ({requests, setTab, tab, setShowHistoryPage}) => {
   return (
     <div className={s.tabsWrapperForScroll}>
       <ul className={s.tabs}>
@@ -60,22 +51,10 @@ const RequestsTabs = ({requests, setTab, tab}) => {
                 if (tabItem.value !== "history") {
                   setTab(tabItem.value)
                 } else {
-
-                  const url = '/requests-history'
-                  const isInTabs = tabs.find((tab) => tab === url)
-                  navigate(url, {
-                    state: { fromApp: true }
-                  })
-
-                  if (!isInTabs) {
-                    const newTabs = [...tabs, url]
-                    dispatch(setTabs(newTabs))
-                  }
+                  setShowHistoryPage(true)
                 }
               }
-
               const isActive = tabItem.value === tab
-
               return (
                 <li key={i}
                     className={`${s.tab} ${isActive ? s.tabActive : ''}`}

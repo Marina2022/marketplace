@@ -1,0 +1,35 @@
+@import "@/assets/styles/mixins";
+
+.slot {
+  width: 46px;
+  height: 46px;
+  border: 1px dashed #CFD4DB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+
+  @include t {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+.slotPinned {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #2A2E37;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  @include t {
+    width: 36px;
+    height: 36px;
+  }
+}

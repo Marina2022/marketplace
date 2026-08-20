@@ -11,3 +11,13 @@
   fill: red;
   animation: spin 1s linear infinite;
 }
+
+.svgBlack {
+  fill: gray;
+  animation: spin 1s linear infinite;
+}
+
+.spinnerBlack {
+  position: relative;
+  top: 2px;
+}

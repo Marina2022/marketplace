@@ -4,5 +4,42 @@
   background: #F6F7F9;
   border: 1px solid #E8EAED;
   border-radius: 8px;
-  padding: 11px 14px 14px 14px;
+  padding: 14px;
+}
+
+.slotsGrid {
+  display: grid;
+  row-gap: 6px;
+  column-gap: 10px;
+  grid-template-columns: repeat(5, 1fr);
+
+  @include t {
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 6px;
+  }
+}
+
+.title {
+  color: #16181D;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.headerTotal {
+  color: #9AA1AC;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.subText {
+  margin-top: 10px;
+  color: #9AA1AC;
+  font-size: 11px;
 }

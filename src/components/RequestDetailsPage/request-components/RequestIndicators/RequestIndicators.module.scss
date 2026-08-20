@@ -1,8 +1,44 @@
 @import "@/assets/styles/mixins";
 
 .requestIndicators {
+  display: flex;
+  gap: 8px;
+}
+
+.indicator {
+  width: 100%;
+  border-radius: 8px;
   background: #F6F7F9;
   border: 1px solid #E8EAED;
-  border-radius: 8px;
-  padding: 11px 14px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  height: 72px;
+
+  @include t {
+    height: 56px;
+  }
+}
+
+.number {
+  color: #16181D;
+  font-size: 26px;
+  font-weight: 600;
+
+  @include t {
+    font-size: 20px;
+  }
+}
+
+.label {
+  color: #9AA1AC;
+  font-size: 10px;
+  font-weight: 5000;
+  text-transform: uppercase;
+
+  @include t {
+    font-size: 8px;
+  }
 }

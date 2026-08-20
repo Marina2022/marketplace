@@ -1,0 +1,62 @@
+@import "@/assets/styles/mixins";
+
+.chart {
+  height: 44px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.bar {
+  position: relative;
+  width: 14px;
+  border-radius: 3px;
+  background-color: #D9DDE3;
+  transition: all .2s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: #3D4A66;
+      transition: all .2s ease;
+
+      .tooltip {
+        display: flex;
+      }
+    }
+  }
+}
+
+.subText {
+  margin-top: 2px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #9AA1AC;
+}
+
+.tooltip {
+  width: 130px;
+  height: 54px;
+  background-color: #1A2332;
+  border-radius: 8px;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  position: absolute;
+  right: 15px;
+  bottom: 22px;
+  color: white;
+  align-items: center;
+  justify-content: center;
+}
+
+.tooltipDate {
+  color: #9AA1AC;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.tooltipText {
+  font-size: 13px;
+  font-weight: 600;
+}

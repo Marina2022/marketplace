@@ -17,7 +17,6 @@ export const getPreviewPayload = (items) => {
 }
 
 export const getRequestsWithPictures = ({requests, pictures}) => {
-
   const requestsWithPictures = requests.data.items.map((request) => {
 
     if (request.previewMediaFileId) {
@@ -159,4 +158,24 @@ export  function getNewChatsNewText(count) {
   }
 
   return `${count} новых`;
+}
+
+
+export function formatRequestsNumber(count) {
+  const mod10 = count % 10;
+  const mod100 = count % 100;
+
+  if (mod100 >= 11 && mod100 <= 14) {
+    return `${count} заявок`;
+  }
+
+  if (mod10 === 1) {
+    return `${count} заявка`;
+  }
+
+  if (mod10 >= 2 && mod10 <= 4) {
+    return `${count} заявки`;
+  }
+
+  return `${count} заявок`;
 }

@@ -1,37 +1,26 @@
 import s from './RequestHistory.module.scss';
 import {useEffect, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
-import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 import HistoryItem from "@/components/RequestDetailsPage/request-components/RequestHistory/HistoryItem/HistoryItem.jsx";
 
 const RequestHistory = ({request}) => {
 
-  //requests/c7c16c4e-8aa1-4d53-8099-094d0ed6eaad/change-log
-
   const [history, setHistory] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  console.log("history = ", history)
-
   useEffect(() => {
-
     const getHistory = async () => {
       setLoading(true)
       try {
         const result = await axiosInstance(`/requests/${request.requestId}/change-log`)
-
         setHistory(result.data)
       } catch (err) {
-
         console.log(err)
-
       } finally {
         setLoading(false)
       }
     }
-
     getHistory()
-
   }, [request])
 
   // test:
@@ -43,7 +32,6 @@ const RequestHistory = ({request}) => {
       <h3 className={s.title}>История изменений</h3>
       {
         !loading && (
-
           <ul className={s.historyList}>
             {
               history.events.map((item, index) => <HistoryItem
@@ -53,11 +41,8 @@ const RequestHistory = ({request}) => {
               />)
             }
           </ul>
-
         )
       }
-
-
     </div>
   )
 }

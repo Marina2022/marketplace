@@ -1,0 +1,59 @@
+@import "@/assets/styles/mixins";
+
+.requestResponses {
+  background: #F6F7F9;
+  border: 1px solid #E8EAED;
+  border-radius: 8px;
+  padding-block: 14px;
+
+  @include m {
+    background: #fff;
+    border: none;
+    padding-top: 0;
+  }
+}
+
+.title {
+  color: #16181D;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  padding-inline: 14px;
+
+  @include m {
+    display: none;
+  }
+}
+
+.headerOpenAll {
+  color: #9AA1AC;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.chatCards {
+  display: flex;
+  flex-direction: column;
+
+  @include m {
+    gap: 10px;
+  }
+}
+
+.moreChats {
+  padding-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+}

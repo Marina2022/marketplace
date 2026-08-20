@@ -1,0 +1,25 @@
+@import "@/assets/styles/mixins";
+
+.contentWrapper {
+  padding: 16px;
+
+  @include t {
+    position: static;
+    background: transparent;
+    border: none;
+  }
+
+  @include m {
+    padding-right: 0;
+  }
+}
+
+.content {
+  @include t {
+    padding-right: 0;
+  }
+
+  @include m {
+    padding-right: 0;
+  }
+}

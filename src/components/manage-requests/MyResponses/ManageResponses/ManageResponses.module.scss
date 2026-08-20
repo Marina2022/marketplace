@@ -1,0 +1,248 @@
+@import "@/assets/styles/mixins";
+
+.manageRequestsWrapper {
+
+  @include m {
+    margin-top: 72px;
+    border-top: #E8EAED 1px solid;
+  }
+}
+
+.card {
+  border: 2px solid #5a7181;
+  width: 200px;
+  height: 300px;
+  cursor: pointer;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: center;
+  max-width: 1432px;
+
+  @include t {
+    margin-block: 14px;
+  }
+}
+
+.createRequestButton {
+  height: 40px;
+  width: 143px;
+  gap: 8px;
+  border-radius: 8px;
+  background: #1B2233;
+  font-weight: 500;
+  font-size: 12px;
+
+  @media (hover: hover) {
+    &:hover {
+      background: #262F44;
+    }
+  }
+
+  &:active {
+    background: #141A28;
+  }
+
+  @include m {
+    width: 55px!important;
+    padding: 0;
+  }
+}
+
+.title {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.searchAndFilters {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 16px;
+
+  @include m {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+}
+
+
+.onScrollSpinnerWrapper {
+  padding-block: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.observerDiv {
+  padding-block: 10px;
+}
+
+.plusIconInBtn {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.leftHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  @include m {
+    gap: 2px;
+  }
+}
+
+.subtitle {
+  font-size: 12px;
+  color: #9AA1AC;
+}
+
+.btnText {
+  @include m {
+    display: none;
+  }
+}
+
+.wrapperForTabs {
+
+  @include t {
+    position: relative;
+    height: 38px;
+    margin-bottom: 16px;
+
+    @include m {
+      height: 24px;
+    }
+  }
+}
+
+.emptyPageWrapper {
+  height: calc(100vh - 280px);
+
+  @include t {
+    height: calc(100 * var(--vh) - 276px);
+  }
+
+  @include m {
+    height: calc(100 * var(--vh) - 240px);
+  }
+}
+
+.responsesTable {
+  border: 1px solid #DFE2E7;
+  border-radius: 12px;
+  background: #F6F7F9;
+  height: calc(100vh - 280px);
+
+  @include t {
+    height: calc(100 * var(--vh) - 298px);
+  }
+
+  @include m {
+    height: calc(100 * var(--vh) - 282px);
+    border: none;
+    border-radius: 0;
+    background: transparent;
+  }
+}
+
+.tableHead {
+  padding-inline: 16px;
+  display: flex;
+  gap: 16px;
+  height: 37px;
+  border-bottom: 1px solid #E7E9ED;
+  font-size: 11px;
+  color: #9AA1AC;
+  text-transform: uppercase;
+  font-weight: 600;
+  align-items: center;
+
+  @include m {
+    display: none;
+  }
+}
+
+.leftBlock {
+  width: 31%;
+
+  @include t {
+    width: 52%;
+  }
+}
+
+.middleBlock {
+  width: 28%;
+  display: flex;
+  gap: 16px;
+
+  @include t {
+    width: 42.5%;
+  }
+}
+
+.rightBlock {
+  width: 39%;
+  display: flex;
+  gap: 16px;
+
+  @include t {
+    width: 3.5%;
+    margin-left: auto;
+  }
+
+}
+
+.clientCell {
+  width: 53%;
+}
+
+.statusCell {
+  width: 40%;
+
+  @include t {
+    display: none;
+  }
+}
+
+
+.lastMessageCell {
+  width: 52%;
+}
+
+.dateCell {
+  width: 39%;
+}
+
+.lastMessageInHead {
+
+  @include t {
+    display: none;
+  }
+}
+
+.tableRows {
+  height: calc(100vh - 280px - 37px);
+
+  @include t {
+    height: calc(100 * var(--vh) - 298px - 37px);
+  }
+
+  @include m {
+    height: calc(100 * var(--vh) - 282px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+.tabletHidden {
+  @include t {
+    display: none;
+  }
+}
