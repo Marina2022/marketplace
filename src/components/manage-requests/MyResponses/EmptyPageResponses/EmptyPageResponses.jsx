@@ -30,9 +30,9 @@ const EmptyPageResponses = ({tab}) => {
           Вы ещё не&nbsp;откликались на&nbsp;заявки. Найдите подходящие в&nbsp;каталоге и отправьте отклик — здесь появятся ваши предложения и их&nbsp;статусы.
         </div>
         <Button onClick={handleClick} className={s.button}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className={s.svg} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7.11241 11.553C9.56701 11.553 11.5569 9.56311 11.5569 7.10851C11.5569 4.65391 9.56701 2.66406 7.11241 2.66406C4.65781 2.66406 2.66797 4.65391 2.66797 7.10851C2.66797 9.56311 4.65781 11.553 7.11241 11.553Z" stroke="white" strokeWidth="1.51111"/>
-            <path d="M10.668 10.6641L13.3346 13.3307" stroke="white" strokeWidth="1.51111" stroke-Linecap="round"/>
+            <path d="M10.668 10.6641L13.3346 13.3307" stroke="white" strokeWidth="1.51111" strokeLinecap="round"/>
           </svg>
           <span className={s.btnText}>Открыть каталог заявок</span>
         </Button>

@@ -27,49 +27,10 @@
   }
 }
 
-.createRequestButton {
-  height: 40px;
-  width: 143px;
-  gap: 8px;
-  border-radius: 8px;
-  background: #1B2233;
-  font-weight: 500;
-  font-size: 12px;
-
-  @media (hover: hover) {
-    &:hover {
-      background: #262F44;
-    }
-  }
-
-  &:active {
-    background: #141A28;
-  }
-
-  @include m {
-    width: 55px!important;
-    padding: 0;
-  }
-}
-
 .title {
   font-weight: 600;
   font-size: 20px;
 }
-
-.searchAndFilters {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  margin-bottom: 16px;
-
-  @include m {
-    flex-direction: column;
-    gap: 16px;
-    align-items: flex-start;
-  }
-}
-
 
 .onScrollSpinnerWrapper {
   padding-block: 10px;
@@ -170,6 +131,7 @@
 
 .leftBlock {
   width: 31%;
+  margin-right: 10px;
 
   @include t {
     width: 52%;
@@ -187,15 +149,16 @@
 }
 
 .rightBlock {
-  width: 39%;
+  width: 37%;
+  margin-left: auto;
   display: flex;
   gap: 16px;
+  justify-content: flex-end;
 
   @include t {
     width: 3.5%;
     margin-left: auto;
   }
-
 }
 
 .clientCell {
@@ -210,13 +173,12 @@
   }
 }
 
-
 .lastMessageCell {
   width: 52%;
 }
 
 .dateCell {
-  width: 39%;
+  width: 20%;
 }
 
 .lastMessageInHead {
@@ -245,4 +207,8 @@
   @include t {
     display: none;
   }
+}
+
+.iconWrapper {
+  width: 24px;
 }

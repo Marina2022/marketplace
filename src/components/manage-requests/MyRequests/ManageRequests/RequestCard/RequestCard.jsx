@@ -24,7 +24,6 @@ const RequestCard = ({request, resetRequests, setRequestToEdit}) => {
     const menuBtnRef = useRef(null);
 
     const handleMenuClick = (e) => {
-      console.log('here')
       e.stopPropagation();
       setShowMenu(prev => !prev)
     }

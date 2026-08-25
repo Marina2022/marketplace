@@ -4,9 +4,12 @@ import axiosInstance from "@/api/axiosInstance.js";
 import {requestCardMenuButton} from "@/consts/requests.jsx";
 import {useEffect, useState} from "react";
 import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
+import {useMediaQuery} from "react-responsive";
 
 const RequestButtons = ({request, setRequestToEdit, resetRequest}) => {
 
+
+  const isMobile = useMediaQuery({maxWidth: 960})
   const performAction = async (action, resetRequest = null) => {
 
     const handlePause = async () => {
@@ -95,6 +98,17 @@ const RequestButtons = ({request, setRequestToEdit, resetRequest}) => {
       await performAction(action, resetRequest)
     } catch (err) {
       console.log(err)
+
+      // 	message + подсказка «открепите исполнителей» на InProgress-заявке - потестить бы на реальной ошибке
+      if (
+        (err.response?.data?.errors?.[0]?.code === "Request.CannotCancel"
+          || err.response?.data?.errors?.[0]?.code === "Request.CannotComplete")
+        && request.status.code === "inprogress"
+      )  {
+        showErrorToast(err.response?.data?.errors?.[0].message + "\n" + "Открепите исполнителей")
+        return
+      }
+
       if (err.response && err.response.status === 400) {
         err.response.data.errors.forEach((dataItem) => {
           showErrorToast(dataItem.message)
@@ -106,6 +120,8 @@ const RequestButtons = ({request, setRequestToEdit, resetRequest}) => {
   }
 
   if (request.actions.secondaryActions.length === 0 && !request.actions.primaryAction) return null
+
+  if (!request.actions.primaryAction && isMobile) return null
 
   return (
     <div className={s.requestButtons}>

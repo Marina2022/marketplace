@@ -1,10 +1,10 @@
 import RequestDetailsPage from "@/components/RequestDetailsPage/RequestDetailsPage.jsx";
 
-const Requests = () => {
+const RequestDetails = () => {
 
   return (
     <RequestDetailsPage/>
   );
 };
 
-export default Requests;
+export default RequestDetails;

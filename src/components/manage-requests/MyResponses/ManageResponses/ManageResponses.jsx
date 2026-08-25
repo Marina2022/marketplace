@@ -21,8 +21,6 @@ const ManageResponses = () => {
   const [page, setPage] = useState(1);
   const [isOnScrollLoading, setIsOnScrollLoading] = useState(false);
 
-
-  console.log("responses = ", responses)
   const activeProfileId = useSelector(getActiveProfileId)
 
   // Ссылки на элементы в DOM
@@ -155,7 +153,6 @@ const ManageResponses = () => {
 
         {!mainLoading && responses && responses.items.length > 0 && (
           <div ref={containerRef} className={`${s.responsesTable}`}>
-
             <div className={s.tableHead}>
               <div className={s.leftBlock}>Заявка</div>
               <div className={s.middleBlock}>
@@ -167,18 +164,17 @@ const ManageResponses = () => {
                   <span className={s.tabletHidden}>Последнее сообщение</span>
                 </div>
                 <div className={s.dateCell}><span className={s.tabletHidden}>Дата</span></div>
+                <div className={s.iconWrapper}></div>
               </div>
             </div>
-
             <ul className={`${s.tableRows} scroll`}>
             {responses.items.map((response, index) => <ResponseCard
               key={index}
               response={response}
               resetResponses={resetResponses}
               isLast={index === responses.items.length-1}
+              currentTab={tab}
             />)}
-
-
               {/* Обзервер находится внутри тега <ul> как элемент списка */}
               {responses && (responses.items.length < responses.meta.totalCount) && (
                 <li ref={observerRef} className={s.observerDiv} style={{ listStyleType: 'none', width: '100%', minHeight: '30px' }}>
@@ -187,11 +183,7 @@ const ManageResponses = () => {
                   </div>}
                 </li>
               )}
-
             </ul>
-
-
-
           </div>
         )}
         {

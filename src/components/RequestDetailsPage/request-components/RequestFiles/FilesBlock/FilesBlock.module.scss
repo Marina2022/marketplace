@@ -46,6 +46,7 @@
   display: flex;
   gap: 10px;
   align-items: center;
+  height: 100%;
 }
 
 .img {
@@ -71,7 +72,7 @@
   font-size: 12px;
 
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* максимум 3 строки */
+  -webkit-line-clamp: 2; /* максимум 2 строки */
   -webkit-box-orient: vertical;
   overflow: hidden;
 

@@ -20,6 +20,7 @@ const MainMenuItem = ({item}) => {
   if (getFirstSegment(item.url) === "requests" && getFirstSegment(location.pathname) === "search-keywords") isActive = true
 
   if (item.url === "/manage-requests/my-requests" && getFirstSegment(location.pathname) === "request") isActive = true
+  if (item.url === "/manage-requests/my-requests" && getFirstSegment(location.pathname) === "response") isActive = true
 
   const navigate = useNavigate();
   const tabs = useSelector(getTabs)

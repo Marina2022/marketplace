@@ -23,9 +23,6 @@ const RequestHistory = ({request}) => {
     getHistory()
   }, [request])
 
-  // test:
-  // history.events[0].changedAt = "2026-08-17T09:31:33.09942Z"
-  // history.events[1].changedAt = "2026-08-16T09:31:33.09942Z"
 
   return (
     <div className={s.requestHistory}>

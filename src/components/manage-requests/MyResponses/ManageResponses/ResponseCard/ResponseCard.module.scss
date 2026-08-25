@@ -2,13 +2,15 @@
 
 .card {
   border-bottom: 1px solid #E7E9ED;
-  min-height: 62px;
+  min-height: 75.1px;
   display: flex;
   gap: 16px;
   padding: 12px 16px;
+  align-items: center;
 
   @include t {
     min-height: 75px;
+    gap: 12px;
   }
 
   @include m {
@@ -34,6 +36,9 @@
   width: 31%;
   display: flex;
   gap: 8px;
+  align-items: center;
+  position: relative;
+  margin-right: 10px;
 
   @include t {
     width: 52%;
@@ -56,14 +61,18 @@
 
   @include m {
     width: 100%;
+    gap: 0;
     justify-content: space-between;
   }
 }
 
 .rightBlock {
-  width: 39%;
+  width: 37%;
   display: flex;
   gap: 16px;
+  margin-left: auto;
+  align-items: center;
+  justify-content: flex-end;
 
   @include t {
     width: 3.5%;
@@ -72,17 +81,40 @@
 
   @include m {
     width: 100%;
+    margin-left: 0;
+    justify-content: flex-start;
+    padding-top: 12px;
+    border-top: 1px solid #E4E6EA;
   }
 }
 
 .clientCell {
   width: 53%;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  @include m {
+    gap: 4px;
+    width: 53%;
+  }
 }
 
 .statusCell {
   width: 40%;
-}
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
+  @include t {
+    gap: 6px;
+  }
+
+  @include m {
+    width: 47%;
+    justify-content: flex-end;
+  }
+}
 
 .lastMessageCell {
   width: 52%;
@@ -93,12 +125,14 @@
 
   @include m {
     display: flex;
+    width: 68%;
   }
 }
 
 .dateCell {
-  width: 39%;
-
+  width: 20%;
+  font-size: 12px;
+  color: #9AA1AC;
 
   @include t {
     display: none;
@@ -106,10 +140,13 @@
 
   @include m {
     display: flex;
+    margin-left: auto;
+    justify-content: flex-end;
   }
 }
 
 .img {
+  cursor: pointer;
   width: 46px;
   height: 38px;
   object-fit: cover;
@@ -129,9 +166,15 @@
   display: flex;
   flex-direction: column;
   gap: 3px;
+
+  @include m {
+    gap: 6px;
+    align-items: flex-start;
+  }
 }
 
 .title {
+  cursor: pointer;
   display: -webkit-box;
   -webkit-line-clamp: 2; /* максимум 2 строки */
   -webkit-box-orient: vertical;
@@ -140,7 +183,11 @@
   color: #1F232B;
   font-size: 13px;
   font-weight: 600;
-  width: 90%;
+  width: 94%;
+}
+
+.titleArchived {
+  color: #9CA3AF!important;
 }
 
 .geoCat {
@@ -157,10 +204,12 @@
 .cats {
   display: flex;
   gap: 4px;
+  flex-wrap: wrap;
 }
 
 .cat {
   display: flex;
+  text-wrap: nowrap;
   color: #3A3F49;
   font-size: 10px;
   padding-inline: 8px;
@@ -168,4 +217,135 @@
   align-items: center;
   border-radius: 4px;
   border: 1px solid #E4E6EA;
+}
+
+.catArchived {
+  color: #9CA3AF!important;
+}
+
+
+.initialsCircle {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #658092;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  @include m {
+    height: 24px;
+    width: 24px;
+  }
+}
+
+.initialsCircleArchived {
+  background-color: #9CA3AF!important;
+}
+
+.companyName {
+  color: #3A3F49;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @include m {
+    max-width: calc(100vw - 230px);
+  }
+}
+
+.commonBadge {
+  height: 24px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  padding-inline: 12px;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.unreadMessages {
+  height: 14px;
+  min-width: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding-inline: 3px;
+  background-color: #2A2E37;
+}
+
+.lastMessageText {
+  max-width: 208px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #6B7280;
+  font-size: 13px;
+
+  @include m {
+    max-width: calc(100vw - 160px);
+  }
+}
+
+.attached {
+  font-style: italic;
+}
+
+.iconWrapper {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #E4E6EA;
+
+  @media(hover: hover) {
+    &:hover {
+      color: #3D4A66;
+      border: 1px solid #cdcfd2;
+      transition: .2s ease-in-out all;
+    }
+  }
+}
+
+.infoIcon {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.tooltip {
+  position: absolute;
+  width: 234px;
+  height: 73px;
+  background: #253246;
+  border-radius: 10px;
+  color: #fff;
+  padding: 14px;
+  font-size: 12px;
+  font-weight: 500;
+
+  top: -10px;
+  right: -244px;
+
+  @include m {
+    top: 20px;
+    right: 0;
+  }
 }

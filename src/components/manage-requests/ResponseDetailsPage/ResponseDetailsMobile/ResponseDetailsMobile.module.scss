@@ -1,4 +1,4 @@
-@import "@/assets/styles/mixins";
+@import '@/assets/styles/mixins';
 
 .mobilePageWrapper {
   margin-top: 60px;
@@ -35,9 +35,6 @@
 
 .underHeaderContentWrapper {
   padding: 10px 14px;
-}
-
-.withPadding {
   padding-bottom: 66px!important;
 }
 
@@ -60,7 +57,6 @@
   color: #8A8F98;
   align-items: center;
   justify-content: center;
-
 }
 
 .tabActive {
@@ -91,4 +87,26 @@
   border: #E8EAEE 1px solid;
   background: #fff;
   color: #9CA3AF;
+}
+
+.notification {
+  background: #FEF3C7;
+  min-height: 33px;
+  padding: 8px 12px;
+  border: rgba(217, 119, 6, 0.2) 1px solid;
+  border-radius: 4px;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  color: #3E5067;
+  font-weight: 500;
+  font-size: 12px;
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.closeNotification {
+  margin-left: auto;
 }

@@ -25,10 +25,10 @@ const pageTabs = [
     label: "История",
     value: "history"
   }
-
 ]
 
 const ResponsesTabs = ({responses, setTab, tab}) => {
+
   return (
     <div className={s.tabsWrapperForScroll}>
       <ul className={s.tabs}>

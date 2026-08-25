@@ -82,3 +82,32 @@
   flex-shrink: 0;
 }
 
+.notification {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #FEF3C7;
+  min-height: 33px;
+  padding: 8px 12px;
+  border: rgba(217, 119, 6, 0.2) 1px solid;
+  border-radius: 4px;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  color: #3E5067;
+  font-weight: 500;
+  font-size: 12px;
+
+  @include m {
+    display: none;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.closeNotification {
+  margin-left: auto;
+}

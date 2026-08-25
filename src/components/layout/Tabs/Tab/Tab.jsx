@@ -73,6 +73,12 @@ const Tab = ({tab, nextTab}) => {
       setLabel(`Заявка #${requestNumber}`)
     }
 
+    // label для страницы отклика
+    const requestNumber2 = tab.split('/').filter(Boolean)[1]
+    if (tab.startsWith("/response/") && requestNumber) {
+      setLabel(`Отклик на #${requestNumber2}`)
+    }
+
   }, [requestsTree, tabs, tab])
 
 

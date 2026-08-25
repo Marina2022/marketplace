@@ -16,7 +16,8 @@ import ProtectedRoute from "@/components/common/ProtectedRoute/ProtectedRoute.js
 import SettingsPage from "@/pages/settings/SettingsPage.jsx";
 import Requests from "@/pages/Requests.jsx";
 import SearchKeywords from "@/pages/SearchKeywords.jsx";
-import RequestDetails from "@/pages/RequestDetails.jsx";
+import RequestDetails from "@/pages/manage-requests/RequestDetails.jsx";
+import ResponseDetails from "@/pages/manage-requests/ResponseDetails.jsx";
 
 function App() {
 
@@ -44,6 +45,7 @@ function App() {
             <Route path='settings' element={<ProtectedRoute><SettingsPage/></ProtectedRoute>}/>
 
             <Route path='request/:number/:id' element={<ProtectedRoute><RequestDetails/></ProtectedRoute>}/>
+            <Route path='response/:number/:id' element={<ProtectedRoute><ResponseDetails/></ProtectedRoute>}/>
 
 
             {/*<Route path='/category/:category' element={<Category/>}/>*/}

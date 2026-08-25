@@ -29,7 +29,10 @@ const Submenu = () => {
       }
 
       {
-        userStatus !== "loading" &&  (location.pathname.startsWith('/manage-requests') || location.pathname.startsWith('/request/')) && <ManageRequestsSubmenu />
+        userStatus !== "loading" &&  (location.pathname.startsWith('/manage-requests')
+          || location.pathname.startsWith('/request/')
+          || location.pathname.startsWith('/response/')
+        ) && <ManageRequestsSubmenu />
       }
 
       {

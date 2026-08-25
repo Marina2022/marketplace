@@ -3,6 +3,7 @@ import {useEffect, useRef, useState} from "react";
 import {requestCardMenuButton} from "@/consts/requests.jsx";
 import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
+import {setTabs} from "@/store/tabsSlice.js";
 
 const DropdownRequestActions = ({
                                   request,
@@ -13,6 +14,8 @@ const DropdownRequestActions = ({
                                   inMobileHeader = false
                                 }) => {
 
+
+  // console.log("request = ", request.status.code === "inprogress")
   const dropdownRef = useRef(null);
 
   const [isTop, setIsTop] = useState(false);
@@ -69,6 +72,17 @@ const DropdownRequestActions = ({
       onClose()
     } catch (err) {
       console.log(err)
+
+      // 	message + подсказка «открепите исполнителей» на InProgress-заявке - потестить бы на реальной ошибке
+      if (
+        (err.response?.data?.errors?.[0]?.code === "Request.CannotCancel"
+       || err.response?.data?.errors?.[0]?.code === "Request.CannotComplete")
+        && request.status.code === "inprogress"
+      )  {
+        showErrorToast(err.response?.data?.errors?.[0].message + "\n" + "Открепите исполнителей")
+        return
+      }
+
       if (err.response && err.response.status === 400) {
         err.response.data.errors.forEach((dataItem) => {
           showErrorToast(dataItem.message)

@@ -187,7 +187,7 @@ const RequestDetailsMobile = ({request, loading, setRequestToEdit, resetRequest,
 
       {
         !loading && (
-          <div className={s.underHeaderContentWrapper}>
+          <div className={`${s.underHeaderContentWrapper} ${request.actions.primaryAction ? s.withPadding : ''}`}>
             <ul className={s.tabs}>
               {
                 tabs.map((itemTab, i) => <li
