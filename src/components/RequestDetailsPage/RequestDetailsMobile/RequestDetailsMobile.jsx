@@ -230,7 +230,11 @@ const RequestDetailsMobile = ({request, loading, setRequestToEdit, resetRequest,
               )
             }
 
-            <RequestButtons request={request} setRequestToEdit={setRequestToEdit}/>
+            <RequestButtons
+              request={request}
+              setRequestToEdit={setRequestToEdit}
+              resetRequest={resetRequest}
+            />
           </div>
         )
       }

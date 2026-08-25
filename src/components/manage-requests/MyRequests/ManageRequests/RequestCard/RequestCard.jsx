@@ -156,10 +156,9 @@ const RequestCard = ({request, resetRequests, setRequestToEdit}) => {
     return (
       <li
         className={s.requestCard}
-        onClick={handleCardClick}
       >
-        <div className={s.pictureBlock}>
-          <div className={s.cardHeader}>
+        <div className={s.pictureBlock} onClick={handleCardClick}>
+          <div className={s.cardHeader} >
             <div
               className={s.requestStatus}
               style={{
@@ -177,12 +176,12 @@ const RequestCard = ({request, resetRequests, setRequestToEdit}) => {
           </div>
           <img className={s.img} src={request.picture ? request.picture : placeHolderImg} alt=""/>
         </div>
-        <div className={s.cardContent}>
-          <div className={s.title}>{request.title}</div>
-          <div className={s.tagsWrapper}>
+        <div className={s.cardContent} >
+          <div className={s.title} onClick={handleCardClick} >{request.title}</div>
+          <div className={s.tagsWrapper} onClick={handleCardClick} >
             <RequestCardTags tags={request.tags} extraTagCount={request.extraTagCount}/>
           </div>
-          <div className={s.dateBlock}>
+          <div className={s.dateBlock} onClick={handleCardClick} >
             <div className={s.date}>
               <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path

@@ -8,7 +8,6 @@ import {useMediaQuery} from "react-responsive";
 
 const RequestButtons = ({request, setRequestToEdit, resetRequest}) => {
 
-
   const isMobile = useMediaQuery({maxWidth: 960})
   const performAction = async (action, resetRequest = null) => {
 

@@ -75,8 +75,7 @@ const RequestChart = ({request}) => {
       <div className={!isEmpty ? s.chartContainer : ''}>
       {
         !loading && !isEmpty && (
-          <Chart data={mockData}/>
-        // todo
+          <Chart data={data}/>
         )
       }
       </div>
