@@ -199,6 +199,10 @@
 .city {
   color: #9AA1AC;
   font-size: 12px;
+
+  @include m {
+    font-size: 11px;
+  }
 }
 
 .cats {
