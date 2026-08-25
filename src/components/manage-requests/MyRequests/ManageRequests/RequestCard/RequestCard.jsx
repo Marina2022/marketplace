@@ -202,7 +202,7 @@ const RequestCard = ({request, resetRequests, setRequestToEdit}) => {
                     <path d="M1.85547 5.10491H11.1412M4.1769 1.39062V3.24777M8.81975 1.39062V3.24777" stroke="#8A8F98"
                           strokeWidth="1.11429" strokeLinecap="round"/>
                   </svg>
-                  <span>Активная до: {formatDate(request.createdAt)}</span>
+                  <span>Активная до: {formatDate(request.expireAt)}</span>
                 </div>
               )
             }
