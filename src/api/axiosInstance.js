@@ -123,6 +123,7 @@ axios.interceptors.response.use(
       const newToken = res.data.accessToken;
 
       localStorage.setItem("token", newToken);
+      localStorage.setItem("accessTokenExpiresAt", res.data.accessTokenExpiresAt);
 
       processQueue(null, newToken);
 

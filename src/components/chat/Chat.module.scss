@@ -1,0 +1,10 @@
+@import "@/assets/styles/mixins";
+
+.chatGlobalWrapper {
+  height: calc(var(--vh) * 100 - 138px);
+
+  @include m {
+    height: calc(var(--vh) * 100 - 56px);
+    background: #fff;
+  }
+}

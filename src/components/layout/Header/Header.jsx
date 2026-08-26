@@ -6,7 +6,6 @@ import HeaderSearch from "@/components/layout/Header/HeaderSearch/HeaderSearch.j
 import UserDropdown from "@/components/layout/Header/UserDropdown/UserDropdown.jsx";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
 import {useEffect, useState} from "react";
-import MobileHeaderLk from "@/components/layout/Header/MobileHeader/MobileHeaderLK/MobileHeaderLK.jsx";
 import UserBalance from "@/components/layout/Header/UserBalance/UserBalance.jsx";
 import Geo from "@/components/layout/Header/Geo/Geo.jsx";
 

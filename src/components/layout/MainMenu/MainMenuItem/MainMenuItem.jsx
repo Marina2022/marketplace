@@ -1,9 +1,10 @@
 import s from './MainMenuItem.module.scss';
 import {useLocation, useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {getTabs, setTabs} from "@/store/tabsSlice.js";
 import {useDispatch, useSelector} from "react-redux";
 import {setIsLoginPopupOpened} from "@/store/userSlice.js";
+import {getUnreadCount} from "@/store/chatSlice.js";
 
 const MainMenuItem = ({item}) => {
 
@@ -46,6 +47,18 @@ const MainMenuItem = ({item}) => {
     }
   }
 
+  const unreadCount = useSelector(getUnreadCount)
+
+  const [showBadge, setShowBadge] = useState(false)
+
+  useEffect(() => {
+    if (item.url === "/chat" && unreadCount > 0) {
+      setShowBadge(true)
+    } else {
+      setShowBadge(false)
+    }
+  }, [unreadCount, item.url])
+
   return (
     <li className={s.menuItem} onMouseEnter={() => canHover && setShowTooltip(true)}
         onMouseLeave={() => canHover && setShowTooltip(false)}>
@@ -53,9 +66,15 @@ const MainMenuItem = ({item}) => {
         onClick={handleClick}
         className={isActive ? s.menuItemLinkActive : s.menuItemLink}
       >
-        {
-          item.svg
-        }
+        <div>
+          {
+            item.svg
+          }
+
+          {
+            showBadge && <div className={s.circle}/>
+          }
+        </div>
       </button>
       {
         showTooltip && <div className={s.tooltip}>{item.tooltip}</div>

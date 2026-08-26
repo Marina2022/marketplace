@@ -18,11 +18,7 @@
   justify-content: center;
 
   svg {
-    position: relative;
-    top: 0;
     color: rgba(255 255 255/.5);
-    //fill: rgba(255 255 255/.5);
-    //stroke: rgba(255 255 255/.5);
   }
 
   @include t {
@@ -46,10 +42,13 @@
   }
 
   svg {
-    position: relative;
-    top: 0;
     color: rgba(255 255 255/1);
   }
+}
+
+.svgWrapper {
+  position: relative;
+  top: 0;
 }
 
 .tooltip {
@@ -67,4 +66,14 @@
   font-size: 12px;
   font-weight: 500;
   z-index: 20;
+}
+
+.circle {
+  width: 6px;
+  height: 6px;
+  position: absolute;
+  top: 10px;
+  right: 13px;
+  background: red;
+  border-radius: 50%;
 }

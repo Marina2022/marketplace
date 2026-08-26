@@ -14,6 +14,7 @@ import LoginMobile from "@/components/layout/Header/LoginMobile/LoginMobile.jsx"
 import {getIsFirstGeoPopupOpen, getIsPopupWithCitiesOpen} from "@/store/geoSlice.js";
 import FirstGeoPopup from "@/components/layout/Header/Geo/FirstGeoPopup/FirstGeoPopup.jsx";
 import PopupWithCities from "@/components/layout/Header/Geo/PopupWithCities/PopupWithCities.jsx";
+import {ChatInitializer} from "@/components/chat/ChatInitializer/ChatInitializer.jsx";
 
 const MainLayout = () => {
 
@@ -26,6 +27,7 @@ const MainLayout = () => {
   return (
     <main>
       <div className={s.layoutDesk}>
+        <ChatInitializer />
         <MainMenu/>
 
         <div className={s.rightPart}>

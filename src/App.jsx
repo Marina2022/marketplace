@@ -47,36 +47,37 @@ function App() {
             <Route path='request/:number/:id' element={<ProtectedRoute><RequestDetails/></ProtectedRoute>}/>
             <Route path='response/:number/:id' element={<ProtectedRoute><ResponseDetails/></ProtectedRoute>}/>
 
-
-            {/*<Route path='/category/:category' element={<Category/>}/>*/}
-            {/*<Route path='/login' element={<Auth/>}/>*/}
-            {/*<Route path='/product/:slug' element={<Product/>}/>*/}
-            {/*<Route path='/product/:slug/new-review' element={<ProtectedRoute><CreateReview/></ProtectedRoute>}/>*/}
-            {/*<Route path='/product/:slug/new-question' element={<ProtectedRoute><CreateQuestion/></ProtectedRoute>}/>*/}
-            {/*<Route path='/product/:productHandle/:sku/new-message' element={<ProtectedRoute><CreateMessage/></ProtectedRoute>}/>*/}
-
-            {/*<Route path='/favourites' element={<Favourites/>}/>*/}
-            {/*<Route path='/cart' element={<Cart/>}/>*/}
-
-            {/*<Route path='/lk' element={<ProtectedRoute> <Lk/> </ProtectedRoute>}>*/}
-            {/*  <Route index element={<Navigate to="main" replace/>}/> /!* Перенаправление на /lk/main *!/*/}
-            {/*  <Route path='main' element={<LkMain/>}/>*/}
-            {/*  <Route path='shop' element={<LkShop/>}/>*/}
-            {/*  <Route path='orders' element={<LkOrders/>}/>*/}
-            {/*  <Route path='requests' element={<LkRequests/>}/>*/}
-            {/*  <Route path='chat' element={<LkChat/>}/>*/}
-            {/*  <Route path='orders/:orderId' element={<Order/>}/>*/}
-
-            {/*  <Route path='edit-product/:productIdParam' element={<EditAndCreateProduct/>}/>*/}
-            {/*  <Route path='combine-products' element={<CombineProductPage/>}/>*/}
-            {/*</Route>*/}
             <Route path='*' element={<NotFound/>}/>
           </Route>
         </Routes>
       </Router>
     </>
-
-  );
+  )
 }
 
 export default App;
+
+
+
+
+{/*<Route path='/category/:category' element={<Category/>}/>*/}
+{/*<Route path='/login' element={<Auth/>}/>*/}
+{/*<Route path='/product/:slug' element={<Product/>}/>*/}
+{/*<Route path='/product/:slug/new-review' element={<ProtectedRoute><CreateReview/></ProtectedRoute>}/>*/}
+{/*<Route path='/product/:slug/new-question' element={<ProtectedRoute><CreateQuestion/></ProtectedRoute>}/>*/}
+{/*<Route path='/product/:productHandle/:sku/new-message' element={<ProtectedRoute><CreateMessage/></ProtectedRoute>}/>*/}
+
+{/*<Route path='/favourites' element={<Favourites/>}/>*/}
+{/*<Route path='/cart' element={<Cart/>}/>*/}
+
+{/*<Route path='/lk' element={<ProtectedRoute> <Lk/> </ProtectedRoute>}>*/}
+{/*  <Route index element={<Navigate to="main" replace/>}/> /!* Перенаправление на /lk/main *!/*/}
+{/*  <Route path='main' element={<LkMain/>}/>*/}
+{/*  <Route path='shop' element={<LkShop/>}/>*/}
+{/*  <Route path='orders' element={<LkOrders/>}/>*/}
+{/*  <Route path='requests' element={<LkRequests/>}/>*/}
+{/*  <Route path='chat' element={<LkChat/>}/>*/}
+{/*  <Route path='orders/:orderId' element={<Order/>}/>*/}
+
+{/*  <Route path='edit-product/:productIdParam' element={<EditAndCreateProduct/>}/>*/}
+{/*  <Route path='combine-products' element={<CombineProductPage/>}/>*/}

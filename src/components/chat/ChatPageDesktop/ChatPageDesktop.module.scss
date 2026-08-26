@@ -1,0 +1,21 @@
+@import "@/assets/styles/mixins";
+
+.desktopChatWrapper {
+  display: flex;
+  height: 100%;
+}
+
+.contactsBlock {
+  width: 330px;
+  flex-shrink: .5;
+}
+
+.messagesBlock {
+  width: 916px;
+  background: #F9F9FB;
+}
+
+.requestInfo {
+  width: 356px;
+  flex-shrink: .5;
+}
