@@ -32,7 +32,6 @@ const ManageRequests = ({setShowHistoryPage }) => {
   // Замок для защиты от лишних запросов во время быстрого скролла
   const isLoadingRef = useRef(false);
 
-
   // Первичная загрузка данных
   const resetRequests = async () => {
     try {
@@ -42,11 +41,11 @@ const ManageRequests = ({setShowHistoryPage }) => {
       setMainLoading(true);
       isLoadingRef.current = true; // Закрываем замок на время загрузки
 
-      const requestsResponse = await axiosInstance(`requests/my?page=1&pageSize=${PAGE_SIZE}${queryParam}`);
+      const requestsResponse = await axiosInstance(`requests/my?page=1&pageSize=${PAGE_SIZE}${queryParam}`)
 
-      const payload = getPreviewPayload(requestsResponse.data.items);
-      const pictures = await axiosInstance.post(`/requests/preview`, payload);
-      const requestsWithPictures = getRequestsWithPictures({requests: requestsResponse, pictures});
+      const payload = getPreviewPayload(requestsResponse.data.items)
+      const pictures = await axiosInstance.post(`/requests/preview`, payload)
+      const requestsWithPictures = getRequestsWithPictures({requests: requestsResponse, pictures})
 
       setRequests(requestsWithPictures);
       setPage(1);

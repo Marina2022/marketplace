@@ -13,7 +13,7 @@ import MiniSpinnerPagination from "@/components/ui/miniSpinner/MiniSpinnerPagina
 import EmptyPageResponses from "@/components/manage-requests/MyResponses/EmptyPageResponses/EmptyPageResponses.jsx";
 
 const ManageResponses = () => {
-  const PAGE_SIZE = 12;
+  const PAGE_SIZE = 2;
 
   const [tab, setTab] = useState("all");
   const [responses, setResponses] = useState(null);
@@ -77,6 +77,7 @@ const ManageResponses = () => {
       if (tab !== "all") queryParam = `&tab=${tab}`;
 
       const nextPage = page + 1;
+
       const requestsResponse = await axiosInstance(`responses?page=${nextPage}&pageSize=${PAGE_SIZE}${queryParam}`);
 
       if (!requestsResponse.data.items || requestsResponse.data.items.length === 0) {
@@ -98,9 +99,9 @@ const ManageResponses = () => {
       setIsOnScrollLoading(false);
       isLoadingRef.current = false; // Открываем замок после завершения рендера данных
     }
-  };
+  }
 
-  // Инициализация обзервера под ваш внутренний скролл
+  // Инициализация обзервера
   useEffect(() => {
     // Если идет базовая загрузка или элементов еще нет на экране — обзервер не создаем
     if (mainLoading || !observerRef.current || !containerRef.current) return;

@@ -15,26 +15,26 @@ import requestsSlice, {loadRequestsTree} from "@/store/requestsSlice.js";
 import {injectStore} from "@/api/axiosInstance.js";
 import tabsSlice from "@/store/tabsSlice.js";
 import mobileMenuSlice from "@/store/mobileMenuSlice.js";
-import geoSlice, {loadRegions}  from "@/store/geoSlice.js";
+import geoSlice, {loadRegions} from "@/store/geoSlice.js";
 import chatSlice from "@/store/chatSlice.js";
 
 export const store = configureStore({
-      reducer: {        
-        cart: cartSlice,
-        user: userSlice,
-        catalog: catalogSlice,
-        reviews: reviewsSlice,
-        favs: favSlice,
-        lk: lkSlice,
-        orders: ordersSlice,
-        shop: lkShopSlice,
-        requests: requestsSlice,
-        tabs: tabsSlice,
-        geo: geoSlice,
-        mobileMenu: mobileMenuSlice,
-        chat: chatSlice
-      }
+    reducer: {
+      cart: cartSlice,
+      user: userSlice,
+      catalog: catalogSlice,
+      reviews: reviewsSlice,
+      favs: favSlice,
+      lk: lkSlice,
+      orders: ordersSlice,
+      shop: lkShopSlice,
+      requests: requestsSlice,
+      tabs: tabsSlice,
+      geo: geoSlice,
+      mobileMenu: mobileMenuSlice,
+      chat: chatSlice
     }
+  }
 )
 
 injectStore(store)
@@ -46,7 +46,7 @@ store.dispatch(loadRequestsTree())
 // store.dispatch(loadReviewLikes())
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <Provider store={store}>
-      <App/>
-    </Provider>
+  <Provider store={store}>
+    <App/>
+  </Provider>
 )

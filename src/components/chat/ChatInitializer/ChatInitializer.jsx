@@ -1,7 +1,7 @@
 // src/components/ChatInitializer.jsx
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { initChat, switchProfile, logoutChat } from "@/store/chatSlice.js";
+import {initChat, switchProfile, logoutChat, clearChatStore} from "@/store/chatSlice.js";
 import { getActiveProfileId, getIsAuthenticated } from "@/store/userSlice.js";
 
 export function ChatInitializer() {
@@ -36,6 +36,7 @@ export function ChatInitializer() {
     // Сценарий 3: Смена профиля
     if (prevProfileIdRef.current && prevProfileIdRef.current !== profileId) {
       prevProfileIdRef.current = profileId;
+      dispatch(clearChatStore())
       dispatch(switchProfile(profileId));
     }
 

@@ -1,0 +1,132 @@
+@import "@/assets/styles/mixins";
+
+
+.triggerWrapper {
+  padding-bottom: 8px;
+  border-bottom: 1px solid #E4E6EA;
+  padding-inline: 8px;
+  padding-top: 12px;
+  position: relative;
+}
+
+.trigger {
+  height: 54px;
+  border: 1px solid #E4E6EA;
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  cursor: pointer;
+
+  @include t {
+    height: 32px;
+    padding: 8px;
+    gap: 8px;
+  }
+
+  @include m {
+    gap: 12px;
+    height: 54px;
+    padding: 10px 12px;
+    margin-inline: 7px;
+  }
+}
+
+.desc {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.filterLabel {
+  color: #16181D;
+  font-size: 13px;
+  font-weight: 600;
+
+  @include t {
+    font-size: 12px;
+  }
+}
+
+.filterText {
+  color: #9AA1AC;
+  font-size: 11px;
+
+  @include t {
+    display: none;
+  }
+
+  @include m {
+    display: block;
+  }
+}
+
+
+.arrowBtn {
+  margin-left: auto;
+}
+
+.iconSvg {
+  width: 34px;
+  height: 34px;
+
+  @include t {
+    width: 24px;
+    height: 24px;
+  }
+
+  @include m {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+.filterDropdown {
+  position: absolute;
+  bottom: -162px;
+  width: 224px;
+  border: 1px solid #E4E6EA;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px 0 #E8EAED;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+
+  @include t {
+    width: 144px;
+  }
+
+  @include m {
+    width: calc(100% - 28px);
+    left: 14px;
+  }
+}
+
+.dropdownItem {
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  cursor: pointer;
+
+  @include t {
+    padding: 4px;
+  }
+
+  @include m {
+    padding: 8px;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: #FBFBFC;
+    }
+  }
+}
+
+.dropdownItemActive {
+  background-color: #ECEFF5;
+}

@@ -10,8 +10,9 @@ const Chat = () => {
   const isDesktop = useMediaQuery({minWidth: 1341})
   const isTablet = useMediaQuery({minWidth: 961, maxWidth: 1340})
 
+
   return (
-    <div className={`${s.chatGlobalWrapper} scroll`}>
+    <div>
 
       {
         isDesktop && <ChatPageDesktop/>

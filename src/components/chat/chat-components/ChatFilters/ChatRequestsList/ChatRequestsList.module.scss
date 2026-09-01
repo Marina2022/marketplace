@@ -1,0 +1,24 @@
+@import "@/assets/styles/mixins";
+
+.chatRequestsList {
+  display: flex;
+  flex-direction: column;
+  height: calc(var(--vh) * 100 - 165px);
+  gap: 8px;
+  padding-block: 8px;
+  margin-left: 8px;
+  margin-right: 0px;
+
+  @include t {
+    height: calc(var(--vh) * 100 - 153px);
+    background: #fff;
+    margin-right: 0;
+  }
+
+  @include m {
+    height: calc(var(--vh) * 70 - 89px);
+    padding-left: 14px;
+    padding-right: 10px;
+    margin-left: 0;
+  }
+}

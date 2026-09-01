@@ -135,10 +135,6 @@ const CatsPopupMobile = ({
         />
       }
 
-
-      {/* -------------------------------- */}
-
-
       {/* тип категорий = Заявка, категория не выбрана  */}
       {
         catalogType === "requests" && !currentRequestCat && <RequestCatsList

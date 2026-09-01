@@ -1,0 +1,129 @@
+@import "@/assets/styles/mixins";
+
+.contactItem {
+  padding-block: 11px;
+  padding-inline: 12px;
+  padding-right: 8px;
+  display: flex;
+  gap: 12px;
+  cursor: pointer;
+  align-items: center;
+  margin-right: 4px;
+  border-radius: 8px;
+
+  @include t {
+    padding-inline: 4px;
+  }
+
+  @include m {
+    padding-block: 12px;
+    padding-inline: 0;
+    margin-right: 0;
+  }
+
+  @media(hover: hover) {
+    &:hover {
+      background: #FBFBFC;
+    }
+  }
+}
+
+.roundBlock {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #658092;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.contactContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.contactContentTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+}
+
+.name {
+  color: #1F232B;
+  font-size: 14px;
+  font-weight: 600;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @include t {
+    max-width: 86px;
+    font-size: 13px;
+  }
+
+  @include m {
+    max-width: calc(100vw - 166px);
+  }
+}
+
+.date {
+  font-size: 11px;
+  color: #9AA1AC;
+}
+
+.contactContentBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lastMessage {
+  color: #6B7280;
+  font-size: 14px;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @include t {
+    max-width: 136px;
+  }
+
+  @include m {
+    max-width: calc(100vw - 120px);
+  }
+}
+
+.messageNumber {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 50%;
+  background: #3D4A66;
+  height: 16px;
+  min-width: 16px;
+  padding-inline: 4px;
+}
+
+.contactItemActive {
+  background: #ECEFF5;
+
+  @media (hover:hover) {
+    &:hover {
+      background: #ECEFF5;
+    }
+  }
+}

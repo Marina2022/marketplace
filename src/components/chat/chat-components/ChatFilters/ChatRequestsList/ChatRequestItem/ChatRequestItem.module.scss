@@ -1,0 +1,164 @@
+@import "@/assets/styles/mixins";
+
+.requestItem {
+  min-height: 85.3px;
+  border: 1px solid #EAECEF;
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  cursor: pointer;
+  margin-right: 4px;
+  justify-content: space-between;
+
+  @include t {
+    min-height: 67px;
+    padding-inline: 4px;
+    padding: 7px;
+  }
+
+  @include m {
+    min-height: 86px;
+
+    padding-block: 12px;
+    margin-right: 0;
+  }
+
+  @media(hover: hover) {
+    &:hover {
+      background: #FBFBFC;
+    }
+  }
+}
+
+.mainDesc {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.img {
+  width: 34px;
+  height: 34px;
+  object-fit: cover;
+
+  @include t {
+    width: 30px;
+    height: 30px;
+  }
+
+  @include m {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+.namePart {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.name {
+  color: #1F232B;
+  font-size: 13px;
+  font-weight: 600;
+  max-width: 165px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @include t {
+    max-width: 100px;
+    font-size: 12px;
+  }
+
+  @include m {
+    max-width: calc(100vw - 90px);
+    font-size: 13px;
+  }
+}
+
+.number {
+  color: #9AA1AC;
+  font-size: 11px;
+
+  @include t {
+    font-size: 10px;
+  }
+
+  @include m {
+    font-size: 11px;
+  }
+}
+
+.nameBlock {
+  display: flex;
+  align-self: center;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.bottomPart {
+  font-size: 11px;
+  color: #8A8F98;
+}
+
+.executorBottom {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.customerBottom {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.bullet {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #8A8F98;
+}
+
+.requestItemActive {
+  background: #ECEFF5;
+
+  @media (hover: hover) {
+    &:hover {
+      background: #ECEFF5!important;
+    }
+  }
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tablet {
+  display: none;
+
+  @include t {
+    display: block;
+  }
+
+  @include m {
+    display: none;
+  }
+}
+
+.notTablet {
+
+  @include t {
+    display: none;
+  }
+
+  @include m {
+    display: block;
+  }
+}

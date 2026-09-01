@@ -1,0 +1,27 @@
+@import "@/assets/styles/mixins";
+
+.emptyRequests {
+  padding-top: 200px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+
+  @include m {
+    padding-top: 100px;
+    padding-bottom: 40px;
+    padding-inline: 14px;
+  }
+}
+
+.title {
+  color: #3A3F49;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.text {
+color: #9AA1AC;
+  font-size: 12px;
+}

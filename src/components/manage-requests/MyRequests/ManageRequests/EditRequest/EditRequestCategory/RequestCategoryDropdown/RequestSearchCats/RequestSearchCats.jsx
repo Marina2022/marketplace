@@ -17,6 +17,7 @@ const RequestSearchCats = ({searchCats, setSearchCats}) => {
   const handleBlur = () => {
     setShowIcon(searchCats === '' ? true : false)
   }
+
   const handleChange = (e) => {
     setInnerSearchValue(e.target.value)
   }

@@ -1,0 +1,62 @@
+@import "@/assets/styles/mixins";
+
+.contactsHeaderPart {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-inline: 8px;
+}
+
+.chatContacts {
+  padding-block: 12px;
+
+  @include m {
+    margin-top: 72px;
+    padding-bottom: 14px;
+    padding-top: 0;
+  }
+}
+
+.filterBtnDesktop {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: #E0E3E8 1px solid;
+  flex-shrink: 0;
+  transition: border-color ease-in-out .2s;
+
+  @media (hover: hover) {
+    &:hover {
+      border: #C3C6CB 1px solid;
+      transition: border-color ease-in-out .2s;
+    }
+  }
+}
+
+.filterBtnMobile {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: #E0E3E8 1px solid;
+  flex-shrink: 0;
+}
+
+.spinnerWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+  padding-inline: 8px;
+  height: calc(var(--vh) * 100 - 138px - 66px);
+
+  @include m {
+    height: calc(var(--vh) * 100 - 56px - 122px);
+  }
+}
+

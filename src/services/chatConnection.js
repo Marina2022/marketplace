@@ -1,12 +1,18 @@
 import {HubConnectionBuilder, LogLevel} from "@microsoft/signalr";
 import axios from "axios";
 import {logout} from "@/store/userSlice.js";
-import {store} from "@/main.jsx";
+
 
 let connection = null;
 
-async function getValidToken() {
+// store будет передан позже из main.jsx
+let appStore = null;
 
+export const injectStore = (store) => {
+  appStore = store;
+};
+
+async function getValidToken() {
   let token = localStorage.getItem("token");
   const expiresAt = localStorage.getItem("accessTokenExpiresAt");
 
@@ -42,14 +48,11 @@ async function getValidToken() {
 
     // Если бэкенд отклонил рефреш (сессия полностью устарела)
     if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-      store.dispatch(logout())
+      appStore.dispatch(logout())
     }
   }
-
   return token;
 }
-
-
 
 export function getChatConnection() {
   if (!connection) {

@@ -136,7 +136,7 @@ export const getChatsLabel = (count) => {
   }
 
   return `${count} чатов`;
-};
+}
 
 export const getInitials = (displayName) => {
   const words = displayName
@@ -146,8 +146,6 @@ export const getInitials = (displayName) => {
 
   return words[1]?.slice(0, 2).toUpperCase() || '';
 }
-
-
 
 export  const formatChatDate = (date) => {
   const d = new Date(date);

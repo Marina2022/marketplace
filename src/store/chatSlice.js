@@ -1,11 +1,11 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import {getChatConnection} from "@/services/chatConnection.js";
 import axiosInstance from "@/api/axiosInstance.js";
 
 // Инициализация чата (Шаг 1 из вашего руководства)
 export const initChat = createAsyncThunk(
   "chat/initChat",
-  async (currentProfileId, { dispatch, getState }) => {
+  async (currentProfileId, {dispatch, getState}) => {
     const connection = getChatConnection();
 
     // если уже подключаемся или подключены — выходим
@@ -18,48 +18,83 @@ export const initChat = createAsyncThunk(
       dispatch(addMessage(message));
     });
 
-     connection.on("UpdateUnreadCount", (data) => {
-      dispatch(updateChatBadge({
+    connection.on("UpdateUnreadCount", async (data) => {
+
+      console.log("UpdateUnreadCount, data: ", data);
+
+      // chatRoomId, newCount
+      dispatch(updateChatUnread({
         chatRoomId: data.chatRoomId,
-        newCount: data.newCount
+        unreadCount: data.newCount
       }))
-       dispatch(setUnreadCount(getState.unreadCount + 1))
-       // потестить бы. Пока что unreadCount в навигации - у нас кружочек без цифры, и не важно одно сообщение придет или несколько
-       // если потом где-то реальная цифра понадобится, то лучше перезапрашивать /chat/unread-count и диспатчить ответ
+
+      try {
+        const unreadResponse = await axiosInstance("/chat/unread-count")
+        console.log("unreadResponse = ", unreadResponse)
+        dispatch(setUnreadCount(unreadResponse.data));
+
+      } catch (error) {
+        console.error("Ошибка загрузки кол-ва непрочитанных:", error);
+        // можно добавить флаг ошибки (нужно ли)
+        dispatch(setChatError(true));
+      }
     })
 
-    connection.on("ProfileSwitched", () => {
-    })
 
+    connection.on("ProfileSwitched", async () => {
 
-    // добавить event
-    // MessageEdited  { chatRoomId, messageId, newText } — глобальный обработчик находит сообщение по id и заменяет текст.
+      console.log("ProfileSwitched прошел")
+      dispatch(setChatProfileStatus("registered"))
 
-    // Автоматическое восстановление состояния при переподключении библиотеки -- todo
-    // connection.onreconnected(async () => {
-    //   console.log("Сеть восстановлена. Повторно инициализируем профиль на сервере...");
-    //   try {
-    //     await connection.invoke("SwitchActiveProfile", currentProfileId);
-    //   } catch (err) {
-    //     console.error("Не удалось восстановить профиль после переподключения:", err);
-    //   }
-    // })
+      let requestUrl = 'chat?limit=20'
+
+      const {filter, currentRequest, chatSearch} = getState().chat;
+      if (filter) requestUrl += `&filter=${filter}`
+      if (currentRequest) requestUrl += `&requestId=${currentRequest}`
+      if (chatSearch) requestUrl += `&searchContacts=${chatSearch}`
+
+      try {
+        const [chatsResponse, unreadResponse] = await Promise.all([
+          axiosInstance(requestUrl),
+          axiosInstance("/chat/unread-count")
+        ]);
+
+        dispatch(setChats(chatsResponse.data));
+        dispatch(setUnreadCount(unreadResponse.data));
+
+      } catch (error) {
+        console.error("Ошибка загрузки чатов:", error);
+
+        // важно: не ломаем всё приложение
+        dispatch(setChats([]));
+        dispatch(setUnreadCount(0));
+
+        // можно добавить флаг ошибки
+        dispatch(setChatError(true));
+      }
+     })
+
+// добавить event
+// MessageEdited  { chatRoomId, messageId, newText } — глобальный обработчик находит сообщение по id и заменяет текст.
+
+// Автоматическое восстановление состояния при переподключении библиотеки -- todo
+// connection.onreconnected(async () => {
+//   console.log("Сеть восстановлена. Повторно инициализируем профиль на сервере...");
+//   try {
+//     await connection.invoke("SwitchActiveProfile", currentProfileId);
+//   } catch (err) {
+//     console.error("Не удалось восстановить профиль после переподключения:", err);
+//   }
+// })
 
     try {
       // 1. Запуск веб-сокет соединения
       await connection.start();
-      dispatch(setConnectionState("Connected"));
+      dispatch(setConnectionState("Connected"))
 
       // 2. Представляемся бэкенду текущим профилем
+      dispatch(setChatProfileStatus("sending"))
       await connection.invoke("SwitchActiveProfile", currentProfileId);
-
-      const [chatsResponse, unreadResponse] = await Promise.all([
-        axiosInstance("/chat"),
-        axiosInstance("/chat/unread-count")
-      ]);
-
-      dispatch(setChats(chatsResponse.data));
-      dispatch(setUnreadCount(unreadResponse.data));
 
     } catch (error) {
       console.error("Ошибка инициализации SignalR:", error);
@@ -67,73 +102,20 @@ export const initChat = createAsyncThunk(
       throw error;
     }
   }
-);
+)
 
 export const switchProfile = createAsyncThunk(
   "chat/switchProfile",
-  async (newProfileId, { dispatch, getState }) => {
+  async (newProfileId, {dispatch}) => {
     const connection = getChatConnection();
-
-    try {
-      // 1. Создаем Promise, который зарезолвится ТОЛЬКО когда прилетит событие ProfileSwitched
-      const waitForProfileSwitched = new Promise((resolve, reject) => {
-        // Таймаут на случай, если бэкенд зависнет (чтобы фронт не заблокировался навсегда)
-        const timeout = setTimeout(() => {
-          connection.off("ProfileSwitched", handleSwitch);
-          reject(new Error("Таймаут ожидания события ProfileSwitched"));
-        }, 5000);
-
-        function handleSwitch(profileIdFromBackend) {
-
-          // Проверяем, что бэк переключил именно на тот профиль, который мы просили
-          if (String(profileIdFromBackend) === String(newProfileId)) {
-            clearTimeout(timeout);
-            connection.off("ProfileSwitched", handleSwitch); // Отписываем этот временный колбэк
-            resolve();
-          }
-        }
-
-        // Подписываемся на событие от хаба
-        connection.on("ProfileSwitched", handleSwitch);
-      });
-
-      // Отправляем команду на бэкенд
-      await connection.invoke("SwitchActiveProfile", newProfileId);
-
-      // ждем события
-      await waitForProfileSwitched;
-      console.log("Событие ProfileSwitched получено успешно!");
-
-      // 2. Полностью очистить чат-стор
-      dispatch(clearChatStore());
-
-
-      // 4. Загрузить всё заново через REST
-      const [chatsResponse, unreadResponse] = await Promise.all([
-        axiosInstance("/chat"),
-        axiosInstance("/chat/unread-count")
-      ])
-
-      dispatch(setChats(chatsResponse.data));
-      dispatch(setUnreadCount(unreadResponse.data));
-
-      // Если какой-то чат должен остаться открытым
-      const currentActiveChatId = getState().chat.activeChatId;
-      if (currentActiveChatId) {
-        await connection.invoke("JoinChat", currentActiveChatId);
-      }
-
-    } catch (error) {
-      console.error("Ошибка при смене профиля:", error);
-      // Здесь можно обработать ошибку (например, показать уведомление пользователю)
-    }
+    dispatch(setChatProfileStatus("sending"))
+    await connection.invoke("SwitchActiveProfile", newProfileId);
   }
 )
 
-
 export const logoutChat = createAsyncThunk(
   "chat/logoutChat",
-  async (_, { dispatch }) => {
+  async (_, {dispatch}) => {
     const connection = getChatConnection();
 
     try {
@@ -166,10 +148,10 @@ export const logoutChat = createAsyncThunk(
   }
 )
 
-// Экшен для отправки сообщения из компонентов
+// Экшен для отправки сообщения из компонентов - dummy
 export const sendMessage = createAsyncThunk(
   "chat/sendMessage",
-  async ({ chatId, text }) => {
+  async ({chatId, text}) => {
     const connection = getChatConnection();
     if (connection.state === "Connected") {
       await connection.invoke("SendMessage", chatId, text);
@@ -183,9 +165,12 @@ const initialState = {
   unreadCount: 0,
   connectionState: "Disconnected", // Disconnected | Connecting | Connected
   updatedChatBadge: null,
-  filter: "all"   // filter=all, asCustomer, asExecutor
-
-
+  filter: "all",   // filter=all, asCustomer, asExecutor
+  currentRequest: null,
+  currentChatRoomId: null,
+  chatError: false,
+  chatSearch: "",
+  chatProfileStatus: "notSent", // notSent | sending | registered
 }
 
 const chatSlice = createSlice({
@@ -201,11 +186,20 @@ const chatSlice = createSlice({
     setConnectionState: (state, action) => {
       state.connectionState = action.payload;
     },
-    updateChatBadge: (state, action) => {
-      state.updatedChatBadge = action.payload;
-    },
     setChats: (state, action) => {
       state.chats = action.payload;
+    },
+    setChatFilter: (state, action) => {
+      state.filter = action.payload;
+    },
+    setChatError: (state, action) => {
+      state.chatError = action.payload;
+    },
+    setChatProfileStatus: (state, action) => {
+      state.chatProfileStatus = action.payload;
+    },
+    setChatSearch: (state, action) => {
+      state.chatSearch = action.payload;
     },
     clearChatStore: (state) => {
       return {
@@ -213,13 +207,77 @@ const chatSlice = createSlice({
         connectionState: state.connectionState
       };
     },
+    setCurrentChatRequest: (state, action) => {
+      state.currentRequest = action.payload;
+    },
+    setCurrentChatRoomId: (state, action) => {
+      state.currentChatRoomId = action.payload;
+    },
+    updateChatUnread: (state, action) => {
+      const {chatRoomId, unreadCount} = action.payload;
+
+      if (!state.chats?.items) return;
+
+      const chat = state.chats.items.find(
+        chat => chat.chatRoomId === chatRoomId
+      );
+
+      if (!chat) return;
+
+      chat.unreadCount = unreadCount;
+    },
   },
 });
 
-export const { addMessage, setUnreadCount, setConnectionState, updateChatBadge, setChats, clearChatStore } = chatSlice.actions;
+export const {
+  addMessage,
+  setUnreadCount,
+  setConnectionState,
+  setChats,
+  clearChatStore,
+  setChatFilter,
+  setCurrentChatRequest,
+  setCurrentChatRoomId,
+  setChatError,
+  setChatSearch,
+  setChatProfileStatus,
+  updateChatUnread
+} = chatSlice.actions;
 
 export const getUnreadCount = (state) => {
   return state.chat.unreadCount
+}
+
+export const getChatFilter = (state) => {
+  return state.chat.filter
+}
+
+export const getCurrentChatRequest = (state) => {
+  return state.chat.currentRequest
+}
+
+export const getChatSearch = (state) => {
+  return state.chat.chatSearch
+}
+
+export const getCurrentChatRoomId = (state) => {
+  return state.chat.currentChatRoomId
+}
+
+export const getChats = (state) => {
+  return state.chat.chats
+}
+
+export const getChatError = (state) => {
+  return state.chat.chatError
+}
+
+export const getConnectionState = (state) => {
+  return state.chat.connectionState
+}
+
+export const getChatProfileStatus = (state) => {
+  return state.chat.chatProfileStatus
 }
 
 export default chatSlice.reducer;
