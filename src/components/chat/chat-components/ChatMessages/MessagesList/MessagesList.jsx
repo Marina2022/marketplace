@@ -3,9 +3,6 @@ import Message from "@/components/chat/chat-components/ChatMessages/MessagesList
 
 const MessagesList = ({messagesData, messagesLoading}) => {
 
-
-
-  console.log("messagesLoading = ", messagesLoading)
   console.log("messagesData = ", messagesData)
 
 

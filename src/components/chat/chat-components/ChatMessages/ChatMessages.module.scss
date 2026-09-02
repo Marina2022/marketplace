@@ -11,10 +11,9 @@
   }
 }
 
-
 .bottomPart {
   background: #fff;
-  margin-top: auto;
+  //margin-top: auto;
 }
 
 .filesBlock {
@@ -60,4 +59,8 @@
       border: 1px solid #d8d8db;
     }
   }
+}
+
+.chatContainer {
+  margin-top: auto;
 }

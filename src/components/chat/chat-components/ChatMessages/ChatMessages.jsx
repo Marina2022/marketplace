@@ -1,24 +1,34 @@
 import s from "./ChatMessages.module.scss"
 import {useSelector} from "react-redux";
 import {getCurrentChat} from "@/store/chatSlice.js";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import ChatHeader from "@/components/chat/chat-components/ChatMessages/ChatHeader/ChatHeader.jsx";
 import MessageField from "@/components/chat/chat-components/ChatMessages/MessageField/MessageField.jsx";
 import EmptyChatMessages from "@/components/chat/chat-components/ChatMessages/EmptyChatMessages/EmptyChatMessages.jsx";
 import {getChatConnection} from "@/services/chatConnection.js";
 import MessagesList from "@/components/chat/chat-components/ChatMessages/MessagesList/MessagesList.jsx";
+import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
 
 const ChatMessages = () => {
 
   const currentChat = useSelector(getCurrentChat)
   const [messagesData, setMessagesData] = useState(null)
   const [messagesLoading, setMessagesLoading] = useState(false)
-  const [error, setError] = useState(null)
+
 
   const [inputMessage, setInputMessage] = useState("")
 
   console.log("chatData = ", messagesData)
+
+  const chatContainerRef = useRef(null)
+
+  useEffect(() => {
+    const el = chatContainerRef.current
+    if (!el || !messagesData) return
+
+    el.scrollTop = el.scrollHeight
+  }, [messagesData])
 
   useEffect(() => {
 
@@ -33,8 +43,8 @@ const ChatMessages = () => {
         const response = await axiosInstance(`chat/${currentChat.chatRoomId}/messages`);
         setMessagesData(response.data)
       } catch (error) {
-        console.error("Ошибка загрузки сообщений:", error);
-        setError(error)
+        console.log("Ошибка загрузки сообщений:", error);
+        showErrorToast("Ошибка загрузки сообщений")
       } finally {
         setMessagesLoading(false)
       }
@@ -46,14 +56,14 @@ const ChatMessages = () => {
 
   const [files, setFiles] = useState([])  // для теста делала, будет null потом наверное
 
-  if (!currentChat) return <EmptyChatMessages />
+  if (!currentChat) return <EmptyChatMessages/>
 
   return (
     <div className={s.chatWrapper}>
-      <ChatHeader />
+      <ChatHeader/>
 
-      <div className={`scroll`}>
-        <MessagesList messagesData={messagesData} messagesLoading={messagesLoading} />
+      <div ref={chatContainerRef} className={`${s.chatContainer}  scroll`}>
+        <MessagesList messagesData={messagesData} messagesLoading={messagesLoading}/>
       </div>
 
       <div className={s.bottomPart}>
