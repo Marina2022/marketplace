@@ -1,0 +1,15 @@
+@import "@/assets/styles/mixins";
+
+.dateChanged {
+  height: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 20px;
+  margin-inline: auto;
+  font-size: 12px;
+  background: #fff;
+  border-radius: 5px;
+  color: #8A8F98;
+  border: 1px solid #E4E6EA;
+}

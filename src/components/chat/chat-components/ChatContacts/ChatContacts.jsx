@@ -7,7 +7,7 @@ import {
   getChatFilter,
   getChatProfileStatus,
   getChats,
-  getChatSearch,
+  getChatSearch, getCurrentChat,
   getCurrentChatRequest,
   setChatError,
   setChats,
@@ -19,6 +19,7 @@ import ContactList from "@/components/chat/chat-components/ChatContacts/ContactL
 import axiosInstance from "@/api/axiosInstance.js";
 import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 import {getActiveProfileId} from "@/store/userSlice.js";
+import ChatMessages from "@/components/chat/chat-components/ChatMessages/ChatMessages.jsx";
 
 const ChatContacts = ({setRequestsShown}) => {
 
@@ -46,9 +47,6 @@ const ChatContacts = ({setRequestsShown}) => {
   }, [chatError])
 
   const dispatch = useDispatch()
-
-  console.log("contacts (chats) = ", contacts)
-
   const LIMIT = 20
 
 
@@ -160,7 +158,6 @@ const ChatContacts = ({setRequestsShown}) => {
     // Массив зависимостей обновляет обзервер, спасая от старых замыканий флагов
   }, [mainLoading, contacts]);
 
-
   return (
     <div className={s.chatContacts}>
       <div className={s.contactsHeaderPart}>
@@ -202,6 +199,7 @@ const ChatContacts = ({setRequestsShown}) => {
           containerRef={containerRef}
         />
       }
+
 
     </div>
   )

@@ -1,0 +1,82 @@
+@import "@/assets/styles/mixins";
+
+.message {
+  padding: 14px;
+  background: #fff;
+  border-radius: 12px;
+  display: flex;
+  gap: 10px;
+  border: 1px solid #E8EAEE;
+  width: 100%;
+  max-width: 558px;
+  margin-inline: auto;
+
+  @include t {
+    max-width: 400px;
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+.title {
+  color: #16181D;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.text {
+  color: #565C68;
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+
+.subText {
+  color: #9AA1AC;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.safeDeal {
+  background: #ECEFF5;
+  border-radius: 8px;
+  padding: 14px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.rightPart {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.safeDealTitle {
+  color: #3D4A66;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.safeDealText {
+  color: #5C6680;
+  font-size: 11px;
+}
+
+.arrowBtn {
+  margin-left: auto;
+}
+
+.time {
+  font-size: 11px;
+  color: #9AA1AC;
+  margin-left: auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}

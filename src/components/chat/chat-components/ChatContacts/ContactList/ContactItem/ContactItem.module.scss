@@ -17,8 +17,9 @@
 
   @include m {
     padding-block: 12px;
-    padding-inline: 0;
-    margin-right: 0;
+    margin-right: 4px;
+    margin-left: 0;
+    padding-inline: 12px;
   }
 
   @media(hover: hover) {
@@ -99,7 +100,7 @@
   }
 
   @include m {
-    max-width: calc(100vw - 120px);
+    max-width: calc(100vw - 140px);
   }
 }
 

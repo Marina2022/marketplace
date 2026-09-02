@@ -79,7 +79,9 @@ const ChatCard = ({chat, isLast, index = null, isPinned = false, resetRequest}) 
           <span className={s.pinnedFiles}>Прикреплены файлы</span> : chat.lastMessageText}
       </div>
       <div className={s.cardBottom}>
-        <div className={s.unread}>{chat.unreadCount}</div>
+        {
+          chat.unreadCount > 0 && <div className={s.unread}>{chat.unreadCount}</div>
+        }
         <div className={s.buttons}>
           <button className={s.btn}>
             <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">

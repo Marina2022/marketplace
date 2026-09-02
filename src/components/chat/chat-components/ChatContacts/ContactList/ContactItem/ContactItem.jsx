@@ -1,6 +1,6 @@
 import s from './ContactItem.module.scss';
 import {formatChatDate, getInitials} from "@/utils/oneRequest.js";
-import {getCurrentChatRoomId, setCurrentChatRoomId} from "@/store/chatSlice.js";
+import {getCurrentChat, setCurrentChat} from "@/store/chatSlice.js";
 import {useDispatch, useSelector} from "react-redux";
 
 const attachmentTypes = {
@@ -13,7 +13,7 @@ const attachmentTypes = {
 
 const ContactItem = ({contact}) => {
 
-  const currentChatRoomId = useSelector(getCurrentChatRoomId)
+  const currentChat = useSelector(getCurrentChat)
   const dispatch = useDispatch()
 
   let lastMessage = ""
@@ -27,10 +27,10 @@ const ContactItem = ({contact}) => {
   }
 
   const handleContactCLick = () => {
-    dispatch(setCurrentChatRoomId(contact.chatRoomId))
+    dispatch(setCurrentChat(contact))
   }
 
-  const isActive = contact.chatRoomId === currentChatRoomId
+  const isActive = contact.chatRoomId === currentChat?.chatRoomId
 
   return (
     <div className={`${s.contactItem} ${isActive ? s.contactItemActive : ''}`} onClick={handleContactCLick}>

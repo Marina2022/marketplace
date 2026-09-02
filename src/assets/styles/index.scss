@@ -228,7 +228,7 @@ a {
 
 
 .scroll {
-  overflow: auto;
+  overflow-y: auto;
 
   @supports not selector(::-webkit-scrollbar) {
     scrollbar-width: thin;

@@ -1,0 +1,32 @@
+@import "@/assets/styles/mixins";
+
+.incomingMessage {
+  text-wrap: wrap;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: calc(100% - 30px);
+  max-width: 558px;
+  margin-left: auto;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  background: #EAF1FB;
+  border: 1px solid #E8EAED;
+
+  @include t {
+    max-width: 380px;
+  }
+}
+
+.messageText {
+  font-size: 13px;
+  color: #3D4A66;
+}
+
+.time {
+  font-size: 11px;
+  color: #9AA1AC;
+  margin-left: auto;
+}

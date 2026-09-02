@@ -42,6 +42,7 @@
 }
 
 .roundInitials {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -81,13 +82,15 @@
   font-weight: 600;
   display: flex;
   align-items: center;
-  padding-inline: 14px;
+  padding-inline: 8px;
   gap: 6px;
+  text-wrap: nowrap;
 }
 
 .date {
   color: #658092;
   font-size: 11px;
+  text-wrap: nowrap;
 }
 
 .messageText {

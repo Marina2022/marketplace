@@ -6,7 +6,7 @@ import axiosInstance from "@/api/axiosInstance.js";
 export const initChat = createAsyncThunk(
   "chat/initChat",
   async (currentProfileId, {dispatch, getState}) => {
-    const connection = getChatConnection();
+    const connection = getChatConnection()
 
     // если уже подключаемся или подключены — выходим
     if (connection.state !== "Disconnected") return;
@@ -19,9 +19,6 @@ export const initChat = createAsyncThunk(
     });
 
     connection.on("UpdateUnreadCount", async (data) => {
-
-      console.log("UpdateUnreadCount, data: ", data);
-
       // chatRoomId, newCount
       dispatch(updateChatUnread({
         chatRoomId: data.chatRoomId,
@@ -30,7 +27,6 @@ export const initChat = createAsyncThunk(
 
       try {
         const unreadResponse = await axiosInstance("/chat/unread-count")
-        console.log("unreadResponse = ", unreadResponse)
         dispatch(setUnreadCount(unreadResponse.data));
 
       } catch (error) {
@@ -78,14 +74,15 @@ export const initChat = createAsyncThunk(
 // MessageEdited  { chatRoomId, messageId, newText } — глобальный обработчик находит сообщение по id и заменяет текст.
 
 // Автоматическое восстановление состояния при переподключении библиотеки -- todo
-// connection.onreconnected(async () => {
-//   console.log("Сеть восстановлена. Повторно инициализируем профиль на сервере...");
-//   try {
-//     await connection.invoke("SwitchActiveProfile", currentProfileId);
-//   } catch (err) {
-//     console.error("Не удалось восстановить профиль после переподключения:", err);
-//   }
-// })
+connection.onreconnected(async () => {
+  console.log("onreconnected")
+  // console.log("Сеть восстановлена. Повторно инициализируем профиль на сервере...");
+  // try {
+  //   await connection.invoke("SwitchActiveProfile", currentProfileId);
+  // } catch (err) {
+  //   console.error("Не удалось восстановить профиль после переподключения:", err);
+  // }
+})
 
     try {
       // 1. Запуск веб-сокет соединения
@@ -167,7 +164,7 @@ const initialState = {
   updatedChatBadge: null,
   filter: "all",   // filter=all, asCustomer, asExecutor
   currentRequest: null,
-  currentChatRoomId: null,
+  currentChat: null,
   chatError: false,
   chatSearch: "",
   chatProfileStatus: "notSent", // notSent | sending | registered
@@ -210,8 +207,8 @@ const chatSlice = createSlice({
     setCurrentChatRequest: (state, action) => {
       state.currentRequest = action.payload;
     },
-    setCurrentChatRoomId: (state, action) => {
-      state.currentChatRoomId = action.payload;
+    setCurrentChat: (state, action) => {
+      state.currentChat = action.payload;
     },
     updateChatUnread: (state, action) => {
       const {chatRoomId, unreadCount} = action.payload;
@@ -237,7 +234,7 @@ export const {
   clearChatStore,
   setChatFilter,
   setCurrentChatRequest,
-  setCurrentChatRoomId,
+  setCurrentChat,
   setChatError,
   setChatSearch,
   setChatProfileStatus,
@@ -260,8 +257,8 @@ export const getChatSearch = (state) => {
   return state.chat.chatSearch
 }
 
-export const getCurrentChatRoomId = (state) => {
-  return state.chat.currentChatRoomId
+export const getCurrentChat = (state) => {
+  return state.chat.currentChat
 }
 
 export const getChats = (state) => {

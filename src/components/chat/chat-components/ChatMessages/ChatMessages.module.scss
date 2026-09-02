@@ -1,1 +1,63 @@
 @import "@/assets/styles/mixins";
+
+.chatWrapper {
+  border: 1px solid #F9FAFB;
+  display: flex;
+  flex-direction: column;
+  height: calc(var(--vh) * 100 - 138px);
+
+  @include m {
+    height: calc(var(--vh) * 100 - 54px);
+  }
+}
+
+
+.bottomPart {
+  background: #fff;
+  margin-top: auto;
+}
+
+.filesBlock {
+  height: 94px;
+  padding-block: 12px;
+
+  @include m {
+    height: 114px;
+  }
+}
+
+.inputBlock {
+  flex: 1;
+
+}
+
+.sendingPart {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  padding: 20px 16px;
+
+  @include m {
+    padding: 16px;
+    gap: 8px;
+  }
+}
+
+.pinBtn {
+  background: #F9F9FB;
+  border: 1px solid #E8EAED;
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s ease-out;
+
+  @media (hover: hover) {
+    &:hover {
+      transition: all .2s ease-out;
+      border: 1px solid #d8d8db;
+    }
+  }
+}

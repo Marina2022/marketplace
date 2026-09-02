@@ -64,3 +64,53 @@ export function formatArchived(count) {
 
   return `${count} ${word}`;
 }
+
+
+export const formatChatDateForChat = (date) => {
+  const d = new Date(date);
+  const now = new Date();
+
+  const startOfDay = (date) => {
+    const result = new Date(date);
+    result.setHours(0, 0, 0, 0);
+    return result;
+  };
+
+  const diffDays = Math.floor(
+    (startOfDay(now) - startOfDay(d)) / (1000 * 60 * 60 * 24)
+  );
+
+  // Сегодня
+  if (diffDays === 0) {
+    return 'Сегодня';
+  }
+
+  // Вчера
+  if (diffDays === 1) {
+    return 'Вчера';
+  }
+
+  // 2–3 дня назад
+  if (diffDays >= 2 && diffDays <= 3) {
+    const word =
+      diffDays === 2 ? 'дня' : 'дня'; // одинаково, но оставлено явно
+
+    return `${diffDays} ${word}`;
+  }
+
+  // дальше — нормальная дата
+  return d.toLocaleDateString('ru-RU', {
+    day: 'numeric',
+    month: 'long',
+  });
+};
+
+
+export const formatTelegramTime = (isoString) => {
+  const date = new Date(isoString);
+
+  const hours = date.getHours();   // без 0 спереди
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+
+  return `${hours}:${minutes}`;
+};
