@@ -29,7 +29,6 @@
 .text {
   color: #565C68;
   font-size: 12px;
-  margin-bottom: 16px;
   text-wrap: wrap;
 }
 
@@ -76,8 +75,12 @@
 }
 
 .header {
-  display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  display: flex;
+  margin-bottom: 2px;
+}
+
+.textPart {
+  flex: 1;
 }

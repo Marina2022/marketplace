@@ -28,8 +28,7 @@ const FirstSystemMessage = ({message}) => {
           </div>
         </div>
         <div className={s.text}>
-          Вы начали диалог по заявке&nbsp;«{currentChat.requestInfo.requestTitle}». Общайтесь, обсуждайте детали и
-          договаривайтесь об условиях.
+          {message.text}
         </div>
 
         <div className={s.subText}>

@@ -10,9 +10,11 @@
   align-items: center;
   margin-right: 4px;
   border-radius: 8px;
+  margin-left: 8px;
 
   @include t {
     padding-inline: 4px;
+    gap: 10px;
   }
 
   @include m {
@@ -96,7 +98,7 @@
   text-overflow: ellipsis;
 
   @include t {
-    max-width: 136px;
+    max-width: 162x;
   }
 
   @include m {

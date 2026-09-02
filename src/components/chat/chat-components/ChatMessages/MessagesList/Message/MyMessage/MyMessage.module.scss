@@ -3,17 +3,17 @@
 .message {
   text-wrap: wrap;
   padding: 14px;
-  background: #fff;
   display: flex;
   flex-direction: column;
   gap: 4px;
   width: calc(100% - 30px);
   max-width: 558px;
-  margin-right: auto;
+  margin-left: auto;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
-  border: 1px solid #E8EAEE;
+  border-bottom-left-radius: 12px;
+  background: #EAF1FB;
+  border: 1px solid #E8EAED;
 
   @include t {
     max-width: 380px;

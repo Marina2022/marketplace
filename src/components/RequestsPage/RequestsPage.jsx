@@ -15,6 +15,8 @@ const RequestsPage = () => {
     return <Spinner/>
   }
 
+  if (!tree) return null
+
   return (
     <div className={`${s.requestPage} scroll`}>
 

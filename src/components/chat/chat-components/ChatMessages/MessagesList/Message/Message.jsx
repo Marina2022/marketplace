@@ -7,15 +7,16 @@ import FirstSystemMessage
 import MyMessage from "@/components/chat/chat-components/ChatMessages/MessagesList/Message/MyMessage/MyMessage.jsx";
 import IncomingMessage
   from "@/components/chat/chat-components/ChatMessages/MessagesList/Message/IncomingMessage/IncomingMessage.jsx";
+import SystemMessage
+  from "@/components/chat/chat-components/ChatMessages/MessagesList/Message/SystemMessage/SystemMessage.jsx";
 
 const Message = ({message, index, allMessages}) => {
   const activeProfileId = useSelector(getActiveProfileId)
   const isMine = message.senderProfileId === activeProfileId
-  const isSystem = message.isSystem
-  const isSystemFirst = index === 0
+  const isSystem = message.systemType !== "None" && message.systemType !== "ChatStarted"
+  const isSystemFirst = message.systemType === "ChatStarted"
 
-  const isIncoming = message.senderProfileId !== activeProfileId && !isSystem
-
+  const isIncoming =( message.senderProfileId !== activeProfileId) && message.systemType === "None"
 
   let isDateChanged = false
   if (index === 0) isDateChanged = true
@@ -42,7 +43,7 @@ const Message = ({message, index, allMessages}) => {
       }
 
       {
-        isSystem && !isSystemFirst && <div>{index} - isSystem</div>
+        isSystem && <SystemMessage message={message} />
       }
 
       {
