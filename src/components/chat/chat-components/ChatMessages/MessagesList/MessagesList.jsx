@@ -3,7 +3,7 @@ import Message from "@/components/chat/chat-components/ChatMessages/MessagesList
 
 const MessagesList = ({messagesData, messagesLoading, fileUrlCache, observerRef, isOnScrollLoading, chatContainerRef}) => {
 
-  if (messagesLoading) return null
+  if (messagesLoading || !messagesData) return null
 
   const messagesToShow = [...messagesData.messages].reverse()
 

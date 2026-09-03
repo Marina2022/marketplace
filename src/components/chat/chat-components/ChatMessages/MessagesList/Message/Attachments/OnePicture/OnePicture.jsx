@@ -44,6 +44,9 @@ const OnePicture = ({fileUrlCache, pictureInfo, chatContainerRef}) => {
   const pictureRef = useRef(null)
 
   const handleLoad = ()=>{
+
+    console.log("handleLoad")
+
     if (loadedRef.current) return;
     loadedRef.current = true;
     const height = pictureRef.current.clientHeight

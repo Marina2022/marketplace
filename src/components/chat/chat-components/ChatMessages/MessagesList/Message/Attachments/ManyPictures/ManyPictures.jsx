@@ -3,6 +3,10 @@ import axiosInstance from "@/api/axiosInstance.js";
 
 const ManyPictures = ({fileUrlCache, attachments}) => {
 
+  console.log("fileUrlCache = ", fileUrlCache)
+
+
+
   const pictures = attachments.filter((img) => img.contentType.startsWith("image"));
 
   let picturesToShow = pictures
@@ -14,6 +18,9 @@ const ManyPictures = ({fileUrlCache, attachments}) => {
   }
 
   const handleOpen = async (picture) => {
+
+
+
     const id = picture.mediaFileId
     const now = Date.now()
 
@@ -51,9 +58,13 @@ const ManyPictures = ({fileUrlCache, attachments}) => {
     <ul className={s.pictures}>
       {
         picturesToShow.map((picture, i) => {
+
+          const cached = fileUrlCache.current[picture.mediaFileId];
+          const src = cached?.url;
+
           return (
             <li onClick={()=>handleOpen(picture)} className={s.item} key={i}>
-              <img className={s.img} src={fileUrlCache.current[picture.mediaFileId].url} alt="img" />
+              <img className={s.img} src={src || ""} alt="img" />
             </li>
           )
         })

@@ -76,10 +76,10 @@ const ChatMessages = () => {
 
     getMessages()
 
-    const el = chatContainerRef.current
-    if (!el || !messagesData) return
+    // const el = chatContainerRef.current
+    // if (!el || !messagesData) return
 
-    el.scrollTop = el.scrollHeight
+    // el.scrollTop = el.scrollHeight
   }, [currentChat])
 
   const handleObserverReached = async () => {
@@ -171,34 +171,28 @@ const ChatMessages = () => {
     isFirstLoadRef.current = true;
   }, [currentChat]);
 
-// Эффект Б: Срабатывает СТРОГО в момент, когда сообщения добавились в DOM
+
   useLayoutEffect(() => {
     const el = chatContainerRef.current;
-    if (!el || messagesLoading || !messagesData) return;
+    if (!el || !messagesData) return;
 
-    // Сценарий 1: Самая первая загрузка чата — просто падаем в самый вниз
     if (isFirstLoadRef.current) {
-      el.scrollTop = el.scrollHeight;
-      isFirstLoadRef.current = false; // Выключаем режим первой загрузки
+      requestAnimationFrame(() => {
+        el.scrollTop = el.scrollHeight;
+      });
+
+
+      isFirstLoadRef.current = false;
       return;
     }
 
-    // Сценарий 2: Подгрузка истории по скроллу вверх
     if (prevScrollHeightRef.current) {
-      const currentScrollHeight = el.scrollHeight;
-
-      // Вычисляем, на сколько увеличился контейнер после добавления старых сообщений
-      const heightDifference = currentScrollHeight - prevScrollHeightRef.current;
-
-      // Корректируем позицию скролла на эту разницу
-      el.scrollTop += heightDifference;
-
-      // Очищаем реф до следующей подгрузки
+      const diff = el.scrollHeight - prevScrollHeightRef.current;
+      el.scrollTop += diff;
       prevScrollHeightRef.current = null;
     }
-    // }, [messagesData, messagesLoading]);
-  }, [messagesData, messagesLoading]);
 
+  }, [messagesData, messagesLoading]);
 
   const [files, setFiles] = useState([])  // для теста делала, будет null потом наверное
 
