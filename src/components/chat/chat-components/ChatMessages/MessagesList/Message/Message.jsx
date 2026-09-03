@@ -10,7 +10,9 @@ import IncomingMessage
 import SystemMessage
   from "@/components/chat/chat-components/ChatMessages/MessagesList/Message/SystemMessage/SystemMessage.jsx";
 
-const Message = ({message, index, allMessages}) => {
+const Message = ({message, index, allMessages, fileUrlCache}) => {
+
+
   const activeProfileId = useSelector(getActiveProfileId)
   const isMine = message.senderProfileId === activeProfileId
   const isSystem = message.systemType !== "None" && message.systemType !== "ChatStarted"
@@ -27,7 +29,6 @@ const Message = ({message, index, allMessages}) => {
       new Date(allMessages[index - 1].createdAt).toDateString();
   }
 
-
   return (
     <>
       {
@@ -35,11 +36,11 @@ const Message = ({message, index, allMessages}) => {
       }
 
       {
-        isMine && <MyMessage message={message}/>
+        isMine && <MyMessage message={message} fileUrlCache={fileUrlCache}/>
       }
 
       {
-        isIncoming && <IncomingMessage message={message}/>
+        isIncoming && <IncomingMessage message={message} fileUrlCache={fileUrlCache}/>
       }
 
       {
@@ -49,8 +50,6 @@ const Message = ({message, index, allMessages}) => {
       {
         isSystemFirst && <FirstSystemMessage message={message}/>
       }
-
-
     </>
   )
 }

@@ -1,0 +1,9 @@
+@import "@/assets/styles/mixins";
+
+.img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  cursor: pointer;
+}

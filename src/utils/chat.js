@@ -114,3 +114,33 @@ export const formatTelegramTime = (isoString) => {
 
   return `${hours}:${minutes}`;
 };
+
+
+// преобразуем готовые ссылки в кэш
+export const normalizeFilesResponse = (response) => {
+  const { items, expiresAt } = response
+
+  const result = {}
+
+  Object.entries(items).forEach(([fileId, file]) => {
+    result[fileId] = {
+      url: file.url,
+      expiresAt
+    }
+  })
+
+  return result
+}
+
+export const formatFileSize = (bytes) => {
+  if (bytes === 0) return "0 B"
+
+  const k = 1024
+  const sizes = ["B", "KB", "MB", "GB", "TB"]
+
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+  const value = bytes / Math.pow(k, i)
+
+  return `${value.toFixed(i === 0 ? 0 : 1)} ${sizes[i]}`
+}

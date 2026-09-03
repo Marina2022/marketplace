@@ -1,13 +1,7 @@
 import s from './FirstSystemMessage.module.scss';
-import {useSelector} from "react-redux";
-import {getCurrentChat} from "@/store/chatSlice.js";
 import {formatTelegramTime} from "@/utils/chat.js";
 
 const FirstSystemMessage = ({message}) => {
-
-  const currentChat = useSelector(getCurrentChat)
-
-  console.log("currentChat = ", currentChat)
 
   return (
     <div className={s.message}>

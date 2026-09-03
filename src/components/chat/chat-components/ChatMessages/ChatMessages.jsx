@@ -1,7 +1,7 @@
 import s from "./ChatMessages.module.scss"
 import {useSelector} from "react-redux";
 import {getCurrentChat} from "@/store/chatSlice.js";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import ChatHeader from "@/components/chat/chat-components/ChatMessages/ChatHeader/ChatHeader.jsx";
 import MessageField from "@/components/chat/chat-components/ChatMessages/MessageField/MessageField.jsx";
@@ -9,27 +9,27 @@ import EmptyChatMessages from "@/components/chat/chat-components/ChatMessages/Em
 import {getChatConnection} from "@/services/chatConnection.js";
 import MessagesList from "@/components/chat/chat-components/ChatMessages/MessagesList/MessagesList.jsx";
 import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
+import {normalizeFilesResponse} from "@/utils/chat.js";
+import {getPreviewPayload, getRequestsWithPictures} from "@/utils/requests.js";
 
 const ChatMessages = () => {
 
   const currentChat = useSelector(getCurrentChat)
   const [messagesData, setMessagesData] = useState(null)
-  const [messagesLoading, setMessagesLoading] = useState(false)
-
+  const [messagesLoading, setMessagesLoading] = useState(true)
 
   const [inputMessage, setInputMessage] = useState("")
 
-  console.log("chatData = ", messagesData)
+  const fileUrlCache = useRef({})
+
+
+  console.log("messagesData = ", messagesData)
 
   const chatContainerRef = useRef(null)
+  const observerRef = useRef(null)
+  const isLoadingRef = useRef(false)
 
-  useEffect(() => {
-    const el = chatContainerRef.current
-    if (!el || !messagesData) return
-
-    el.scrollTop = el.scrollHeight
-  }, [messagesData])
-
+  // первоначальная загрузка сообщений
   useEffect(() => {
 
     if (!currentChat?.chatRoomId) return
@@ -42,6 +42,27 @@ const ChatMessages = () => {
 
         const response = await axiosInstance(`chat/${currentChat.chatRoomId}/messages`);
         setMessagesData(response.data)
+
+        let mediaFields = []
+        if (response.data.messages.length > 0) {
+          response.data.messages.forEach((message) => {
+            if (message.attachments.length > 0) {
+              message.attachments.forEach((attachment) => {
+                if (!mediaFields.includes(attachment.mediaFileId)) mediaFields.push(attachment.mediaFileId)
+              })
+            }
+          })
+        }
+
+        if (mediaFields.length > 0) {
+          const response = await axiosInstance.post(`chat/files/urls`, {
+            mediaFileIds: mediaFields,
+            ttlSeconds: 600
+          })
+          const normalized = normalizeFilesResponse(response.data)
+          Object.assign(fileUrlCache.current, normalized)
+        }
+
       } catch (error) {
         console.log("Ошибка загрузки сообщений:", error);
         showErrorToast("Ошибка загрузки сообщений")
@@ -52,7 +73,102 @@ const ChatMessages = () => {
 
     getMessages()
 
+    const el = chatContainerRef.current
+    if (!el || !messagesData) return
+
+    console.log("дошел", el.scrollHeight)
+
+    el.scrollTop = el.scrollHeight
+
+    console.log("el.scrollTop = ", el.scrollTop)
+
   }, [currentChat])
+
+
+
+
+  const handleObserverReached = async () => {
+
+    console.log("handleObserverReached")
+
+    // // Если уже что-то загружается — мгновенно выходим (защита от спама скроллом)
+    // if (isLoadingRef.current || !activeProfileId || !responses) return;
+    //
+    // // Проверяем, не загрузили ли мы уже абсолютно все элементы
+    // if (responses.items.length >= responses.meta.totalCount) return;
+    //
+    // try {
+    //   isLoadingRef.current = true; // Закрываем замок
+    //   setIsOnScrollLoading(true);
+    //
+    //   let queryParam = "";
+    //   if (tab !== "all") queryParam = `&tab=${tab}`;
+    //
+    //   const nextPage = page + 1;
+    //
+    //   const requestsResponse = await axiosInstance(`responses?page=${nextPage}&pageSize=${PAGE_SIZE}${queryParam}`);
+    //
+    //   if (!requestsResponse.data.items || requestsResponse.data.items.length === 0) {
+    //     return;
+    //   }
+    //
+    //   const payload = getPreviewPayload(requestsResponse.data.items);
+    //   const pictures = await axiosInstance.post(`/requests/preview?profileId=${activeProfileId}`, payload);
+    //   const requestsWithPictures = getRequestsWithPictures({requests: requestsResponse, pictures});
+    //
+    //   setResponses(prevRequests => ({
+    //     ...prevRequests,
+    //     items: [...prevRequests.items, ...requestsWithPictures.items]
+    //   }));
+    //   setPage(nextPage);
+    // } catch (err) {
+    //   console.log(err);
+    // } finally {
+    //   setIsOnScrollLoading(false);
+    //   isLoadingRef.current = false; // Открываем замок после завершения рендера данных
+    // }
+  }
+
+  // Инициализация обзервера
+  // useEffect(() => {
+  //   // Если идет базовая загрузка или элементов еще нет на экране — обзервер не создаем
+  //   if (messagesLoading || !observerRef.current || !chatContainerRef.current) return;
+  //
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       const [entry] = entries;
+  //       // Срабатывает строго при видимости элемента и открытом замке
+  //       if (entry.isIntersecting && !isLoadingRef.current) {
+  //         handleObserverReached();
+  //       }
+  //     },
+  //     {
+  //       root: chatContainerRef.current, // Привязываем слежку к нашему блоку ul со скроллом
+  //       rootMargin: '150px 0px 0px 0px', // Начнет загрузку за 150px до конца списка
+  //       threshold: 0
+  //     }
+  //   );
+  //
+  //   observer.observe(observerRef.current);
+  //
+  //   return () => {
+  //     observer.disconnect();
+  //   };
+  //   // Массив зависимостей обновляет обзервер, спасая от старых замыканий флагов
+  // }, [messagesLoading, messagesData]);
+
+  // скролл вниз чата
+
+  useLayoutEffect(() => {
+    const el = chatContainerRef.current
+    if (!el || !messagesData) return
+
+    console.log("дошел", el.scrollHeight)
+
+      el.scrollTop = el.scrollHeight
+
+  }, [messagesData])
+
 
   const [files, setFiles] = useState([])  // для теста делала, будет null потом наверное
 
@@ -63,7 +179,7 @@ const ChatMessages = () => {
       <ChatHeader/>
 
       <div ref={chatContainerRef} className={`${s.chatContainer}  scroll`}>
-        <MessagesList messagesData={messagesData} messagesLoading={messagesLoading}/>
+        <MessagesList messagesData={messagesData} messagesLoading={messagesLoading} fileUrlCache={fileUrlCache} />
       </div>
 
       <div className={s.bottomPart}>
@@ -83,14 +199,11 @@ const ChatMessages = () => {
                 fill="#6B7280"/>
             </svg>
           </button>
-
           <div className={s.inputBlock}>
             <MessageField message={inputMessage} setMessage={setInputMessage}/>
           </div>
         </div>
       </div>
-
-
     </div>
   )
 }

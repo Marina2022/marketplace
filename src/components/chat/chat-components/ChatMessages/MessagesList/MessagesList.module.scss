@@ -7,9 +7,18 @@
   padding: 10px 20px;
   background: #F9F9FB;
 
-
   @include m {
     padding-left: 16px;
     padding-right: 12px;
   }
+}
+
+.onScrollSpinnerWrapper {
+  padding-block: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.observerDiv {
+  padding-block: 10px;
 }

@@ -1,0 +1,30 @@
+@import "@/assets/styles/mixins";
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  cursor: pointer;
+}
+
+.pictures {
+  display: flex;
+  gap: 5px;
+}
+
+.item {
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.plusBlock {
+  background: #F0F1F1;
+  color: #3D4A66;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}

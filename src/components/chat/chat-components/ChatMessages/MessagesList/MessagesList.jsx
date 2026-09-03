@@ -1,23 +1,30 @@
 import s from './MessagesList.module.scss';
 import Message from "@/components/chat/chat-components/ChatMessages/MessagesList/Message/Message.jsx";
+import MiniSpinnerPagination from "@/components/ui/miniSpinner/MiniSpinnerPagination/MiniSpinnerPagination.jsx";
 
-const MessagesList = ({messagesData, messagesLoading}) => {
+const MessagesList = ({messagesData, messagesLoading, fileUrlCache, observerRef, isOnScrollLoading}) => {
 
-  console.log("messagesData = ", messagesData)
-
-
-  if (!messagesData) return null
+  if (messagesLoading) return null
 
   const messagesToShow = [...messagesData.messages].reverse()
 
   return (
     <ul className={s.messagesList}>
+
+      {/*{messagesData.messages && messagesData.meta.hasNext && (*/}
+      {/*  <li ref={observerRef} className={s.observerDiv} style={{ listStyleType: 'none', width: '100%', minHeight: '30px' }}>*/}
+      {/*    {isOnScrollLoading && <div className={s.onScrollSpinnerWrapper}>*/}
+      {/*      <MiniSpinnerPagination />*/}
+      {/*    </div>}*/}
+      {/*  </li>*/}
+      {/*)}*/}
       {
         messagesToShow.map((message, index, messages) => <Message
           message={message}
           key={index}
           allMessages={messages}
           index={index}
+          fileUrlCache={fileUrlCache}
         />)
       }
     </ul>

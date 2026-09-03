@@ -1,9 +1,17 @@
 import s from './MyMessage.module.scss';
 import {formatTelegramTime} from "@/utils/chat.js";
+import Attachments
+  from "@/components/chat/chat-components/ChatMessages/MessagesList/Message/Attachments/Attachments.jsx";
 
-const MyMessage = ({message}) => {
+const MyMessage = ({message, fileUrlCache}) => {
+
   return (
     <div className={s.message}>
+      {
+        message.attachments.length > 0 && (
+          <Attachments attachments={message.attachments} fileUrlCache={fileUrlCache} />
+        )
+      }
       <div className={s.messageText}>
         {message.text}
       </div>

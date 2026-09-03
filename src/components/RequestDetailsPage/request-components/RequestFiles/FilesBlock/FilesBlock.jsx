@@ -1,5 +1,4 @@
 import s from './FilesBlock.module.scss';
-import pdfIcon from '@/assets/img/pdfIcon.svg';
 import {formatFileSize} from "@/utils/oneRequest.js";
 
 const FilesBlock = ({files}) => {
