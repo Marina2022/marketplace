@@ -1,155 +1,144 @@
-import s from "./ChatMessages.module.scss"
-import {useSelector} from "react-redux";
-import {getCurrentChat} from "@/store/chatSlice.js";
-import {useEffect, useLayoutEffect, useRef, useState} from "react";
+import s from "./ChatMessages.module.scss";
+import { useSelector } from "react-redux";
+import { getCurrentChat } from "@/store/chatSlice.js";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import ChatHeader from "@/components/chat/chat-components/ChatMessages/ChatHeader/ChatHeader.jsx";
 import MessageField from "@/components/chat/chat-components/ChatMessages/MessageField/MessageField.jsx";
 import EmptyChatMessages from "@/components/chat/chat-components/ChatMessages/EmptyChatMessages/EmptyChatMessages.jsx";
-import {getChatConnection} from "@/services/chatConnection.js";
+import { getChatConnection } from "@/services/chatConnection.js";
 import MessagesList from "@/components/chat/chat-components/ChatMessages/MessagesList/MessagesList.jsx";
-import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
-import {normalizeFilesResponse} from "@/utils/chat.js";
+import { showErrorToast } from "@/components/ui/ToastCustom/ToastCustom.jsx";
+import { normalizeFilesResponse } from "@/utils/chat.js";
 
 const ChatMessages = () => {
+  const currentChat = useSelector(getCurrentChat);
+  const [messagesData, setMessagesData] = useState(null);
+  const [messagesLoading, setMessagesLoading] = useState(true);
+  const [inputMessage, setInputMessage] = useState("");
 
-  const currentChat = useSelector(getCurrentChat)
-  const [messagesData, setMessagesData] = useState(null)
-  const [messagesLoading, setMessagesLoading] = useState(true)
-  const [inputMessage, setInputMessage] = useState("")
+  const fileUrlCache = useRef({});
+  const LIMIT = 10;
 
-  const fileUrlCache = useRef({})
+  const chatContainerRef = useRef(null);
+  const observerRef = useRef(null);
+  const isLoadingRef = useRef(false);
+  const prevScrollHeightRef = useRef(null);
 
-  const LIMIT = 7 // TODO 30 вроде должно быть
+  // Флаг для отслеживания первоначального скролла вниз при входе в чат
+  const shouldScrollToBottomRef = useRef(false);
 
-  console.log("messagesData = ", messagesData)
+  const [isOnScrollLoading, setIsOnScrollLoading] = useState(false);
 
-  const chatContainerRef = useRef(null)
-  const observerRef = useRef(null)
-  const isLoadingRef = useRef(false)
-
-  const prevScrollHeightRef = useRef(null)
-
-
-  const [isOnScrollLoading, setIsOnScrollLoading] = useState(false)
-  // первоначальная загрузка сообщений
+  // Сброс состояния при смене активного чата
   useEffect(() => {
+    if (!currentChat?.chatRoomId) return;
 
-    if (!currentChat?.chatRoomId) return
-    const connection = getChatConnection()
+    setMessagesData(null);
+    setMessagesLoading(true);
+    shouldScrollToBottomRef.current = true; // Выставляем флаг: при получении данных нужно скроллить вниз
+
+    const connection = getChatConnection();
 
     const getMessages = async () => {
       try {
-        setMessagesLoading(true)
-        await connection.invoke("JoinChat", currentChat.chatRoomId)
+        await connection.invoke("JoinChat", currentChat.chatRoomId);
 
         const response = await axiosInstance(`chat/${currentChat.chatRoomId}/messages?LIMIT=${LIMIT}`);
-        setMessagesData(response.data)
 
-        let mediaFields = []
+        let mediaFields = [];
         if (response.data.messages.length > 0) {
           response.data.messages.forEach((message) => {
             if (message.attachments.length > 0) {
               message.attachments.forEach((attachment) => {
-                if (!mediaFields.includes(attachment.mediaFileId)) mediaFields.push(attachment.mediaFileId)
-              })
+                if (!mediaFields.includes(attachment.mediaFileId)) mediaFields.push(attachment.mediaFileId);
+              });
             }
-          })
+          });
         }
 
         if (mediaFields.length > 0) {
-          const response = await axiosInstance.post(`chat/files/urls`, {
+          const filesResponse = await axiosInstance.post(`chat/files/urls`, {
             mediaFileIds: mediaFields,
             ttlSeconds: 600
-          })
-          const normalized = normalizeFilesResponse(response.data)
-          Object.assign(fileUrlCache.current, normalized)
+          });
+          const normalized = normalizeFilesResponse(filesResponse.data);
+          Object.assign(fileUrlCache.current, normalized);
         }
 
+        // Обновляем данные чата
+        setMessagesData(response.data);
       } catch (error) {
         console.log("Ошибка загрузки сообщений:", error);
-        showErrorToast("Ошибка загрузки сообщений")
+        showErrorToast("Ошибка загрузки сообщений");
       } finally {
-        setMessagesLoading(false)
+        setMessagesLoading(false);
       }
-    }
+    };
 
-    getMessages()
+    getMessages();
+  }, [currentChat]);
 
-    // const el = chatContainerRef.current
-    // if (!el || !messagesData) return
-
-    // el.scrollTop = el.scrollHeight
-  }, [currentChat])
-
+  // Пагинация (скролл вверх)
   const handleObserverReached = async () => {
-
-    // Если уже что-то загружается — мгновенно выходим (защита от спама скроллом)
     if (isLoadingRef.current || !messagesData) return;
-
-    // Проверяем, не загрузили ли мы уже абсолютно все элементы
     if (!messagesData.meta.hasNext) return;
 
-    prevScrollHeightRef.current = chatContainerRef.current.scrollHeight
+    prevScrollHeightRef.current = chatContainerRef.current.scrollHeight;
 
     try {
-      isLoadingRef.current = true; // Закрываем замок
+      isLoadingRef.current = true;
       setIsOnScrollLoading(true);
 
       const response = await axiosInstance(`chat/${currentChat.chatRoomId}/messages?LIMIT=${LIMIT}&cursor=${messagesData.meta.nextCursor}`);
 
-      setMessagesData(prevMessagesData => (
-          {
-            meta: response.data.meta,
-            messages: [...prevMessagesData.messages, ...response.data.messages]
-          }
-        )
-      )
-
-      let mediaFields = []
+      let mediaFields = [];
       if (response.data.messages.length > 0) {
         response.data.messages.forEach((message) => {
           if (message.attachments.length > 0) {
             message.attachments.forEach((attachment) => {
-              if (!mediaFields.includes(attachment.mediaFileId)) mediaFields.push(attachment.mediaFileId)
-            })
+              if (!mediaFields.includes(attachment.mediaFileId)) mediaFields.push(attachment.mediaFileId);
+            });
           }
-        })
+        });
       }
 
       if (mediaFields.length > 0) {
-        const response = await axiosInstance.post(`chat/files/urls`, {
+        const filesResponse = await axiosInstance.post(`chat/files/urls`, {
           mediaFileIds: mediaFields,
           ttlSeconds: 600
-        })
-        const normalized = normalizeFilesResponse(response.data)
-        Object.assign(fileUrlCache.current, normalized)
+        });
+        const normalized = normalizeFilesResponse(filesResponse.data);
+        Object.assign(fileUrlCache.current, normalized);
       }
+
+      setMessagesData(prevMessagesData => ({
+        meta: response.data.meta,
+        messages: [...prevMessagesData.messages, ...response.data.messages]
+      }));
 
     } catch (err) {
       console.log(err);
     } finally {
       setIsOnScrollLoading(false);
-      isLoadingRef.current = false; // Открываем замок после завершения рендера данных
+      isLoadingRef.current = false;
     }
-  }
+  };
 
-  //Инициализация обзервера
+  // Инициализация IntersectionObserver
   useEffect(() => {
-    // Если идет базовая загрузка или элементов еще нет на экране — обзервер не создаем
     if (messagesLoading || !observerRef.current || !chatContainerRef.current) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
-        // Срабатывает строго при видимости элемента и открытом замке
         if (entry.isIntersecting && !isLoadingRef.current) {
           handleObserverReached();
         }
       },
       {
-        root: chatContainerRef.current, // Привязываем слежку к нашему блоку ul со скроллом
-        rootMargin: '10px 0px 0px 0px', // Начнет загрузку за 150px до конца списка
+        root: chatContainerRef.current,
+        rootMargin: '10px 0px 0px 0px',
         threshold: 0
       }
     );
@@ -159,44 +148,35 @@ const ChatMessages = () => {
     return () => {
       observer.disconnect();
     };
-    // Массив зависимостей обновляет обзервер, спасая от старых замыканий флагов
   }, [messagesLoading, messagesData]);
 
-
-  // 1. Флаг для отслеживания самого первого открытия чата
-  const isFirstLoadRef = useRef(true);
-
-// Эффект А: Сбрасываем флаг при смене чата
-  useEffect(() => {
-    isFirstLoadRef.current = true;
-  }, [currentChat]);
-
-
+  // Единый хук управления скроллом (Вызывается сразу после перерисовки DOM)
   useLayoutEffect(() => {
     const el = chatContainerRef.current;
-    if (!el || !messagesData) return;
+    if (!el || messagesLoading || !messagesData) return;
 
-    if (isFirstLoadRef.current) {
-      requestAnimationFrame(() => {
+    // Сценарий 1: Первая подгрузка чата — жестко вниз
+    if (shouldScrollToBottomRef.current) {
+      // Используем setTimeout, чтобы дождаться полного рендеринга дочерних элементов (текста, аватарок и т.д.)
+      setTimeout(() => {
         el.scrollTop = el.scrollHeight;
-      });
+      }, 0);
 
-
-      isFirstLoadRef.current = false;
+      shouldScrollToBottomRef.current = false;
       return;
     }
 
+    // Сценарий 2: Подгрузка старых сообщений при скролле вверх — сохраняем позицию
     if (prevScrollHeightRef.current) {
       const diff = el.scrollHeight - prevScrollHeightRef.current;
       el.scrollTop += diff;
       prevScrollHeightRef.current = null;
     }
-
   }, [messagesData, messagesLoading]);
 
-  const [files, setFiles] = useState([])  // для теста делала, будет null потом наверное
+  const [files, setFiles] = useState([]);
 
-  if (!currentChat) return <EmptyChatMessages/>
+  if (!currentChat) return <EmptyChatMessages />;
 
   return (
     <div className={s.chatWrapper}>
@@ -235,7 +215,7 @@ const ChatMessages = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default ChatMessages;
