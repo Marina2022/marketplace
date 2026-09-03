@@ -7,7 +7,7 @@ import {
   getChatFilter,
   getChatProfileStatus,
   getChats,
-  getChatSearch, getCurrentChat,
+  getChatSearch,
   getCurrentChatRequest,
   setChatError,
   setChats,
@@ -19,7 +19,7 @@ import ContactList from "@/components/chat/chat-components/ChatContacts/ContactL
 import axiosInstance from "@/api/axiosInstance.js";
 import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 import {getActiveProfileId} from "@/store/userSlice.js";
-import ChatMessages from "@/components/chat/chat-components/ChatMessages/ChatMessages.jsx";
+import MobileHeaderLk from "@/components/layout/Header/MobileHeader/MobileHeaderLK/MobileHeaderLK.jsx";
 
 const ChatContacts = ({setRequestsShown}) => {
 
@@ -160,6 +160,9 @@ const ChatContacts = ({setRequestsShown}) => {
 
   return (
     <div className={s.chatContacts}>
+
+      <MobileHeaderLk/>
+
       <div className={s.contactsHeaderPart}>
         <ChatSearch/>
 

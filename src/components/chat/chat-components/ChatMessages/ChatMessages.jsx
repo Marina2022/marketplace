@@ -1,6 +1,6 @@
 import s from "./ChatMessages.module.scss"
 import {useSelector} from "react-redux";
-import {getCurrentChat, logoutChat} from "@/store/chatSlice.js";
+import {getCurrentChat} from "@/store/chatSlice.js";
 import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import ChatHeader from "@/components/chat/chat-components/ChatMessages/ChatHeader/ChatHeader.jsx";
@@ -10,19 +10,17 @@ import {getChatConnection} from "@/services/chatConnection.js";
 import MessagesList from "@/components/chat/chat-components/ChatMessages/MessagesList/MessagesList.jsx";
 import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
 import {normalizeFilesResponse} from "@/utils/chat.js";
-import {getPreviewPayload, getRequestsWithPictures} from "@/utils/requests.js";
-import {useChatAutoScroll} from "@/hooks/chat/useChatAutoScroll.js";
 
 const ChatMessages = () => {
 
   const currentChat = useSelector(getCurrentChat)
   const [messagesData, setMessagesData] = useState(null)
   const [messagesLoading, setMessagesLoading] = useState(true)
-
   const [inputMessage, setInputMessage] = useState("")
 
   const fileUrlCache = useRef({})
 
+  const LIMIT = 7 // TODO 30 вроде должно быть
 
   console.log("messagesData = ", messagesData)
 
@@ -30,6 +28,10 @@ const ChatMessages = () => {
   const observerRef = useRef(null)
   const isLoadingRef = useRef(false)
 
+  const prevScrollHeightRef = useRef(null)
+
+
+  const [isOnScrollLoading, setIsOnScrollLoading] = useState(false)
   // первоначальная загрузка сообщений
   useEffect(() => {
 
@@ -41,7 +43,7 @@ const ChatMessages = () => {
         setMessagesLoading(true)
         await connection.invoke("JoinChat", currentChat.chatRoomId)
 
-        const response = await axiosInstance(`chat/${currentChat.chatRoomId}/messages`);
+        const response = await axiosInstance(`chat/${currentChat.chatRoomId}/messages?LIMIT=${LIMIT}`);
         setMessagesData(response.data)
 
         let mediaFields = []
@@ -77,99 +79,126 @@ const ChatMessages = () => {
     const el = chatContainerRef.current
     if (!el || !messagesData) return
 
-    console.log("дошел", el.scrollHeight)
-
     el.scrollTop = el.scrollHeight
-
-    console.log("el.scrollTop = ", el.scrollTop)
-
   }, [currentChat])
-
-
-
 
   const handleObserverReached = async () => {
 
-    console.log("handleObserverReached")
+    // Если уже что-то загружается — мгновенно выходим (защита от спама скроллом)
+    if (isLoadingRef.current || !messagesData) return;
 
-    // // Если уже что-то загружается — мгновенно выходим (защита от спама скроллом)
-    // if (isLoadingRef.current || !activeProfileId || !responses) return;
-    //
-    // // Проверяем, не загрузили ли мы уже абсолютно все элементы
-    // if (responses.items.length >= responses.meta.totalCount) return;
-    //
-    // try {
-    //   isLoadingRef.current = true; // Закрываем замок
-    //   setIsOnScrollLoading(true);
-    //
-    //   let queryParam = "";
-    //   if (tab !== "all") queryParam = `&tab=${tab}`;
-    //
-    //   const nextPage = page + 1;
-    //
-    //   const requestsResponse = await axiosInstance(`responses?page=${nextPage}&pageSize=${PAGE_SIZE}${queryParam}`);
-    //
-    //   if (!requestsResponse.data.items || requestsResponse.data.items.length === 0) {
-    //     return;
-    //   }
-    //
-    //   const payload = getPreviewPayload(requestsResponse.data.items);
-    //   const pictures = await axiosInstance.post(`/requests/preview?profileId=${activeProfileId}`, payload);
-    //   const requestsWithPictures = getRequestsWithPictures({requests: requestsResponse, pictures});
-    //
-    //   setResponses(prevRequests => ({
-    //     ...prevRequests,
-    //     items: [...prevRequests.items, ...requestsWithPictures.items]
-    //   }));
-    //   setPage(nextPage);
-    // } catch (err) {
-    //   console.log(err);
-    // } finally {
-    //   setIsOnScrollLoading(false);
-    //   isLoadingRef.current = false; // Открываем замок после завершения рендера данных
-    // }
+    // Проверяем, не загрузили ли мы уже абсолютно все элементы
+    if (!messagesData.meta.hasNext) return;
+
+    prevScrollHeightRef.current = chatContainerRef.current.scrollHeight
+
+    try {
+      isLoadingRef.current = true; // Закрываем замок
+      setIsOnScrollLoading(true);
+
+      const response = await axiosInstance(`chat/${currentChat.chatRoomId}/messages?LIMIT=${LIMIT}&cursor=${messagesData.meta.nextCursor}`);
+
+      setMessagesData(prevMessagesData => (
+          {
+            meta: response.data.meta,
+            messages: [...prevMessagesData.messages, ...response.data.messages]
+          }
+        )
+      )
+
+      let mediaFields = []
+      if (response.data.messages.length > 0) {
+        response.data.messages.forEach((message) => {
+          if (message.attachments.length > 0) {
+            message.attachments.forEach((attachment) => {
+              if (!mediaFields.includes(attachment.mediaFileId)) mediaFields.push(attachment.mediaFileId)
+            })
+          }
+        })
+      }
+
+      if (mediaFields.length > 0) {
+        const response = await axiosInstance.post(`chat/files/urls`, {
+          mediaFileIds: mediaFields,
+          ttlSeconds: 600
+        })
+        const normalized = normalizeFilesResponse(response.data)
+        Object.assign(fileUrlCache.current, normalized)
+      }
+
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsOnScrollLoading(false);
+      isLoadingRef.current = false; // Открываем замок после завершения рендера данных
+    }
   }
 
-  // Инициализация обзервера
-  // useEffect(() => {
-  //   // Если идет базовая загрузка или элементов еще нет на экране — обзервер не создаем
-  //   if (messagesLoading || !observerRef.current || !chatContainerRef.current) return;
-  //
-  //   const observer = new IntersectionObserver(
-  //     (entries) => {
-  //       const [entry] = entries;
-  //       // Срабатывает строго при видимости элемента и открытом замке
-  //       if (entry.isIntersecting && !isLoadingRef.current) {
-  //         handleObserverReached();
-  //       }
-  //     },
-  //     {
-  //       root: chatContainerRef.current, // Привязываем слежку к нашему блоку ul со скроллом
-  //       rootMargin: '150px 0px 0px 0px', // Начнет загрузку за 150px до конца списка
-  //       threshold: 0
-  //     }
-  //   );
-  //
-  //   observer.observe(observerRef.current);
-  //
-  //   return () => {
-  //     observer.disconnect();
-  //   };
-  //   // Массив зависимостей обновляет обзервер, спасая от старых замыканий флагов
-  // }, [messagesLoading, messagesData]);
+  //Инициализация обзервера
+  useEffect(() => {
+    // Если идет базовая загрузка или элементов еще нет на экране — обзервер не создаем
+    if (messagesLoading || !observerRef.current || !chatContainerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        // Срабатывает строго при видимости элемента и открытом замке
+        if (entry.isIntersecting && !isLoadingRef.current) {
+          handleObserverReached();
+        }
+      },
+      {
+        root: chatContainerRef.current, // Привязываем слежку к нашему блоку ul со скроллом
+        rootMargin: '10px 0px 0px 0px', // Начнет загрузку за 150px до конца списка
+        threshold: 0
+      }
+    );
+
+    observer.observe(observerRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+    // Массив зависимостей обновляет обзервер, спасая от старых замыканий флагов
+  }, [messagesLoading, messagesData]);
 
 
-  // скролл вниз чата
+  // 1. Флаг для отслеживания самого первого открытия чата
+  const isFirstLoadRef = useRef(true);
 
+// Эффект А: Сбрасываем флаг при смене чата
+  useEffect(() => {
+    isFirstLoadRef.current = true;
+  }, [currentChat]);
+
+// Эффект Б: Срабатывает СТРОГО в момент, когда сообщения добавились в DOM
   useLayoutEffect(() => {
-    const el = chatContainerRef.current
-    if (!el || messagesLoading) return
-    el.scrollTop = el.scrollHeight
+    const el = chatContainerRef.current;
+    if (!el || messagesLoading || !messagesData) return;
 
-  }, [messagesLoading])
+    // Сценарий 1: Самая первая загрузка чата — просто падаем в самый вниз
+    if (isFirstLoadRef.current) {
+      el.scrollTop = el.scrollHeight;
+      isFirstLoadRef.current = false; // Выключаем режим первой загрузки
+      return;
+    }
 
+    // Сценарий 2: Подгрузка истории по скроллу вверх
+    if (prevScrollHeightRef.current) {
+      const currentScrollHeight = el.scrollHeight;
 
-  // useChatAutoScroll(chatContainerRef, []);
+      // Вычисляем, на сколько увеличился контейнер после добавления старых сообщений
+      const heightDifference = currentScrollHeight - prevScrollHeightRef.current;
+
+      // Корректируем позицию скролла на эту разницу
+      el.scrollTop += heightDifference;
+
+      // Очищаем реф до следующей подгрузки
+      prevScrollHeightRef.current = null;
+    }
+    // }, [messagesData, messagesLoading]);
+  }, [messagesData, messagesLoading]);
+
 
   const [files, setFiles] = useState([])  // для теста делала, будет null потом наверное
 
@@ -180,7 +209,13 @@ const ChatMessages = () => {
       <ChatHeader/>
 
       <div ref={chatContainerRef} className={`${s.chatContainer}  scroll`}>
-        <MessagesList messagesData={messagesData} messagesLoading={messagesLoading} fileUrlCache={fileUrlCache} chatContainerRef={chatContainerRef} />
+        <MessagesList
+          messagesData={messagesData}
+          messagesLoading={messagesLoading}
+          fileUrlCache={fileUrlCache}
+          chatContainerRef={chatContainerRef}
+          observerRef={observerRef}
+        />
       </div>
 
       <div className={s.bottomPart}>

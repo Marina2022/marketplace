@@ -8,7 +8,8 @@ const IncomingMessage = ({message, fileUrlCache, chatContainerRef}) => {
     <div className={s.incomingMessage}>
       {
         message.attachments.length > 0 && (
-          <Attachments attachments={message.attachments} fileUrlCache={fileUrlCache} chatContainerRef={chatContainerRef} />
+          <Attachments
+            attachments={message.attachments} fileUrlCache={fileUrlCache} chatContainerRef={chatContainerRef} />
         )
       }
       <div className={s.messageText}>

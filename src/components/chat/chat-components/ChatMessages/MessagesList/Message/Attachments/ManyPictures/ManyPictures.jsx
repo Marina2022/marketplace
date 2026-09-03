@@ -66,7 +66,6 @@ const ManyPictures = ({fileUrlCache, attachments}) => {
           </li>
         )
       }
-
     </ul>
   )
 }

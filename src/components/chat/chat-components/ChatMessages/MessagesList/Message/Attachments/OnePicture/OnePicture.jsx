@@ -1,12 +1,15 @@
 import s from './OnePicture.module.scss';
 import axiosInstance from "@/api/axiosInstance.js";
+import {useRef} from "react";
 
 const OnePicture = ({fileUrlCache, pictureInfo, chatContainerRef}) => {
+
+
+  const loadedRef = useRef(false);
 
   const handleOpen = async () => {
     const id = pictureInfo.mediaFileId
     const now = Date.now()
-
     const cached = fileUrlCache.current[id]
 
     try {
@@ -38,14 +41,17 @@ const OnePicture = ({fileUrlCache, pictureInfo, chatContainerRef}) => {
     }
   }
 
-  const scrollToBottom = () => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-    }
+  const pictureRef = useRef(null)
+
+  const handleLoad = ()=>{
+    if (loadedRef.current) return;
+    loadedRef.current = true;
+    const height = pictureRef.current.clientHeight
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollTop + height
   }
 
   return (
-    <img onLoad={scrollToBottom} onClick={handleOpen} className={s.img} src={fileUrlCache.current[pictureInfo.mediaFileId].url} alt="img"/>
+    <img ref={pictureRef} onLoad={handleLoad} onClick={handleOpen} className={s.img} src={fileUrlCache.current[pictureInfo.mediaFileId].url} alt="img"/>
   )
 }
 

@@ -33,7 +33,8 @@ const Attachments = ({attachments, fileUrlCache, chatContainerRef}) => {
 
       {
         hasImages && !hasMultipleImages && (
-          <OnePicture fileUrlCache={fileUrlCache} pictureInfo={attachments[0]} chatContainerRef={chatContainerRef} />
+          <OnePicture
+            fileUrlCache={fileUrlCache} pictureInfo={attachments[0]} chatContainerRef={chatContainerRef}  />
         )
       }
 
