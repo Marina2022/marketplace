@@ -1,7 +1,7 @@
 import s from './OnePicture.module.scss';
 import axiosInstance from "@/api/axiosInstance.js";
 
-const OnePicture = ({fileUrlCache, pictureInfo}) => {
+const OnePicture = ({fileUrlCache, pictureInfo, chatContainerRef}) => {
 
   const handleOpen = async () => {
     const id = pictureInfo.mediaFileId
@@ -38,8 +38,14 @@ const OnePicture = ({fileUrlCache, pictureInfo}) => {
     }
   }
 
+  const scrollToBottom = () => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }
+
   return (
-    <img onClick={handleOpen} className={s.img} src={fileUrlCache.current[pictureInfo.mediaFileId].url} alt="img"/>
+    <img onLoad={scrollToBottom} onClick={handleOpen} className={s.img} src={fileUrlCache.current[pictureInfo.mediaFileId].url} alt="img"/>
   )
 }
 

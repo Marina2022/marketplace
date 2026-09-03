@@ -1,6 +1,6 @@
 import s from "./ChatMessages.module.scss"
 import {useSelector} from "react-redux";
-import {getCurrentChat} from "@/store/chatSlice.js";
+import {getCurrentChat, logoutChat} from "@/store/chatSlice.js";
 import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import ChatHeader from "@/components/chat/chat-components/ChatMessages/ChatHeader/ChatHeader.jsx";
@@ -11,6 +11,7 @@ import MessagesList from "@/components/chat/chat-components/ChatMessages/Message
 import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
 import {normalizeFilesResponse} from "@/utils/chat.js";
 import {getPreviewPayload, getRequestsWithPictures} from "@/utils/requests.js";
+import {useChatAutoScroll} from "@/hooks/chat/useChatAutoScroll.js";
 
 const ChatMessages = () => {
 
@@ -157,18 +158,18 @@ const ChatMessages = () => {
   //   // Массив зависимостей обновляет обзервер, спасая от старых замыканий флагов
   // }, [messagesLoading, messagesData]);
 
+
   // скролл вниз чата
 
   useLayoutEffect(() => {
     const el = chatContainerRef.current
-    if (!el || !messagesData) return
+    if (!el || messagesLoading) return
+    el.scrollTop = el.scrollHeight
 
-    console.log("дошел", el.scrollHeight)
+  }, [messagesLoading])
 
-      el.scrollTop = el.scrollHeight
 
-  }, [messagesData])
-
+  // useChatAutoScroll(chatContainerRef, []);
 
   const [files, setFiles] = useState([])  // для теста делала, будет null потом наверное
 
@@ -179,7 +180,7 @@ const ChatMessages = () => {
       <ChatHeader/>
 
       <div ref={chatContainerRef} className={`${s.chatContainer}  scroll`}>
-        <MessagesList messagesData={messagesData} messagesLoading={messagesLoading} fileUrlCache={fileUrlCache} />
+        <MessagesList messagesData={messagesData} messagesLoading={messagesLoading} fileUrlCache={fileUrlCache} chatContainerRef={chatContainerRef} />
       </div>
 
       <div className={s.bottomPart}>

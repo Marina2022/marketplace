@@ -2,7 +2,7 @@ import s from './MessagesList.module.scss';
 import Message from "@/components/chat/chat-components/ChatMessages/MessagesList/Message/Message.jsx";
 import MiniSpinnerPagination from "@/components/ui/miniSpinner/MiniSpinnerPagination/MiniSpinnerPagination.jsx";
 
-const MessagesList = ({messagesData, messagesLoading, fileUrlCache, observerRef, isOnScrollLoading}) => {
+const MessagesList = ({messagesData, messagesLoading, fileUrlCache, observerRef, isOnScrollLoading, chatContainerRef}) => {
 
   if (messagesLoading) return null
 
@@ -25,6 +25,7 @@ const MessagesList = ({messagesData, messagesLoading, fileUrlCache, observerRef,
           allMessages={messages}
           index={index}
           fileUrlCache={fileUrlCache}
+          chatContainerRef={chatContainerRef}
         />)
       }
     </ul>

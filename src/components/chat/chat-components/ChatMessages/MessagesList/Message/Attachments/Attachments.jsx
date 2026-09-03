@@ -6,7 +6,7 @@ import ManyPictures
 import ChatFiles
   from "@/components/chat/chat-components/ChatMessages/MessagesList/Message/Attachments/ChatFiles/ChatFiles.jsx";
 
-const Attachments = ({attachments, fileUrlCache}) => {
+const Attachments = ({attachments, fileUrlCache, chatContainerRef}) => {
 
   const hasImages = attachments.some(a =>
     a.contentType?.startsWith("image")
@@ -33,7 +33,7 @@ const Attachments = ({attachments, fileUrlCache}) => {
 
       {
         hasImages && !hasMultipleImages && (
-          <OnePicture fileUrlCache={fileUrlCache} pictureInfo={attachments[0]} />
+          <OnePicture fileUrlCache={fileUrlCache} pictureInfo={attachments[0]} chatContainerRef={chatContainerRef} />
         )
       }
 
