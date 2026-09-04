@@ -13,7 +13,6 @@ const MessagesList = ({messagesData, messagesLoading, fileUrlCache, observerRef,
       {messagesData.messages && messagesData.meta.hasNext && (
         <li ref={observerRef} className={s.observerDiv} style={{ listStyleType: 'none', width: '100%', minHeight: '30px' }}>
           {isOnScrollLoading && <div className={s.onScrollSpinnerWrapper}>
-            {/*<MiniSpinnerPagination />*/}
           </div>}
         </li>
       )}

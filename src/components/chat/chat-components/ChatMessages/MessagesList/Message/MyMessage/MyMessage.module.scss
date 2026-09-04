@@ -27,8 +27,14 @@
 
 }
 
-.time {
+.timeBlock {
   font-size: 11px;
   color: #9AA1AC;
   margin-left: auto;
+  display: flex;
+  gap: 3px;
+}
+
+.clock {
+  margin-left: 3px;
 }

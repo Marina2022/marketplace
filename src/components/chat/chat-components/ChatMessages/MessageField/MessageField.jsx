@@ -1,13 +1,28 @@
 import s from './MessageField.module.scss';
-import {useEffect, useLayoutEffect, useRef} from "react";
+import {useEffect, useLayoutEffect, useRef, useState} from "react";
+import {v4 as uuidv4} from "uuid";
+import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
+import axiosInstance from "@/api/axiosInstance.js";
+import {useSelector} from "react-redux";
+import {getCurrentChat} from "@/store/chatSlice.js";
+import {normalizeFilesResponse} from "@/utils/chat.js";
+import {getActiveProfileId} from "@/store/userSlice.js";
 
 
-const MessageField = ({message, setMessage}) => {
+const MessageField = ({message, setMessage, messagesData, fileUrlCache, setMessagesData, chatContainerRef}) => {
+
+  const currentChat = useSelector(getCurrentChat)
+  const profileId = useSelector(getActiveProfileId)
+
+  console.log("currentChat = ", currentChat)
 
   const textareaRef = useRef(null)
   const baseHeightRef = useRef(null)
 
   const BASE_HEIGHT = 40  // высота инпута
+
+  // console.log("currentChat = ", currentChat)
+  console.log("messages = ", messagesData?.messages)
 
   useLayoutEffect(() => {
     const el = textareaRef.current
@@ -31,9 +46,129 @@ const MessageField = ({message, setMessage}) => {
     el.style.height = next + 'px'
   }, [message])
 
+
+  useEffect(() => {
+    if (!chatContainerRef.current) return
+
+    const el = chatContainerRef.current
+    el.scrollTop = el.scrollHeight
+  }, [messagesData?.messages, chatContainerRef])
+
+
   const handleSetMessage = (value) => {
-  //  const newValue = value.slice(0, 400)
+    //  const newValue = value.slice(0, 400)
     setMessage(value)
+  }
+
+  const attachmentsToSend = [] // todo тут будут файлы загруженные потом
+
+  const [sending, setSending] = useState(false)
+
+  const handleSend = async () => {
+
+    if (sending) return
+
+    if (!message) return
+    // валидация
+
+    if (attachmentsToSend.length > 10) {
+      showErrorToast("Можно добавить до 10 вложений")
+      return
+    }
+
+    if (message.length > 5000) {
+      showErrorToast("Текст не должен превышать 5000 символов")
+      return
+    }
+
+    try {
+      setSending(true)
+
+      // собираем MediaFileIds
+      let mediaFields = []
+      if (attachmentsToSend.length > 0) {
+        attachmentsToSend.forEach((attachment) => {
+          if (!mediaFields.includes(attachment.mediaFileId)) mediaFields.push(attachment.mediaFileId);
+        })
+      }
+
+      if (mediaFields.length > 0) {
+        const filesResponse = await axiosInstance.post(`chat/files/urls`, {
+          mediaFileIds: mediaFields,
+          ttlSeconds: 600
+        })
+        const normalized = normalizeFilesResponse(filesResponse.data);
+        Object.assign(fileUrlCache.current, normalized);
+      }
+
+      // подгружаем файлы в кэш, чтобы сразу отобразить
+      if (mediaFields.length > 0) {
+        try {
+          const filesResponse = await axiosInstance.post(`chat/files/urls`, {
+            mediaFileIds: mediaFields,
+            ttlSeconds: 600
+          });
+          const normalized = normalizeFilesResponse(filesResponse.data);
+          Object.assign(fileUrlCache.current, normalized);
+        } catch (err) {
+          console.log(err)
+        }
+      }
+
+      const tempId = uuidv4()
+
+      const tempMessage = {
+        attachments: attachmentsToSend,
+        chatRoomId: currentChat.chatRoomId,
+        createdAt: new Date().toISOString(),
+        editedAt: null,
+        isEdited: false,
+        isMine: true,
+        messageId: tempId,
+        senderName: currentChat.companionName,
+        senderProfileId: profileId,
+        systemType: "None",
+        text: message,
+        sendingStatus: "sending",  // sending | error | success
+      }
+
+      const newMessages = [tempMessage, ...messagesData.messages]
+      setMessagesData(prev=>  ({
+        ...prev, messages: newMessages
+      }))
+
+      const body = {
+        text: message,
+        attachmentMediaFileIds: attachmentsToSend,
+      }
+
+      const response = await axiosInstance.post(`chat/${currentChat.chatRoomId}/messages`, body)
+      console.log("response.data.messageId = ", response.data.messageId)
+
+      setMessagesData(prev => ({
+        ...prev,
+        messages: prev.messages.map(msg =>
+          msg.messageId === tempId
+            ? {
+              ...msg,
+              messageId: response.data.messageId,
+              sendingStatus: "success"
+            }
+            : msg
+        )
+      }))
+
+      setMessage("")
+
+    } catch (err) {
+      console.log("err =", err)
+      if (err.response && err.response.data?.errors?.length > 0) {
+        showErrorToast(err.response?.data?.errors[0].message)
+      }
+    } finally {
+      setSending(false)
+
+    }
   }
 
   return (
@@ -44,13 +179,15 @@ const MessageField = ({message, setMessage}) => {
         placeholder="Написать сообщение"
         ref={textareaRef}
         value={message}
-        onChange={(e) => handleSetMessage(e.target.value) }
+        onChange={(e) => handleSetMessage(e.target.value)}
         className={s.messageTextarea}
       />
 
-        <button className={s.sendButton}>
+        <button onClick={handleSend} className={s.sendButton}>
           <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M17.5921 9.08684L1.91237 1.76995L3.63067 6.91624L12.3004 8.96567L3.49535 10.942L1.68002 15.871L17.5898 9.08449L17.5921 9.08684ZM1.13788 0.0565036L19.3102 8.53701C19.3894 8.56589 19.4617 8.6109 19.5227 8.66919C19.5837 8.72748 19.6319 8.79777 19.6643 8.8756C19.7286 9.0257 19.7308 9.19503 19.6705 9.34645C19.6101 9.49787 19.4921 9.61901 19.3424 9.68329L0.857425 17.5637C0.747114 17.6101 0.625587 17.6233 0.507721 17.6017C0.389854 17.58 0.280759 17.5245 0.193793 17.4419C0.106825 17.3593 0.0457583 17.2532 0.0180633 17.1366C-0.00963098 17.02 -0.00275069 16.8979 0.0378634 16.7853L2.9708 8.81025L0.298286 0.803769C0.260442 0.690103 0.256687 0.567928 0.287482 0.452331C0.318279 0.336733 0.382279 0.232775 0.471579 0.153295C0.560879 0.0738153 0.671568 0.0222936 0.789978 0.00509234C0.908388 -0.0121086 1.02933 0.00576423 1.13788 0.0565036Z" fill="#3D4A66"/>
+            <path
+              d="M17.5921 9.08684L1.91237 1.76995L3.63067 6.91624L12.3004 8.96567L3.49535 10.942L1.68002 15.871L17.5898 9.08449L17.5921 9.08684ZM1.13788 0.0565036L19.3102 8.53701C19.3894 8.56589 19.4617 8.6109 19.5227 8.66919C19.5837 8.72748 19.6319 8.79777 19.6643 8.8756C19.7286 9.0257 19.7308 9.19503 19.6705 9.34645C19.6101 9.49787 19.4921 9.61901 19.3424 9.68329L0.857425 17.5637C0.747114 17.6101 0.625587 17.6233 0.507721 17.6017C0.389854 17.58 0.280759 17.5245 0.193793 17.4419C0.106825 17.3593 0.0457583 17.2532 0.0180633 17.1366C-0.00963098 17.02 -0.00275069 16.8979 0.0378634 16.7853L2.9708 8.81025L0.298286 0.803769C0.260442 0.690103 0.256687 0.567928 0.287482 0.452331C0.318279 0.336733 0.382279 0.232775 0.471579 0.153295C0.560879 0.0738153 0.671568 0.0222936 0.789978 0.00509234C0.908388 -0.0121086 1.02933 0.00576423 1.13788 0.0565036Z"
+              fill="#3D4A66"/>
           </svg>
 
         </button>

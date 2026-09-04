@@ -85,7 +85,7 @@ const ChatMenu = () => {
 
     } catch (err) {
       console.log("err =", err)
-      if (err.response && err.response.data.errors.length > 0) {
+      if (err.response && err.response.data?.errors?.length > 0) {
         showErrorToast(err.response?.data?.errors[0].message)
       }
       console.log(err.message)

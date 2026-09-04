@@ -3,9 +3,6 @@ import axiosInstance from "@/api/axiosInstance.js";
 
 const ManyPictures = ({fileUrlCache, attachments}) => {
 
-  console.log("fileUrlCache = ", fileUrlCache)
-
-
 
   const pictures = attachments.filter((img) => img.contentType.startsWith("image"));
 

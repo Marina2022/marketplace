@@ -31,11 +31,9 @@ const ContactItem = ({contact}) => {
   const handleContactCLick = () => {
     dispatch(setCurrentChat(contact))
 
-    console.log("currentChatRequested = ", currentChatRequested)
     if (currentChatRequested === null) {
       dispatch(setCurrentChatRequest(contact.requestInfo.requestId))
     }
-
   }
 
   const isActive = contact.chatRoomId === currentChat?.chatRoomId

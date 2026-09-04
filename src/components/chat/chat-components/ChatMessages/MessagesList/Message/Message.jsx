@@ -18,7 +18,7 @@ const Message = ({message, index, allMessages, fileUrlCache, chatContainerRef}) 
   const isSystem = message.systemType !== "None" && message.systemType !== "ChatStarted"
   const isSystemFirst = message.systemType === "ChatStarted"
 
-  const isIncoming =( message.senderProfileId !== activeProfileId) && message.systemType === "None"
+  const isIncoming = (message.senderProfileId !== activeProfileId) && message.systemType === "None"
 
   let isDateChanged = false
   if (index === 0 && message.systemType === "ChatStarted") isDateChanged = true
@@ -37,17 +37,22 @@ const Message = ({message, index, allMessages, fileUrlCache, chatContainerRef}) 
 
       {
         isMine && <MyMessage
-          message={message} fileUrlCache={fileUrlCache} chatContainerRef={chatContainerRef}
+          message={message}
+          fileUrlCache={fileUrlCache}
+          chatContainerRef={chatContainerRef}
         />
       }
 
       {
-        isIncoming && <IncomingMessage message={message} fileUrlCache={fileUrlCache}
-                                       chatContainerRef={chatContainerRef} />
+        isIncoming && <IncomingMessage
+          message={message}
+          fileUrlCache={fileUrlCache}
+          chatContainerRef={chatContainerRef}
+        />
       }
 
       {
-        isSystem && <SystemMessage message={message} />
+        isSystem && <SystemMessage message={message}/>
       }
 
       {

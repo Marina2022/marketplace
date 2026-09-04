@@ -15,8 +15,12 @@ const IncomingMessage = ({message, fileUrlCache, chatContainerRef}) => {
       <div className={s.messageText}>
         {message.text}
       </div>
-      <div className={s.time}>
-        {formatTelegramTime(message.createdAt)}
+
+      <div className={s.timeBlock}>
+        {
+          message.isEdited && <span>Изменено</span>
+        }
+        {formatTelegramTime(message.isEdited ? message.editedAt : message.createdAt)}
       </div>
     </div>
   )
