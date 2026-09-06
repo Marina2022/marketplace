@@ -38,3 +38,12 @@
 .clock {
   margin-left: 3px;
 }
+
+.error {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #9AA1AC;
+  font-size: 11px;
+  cursor: pointer;
+}

@@ -63,4 +63,16 @@
 
 .chatContainer {
   margin-top: auto;
+  overflow-anchor: none;
+
+
+  overflow-y: auto;
+
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge старый */
+
+  &::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+
 }

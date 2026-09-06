@@ -1,7 +1,7 @@
 import s from './MessagesList.module.scss';
 import Message from "@/components/chat/chat-components/ChatMessages/MessagesList/Message/Message.jsx";
 
-const MessagesList = ({messagesData, messagesLoading, fileUrlCache, observerRef, isOnScrollLoading, chatContainerRef}) => {
+const MessagesList = ({messagesData, messagesLoading, fileUrlCache, observerRef, isOnScrollLoading, chatContainerRef, setMessagesData}) => {
 
   if (messagesLoading || !messagesData) return null
 
@@ -9,6 +9,7 @@ const MessagesList = ({messagesData, messagesLoading, fileUrlCache, observerRef,
 
   return (
     <ul className={s.messagesList}>
+
 
       {messagesData.messages && messagesData.meta.hasNext && (
         <li ref={observerRef} className={s.observerDiv} style={{ listStyleType: 'none', width: '100%', minHeight: '30px' }}>
@@ -24,6 +25,8 @@ const MessagesList = ({messagesData, messagesLoading, fileUrlCache, observerRef,
           index={index}
           fileUrlCache={fileUrlCache}
           chatContainerRef={chatContainerRef}
+          messagesData={messagesData}
+          setMessagesData={setMessagesData}
         />)
       }
     </ul>

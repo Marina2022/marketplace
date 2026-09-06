@@ -9,7 +9,14 @@ import {normalizeFilesResponse} from "@/utils/chat.js";
 import {getActiveProfileId} from "@/store/userSlice.js";
 
 
-const MessageField = ({message, setMessage, messagesData, fileUrlCache, setMessagesData, chatContainerRef}) => {
+const MessageField = ({
+                        message,
+                        setMessage,
+                        messagesData,
+                        fileUrlCache,
+                        setMessagesData,
+                        chatContainerRef
+                      }) => {
 
   const currentChat = useSelector(getCurrentChat)
   const profileId = useSelector(getActiveProfileId)
@@ -20,9 +27,6 @@ const MessageField = ({message, setMessage, messagesData, fileUrlCache, setMessa
   const baseHeightRef = useRef(null)
 
   const BASE_HEIGHT = 40  // высота инпута
-
-  // console.log("currentChat = ", currentChat)
-  console.log("messages = ", messagesData?.messages)
 
   useLayoutEffect(() => {
     const el = textareaRef.current
@@ -47,12 +51,34 @@ const MessageField = ({message, setMessage, messagesData, fileUrlCache, setMessa
   }, [message])
 
 
+// скролл при отправке, нучжно чтоб не ломал скролл при пагинации:
   useEffect(() => {
-    if (!chatContainerRef.current) return
+    const el = chatContainerRef.current;
+    if (!el || !messagesData?.messages?.length) return;
 
-    const el = chatContainerRef.current
-    el.scrollTop = el.scrollHeight
-  }, [messagesData?.messages, chatContainerRef])
+    // 1. Берем самое последнее (нижнее в чате) сообщение в массиве.
+    // Так как в массиве они идут в обратном порядке (новое в начале),
+    // то самое свежее сообщение — это messages[0]
+    const latestMessage = messagesData.messages[0];
+
+    // 2. Проверяем, наше ли это сообщение (статус отправки 'sending' или флаг isMine)
+    const isMyNewMessage = latestMessage?.isMine || latestMessage?.sendingStatus === "sending";
+
+    // 3. Проверяем, находится ли пользователь и так внизу чата (с запасом в 150px).
+    // Если он читает историю наверху, чат не должен насильно крутить его вниз при входящем сообщении.
+    const isUserAtBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 150;
+
+    // Скроллим вниз только если сообщение отправили мы, или если мы и так сидим внизу чата
+    if (isMyNewMessage || isUserAtBottom) {
+      // Используем setTimeout(..., 0), чтобы дождаться, пока React физически отрендерит ноду сообщения на экране
+      setTimeout(() => {
+        el.scrollTop = el.scrollHeight;
+      }, 0);
+    }
+
+// КРИТИЧЕСКИ ВАЖНО: следим ТОЛЬКО за ID самого последнего (нижнего) сообщения.
+// При пагинации вверх это ID НЕ меняется, поэтому хук просто проигнорирует подгрузку истории!
+  }, [messagesData?.messages?.[0]?.messageId]);
 
 
   const handleSetMessage = (value) => {
@@ -69,8 +95,8 @@ const MessageField = ({message, setMessage, messagesData, fileUrlCache, setMessa
     if (sending) return
 
     if (!message) return
-    // валидация
 
+    // валидация
     if (attachmentsToSend.length > 10) {
       showErrorToast("Можно добавить до 10 вложений")
       return
@@ -81,61 +107,61 @@ const MessageField = ({message, setMessage, messagesData, fileUrlCache, setMessa
       return
     }
 
-    try {
-      setSending(true)
+    // собираем MediaFileIds
+    let mediaFields = []
+    if (attachmentsToSend.length > 0) {
+      attachmentsToSend.forEach((attachment) => {
+        if (!mediaFields.includes(attachment.mediaFileId)) mediaFields.push(attachment.mediaFileId);
+      })
+    }
 
-      // собираем MediaFileIds
-      let mediaFields = []
-      if (attachmentsToSend.length > 0) {
-        attachmentsToSend.forEach((attachment) => {
-          if (!mediaFields.includes(attachment.mediaFileId)) mediaFields.push(attachment.mediaFileId);
-        })
-      }
+    if (mediaFields.length > 0) {
+      const filesResponse = await axiosInstance.post(`chat/files/urls`, {
+        mediaFileIds: mediaFields,
+        ttlSeconds: 600
+      })
+      const normalized = normalizeFilesResponse(filesResponse.data);
+      Object.assign(fileUrlCache.current, normalized);
+    }
 
-      if (mediaFields.length > 0) {
+    // подгружаем файлы в кэш, чтобы сразу показать
+    if (mediaFields.length > 0) {
+      try {
         const filesResponse = await axiosInstance.post(`chat/files/urls`, {
           mediaFileIds: mediaFields,
           ttlSeconds: 600
-        })
+        });
         const normalized = normalizeFilesResponse(filesResponse.data);
         Object.assign(fileUrlCache.current, normalized);
+      } catch (err) {
+        console.log(err)
       }
+    }
 
-      // подгружаем файлы в кэш, чтобы сразу отобразить
-      if (mediaFields.length > 0) {
-        try {
-          const filesResponse = await axiosInstance.post(`chat/files/urls`, {
-            mediaFileIds: mediaFields,
-            ttlSeconds: 600
-          });
-          const normalized = normalizeFilesResponse(filesResponse.data);
-          Object.assign(fileUrlCache.current, normalized);
-        } catch (err) {
-          console.log(err)
-        }
-      }
+    const tempId = uuidv4()
 
-      const tempId = uuidv4()
+    const tempMessage = {
+      attachments: attachmentsToSend,
+      chatRoomId: currentChat.chatRoomId,
+      createdAt: new Date().toISOString(),
+      editedAt: null,
+      isEdited: false,
+      isMine: true,
+      messageId: tempId,
+      senderName: currentChat.companionName,
+      senderProfileId: profileId,
+      systemType: "None",
+      text: message,
+      sendingStatus: "sending",  // sending | error | success
+    }
 
-      const tempMessage = {
-        attachments: attachmentsToSend,
-        chatRoomId: currentChat.chatRoomId,
-        createdAt: new Date().toISOString(),
-        editedAt: null,
-        isEdited: false,
-        isMine: true,
-        messageId: tempId,
-        senderName: currentChat.companionName,
-        senderProfileId: profileId,
-        systemType: "None",
-        text: message,
-        sendingStatus: "sending",  // sending | error | success
-      }
+    const newMessages = [tempMessage, ...messagesData.messages]
+    setMessagesData(prev => ({
+      ...prev, messages: newMessages
+    }))
 
-      const newMessages = [tempMessage, ...messagesData.messages]
-      setMessagesData(prev=>  ({
-        ...prev, messages: newMessages
-      }))
+    try {
+      setSending(true)
 
       const body = {
         text: message,
@@ -143,7 +169,6 @@ const MessageField = ({message, setMessage, messagesData, fileUrlCache, setMessa
       }
 
       const response = await axiosInstance.post(`chat/${currentChat.chatRoomId}/messages`, body)
-      console.log("response.data.messageId = ", response.data.messageId)
 
       setMessagesData(prev => ({
         ...prev,
@@ -161,13 +186,29 @@ const MessageField = ({message, setMessage, messagesData, fileUrlCache, setMessa
       setMessage("")
 
     } catch (err) {
+
       console.log("err =", err)
       if (err.response && err.response.data?.errors?.length > 0) {
         showErrorToast(err.response?.data?.errors[0].message)
       }
+
+      setMessagesData(prev => ({
+        ...prev,
+        messages: prev.messages.map(msg =>
+          msg.messageId === tempId
+            ? {
+              ...msg,
+              sendingStatus: "error"
+            }
+            : msg
+        )
+      }))
+
+      setMessage("")
+
+
     } finally {
       setSending(false)
-
     }
   }
 

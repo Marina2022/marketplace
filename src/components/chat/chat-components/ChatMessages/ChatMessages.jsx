@@ -18,7 +18,7 @@ const ChatMessages = () => {
   const [inputMessage, setInputMessage] = useState("");
 
   const fileUrlCache = useRef({});
-  const LIMIT = 20;
+  const LIMIT = 10;
 
   const chatContainerRef = useRef(null);
   const observerRef = useRef(null);
@@ -38,7 +38,7 @@ const ChatMessages = () => {
     setMessagesLoading(true);
     shouldScrollToBottomRef.current = true; // Выставляем флаг: при получении данных нужно скроллить вниз
 
-    const connection = getChatConnection()
+    const connection = getChatConnection();
 
     const getMessages = async () => {
       try {
@@ -46,28 +46,24 @@ const ChatMessages = () => {
 
         const response = await axiosInstance(`chat/${currentChat.chatRoomId}/messages?LIMIT=${LIMIT}`);
 
-        let mediaFields = []
+        let mediaFields = [];
         if (response.data.messages.length > 0) {
           response.data.messages.forEach((message) => {
             if (message.attachments.length > 0) {
               message.attachments.forEach((attachment) => {
                 if (!mediaFields.includes(attachment.mediaFileId)) mediaFields.push(attachment.mediaFileId);
-              })
+              });
             }
           });
         }
 
         if (mediaFields.length > 0) {
-          try {
-            const filesResponse = await axiosInstance.post(`chat/files/urls`, {
-              mediaFileIds: mediaFields,
-              ttlSeconds: 600
-            });
-            const normalized = normalizeFilesResponse(filesResponse.data);
-            Object.assign(fileUrlCache.current, normalized);
-          } catch (err) {
-            console.log(err)
-          }
+          const filesResponse = await axiosInstance.post(`chat/files/urls`, {
+            mediaFileIds: mediaFields,
+            ttlSeconds: 600
+          });
+          const normalized = normalizeFilesResponse(filesResponse.data);
+          Object.assign(fileUrlCache.current, normalized);
         }
 
         // Обновляем данные чата
@@ -166,7 +162,6 @@ const ChatMessages = () => {
         el.scrollTop = el.scrollHeight;
       }, 0);
 
-      console.log("Первая подгрузка чата")
       shouldScrollToBottomRef.current = false;
       return;
     }
@@ -187,13 +182,14 @@ const ChatMessages = () => {
     <div className={s.chatWrapper}>
       <ChatHeader/>
 
-      <div ref={chatContainerRef} className={`${s.chatContainer}  scroll`}>
+      <div ref={chatContainerRef} className={`${s.chatContainer} scroll`}>
         <MessagesList
           messagesData={messagesData}
           messagesLoading={messagesLoading}
           fileUrlCache={fileUrlCache}
           chatContainerRef={chatContainerRef}
           observerRef={observerRef}
+          setMessagesData={setMessagesData}
         />
       </div>
 
@@ -215,6 +211,9 @@ const ChatMessages = () => {
             </svg>
           </button>
           <div className={s.inputBlock}>
+            {/*<MessageField message={inputMessage} setMessage={setInputMessage}/>*/}
+
+
             <MessageField
               message={inputMessage}
               setMessage={setInputMessage}

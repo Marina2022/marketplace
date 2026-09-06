@@ -2,6 +2,8 @@ import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import {getChatConnection} from "@/services/chatConnection.js";
 import axiosInstance from "@/api/axiosInstance.js";
 
+const LIMIT = 20
+
 // Инициализация чата (Шаг 1 из вашего руководства)
 export const initChat = createAsyncThunk(
   "chat/initChat",
@@ -14,11 +16,69 @@ export const initChat = createAsyncThunk(
     dispatch(setConnectionState("Connecting"));
 
     // Регистрируем обработчики хаба ОДИН раз ДО старта соединения
-    connection.on("ReceiveMessage", (message) => {
-      dispatch(addMessage(message));
-    });
+    connection.on("ReceiveMessage", async (message) => {
+
+      console.log("Received message: ", message);
+
+      // *** Перерисовать чаты ***
+      // есть ли текущий message.chatRoomId в чатах в стейте
+
+      const state = getState()
+      const chats = state.chat.chats;
+
+      if (!chats?.items) return;
+
+      const index = chats.items.findIndex(
+        c => c.chatRoomId === message.chatRoomId
+      )
+
+      // 1. если чат НЕ найден — обновляем список с бэка
+      if (index === -1) {
+        // обновляем список с бэка - в событии UpdateUnreadCount
+        try {
+          let requestUrl = `chat?limit=${LIMIT}`
+          const filter = state.chat.filter
+          const requestId = state.chat.currentRequest
+          const search = state.chat.chatSearch
+
+          if (filter) requestUrl += `&filter=${filter}`
+          if (requestId) requestUrl += `&requestId=${requestId}`
+          if (search) requestUrl += `&searchContacts=${search}`
+
+          const chatsResponse = await axiosInstance(requestUrl);
+          dispatch(setChats(chatsResponse.data));
+        } catch (error) {
+          console.error("Ошибка загрузки чатов:", error)
+          dispatch(setChatError(true))
+        }
+      }
+
+      // если найден — поднимаем наверх
+      if (index !== -1) {
+
+        const updatedChat = chats.items[index]
+
+        const newUpdatedChat = {
+          ...updatedChat,
+          lastMessageText: message.text,
+          lastMessageAt: message.createdAt,
+        }
+        const newItems = [
+          newUpdatedChat,
+          ...chats.items.filter(c => c.chatRoomId !== message.chatRoomId)
+        ]
+
+        dispatch(setChats({
+          ...chats,
+          items: newItems
+        }))
+
+      }
+    })
+
 
     connection.on("UpdateUnreadCount", async (data) => {
+
       // chatRoomId, newCount
       dispatch(updateChatUnread({
         chatRoomId: data.chatRoomId,
@@ -34,8 +94,41 @@ export const initChat = createAsyncThunk(
         // можно добавить флаг ошибки (нужно ли)
         dispatch(setChatError(true));
       }
-    })
 
+      // перезагрузить чаты, если чата нет в списке чатов
+
+      const state = getState()
+      const chats = state.chat.chats;
+
+      if (!chats?.items) return;
+
+      const index = chats.items.findIndex(
+        c => c.chatRoomId === data.chatRoomId
+      )
+
+      // todo - потестить (прислать сообщение с другого акка, когда не сидим ни в одном чате, например (и ни разу не зашли))
+      // 1. если чат НЕ найден — обновляем список с бэка - переносим в событие UpdateUnreadCount
+      if (index === -1) {
+
+        try {
+          let requestUrl = `chat?limit=${LIMIT}`
+          const filter = state.chat.filter
+          const requestId = state.chat.currentRequest
+          const search = state.chat.chatSearch
+
+          if (filter) requestUrl += `&filter=${filter}`
+          if (requestId) requestUrl += `&requestId=${requestId}`
+          if (search) requestUrl += `&searchContacts=${search}`
+
+          const chatsResponse = await axiosInstance(requestUrl);
+          dispatch(setChats(chatsResponse.data));
+        } catch (error) {
+          console.error("Ошибка загрузки чатов:", error)
+          dispatch(setChatError(true))
+        }
+      }
+
+    })
 
     connection.on("ProfileSwitched", async () => {
 
@@ -68,21 +161,21 @@ export const initChat = createAsyncThunk(
         // можно добавить флаг ошибки
         dispatch(setChatError(true));
       }
-     })
+    })
 
 // добавить event
 // MessageEdited  { chatRoomId, messageId, newText } — глобальный обработчик находит сообщение по id и заменяет текст.
 
 // Автоматическое восстановление состояния при переподключении библиотеки -- todo
-connection.onreconnected(async () => {
-  console.log("onreconnected")
-  // console.log("Сеть восстановлена. Повторно инициализируем профиль на сервере...");
-  // try {
-  //   await connection.invoke("SwitchActiveProfile", currentProfileId);
-  // } catch (err) {
-  //   console.error("Не удалось восстановить профиль после переподключения:", err);
-  // }
-})
+    connection.onreconnected(async () => {
+      console.log("onreconnected")
+      // console.log("Сеть восстановлена. Повторно инициализируем профиль на сервере...");
+      // try {
+      //   await connection.invoke("SwitchActiveProfile", currentProfileId);
+      // } catch (err) {
+      //   console.error("Не удалось восстановить профиль после переподключения:", err);
+      // }
+    })
 
     try {
       // 1. Запуск веб-сокет соединения
@@ -158,7 +251,6 @@ export const sendMessage = createAsyncThunk(
 
 const initialState = {
   chats: null,
-  messages: [],
   unreadCount: 0,
   connectionState: "Disconnected", // Disconnected | Connecting | Connected
   updatedChatBadge: null,
@@ -174,9 +266,6 @@ const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
-    addMessage: (state, action) => {
-      state.messages.push(action.payload);
-    },
     setUnreadCount: (state, action) => {
       state.unreadCount = action.payload;
     },
@@ -227,7 +316,6 @@ const chatSlice = createSlice({
 });
 
 export const {
-  addMessage,
   setUnreadCount,
   setConnectionState,
   setChats,
