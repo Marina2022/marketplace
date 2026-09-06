@@ -1,61 +1,107 @@
 import s from './OnePicture.module.scss';
 import axiosInstance from "@/api/axiosInstance.js";
-import {useRef} from "react";
+import { useRef, useState, useEffect } from "react";
 
-const OnePicture = ({fileUrlCache, pictureInfo, chatContainerRef}) => {
+const OnePicture = ({ fileUrlCache, pictureInfo, chatContainerRef }) => {
+  const id = pictureInfo.mediaFileId;
+  const pictureRef = useRef(null);
 
+  // Флаг, что картинка физически загрузилась браузером и готова к показу
+  const [isImageReady, setIsImageReady] = useState(false);
 
-  const loadedRef = useRef(false);
+  // 1. Инициализируем URL. Если кэш протух или его нет, стартуем с пустой строки,
+  // но НЕ удаляем сам тег <img> из DOM
+  const [currentUrl, setCurrentUrl] = useState(() => {
+    const cached = fileUrlCache.current?.[id];
+    const now = Date.now();
+    if (cached && new Date(cached.expiresAt).getTime() > now) {
+      return cached.url;
+    }
+    return "";
+  });
 
-  const handleOpen = async () => {
-    const id = pictureInfo.mediaFileId
-    const now = Date.now()
-    const cached = fileUrlCache.current[id]
+  // Если картинка уже была в кэше, она готова сразу (чтобы не было анимации при скролле)
+  useEffect(() => {
+    if (currentUrl) {
+      setIsImageReady(true);
+    }
+  }, []);
 
-    try {
-      let url
+  // 2. Запрос нового URL, если его нет
+  useEffect(() => {
+    if (currentUrl) return;
 
-      if (cached && new Date(cached.expiresAt).getTime() > now) {
-        url = cached.url
-      }
-      else {
+    let isMounted = true;
+
+    const fetchNewUrl = async () => {
+      try {
         const response = await axiosInstance.post(`chat/files/urls`, {
           mediaFileIds: [id],
           ttlSeconds: 600
-        })
+        });
 
-        const file = response.data.items[id]
+        const file = response.data.items[id];
+        const url = file.url;
 
-        url = file.url
-
-        fileUrlCache.current[id] = {
-          url,
-          expiresAt: response.data.expiresAt // ISO строка
+        if (fileUrlCache.current) {
+          fileUrlCache.current[id] = {
+            url,
+            expiresAt: response.data.expiresAt
+          };
         }
+
+        if (isMounted) {
+          setCurrentUrl(url);
+        }
+      } catch (e) {
+        console.error("Failed to fetch image URL:", e);
       }
+    };
 
-      window.open(url, "_blank")
+    fetchNewUrl();
 
-    } catch (e) {
-      console.error("Failed to open file:", e)
+    return () => {
+      isMounted = false;
+    };
+  }, [id, currentUrl, fileUrlCache]);
+
+  const handleOpen = async () => {
+    if (currentUrl) {
+      window.open(currentUrl, "_blank");
     }
-  }
+  };
 
-  const pictureRef = useRef(null)
+  // 3. Срабатывает ТОЛЬКО когда браузер полностью скачал и отрисовал картинку в память
+  const handleLoad = () => {
+    if (isImageReady) return; // Защита от повторных срабатываний
 
-  const handleLoad = ()=>{
+    setIsImageReady(true);
 
-    console.log("handleLoad")
-
-    if (loadedRef.current) return;
-    loadedRef.current = true;
-    const height = pictureRef.current.clientHeight
-    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollTop + height
-  }
+    // Корректируем скролл чата
+    const height = pictureRef.current?.clientHeight || 0;
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollTop + height;
+    }
+  };
 
   return (
-    <img ref={pictureRef} onLoad={handleLoad} onClick={handleOpen} className={s.img} src={fileUrlCache.current[pictureInfo.mediaFileId].url} alt="img"/>
-  )
-}
+    <div className={s.imageWrapper}>
+      {/* Скелетон или лоадер сидит под картинкой абсолютно позиционированным */}
+      {!isImageReady && <div className={s.skeleton} />}
+
+      {/* Тег img всегда в DOM, но проявляется только по onLoad */}
+      <img
+        ref={pictureRef}
+        onLoad={handleLoad}
+        onClick={handleOpen}
+        // Добавляем класс видимости в зависимости от готовности
+        className={`${s.img} ${isImageReady ? s.visible : s.hidden}`}
+        // Если урла еще нет, ставим прозрачный пиксель, чтобы браузер не ругался и не мигал
+        src={currentUrl || "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"}
+        alt="img"
+      />
+    </div>
+  );
+};
 
 export default OnePicture;

@@ -34,6 +34,7 @@ const Attachments = ({attachments, fileUrlCache, chatContainerRef}) => {
       {
         hasImages && !hasMultipleImages && (
           <OnePicture
+            key={attachments[0].id}
             fileUrlCache={fileUrlCache} pictureInfo={attachments[0]} chatContainerRef={chatContainerRef}  />
         )
       }
