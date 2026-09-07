@@ -204,8 +204,6 @@ const ChatContacts = ({setRequestsShown}) => {
           containerRef={containerRef}
         />
       }
-
-
     </div>
   )
 }

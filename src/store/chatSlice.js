@@ -15,7 +15,6 @@ export const initChat = createAsyncThunk(
 
     dispatch(setConnectionState("Connecting"));
 
-    // Регистрируем обработчики хаба ОДИН раз ДО старта соединения
     connection.on("ReceiveMessage", async (message) => {
 
       console.log("Received message: ", message);
@@ -32,9 +31,8 @@ export const initChat = createAsyncThunk(
         c => c.chatRoomId === message.chatRoomId
       )
 
-      // 1. если чат НЕ найден — обновляем список с бэка
+      // 1. если чат НЕ найден — обновляем список с бека
       if (index === -1) {
-        // обновляем список с бэка - в событии UpdateUnreadCount
         try {
           let requestUrl = `chat?limit=${LIMIT}`
           const filter = state.chat.filter
@@ -72,14 +70,15 @@ export const initChat = createAsyncThunk(
           ...chats,
           items: newItems
         }))
-
       }
     })
 
 
     connection.on("UpdateUnreadCount", async (data) => {
 
-      // chatRoomId, newCount
+      console.log("пришло UpdateUnreadCount")
+
+      // chatRoomId, newCount  // todo что это
       dispatch(updateChatUnread({
         chatRoomId: data.chatRoomId,
         unreadCount: data.newCount
@@ -106,7 +105,6 @@ export const initChat = createAsyncThunk(
         c => c.chatRoomId === data.chatRoomId
       )
 
-      // todo - потестить (прислать сообщение с другого акка, когда не сидим ни в одном чате, например (и ни разу не зашли))
       // 1. если чат НЕ найден — обновляем список с бэка - переносим в событие UpdateUnreadCount
       if (index === -1) {
 
@@ -126,8 +124,24 @@ export const initChat = createAsyncThunk(
           console.error("Ошибка загрузки чатов:", error)
           dispatch(setChatError(true))
         }
-      }
+      } else {
+        // чат найден, обновляем счетчик
 
+
+        const newItems = [...chats.items];
+
+        newItems[index] = {
+          ...newItems[index],
+          unreadCount: data.newCount
+        }
+
+        console.log("newItems = ", newItems)
+
+        dispatch(setChats({
+          ...chats,
+          items: newItems
+        }))
+      }
     })
 
     connection.on("ProfileSwitched", async () => {

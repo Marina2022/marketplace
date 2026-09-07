@@ -211,9 +211,6 @@ const ChatMessages = () => {
             </svg>
           </button>
           <div className={s.inputBlock}>
-            {/*<MessageField message={inputMessage} setMessage={setInputMessage}/>*/}
-
-
             <MessageField
               message={inputMessage}
               setMessage={setInputMessage}

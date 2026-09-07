@@ -81,6 +81,13 @@ const MessageField = ({
   }, [messagesData?.messages?.[0]?.messageId]);
 
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault(); // чтобы не добавлялся перенос строки
+      handleSend();
+    }
+  };
+
   const handleSetMessage = (value) => {
     //  const newValue = value.slice(0, 400)
     setMessage(value)
@@ -221,6 +228,7 @@ const MessageField = ({
         ref={textareaRef}
         value={message}
         onChange={(e) => handleSetMessage(e.target.value)}
+        onKeyDown={handleKeyDown}
         className={s.messageTextarea}
       />
 
