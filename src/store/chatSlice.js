@@ -13,16 +13,68 @@ export const initChat = createAsyncThunk(
     // если уже подключаемся или подключены — выходим
     if (connection.state !== "Disconnected") return;
 
-    dispatch(setConnectionState("Connecting"));
+    dispatch(setConnectionState("Connecting"))
+
+
+    let isTypingTimerId = null
+    //UserTyping  /  UserStoppedTyping  { chatRoomId, profileId }
+    connection.on("UserTyping", async({chatRoomId})=>{
+
+      const state = getState()
+      if (state.chat.currentChat.chatRoomId !== chatRoomId) return
+
+      dispatch(setIsTyping(true))
+
+      if (isTypingTimerId) {
+        clearTimeout(isTypingTimerId);
+      }
+
+      isTypingTimerId = setTimeout(() => {
+        if (state.chat.currentChat?.chatRoomId !== chatRoomId) return
+
+        dispatch(setIsTyping(false))
+        isTypingTimerId = null
+      }, 6000)
+    })
+
+    connection.on("UserStoppedTyping", ({ chatRoomId }) => {
+
+      console.log("UserStoppedTyping")
+
+      const state = getState()
+
+      if (state.chat.currentChat?.chatRoomId !== chatRoomId) return
+
+      dispatch(setIsTyping(false))
+
+      if (isTypingTimerId) {
+        clearTimeout(isTypingTimerId)
+        isTypingTimerId = null
+      }
+    })
 
     connection.on("ReceiveMessage", async (message) => {
 
+      if (!message) return;
+      if (!message?.chatRoomId) return;
+
       console.log("Received message: ", message);
+
+      const state = getState()
+
+      // защита от дубликатов:
+      const messages = state.chat.messagesData.messages;
+
+      const alreadyExists = messages.some(
+        m => m.messageId === message.messageId
+      );
+
+      if (alreadyExists) return;
 
       // *** Перерисовать чаты ***
       // есть ли текущий message.chatRoomId в чатах в стейте
 
-      const state = getState()
+
       const chats = state.chat.chats;
 
       if (!chats?.items) return;
@@ -30,6 +82,21 @@ export const initChat = createAsyncThunk(
       const index = chats.items.findIndex(
         c => c.chatRoomId === message.chatRoomId
       )
+
+      // 0. Добавить сообщение в сам чат, если чат = текущий
+
+      const currentChatId = state.chat.currentChat?.chatRoomId;
+
+      if (message.chatRoomId === currentChatId) {
+
+        if (message.senderProfileId !== state.user.activeProfileId) {
+          dispatch(setMessagesData({
+            ...state.chat.messagesData,
+            messages: [message, ...state.chat.messagesData.messages]
+          }))
+        }
+      }
+
 
       // 1. если чат НЕ найден — обновляем список с бека
       if (index === -1) {
@@ -73,12 +140,8 @@ export const initChat = createAsyncThunk(
       }
     })
 
-
     connection.on("UpdateUnreadCount", async (data) => {
-
-      console.log("пришло UpdateUnreadCount")
-
-      // chatRoomId, newCount  // todo что это
+      // chatRoomId, newCount
       dispatch(updateChatUnread({
         chatRoomId: data.chatRoomId,
         unreadCount: data.newCount
@@ -104,6 +167,7 @@ export const initChat = createAsyncThunk(
       const index = chats.items.findIndex(
         c => c.chatRoomId === data.chatRoomId
       )
+
 
       // 1. если чат НЕ найден — обновляем список с бэка - переносим в событие UpdateUnreadCount
       if (index === -1) {
@@ -134,8 +198,6 @@ export const initChat = createAsyncThunk(
           ...newItems[index],
           unreadCount: data.newCount
         }
-
-        console.log("newItems = ", newItems)
 
         dispatch(setChats({
           ...chats,
@@ -274,6 +336,8 @@ const initialState = {
   chatError: false,
   chatSearch: "",
   chatProfileStatus: "notSent", // notSent | sending | registered
+  messagesData: null,
+  isTyping: false
 }
 
 const chatSlice = createSlice({
@@ -313,6 +377,12 @@ const chatSlice = createSlice({
     setCurrentChat: (state, action) => {
       state.currentChat = action.payload;
     },
+    setMessagesData: (state, action) => {
+      state.messagesData = action.payload;
+    },
+    setIsTyping: (state, action) => {
+      state.isTyping = action.payload;
+    },
     updateChatUnread: (state, action) => {
       const {chatRoomId, unreadCount} = action.payload;
 
@@ -340,7 +410,9 @@ export const {
   setChatError,
   setChatSearch,
   setChatProfileStatus,
-  updateChatUnread
+  updateChatUnread,
+  setMessagesData,
+  setIsTyping
 } = chatSlice.actions;
 
 export const getUnreadCount = (state) => {
@@ -363,6 +435,10 @@ export const getCurrentChat = (state) => {
   return state.chat.currentChat
 }
 
+export const getIsTyping = (state) => {
+  return state.chat.isTyping
+}
+
 export const getChats = (state) => {
   return state.chat.chats
 }
@@ -377,6 +453,10 @@ export const getConnectionState = (state) => {
 
 export const getChatProfileStatus = (state) => {
   return state.chat.chatProfileStatus
+}
+
+export const getMessagesData = (state) => {
+  return state.chat.messagesData
 }
 
 export default chatSlice.reducer;

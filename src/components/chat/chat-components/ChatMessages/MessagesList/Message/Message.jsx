@@ -10,7 +10,7 @@ import IncomingMessage
 import SystemMessage
   from "@/components/chat/chat-components/ChatMessages/MessagesList/Message/SystemMessage/SystemMessage.jsx";
 
-const Message = ({message, index, allMessages, fileUrlCache, chatContainerRef, messagesData, setMessagesData}) => {
+const Message = ({message, index, allMessages, fileUrlCache, chatContainerRef}) => {
 
   const activeProfileId = useSelector(getActiveProfileId)
   const isMine = message.senderProfileId === activeProfileId
@@ -39,8 +39,6 @@ const Message = ({message, index, allMessages, fileUrlCache, chatContainerRef, m
           message={message}
           fileUrlCache={fileUrlCache}
           chatContainerRef={chatContainerRef}
-          messagesData={messagesData}
-          setMessagesData={setMessagesData}
         />
       }
 

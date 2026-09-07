@@ -27,7 +27,7 @@
 
 .inputBlock {
   flex: 1;
-
+  position: relative;
 }
 
 .sendingPart {
@@ -73,5 +73,21 @@
   &::-webkit-scrollbar {
     display: none; /* Chrome/Safari */
   }
+}
 
+
+.scrollDownBtn {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: -80px;
+  right: 0;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #9CA3AF;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+
+  @include m {
+    top: -70px;
+  }
 }

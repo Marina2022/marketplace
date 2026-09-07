@@ -28,7 +28,7 @@ const OnePicture = ({ fileUrlCache, pictureInfo, chatContainerRef }) => {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollTop + height;
       scrollAdjustedRef.current = true; // Помечаем, что скролл для этой картинки выполнен
     }
-  };
+  }
 
   // Если картинка уже в кэше, проверяем её готовность
   useEffect(() => {
@@ -36,7 +36,8 @@ const OnePicture = ({ fileUrlCache, pictureInfo, chatContainerRef }) => {
       setIsImageReady(true);
       // Картинка из кэша может загрузиться мгновенно, пробуем скорректировать скролл
       // С небольшим таймаутом, чтобы элемент успел встроиться в DOM и получить высоту
-      setTimeout(adjustScroll, 0);
+
+      // setTimeout(adjustScroll, 0);  // убрала пока что
     }
   }, [currentUrl]);
 

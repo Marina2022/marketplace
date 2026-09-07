@@ -270,7 +270,7 @@ const InputPhone = ({setIsPopupOpen, setStep, phoneInputValue, setPhoneInputValu
           !showAccessError && !showFailError && (
             <Button type="submit"  className={s.btn}>
               {
-                phoneSending ? <MiniSpinner/> : <span>Войти</span>
+                phoneSending ? <MiniSpinner black /> : <span>Войти</span>
               }
             </Button>
           )

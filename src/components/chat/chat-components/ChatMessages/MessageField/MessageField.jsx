@@ -3,30 +3,34 @@ import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {v4 as uuidv4} from "uuid";
 import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
 import axiosInstance from "@/api/axiosInstance.js";
-import {useSelector} from "react-redux";
-import {getCurrentChat} from "@/store/chatSlice.js";
+import {useDispatch, useSelector} from "react-redux";
+import {getCurrentChat, getMessagesData, setMessagesData} from "@/store/chatSlice.js";
 import {normalizeFilesResponse} from "@/utils/chat.js";
 import {getActiveProfileId} from "@/store/userSlice.js";
+import {store} from "@/main.jsx";
+import {getChatConnection} from "@/services/chatConnection.js";
 
 
 const MessageField = ({
                         message,
                         setMessage,
-                        messagesData,
                         fileUrlCache,
-                        setMessagesData,
                         chatContainerRef
                       }) => {
 
+
+  const connection = getChatConnection()
   const currentChat = useSelector(getCurrentChat)
   const profileId = useSelector(getActiveProfileId)
 
+  const messagesData = useSelector(getMessagesData)
   console.log("currentChat = ", currentChat)
 
   const textareaRef = useRef(null)
   const baseHeightRef = useRef(null)
 
   const BASE_HEIGHT = 40  // высота инпута
+  const dispatch = useDispatch()
 
   useLayoutEffect(() => {
     const el = textareaRef.current
@@ -86,11 +90,39 @@ const MessageField = ({
       e.preventDefault(); // чтобы не добавлялся перенос строки
       handleSend();
     }
+  }
+
+
+  let typingTimerId = null;
+  let isTypingSent = false;
+
+  const TYPING_DELAY = 3000;
+
+
+  const handleTyping = () => {
+    // если это первое нажатие
+    if (!isTypingSent) {
+      connection.invoke("StartTyping", currentChat.chatRoomId);
+      isTypingSent = true;
+    }
+
+    // сбрасываем таймер
+    if (typingTimerId) {
+      clearTimeout(typingTimerId);
+    }
+
+    // ставим новый
+    typingTimerId = setTimeout(() => {
+      connection.invoke("StopTyping", currentChat.chatRoomId);
+
+      typingTimerId = null;
+      isTypingSent = false;
+    }, TYPING_DELAY);
   };
 
-  const handleSetMessage = (value) => {
-    //  const newValue = value.slice(0, 400)
+  const handleChange = (value) => {
     setMessage(value)
+    handleTyping()
   }
 
   const attachmentsToSend = [] // todo тут будут файлы загруженные потом
@@ -98,6 +130,11 @@ const MessageField = ({
   const [sending, setSending] = useState(false)
 
   const handleSend = async () => {
+
+    if (currentChat.isBlocked) {
+      showErrorToast("Отправлять сообщения нельзя, чат заблокирован")
+      return
+    }
 
     if (sending) return
 
@@ -145,6 +182,7 @@ const MessageField = ({
       }
     }
 
+
     const tempId = uuidv4()
 
     const tempMessage = {
@@ -162,9 +200,10 @@ const MessageField = ({
       sendingStatus: "sending",  // sending | error | success
     }
 
-    const newMessages = [tempMessage, ...messagesData.messages]
-    setMessagesData(prev => ({
-      ...prev, messages: newMessages
+    const newMessages = [tempMessage, ...store.getState().chat.messagesData.messages]
+
+    dispatch(setMessagesData({
+      ...store.getState().chat.messagesData, messages: newMessages
     }))
 
     try {
@@ -177,9 +216,9 @@ const MessageField = ({
 
       const response = await axiosInstance.post(`chat/${currentChat.chatRoomId}/messages`, body)
 
-      setMessagesData(prev => ({
-        ...prev,
-        messages: prev.messages.map(msg =>
+      dispatch(setMessagesData({
+        ...store.getState().chat.messagesData,
+        messages: store.getState().chat.messagesData.messages.map(msg =>
           msg.messageId === tempId
             ? {
               ...msg,
@@ -199,21 +238,17 @@ const MessageField = ({
         showErrorToast(err.response?.data?.errors[0].message)
       }
 
-      setMessagesData(prev => ({
-        ...prev,
-        messages: prev.messages.map(msg =>
+      dispatch(setMessagesData({
+        ...store.getState().chat.messagesData,
+        messages: store.getState().chat.messagesData.messages.map(msg =>
           msg.messageId === tempId
             ? {
               ...msg,
               sendingStatus: "error"
             }
-            : msg
-        )
+            : msg)
       }))
-
       setMessage("")
-
-
     } finally {
       setSending(false)
     }
@@ -223,15 +258,15 @@ const MessageField = ({
     <>
       <div className={s.textareaWrapper}>
       <textarea
+        autoFocus
         rows={1}
         placeholder="Написать сообщение"
         ref={textareaRef}
         value={message}
-        onChange={(e) => handleSetMessage(e.target.value)}
+        onChange={(e) => handleChange(e.target.value)}
         onKeyDown={handleKeyDown}
         className={s.messageTextarea}
       />
-
         <button onClick={handleSend} className={s.sendButton}>
           <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -240,7 +275,6 @@ const MessageField = ({
           </svg>
 
         </button>
-
       </div>
     </>
   )

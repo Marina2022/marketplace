@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {getCurrentChat, setCurrentChat} from "@/store/chatSlice.js";
+import {getCurrentChat, getIsTyping, setCurrentChat} from "@/store/chatSlice.js";
 import s from "./ChatHeader.module.scss"
 import {useMediaQuery} from "react-responsive";
 import ChatMenu from "@/components/chat/chat-components/ChatMessages/ChatHeader/ChatMenu/ChatMenu.jsx";
@@ -9,6 +9,8 @@ const ChatHeader = () => {
   const isTablet = useMediaQuery({minWidth: 961, maxWidth: 1340})
   const currentChat = useSelector(getCurrentChat)
   const dispatch = useDispatch()
+
+  const isTyping = useSelector(getIsTyping)
 
   const handleClickBack = () => {
     dispatch(setCurrentChat(null))
@@ -29,8 +31,19 @@ const ChatHeader = () => {
         )
       }
 
-      <div className={s.text}>
-        {currentChat.companionName}
+      <div className={s.companionNameWrapper}>
+        <div className={s.text}>
+          {currentChat.companionName}
+        </div>
+
+        {
+          isTyping && <div className={s.isTyping}>Печатает...</div>
+        }
+
+        {
+          !isTyping && <div className={s.isNotTyping}>Печатает...</div>
+        }
+
       </div>
 
       <div className={s.buttons}>
@@ -48,7 +61,7 @@ const ChatHeader = () => {
           )
         }
 
-        <ChatMenu />
+        <ChatMenu/>
       </div>
     </div>
 

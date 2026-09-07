@@ -1,6 +1,6 @@
 import s from "./ChatMessages.module.scss";
-import {useSelector} from "react-redux";
-import {getCurrentChat} from "@/store/chatSlice.js";
+import {useDispatch, useSelector} from "react-redux";
+import {getCurrentChat, getMessagesData, setMessagesData} from "@/store/chatSlice.js";
 import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import ChatHeader from "@/components/chat/chat-components/ChatMessages/ChatHeader/ChatHeader.jsx";
@@ -10,15 +10,19 @@ import {getChatConnection} from "@/services/chatConnection.js";
 import MessagesList from "@/components/chat/chat-components/ChatMessages/MessagesList/MessagesList.jsx";
 import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
 import {normalizeFilesResponse} from "@/utils/chat.js";
+import {getActiveProfileId} from "@/store/userSlice.js";
 
 const ChatMessages = () => {
   const currentChat = useSelector(getCurrentChat);
-  const [messagesData, setMessagesData] = useState(null);
+  const messagesData = useSelector(getMessagesData);
+
+  const dispatch = useDispatch()
+
   const [messagesLoading, setMessagesLoading] = useState(true);
   const [inputMessage, setInputMessage] = useState("");
 
   const fileUrlCache = useRef({});
-  const LIMIT = 10;
+  const LIMIT = 30;
 
   const chatContainerRef = useRef(null);
   const observerRef = useRef(null);
@@ -28,13 +32,52 @@ const ChatMessages = () => {
   // Флаг для отслеживания первоначального скролла вниз при входе в чат
   const shouldScrollToBottomRef = useRef(false);
 
-  const [isOnScrollLoading, setIsOnScrollLoading] = useState(false);
+
+  console.log("messagesData = ", messagesData)
+
+  const newMessage = messagesData ? messagesData.messages[0] : null
+
+
+  const activeProfileId = useSelector(getActiveProfileId)
+
+  useEffect(() => {
+    if (!newMessage) return
+    const isMine = newMessage.senderProfileId === activeProfileId;
+
+    const el = chatContainerRef.current;
+    if (!el || !newMessage) return;
+    const isNearBottom =
+      el.scrollHeight - el.scrollTop - el.clientHeight < 150;
+
+    if (!isMine && !isNearBottom) {
+      setShowScrollBtn(true)
+    }
+
+
+  }, [newMessage?.messageId]);
+
+  const handleClickScrollBtn = () => {
+
+    const el = chatContainerRef.current;
+    if (!el || !newMessage) return;
+
+    setShowScrollBtn(false)
+    // el.scrollTop = el.scrollHeight;
+
+    el.scrollTo({
+      top: el.scrollHeight,
+      behavior: 'smooth'
+    });
+  }
 
   // Сброс состояния при смене активного чата
   useEffect(() => {
     if (!currentChat?.chatRoomId) return;
 
-    setMessagesData(null);
+    //setMessagesData(null);
+
+    dispatch(setMessagesData(null))
+
     setMessagesLoading(true);
     shouldScrollToBottomRef.current = true; // Выставляем флаг: при получении данных нужно скроллить вниз
 
@@ -67,7 +110,8 @@ const ChatMessages = () => {
         }
 
         // Обновляем данные чата
-        setMessagesData(response.data);
+        //setMessagesData(response.data);
+        dispatch(setMessagesData(response.data))
       } catch (error) {
         console.log("Ошибка загрузки сообщений:", error);
         showErrorToast("Ошибка загрузки сообщений");
@@ -79,6 +123,9 @@ const ChatMessages = () => {
     getMessages();
   }, [currentChat]);
 
+
+
+
   // Пагинация (скролл вверх)
   const handleObserverReached = async () => {
     if (isLoadingRef.current || !messagesData) return;
@@ -87,9 +134,7 @@ const ChatMessages = () => {
     prevScrollHeightRef.current = chatContainerRef.current.scrollHeight;
 
     try {
-      isLoadingRef.current = true;
-      setIsOnScrollLoading(true);
-
+      isLoadingRef.current = true
       const response = await axiosInstance(`chat/${currentChat.chatRoomId}/messages?LIMIT=${LIMIT}&cursor=${messagesData.meta.nextCursor}`);
 
       let mediaFields = [];
@@ -112,15 +157,16 @@ const ChatMessages = () => {
         Object.assign(fileUrlCache.current, normalized);
       }
 
-      setMessagesData(prevMessagesData => ({
-        meta: response.data.meta,
-        messages: [...prevMessagesData.messages, ...response.data.messages]
-      }));
+      dispatch(setMessagesData(
+        {
+          meta: response.data.meta,
+          messages: [...messagesData.messages, ...response.data.messages]
+        }
+      ))
 
     } catch (err) {
       console.log(err);
     } finally {
-      setIsOnScrollLoading(false);
       isLoadingRef.current = false;
     }
   };
@@ -176,20 +222,20 @@ const ChatMessages = () => {
 
   const [files, setFiles] = useState([]);
 
+  const [showScrollBtn, setShowScrollBtn] = useState(false);
+
   if (!currentChat) return <EmptyChatMessages/>;
 
   return (
     <div className={s.chatWrapper}>
-      <ChatHeader/>
+      <ChatHeader />
 
       <div ref={chatContainerRef} className={`${s.chatContainer} scroll`}>
         <MessagesList
-          messagesData={messagesData}
           messagesLoading={messagesLoading}
           fileUrlCache={fileUrlCache}
           chatContainerRef={chatContainerRef}
           observerRef={observerRef}
-          setMessagesData={setMessagesData}
         />
       </div>
 
@@ -214,11 +260,20 @@ const ChatMessages = () => {
             <MessageField
               message={inputMessage}
               setMessage={setInputMessage}
-              messagesData={messagesData}
               fileUrlCache={fileUrlCache}
-              setMessagesData={setMessagesData}
               chatContainerRef={chatContainerRef}
             />
+
+            {
+              showScrollBtn && (
+                <button onClick={handleClickScrollBtn} className={s.scrollDownBtn}>
+                  <svg width="8" height="16" viewBox="0 0 8 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.748698 11.8333L3.66536 14.75L6.58203 11.8333M3.66536 14.75L3.66536 0.75" stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+              )
+            }
+
           </div>
         </div>
       </div>

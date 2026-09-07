@@ -275,7 +275,7 @@ const InputPhoneMobile = ({setIsPopupOpen, setStep, phoneInputValue, setPhoneInp
           !showAccessError && !showFailError && (
             <Button type="submit"  className={s.btn} onClick={submitHandler} >
               {
-                phoneSending ? <MiniSpinner/> : <span>Войти</span>
+                phoneSending ? <MiniSpinner black /> : <span>Войти</span>
               }
             </Button>
           )
