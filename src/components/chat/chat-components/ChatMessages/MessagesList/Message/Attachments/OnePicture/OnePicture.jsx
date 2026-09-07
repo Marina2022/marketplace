@@ -2,15 +2,14 @@ import s from './OnePicture.module.scss';
 import axiosInstance from "@/api/axiosInstance.js";
 import { useRef, useState, useEffect } from "react";
 
+
 const OnePicture = ({ fileUrlCache, pictureInfo, chatContainerRef }) => {
   const id = pictureInfo.mediaFileId;
   const pictureRef = useRef(null);
+  const scrollAdjustedRef = useRef(false); // Защита от повторного скролла для этой картинки
 
-  // Флаг, что картинка физически загрузилась браузером и готова к показу
   const [isImageReady, setIsImageReady] = useState(false);
 
-  // 1. Инициализируем URL. Если кэш протух или его нет, стартуем с пустой строки,
-  // но НЕ удаляем сам тег <img> из DOM
   const [currentUrl, setCurrentUrl] = useState(() => {
     const cached = fileUrlCache.current?.[id];
     const now = Date.now();
@@ -20,14 +19,28 @@ const OnePicture = ({ fileUrlCache, pictureInfo, chatContainerRef }) => {
     return "";
   });
 
-  // Если картинка уже была в кэше, она готова сразу (чтобы не было анимации при скролле)
+  // Функция для корректировки скролла
+  const adjustScroll = () => {
+    if (scrollAdjustedRef.current) return;
+
+    const height = pictureRef.current?.clientHeight || 0;
+    if (height > 0 && chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollTop + height;
+      scrollAdjustedRef.current = true; // Помечаем, что скролл для этой картинки выполнен
+    }
+  };
+
+  // Если картинка уже в кэше, проверяем её готовность
   useEffect(() => {
     if (currentUrl) {
       setIsImageReady(true);
+      // Картинка из кэша может загрузиться мгновенно, пробуем скорректировать скролл
+      // С небольшим таймаутом, чтобы элемент успел встроиться в DOM и получить высоту
+      setTimeout(adjustScroll, 0);
     }
-  }, []);
+  }, [currentUrl]);
 
-  // 2. Запрос нового URL, если его нет
+  // Запрос нового URL, если его нет
   useEffect(() => {
     if (currentUrl) return;
 
@@ -71,33 +84,22 @@ const OnePicture = ({ fileUrlCache, pictureInfo, chatContainerRef }) => {
     }
   };
 
-  // 3. Срабатывает ТОЛЬКО когда браузер полностью скачал и отрисовал картинку в память
   const handleLoad = () => {
-    if (isImageReady) return; // Защита от повторных срабатываний
-
     setIsImageReady(true);
-
-    // Корректируем скролл чата
-    const height = pictureRef.current?.clientHeight || 0;
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollTop + height;
-    }
+    adjustScroll(); // Корректируем скролл при физической загрузке
   };
 
   return (
     <div className={s.imageWrapper}>
-      {/* Скелетон или лоадер сидит под картинкой абсолютно позиционированным */}
       {!isImageReady && <div className={s.skeleton} />}
 
-      {/* Тег img всегда в DOM, но проявляется только по onLoad */}
       <img
         ref={pictureRef}
         onLoad={handleLoad}
         onClick={handleOpen}
-        // Добавляем класс видимости в зависимости от готовности
         className={`${s.img} ${isImageReady ? s.visible : s.hidden}`}
-        // Если урла еще нет, ставим прозрачный пиксель, чтобы браузер не ругался и не мигал
-        src={currentUrl || "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"}
+        // Заменяем прозрачный пиксель на пустую строку, чтобы не триггерить ложные размеры 1x1
+        src={currentUrl || ""}
         alt="img"
       />
     </div>
@@ -105,3 +107,7 @@ const OnePicture = ({ fileUrlCache, pictureInfo, chatContainerRef }) => {
 };
 
 export default OnePicture;
+
+
+
+
