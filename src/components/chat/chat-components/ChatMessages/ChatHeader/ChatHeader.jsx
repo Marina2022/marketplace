@@ -5,8 +5,9 @@ import {useMediaQuery} from "react-responsive";
 import ChatMenu from "@/components/chat/chat-components/ChatMessages/ChatHeader/ChatMenu/ChatMenu.jsx";
 import DropFilesArea from "@/components/chat/chat-components/ChatMessages/DropFilesArea/DropFilesArea.jsx";
 
-const ChatHeader = () => {
-  const isMobile = useMediaQuery({maxWidth: 960})
+const ChatHeader = ({setFiles, files, setFilesLoading, filesLoading, getRootProps, getInputProps, dropProcess}) => {
+
+    const isMobile = useMediaQuery({maxWidth: 960})
   const isTablet = useMediaQuery({minWidth: 961, maxWidth: 1340})
   const currentChat = useSelector(getCurrentChat)
   const dispatch = useDispatch()
@@ -23,10 +24,14 @@ const ChatHeader = () => {
     <div className={s.header}>
 
       {
-        // isDesktop && <DropFilesArea/>
+         isDesktop && <DropFilesArea
+          setFiles={setFiles}
+          files={files}
+          setFilesLoading={setFilesLoading}
+          filesLoading={filesLoading}
+          dropProcess={dropProcess}
+        />
       }
-
-
       {
         isMobile && (
           <button className={s.backBtn} onClick={handleClickBack}>

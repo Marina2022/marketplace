@@ -1,12 +1,16 @@
 .dropFilesArea {
   position: absolute;
-  z-index: 2;
-  inset: 20px;
-  //top: 210px;
-  //left: 650px;
-  //right: 330px;
-  //bottom: 110px;
-  background: #ECEFF5;
+  z-index: 1;
+  top: 80px;
+  left: 20px;
+  right: 20px;
+  height: calc(100vh - 322px);
+
   border: 1px dashed #3D4A66;
   border-radius: 16px;
 }
+
+.dropFilesAreaActive {
+  background: #ECEFF5;
+}
+

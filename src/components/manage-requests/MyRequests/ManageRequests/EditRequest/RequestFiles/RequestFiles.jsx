@@ -107,8 +107,6 @@ const RequestFiles = ({
     }
   }
 
-  const isMobile = useMobileScreen();
-
   const onDrop = (acceptedFiles) => {
 
     if (!requestId) {
@@ -188,7 +186,7 @@ const RequestFiles = ({
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [],
     },
     noClick: true
-  });
+  })
 
   return (
     <div>

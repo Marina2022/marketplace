@@ -1,9 +1,17 @@
 import s from './DropFilesArea.module.scss';
 
-const DropFilesArea = () => {
-  return (
-    <div className={s.dropFilesArea}>
+const DropFilesArea = ({files, setFiles, setFilesLoading, filesLoading, dropProcess}) => {
 
+  const {getRootProps, getInputProps, isDragActive, isDragReject, fileRejections} = dropProcess
+
+
+  return (
+    <div
+      {...getRootProps()}
+      className={`${s.dropFilesArea} ${isDragActive ? s.dropFilesAreaActive : ""}`}
+    >
+
+       <input {...getInputProps()} />
     </div>
   )
 }
