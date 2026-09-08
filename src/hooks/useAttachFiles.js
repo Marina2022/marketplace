@@ -8,7 +8,7 @@ import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
 // •	fileRejections — список отклонённых файлов
 
 
-const useAttachFiles = ({files, setFiles}) => {
+const useAttachFiles = ({files, setFiles, filesLoading, setFilesLoading}) => {
 
   const FILES_LIMIT = 10
 
@@ -82,6 +82,9 @@ const useAttachFiles = ({files, setFiles}) => {
 
   const dropProcessData = useDropzone({
     onDrop,
+    noClick: true,               // Вернет клики всем кнопкам и инпутам под плашкой
+    noKeyboard: true,            // Вернет управление стрелочками и скролл с клавиатуры
+    preventDropOnDocument: true, // Защитит от случайного открытия файла в новой вкладке браузера
     multiple: true,
     accept: {
       "image/*": [],
@@ -91,7 +94,6 @@ const useAttachFiles = ({files, setFiles}) => {
       "application/vnd.ms-excel": [],
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [],
     },
-    noClick: true
   })
 
   return dropProcessData

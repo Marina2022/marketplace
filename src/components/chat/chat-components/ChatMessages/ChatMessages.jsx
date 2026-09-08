@@ -221,12 +221,11 @@ const ChatMessages = () => {
     }
   }, [messagesData, messagesLoading]);
 
-
   const [files, setFiles] = useState([]);
   const [filesLoading, setFilesLoading] = useState([]);
 
   // прикрепляем файлы
-  const dropProcess = useAttachFiles({files, setFiles})
+  const dropProcess = useAttachFiles({files, setFiles, filesLoading, setFilesLoading})
 
   console.log("files = ", files)
 
@@ -237,10 +236,10 @@ const ChatMessages = () => {
   return (
     <div className={s.chatWrapper}>
       <ChatHeader
-        setFiles={setFiles}
-        files={files}
-        setFilesLoading={setFilesLoading}
-        filesLoading={filesLoading}
+        // setFiles={setFiles}
+        // files={files}
+        // setFilesLoading={setFilesLoading}
+        // filesLoading={filesLoading}
         dropProcess={dropProcess}
 
       />

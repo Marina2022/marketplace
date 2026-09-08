@@ -5,7 +5,8 @@ import {useMediaQuery} from "react-responsive";
 import ChatMenu from "@/components/chat/chat-components/ChatMessages/ChatHeader/ChatMenu/ChatMenu.jsx";
 import DropFilesArea from "@/components/chat/chat-components/ChatMessages/DropFilesArea/DropFilesArea.jsx";
 
-const ChatHeader = ({setFiles, files, setFilesLoading, filesLoading, getRootProps, getInputProps, dropProcess}) => {
+// const ChatHeader = ({setFiles, files, setFilesLoading, filesLoading, getRootProps, getInputProps, dropProcess}) => {
+const ChatHeader = ({dropProcess}) => {
 
     const isMobile = useMediaQuery({maxWidth: 960})
   const isTablet = useMediaQuery({minWidth: 961, maxWidth: 1340})
@@ -25,10 +26,10 @@ const ChatHeader = ({setFiles, files, setFilesLoading, filesLoading, getRootProp
 
       {
          isDesktop && <DropFilesArea
-          setFiles={setFiles}
-          files={files}
-          setFilesLoading={setFilesLoading}
-          filesLoading={filesLoading}
+          // setFiles={setFiles}
+          // files={files}
+          // setFilesLoading={setFilesLoading}
+          // filesLoading={filesLoading}
           dropProcess={dropProcess}
         />
       }
