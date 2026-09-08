@@ -4,7 +4,13 @@ import {v4 as uuidv4} from "uuid";
 import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
 import axiosInstance from "@/api/axiosInstance.js";
 import {useDispatch, useSelector} from "react-redux";
-import {getCurrentChat, getMessagesData, setMessagesData} from "@/store/chatSlice.js";
+import {
+  getCurrentChat,
+  getEditingMessage, getIsTyping,
+  getMessagesData,
+  setEditingMessage,
+  setMessagesData
+} from "@/store/chatSlice.js";
 import {normalizeFilesResponse} from "@/utils/chat.js";
 import {getActiveProfileId} from "@/store/userSlice.js";
 import {store} from "@/main.jsx";
@@ -24,7 +30,6 @@ const MessageField = ({
   const profileId = useSelector(getActiveProfileId)
 
   const messagesData = useSelector(getMessagesData)
-  console.log("currentChat = ", currentChat)
 
   const textareaRef = useRef(null)
   const baseHeightRef = useRef(null)
@@ -54,6 +59,7 @@ const MessageField = ({
     el.style.height = next + 'px'
   }, [message])
 
+  const editingMessage = useSelector(getEditingMessage)
 
 // скролл при отправке, нучжно чтоб не ломал скролл при пагинации:
   useEffect(() => {
@@ -85,6 +91,13 @@ const MessageField = ({
   }, [messagesData?.messages?.[0]?.messageId]);
 
 
+  // Редактируем сообщение
+  useEffect(() => {
+    if (!editingMessage) return
+    setMessage(editingMessage.text)
+    textareaRef.current.focus()
+  }, [editingMessage])
+
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault(); // чтобы не добавлялся перенос строки
@@ -92,12 +105,10 @@ const MessageField = ({
     }
   }
 
-
   let typingTimerId = null;
   let isTypingSent = false;
 
   const TYPING_DELAY = 3000;
-
 
   const handleTyping = () => {
     // если это первое нажатие
@@ -129,7 +140,12 @@ const MessageField = ({
 
   const [sending, setSending] = useState(false)
 
+  const isTyping = useSelector(getIsTyping)
+
   const handleSend = async () => {
+    if (isTyping) {
+      connection.invoke("StopTyping", currentChat.chatRoomId);
+    }
 
     if (currentChat.isBlocked) {
       showErrorToast("Отправлять сообщения нельзя, чат заблокирован")
@@ -137,7 +153,6 @@ const MessageField = ({
     }
 
     if (sending) return
-
     if (!message) return
 
     // валидация
@@ -145,6 +160,14 @@ const MessageField = ({
       showErrorToast("Можно добавить до 10 вложений")
       return
     }
+
+    if (editingMessage) {
+      if ((attachmentsToSend.length + editingMessage.attachments.length) > 10) {
+        showErrorToast("Можно добавить до 10 вложений")
+        return
+      }
+    }
+
 
     if (message.length > 5000) {
       showErrorToast("Текст не должен превышать 5000 символов")
@@ -182,76 +205,117 @@ const MessageField = ({
       }
     }
 
+    if (editingMessage) {
 
-    const tempId = uuidv4()
+      try {
+        const body = {
+          text: message,
+          attachmentMediaFileIds: [...editingMessage.attachments, ...attachmentsToSend],
+        }
 
-    const tempMessage = {
-      attachments: attachmentsToSend,
-      chatRoomId: currentChat.chatRoomId,
-      createdAt: new Date().toISOString(),
-      editedAt: null,
-      isEdited: false,
-      isMine: true,
-      messageId: tempId,
-      senderName: currentChat.companionName,
-      senderProfileId: profileId,
-      systemType: "None",
-      text: message,
-      sendingStatus: "sending",  // sending | error | success
+        await axiosInstance.put(`chat/${currentChat.chatRoomId}/messages/${editingMessage.messageId}`, body)
+
+        dispatch(setEditingMessage(null))
+
+        dispatch(setMessagesData({
+          ...store.getState().chat.messagesData,
+          messages: store.getState().chat.messagesData.messages.map(msg =>
+            msg.messageId === editingMessage.messageId
+              ? {
+                ...msg,
+                editedAt: new Date().toISOString(),
+                isEdited: true,
+                attachments: [...editingMessage.attachments, ...attachmentsToSend],
+                text: message
+              }
+              : msg
+          )
+        }))
+      } catch (err) {
+        console.log(err)
+        return
+      }
+
+
+      setMessage("")
+
     }
 
-    const newMessages = [tempMessage, ...store.getState().chat.messagesData.messages]
+    if (!editingMessage) {
 
-    dispatch(setMessagesData({
-      ...store.getState().chat.messagesData, messages: newMessages
-    }))
+      const tempId = uuidv4()
 
-    try {
-      setSending(true)
-
-      const body = {
+      const tempMessage = {
+        attachments: attachmentsToSend,
+        chatRoomId: currentChat.chatRoomId,
+        createdAt: new Date().toISOString(),
+        editedAt: null,
+        isEdited: false,
+        isMine: true,
+        messageId: tempId,
+        senderName: currentChat.companionName,
+        senderProfileId: profileId,
+        systemType: "None",
         text: message,
-        attachmentMediaFileIds: attachmentsToSend,
+        sendingStatus: "sending",  // sending | error | success
       }
 
-      const response = await axiosInstance.post(`chat/${currentChat.chatRoomId}/messages`, body)
+
+      const newMessages = [tempMessage, ...store.getState().chat.messagesData.messages]
 
       dispatch(setMessagesData({
-        ...store.getState().chat.messagesData,
-        messages: store.getState().chat.messagesData.messages.map(msg =>
-          msg.messageId === tempId
-            ? {
-              ...msg,
-              messageId: response.data.messageId,
-              sendingStatus: "success"
-            }
-            : msg
-        )
+        ...store.getState().chat.messagesData, messages: newMessages
       }))
 
-      setMessage("")
+      try {
+        setSending(true)
 
-    } catch (err) {
+        const body = {
+          text: message,
+          attachmentMediaFileIds: attachmentsToSend,
+        }
 
-      console.log("err =", err)
-      if (err.response && err.response.data?.errors?.length > 0) {
-        showErrorToast(err.response?.data?.errors[0].message)
+        const response = await axiosInstance.post(`chat/${currentChat.chatRoomId}/messages`, body)
+
+        dispatch(setMessagesData({
+          ...store.getState().chat.messagesData,
+          messages: store.getState().chat.messagesData.messages.map(msg =>
+            msg.messageId === tempId
+              ? {
+                ...msg,
+                messageId: response.data.messageId,
+                sendingStatus: "success"
+              }
+              : msg
+          )
+        }))
+
+        setMessage("")
+
+      } catch (err) {
+
+        console.log("err =", err)
+        if (err.response && err.response.data?.errors?.length > 0) {
+          showErrorToast(err.response?.data?.errors[0].message)
+        }
+
+        dispatch(setMessagesData({
+          ...store.getState().chat.messagesData,
+          messages: store.getState().chat.messagesData.messages.map(msg =>
+            msg.messageId === tempId
+              ? {
+                ...msg,
+                sendingStatus: "error"
+              }
+              : msg)
+        }))
+        setMessage("")
+      } finally {
+        setSending(false)
       }
-
-      dispatch(setMessagesData({
-        ...store.getState().chat.messagesData,
-        messages: store.getState().chat.messagesData.messages.map(msg =>
-          msg.messageId === tempId
-            ? {
-              ...msg,
-              sendingStatus: "error"
-            }
-            : msg)
-      }))
-      setMessage("")
-    } finally {
-      setSending(false)
     }
+
+
   }
 
   return (

@@ -14,6 +14,7 @@
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
   border: 1px solid #E8EAEE;
+  position: relative;
 
   @include t {
     max-width: 380px;

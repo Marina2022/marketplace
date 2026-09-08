@@ -1,6 +1,6 @@
 import s from "./ChatMessages.module.scss";
 import {useDispatch, useSelector} from "react-redux";
-import {getCurrentChat, getMessagesData, setMessagesData} from "@/store/chatSlice.js";
+import {getCurrentChat, getMessagesData, getNewMessage, setMessagesData, setNewMessage} from "@/store/chatSlice.js";
 import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import ChatHeader from "@/components/chat/chat-components/ChatMessages/ChatHeader/ChatHeader.jsx";
@@ -11,10 +11,12 @@ import MessagesList from "@/components/chat/chat-components/ChatMessages/Message
 import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
 import {normalizeFilesResponse} from "@/utils/chat.js";
 import {getActiveProfileId} from "@/store/userSlice.js";
+import {useChatReadReceipts} from "@/hooks/useChatReadReceipts.js";
+
 
 const ChatMessages = () => {
-  const currentChat = useSelector(getCurrentChat);
-  const messagesData = useSelector(getMessagesData);
+  const currentChat = useSelector(getCurrentChat)
+  const messagesData = useSelector(getMessagesData)
 
   const dispatch = useDispatch()
 
@@ -32,13 +34,17 @@ const ChatMessages = () => {
   // Флаг для отслеживания первоначального скролла вниз при входе в чат
   const shouldScrollToBottomRef = useRef(false);
 
+  const activeProfileId = useSelector(getActiveProfileId)
 
-  console.log("messagesData = ", messagesData)
+  const receivedNewMessage = useSelector(getNewMessage)
+
+  const { handleScroll } = useChatReadReceipts({
+    chatContainerRef,
+    currentChatRoomId: currentChat?.chatRoomId,
+    newMessage: receivedNewMessage
+  });
 
   const newMessage = messagesData ? messagesData.messages[0] : null
-
-
-  const activeProfileId = useSelector(getActiveProfileId)
 
   useEffect(() => {
     if (!newMessage) return
@@ -73,16 +79,10 @@ const ChatMessages = () => {
   // Сброс состояния при смене активного чата
   useEffect(() => {
     if (!currentChat?.chatRoomId) return;
-
-    //setMessagesData(null);
-
     dispatch(setMessagesData(null))
-
     setMessagesLoading(true);
     shouldScrollToBottomRef.current = true; // Выставляем флаг: при получении данных нужно скроллить вниз
-
     const connection = getChatConnection();
-
     const getMessages = async () => {
       try {
         await connection.invoke("JoinChat", currentChat.chatRoomId);
@@ -119,12 +119,12 @@ const ChatMessages = () => {
         setMessagesLoading(false);
       }
     };
-
     getMessages();
+
+    // сброс сообщения для отпрваки в unread
+    dispatch(setNewMessage(null))
+
   }, [currentChat]);
-
-
-
 
   // Пагинация (скролл вверх)
   const handleObserverReached = async () => {
@@ -230,7 +230,7 @@ const ChatMessages = () => {
     <div className={s.chatWrapper}>
       <ChatHeader />
 
-      <div ref={chatContainerRef} className={`${s.chatContainer} scroll`}>
+      <div ref={chatContainerRef} className={`${s.chatContainer} scroll`} onScroll={handleScroll} >
         <MessagesList
           messagesLoading={messagesLoading}
           fileUrlCache={fileUrlCache}
@@ -273,12 +273,11 @@ const ChatMessages = () => {
                 </button>
               )
             }
-
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default ChatMessages;

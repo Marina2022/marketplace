@@ -49,7 +49,7 @@ const ChatContacts = ({setRequestsShown}) => {
   const dispatch = useDispatch()
   const LIMIT = 20
 
-  console.log("contacts = ", contacts)
+  // console.log("contacts = ", contacts)
 
   useEffect(() => {
     if (chatProfileStatus !== "registered") {
@@ -61,7 +61,6 @@ const ChatContacts = ({setRequestsShown}) => {
       // если первая подгрузка чатов - то просто выход
       return
     }
-
 
     const resetChats = async () => {
 

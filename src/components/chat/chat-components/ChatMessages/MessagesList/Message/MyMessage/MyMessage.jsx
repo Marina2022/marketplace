@@ -5,9 +5,13 @@ import Attachments
 import {LuClock4} from "react-icons/lu";
 import {useDispatch, useSelector} from "react-redux";
 import {getCurrentChat, getMessagesData, setMessagesData} from "@/store/chatSlice.js";
-import {useState} from "react";
+import {useRef, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
+import DropdownRequestActions
+  from "@/components/manage-requests/MyRequests/ManageRequests/DropdownRequestActions/DropdownRequestActions.jsx";
+import MessageContextMenu
+  from "@/components/chat/chat-components/ChatMessages/MessagesList/Message/MessageContextMenu/MessageContextMenu.jsx";
 
 
 const MyMessage = ({message, fileUrlCache, chatContainerRef}) => {
@@ -15,6 +19,8 @@ const MyMessage = ({message, fileUrlCache, chatContainerRef}) => {
   const messagesData = useSelector(getMessagesData)
   const currentChat = useSelector(getCurrentChat)
   const dispatch = useDispatch()
+
+  // const menuBtnRef = useRef(null);
 
   const [sending, setSending] = useState(false)
 
@@ -44,19 +50,6 @@ const MyMessage = ({message, fileUrlCache, chatContainerRef}) => {
             : msg
         )
       }))
-      //
-      // setMessagesData(prev => ({
-      //   ...prev,
-      //   messages: prev.messages.map(msg =>
-      //     msg.messageId === message.messageId
-      //       ? {
-      //         ...msg,
-      //         messageId: response.data.messageId,
-      //         sendingStatus: "success"
-      //       }
-      //       : msg
-      //   )
-      // }))
 
     } catch (err) {
 
@@ -69,9 +62,23 @@ const MyMessage = ({message, fileUrlCache, chatContainerRef}) => {
     }
   }
 
+  const [showMenu, setShowMenu] = useState(false)
+
+  const onClose = ()=>setShowMenu(false)
 
   return (
-    <div className={s.message}>
+    <div className={s.message} onClick={()=>setShowMenu(true)} >
+
+      {
+        showMenu && (
+          <MessageContextMenu
+            message={message}
+            onClose={onClose}
+            isMine={true}
+          />
+        )
+      }
+
       {
         message.attachments.length > 0 && (
           <Attachments
@@ -84,10 +91,10 @@ const MyMessage = ({message, fileUrlCache, chatContainerRef}) => {
       </div>
       <div className={s.timeBlock}>
         {
-          message.sendingStatus !== "error" && message.isEdited && <span>Изменено</span>
+          (message.sendingStatus !== "error") && message.isEdited && <span>Изменено</span>
         }
         {
-          message.sendingStatus !== "error" && formatTelegramTime(message.isEdited ? message.editedAt : message.createdAt)
+          (message.sendingStatus !== "error") && formatTelegramTime(message.isEdited ? message.editedAt : message.createdAt)
         }
 
         {

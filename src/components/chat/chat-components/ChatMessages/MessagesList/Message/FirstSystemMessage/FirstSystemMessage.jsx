@@ -1,10 +1,23 @@
 import s from './FirstSystemMessage.module.scss';
 import {formatTelegramTime} from "@/utils/chat.js";
+import {useState} from "react";
+import MessageContextMenu
+  from "@/components/chat/chat-components/ChatMessages/MessagesList/Message/MessageContextMenu/MessageContextMenu.jsx";
 
 const FirstSystemMessage = ({message}) => {
-
+  const [showMenu, setShowMenu] = useState(false)
+  const onClose = ()=>setShowMenu(false)
   return (
-    <div className={s.message}>
+    <div className={s.message} onClick={()=>setShowMenu(true)}>
+      {
+        showMenu && (
+          <MessageContextMenu
+            message={message}
+            onClose={onClose}
+          />
+        )
+      }
+
       <svg className={s.icon} width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="30" height="30" rx="8" fill="#FAF1DF"/>
         <path d="M15 9.375L21.0938 20.1562H8.90625L15 9.375Z" stroke="#8A6420" strokeWidth="1.21875"

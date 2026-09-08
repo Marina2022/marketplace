@@ -10,6 +10,7 @@
   width: 100%;
   max-width: 558px;
   margin-inline: auto;
+  position: relative;
 
   @include t {
     max-width: 400px;

@@ -1,0 +1,73 @@
+@import "@/assets/styles/mixins";
+
+.wrapper {
+  padding-bottom: 2px;
+
+  position: absolute;
+  width: 180px;
+  top: 30px;
+  right: 0;
+  z-index: 1;
+}
+
+.inMobileHeaderWrapper {
+  top: 40px!important;
+}
+
+.dropdown {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+  background: #fff;
+
+  font-size: 13px;
+  font-weight: 400;
+  border-radius: 8px;
+  padding-block: 8px;
+  margin-bottom: 10px;
+  width: 180px;
+}
+
+.fixed {
+  @include m {
+    position: fixed;
+    right: 0;
+    top: 46px;
+  }
+}
+
+.menuItem {
+  cursor: pointer;
+  height: 38px;
+  align-items: center;
+  display: flex;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 8px;
+
+  &:hover {
+    background: #F9FAFB;
+  }
+}
+
+.svgDiv {
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 17px;
+    height: 17px;
+  }
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 20px;
+}
+
+.top {
+  top: unset !important;
+  bottom: calc(100% + 0px)
+}

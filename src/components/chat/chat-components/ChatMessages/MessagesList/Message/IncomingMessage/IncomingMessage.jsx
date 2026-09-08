@@ -2,10 +2,25 @@ import s from './IncomingMessage.module.scss';
 import {formatTelegramTime} from "@/utils/chat.js";
 import Attachments
   from "@/components/chat/chat-components/ChatMessages/MessagesList/Message/Attachments/Attachments.jsx";
+import MessageContextMenu
+  from "@/components/chat/chat-components/ChatMessages/MessagesList/Message/MessageContextMenu/MessageContextMenu.jsx";
+import {useState} from "react";
 
 const IncomingMessage = ({message, fileUrlCache, chatContainerRef}) => {
+
+  const [showMenu, setShowMenu] = useState(false)
+  const onClose = ()=>setShowMenu(false)
+
   return (
-    <div className={s.incomingMessage}>
+    <div className={s.incomingMessage} onClick={()=>setShowMenu(true)}>
+      {
+        showMenu && (
+          <MessageContextMenu
+            message={message}
+            onClose={onClose}
+          />
+        )
+      }
       {
         message.attachments.length > 0 && (
           <Attachments

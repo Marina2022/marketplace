@@ -18,7 +18,7 @@ export const initChat = createAsyncThunk(
 
     let isTypingTimerId = null
     //UserTyping  /  UserStoppedTyping  { chatRoomId, profileId }
-    connection.on("UserTyping", async({chatRoomId})=>{
+    connection.on("UserTyping", async ({chatRoomId}) => {
 
       const state = getState()
       if (state.chat.currentChat.chatRoomId !== chatRoomId) return
@@ -37,9 +37,7 @@ export const initChat = createAsyncThunk(
       }, 6000)
     })
 
-    connection.on("UserStoppedTyping", ({ chatRoomId }) => {
-
-      console.log("UserStoppedTyping")
+    connection.on("UserStoppedTyping", ({chatRoomId}) => {
 
       const state = getState()
 
@@ -55,12 +53,19 @@ export const initChat = createAsyncThunk(
 
     connection.on("ReceiveMessage", async (message) => {
 
+      const state = getState()
+
       if (!message) return;
       if (!message?.chatRoomId) return;
 
       console.log("Received message: ", message);
 
-      const state = getState()
+      if (message.chatRoomId === state.chat.currentChat.chatRoomId) {
+        if (message.senderProfileId !== state.user.activeProfileId) {
+          dispatch(setNewMessage(message))
+        }
+      }
+
 
       // защита от дубликатов:
       const messages = state.chat.messagesData.messages;
@@ -337,7 +342,9 @@ const initialState = {
   chatSearch: "",
   chatProfileStatus: "notSent", // notSent | sending | registered
   messagesData: null,
-  isTyping: false
+  isTyping: false,
+  editingMessage: null,  // либо само сообщение
+  newMessage: null  // сюда попадает новое received сообщение, при условии, что оно не мое и принадлежит текущему chatRoom
 }
 
 const chatSlice = createSlice({
@@ -383,6 +390,12 @@ const chatSlice = createSlice({
     setIsTyping: (state, action) => {
       state.isTyping = action.payload;
     },
+    setNewMessage: (state, action) => {
+      state.newMessage = action.payload;
+    },
+    setEditingMessage: (state, action) => {
+      state.editingMessage = action.payload;
+    },
     updateChatUnread: (state, action) => {
       const {chatRoomId, unreadCount} = action.payload;
 
@@ -412,7 +425,9 @@ export const {
   setChatProfileStatus,
   updateChatUnread,
   setMessagesData,
-  setIsTyping
+  setIsTyping,
+  setEditingMessage,
+  setNewMessage
 } = chatSlice.actions;
 
 export const getUnreadCount = (state) => {
@@ -453,6 +468,13 @@ export const getConnectionState = (state) => {
 
 export const getChatProfileStatus = (state) => {
   return state.chat.chatProfileStatus
+}
+export const getEditingMessage = (state) => {
+  return state.chat.editingMessage
+}
+
+export const getNewMessage = (state) => {
+  return state.chat.newMessage
 }
 
 export const getMessagesData = (state) => {

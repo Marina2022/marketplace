@@ -1,5 +1,8 @@
 import s from './SystemMessage.module.scss';
 import {formatTelegramTime} from "@/utils/chat.js";
+import {useState} from "react";
+import MessageContextMenu
+  from "@/components/chat/chat-components/ChatMessages/MessagesList/Message/MessageContextMenu/MessageContextMenu.jsx";
 
 const starSvg = <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="28" height="28" rx="8" fill="#ECEFF5"/>
@@ -98,9 +101,21 @@ const SystemMessage = ({message}) => {
     svg = currentType.svg
   }
 
+  const [showMenu, setShowMenu] = useState(false)
+  const onClose = ()=>setShowMenu(false)
 
   return (
-    <div className={s.message}>
+    <div className={s.message} onClick={()=>setShowMenu(true)}>
+
+      {
+        showMenu && (
+          <MessageContextMenu
+            message={message}
+            onClose={onClose}
+          />
+        )
+      }
+
       {svg}
 
       <div className={s.textPart}>
