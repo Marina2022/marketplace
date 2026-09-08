@@ -3,12 +3,17 @@ import {useNavigate} from "react-router-dom";
 import ChatCard from "@/components/RequestDetailsPage/request-components/RequestChats/ChatCard/ChatCard.jsx";
 import {getChatsLabel} from "@/utils/oneRequest.js";
 import NoChats from "@/components/RequestDetailsPage/request-components/RequestChats/NoChats/NoChats.jsx";
+import {useDispatch} from "react-redux";
+import {setCurrentChatRequest} from "@/store/chatSlice.js";
 
 const RequestChats = ({request, responses, resetRequest}) => {
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const handleGoToChats = () => {
-    navigate(`/chat?request=${request.requestId}`);
+    dispatch(setCurrentChatRequest(request.requestId))
+    navigate(`/chat`);
   }
 
   if (responses && responses.totalChats === 0) return <NoChats/>
@@ -53,6 +58,6 @@ const RequestChats = ({request, responses, resetRequest}) => {
       }
     </div>
   )
-};
+}
 
 export default RequestChats;

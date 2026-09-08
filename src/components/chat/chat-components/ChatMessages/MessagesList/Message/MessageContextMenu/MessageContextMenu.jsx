@@ -3,6 +3,8 @@ import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import useMobileScreen from "@/hooks/useMobileScreen.js";
 import {useDispatch} from "react-redux";
 import {setEditingMessage} from "@/store/chatSlice.js";
+import {has24HoursPassed} from "@/utils/chat.js";
+import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
 
 const MessageContextMenu = ({
                               message,
@@ -68,6 +70,11 @@ const MessageContextMenu = ({
 
 
   const handleEdit = async () => {
+
+    if (has24HoursPassed(message.createdAt)) {
+      showErrorToast("Редактирование доступно только в течение 24 часов после отправки сообщения.")
+      return
+    }
     dispatch(setEditingMessage(message))
     onClose()
   }

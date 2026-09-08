@@ -6,6 +6,10 @@
   flex-direction: column;
   height: calc(var(--vh) * 100 - 138px);
 
+  @include t {
+    height: calc(var(--vh) * 100 - 158px);
+  }
+
   @include m {
     height: calc(var(--vh) * 100 - 54px);
   }
@@ -62,11 +66,10 @@
 }
 
 .chatContainer {
+  position: relative;
   margin-top: auto;
   overflow-anchor: none;
-
   overflow-y: auto;
-
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge старый */
 
@@ -74,7 +77,6 @@
     display: none; /* Chrome/Safari */
   }
 }
-
 
 .scrollDownBtn {
   width: 40px;
@@ -90,4 +92,10 @@
   @include m {
     top: -70px;
   }
+}
+
+
+.wrapperForFiles {
+  position: relative;
+  border: 1px solid red;
 }

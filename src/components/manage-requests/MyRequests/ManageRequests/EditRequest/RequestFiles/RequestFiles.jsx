@@ -234,17 +234,24 @@ const RequestFiles = ({
 
       <div className={s.filesGrid}>
         {
-          initialFiles.map((file) => <InitialFile key={file.mediaFileId} initialFile={file}
-                                                  setInitialFiles={setInitialFiles}/>)
+          initialFiles.map((file) => <InitialFile
+            key={file.mediaFileId}
+            initialFile={file}
+            setInitialFiles={setInitialFiles}
+          />)
         }
 
         {
-          files.map((file) => <UploadedFile key={file.id} uploadedFile={file} setFiles={setFiles}
-                                            filesLoading={filesLoading}/>)
+          files.map((file) => <UploadedFile
+            key={file.id}
+            uploadedFile={file}
+            setFiles={setFiles}
+            filesLoading={filesLoading}
+          />)
         }
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default RequestFiles;

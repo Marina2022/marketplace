@@ -58,14 +58,11 @@ export const initChat = createAsyncThunk(
       if (!message) return;
       if (!message?.chatRoomId) return;
 
-      console.log("Received message: ", message);
-
       if (message.chatRoomId === state.chat.currentChat.chatRoomId) {
         if (message.senderProfileId !== state.user.activeProfileId) {
           dispatch(setNewMessage(message))
         }
       }
-
 
       // защита от дубликатов:
       const messages = state.chat.messagesData.messages;
@@ -78,8 +75,6 @@ export const initChat = createAsyncThunk(
 
       // *** Перерисовать чаты ***
       // есть ли текущий message.chatRoomId в чатах в стейте
-
-
       const chats = state.chat.chats;
 
       if (!chats?.items) return;
@@ -196,7 +191,6 @@ export const initChat = createAsyncThunk(
       } else {
         // чат найден, обновляем счетчик
 
-
         const newItems = [...chats.items];
 
         newItems[index] = {
@@ -244,8 +238,68 @@ export const initChat = createAsyncThunk(
       }
     })
 
-// добавить event
-// MessageEdited  { chatRoomId, messageId, newText } — глобальный обработчик находит сообщение по id и заменяет текст.
+    // MessageEdited  { chatRoomId, messageId, newText } — глобальный обработчик находит сообщение по id и заменяет текст.
+    connection.on("MessageEdited", async ({chatRoomId, messageId, newText}) => {
+
+      const state = getState()
+
+      let isLastMessage = false
+
+      if (state.chat.currentChat.chatRoomId === chatRoomId) {
+
+        const updatedMessages = state.chat.messagesData.messages.map((message, index) => {
+
+          if (message.messageId === messageId) {
+            if (index === 0) isLastMessage = true
+            return (
+              {
+                ...message,
+                text: newText,
+                isEdited: true,
+                editedAt: new Date().toISOString()
+              }
+            )
+          } else {
+            return message
+          }
+        })
+
+        dispatch(
+          setMessagesData({
+            ...state.chat.messagesData,
+            messages: updatedMessages
+          })
+        )
+
+        if (isLastMessage) {
+          // найти чат с chatRoomId
+          // исправить в нем lastMessage
+
+          const chats = state.chat.chats;
+          if (!chats?.items) return;
+
+          const index = chats.items.findIndex(
+            c => c.chatRoomId === chatRoomId
+          )
+
+          if (index !== -1) {
+
+            const newItems = [...chats.items]
+
+            newItems[index] = {
+              ...newItems[index],
+              lastMessageText: newText,
+            }
+
+            dispatch(setChats({
+              ...chats,
+              items: newItems
+            }))
+          }
+        }
+      }
+    })
+
 
 // Автоматическое восстановление состояния при переподключении библиотеки -- todo
     connection.onreconnected(async () => {

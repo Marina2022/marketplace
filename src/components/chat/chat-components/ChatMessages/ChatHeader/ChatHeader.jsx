@@ -3,6 +3,7 @@ import {getCurrentChat, getIsTyping, setCurrentChat} from "@/store/chatSlice.js"
 import s from "./ChatHeader.module.scss"
 import {useMediaQuery} from "react-responsive";
 import ChatMenu from "@/components/chat/chat-components/ChatMessages/ChatHeader/ChatMenu/ChatMenu.jsx";
+import DropFilesArea from "@/components/chat/chat-components/ChatMessages/DropFilesArea/DropFilesArea.jsx";
 
 const ChatHeader = () => {
   const isMobile = useMediaQuery({maxWidth: 960})
@@ -15,10 +16,16 @@ const ChatHeader = () => {
   const handleClickBack = () => {
     dispatch(setCurrentChat(null))
   }
+  const isDesktop = useMediaQuery({minWidth: 1341})
 
   return (
 
-    <div className={s.mobileHeader}>
+    <div className={s.header}>
+
+      {
+        // isDesktop && <DropFilesArea/>
+      }
+
 
       {
         isMobile && (

@@ -233,6 +233,10 @@ const MessageField = ({
         }))
       } catch (err) {
         console.log(err)
+        if (err.response && err.response.data?.errors?.length > 0) {
+          showErrorToast(err.response?.data?.errors[0].message)
+        }
+
         return
       }
 

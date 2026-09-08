@@ -44,6 +44,8 @@ const ChatMessages = () => {
     newMessage: receivedNewMessage
   });
 
+  console.log("MessagesData", messagesData)
+
   const newMessage = messagesData ? messagesData.messages[0] : null
 
   useEffect(() => {

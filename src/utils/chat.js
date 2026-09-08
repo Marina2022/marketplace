@@ -137,10 +137,18 @@ export const formatFileSize = (bytes) => {
 
   const k = 1024
   const sizes = ["B", "KB", "MB", "GB", "TB"]
-
   const i = Math.floor(Math.log(bytes) / Math.log(k))
-
   const value = bytes / Math.pow(k, i)
-
   return `${value.toFixed(i === 0 ? 0 : 1)} ${sizes[i]}`
+}
+
+
+export function has24HoursPassed(dateString) {
+  const inputDate = new Date(dateString);
+  const now = new Date();
+
+  const diffMs = now - inputDate; // разница в миллисекундах
+  const hours24 = 24 * 60 * 60 * 1000;
+
+  return diffMs >= hours24;
 }

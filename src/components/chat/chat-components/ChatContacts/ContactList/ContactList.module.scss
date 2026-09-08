@@ -6,6 +6,10 @@
   height: calc(var(--vh) * 100 - 138px - 66px);
   margin-right: 4px;
 
+  @include t {
+    height: calc(var(--vh) * 100 - 158px - 66px);
+  }
+
   @include m {
     height: calc(var(--vh) * 100 - 56px - 122px);
     background: #fff;
