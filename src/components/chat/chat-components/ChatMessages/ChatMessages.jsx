@@ -13,6 +13,7 @@ import {normalizeFilesResponse} from "@/utils/chat.js";
 import {getActiveProfileId} from "@/store/userSlice.js";
 import {useChatReadReceipts} from "@/hooks/useChatReadReceipts.js";
 import useAttachFiles from "@/hooks/useAttachFiles.js";
+import UploadedFiles from "@/components/chat/chat-components/ChatMessages/UploadedFiles/UploadedFiles.jsx";
 
 
 const ChatMessages = () => {
@@ -39,13 +40,11 @@ const ChatMessages = () => {
 
   const receivedNewMessage = useSelector(getNewMessage)
 
-  const { handleScroll } = useChatReadReceipts({
+  const {handleScroll} = useChatReadReceipts({
     chatContainerRef,
     currentChatRoomId: currentChat?.chatRoomId,
     newMessage: receivedNewMessage
   });
-
-  console.log("MessagesData", messagesData)
 
   const newMessage = messagesData ? messagesData.messages[0] : null
 
@@ -225,7 +224,13 @@ const ChatMessages = () => {
   const [filesLoading, setFilesLoading] = useState([]);
 
   // прикрепляем файлы
-  const dropProcess = useAttachFiles({files, setFiles, filesLoading, setFilesLoading})
+  const dropProcess = useAttachFiles(
+    {
+      files,
+      setFiles,
+      setFilesLoading,
+      chatRoomId: currentChat?.chatRoomId
+    })
 
   console.log("files = ", files)
 
@@ -236,15 +241,10 @@ const ChatMessages = () => {
   return (
     <div className={s.chatWrapper}>
       <ChatHeader
-        // setFiles={setFiles}
-        // files={files}
-        // setFilesLoading={setFilesLoading}
-        // filesLoading={filesLoading}
         dropProcess={dropProcess}
-
       />
 
-      <div ref={chatContainerRef} className={`${s.chatContainer} scroll`} onScroll={handleScroll} >
+      <div ref={chatContainerRef} className={`${s.chatContainer} scroll`} onScroll={handleScroll}>
         <MessagesList
           messagesLoading={messagesLoading}
           fileUrlCache={fileUrlCache}
@@ -255,11 +255,7 @@ const ChatMessages = () => {
 
       <div className={s.bottomPart}>
         {
-          files.length > 0 && (
-            <div className={s.filesBlock}>
-              <button onClick={() => setFiles([])}>Убрать все</button>
-            </div>
-          )
+          files.length > 0 && <UploadedFiles setFiles={setFiles} files={files} filesLoading={filesLoading} />
         }
 
         <div className={s.sendingPart}>
@@ -276,13 +272,17 @@ const ChatMessages = () => {
               setMessage={setInputMessage}
               fileUrlCache={fileUrlCache}
               chatContainerRef={chatContainerRef}
+              filesLoading={filesLoading}
+              files={files}
+              setFiles={setFiles}
             />
 
             {
               showScrollBtn && (
                 <button onClick={handleClickScrollBtn} className={s.scrollDownBtn}>
                   <svg width="8" height="16" viewBox="0 0 8 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0.748698 11.8333L3.66536 14.75L6.58203 11.8333M3.66536 14.75L3.66536 0.75" stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M0.748698 11.8333L3.66536 14.75L6.58203 11.8333M3.66536 14.75L3.66536 0.75" stroke="#9CA3AF"
+                          strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </button>
               )

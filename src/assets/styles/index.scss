@@ -254,3 +254,32 @@ a {
     height: 0 !important;
   }
 }
+
+.scroll3 {
+  overflow-y: auto;
+
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-width: thin;
+    scrollbar-color: #D9D9D9 #F0F1F1;
+  }
+
+  &::-webkit-scrollbar {
+    width: 3px !important;
+    height: 3px !important;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #D9D9D9 !important; /* Цвет ползунка */
+    border-radius: 3px !important; /* Закругление краев */
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 3px !important; /* Закругление краев */
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+}

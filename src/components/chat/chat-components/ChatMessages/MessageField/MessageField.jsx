@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {
   getCurrentChat,
   getEditingMessage, getIsTyping,
-  getMessagesData,
+  getMessagesData, logoutChat,
   setEditingMessage,
   setMessagesData
 } from "@/store/chatSlice.js";
@@ -21,15 +21,19 @@ const MessageField = ({
                         message,
                         setMessage,
                         fileUrlCache,
-                        chatContainerRef
+                        chatContainerRef,
+                        filesLoading,
+                        files,
+                        setFiles
                       }) => {
-
 
   const connection = getChatConnection()
   const currentChat = useSelector(getCurrentChat)
   const profileId = useSelector(getActiveProfileId)
 
   const messagesData = useSelector(getMessagesData)
+
+  console.log("messagesData = ", messagesData)
 
   const textareaRef = useRef(null)
   const baseHeightRef = useRef(null)
@@ -88,7 +92,12 @@ const MessageField = ({
 
 // КРИТИЧЕСКИ ВАЖНО: следим ТОЛЬКО за ID самого последнего (нижнего) сообщения.
 // При пагинации вверх это ID НЕ меняется, поэтому хук просто проигнорирует подгрузку истории!
-  }, [messagesData?.messages?.[0]?.messageId]);
+  }, [messagesData?.messages?.[0]?.messageId])
+
+  useEffect(() => {
+    setMessage("")
+    setFiles([])
+  }, [currentChat?.chatRoomId]);
 
 
   // Редактируем сообщение
@@ -136,7 +145,16 @@ const MessageField = ({
     handleTyping()
   }
 
-  const attachmentsToSend = [] // todo тут будут файлы загруженные потом
+  const attachmentsToSend = files.map((file) => ({
+    contentType: file.file.type,
+    fileName: file.file.name,
+    fileSize: file.file.size,
+    id: file.id,
+    mediaFileId: file.mediaFileId,
+    sortOrder: 1,
+    type: file.file.type.startsWith("image") ? "Image" : "Document",
+  }))
+
 
   const [sending, setSending] = useState(false)
 
@@ -153,57 +171,57 @@ const MessageField = ({
     }
 
     if (sending) return
-    if (!message) return
 
-    // валидация
-    if (attachmentsToSend.length > 10) {
-      showErrorToast("Можно добавить до 10 вложений")
+    // MediaFileIds
+    let mediaFileIds = []
+    if (attachmentsToSend.length > 0) {
+      attachmentsToSend.forEach((attachment) => {
+        if (!mediaFileIds.includes(attachment.mediaFileId)) mediaFileIds.push(attachment.mediaFileId);
+      })
+    }
+
+    // если нет ни сообщения, ни файлов
+    if (!message && !mediaFileIds.length) return
+
+    if (filesLoading.length > 0) {
+      showErrorToast("Пожалуйста, дождитесь загрузки всех файлов")
       return
     }
 
+    // валидация
+
     if (editingMessage) {
       if ((attachmentsToSend.length + editingMessage.attachments.length) > 10) {
-        showErrorToast("Можно добавить до 10 вложений")
+        showErrorToast("У сообщения может быть не более 10 вложений")
         return
       }
     }
-
 
     if (message.length > 5000) {
       showErrorToast("Текст не должен превышать 5000 символов")
       return
     }
 
-    // собираем MediaFileIds
-    let mediaFields = []
-    if (attachmentsToSend.length > 0) {
-      attachmentsToSend.forEach((attachment) => {
-        if (!mediaFields.includes(attachment.mediaFileId)) mediaFields.push(attachment.mediaFileId);
-      })
-    }
 
-    if (mediaFields.length > 0) {
-      const filesResponse = await axiosInstance.post(`chat/files/urls`, {
-        mediaFileIds: mediaFields,
-        ttlSeconds: 600
-      })
-      const normalized = normalizeFilesResponse(filesResponse.data);
-      Object.assign(fileUrlCache.current, normalized);
-    }
+    console.log("fileUrlCache.current start = ", fileUrlCache.current)
 
     // подгружаем файлы в кэш, чтобы сразу показать
-    if (mediaFields.length > 0) {
+    if (mediaFileIds.length > 0) {
+
       try {
         const filesResponse = await axiosInstance.post(`chat/files/urls`, {
-          mediaFileIds: mediaFields,
+          mediaFileIds: mediaFileIds,
           ttlSeconds: 600
         });
+
         const normalized = normalizeFilesResponse(filesResponse.data);
         Object.assign(fileUrlCache.current, normalized);
       } catch (err) {
         console.log(err)
       }
     }
+
+    console.log("fileUrlCache.current final = ", fileUrlCache.current)
 
     if (editingMessage) {
 
@@ -231,18 +249,16 @@ const MessageField = ({
               : msg
           )
         }))
+
+        setFiles([])
       } catch (err) {
         console.log(err)
         if (err.response && err.response.data?.errors?.length > 0) {
           showErrorToast(err.response?.data?.errors[0].message)
         }
-
         return
       }
-
-
       setMessage("")
-
     }
 
     if (!editingMessage) {
@@ -264,7 +280,6 @@ const MessageField = ({
         sendingStatus: "sending",  // sending | error | success
       }
 
-
       const newMessages = [tempMessage, ...store.getState().chat.messagesData.messages]
 
       dispatch(setMessagesData({
@@ -276,7 +291,7 @@ const MessageField = ({
 
         const body = {
           text: message,
-          attachmentMediaFileIds: attachmentsToSend,
+          attachmentMediaFileIds: mediaFileIds,
         }
 
         const response = await axiosInstance.post(`chat/${currentChat.chatRoomId}/messages`, body)
@@ -294,6 +309,7 @@ const MessageField = ({
           )
         }))
 
+        setFiles([])
         setMessage("")
 
       } catch (err) {
@@ -318,8 +334,6 @@ const MessageField = ({
         setSending(false)
       }
     }
-
-
   }
 
   return (

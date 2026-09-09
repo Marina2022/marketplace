@@ -17,17 +17,8 @@
 
 .bottomPart {
   background: #fff;
-  //margin-top: auto;
 }
 
-.filesBlock {
-  height: 94px;
-  padding-block: 12px;
-
-  @include m {
-    height: 114px;
-  }
-}
 
 .inputBlock {
   flex: 1;

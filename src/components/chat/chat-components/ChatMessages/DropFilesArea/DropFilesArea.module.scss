@@ -1,22 +1,3 @@
-.dropFilesArea {
-  position: absolute;
-  z-index: 1;
-  top: 80px;
-  left: 20px;
-  right: 20px;
-  height: calc(100vh - 322px);
-  border: 1px dashed #3D4A66;
-  border-radius: 16px;
-
-  pointer-events: none;
-}
-
-.dropFilesAreaActive {
-  background: #ECEFF5;
-  pointer-events: auto;
-}
-
-//****
 
 .dropFilesArea {
   position: absolute;
@@ -25,9 +6,9 @@
   left: 20px;
   right: 20px;
   height: calc(100vh - 322px);
-
-  border: 1px dashed #3D4A66;
   border-radius: 16px;
+  align-items: center;
+  justify-content: center;
 
   // По умолчанию плашка полностью скрыта и "прозрачна" для кликов/скролла чата
   display: none;
@@ -36,16 +17,37 @@
 
 // Когда файл занесен над окном браузера — плашка физически появляется
 .visible {
-  display: block;
+  display: flex;
   pointer-events: auto;
 }
 
 // Когда файл занесен непосредственно над самой плашкой — меняется фон
 .dropFilesAreaActive {
-  background: #ECEFF5;
+  background: rgba(236, 239, 245, 0.75);
+  border: 1px dashed #3D4A66;
 }
 
-
 .dropFilesAreaReject {
-  background: pink;
+  background: rgba(253, 247, 236, 0.75);
+  border: 1px dashed #C98A2E;
+}
+
+.title {
+  color: #16181D;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.text {
+  color: #6B7280;
+  font-size: 14px;
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
 }

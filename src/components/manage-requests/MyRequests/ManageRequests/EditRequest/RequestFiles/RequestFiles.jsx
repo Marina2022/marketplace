@@ -216,17 +216,7 @@ const RequestFiles = ({
           </span>
           </div>
         </div>
-
-
         <input {...getInputProps()} />
-
-        {/*{*/}
-        {/*filesLoading.includes(preview?.id) && (*/}
-        {/*    <div className={s.clockIndicator}>*/}
-        {/*      <RxClock />*/}
-        {/*    </div>*/}
-        {/*  )*/}
-        {/*}*/}
       </div>
 
 

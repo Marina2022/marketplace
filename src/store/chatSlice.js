@@ -398,7 +398,7 @@ const initialState = {
   messagesData: null,
   isTyping: false,
   editingMessage: null,  // либо само сообщение
-  newMessage: null  // сюда попадает новое received сообщение, при условии, что оно не мое и принадлежит текущему chatRoom
+  newMessage: null,  // сюда попадает новое received сообщение, при условии, что оно не мое и принадлежит текущему chatRoom
 }
 
 const chatSlice = createSlice({

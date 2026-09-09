@@ -5,11 +5,9 @@ import Attachments
 import {LuClock4} from "react-icons/lu";
 import {useDispatch, useSelector} from "react-redux";
 import {getCurrentChat, getMessagesData, setMessagesData} from "@/store/chatSlice.js";
-import {useRef, useState} from "react";
+import {useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
-import DropdownRequestActions
-  from "@/components/manage-requests/MyRequests/ManageRequests/DropdownRequestActions/DropdownRequestActions.jsx";
 import MessageContextMenu
   from "@/components/chat/chat-components/ChatMessages/MessagesList/Message/MessageContextMenu/MessageContextMenu.jsx";
 

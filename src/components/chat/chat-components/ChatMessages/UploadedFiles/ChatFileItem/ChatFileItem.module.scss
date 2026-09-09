@@ -1,0 +1,113 @@
+@import "@/assets/styles/mixins";
+
+.fileItem {
+  width: 200px;
+  height: 44px;
+  background: #F9F9FB;
+  border-radius: 8px;
+  border: 1px solid #E8EAED;
+  flex-shrink: 0;
+  display: flex;
+  gap: 10px;
+  position: relative;
+  padding: 8px 10px;
+
+  @include m {
+    background: transparent;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    width: 56px;
+    height: auto;
+    padding: 0;
+    border: none;
+  }
+}
+
+.extBlock {
+  height: 28px;
+  min-width: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  font-size: 10px;
+  color: #565C68;
+  font-weight: 600;
+  background: #fff;
+  border-radius: 4px;
+  border: 1px solid #E8EAEE;
+  text-transform: uppercase;
+  flex-shrink: 0;
+
+  @include m {
+    height: 56px;
+    width: 56px;
+    background: #F9F9FB;
+    border: 1px solid #E8EAED;
+
+  }
+}
+
+.fileDesc {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  color: #1F232B;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 132px;
+  padding-bottom: 14px;
+
+  @include m {
+    font-size: 10px;
+    width: 56px;
+    text-align: center;
+    margin-bottom: 0;
+    padding-bottom: 0;
+
+  }
+}
+
+
+.size {
+  color: #9AA1AC;
+  font-size: 11px;
+
+  @include m {
+    display: none;
+  }
+}
+
+.deleteBtn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+
+  @include m {
+    top: 7px;
+    right: 7px;
+  }
+
+  svg {
+    display: flex;
+  }
+}
+
+
+.clockIndicator {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+
+  @include m {
+    bottom: 4px;
+    right: 4px;
+  }
+}
+
+
