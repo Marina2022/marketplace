@@ -232,7 +232,6 @@ const ChatMessages = ({setShowChatInfo = null}) => {
       chatRoomId: currentChat?.chatRoomId
     })
 
-  console.log("files = ", files)
 
   const [showScrollBtn, setShowScrollBtn] = useState(false);
 

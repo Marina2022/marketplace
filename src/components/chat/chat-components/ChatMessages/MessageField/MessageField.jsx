@@ -33,8 +33,6 @@ const MessageField = ({
 
   const messagesData = useSelector(getMessagesData)
 
-  console.log("messagesData = ", messagesData)
-
   const textareaRef = useRef(null)
   const baseHeightRef = useRef(null)
 
