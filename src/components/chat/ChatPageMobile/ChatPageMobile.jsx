@@ -6,9 +6,11 @@ import MobileChatRequestsBlock
 import ChatMessages from "@/components/chat/chat-components/ChatMessages/ChatMessages.jsx";
 import {useSelector} from "react-redux";
 import {getCurrentChat} from "@/store/chatSlice.js";
+import MobileChatInfoWrapper from "@/components/chat/ChatPageMobile/MobileChatInfo/MobileChatInfoWrapper.jsx";
 
 const ChatPageMobile = () => {
 
+  const [showChatInfo, setShowChatInfo] = useState(false)
   const [requestsShown, setRequestsShown] = useState(false)
 
   const currentChat = useSelector(getCurrentChat);
@@ -20,13 +22,16 @@ const ChatPageMobile = () => {
         !currentChat && <ChatContacts setRequestsShown={setRequestsShown}/>
       }
 
-
       {
         !currentChat && requestsShown && <MobileChatRequestsBlock setRequestsShown={setRequestsShown}/>
       }
 
       {
-        currentChat && <ChatMessages/>
+        currentChat && <ChatMessages setShowChatInfo={setShowChatInfo} />
+      }
+
+      {
+        showChatInfo && <MobileChatInfoWrapper setShowChatInfo={setShowChatInfo}/>
       }
 
 
