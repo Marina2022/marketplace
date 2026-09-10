@@ -7,7 +7,7 @@
   margin-right: 4px;
 
   @include t {
-    height: calc(var(--vh) * 100 - 158px - 66px);
+    height: calc(var(--vh) * 100 - 138px - 66px);
   }
 
   @include m {

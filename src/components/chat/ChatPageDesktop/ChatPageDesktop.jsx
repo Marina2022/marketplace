@@ -3,6 +3,7 @@ import ChatContacts from "@/components/chat/chat-components/ChatContacts/ChatCon
 import ChatMessages from "@/components/chat/chat-components/ChatMessages/ChatMessages.jsx";
 import {useSelector} from "react-redux";
 import {getCurrentChatRequest} from "@/store/chatSlice.js";
+import ChatInfo from "@/components/chat/chat-components/ChatInfo/ChatInfo.jsx";
 
 const ChatPageDesktop = () => {
 
@@ -13,14 +14,17 @@ const ChatPageDesktop = () => {
   return (
     <div className={s.desktopChatWrapper}>
       <div className={s.contactsBlock}>
-        <ChatContacts />
+        <ChatContacts/>
       </div>
+
       <div className={`${s.messagesBlock} ${s.noCurrentRequest}`}>
         <ChatMessages/>
       </div>
 
       {
-        currentRequest && <div className={s.requestInfo}>requestInfo</div>
+        currentRequest && <div className={s.chatInfo}>
+          <ChatInfo/>
+        </div>
       }
 
     </div>

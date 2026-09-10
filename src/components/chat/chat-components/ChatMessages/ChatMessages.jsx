@@ -16,7 +16,7 @@ import useAttachFiles from "@/hooks/useAttachFiles.js";
 import UploadedFiles from "@/components/chat/chat-components/ChatMessages/UploadedFiles/UploadedFiles.jsx";
 
 
-const ChatMessages = () => {
+const ChatMessages = ({setShowChatInfo = null}) => {
   const currentChat = useSelector(getCurrentChat)
   const messagesData = useSelector(getMessagesData)
 
@@ -242,6 +242,7 @@ const ChatMessages = () => {
     <div className={s.chatWrapper}>
       <ChatHeader
         dropProcess={dropProcess}
+        setShowChatInfo={setShowChatInfo}
       />
 
       <div ref={chatContainerRef} className={`${s.chatContainer} scroll`} onScroll={handleScroll}>

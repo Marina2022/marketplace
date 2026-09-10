@@ -6,7 +6,7 @@ import ChatMenu from "@/components/chat/chat-components/ChatMessages/ChatHeader/
 import DropFilesArea from "@/components/chat/chat-components/ChatMessages/DropFilesArea/DropFilesArea.jsx";
 
 // const ChatHeader = ({setFiles, files, setFilesLoading, filesLoading, getRootProps, getInputProps, dropProcess}) => {
-const ChatHeader = ({dropProcess}) => {
+const ChatHeader = ({dropProcess, setShowChatInfo}) => {
 
     const isMobile = useMediaQuery({maxWidth: 960})
   const isTablet = useMediaQuery({minWidth: 961, maxWidth: 1340})
@@ -26,10 +26,6 @@ const ChatHeader = ({dropProcess}) => {
 
       {
          isDesktop && <DropFilesArea
-          // setFiles={setFiles}
-          // files={files}
-          // setFilesLoading={setFilesLoading}
-          // filesLoading={filesLoading}
           dropProcess={dropProcess}
         />
       }
@@ -63,7 +59,7 @@ const ChatHeader = ({dropProcess}) => {
 
         {
           (isTablet || isMobile) && (
-            <button className={s.btn}>
+            <button className={s.btn} onClick={()=>setShowChatInfo(prev => !prev)} >
               <svg width="9" height="13" viewBox="0 0 9 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0.5 0.5H5.5L8.5 3.5V12.5H0.5V0.5Z" stroke="#3D4A66" strokeLinejoin="round"/>
               </svg>

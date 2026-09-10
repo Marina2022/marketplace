@@ -13,9 +13,26 @@
 .messagesBlock {
   flex: 1;
   background: #F9F9FB;
+  position: relative;
 }
 
-.requestInfo {
+.chatInfo {
   width: 356px;
   flex-shrink: .5;
+  background: #fff;
+  height: 100%;
+
+  @include t {
+    width: 100%;
+  }
+}
+
+.chatInfoUnderlay {
+  position: absolute;
+  inset: 0;
+  bottom: -8px;
+  background: rgba(236, 239, 245, .8);
+  z-index: 1;
+  padding-left: 20%;
+
 }
