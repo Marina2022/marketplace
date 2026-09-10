@@ -76,11 +76,6 @@ const MessageContextMenu = ({
       return
     }
 
-    if (!message.text) {
-      showErrorToast("Можно редактировать только сообщения с текстом")
-      return
-    }
-
     dispatch(setEditingMessage(message))
     onClose()
   }

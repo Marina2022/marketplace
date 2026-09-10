@@ -180,7 +180,11 @@ const MessageField = ({
     }
 
     // если нет ни сообщения, ни файлов
-    if (!message && !mediaFileIds.length) return
+    if (!message && !mediaFileIds.length) {
+
+      if (editingMessage) showErrorToast("Можно редактировать только текст, нужно его ввести")
+      return
+    }
 
     if (filesLoading.length > 0 && !editingMessage) {
       showErrorToast("Пожалуйста, дождитесь загрузки всех файлов")
@@ -188,7 +192,6 @@ const MessageField = ({
     }
 
     // валидация
-
     if (message.length > 5000) {
       showErrorToast("Текст не должен превышать 5000 символов")
       return
@@ -301,9 +304,6 @@ const MessageField = ({
           )
         }))
 
-        setFiles([])
-        setMessage("")
-
       } catch (err) {
 
         console.log("err =", err)
@@ -322,9 +322,11 @@ const MessageField = ({
               }
               : msg)
         }))
-        setMessage("")
+
       } finally {
         setSending(false)
+        setFiles([])
+        setMessage("")
       }
     }
   }
@@ -343,6 +345,14 @@ const MessageField = ({
         className={s.messageTextarea}
       />
         <button onClick={handleSend} className={s.sendButton}>
+
+          {
+            files.length > 0 && (
+              <div className={s.fileCounter}>{files.length}</div>
+            )
+          }
+
+
           <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M17.5921 9.08684L1.91237 1.76995L3.63067 6.91624L12.3004 8.96567L3.49535 10.942L1.68002 15.871L17.5898 9.08449L17.5921 9.08684ZM1.13788 0.0565036L19.3102 8.53701C19.3894 8.56589 19.4617 8.6109 19.5227 8.66919C19.5837 8.72748 19.6319 8.79777 19.6643 8.8756C19.7286 9.0257 19.7308 9.19503 19.6705 9.34645C19.6101 9.49787 19.4921 9.61901 19.3424 9.68329L0.857425 17.5637C0.747114 17.6101 0.625587 17.6233 0.507721 17.6017C0.389854 17.58 0.280759 17.5245 0.193793 17.4419C0.106825 17.3593 0.0457583 17.2532 0.0180633 17.1366C-0.00963098 17.02 -0.00275069 16.8979 0.0378634 16.7853L2.9708 8.81025L0.298286 0.803769C0.260442 0.690103 0.256687 0.567928 0.287482 0.452331C0.318279 0.336733 0.382279 0.232775 0.471579 0.153295C0.560879 0.0738153 0.671568 0.0222936 0.789978 0.00509234C0.908388 -0.0121086 1.02933 0.00576423 1.13788 0.0565036Z"
