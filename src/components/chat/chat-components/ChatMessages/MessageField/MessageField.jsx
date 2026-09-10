@@ -151,13 +151,12 @@ const MessageField = ({
     fileSize: file.file.size,
     id: file.id,
     mediaFileId: file.mediaFileId,
+    fileLoading: true,
     sortOrder: 1,
     type: file.file.type.startsWith("image") ? "Image" : "Document",
   }))
 
-
   const [sending, setSending] = useState(false)
-
   const isTyping = useSelector(getIsTyping)
 
   const handleSend = async () => {
@@ -183,19 +182,12 @@ const MessageField = ({
     // если нет ни сообщения, ни файлов
     if (!message && !mediaFileIds.length) return
 
-    if (filesLoading.length > 0) {
+    if (filesLoading.length > 0 && !editingMessage) {
       showErrorToast("Пожалуйста, дождитесь загрузки всех файлов")
       return
     }
 
     // валидация
-
-    if (editingMessage) {
-      if ((attachmentsToSend.length + editingMessage.attachments.length) > 10) {
-        showErrorToast("У сообщения может быть не более 10 вложений")
-        return
-      }
-    }
 
     if (message.length > 5000) {
       showErrorToast("Текст не должен превышать 5000 символов")
@@ -203,32 +195,11 @@ const MessageField = ({
     }
 
 
-    console.log("fileUrlCache.current start = ", fileUrlCache.current)
-
-    // подгружаем файлы в кэш, чтобы сразу показать
-    if (mediaFileIds.length > 0) {
-
-      try {
-        const filesResponse = await axiosInstance.post(`chat/files/urls`, {
-          mediaFileIds: mediaFileIds,
-          ttlSeconds: 600
-        });
-
-        const normalized = normalizeFilesResponse(filesResponse.data);
-        Object.assign(fileUrlCache.current, normalized);
-      } catch (err) {
-        console.log(err)
-      }
-    }
-
-    console.log("fileUrlCache.current final = ", fileUrlCache.current)
-
     if (editingMessage) {
 
       try {
         const body = {
-          text: message,
-          attachmentMediaFileIds: [...editingMessage.attachments, ...attachmentsToSend],
+          text: message || editingMessage.text,
         }
 
         await axiosInstance.put(`chat/${currentChat.chatRoomId}/messages/${editingMessage.messageId}`, body)
@@ -243,7 +214,6 @@ const MessageField = ({
                 ...msg,
                 editedAt: new Date().toISOString(),
                 isEdited: true,
-                attachments: [...editingMessage.attachments, ...attachmentsToSend],
                 text: message
               }
               : msg
@@ -296,6 +266,22 @@ const MessageField = ({
 
         const response = await axiosInstance.post(`chat/${currentChat.chatRoomId}/messages`, body)
 
+        // подгружаем файлы в кэш
+        if (mediaFileIds.length > 0) {
+
+          try {
+            const filesResponse = await axiosInstance.post(`chat/files/urls`, {
+              mediaFileIds: mediaFileIds,
+              ttlSeconds: 600
+            });
+
+            const normalized = normalizeFilesResponse(filesResponse.data);
+            Object.assign(fileUrlCache.current, normalized);
+          } catch (err) {
+            console.log(err)
+          }
+        }
+
         dispatch(setMessagesData({
           ...store.getState().chat.messagesData,
           messages: store.getState().chat.messagesData.messages.map(msg =>
@@ -303,7 +289,13 @@ const MessageField = ({
               ? {
                 ...msg,
                 messageId: response.data.messageId,
-                sendingStatus: "success"
+                sendingStatus: "success",
+                attachments: attachmentsToSend.map(attachment => (
+                  {
+                    ...attachment,
+                    fileLoading: false,
+                  }
+                ))
               }
               : msg
           )
@@ -325,7 +317,8 @@ const MessageField = ({
             msg.messageId === tempId
               ? {
                 ...msg,
-                sendingStatus: "error"
+                sendingStatus: "error",
+                attachments: msg.attachments.map(att => ({...att, fileLoading: false}))  // уже не грузится, ошибка
               }
               : msg)
         }))

@@ -1,8 +1,9 @@
 import s from './ManyPictures.module.scss';
 import axiosInstance from "@/api/axiosInstance.js";
+import LoadingPicture
+  from "@/components/chat/chat-components/ChatMessages/MessagesList/Message/Attachments/LoadingPicture/LoadingPicture.jsx";
 
 const ManyPictures = ({fileUrlCache, attachments}) => {
-
 
   const pictures = attachments.filter((img) => img.contentType.startsWith("image"));
 
@@ -15,8 +16,6 @@ const ManyPictures = ({fileUrlCache, attachments}) => {
   }
 
   const handleOpen = async (picture) => {
-
-
 
     const id = picture.mediaFileId
     const now = Date.now()
@@ -61,7 +60,9 @@ const ManyPictures = ({fileUrlCache, attachments}) => {
 
           return (
             <li onClick={()=>handleOpen(picture)} className={s.item} key={i}>
-              <img className={s.img} src={src || ""} alt="img" />
+              {
+                picture.fileLoading ? <LoadingPicture /> : <img className={s.img} src={src || ""} alt="img" />
+              }
             </li>
           )
         })

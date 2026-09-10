@@ -1,9 +1,11 @@
 import s from './OnePicture.module.scss';
 import axiosInstance from "@/api/axiosInstance.js";
-import { useRef, useState, useEffect } from "react";
+import {useRef, useState, useEffect} from "react";
+import LoadingPicture
+  from "@/components/chat/chat-components/ChatMessages/MessagesList/Message/Attachments/LoadingPicture/LoadingPicture.jsx";
 
 
-const OnePicture = ({ fileUrlCache, pictureInfo, chatContainerRef }) => {
+const OnePicture = ({fileUrlCache, pictureInfo, chatContainerRef}) => {
   const id = pictureInfo.mediaFileId;
   const pictureRef = useRef(null);
   const scrollAdjustedRef = useRef(false); // Защита от повторного скролла для этой картинки
@@ -14,10 +16,10 @@ const OnePicture = ({ fileUrlCache, pictureInfo, chatContainerRef }) => {
     const cached = fileUrlCache.current?.[id];
     const now = Date.now();
     if (cached && new Date(cached.expiresAt).getTime() > now) {
-      return cached.url;
+      return cached.url
     }
-    return "";
-  });
+    return ""
+  })
 
   // Функция для корректировки скролла
   const adjustScroll = () => {
@@ -92,17 +94,24 @@ const OnePicture = ({ fileUrlCache, pictureInfo, chatContainerRef }) => {
 
   return (
     <div className={s.imageWrapper}>
-      {!isImageReady && <div className={s.skeleton} />}
+      {!isImageReady && <div className={s.skeleton}/>}
 
-      <img
-        ref={pictureRef}
-        onLoad={handleLoad}
-        onClick={handleOpen}
-        className={`${s.img} ${isImageReady ? s.visible : s.hidden}`}
-        // Заменяем прозрачный пиксель на пустую строку, чтобы не триггерить ложные размеры 1x1
-        src={currentUrl || ""}
-        alt="img"
-      />
+
+      {
+        pictureInfo.fileLoading ?
+          <LoadingPicture onePicture />
+          : <img
+            ref={pictureRef}
+            onLoad={handleLoad}
+            onClick={handleOpen}
+            className={`${s.img} ${isImageReady ? s.visible : s.hidden}`}
+            // Заменяем прозрачный пиксель на пустую строку, чтобы не триггерить ложные размеры 1x1
+            src={currentUrl || ""}
+            alt="img"
+          />
+      }
+
+
     </div>
   );
 };

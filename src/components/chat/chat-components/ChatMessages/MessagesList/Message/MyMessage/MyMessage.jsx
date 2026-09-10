@@ -1,5 +1,5 @@
 import s from './MyMessage.module.scss';
-import {formatTelegramTime} from "@/utils/chat.js";
+import {formatTelegramTime, normalizeFilesResponse} from "@/utils/chat.js";
 import Attachments
   from "@/components/chat/chat-components/ChatMessages/MessagesList/Message/Attachments/Attachments.jsx";
 import {LuClock4} from "react-icons/lu";
@@ -22,19 +22,43 @@ const MyMessage = ({message, fileUrlCache, chatContainerRef}) => {
 
   const [sending, setSending] = useState(false)
 
-  const handleSend = async () => {
+  const handleSend = async (e) => {
 
+    e.stopPropagation()
     if (sending) return
 
     try {
       setSending(true)
 
+      let mediaFileIds = []
+      if (message.attachments && message.attachments?.length > 0) {
+        message.attachments.forEach((attachment) => {
+          if (!mediaFileIds.includes(attachment.mediaFileId)) mediaFileIds.push(attachment.mediaFileId);
+        })
+      }
+
       const body = {
         text: message.text,
-        attachmentMediaFileIds: message.attachments
+        attachmentMediaFileIds: mediaFileIds
       }
 
       const response = await axiosInstance.post(`chat/${currentChat.chatRoomId}/messages`, body)
+
+      // подгружаем файлы в кэш
+      if (mediaFileIds.length > 0) {
+
+        try {
+          const filesResponse = await axiosInstance.post(`chat/files/urls`, {
+            mediaFileIds: mediaFileIds,
+            ttlSeconds: 600
+          });
+
+          const normalized = normalizeFilesResponse(filesResponse.data);
+          Object.assign(fileUrlCache.current, normalized);
+        } catch (err) {
+          console.log(err)
+        }
+      }
 
       dispatch(setMessagesData({
         ...messagesData,
@@ -43,7 +67,7 @@ const MyMessage = ({message, fileUrlCache, chatContainerRef}) => {
             ? {
               ...msg,
               messageId: response.data.messageId,
-              sendingStatus: "success"
+              sendingStatus: "success",
             }
             : msg
         )
@@ -78,9 +102,11 @@ const MyMessage = ({message, fileUrlCache, chatContainerRef}) => {
       }
 
       {
-        message.attachments.length > 0 && (
+        message.attachments?.length > 0 && (
           <Attachments
-            attachments={message.attachments} fileUrlCache={fileUrlCache} chatContainerRef={chatContainerRef}
+            attachments={message.attachments}
+            fileUrlCache={fileUrlCache}
+            chatContainerRef={chatContainerRef}
           />
         )
       }

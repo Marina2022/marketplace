@@ -9,7 +9,13 @@ const useAttachFiles = ({files, setFiles, setFilesLoading, chatRoomId}) => {
 
   const FILES_LIMIT = 10
 
-  const onDrop = (acceptedFiles) => {
+  const onDrop = (acceptedFiles, fileRejections) => {
+
+    // 2. Проверяем, есть ли отклонённые библиотекой файлы
+    if (fileRejections && fileRejections.length > 0) {
+      //const rejectedNames = fileRejections.map(r => r.file.name).join(', ');
+      showErrorToast(`Некоторые файлы не загрузились. Разрешены PDF, DWG, XLSX, DOCX и изображения`);
+    }
 
     const uploaded = acceptedFiles
 

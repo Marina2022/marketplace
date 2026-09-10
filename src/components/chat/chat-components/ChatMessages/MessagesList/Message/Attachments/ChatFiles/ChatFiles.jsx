@@ -1,6 +1,7 @@
 import s from './ChatFiles.module.scss';
 import {formatFileSize} from "@/utils/chat.js";
 import axiosInstance from "@/api/axiosInstance.js";
+import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 
 const ChatFiles = ({fileUrlCache, attachments}) => {
 
@@ -51,7 +52,13 @@ const ChatFiles = ({fileUrlCache, attachments}) => {
           const ext = file.fileName.split(".")[1]
           return (
             <li className={s.fileItem} key={i} onClick={() => handleOpen(file)}>
-              <div className={s.ext}>{ext}</div>
+
+              <div className={s.ext}>
+                {
+                  file.fileLoading ? <MiniSpinner black/> : <span>{ext}</span>
+                }
+              </div>
+
               <div className={s.contect}>
                 <div className={s.fileName}>{file.fileName}</div>
                 <div className={s.fileSize}>{formatFileSize(file.fileSize)}</div>
