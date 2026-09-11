@@ -399,6 +399,7 @@ const initialState = {
   isTyping: false,
   editingMessage: null,  // либо само сообщение
   newMessage: null,  // сюда попадает новое received сообщение, при условии, что оно не мое и принадлежит текущему chatRoom
+  currentRequestInfo: null,
 }
 
 const chatSlice = createSlice({
@@ -434,6 +435,9 @@ const chatSlice = createSlice({
     },
     setCurrentChatRequest: (state, action) => {
       state.currentRequest = action.payload;
+    },
+    setCurrentChatRequestInfo: (state, action) => {
+      state.currentRequestInfo = action.payload;
     },
     setCurrentChat: (state, action) => {
       state.currentChat = action.payload;
@@ -481,7 +485,8 @@ export const {
   setMessagesData,
   setIsTyping,
   setEditingMessage,
-  setNewMessage
+  setNewMessage,
+  setCurrentChatRequestInfo
 } = chatSlice.actions;
 
 export const getUnreadCount = (state) => {
@@ -529,6 +534,10 @@ export const getEditingMessage = (state) => {
 
 export const getNewMessage = (state) => {
   return state.chat.newMessage
+}
+
+export const getCurrentRequestInfo = (state) => {
+  return state.chat.currentRequestInfo
 }
 
 export const getMessagesData = (state) => {

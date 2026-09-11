@@ -1,7 +1,12 @@
 import s from './ChatRequestItem.module.scss';
 import placeHolderImg from "@/assets/img/chat/placeholderChat.jpg";
 import {useDispatch, useSelector} from "react-redux";
-import {getCurrentChatRequest, setCurrentChat, setCurrentChatRequest} from "@/store/chatSlice.js";
+import {
+  getCurrentChatRequest,
+  setCurrentChat,
+  setCurrentChatRequest,
+  setCurrentChatRequestInfo
+} from "@/store/chatSlice.js";
 import {getChatsLabel} from "@/utils/oneRequest.js";
 import {formatArchived, getNewWord} from "@/utils/chat.js";
 
@@ -13,6 +18,7 @@ const ChatRequestItem = ({request}) => {
 
   const handleClick = () => {
     dispatch(setCurrentChatRequest(request.requestId))
+    dispatch(setCurrentChatRequestInfo(request))
     dispatch(setCurrentChat(null))
   }
 

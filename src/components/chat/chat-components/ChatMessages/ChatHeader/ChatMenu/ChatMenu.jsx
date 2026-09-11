@@ -1,6 +1,6 @@
 import s from './ChatMenu.module.scss';
 import {useDispatch, useSelector} from "react-redux";
-import {getChats, getCurrentChat, setChats, setCurrentChat} from "@/store/chatSlice.js";
+import {getChats, getCurrentChat, getCurrentRequestInfo, setChats, setCurrentChat} from "@/store/chatSlice.js";
 import {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {getTabs, setTabs} from "@/store/tabsSlice.js";
@@ -12,6 +12,10 @@ const ChatMenu = () => {
   const currentChat = useSelector(getCurrentChat)
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
+
+  const currentRequestInfo = useSelector(getCurrentRequestInfo)
+
+  console.log("currentRequestInfo = ", currentRequestInfo)
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -44,7 +48,13 @@ const ChatMenu = () => {
 
   const handleOpenRequest = () => {
 
-    const url = `/request/${currentChat.requestInfo.requestNumber}/${currentChat.requestInfo.requestId}`
+    let url = `/request/${currentChat.requestInfo.requestNumber}/${currentChat.requestInfo.requestId}`
+
+    if (currentRequestInfo.role === "Executor") {
+      //response/20260819-001032/c0dc5640-b69b-4494-8523-32eee9791102
+      url = `/response/${currentChat.requestInfo.requestNumber}/${currentChat.requestInfo.requestId}`
+    }
+
     const isInTabs = tabs.find((tab) => tab === url)
 
 

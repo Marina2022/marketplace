@@ -11,7 +11,6 @@ const ChatInfo = ({fileUrlCache, setShowChatInfo=null}) => {
     <div className={s.chatInfo} onClick={(e) => e.stopPropagation()} >
       <ChatRequestInfo fileUrlCache={fileUrlCache} setShowChatInfo={setShowChatInfo} />
       <ChatInfoTabs tab={tab} setTab={setTab} />
-
     </div>
   )
 }

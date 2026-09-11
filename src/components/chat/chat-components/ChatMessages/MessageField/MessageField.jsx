@@ -15,6 +15,7 @@ import {normalizeFilesResponse} from "@/utils/chat.js";
 import {getActiveProfileId} from "@/store/userSlice.js";
 import {store} from "@/main.jsx";
 import {getChatConnection} from "@/services/chatConnection.js";
+import {useMediaQuery} from "react-responsive";
 
 
 const MessageField = ({
@@ -27,6 +28,7 @@ const MessageField = ({
                         setFiles
                       }) => {
 
+  const isMobile = useMediaQuery({maxWidth: 960})
   const connection = getChatConnection()
   const currentChat = useSelector(getCurrentChat)
   const profileId = useSelector(getActiveProfileId)
@@ -332,7 +334,7 @@ const MessageField = ({
     <>
       <div className={s.textareaWrapper}>
       <textarea
-        autoFocus
+        autoFocus={!isMobile}
         rows={1}
         placeholder="Написать сообщение"
         ref={textareaRef}
