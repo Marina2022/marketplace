@@ -7,17 +7,17 @@
 
 .contactsBlock {
   width: 330px;
-  flex-shrink: .5;
+  flex-shrink: 0;
 }
 
 .messagesBlock {
-  width: 916px;
+  width: 900px; // 916
   background: #F9F9FB;
 }
 
 .chatInfo {
   width: 356px;
-  flex-shrink: .5;
+  flex-shrink: 0;
 }
 
 .noCurrentRequest {

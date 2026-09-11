@@ -88,20 +88,20 @@ const ChatMessages = ({setShowChatInfo = null, fileUrlCache}) => {
 
         const response = await axiosInstance(`chat/${currentChat.chatRoomId}/messages?LIMIT=${LIMIT}`);
 
-        let mediaFields = [];
+        let mediaFileIds = []
         if (response.data.messages.length > 0) {
           response.data.messages.forEach((message) => {
             if (message.attachments.length > 0) {
               message.attachments.forEach((attachment) => {
-                if (!mediaFields.includes(attachment.mediaFileId)) mediaFields.push(attachment.mediaFileId);
-              });
+                if (!mediaFileIds.includes(attachment.mediaFileId)) mediaFileIds.push(attachment.mediaFileId);
+              })
             }
-          });
+          })
         }
 
-        if (mediaFields.length > 0) {
+        if (mediaFileIds.length > 0) {
           const filesResponse = await axiosInstance.post(`chat/files/urls`, {
-            mediaFileIds: mediaFields,
+            mediaFileIds: mediaFileIds,
             ttlSeconds: 600
           });
           const normalized = normalizeFilesResponse(filesResponse.data);
@@ -136,20 +136,20 @@ const ChatMessages = ({setShowChatInfo = null, fileUrlCache}) => {
       isLoadingRef.current = true
       const response = await axiosInstance(`chat/${currentChat.chatRoomId}/messages?LIMIT=${LIMIT}&cursor=${messagesData.meta.nextCursor}`);
 
-      let mediaFields = [];
+      let mediaFileIds = [];
       if (response.data.messages.length > 0) {
         response.data.messages.forEach((message) => {
           if (message.attachments.length > 0) {
             message.attachments.forEach((attachment) => {
-              if (!mediaFields.includes(attachment.mediaFileId)) mediaFields.push(attachment.mediaFileId);
+              if (!mediaFileIds.includes(attachment.mediaFileId)) mediaFileIds.push(attachment.mediaFileId);
             });
           }
         });
       }
 
-      if (mediaFields.length > 0) {
+      if (mediaFileIds.length > 0) {
         const filesResponse = await axiosInstance.post(`chat/files/urls`, {
-          mediaFileIds: mediaFields,
+          mediaFileIds: mediaFileIds,
           ttlSeconds: 600
         });
         const normalized = normalizeFilesResponse(filesResponse.data);

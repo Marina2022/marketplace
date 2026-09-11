@@ -15,8 +15,6 @@ const ChatMenu = () => {
 
   const currentRequestInfo = useSelector(getCurrentRequestInfo)
 
-  console.log("currentRequestInfo = ", currentRequestInfo)
-
   useEffect(() => {
     if (!menuOpen) return;
 

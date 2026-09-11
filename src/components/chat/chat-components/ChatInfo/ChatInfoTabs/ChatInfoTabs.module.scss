@@ -1,1 +1,55 @@
 @import "@/assets/styles/mixins";
+
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  border-bottom: 1px solid #E8EAED;
+}
+
+.tab {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8A8F98;
+  width: 100%;
+  padding: 11px 14px;
+  border-bottom: 2px solid transparent;
+  height: 37px;
+}
+
+.tabActive {
+  color: #3D4A66;
+  border-bottom: 2px solid #3D4A66;
+
+  .counterBadge {
+    background: #3D4A66;
+    color: #fff;
+  }
+}
+
+.tabIcon {
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+.tabName {
+  font-weight: 600;
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+.counterBadge {
+  background: #E8EAED;
+  color: #9AA1AC;
+  padding-inline: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  min-width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

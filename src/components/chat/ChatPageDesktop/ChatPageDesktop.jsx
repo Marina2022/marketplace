@@ -9,16 +9,13 @@ const ChatPageDesktop = ({fileUrlCache}) => {
 
   const currentRequest = useSelector(getCurrentChatRequest)
 
-  console.log("currentRequest = ", currentRequest)
-
-
   return (
     <div className={s.desktopChatWrapper}>
       <div className={s.contactsBlock}>
         <ChatContacts/>
       </div>
 
-      <div className={`${s.messagesBlock} ${s.noCurrentRequest}`}>
+      <div className={`${s.messagesBlock} ${!currentRequest ? s.noCurrentRequest : ""}`}>
         <ChatMessages fileUrlCache={fileUrlCache}  />
       </div>
 

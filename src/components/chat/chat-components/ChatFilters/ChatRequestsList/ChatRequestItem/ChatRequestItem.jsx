@@ -5,7 +5,6 @@ import {
   getCurrentChatRequest,
   setCurrentChat,
   setCurrentChatRequest,
-  setCurrentChatRequestInfo
 } from "@/store/chatSlice.js";
 import {getChatsLabel} from "@/utils/oneRequest.js";
 import {formatArchived, getNewWord} from "@/utils/chat.js";
@@ -18,7 +17,6 @@ const ChatRequestItem = ({request}) => {
 
   const handleClick = () => {
     dispatch(setCurrentChatRequest(request.requestId))
-    dispatch(setCurrentChatRequestInfo(request))
     dispatch(setCurrentChat(null))
   }
 

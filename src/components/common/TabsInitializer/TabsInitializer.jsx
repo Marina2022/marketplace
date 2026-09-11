@@ -14,7 +14,10 @@ const TabsInitializer = () => {
 
   useEffect(() => {
 
-    if (isMobile) return
+    if (isMobile) {
+      localStorage.removeItem("tabs")
+      return
+    }
 
     const savedTabs = JSON.parse(localStorage.getItem("tabs") || "[]");
 
