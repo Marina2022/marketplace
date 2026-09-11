@@ -5,11 +5,12 @@ import {useSelector} from "react-redux";
 import {getCurrentChatRequest} from "@/store/chatSlice.js";
 import ChatInfo from "@/components/chat/chat-components/ChatInfo/ChatInfo.jsx";
 
-const ChatPageDesktop = () => {
+const ChatPageDesktop = ({fileUrlCache}) => {
 
   const currentRequest = useSelector(getCurrentChatRequest)
 
   console.log("currentRequest = ", currentRequest)
+
 
   return (
     <div className={s.desktopChatWrapper}>
@@ -18,12 +19,12 @@ const ChatPageDesktop = () => {
       </div>
 
       <div className={`${s.messagesBlock} ${s.noCurrentRequest}`}>
-        <ChatMessages/>
+        <ChatMessages fileUrlCache={fileUrlCache}  />
       </div>
 
       {
         currentRequest && <div className={s.chatInfo}>
-          <ChatInfo/>
+          <ChatInfo fileUrlCache={fileUrlCache} />
         </div>
       }
 

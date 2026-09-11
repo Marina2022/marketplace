@@ -3,13 +3,19 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setTabs } from "@/store/tabsSlice.js";
 import { tabLabels } from "@/components/layout/Tabs/tabUtils.js";
+import {useMediaQuery} from "react-responsive";
 
 const TabsInitializer = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isMobile = useMediaQuery({maxWidth: 960})
+
 
   useEffect(() => {
+
+    if (isMobile) return
+
     const savedTabs = JSON.parse(localStorage.getItem("tabs") || "[]");
 
     const currentPath = location.pathname;
@@ -36,6 +42,6 @@ const TabsInitializer = () => {
   }, []);
 
   return null;
-};
+}
 
 export default TabsInitializer;

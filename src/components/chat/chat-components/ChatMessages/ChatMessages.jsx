@@ -16,7 +16,7 @@ import useAttachFiles from "@/hooks/useAttachFiles.js";
 import UploadedFiles from "@/components/chat/chat-components/ChatMessages/UploadedFiles/UploadedFiles.jsx";
 
 
-const ChatMessages = ({setShowChatInfo = null}) => {
+const ChatMessages = ({setShowChatInfo = null, fileUrlCache}) => {
   const currentChat = useSelector(getCurrentChat)
   const messagesData = useSelector(getMessagesData)
 
@@ -25,7 +25,6 @@ const ChatMessages = ({setShowChatInfo = null}) => {
   const [messagesLoading, setMessagesLoading] = useState(true);
   const [inputMessage, setInputMessage] = useState("");
 
-  const fileUrlCache = useRef({});
   const LIMIT = 30;
 
   const chatContainerRef = useRef(null);

@@ -8,7 +8,7 @@ import {useSelector} from "react-redux";
 import {getCurrentChat} from "@/store/chatSlice.js";
 import MobileChatInfoWrapper from "@/components/chat/ChatPageMobile/MobileChatInfo/MobileChatInfoWrapper.jsx";
 
-const ChatPageMobile = () => {
+const ChatPageMobile = ({fileUrlCache}) => {
 
   const [showChatInfo, setShowChatInfo] = useState(false)
   const [requestsShown, setRequestsShown] = useState(false)
@@ -27,11 +27,11 @@ const ChatPageMobile = () => {
       }
 
       {
-        currentChat && <ChatMessages setShowChatInfo={setShowChatInfo} />
+        currentChat && <ChatMessages setShowChatInfo={setShowChatInfo} fileUrlCache={fileUrlCache} />
       }
 
       {
-        showChatInfo && <MobileChatInfoWrapper setShowChatInfo={setShowChatInfo}/>
+        showChatInfo && <MobileChatInfoWrapper setShowChatInfo={setShowChatInfo} fileUrlCache={fileUrlCache} />
       }
 
 

@@ -4,7 +4,7 @@ import ChatMessages from "@/components/chat/chat-components/ChatMessages/ChatMes
 import ChatInfo from "@/components/chat/chat-components/ChatInfo/ChatInfo.jsx";
 import {useState} from "react";
 
-const ChatPageTablet = () => {
+const ChatPageTablet = ({fileUrlCache}) => {
 
   const [showChatInfo, setShowChatInfo] = useState(false)
 
@@ -19,13 +19,13 @@ const ChatPageTablet = () => {
           showChatInfo && (
             <div className={s.chatInfoUnderlay} onClick={() => setShowChatInfo(false)} >
               <div className={s.chatInfo}>
-                <ChatInfo/>
+                <ChatInfo fileUrlCache={fileUrlCache} setShowChatInfo={setShowChatInfo} />
               </div>
             </div>
           )
         }
 
-        <ChatMessages setShowChatInfo={setShowChatInfo}/>
+        <ChatMessages setShowChatInfo={setShowChatInfo} fileUrlCache={fileUrlCache}/>
       </div>
 
 
