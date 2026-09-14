@@ -1,12 +1,25 @@
 @import "@/assets/styles/mixins";
 
+.videoMedia {
+  height: 50%;
+  border-top: 1px solid #E8EAED;
+  margin-top: 1px;
+  padding-bottom: 3px;
+
+  @include t {
+    padding-bottom: 0;
+  }
+
+
+
+}
+
 .header {
   padding-top: 15px;
   padding-bottom: 13px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-inline: 14px;
 }
 
 .headerTitle {
@@ -23,15 +36,12 @@
   cursor: pointer;
 }
 
-.filesList {
-  padding-inline: 14px;
-  height: calc(100vh - 460px);
-  padding-bottom: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+
+.videoList {
+  height: calc(100% - 40px);
 
   @include m {
-    height: calc(70 * var(--vh) - 320px);
+    padding-bottom: 10px;
   }
+
 }

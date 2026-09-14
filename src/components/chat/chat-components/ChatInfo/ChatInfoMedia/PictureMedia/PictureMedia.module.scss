@@ -1,12 +1,15 @@
 @import "@/assets/styles/mixins";
 
+.pictureMedia {
+  height: 50%;
+}
+
 .header {
   padding-top: 15px;
   padding-bottom: 13px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-inline: 14px;
 }
 
 .headerTitle {
@@ -23,15 +26,12 @@
   cursor: pointer;
 }
 
-.filesList {
-  padding-inline: 14px;
-  height: calc(100vh - 460px);
-  padding-bottom: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-
-  @include m {
-    height: calc(70 * var(--vh) - 320px);
-  }
+.pictureList {
+  height: calc(100% - 40px);
+  padding-bottom: 14px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 75px);
+  gap: 4px;
 }
+
+

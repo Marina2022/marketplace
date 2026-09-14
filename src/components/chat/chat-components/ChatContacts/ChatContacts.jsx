@@ -35,7 +35,6 @@ const ChatContacts = ({setRequestsShown}) => {
 
   const profileId = useSelector(getActiveProfileId)
 
-
   const containerRef = useRef(null)
   const observerRef = useRef(null)
   const [isOnScrollLoading, setIsOnScrollLoading] = useState(false)
@@ -49,7 +48,6 @@ const ChatContacts = ({setRequestsShown}) => {
   const dispatch = useDispatch()
   const LIMIT = 20
 
-  // console.log("contacts = ", contacts)
 
   useEffect(() => {
     if (chatProfileStatus !== "registered") {

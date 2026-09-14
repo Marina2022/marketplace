@@ -8,7 +8,7 @@ import ChatInfoLinks from "@/components/chat/chat-components/ChatInfo/ChatInfoLi
 
 const ChatInfo = ({fileUrlCache, setShowChatInfo=null}) => {
 
-  const [tab, setTab] = useState("files") // todo поменять на "media"
+  const [tab, setTab] = useState("media") // todo поменять на "media"
   const [tabCounts, setTabCounts] = useState(null)
 
   return (
@@ -18,7 +18,7 @@ const ChatInfo = ({fileUrlCache, setShowChatInfo=null}) => {
       <ChatInfoTabs tab={tab} setTab={setTab} tabCounts={tabCounts} setTabCounts={setTabCounts}  />
 
       {
-        tab === "media" && <ChatInfoMedia />
+        tab === "media" && <ChatInfoMedia tabCounts={tabCounts} fileUrlCache={fileUrlCache} />
       }
 
       {

@@ -1,34 +1,37 @@
-import s from './ChatInfoFiles.module.scss';
-import {useEffect, useRef, useState} from "react";
+import s from './PictureMedia.module.scss';
 import {useSelector} from "react-redux";
-import {getCurrentChat, getCurrentChatRequest, setChats} from "@/store/chatSlice.js";
+import {getCurrentChat, getCurrentChatRequest} from "@/store/chatSlice.js";
+import {useEffect, useRef, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import {normalizeFilesResponse} from "@/utils/chat.js";
-import ChatInfoFile from "@/components/chat/chat-components/ChatInfo/ChatInfoFiles/ChatInfoFile/ChatInfoFile.jsx";
 import MiniSpinnerPagination from "@/components/ui/miniSpinner/MiniSpinnerPagination/MiniSpinnerPagination.jsx";
+import ChatInfoFile from "@/components/chat/chat-components/ChatInfo/ChatInfoFiles/ChatInfoFile/ChatInfoFile.jsx";
+import ChatInfoPicture
+  from "@/components/chat/chat-components/ChatInfo/ChatInfoMedia/PictureMedia/ChatInfoPicture/ChatInfoPicture.jsx";
 
-const ChatInfoFiles = ({fileCount, fileUrlCache}) => {
+const PictureMedia = ({tabCounts, fileUrlCache}) => {
 
   const LIMIT = 20
 
   const requestId = useSelector(getCurrentChatRequest)
   const currentChat = useSelector(getCurrentChat)
 
-  const [filesData, setFilesData] = useState(null)
-
+  const [picturesData, setPicturesData] = useState(null)
 
   const containerRef = useRef(null)
   const observerRef = useRef(null)
-  const [isOnScrollLoading, setIsOnScrollLoading] = useState(false)
   const [mainLoading, setMainLoading] = useState(true)
   const isLoadingRef = useRef(false)
 
+
   // первая подгрузка файлов (в т.ч. при смене заявки, чата
   useEffect(() => {
-    const getFiles = async () => {
+    const getPictures = async () => {
       setMainLoading(true)
 
-      let url = `chat/files?requestId=${requestId}&limit=${LIMIT}`
+      //GET: api/chat/media?requestId={requestId}&chatRoomId={chatRoomId}&mediaType={Image, Video}&cursor={string?}&limit=20
+
+      let url = `chat/media?requestId=${requestId}&mediaType=image&limit=${LIMIT}`
       if (currentChat) {
         url += `&chatRoomId=${currentChat.chatRoomId}`
       }
@@ -59,7 +62,7 @@ const ChatInfoFiles = ({fileCount, fileUrlCache}) => {
           Object.assign(fileUrlCache.current, normalized)
         }
 
-        setFilesData(data)
+        setPicturesData(data)
 
       } catch (error) {
         console.log(error)
@@ -67,27 +70,26 @@ const ChatInfoFiles = ({fileCount, fileUrlCache}) => {
         setMainLoading(false)
       }
     }
-    getFiles()
+    getPictures()
 
   }, [requestId, currentChat?.chatRoomId])
 
   const handleObserverReached = async () => {
 
-    if (isLoadingRef.current || !filesData) return;
+    if (isLoadingRef.current || !picturesData) return;
 
     // Проверяем, не загрузили ли мы уже абсолютно все элементы
-    if (!filesData.meta.hasNext) return;
+    if (!picturesData.meta.hasNext) return;
 
     try {
       isLoadingRef.current = true
-      setIsOnScrollLoading(true)
 
-      let url = `chat/files?requestId=${requestId}&limit=${LIMIT}`
+      let url = `chat/media?requestId=${requestId}&mediaType=image&limit=${LIMIT}`
       if (currentChat) {
         url += `&chatRoomId=${currentChat.chatRoomId}`
       }
 
-      if (filesData.meta.nextCursor) url += '&cursor=' + filesData.meta.nextCursor
+      if (picturesData.meta.nextCursor) url += '&cursor=' + picturesData.meta.nextCursor
 
       const {data} = await axiosInstance(url)
 
@@ -114,7 +116,7 @@ const ChatInfoFiles = ({fileCount, fileUrlCache}) => {
         Object.assign(fileUrlCache.current, normalized)
       }
 
-      setFilesData(prev => (
+      setPicturesData(prev => (
         {
           meta: data.meta,
           items: [...prev.items, ...data.items]
@@ -124,8 +126,7 @@ const ChatInfoFiles = ({fileCount, fileUrlCache}) => {
     } catch (err) {
       console.log(err);
     } finally {
-      setIsOnScrollLoading(false);
-      isLoadingRef.current = false; // Открываем замок после завершения рендера данных
+      isLoadingRef.current = false;
     }
   }
 
@@ -154,7 +155,7 @@ const ChatInfoFiles = ({fileCount, fileUrlCache}) => {
     return () => {
       observer.disconnect();
     }
-  }, [mainLoading, filesData]);
+  }, [mainLoading, picturesData]);
 
 
   // скролл в начало при смене requestId
@@ -164,40 +165,36 @@ const ChatInfoFiles = ({fileCount, fileUrlCache}) => {
     containerRef.current.scrollTop = 0;
   }, [requestId, currentChat?.chatRoomId])
 
+
   const handleDownloadAll = async () => {
     console.log("Получаем архив с api и скачиваем")
   }
 
   return (
-    <div>
+    <div className={s.pictureMedia}>
+
       <div className={s.header}>
-        <div className={s.headerTitle}>Документы · {fileCount}</div>
+        <div className={s.headerTitle}>Изображения · {tabCounts?.images}</div>
         {
-          fileCount > 0 && <button onClick={handleDownloadAll} className={s.downloadAllBtn}>Скачать все</button>
+          tabCounts?.images > 0 && <button onClick={handleDownloadAll} className={s.downloadAllBtn}>Скачать все</button>
         }
       </div>
 
-      <ul ref={containerRef} className={`${s.filesList} scroll`}>
+      <ul ref={containerRef} className={`${s.pictureList} scroll`}>
+
         {
-          !mainLoading && filesData.items.map((file, index) => <ChatInfoFile
-            file={file}
+          !mainLoading && picturesData.items.map((picture, index) => <ChatInfoPicture
+            picture={picture}
             key={index}
             fileUrlCache={fileUrlCache}
           />)
         }
 
-        {
-          filesData && (filesData.meta.hasNext) && (
-            <li ref={observerRef} style={{listStyleType: 'none', width: '100%', minHeight: '30px'}}>
-              {isOnScrollLoading && <div className={s.onScrollSpinnerWrapper}>
-                <MiniSpinnerPagination/>
-              </div>}
-            </li>
-          )}
-      </ul>
+        <li ref={observerRef} ></li>
 
+      </ul>
     </div>
   )
 }
 
-export default ChatInfoFiles;
+export default PictureMedia;

@@ -210,6 +210,12 @@ export const initChat = createAsyncThunk(
       console.log("ProfileSwitched прошел")
       dispatch(setChatProfileStatus("registered"))
 
+
+      // todo потестить
+      // leaveChat, если был коннект
+      if (getState().chat.currentChat) dispatch(setCurrentChat(null))  // тут или не тут
+
+
       let requestUrl = 'chat?limit=20'
 
       const {filter, currentRequest, chatSearch} = getState().chat;

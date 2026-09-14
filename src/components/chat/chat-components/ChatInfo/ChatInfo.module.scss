@@ -1,6 +1,10 @@
 @import "@/assets/styles/mixins";
 
 .chatInfo {
-  padding-block: 14px;
+  padding-top: 14px;
+
+  @include m {
+    padding-block: 0;
+  }
 }
 

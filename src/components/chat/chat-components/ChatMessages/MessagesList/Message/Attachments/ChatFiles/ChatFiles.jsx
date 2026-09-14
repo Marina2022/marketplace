@@ -49,7 +49,12 @@ const ChatFiles = ({fileUrlCache, attachments}) => {
     <ul className={s.files}>
       {
         files.map((file, i) => {
-          const ext = file.fileName.split(".")[1]
+          let ext = ""
+          const arr = file.fileName.split(".")
+          if (arr.length >= 1) ext = arr[arr.length - 1]
+
+
+
           return (
             <li className={s.fileItem} key={i} onClick={() => handleOpen(file)}>
 

@@ -4,7 +4,9 @@ import axiosInstance from "@/api/axiosInstance.js";
 
 const ChatInfoFile = ({file, fileUrlCache}) => {
 
-  const ext = file.fileName.split(".")[1]
+  let ext = ""
+  const arr = file.fileName.split(".")
+  if (arr.length >= 1) ext = arr[arr.length - 1]
 
   const handleOpen = async () => {
     const id = file.mediaFileId
@@ -55,14 +57,14 @@ const ChatInfoFile = ({file, fileUrlCache}) => {
         <div className={s.fileName}>{file.fileName}</div>
         <div className={s.fileSize}>{formatFileSize(file.fileSize)}</div>
       </div>
-      <btn className={s.downloadBtn} onClick={handleOpen}>
+      <button className={s.downloadBtn} onClick={handleOpen}>
         <svg className={s.downloadBtnSvg} width="15" height="15" viewBox="0 0 15 15" fill="none"
              xmlns="http://www.w3.org/2000/svg">
           <path
             d="M0.5 11V12.75C0.5 13.2141 0.684374 13.6592 1.01256 13.9874C1.34075 14.3156 1.78587 14.5 2.25 14.5H12.75C13.2141 14.5 13.6592 14.3156 13.9874 13.9874C14.3156 13.6592 14.5 13.2141 14.5 12.75V11M4 7.5L7.5 11L11 7.5M7.5 11V0.5"
             strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
-      </btn>
+      </button>
     </li>
   )
 }

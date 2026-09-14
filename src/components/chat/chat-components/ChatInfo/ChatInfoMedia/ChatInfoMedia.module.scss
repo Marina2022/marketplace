@@ -1,2 +1,14 @@
 @import "@/assets/styles/mixins";
 
+.mediaBlock {
+  padding-inline: 14px;
+  display: flex;
+  flex-direction: column;
+
+
+  height: calc(100vh - 420px);
+
+  @include m {
+    height: calc(70 * var(--vh) - 250px);
+  }
+}

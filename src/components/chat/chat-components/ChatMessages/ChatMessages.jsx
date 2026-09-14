@@ -123,6 +123,10 @@ const ChatMessages = ({setShowChatInfo = null, fileUrlCache}) => {
     // сброс сообщения для отпрваки в unread
     dispatch(setNewMessage(null))
 
+    return () => {
+      console.log("leave")
+      connection.invoke("LeaveChat", currentChat.chatRoomId)
+    }
   }, [currentChat]);
 
   // Пагинация (скролл вверх)

@@ -10,7 +10,7 @@ const ContactList = ({contacts, observerRef, containerRef, isOnScrollLoading}) =
       }
 
       {contacts && (contacts.meta.hasNext) && (
-        <li ref={observerRef} className={s.observerDiv} style={{ listStyleType: 'none', width: '100%', minHeight: '30px' }}>
+        <li ref={observerRef} style={{ listStyleType: 'none', width: '100%', minHeight: '30px' }}>
           {isOnScrollLoading && <div className={s.onScrollSpinnerWrapper}>
             <MiniSpinnerPagination />
           </div>}

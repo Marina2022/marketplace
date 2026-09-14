@@ -11,6 +11,8 @@
   max-width: 558px;
   margin-inline: auto;
   position: relative;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 
   @include t {
     max-width: 400px;

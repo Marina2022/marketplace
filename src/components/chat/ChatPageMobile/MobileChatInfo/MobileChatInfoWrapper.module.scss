@@ -1,5 +1,5 @@
 .mobileTagsBlock {
-  height: calc(70 * var(--vh));
+  //max-height: calc(70 * var(--vh));
   position: fixed;
   bottom: 56px;
   left: 0;
@@ -8,7 +8,6 @@
   border-top-right-radius: 12px;
   background-color: #fff;
   padding-top: 8px;
-  padding-bottom: 12px;
   width: 100vw;
 }
 
@@ -18,7 +17,7 @@
   border-radius: 3px;
   background-color: #E0E3E8;
   margin-inline: auto;
-  margin-bottom: 0;
+  margin-bottom: 18px;
 }
 
 .mobileTagsBlockWrapper {
