@@ -177,7 +177,7 @@ const PictureMedia = ({tabCounts, fileUrlCache}) => {
       </div>
       <ul ref={containerRef} className={`${s.pictureList} scroll`}>
         {
-          !mainLoading && picturesData.items.map((picture, index) => <ChatInfoPicture
+          !mainLoading && picturesData.items && picturesData.items.map((picture, index) => <ChatInfoPicture
             picture={picture}
             key={index}
             fileUrlCache={fileUrlCache}
