@@ -201,7 +201,7 @@ const ChatMessages = ({setShowChatInfo = null, fileUrlCache}) => {
       connection.invoke("LeaveChat", currentChat.chatRoomId)
 
       // потестить
-      shouldScrollToBottomRef.current = false
+      //shouldScrollToBottomRef.current = false
 
     }
   }, [currentChat]);
@@ -287,7 +287,7 @@ const ChatMessages = ({setShowChatInfo = null, fileUrlCache}) => {
       // Используем setTimeout, чтобы дождаться полного рендеринга дочерних элементов (текста, аватарок и т.д.)
       setTimeout(() => {
         el.scrollTop = el.scrollHeight;
-      }, 50);  // поменяла 0 на 50
+      }, 100);  // поменяла 0 на 50
 
       shouldScrollToBottomRef.current = false;
       return;

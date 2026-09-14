@@ -190,11 +190,11 @@ const ChatContacts = ({setRequestsShown}) => {
       }
 
       {
-        contacts && contacts.items.length === 0 && <EmptyContacts/>
+        contacts && contacts.items?.length === 0 && <EmptyContacts/>
       }
 
       {
-        contacts && contacts.items.length > 0 && <ContactList
+        contacts && contacts.items?.length > 0 && <ContactList
           contacts={contacts}
           observerRef={observerRef}
           isOnScrollLoading={isOnScrollLoading}
