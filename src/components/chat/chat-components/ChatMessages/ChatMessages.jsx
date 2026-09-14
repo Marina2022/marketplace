@@ -289,7 +289,7 @@ const ChatMessages = ({setShowChatInfo = null, fileUrlCache}) => {
       // Используем setTimeout, чтобы дождаться полного рендеринга дочерних элементов (текста, аватарок и т.д.)
       setTimeout(() => {
         el.scrollTop = el.scrollHeight;
-      }, 30);  // поменяла 0 на 50
+      }, 50);  // поменяла 0 на 50
 
       shouldScrollToBottomRef.current = false;
       return;
