@@ -5,10 +5,8 @@ import VideoMedia from "@/components/chat/chat-components/ChatInfo/ChatInfoMedia
 const ChatInfoMedia = ({tabCounts, fileUrlCache}) => {
   return (
     <div className={s.mediaBlock}>
-
       <PictureMedia tabCounts={tabCounts} fileUrlCache={fileUrlCache} />
       <VideoMedia  tabCounts={tabCounts} fileUrlCache={fileUrlCache} />
-
     </div>
   )
 }

@@ -168,3 +168,19 @@ export function has24HoursPassed(dateString) {
 
   return diffMs >= hours24;
 }
+
+
+export function formatDateShort(isoString) {
+  const date = new Date(isoString)
+
+  const day = date.getDate()
+
+  const months = [
+    'янв', 'фев', 'мар', 'апр', 'май', 'июн',
+    'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'
+  ]
+
+  const month = months[date.getMonth()]
+
+  return `${day} ${month}`
+}

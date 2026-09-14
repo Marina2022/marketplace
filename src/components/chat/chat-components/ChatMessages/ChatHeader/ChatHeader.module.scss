@@ -23,6 +23,7 @@
   font-weight: 500;
   color: #1F232B;
   position: relative;
+  flex-shrink: 0;
 
   @include m {
     height: 60px;

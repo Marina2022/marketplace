@@ -13,9 +13,7 @@ const ChatInfoFiles = ({fileCount, fileUrlCache}) => {
 
   const requestId = useSelector(getCurrentChatRequest)
   const currentChat = useSelector(getCurrentChat)
-
   const [filesData, setFilesData] = useState(null)
-
 
   const containerRef = useRef(null)
   const observerRef = useRef(null)
@@ -156,8 +154,7 @@ const ChatInfoFiles = ({fileCount, fileUrlCache}) => {
     }
   }, [mainLoading, filesData]);
 
-
-  // скролл в начало при смене requestId
+  // скролл в начало при смене чата
   useEffect(() => {
     if (!containerRef.current) return
 
@@ -188,14 +185,13 @@ const ChatInfoFiles = ({fileCount, fileUrlCache}) => {
 
         {
           filesData && (filesData.meta.hasNext) && (
-            <li ref={observerRef} style={{listStyleType: 'none', width: '100%', minHeight: '30px'}}>
+            <li ref={observerRef} >
               {isOnScrollLoading && <div className={s.onScrollSpinnerWrapper}>
                 <MiniSpinnerPagination/>
               </div>}
             </li>
           )}
       </ul>
-
     </div>
   )
 }

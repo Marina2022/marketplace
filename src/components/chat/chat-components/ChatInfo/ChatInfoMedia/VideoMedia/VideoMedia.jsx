@@ -1,6 +1,166 @@
 import s from './VideoMedia.module.scss';
+import MiniSpinnerPagination from "@/components/ui/miniSpinner/MiniSpinnerPagination/MiniSpinnerPagination.jsx";
+import {useSelector} from "react-redux";
+import {getCurrentChat, getCurrentChatRequest} from "@/store/chatSlice.js";
+import {useEffect, useRef, useState} from "react";
+import axiosInstance from "@/api/axiosInstance.js";
+import {normalizeFilesResponse} from "@/utils/chat.js";
+import ChatInfoVideo
+  from "@/components/chat/chat-components/ChatInfo/ChatInfoMedia/VideoMedia/ChatInfoVideo/ChatInfoVideo.jsx";
 
 const VideoMedia = ({tabCounts, fileUrlCache}) => {
+
+  const LIMIT = 20
+  const requestId = useSelector(getCurrentChatRequest)
+  const currentChat = useSelector(getCurrentChat)
+  const [filesData, setFilesData] = useState(null)
+
+  const containerRef = useRef(null)
+  const observerRef = useRef(null)
+  const [isOnScrollLoading, setIsOnScrollLoading] = useState(false)
+  const [mainLoading, setMainLoading] = useState(true)
+  const isLoadingRef = useRef(false)
+
+  // первая подгрузка файлов (в т.ч. при смене заявки, чата
+  useEffect(() => {
+    const getFiles = async () => {
+      setMainLoading(true)
+
+      let url = `chat/media?requestId=${requestId}&mediaType=video&limit=${LIMIT}`
+      if (currentChat) {
+        url += `&chatRoomId=${currentChat.chatRoomId}`
+      }
+
+      try {
+        const {data} = await axiosInstance(url)
+
+        const items = data.items || []
+        const now = Date.now()
+
+        const mediaFileIds = items.map(item => item.mediaFileId)
+
+        //  фильтруем только нужные
+        const idsToFetch = mediaFileIds.filter((id) => {
+          if (!id) return false
+          const cached = fileUrlCache.current[id]
+          return !cached || new Date(cached.expiresAt).getTime() <= now
+        })
+
+        // запрашиваем только недостающие
+        if (idsToFetch.length > 0) {
+          const {data: filesResponse} = await axiosInstance.post(`chat/files/urls`, {
+            mediaFileIds: idsToFetch,
+            ttlSeconds: 600
+          })
+
+          const normalized = normalizeFilesResponse(filesResponse)
+          Object.assign(fileUrlCache.current, normalized)
+        }
+
+        setFilesData(data)
+
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setMainLoading(false)
+      }
+    }
+    getFiles()
+
+  }, [requestId, currentChat?.chatRoomId])
+
+  const handleObserverReached = async () => {
+
+    if (isLoadingRef.current || !filesData) return;
+
+    // Проверяем, не загрузили ли мы уже абсолютно все элементы
+    if (!filesData.meta.hasNext) return;
+
+    try {
+      isLoadingRef.current = true
+      setIsOnScrollLoading(true)
+
+      let url = `chat/media?requestId=${requestId}&mediaType=video&limit=${LIMIT}`
+      if (currentChat) {
+        url += `&chatRoomId=${currentChat.chatRoomId}`
+      }
+
+      if (filesData.meta.nextCursor) url += '&cursor=' + filesData.meta.nextCursor
+
+      const {data} = await axiosInstance(url)
+
+      const items = data.items || []
+      const now = Date.now()
+
+      const mediaFileIds = items.map(item => item.mediaFileId)
+
+      //  фильтруем только нужные
+      const idsToFetch = mediaFileIds.filter((id) => {
+        if (!id) return false
+        const cached = fileUrlCache.current[id]
+        return !cached || new Date(cached.expiresAt).getTime() <= now
+      })
+
+      // запрашиваем только недостающие
+      if (idsToFetch.length > 0) {
+        const {data: filesResponse} = await axiosInstance.post(`chat/files/urls`, {
+          mediaFileIds: idsToFetch,
+          ttlSeconds: 600
+        })
+
+        const normalized = normalizeFilesResponse(filesResponse)
+        Object.assign(fileUrlCache.current, normalized)
+      }
+
+      setFilesData(prev => (
+        {
+          meta: data.meta,
+          items: [...prev.items, ...data.items]
+        }
+      ))
+
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsOnScrollLoading(false);
+      isLoadingRef.current = false; // Открываем замок после завершения рендера данных
+    }
+  }
+
+  // Инициализация обзервера
+  useEffect(() => {
+    // Если идет базовая загрузка или элементов еще нет на экране — обзервер не создаем
+    if (mainLoading || !observerRef.current || !containerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        // Срабатывает строго при видимости элемента и открытом замке
+        if (entry.isIntersecting && !isLoadingRef.current) {
+          handleObserverReached();
+        }
+      },
+      {
+        root: containerRef.current, // Привязываем слежку к нашему блоку ul со скроллом
+        rootMargin: '0px 0px 20px 0px', // Начнет загрузку за 150px до конца списка
+        threshold: 0
+      }
+    )
+
+    observer.observe(observerRef.current);
+
+    return () => {
+      observer.disconnect();
+    }
+  }, [mainLoading, filesData]);
+
+
+  // скролл в начало при смене чата
+  useEffect(() => {
+    if (!containerRef.current) return
+
+    containerRef.current.scrollTop = 0;
+  }, [requestId, currentChat?.chatRoomId])
 
   const handleDownloadAll = async () => {
     console.log("Получаем архив с api и скачиваем")
@@ -17,44 +177,24 @@ const VideoMedia = ({tabCounts, fileUrlCache}) => {
       </div>
 
       <div className={`${s.videoList} scroll`}>
-        VideoMedia
+        <ul ref={containerRef} className={`${s.videoList} scroll`}>
+          {
+            !mainLoading && filesData.items.map((file, index) => <ChatInfoVideo
+              file={file}
+              key={index}
+              fileUrlCache={fileUrlCache}
+            />)
+          }
 
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto aspernatur culpa dolor ea eum excepturi
-        expedita illo illum iste labore minima numquam obcaecati perferendis, perspiciatis quis quod repellat rerum sunt
-        suscipit voluptatem. Consectetur, corporis, tempore! Ab adipisci alias doloremque iste iusto natus quas quia
-        suscipit ullam. Blanditiis doloremque ea eveniet quisquam reprehenderit. Accusantium aperiam aut, cumque dicta
-        eaque eius est laudantium non nostrum rem sed tempora temporibus. Architecto ex exercitationem labore magni
-        nostrum optio qui quisquam sunt ullam unde? Amet cupiditate ea necessitatibus nihil, quam quia quidem repellat
-        reprehenderit rerum sequi. Accusantium aliquam architecto aspernatur aut, commodi cumque dolorem error et ex
-        exercitationem ipsam ipsum iste maxime minima minus molestiae nobis, odio odit pariatur perferendis possimus
-        quaerat quas quasi quisquam quod repellat reprehenderit similique temporibus tenetur voluptate. Ab ad animi
-        aspernatur aut blanditiis corporis cumque ducimus esse ex expedita, explicabo facilis iste iure laboriosam
-        laborum magni nesciunt non nostrum obcaecati qui quod rem, rerum saepe, soluta tenetur totam ullam voluptatibus.
-        Autem cumque error ipsa ipsam, nam, obcaecati provident quo quos rerum suscipit tempore veritatis vero. A beatae
-        culpa delectus ea facilis hic labore magni necessitatibus, neque nostrum quae reiciendis rem rerum sequi soluta
-        tempora vel veniam. Amet animi autem consequuntur dolor eaque earum eius eveniet iure magnam minima minus modi,
-        molestiae nam pariatur quae, quibusdam repellendus reprehenderit tempora tempore unde. Eaque esse ipsam
-        molestias ratione vitae? Ad dolor dolore doloremque eos, est eveniet facilis, minus molestias nostrum
-        perspiciatis quaerat quod recusandae rem reprehenderit suscipit tempore vel. Commodi exercitationem quis ullam.
-        Aliquam deleniti dolore eaque, earum expedita fuga fugit in laudantium magnam molestiae nulla pariatur
-        perferendis ratione, sunt temporibus. Aspernatur assumenda dolorem facere quae quis? Aliquam animi autem,
-        consequuntur ducimus eaque impedit nam neque nobis quaerat quis quisquam reiciendis saepe sequi temporibus ut? A
-        adipisci alias architecto asperiores corporis debitis deserunt dignissimos dolorem dolores doloribus enim hic
-        ipsum itaque laborum maiores modi molestias mollitia nemo non officiis quam recusandae rem sequi, sit sunt
-        suscipit vero. Amet animi aperiam architecto at atque commodi consequuntur, cum cupiditate deleniti deserunt
-        dolor dolores doloribus eligendi enim esse est eum expedita, fuga itaque laboriosam necessitatibus obcaecati
-        officiis placeat porro quaerat quibusdam quidem quis quisquam recusandae, repudiandae sapiente sint sunt tempora
-        ullam velit vitae voluptates? Asperiores at earum excepturi inventore laborum nam neque sed? Consectetur cum
-        cupiditate fuga harum numquam, placeat quis recusandae reiciendis sequi. Consectetur cum dolore enim facere,
-        fugiat in nihil placeat quasi quidem totam. Dolorem laudantium natus nulla porro quidem reiciendis sunt
-        voluptatem voluptates! Accusantium, ad architecto aspernatur at consectetur debitis dignissimos ducimus eaque
-        eius eligendi eos et fugiat inventore ipsam iste labore magni minus nam natus non obcaecati optio quisquam quos
-        reprehenderit sequi similique vero! Asperiores cumque, distinctio eos explicabo illum in nesciunt non officiis
-        optio, pariatur quis reiciendis, rem reprehenderit unde voluptatem? Consequatur corporis, distinctio explicabo
-        neque quasi sunt veniam. Ad adipisci aliquid doloribus ducimus fugit ipsa maxime necessitatibus nihil, quos
-        recusandae repellat tempore. Beatae consequuntur esse explicabo, facilis harum labore magnam nihil recusandae
-        tempore ullam? Aperiam eius minima pariatur repellendus repudiandae.
-
+          {
+            filesData && (filesData.meta.hasNext) && (
+              <li ref={observerRef}>
+                {isOnScrollLoading && <div >
+                  <MiniSpinnerPagination/>
+                </div>}
+              </li>
+            )}
+        </ul>
       </div>
     </div>
   )

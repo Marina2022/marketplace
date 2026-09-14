@@ -4,10 +4,8 @@ import axiosInstance from "@/api/axiosInstance.js";
 const ChatInfoPicture = ({picture, fileUrlCache}) => {
 
   const handleOpen = async () => {
-
     const id = picture.mediaFileId
     const now = Date.now()
-
     const cached = fileUrlCache.current[id]
 
     try {
@@ -44,7 +42,7 @@ const ChatInfoPicture = ({picture, fileUrlCache}) => {
 
   return (
     <li className={s.pictureItem} onClick={handleOpen} >
-      <img className={s.img} src={src || ""} alt="img" />
+      <img className={s.img} src={src || ""} alt="" />
     </li>
   )
 }

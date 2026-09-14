@@ -9,10 +9,8 @@ import noPhotoImg from "@/assets/img/chat/noPhoto.jpg"
 
 const ChatRequestInfo = ({fileUrlCache, setShowChatInfo}) => {
   const currentRequestId = useSelector(getCurrentChatRequest)
-
   const [request, setRequest] = useState(null)
   const [loading, setLoading] = useState(true)
-
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -22,7 +20,7 @@ const ChatRequestInfo = ({fileUrlCache, setShowChatInfo}) => {
 
     const getRequestDetails = async () => {
       try {
-        const { data } = await axiosInstance(
+        const {data} = await axiosInstance(
           `/messenger/requests/${currentRequestId}/context`
         )
 
@@ -41,7 +39,7 @@ const ChatRequestInfo = ({fileUrlCache, setShowChatInfo}) => {
           } else {
             try {
               const payload = getPreviewPayload([data])
-              const { data: pictures } = await axiosInstance.post(
+              const {data: pictures} = await axiosInstance.post(
                 `/requests/preview`,
                 payload
               )
@@ -63,7 +61,7 @@ const ChatRequestInfo = ({fileUrlCache, setShowChatInfo}) => {
           }
         }
 
-        const requestWithImg = { ...data, imgUrl }
+        const requestWithImg = {...data, imgUrl}
 
         setRequest(requestWithImg)
         dispatch(setCurrentChatRequestInfo(requestWithImg))
@@ -95,22 +93,16 @@ const ChatRequestInfo = ({fileUrlCache, setShowChatInfo}) => {
 
   return (
     <div className={s.chatRequestInfo}>
-
       <div className={s.imgWrapper}>
-
         <div className={s.numberBadge}>#{request.requestNumber}</div>
-
         <button onClick={() => setShowChatInfo(false)} className={s.closeBtn}>
           <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0.75 0.75L8.25 8.25M8.25 0.75L0.75 8.25" stroke="#565C68" strokeWidth="1.5"
                   strokeLinecap="round"/>
           </svg>
         </button>
-
         <img className={s.img} src={request.imgUrl ? request.imgUrl : ""} alt=""/>
       </div>
-
-
       <div className={s.title}>{request.title}</div>
       <div className={s.geo}>
         <svg width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -120,7 +112,6 @@ const ChatRequestInfo = ({fileUrlCache, setShowChatInfo}) => {
         </svg>
         <span>{request.regionName}</span>
       </div>
-
     </div>
   )
 }

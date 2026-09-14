@@ -1,6 +1,13 @@
 import s from "./ChatMessages.module.scss";
 import {useDispatch, useSelector} from "react-redux";
-import {getCurrentChat, getMessagesData, getNewMessage, setMessagesData, setNewMessage} from "@/store/chatSlice.js";
+import {
+  getCurrentChat,
+  getMessagesData,
+  getNewMessage,
+  getReconnectedNumber,
+  setMessagesData,
+  setNewMessage
+} from "@/store/chatSlice.js";
 import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import ChatHeader from "@/components/chat/chat-components/ChatMessages/ChatHeader/ChatHeader.jsx";
@@ -14,6 +21,7 @@ import {getActiveProfileId} from "@/store/userSlice.js";
 import {useChatReadReceipts} from "@/hooks/useChatReadReceipts.js";
 import useAttachFiles from "@/hooks/useAttachFiles.js";
 import UploadedFiles from "@/components/chat/chat-components/ChatMessages/UploadedFiles/UploadedFiles.jsx";
+import {store} from "@/main.jsx";
 
 
 const ChatMessages = ({setShowChatInfo = null, fileUrlCache}) => {
@@ -47,6 +55,8 @@ const ChatMessages = ({setShowChatInfo = null, fileUrlCache}) => {
 
   const newMessage = messagesData ? messagesData.messages[0] : null
 
+  const reconnectedNumber = useSelector(getReconnectedNumber)
+
   useEffect(() => {
     if (!newMessage) return
     const isMine = newMessage.senderProfileId === activeProfileId;
@@ -75,18 +85,83 @@ const ChatMessages = ({setShowChatInfo = null, fileUrlCache}) => {
     });
   }
 
+
+  // подгрузка сообщений при реконнекте
+  useEffect(() => {
+    if (!currentChat) return
+
+    const getNewMessages = async () => {
+      try {
+        const response = await axiosInstance(`chat/${currentChat.chatRoomId}/messages?LIMIT=${LIMIT}`)
+
+        const state = store.getState()
+
+        // защита на случай, если во время запроса пользователь переключит чат
+        if (state.chat.currentChat?.chatRoomId !== currentChat.chatRoomId) return;
+
+
+        const messages = state.chat.messagesData?.messages ?? [];
+
+        const existingIds = new Set(
+          messages.map(m => m.messageId)
+        );
+
+        const onlyNewMessages = response.data.messages.filter(
+          m => !existingIds.has(m.messageId)
+        )
+
+        let mediaFileIds = []
+        if (onlyNewMessages.length > 0) {
+          onlyNewMessages.forEach((message) => {
+            if (message.attachments?.length > 0) {
+              message.attachments.forEach((attachment) => {
+                if (!mediaFileIds.includes(attachment.mediaFileId)) mediaFileIds.push(attachment.mediaFileId);
+              })
+            }
+          })
+        }
+
+        if (mediaFileIds.length > 0) {
+          const filesResponse = await axiosInstance.post(`chat/files/urls`, {
+            mediaFileIds: mediaFileIds,
+            ttlSeconds: 600
+          });
+          const normalized = normalizeFilesResponse(filesResponse.data);
+          Object.assign(fileUrlCache.current, normalized);
+        }
+
+        // Обновляем данные чата
+        dispatch(setMessagesData({
+          ...state.chat.messagesData,
+          messages: [...onlyNewMessages, ...messages],
+        }))
+      } catch (error) {
+        console.log("Ошибка загрузки сообщений:", error);
+        showErrorToast("Ошибка загрузки сообщений");
+      } finally {
+        setMessagesLoading(false);
+      }
+    }
+    getNewMessages()
+
+
+
+  }, [reconnectedNumber])
+
+
   // Сброс состояния при смене активного чата
   useEffect(() => {
-    if (!currentChat?.chatRoomId) return;
+
+    if (!currentChat?.chatRoomId) return
     dispatch(setMessagesData(null))
-    setMessagesLoading(true);
+    setMessagesLoading(true)
     shouldScrollToBottomRef.current = true; // Выставляем флаг: при получении данных нужно скроллить вниз
     const connection = getChatConnection();
     const getMessages = async () => {
       try {
         await connection.invoke("JoinChat", currentChat.chatRoomId);
 
-        const response = await axiosInstance(`chat/${currentChat.chatRoomId}/messages?LIMIT=${LIMIT}`);
+        const response = await axiosInstance(`chat/${currentChat.chatRoomId}/messages?LIMIT=${LIMIT}`)
 
         let mediaFileIds = []
         if (response.data.messages.length > 0) {
@@ -109,7 +184,6 @@ const ChatMessages = ({setShowChatInfo = null, fileUrlCache}) => {
         }
 
         // Обновляем данные чата
-        //setMessagesData(response.data);
         dispatch(setMessagesData(response.data))
       } catch (error) {
         console.log("Ошибка загрузки сообщений:", error);
@@ -117,14 +191,13 @@ const ChatMessages = ({setShowChatInfo = null, fileUrlCache}) => {
       } finally {
         setMessagesLoading(false);
       }
-    };
-    getMessages();
+    }
+    getMessages()
 
     // сброс сообщения для отпрваки в unread
     dispatch(setNewMessage(null))
 
     return () => {
-      console.log("leave")
       connection.invoke("LeaveChat", currentChat.chatRoomId)
     }
   }, [currentChat]);
@@ -132,7 +205,7 @@ const ChatMessages = ({setShowChatInfo = null, fileUrlCache}) => {
   // Пагинация (скролл вверх)
   const handleObserverReached = async () => {
     if (isLoadingRef.current || !messagesData) return;
-    if (!messagesData.meta.hasNext) return;
+    if (!messagesData.meta?.hasNext) return;
 
     prevScrollHeightRef.current = chatContainerRef.current.scrollHeight;
 

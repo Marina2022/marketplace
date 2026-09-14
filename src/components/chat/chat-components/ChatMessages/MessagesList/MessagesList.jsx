@@ -13,7 +13,7 @@ const MessagesList = ({messagesLoading, fileUrlCache, observerRef, isOnScrollLoa
 
   return (
     <ul className={s.messagesList}>
-      {messagesData.messages && messagesData.meta.hasNext && (
+      {messagesData.messages && messagesData.meta?.hasNext && (
         <li ref={observerRef} className={s.observerDiv} style={{ listStyleType: 'none', width: '100%', minHeight: '30px' }}>
           {isOnScrollLoading && <div className={s.onScrollSpinnerWrapper}>
           </div>}

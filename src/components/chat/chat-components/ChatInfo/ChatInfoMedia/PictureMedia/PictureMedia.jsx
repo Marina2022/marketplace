@@ -4,8 +4,6 @@ import {getCurrentChat, getCurrentChatRequest} from "@/store/chatSlice.js";
 import {useEffect, useRef, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import {normalizeFilesResponse} from "@/utils/chat.js";
-import MiniSpinnerPagination from "@/components/ui/miniSpinner/MiniSpinnerPagination/MiniSpinnerPagination.jsx";
-import ChatInfoFile from "@/components/chat/chat-components/ChatInfo/ChatInfoFiles/ChatInfoFile/ChatInfoFile.jsx";
 import ChatInfoPicture
   from "@/components/chat/chat-components/ChatInfo/ChatInfoMedia/PictureMedia/ChatInfoPicture/ChatInfoPicture.jsx";
 
@@ -28,8 +26,6 @@ const PictureMedia = ({tabCounts, fileUrlCache}) => {
   useEffect(() => {
     const getPictures = async () => {
       setMainLoading(true)
-
-      //GET: api/chat/media?requestId={requestId}&chatRoomId={chatRoomId}&mediaType={Image, Video}&cursor={string?}&limit=20
 
       let url = `chat/media?requestId=${requestId}&mediaType=image&limit=${LIMIT}`
       if (currentChat) {
@@ -158,7 +154,7 @@ const PictureMedia = ({tabCounts, fileUrlCache}) => {
   }, [mainLoading, picturesData]);
 
 
-  // скролл в начало при смене requestId
+  // скролл в начало при смене чата
   useEffect(() => {
     if (!containerRef.current) return
 
@@ -179,9 +175,7 @@ const PictureMedia = ({tabCounts, fileUrlCache}) => {
           tabCounts?.images > 0 && <button onClick={handleDownloadAll} className={s.downloadAllBtn}>Скачать все</button>
         }
       </div>
-
       <ul ref={containerRef} className={`${s.pictureList} scroll`}>
-
         {
           !mainLoading && picturesData.items.map((picture, index) => <ChatInfoPicture
             picture={picture}
@@ -189,9 +183,7 @@ const PictureMedia = ({tabCounts, fileUrlCache}) => {
             fileUrlCache={fileUrlCache}
           />)
         }
-
-        <li ref={observerRef} ></li>
-
+        <li ref={observerRef}></li>
       </ul>
     </div>
   )

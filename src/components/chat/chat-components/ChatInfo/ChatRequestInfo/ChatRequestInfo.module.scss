@@ -56,7 +56,6 @@
 }
 
 .closeBtn {
-
   display: none;
 
   @include t {
@@ -71,6 +70,4 @@
     top: 6px;
     right: 6px;
   }
-
-
 }

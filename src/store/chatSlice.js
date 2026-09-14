@@ -210,10 +210,9 @@ export const initChat = createAsyncThunk(
       console.log("ProfileSwitched прошел")
       dispatch(setChatProfileStatus("registered"))
 
-
-      // todo потестить
-      // leaveChat, если был коннект
-      if (getState().chat.currentChat) dispatch(setCurrentChat(null))  // тут или не тут
+      if (getState().chat.reconnectionStatus !== "reconnecting") {
+        if (getState().chat.currentChat) dispatch(setCurrentChat(null))
+      }
 
 
       let requestUrl = 'chat?limit=20'
@@ -306,17 +305,50 @@ export const initChat = createAsyncThunk(
       }
     })
 
+    connection.onreconnecting(() => {
+        console.log("reconnecting...")  // плашка, задизейблить ввод
+        dispatch(setReconnectionStatus("reconnecting"))
+      }
+    )
 
-// Автоматическое восстановление состояния при переподключении библиотеки -- todo
-    connection.onreconnected(async () => {
-      console.log("onreconnected")
-      // console.log("Сеть восстановлена. Повторно инициализируем профиль на сервере...");
-      // try {
-      //   await connection.invoke("SwitchActiveProfile", currentProfileId);
-      // } catch (err) {
-      //   console.error("Не удалось восстановить профиль после переподключения:", err);
-      // }
+
+    connection.onclose(() => {
+      console.log("onclose")
+      dispatch(setReconnectionStatus("offline"))
+
+      // все попытки реконнекта исчерпаны
+      //setConnectionStatus("offline");
+      // кнопка «Переподключиться» → connection.start() + шаг 1 заново
     })
+
+    connection.onreconnected(async () => {
+        console.log("onreconnected")
+
+        const state = getState()
+        //const currentChat = state.chat.currentChat
+
+        try {
+          dispatch(setChatProfileStatus("sending"))
+          await connection.invoke("SwitchActiveProfile", currentProfileId)
+
+          dispatch(setReconnectionStatus("online"))
+
+          if (state.chat.currentChat) {
+            await connection.invoke("JoinChat", state.chat.currentChat.chatRoomId)
+            // dispatch(setCurrentChat(currentChat))
+            dispatch(setReconnectedNumber(state.chat.reconnectedNumber + 1))
+
+          }
+
+        } catch (error) {
+          console.error("Ошибка инициализации SignalR:", error);
+          dispatch(setConnectionState("Disconnected"));
+          throw error;
+        }
+      }
+    )
+
+    const state = getState()
 
     try {
       // 1. Запуск веб-сокет соединения
@@ -326,6 +358,13 @@ export const initChat = createAsyncThunk(
       // 2. Представляемся бэкенду текущим профилем
       dispatch(setChatProfileStatus("sending"))
       await connection.invoke("SwitchActiveProfile", currentProfileId);
+
+
+      if (state.chat.currentChat) {
+        await connection.invoke("JoinChat", state.chat.currentChat.chatRoomId)
+        dispatch(setReconnectedNumber(state.chat.reconnectedNumber + 1))
+
+      }
 
     } catch (error) {
       console.error("Ошибка инициализации SignalR:", error);
@@ -379,16 +418,6 @@ export const logoutChat = createAsyncThunk(
   }
 )
 
-// Экшен для отправки сообщения из компонентов - dummy
-export const sendMessage = createAsyncThunk(
-  "chat/sendMessage",
-  async ({chatId, text}) => {
-    const connection = getChatConnection();
-    if (connection.state === "Connected") {
-      await connection.invoke("SendMessage", chatId, text);
-    }
-  }
-);
 
 const initialState = {
   chats: null,
@@ -406,6 +435,8 @@ const initialState = {
   editingMessage: null,  // либо само сообщение
   newMessage: null,  // сюда попадает новое received сообщение, при условии, что оно не мое и принадлежит текущему chatRoom
   currentRequestInfo: null,
+  reconnectedNumber: 0,  // числовое значение - чтобы поймать в компоненте факт реконнекта в текущем чате,
+  reconnectionStatus: "online"  // "reconnecting" - если такой статус, дизейблим отправку сообщений
 }
 
 const chatSlice = createSlice({
@@ -430,6 +461,9 @@ const chatSlice = createSlice({
     setChatProfileStatus: (state, action) => {
       state.chatProfileStatus = action.payload;
     },
+    setReconnectionStatus: (state, action) => {
+      state.reconnectionStatus = action.payload;
+    },
     setChatSearch: (state, action) => {
       state.chatSearch = action.payload;
     },
@@ -444,6 +478,9 @@ const chatSlice = createSlice({
     },
     setCurrentChatRequestInfo: (state, action) => {
       state.currentRequestInfo = action.payload;
+    },
+    setReconnectedNumber: (state, action) => {
+      state.reconnectedNumber = action.payload;
     },
     setCurrentChat: (state, action) => {
       state.currentChat = action.payload;
@@ -492,7 +529,9 @@ export const {
   setIsTyping,
   setEditingMessage,
   setNewMessage,
-  setCurrentChatRequestInfo
+  setCurrentChatRequestInfo,
+  setReconnectedNumber,
+  setReconnectionStatus
 } = chatSlice.actions;
 
 export const getUnreadCount = (state) => {
@@ -541,9 +580,16 @@ export const getEditingMessage = (state) => {
 export const getNewMessage = (state) => {
   return state.chat.newMessage
 }
+export const getReconnectionStatus = (state) => {
+  return state.chat.reconnectionStatus
+}
 
 export const getCurrentRequestInfo = (state) => {
   return state.chat.currentRequestInfo
+}
+
+export const getReconnectedNumber = (state) => {
+  return state.chat.reconnectedNumber
 }
 
 export const getMessagesData = (state) => {

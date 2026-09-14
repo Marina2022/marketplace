@@ -8,7 +8,7 @@ import ChatInfoLinks from "@/components/chat/chat-components/ChatInfo/ChatInfoLi
 
 const ChatInfo = ({fileUrlCache, setShowChatInfo=null}) => {
 
-  const [tab, setTab] = useState("media") // todo поменять на "media"
+  const [tab, setTab] = useState("media")
   const [tabCounts, setTabCounts] = useState(null)
 
   return (
@@ -26,7 +26,7 @@ const ChatInfo = ({fileUrlCache, setShowChatInfo=null}) => {
       }
 
       {
-        tab === "links" && <ChatInfoLinks />
+        tab === "links" && <ChatInfoLinks linkCount={tabCounts?.links} />
       }
 
     </div>

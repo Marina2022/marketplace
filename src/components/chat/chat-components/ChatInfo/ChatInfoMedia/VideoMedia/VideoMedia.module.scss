@@ -9,9 +9,6 @@
   @include t {
     padding-bottom: 0;
   }
-
-
-
 }
 
 .header {
@@ -36,12 +33,14 @@
   cursor: pointer;
 }
 
-
 .videoList {
   height: calc(100% - 40px);
 
   @include m {
-    padding-bottom: 10px;
+    padding-bottom: 14px;
   }
-
 }
+
+
+
+

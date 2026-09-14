@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {
   getCurrentChat,
   getEditingMessage, getIsTyping,
-  getMessagesData, logoutChat,
+  getMessagesData, getReconnectionStatus, logoutChat,
   setEditingMessage,
   setMessagesData
 } from "@/store/chatSlice.js";
@@ -33,6 +33,7 @@ const MessageField = ({
   const currentChat = useSelector(getCurrentChat)
   const profileId = useSelector(getActiveProfileId)
 
+  const reconnectingStatus = useSelector(getReconnectionStatus)
   const messagesData = useSelector(getMessagesData)
 
   const textareaRef = useRef(null)
@@ -190,6 +191,19 @@ const MessageField = ({
       showErrorToast("Пожалуйста, дождитесь загрузки всех файлов")
       return
     }
+
+    if (reconnectingStatus === "reconnecting") {
+      showErrorToast("Идет переподключение к чату")
+      return
+    }
+
+
+    if (reconnectingStatus === "offline") {
+      showErrorToast("Не получилось восстановить соединение, перезагрузите страницу")
+      return
+    }
+
+
 
     // валидация
     if (message.length > 5000) {

@@ -52,11 +52,11 @@ const ChatContacts = ({setRequestsShown}) => {
   useEffect(() => {
     if (chatProfileStatus !== "registered") {
       // если идет переподключение к другому профилю
-      if (contacts) {
-        showErrorToast("В процессе подключения...")
-      }
+      // if (contacts) {
+      //   showErrorToast("В процессе подключения...")
+      // }
 
-      // если первая подгрузка чатов - то просто выход
+      // выход, если профиль не зарегистрирован в signalR
       return
     }
 
