@@ -283,8 +283,6 @@ const ChatMessages = ({setShowChatInfo = null, fileUrlCache}) => {
 
     // Сценарий 1: Первая подгрузка чата — жестко вниз
 
-    console.log("shouldScrollToBottomRef.current = ", shouldScrollToBottomRef.current)
-
     if (shouldScrollToBottomRef.current) {
       // Используем setTimeout, чтобы дождаться полного рендеринга дочерних элементов (текста, аватарок и т.д.)
       setTimeout(() => {
