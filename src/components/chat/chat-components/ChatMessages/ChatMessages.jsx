@@ -199,6 +199,10 @@ const ChatMessages = ({setShowChatInfo = null, fileUrlCache}) => {
 
     return () => {
       connection.invoke("LeaveChat", currentChat.chatRoomId)
+
+      // потестить
+      shouldScrollToBottomRef.current = false
+
     }
   }, [currentChat]);
 
@@ -278,11 +282,14 @@ const ChatMessages = ({setShowChatInfo = null, fileUrlCache}) => {
     if (!el || messagesLoading || !messagesData) return;
 
     // Сценарий 1: Первая подгрузка чата — жестко вниз
+
+    console.log("shouldScrollToBottomRef.current = ", shouldScrollToBottomRef.current)
+
     if (shouldScrollToBottomRef.current) {
       // Используем setTimeout, чтобы дождаться полного рендеринга дочерних элементов (текста, аватарок и т.д.)
       setTimeout(() => {
         el.scrollTop = el.scrollHeight;
-      }, 0);
+      }, 50);  // поменяла 0 на 50
 
       shouldScrollToBottomRef.current = false;
       return;
