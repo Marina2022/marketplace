@@ -179,7 +179,7 @@ const VideoMedia = ({tabCounts, fileUrlCache}) => {
       <div className={`${s.videoList} scroll`}>
         <ul ref={containerRef} className={`${s.videoList} scroll`}>
           {
-            !mainLoading && filesData.items.map((file, index) => <ChatInfoVideo
+            !mainLoading && filesData.items && filesData.items.map((file, index) => <ChatInfoVideo
               file={file}
               key={index}
               fileUrlCache={fileUrlCache}
