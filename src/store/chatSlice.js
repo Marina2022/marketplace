@@ -457,7 +457,6 @@ export const logoutChat = createAsyncThunk(
   }
 )
 
-
 const initialState = {
   chats: null,
   unreadCount: 0,
