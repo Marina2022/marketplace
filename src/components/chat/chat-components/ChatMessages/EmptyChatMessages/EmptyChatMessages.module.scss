@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: calc(var(--vh) * 100 - 138px );
+  height: calc(var(--vh) * 100 - 146px );
 
   @include m {
     height: calc(var(--vh) * 100 - 56px - 122px);

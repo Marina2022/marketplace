@@ -49,6 +49,8 @@ const MainMenuItem = ({item}) => {
 
   const unreadCount = useSelector(getUnreadCount)
 
+  console.log("unreadCount = ", unreadCount)
+
   const [showBadge, setShowBadge] = useState(false)
 
   useEffect(() => {
@@ -80,7 +82,7 @@ const MainMenuItem = ({item}) => {
         showTooltip && <div className={s.tooltip}>{item.tooltip}</div>
       }
     </li>
-  );
-};
+  )
+}
 
 export default MainMenuItem;

@@ -25,7 +25,7 @@
 
 .filesList {
   padding-inline: 14px;
-  height: calc(100vh - 460px);
+  height: calc(100vh - 470px);
   padding-bottom: 10px;
   display: flex;
   flex-direction: column;
@@ -34,4 +34,8 @@
   @include m {
     height: calc(80 * var(--vh) - 340px);
   }
+}
+
+.wrapper {
+  padding-bottom: 114px;
 }

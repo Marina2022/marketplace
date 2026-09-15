@@ -187,7 +187,7 @@ const ChatInfoFiles = ({fileCount, fileUrlCache}) => {
   }
 
   return (
-    <div>
+    <div className={s.wrapper}>
       <div className={s.header}>
         <div className={s.headerTitle}>Документы · {fileCount}</div>
         {
