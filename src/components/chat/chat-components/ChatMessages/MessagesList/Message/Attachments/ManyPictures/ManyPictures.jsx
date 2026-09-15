@@ -6,7 +6,6 @@ import LoadingPicture
 const ManyPictures = ({fileUrlCache, attachments}) => {
 
   const pictures = attachments.filter((img) => img.contentType.startsWith("image"));
-
   let picturesToShow = pictures
 
   let isCropped = false
@@ -27,8 +26,7 @@ const ManyPictures = ({fileUrlCache, attachments}) => {
 
       if (cached && new Date(cached.expiresAt).getTime() > now) {
         url = cached.url
-      }
-      else {
+      } else {
         const response = await axiosInstance.post(`chat/files/urls`, {
           mediaFileIds: [id],
           ttlSeconds: 600
@@ -59,15 +57,14 @@ const ManyPictures = ({fileUrlCache, attachments}) => {
           const src = cached?.url;
 
           return (
-            <li onClick={()=>handleOpen(picture)} className={s.item} key={i}>
+            <li onClick={() => handleOpen(picture)} className={s.item} key={i}>
               {
-                picture.fileLoading ? <LoadingPicture /> : <img className={s.img} src={src || ""} alt="img" />
+                picture.fileLoading ? <LoadingPicture/> : <img className={s.img} src={src || ""} alt="img"/>
               }
             </li>
           )
         })
       }
-
       {
         isCropped && (
           <li className={`${s.item} ${s.plusBlock}`}>

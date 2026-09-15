@@ -1,4 +1,3 @@
-// src/components/ChatInitializer.jsx
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {initChat, switchProfile, logoutChat, clearChatStore} from "@/store/chatSlice.js";

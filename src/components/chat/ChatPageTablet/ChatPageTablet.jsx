@@ -14,23 +14,19 @@ const ChatPageTablet = ({fileUrlCache}) => {
         <ChatContacts/>
       </div>
       <div className={s.messagesBlock}>
-
         {
           showChatInfo && (
-            <div className={s.chatInfoUnderlay} onClick={() => setShowChatInfo(false)} >
+            <div className={s.chatInfoUnderlay} onClick={() => setShowChatInfo(false)}>
               <div className={s.chatInfo}>
-                <ChatInfo fileUrlCache={fileUrlCache} setShowChatInfo={setShowChatInfo} />
+                <ChatInfo fileUrlCache={fileUrlCache} setShowChatInfo={setShowChatInfo}/>
               </div>
             </div>
           )
         }
-
         <ChatMessages setShowChatInfo={setShowChatInfo} fileUrlCache={fileUrlCache}/>
       </div>
-
-
     </div>
-  );
-};
+  )
+}
 
 export default ChatPageTablet;

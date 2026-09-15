@@ -1,4 +1,3 @@
-import s from './Chat.module.scss';
 import {useMediaQuery} from "react-responsive";
 import ChatPageDesktop from "@/components/chat/ChatPageDesktop/ChatPageDesktop.jsx";
 import ChatPageTablet from "@/components/chat/ChatPageTablet/ChatPageTablet.jsx";

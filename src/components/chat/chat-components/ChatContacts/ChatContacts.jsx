@@ -24,22 +24,17 @@ import MobileHeaderLk from "@/components/layout/Header/MobileHeader/MobileHeader
 const ChatContacts = ({setRequestsShown}) => {
 
   const isMobile = useMediaQuery({maxWidth: 960})
-
   const contacts = useSelector(getChats)
-
   const filter = useSelector(getChatFilter)
   const requestId = useSelector(getCurrentChatRequest)
   const search = useSelector(getChatSearch)
   const chatProfileStatus = useSelector(getChatProfileStatus)
-
   const profileId = useSelector(getActiveProfileId)
-
   const containerRef = useRef(null)
   const observerRef = useRef(null)
   const [isOnScrollLoading, setIsOnScrollLoading] = useState(false)
   const [mainLoading, setMainLoading] = useState(true)
   const isLoadingRef = useRef(false)
-
   const dispatch = useDispatch()
   const LIMIT = 20
 
@@ -157,12 +152,9 @@ const ChatContacts = ({setRequestsShown}) => {
 
   return (
     <div className={s.chatContacts}>
-
       <MobileHeaderLk/>
-
       <div className={s.contactsHeaderPart}>
         <ChatSearch/>
-
         {
           !isMobile && <button className={s.filterBtnDesktop}>
             <svg width="15" height="10" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg">

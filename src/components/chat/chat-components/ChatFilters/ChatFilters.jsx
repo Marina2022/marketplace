@@ -76,7 +76,6 @@ const ChatFilters = ({setRequestsShown=null}) => {
 
       const payload = getPreviewPayload(requestsResponse.data.items)
       const pictures = await axiosInstance.post(`/requests/preview`, payload)
-
       const requestsWithPictures = getRequestsWithPictures({requests: requestsResponse, pictures})
 
       setRequests(prevRequests => ({

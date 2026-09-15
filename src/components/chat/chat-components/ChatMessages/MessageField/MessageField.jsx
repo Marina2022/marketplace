@@ -100,7 +100,6 @@ const MessageField = ({
     setFiles([])
   }, [currentChat?.chatRoomId]);
 
-
   // Редактируем сообщение
   useEffect(() => {
     if (!editingMessage) return

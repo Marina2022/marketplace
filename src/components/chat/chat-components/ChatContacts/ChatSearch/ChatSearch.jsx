@@ -12,7 +12,6 @@ const ChatSearch = () => {
 
   const [innerSearchValue, setInnerSearchValue] = useState(initialSearchValue)
   const debouncedSearchValue = useDebounce(innerSearchValue, 300);
-
   const dispatch = useDispatch()
 
   const handleChange = (e) => {

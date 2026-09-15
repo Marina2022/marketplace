@@ -13,9 +13,7 @@ const PictureMedia = ({tabCounts, fileUrlCache}) => {
 
   const requestId = useSelector(getCurrentChatRequest)
   const currentChat = useSelector(getCurrentChat)
-
   const [picturesData, setPicturesData] = useState(null)
-
   const containerRef = useRef(null)
   const observerRef = useRef(null)
   const [mainLoading, setMainLoading] = useState(true)

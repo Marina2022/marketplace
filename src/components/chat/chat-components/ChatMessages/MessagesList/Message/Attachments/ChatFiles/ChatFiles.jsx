@@ -6,7 +6,6 @@ import MiniSpinner from "@/components/ui/miniSpinner/MiniSpinner.jsx";
 const ChatFiles = ({fileUrlCache, attachments}) => {
 
   const files = attachments.filter((img) => !img.contentType.startsWith("image"));
-
   const handleOpen = async (file) => {
     const id = file.mediaFileId
     const now = Date.now()
@@ -52,8 +51,6 @@ const ChatFiles = ({fileUrlCache, attachments}) => {
           let ext = ""
           const arr = file.fileName.split(".")
           if (arr.length >= 1) ext = arr[arr.length - 1]
-
-
 
           return (
             <li className={s.fileItem} key={i} onClick={() => handleOpen(file)}>

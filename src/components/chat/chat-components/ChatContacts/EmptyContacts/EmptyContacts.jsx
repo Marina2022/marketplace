@@ -10,7 +10,6 @@ const EmptyContacts = () => {
         <SkeletonChatContacts />
         <SkeletonChatContacts />
       </ul>
-
       <div className={s.textBlock}>
         <div className={s.title}>Контактов нет</div>
         <div className={s.text}>Список собеседников появится после <br/>

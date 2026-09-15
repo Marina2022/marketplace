@@ -6,9 +6,9 @@ import MessageContextMenu
 
 const FirstSystemMessage = ({message}) => {
   const [showMenu, setShowMenu] = useState(false)
-  const onClose = ()=>setShowMenu(false)
+  const onClose = () => setShowMenu(false)
   return (
-    <div className={s.message} onClick={()=>setShowMenu(true)}>
+    <div className={s.message} onClick={() => setShowMenu(true)}>
       {
         showMenu && (
           <MessageContextMenu
@@ -17,14 +17,12 @@ const FirstSystemMessage = ({message}) => {
           />
         )
       }
-
       <svg className={s.icon} width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="30" height="30" rx="8" fill="#FAF1DF"/>
         <path d="M15 9.375L21.0938 20.1562H8.90625L15 9.375Z" stroke="#8A6420" strokeWidth="1.21875"
               strokeLinejoin="round"/>
         <path d="M15 13.5938V16.4063M15 18.0938V18.1031" stroke="#8A6420" strokeWidth="1.21875" strokeLinecap="round"/>
       </svg>
-
       <div className={s.textPart}>
         <div className={s.header}>
           <div className={s.title}>
@@ -37,12 +35,10 @@ const FirstSystemMessage = ({message}) => {
         <div className={s.text}>
           {message.text}
         </div>
-
         <div className={s.subText}>
           Платформа не контролирует и не несёт ответственности за действия сторон вне сервиса. Все договорённости —
           между вами.
         </div>
-
         <div className={s.safeDeal}>
           <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="26" height="26" rx="4" fill="#3D4A66"/>
@@ -56,7 +52,6 @@ const FirstSystemMessage = ({message}) => {
             <div className={s.safeDealTitle}>Безопасная сделка</div>
             <div className={s.safeDealText}>Безопасная сделка</div>
           </div>
-
           <button className={s.arrowBtn}>
             <svg width="6" height="11" viewBox="0 0 6 11" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -64,14 +59,10 @@ const FirstSystemMessage = ({message}) => {
                 fill="#3D4A66"/>
             </svg>
           </button>
-
-
         </div>
-
       </div>
-
     </div>
-  );
-};
+  )
+}
 
 export default FirstSystemMessage;

@@ -49,7 +49,6 @@ const ChatMenu = () => {
     let url = `/request/${currentChat.requestInfo.requestNumber}/${currentChat.requestInfo.requestId}`
 
     if (currentRequestInfo.role === "Executor") {
-      //response/20260819-001032/c0dc5640-b69b-4494-8523-32eee9791102
       url = `/response/${currentChat.requestInfo.requestNumber}/${currentChat.requestInfo.requestId}`
     }
 
@@ -66,7 +65,6 @@ const ChatMenu = () => {
     }
     setMenuOpen(false);
   }
-
 
   const [pinning, setPinning] = useState(false)
 
@@ -89,7 +87,6 @@ const ChatMenu = () => {
       )
       dispatch(setChats({items: sortedChats, meta: chats.meta}))
       dispatch(setCurrentChat({...currentChat, isPinned: true}))
-
 
     } catch (err) {
       console.log("err =", err)

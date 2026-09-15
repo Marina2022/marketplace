@@ -8,7 +8,6 @@ const ContactList = ({contacts, observerRef, containerRef, isOnScrollLoading}) =
       {
         contacts.items.map((contact, index) => <ContactItem key={index} contact={contact} />)
       }
-
       {contacts && (contacts.meta.hasNext) && (
         <li ref={observerRef} style={{ listStyleType: 'none', width: '100%', minHeight: '30px' }}>
           {isOnScrollLoading && <div className={s.onScrollSpinnerWrapper}>

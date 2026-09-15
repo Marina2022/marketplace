@@ -18,22 +18,21 @@ const ChatFileItem = ({file, filesLoading, setFiles}) => {
         <div className={s.name}>{file.file.name}</div>
         <div className={s.size}>{formatFileSize(file.file.size)}</div>
       </div>
-
       <button onClick={handleDelete} className={s.deleteBtn}>
         <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2.75 2.75L8.25 8.25M8.25 2.75L2.75 8.25" stroke="#B6BBC3" strokeWidth="1.375" strokeLinecap="round"/>
+          <path d="M2.75 2.75L8.25 8.25M8.25 2.75L2.75 8.25" stroke="#B6BBC3" strokeWidth="1.375"
+                strokeLinecap="round"/>
         </svg>
       </button>
-
       {
         filesLoading.includes(file.id) && (
           <div className={s.clockIndicator}>
-            <MiniSpinner black />
+            <MiniSpinner black/>
           </div>
         )
       }
     </li>
-  );
-};
+  )
+}
 
 export default ChatFileItem;

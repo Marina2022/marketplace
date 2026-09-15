@@ -35,7 +35,6 @@ const ChatInfoFiles = ({fileCount, fileUrlCache}) => {
 
       const items = data.items || []
       const now = Date.now()
-
       const mediaFileIds = items.map(item => item.mediaFileId)
 
       //  фильтруем только нужные

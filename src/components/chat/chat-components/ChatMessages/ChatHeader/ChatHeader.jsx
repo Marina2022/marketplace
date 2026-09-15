@@ -5,7 +5,6 @@ import {useMediaQuery} from "react-responsive";
 import ChatMenu from "@/components/chat/chat-components/ChatMessages/ChatHeader/ChatMenu/ChatMenu.jsx";
 import DropFilesArea from "@/components/chat/chat-components/ChatMessages/DropFilesArea/DropFilesArea.jsx";
 
-// const ChatHeader = ({setFiles, files, setFilesLoading, filesLoading, getRootProps, getInputProps, dropProcess}) => {
 const ChatHeader = ({dropProcess, setShowChatInfo}) => {
 
   const isMobile = useMediaQuery({maxWidth: 960})
@@ -44,7 +43,6 @@ const ChatHeader = ({dropProcess, setShowChatInfo}) => {
         <div className={s.text}>
           {currentChat.companionName}
         </div>
-
         {
           isTyping && <div className={s.isTyping}>Печатает...</div>
         }
@@ -52,11 +50,9 @@ const ChatHeader = ({dropProcess, setShowChatInfo}) => {
         {
           !isTyping && <div className={s.isNotTyping}>Печатает...</div>
         }
-
       </div>
 
       <div className={s.buttons}>
-
         {
           (isTablet || isMobile) && (
             <button className={s.btn} onClick={() => setShowChatInfo(prev => !prev)}>
@@ -69,13 +65,10 @@ const ChatHeader = ({dropProcess, setShowChatInfo}) => {
             </button>
           )
         }
-
         <ChatMenu/>
       </div>
     </div>
-
   )
-
 }
 
 export default ChatHeader;

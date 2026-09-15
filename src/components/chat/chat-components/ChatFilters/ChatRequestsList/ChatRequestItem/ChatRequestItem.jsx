@@ -14,7 +14,6 @@ const ChatRequestItem = ({request, setRequestsShown}) => {
   const currentChatRequest = useSelector(getCurrentChatRequest)
   const dispatch = useDispatch();
 
-
   const handleClick = () => {
     dispatch(setCurrentChatRequest(request.requestId))
     dispatch(setCurrentChat(null))

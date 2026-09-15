@@ -1,4 +1,3 @@
-import MobileHeaderLk from "@/components/layout/Header/MobileHeader/MobileHeaderLK/MobileHeaderLK.jsx";
 import ChatContacts from "@/components/chat/chat-components/ChatContacts/ChatContacts.jsx";
 import {useState} from "react";
 import MobileChatRequestsBlock
@@ -12,12 +11,10 @@ const ChatPageMobile = ({fileUrlCache}) => {
 
   const [showChatInfo, setShowChatInfo] = useState(false)
   const [requestsShown, setRequestsShown] = useState(false)
-
   const currentChat = useSelector(getCurrentChat);
 
   return (
     <div>
-
       {
         !currentChat && <ChatContacts setRequestsShown={setRequestsShown}/>
       }
@@ -33,10 +30,8 @@ const ChatPageMobile = ({fileUrlCache}) => {
       {
         showChatInfo && <MobileChatInfoWrapper setShowChatInfo={setShowChatInfo} fileUrlCache={fileUrlCache} />
       }
-
-
     </div>
-  );
-};
+  )
+}
 
 export default ChatPageMobile;

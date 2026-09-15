@@ -18,12 +18,9 @@ const MessageContextMenu = ({
     catEdit = true
   }
 
-
   const dropdownRef = useRef(null);
-
   const [isTop, setIsTop] = useState(false);
   const isMobile = useMobileScreen()
-
   const dispatch = useDispatch()
 
   useLayoutEffect(() => {
@@ -31,7 +28,6 @@ const MessageContextMenu = ({
 
     const rect = dropdownRef.current.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
-
     let ourHeight = viewportHeight - 80
     if (isMobile) ourHeight = viewportHeight - 56 - 80
     if (rect.bottom > ourHeight) {
@@ -43,7 +39,6 @@ const MessageContextMenu = ({
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-
       if (
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target)
@@ -70,7 +65,6 @@ const MessageContextMenu = ({
 
 
   const handleEdit = async () => {
-
     if (has24HoursPassed(message.createdAt)) {
       showErrorToast("Редактирование доступно только в течение 24 часов после отправки сообщения.")
       return
@@ -115,7 +109,6 @@ const MessageContextMenu = ({
             </li>
           )
         }
-
         <li className={s.menuItem} onClick={handleCopy}>
           <div className={s.svgDiv}>
             <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">

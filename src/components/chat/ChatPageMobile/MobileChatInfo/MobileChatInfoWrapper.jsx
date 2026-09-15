@@ -9,7 +9,7 @@ const MobileChatInfoWrapper = ({setShowChatInfo, fileUrlCache}) => {
         <ChatInfo fileUrlCache={fileUrlCache} setShowChatInfo={setShowChatInfo} />
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default MobileChatInfoWrapper;

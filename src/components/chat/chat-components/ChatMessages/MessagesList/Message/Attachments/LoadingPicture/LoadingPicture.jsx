@@ -8,7 +8,7 @@ const LoadingPicture = ({onePicture= false}) => {
       <img className={s.bgImg} src={loadingPicture} alt="bg"/>
       <MiniSpinner black />
     </div>
-  );
-};
+  )
+}
 
 export default LoadingPicture;

@@ -14,17 +14,14 @@ const ChatPageDesktop = ({fileUrlCache}) => {
       <div className={s.contactsBlock}>
         <ChatContacts/>
       </div>
-
       <div className={`${s.messagesBlock} ${!currentRequest ? s.noCurrentRequest : ""}`}>
-        <ChatMessages fileUrlCache={fileUrlCache}  />
+        <ChatMessages fileUrlCache={fileUrlCache}/>
       </div>
-
       {
         currentRequest && <div className={s.chatInfo}>
-          <ChatInfo fileUrlCache={fileUrlCache} />
+          <ChatInfo fileUrlCache={fileUrlCache}/>
         </div>
       }
-
     </div>
   )
 }

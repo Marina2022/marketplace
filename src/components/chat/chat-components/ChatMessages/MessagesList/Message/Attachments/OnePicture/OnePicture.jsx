@@ -9,7 +9,6 @@ const OnePicture = ({fileUrlCache, pictureInfo, chatContainerRef}) => {
   const id = pictureInfo.mediaFileId;
   const pictureRef = useRef(null);
   const scrollAdjustedRef = useRef(false); // Защита от повторного скролла для этой картинки
-
   const [isImageReady, setIsImageReady] = useState(false);
 
   const [currentUrl, setCurrentUrl] = useState(() => {
@@ -38,8 +37,7 @@ const OnePicture = ({fileUrlCache, pictureInfo, chatContainerRef}) => {
       setIsImageReady(true);
       // Картинка из кэша может загрузиться мгновенно, пробуем скорректировать скролл
       // С небольшим таймаутом, чтобы элемент успел встроиться в DOM и получить высоту
-
-      // setTimeout(adjustScroll, 0);  // убрала пока что
+      setTimeout(adjustScroll, 0);
     }
   }, [currentUrl]);
 
@@ -63,40 +61,37 @@ const OnePicture = ({fileUrlCache, pictureInfo, chatContainerRef}) => {
           fileUrlCache.current[id] = {
             url,
             expiresAt: response.data.expiresAt
-          };
+          }
         }
-
         if (isMounted) {
           setCurrentUrl(url);
         }
       } catch (e) {
         console.error("Failed to fetch image URL:", e);
       }
-    };
+    }
 
     fetchNewUrl();
 
     return () => {
       isMounted = false;
-    };
+    }
   }, [id, currentUrl, fileUrlCache]);
 
   const handleOpen = async () => {
     if (currentUrl) {
       window.open(currentUrl, "_blank");
     }
-  };
+  }
 
   const handleLoad = () => {
     setIsImageReady(true);
     adjustScroll(); // Корректируем скролл при физической загрузке
-  };
+  }
 
   return (
     <div className={s.imageWrapper}>
       {!isImageReady && <div className={s.skeleton}/>}
-
-
       {
         pictureInfo.fileLoading ?
           <LoadingPicture onePicture />
@@ -110,11 +105,9 @@ const OnePicture = ({fileUrlCache, pictureInfo, chatContainerRef}) => {
             alt="img"
           />
       }
-
-
     </div>
-  );
-};
+  )
+}
 
 export default OnePicture;
 

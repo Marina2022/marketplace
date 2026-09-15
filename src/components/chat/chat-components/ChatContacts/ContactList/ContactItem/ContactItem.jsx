@@ -15,7 +15,6 @@ const ContactItem = ({contact}) => {
 
   const currentChat = useSelector(getCurrentChat)
   const dispatch = useDispatch()
-
   const currentChatRequested = useSelector(getCurrentChatRequest)
 
   let lastMessage = ""

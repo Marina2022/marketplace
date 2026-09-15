@@ -18,8 +18,6 @@ const MyMessage = ({message, fileUrlCache, chatContainerRef}) => {
   const currentChat = useSelector(getCurrentChat)
   const dispatch = useDispatch()
 
-  // const menuBtnRef = useRef(null);
-
   const [sending, setSending] = useState(false)
 
   const handleSend = async (e) => {
