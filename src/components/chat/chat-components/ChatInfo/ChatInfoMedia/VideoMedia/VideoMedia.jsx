@@ -176,26 +176,15 @@ const VideoMedia = ({tabCounts, fileUrlCache}) => {
         }
       </div>
 
-      <div className={`${s.videoList} scroll`}>
-        <ul ref={containerRef} className={`${s.videoList} scroll`}>
-          {
-            !mainLoading && filesData?.items && filesData?.items.map((file, index) => <ChatInfoVideo
-              file={file}
-              key={index}
-              fileUrlCache={fileUrlCache}
-            />)
-          }
-
-          {
-            filesData && (filesData.meta.hasNext) && (
-              <li ref={observerRef}>
-                {isOnScrollLoading && <div >
-                  <MiniSpinnerPagination/>
-                </div>}
-              </li>
-            )}
-        </ul>
-      </div>
+      <ul ref={containerRef} className={`${s.videoList} scroll`}>
+        {
+          !mainLoading && filesData?.items && filesData?.items.map((file, index) => <ChatInfoVideo
+            file={file}
+            key={index}
+            fileUrlCache={fileUrlCache}
+          />)
+        }
+      </ul>
     </div>
   )
 }

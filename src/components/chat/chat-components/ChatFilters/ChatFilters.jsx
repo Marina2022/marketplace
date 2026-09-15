@@ -9,7 +9,7 @@ import ChatFilterDropdown
   from "@/components/chat/chat-components/ChatFilters/ChatFilterDropdown/ChatFilterDropdown.jsx";
 import {getPreviewPayload, getRequestsWithPictures} from "@/utils/requests.js";
 
-const ChatFilters = () => {
+const ChatFilters = ({setRequestsShown=null}) => {
 
   const currentFilterValue = useSelector(getChatFilter)
   const [requests, setRequests] = useState(null)
@@ -133,6 +133,7 @@ const ChatFilters = () => {
           containerRef={containerRef}
           observerRef={observerRef}
           isOnScrollLoading={isOnScrollLoading}
+          setRequestsShown={setRequestsShown}
         />
       }
     </div>

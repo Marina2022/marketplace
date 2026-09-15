@@ -32,6 +32,6 @@
   gap: 8px;
 
   @include m {
-    height: calc(70 * var(--vh) - 320px);
+    height: calc(80 * var(--vh) - 340px);
   }
 }

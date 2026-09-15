@@ -3,12 +3,12 @@ import ChatRequestItem
   from "@/components/chat/chat-components/ChatFilters/ChatRequestsList/ChatRequestItem/ChatRequestItem.jsx";
 import MiniSpinnerPagination from "@/components/ui/miniSpinner/MiniSpinnerPagination/MiniSpinnerPagination.jsx";
 
-const ChatRequestsList = ({requests, containerRef, observerRef, isOnScrollLoading}) => {
+const ChatRequestsList = ({requests, containerRef, observerRef, isOnScrollLoading, setRequestsShown}) => {
 
   return (
     <ul ref={containerRef} className={`${s.chatRequestsList} scroll`}>
       {
-        requests.items.map((request, index) => <ChatRequestItem key={index} request={request} />)
+        requests.items.map((request, index) => <ChatRequestItem key={index} request={request} setRequestsShown={setRequestsShown} />)
       }
 
       {requests && (requests.meta.hasNext) && (

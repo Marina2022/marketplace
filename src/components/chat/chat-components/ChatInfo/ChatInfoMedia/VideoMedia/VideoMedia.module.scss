@@ -35,9 +35,12 @@
 
 .videoList {
   height: calc(100% - 40px);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 
   @include m {
-    padding-bottom: 14px;
+    padding-bottom: 10px;
   }
 }
 

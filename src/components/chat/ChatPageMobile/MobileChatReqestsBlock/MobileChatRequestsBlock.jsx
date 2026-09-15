@@ -6,7 +6,7 @@ const MobileChatRequestsBlock = ({setRequestsShown}) => {
     <div className={s.mobileTagsBlockWrapper} onClick={() => setRequestsShown(false)}>
       <div onClick={(e) => e.stopPropagation()} className={`${s.mobileTagsBlock}`}>
         <div className={s.line}></div>
-        <ChatFilters/>
+        <ChatFilters setRequestsShown={setRequestsShown} />
       </div>
     </div>
   )

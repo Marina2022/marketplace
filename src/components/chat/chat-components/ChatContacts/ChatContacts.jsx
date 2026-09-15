@@ -41,9 +41,9 @@ const ChatContacts = ({setRequestsShown}) => {
   const [mainLoading, setMainLoading] = useState(true)
   const isLoadingRef = useRef(false)
 
-  useEffect(() => {
-    if (chatError) showErrorToast("Ошибка при загрузке чатов")
-  }, [chatError])
+  // useEffect(() => {
+  //   if (chatError) showErrorToast("Ошибка при загрузке чатов")
+  // }, [chatError])
 
   const dispatch = useDispatch()
   const LIMIT = 20
@@ -72,9 +72,13 @@ const ChatContacts = ({setRequestsShown}) => {
         setMainLoading(true)
         const chatsResponse = await axiosInstance(requestUrl);
         dispatch(setChats(chatsResponse.data));
-      } catch (error) {
-        console.error("Ошибка загрузки чатов:", error);
-        dispatch(setChatError(true));
+      } catch (err) {
+        // Раньше тут был тоаст ошибка при загрузке чатов
+        console.log(err)
+        if (err.response && err.response.data?.errors?.length > 0) {
+          showErrorToast(err.response?.data?.errors[0].message)
+        }
+        // dispatch(setChatError(true))
       } finally {
         setMainLoading(false)
       }

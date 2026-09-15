@@ -9,7 +9,7 @@ import {
 import {getChatsLabel} from "@/utils/oneRequest.js";
 import {formatArchived, getNewWord} from "@/utils/chat.js";
 
-const ChatRequestItem = ({request}) => {
+const ChatRequestItem = ({request, setRequestsShown}) => {
 
   const currentChatRequest = useSelector(getCurrentChatRequest)
   const dispatch = useDispatch();
@@ -18,6 +18,7 @@ const ChatRequestItem = ({request}) => {
   const handleClick = () => {
     dispatch(setCurrentChatRequest(request.requestId))
     dispatch(setCurrentChat(null))
+    if (setRequestsShown) setRequestsShown(false)
   }
 
   const isActive = currentChatRequest === request.requestId

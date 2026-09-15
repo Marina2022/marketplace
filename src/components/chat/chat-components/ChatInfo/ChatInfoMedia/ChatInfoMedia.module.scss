@@ -7,6 +7,6 @@
   height: calc(100vh - 420px);
 
   @include m {
-    height: calc(70 * var(--vh) - 250px);
+    height: calc(74 * var(--vh) - 250px);
   }
 }

@@ -1,5 +1,5 @@
 .mobileTagsBlock {
-  height: calc(70 * var(--vh));
+  height: calc(var(--vh) * 80);
   position: fixed;
   bottom: 56px;
   left: 0;
