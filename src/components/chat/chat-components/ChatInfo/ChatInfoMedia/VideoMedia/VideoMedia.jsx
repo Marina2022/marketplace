@@ -1,7 +1,7 @@
 import s from './VideoMedia.module.scss';
 import MiniSpinnerPagination from "@/components/ui/miniSpinner/MiniSpinnerPagination/MiniSpinnerPagination.jsx";
 import {useSelector} from "react-redux";
-import {getCurrentChat, getCurrentChatRequest} from "@/store/chatSlice.js";
+import {getCurrentChat, getCurrentChatRequest, getMessagesData} from "@/store/chatSlice.js";
 import {useEffect, useRef, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import {normalizeFilesResponse} from "@/utils/chat.js";
@@ -21,53 +21,75 @@ const VideoMedia = ({tabCounts, fileUrlCache}) => {
   const [mainLoading, setMainLoading] = useState(true)
   const isLoadingRef = useRef(false)
 
-  // первая подгрузка файлов (в т.ч. при смене заявки, чата
-  useEffect(() => {
-    const getFiles = async () => {
-      setMainLoading(true)
+  const getFiles = async () => {
+    setMainLoading(true)
 
-      let url = `chat/media?requestId=${requestId}&mediaType=video&limit=${LIMIT}`
-      if (currentChat) {
-        url += `&chatRoomId=${currentChat.chatRoomId}`
-      }
+    let url = `chat/media?requestId=${requestId}&mediaType=video&limit=${LIMIT}`
+    if (currentChat) {
+      url += `&chatRoomId=${currentChat.chatRoomId}`
+    }
 
-      try {
-        const {data} = await axiosInstance(url)
+    try {
+      const {data} = await axiosInstance(url)
 
-        const items = data.items || []
-        const now = Date.now()
+      const items = data.items || []
+      const now = Date.now()
 
-        const mediaFileIds = items.map(item => item.mediaFileId)
+      const mediaFileIds = items.map(item => item.mediaFileId)
 
-        //  фильтруем только нужные
-        const idsToFetch = mediaFileIds.filter((id) => {
-          if (!id) return false
-          const cached = fileUrlCache.current[id]
-          return !cached || new Date(cached.expiresAt).getTime() <= now
+      //  фильтруем только нужные
+      const idsToFetch = mediaFileIds.filter((id) => {
+        if (!id) return false
+        const cached = fileUrlCache.current[id]
+        return !cached || new Date(cached.expiresAt).getTime() <= now
+      })
+
+      // запрашиваем только недостающие
+      if (idsToFetch.length > 0) {
+        const {data: filesResponse} = await axiosInstance.post(`chat/files/urls`, {
+          mediaFileIds: idsToFetch,
+          ttlSeconds: 600
         })
 
-        // запрашиваем только недостающие
-        if (idsToFetch.length > 0) {
-          const {data: filesResponse} = await axiosInstance.post(`chat/files/urls`, {
-            mediaFileIds: idsToFetch,
-            ttlSeconds: 600
-          })
-
-          const normalized = normalizeFilesResponse(filesResponse)
-          Object.assign(fileUrlCache.current, normalized)
-        }
-
-        setFilesData(data)
-
-      } catch (error) {
-        console.log(error)
-      } finally {
-        setMainLoading(false)
+        const normalized = normalizeFilesResponse(filesResponse)
+        Object.assign(fileUrlCache.current, normalized)
       }
+
+      setFilesData(data)
+
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setMainLoading(false)
     }
+  }
+
+  // первая подгрузка файлов (в т.ч. при смене заявки, чата
+  useEffect(() => {
+
     getFiles()
 
   }, [requestId, currentChat?.chatRoomId])
+
+
+  const messagesData = useSelector(getMessagesData)
+  const lastMessage = messagesData?.messages[0]
+
+  // подгрузка при отправке новых видосов
+  useEffect(() => {
+
+    if (!lastMessage) return
+    if (lastMessage.attachments[0].fileLoading) return
+    if (!lastMessage.attachments.length) return
+
+    const hasVideos =  lastMessage.attachments.some(a =>
+      a.type === "Video"
+    )
+
+    if (!hasVideos) return
+
+    getFiles()
+  }, [lastMessage])
 
   const handleObserverReached = async () => {
 

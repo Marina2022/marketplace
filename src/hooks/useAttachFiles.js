@@ -19,8 +19,6 @@ const useAttachFiles = ({files, setFiles, setFilesLoading, chatRoomId}) => {
 
     const uploaded = acceptedFiles
 
-    console.log("uploaded = ", uploaded)
-
     // когда пользователь прикрепил файл:
     if (uploaded) {
 
@@ -59,11 +57,9 @@ const useAttachFiles = ({files, setFiles, setFilesLoading, chatRoomId}) => {
       )
 
       // отправляем в загрузку
-
       filesToStateFinal.forEach(file => {
         upload(file)
       })
-
     }
   }
 
@@ -108,7 +104,6 @@ const useAttachFiles = ({files, setFiles, setFilesLoading, chatRoomId}) => {
           `media/${mediaFileId}/complete`
         )
 
-        console.log("respC = ", respC)
       } catch (err) {
 
         if (
@@ -118,7 +113,6 @@ const useAttachFiles = ({files, setFiles, setFilesLoading, chatRoomId}) => {
           console.log('complete вернул ошибку, пробуем заново через новый init')
 
           const respA2 = await axiosInstance.post(`/media/init`, bodyA)
-
           const {mediaFileId: mediaFileId2, uploadUrl: uploadUrl2} = respA2.data
 
           await axiosInstance.put(uploadUrl2, file.file)

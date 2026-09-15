@@ -1,6 +1,6 @@
 import s from './ChatInfoLinks.module.scss';
 import {useSelector} from "react-redux";
-import {getCurrentChat, getCurrentChatRequest} from "@/store/chatSlice.js";
+import {getCurrentChat, getCurrentChatRequest, getMessagesData} from "@/store/chatSlice.js";
 import {useEffect, useRef, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import {formatDateShort} from "@/utils/chat.js";
@@ -20,33 +20,43 @@ const ChatInfoLinks = ({linkCount}) => {
   const [mainLoading, setMainLoading] = useState(true)
   const isLoadingRef = useRef(false)
 
-  console.log("filesData = ", filesData)
 
+  const getFiles = async () => {
+    setMainLoading(true)
+
+    let url = `chat/links?requestId=${requestId}&limit=${LIMIT}`
+    if (currentChat) {
+      url += `&chatRoomId=${currentChat.chatRoomId}`
+    }
+
+    try {
+      const {data} = await axiosInstance(url)
+
+      setFilesData(data)
+
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setMainLoading(false)
+    }
+  }
 
   // первая подгрузка файлов (в т.ч. при смене заявки, чата
   useEffect(() => {
-    const getFiles = async () => {
-      setMainLoading(true)
-
-      let url = `chat/links?requestId=${requestId}&limit=${LIMIT}`
-      if (currentChat) {
-        url += `&chatRoomId=${currentChat.chatRoomId}`
-      }
-
-      try {
-        const {data} = await axiosInstance(url)
-
-        setFilesData(data)
-
-      } catch (error) {
-        console.log(error)
-      } finally {
-        setMainLoading(false)
-      }
-    }
-    getFiles()
+        getFiles()
 
   }, [requestId, currentChat?.chatRoomId])
+
+  const messagesData = useSelector(getMessagesData)
+  const lastMessage = messagesData?.messages[0]
+
+  // подгрузка при отправке новых линков
+  useEffect(() => {
+    if (!lastMessage) return
+    if (lastMessage.sendingStatus === "sending") return
+    getFiles()
+  }, [lastMessage])
+
 
   const handleObserverReached = async () => {
 
@@ -82,6 +92,7 @@ const ChatInfoLinks = ({linkCount}) => {
       isLoadingRef.current = false; // Открываем замок после завершения рендера данных
     }
   }
+
 
   // Инициализация обзервера
   useEffect(() => {

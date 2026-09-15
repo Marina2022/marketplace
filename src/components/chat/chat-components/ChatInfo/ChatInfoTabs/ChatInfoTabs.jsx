@@ -1,6 +1,6 @@
 import s from './ChatInfoTabs.module.scss';
 import {useEffect} from "react";
-import {getCurrentChat, getCurrentChatRequest} from "@/store/chatSlice.js";
+import {getCurrentChat, getCurrentChatRequest, getMessagesData} from "@/store/chatSlice.js";
 import {useSelector} from "react-redux";
 import axiosInstance from "@/api/axiosInstance.js";
 
@@ -9,24 +9,41 @@ const ChatInfoTabs = ({tab, setTab, tabCounts, setTabCounts}) => {
   const requestId = useSelector(getCurrentChatRequest)
   const currentChat = useSelector(getCurrentChat)
 
-  useEffect(() => {
-    const getTabCounts = async () => {
-      try {
+  const getTabCounts = async () => {
+    try {
 
-        let url = `chat/attachments/counters?requestId=${requestId}`
-        if (currentChat) url +=  `&chatRoomId=${currentChat.chatRoomId}`
+      let url = `chat/attachments/counters?requestId=${requestId}`
+      if (currentChat) url +=  `&chatRoomId=${currentChat.chatRoomId}`
 
-        const response = await axiosInstance(url)
-        setTabCounts(response.data)
+      const response = await axiosInstance(url)
+      setTabCounts(response.data)
 
-      } catch (err) {
-        console.log(err)
-      }
+    } catch (err) {
+      console.log(err)
     }
+  }
+
+  useEffect(() => {
 
     getTabCounts()
 
   }, [requestId, currentChat])
+
+
+  const messagesData = useSelector(getMessagesData)
+  const lastMessage = messagesData?.messages[0]
+
+  useEffect(() => {
+
+    if (!lastMessage) return
+
+    // чтобы не грузилось при оптимистичной отправке (когда у attachment fileLoading = true)
+    if (lastMessage.attachments[0].fileLoading) return
+
+    if (!lastMessage.attachments.length) return
+    getTabCounts()
+  }, [lastMessage])
+
 
   if (!tabCounts) return null
 
