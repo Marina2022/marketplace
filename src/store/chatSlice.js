@@ -1,6 +1,7 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import {getChatConnection} from "@/services/chatConnection.js";
 import axiosInstance from "@/api/axiosInstance.js";
+import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
 
 const LIMIT = 20
 
@@ -15,9 +16,53 @@ export const initChat = createAsyncThunk(
 
     dispatch(setConnectionState("Connecting"))
 
+    connection.on("Error", async (error) => {
+      console.log("Hub error:", error);
+
+      const state = getState();
+
+      switch (error.code) {
+
+        case "NoActiveProfile":
+          try {
+            await connection.invoke("SwitchActiveProfile", currentProfileId);
+          } catch (e) {
+            console.error("Failed to restore profile:", e);
+          }
+          break;
+
+        case "AccessDenied":
+          dispatch(setChatError(true));
+          dispatch(setCurrentChat(null));
+          showErrorToast("Нет доступа к чату");
+          break;
+
+        case "TooManyChats":
+          console.warn("Too many chats");
+
+          // если дойдёшь до лимита подписок — чистим старые комнаты
+          if (state.chat.currentChat?.chatRoomId) {
+            await connection.invoke("LeaveChat", state.chat.currentChat.chatRoomId);
+          }
+
+          break;
+
+        case "RateLimit":
+          dispatch(setIsTyping(false));
+          showErrorToast("Слишком много действий")
+          break;
+
+        case "InvalidProfileId":
+        case "InvalidChatRoomId":
+          console.warn("Invalid hub id:", error);
+          break;
+
+        default:
+          console.warn("Unknown hub error:", error);
+      }
+    })
 
     let isTypingTimerId = null
-    //UserTyping  /  UserStoppedTyping  { chatRoomId, profileId }
     connection.on("UserTyping", async ({chatRoomId}) => {
 
       const state = getState()
@@ -311,14 +356,9 @@ export const initChat = createAsyncThunk(
       }
     )
 
-
     connection.onclose(() => {
       console.log("onclose")
       dispatch(setReconnectionStatus("offline"))
-
-      // все попытки реконнекта исчерпаны
-      //setConnectionStatus("offline");
-      // кнопка «Переподключиться» → connection.start() + шаг 1 заново
     })
 
     connection.onreconnected(async () => {
@@ -363,7 +403,6 @@ export const initChat = createAsyncThunk(
       if (state.chat.currentChat) {
         await connection.invoke("JoinChat", state.chat.currentChat.chatRoomId)
         dispatch(setReconnectedNumber(state.chat.reconnectedNumber + 1))
-
       }
 
     } catch (error) {

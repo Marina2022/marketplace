@@ -79,7 +79,7 @@ const PictureMedia = ({tabCounts, fileUrlCache}) => {
   useEffect(() => {
 
     if (!lastMessage) return
-    if (lastMessage.attachments[0].fileLoading) return
+    if (lastMessage.attachments[0]?.fileLoading) return
     if (!lastMessage.attachments.length) return
 
     const hasImages =  lastMessage.attachments.some(a =>

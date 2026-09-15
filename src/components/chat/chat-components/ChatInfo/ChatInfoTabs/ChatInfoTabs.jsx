@@ -38,7 +38,7 @@ const ChatInfoTabs = ({tab, setTab, tabCounts, setTabCounts}) => {
     if (!lastMessage) return
 
     // чтобы не грузилось при оптимистичной отправке (когда у attachment fileLoading = true)
-    if (lastMessage.attachments[0].fileLoading) return
+    if (lastMessage.attachments[0]?.fileLoading) return
 
     if (!lastMessage.attachments.length) return
     getTabCounts()

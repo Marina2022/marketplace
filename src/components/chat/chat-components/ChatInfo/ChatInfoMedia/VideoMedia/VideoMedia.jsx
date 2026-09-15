@@ -79,7 +79,7 @@ const VideoMedia = ({tabCounts, fileUrlCache}) => {
   useEffect(() => {
 
     if (!lastMessage) return
-    if (lastMessage.attachments[0].fileLoading) return
+    if (lastMessage.attachments[0]?.fileLoading) return
     if (!lastMessage.attachments.length) return
 
     const hasVideos =  lastMessage.attachments.some(a =>

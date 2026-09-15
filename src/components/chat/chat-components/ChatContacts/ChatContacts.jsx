@@ -26,7 +26,6 @@ const ChatContacts = ({setRequestsShown}) => {
   const isMobile = useMediaQuery({maxWidth: 960})
 
   const contacts = useSelector(getChats)
-  const chatError = useSelector(getChatError)
 
   const filter = useSelector(getChatFilter)
   const requestId = useSelector(getCurrentChatRequest)

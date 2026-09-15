@@ -197,13 +197,10 @@ const MessageField = ({
       return
     }
 
-
     if (reconnectingStatus === "offline") {
       showErrorToast("Не получилось восстановить соединение, перезагрузите страницу")
       return
     }
-
-
 
     // валидация
     if (message.length > 5000) {
@@ -240,7 +237,8 @@ const MessageField = ({
         setFiles([])
       } catch (err) {
         console.log(err)
-        if (err.response && err.response.data?.errors?.length > 0) {
+
+        if (err.response && err.response?.data?.errors?.length > 0) {
           showErrorToast(err.response?.data?.errors[0].message)
         }
         return
@@ -296,6 +294,10 @@ const MessageField = ({
             Object.assign(fileUrlCache.current, normalized);
           } catch (err) {
             console.log(err)
+            const message = err.response?.data?.errors?.[0]?.message
+            if (message) {
+              showErrorToast(message)
+            }
           }
         }
 
