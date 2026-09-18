@@ -1,0 +1,48 @@
+@import "@/assets/styles/mixins";
+
+.dashboardTablet {
+  padding-block: 14px;
+
+}
+
+.dashboardTabletContent {
+  padding-inline: 14px;
+  height: calc(var(--vh) * 100 - 134px - 62px - 28px);
+
+}
+
+.header {
+  padding-inline: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: 18px;
+}
+
+.title {
+  color: #16181D;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.subtitle {
+  color: #9AA1AC;
+  font-size: 12px;
+}
+
+
+.mainBlock {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.leftBlock {
+  width: 62.6%;
+}
+
+
+.rightBlock {
+  width: 35.6%;
+  flex:1;
+}

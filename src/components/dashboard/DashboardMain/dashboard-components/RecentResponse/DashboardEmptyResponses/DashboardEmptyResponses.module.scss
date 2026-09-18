@@ -1,0 +1,63 @@
+@import "@/assets/styles/mixins";
+
+.emptyWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  position: relative;
+  top: -10px;
+  padding-block: 24px;
+  overflow: hidden;
+
+  @include t {
+    top: -10px;
+  }
+
+  @include m {
+    min-height: unset;
+    padding-bottom: 6px;
+  }
+}
+
+.iconWrapper {
+  flex-shrink: 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  border: 1px solid #E4E6EA;
+}
+
+.title {
+  color: #3A3F49;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.text {
+  color: #9AA1AC;
+  font-size: 13px;
+  text-align: center;
+}
+
+.createRequestButton {
+  margin-inline: auto;
+  height: 34px;
+  width: 156px;
+  gap: 8px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 12px;
+  margin-top: 12px;
+
+  svg {
+    flex-shrink: 0;
+  }
+}

@@ -21,7 +21,7 @@ const ManageRequests = ({setShowHistoryPage }) => {
   const [page, setPage] = useState(1);
   const [isOnScrollLoading, setIsOnScrollLoading] = useState(false);
 
-  const [requestToEdit, setRequestToEdit] = useState(null);
+  const [requestToEdit, setRequestToEdit] = useState(null)
 
   const activeProfileId = useSelector(getActiveProfileId)
 

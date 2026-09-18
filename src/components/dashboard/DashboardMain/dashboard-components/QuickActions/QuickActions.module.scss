@@ -1,0 +1,68 @@
+@import "@/assets/styles/mixins";
+
+.quickActions {
+  background: #F6F7F9;
+  border-radius: 4px;
+  border: 1px solid #DFE2E7;
+  padding: 16px;
+  flex: 1;
+  margin-top: 10px;
+  max-height: 100%;
+}
+
+.title {
+  color: #16181D;
+  font-weight: 600;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+.block {
+  padding: 12px;
+  border-radius: 8px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.itemTitle {
+  color: #6B7280;
+  font-size: 12px;
+}
+
+.itemValue {
+  color: #16181D;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.customerBlock {
+  background: #ECEFF5;
+}
+
+.subtitle {
+  margin-bottom: 2px;
+  grid-column: span 2;
+  color: #3D4A66;
+  font-size: 11px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+}
+
+.executorBlock {
+  background: #fff;
+  margin-top: 8px;
+}
+
+.executorSubtitle {
+  color: #565C68!important;
+}

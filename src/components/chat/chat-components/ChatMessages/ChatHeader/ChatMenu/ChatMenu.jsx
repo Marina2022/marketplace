@@ -54,7 +54,6 @@ const ChatMenu = () => {
 
     const isInTabs = tabs.find((tab) => tab === url)
 
-
     navigate(url, {
       state: {fromApp: true}
     })

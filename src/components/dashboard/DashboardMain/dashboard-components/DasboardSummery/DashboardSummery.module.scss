@@ -1,0 +1,95 @@
+@import "@/assets/styles/mixins";
+
+.summeryList {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(4, 1fr);
+
+  @include m {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+}
+
+.summeryItem {
+  background: #F6F7F9;
+  border-radius: 4px;
+  border: 1px solid #DFE2E7;
+  padding-inline: 16px;
+  padding-block: 24px;
+
+  @include t {
+    padding: 12px;
+  }
+}
+
+.notMobileItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.greyBig {
+  color: #9AA1AC;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+
+  @include t {
+    font-size: 10px;
+  }
+}
+
+.grey {
+  color: #9AA1AC;
+  font-size: 12px;
+
+  @include t {
+    font-size: 11px;
+  }
+
+  @include m {
+    font-size: 10px;
+  }
+}
+
+.number {
+  color: #16181D;
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.mobileItem {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.mobileDesc {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.notMobileItemWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon {
+
+  background: #fff;
+  border-radius: 4px;
+  width: 46px;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+
+  @include t {
+    display: none;
+  }
+}
+
+

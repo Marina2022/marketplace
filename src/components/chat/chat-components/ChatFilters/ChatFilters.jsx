@@ -34,7 +34,7 @@ const ChatFilters = ({setRequestsShown=null}) => {
         const pictures = await axiosInstance.post(`/requests/preview`, payload)
         const requestsWithPictures = getRequestsWithPictures({requests: requestsResponse, pictures})
 
-        setRequests(requestsWithPictures);
+        setRequests(requestsWithPictures)
 
       } catch (err) {
         console.log(err);

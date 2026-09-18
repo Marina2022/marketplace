@@ -17,6 +17,7 @@ import tabsSlice from "@/store/tabsSlice.js";
 import mobileMenuSlice from "@/store/mobileMenuSlice.js";
 import geoSlice, {loadRegions} from "@/store/geoSlice.js";
 import chatSlice from "@/store/chatSlice.js";
+import subscriptionSlice from "@/store/subscriptionSlice.js";
 
 export const store = configureStore({
     reducer: {
@@ -32,7 +33,8 @@ export const store = configureStore({
       tabs: tabsSlice,
       geo: geoSlice,
       mobileMenu: mobileMenuSlice,
-      chat: chatSlice
+      chat: chatSlice,
+      subscription: subscriptionSlice,
     }
   }
 )

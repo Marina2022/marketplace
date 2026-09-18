@@ -49,8 +49,6 @@ const MainMenuItem = ({item}) => {
 
   const unreadCount = useSelector(getUnreadCount)
 
-  console.log("unreadCount = ", unreadCount)
-
   const [showBadge, setShowBadge] = useState(false)
 
   useEffect(() => {

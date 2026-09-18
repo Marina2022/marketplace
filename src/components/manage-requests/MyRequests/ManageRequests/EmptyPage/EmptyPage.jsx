@@ -24,12 +24,12 @@ const EmptyPage = ({tab, setRequestToEdit}) => {
           и&nbsp;требования. Исполнители увидят её в&nbsp;каталоге и&nbsp;откликнутся.
         </div>
         <Button onClick={() => setRequestToEdit('new')} className={s.createRequestButton}>
-          <svg className={s.plusIconInBtn} width="15" height="15" viewBox="0 0 15 15" fill="none"
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
                xmlns="http://www.w3.org/2000/svg">
             <path d="M7.5 2.8125V12.1875M2.8125 7.5H12.1875" stroke="white" strokeWidth="1.59375"
                   strokeLinecap="round"/>
           </svg>
-          <span className={s.btnText}>Создать заявку</span>
+          <span >Создать заявку</span>
         </Button>
       </div>
     </div>

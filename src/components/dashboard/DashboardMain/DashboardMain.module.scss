@@ -1,0 +1,10 @@
+@import "@/assets/styles/mixins";
+
+.dashboardGlobalWrapper {
+  height: calc(var(--vh) * 100 - 140px);
+
+  @include m {
+    height: calc(var(--vh) * 100 - 56px);
+    background: #fff;
+  }
+}

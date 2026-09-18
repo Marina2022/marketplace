@@ -1,0 +1,11 @@
+@import "@/assets/styles/mixins";
+
+.dashboardMobile {
+  height: calc(var(--vh) * 100 - 56px);
+  padding-bottom: 14px;
+}
+
+.dashboardMobileContent {
+  padding-top: 72px;
+  padding-inline: 14px;
+}

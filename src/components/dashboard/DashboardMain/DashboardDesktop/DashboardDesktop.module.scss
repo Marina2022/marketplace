@@ -1,0 +1,62 @@
+@import "@/assets/styles/mixins";
+
+.dashboardDesktop {
+  height: calc(var(--vh) * 100 - 150px);
+  overflow: hidden;
+  padding: 14px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-bottom: 22px;
+}
+
+.title {
+  color: #16181D;
+  font-weight: 600;
+  font-size: 26px;
+}
+
+.subtitle {
+  color: #9AA1AC;
+  font-size: 13px;
+}
+
+.mainBlock {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.leftBlock {
+  width: 38%;
+}
+
+.middleBlock {
+  width: 38%;
+  display: flex;
+  flex-direction: column;
+  height: calc(var(--vh) * 100 - 372px);
+}
+
+.rightBlock {
+  width: 21.6%;
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  height: calc(var(--vh) * 100 - 372px);
+}
+
+.activeRequests {
+  height: calc(50% - 5px);
+  flex-shrink: 0;
+}
+
+.responses {
+  margin-top: 10px;
+  height: calc(50% - 5px);
+  flex-shrink: 0;
+}

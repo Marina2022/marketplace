@@ -2,9 +2,21 @@ import {useMediaQuery} from "react-responsive";
 import ChatPageDesktop from "@/components/chat/ChatPageDesktop/ChatPageDesktop.jsx";
 import ChatPageTablet from "@/components/chat/ChatPageTablet/ChatPageTablet.jsx";
 import ChatPageMobile from "@/components/chat/ChatPageMobile/ChatPageMobile.jsx";
-import {useRef} from "react";
+import {useEffect, useRef} from "react";
+import {getReconnectionStatus, initChat} from "@/store/chatSlice.js";
+import {useDispatch, useSelector} from "react-redux";
+import {getActiveProfileId} from "@/store/userSlice.js";
 
 const Chat = () => {
+
+  const profileId = useSelector(getActiveProfileId);
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    // страховка на случай полной потери соединения с чатом
+    // если чат подключен, то второй раз подключаться не будет (в редаксе стоит if connections.state !== "Disconnected" return
+    dispatch(initChat(profileId))
+  }, [profileId]);
 
   const isMobile = useMediaQuery({maxWidth: 960})
   const isDesktop = useMediaQuery({minWidth: 1341})
@@ -16,7 +28,7 @@ const Chat = () => {
     <div>
 
       {
-        isDesktop && <ChatPageDesktop fileUrlCache={fileUrlCache} />
+        isDesktop && <ChatPageDesktop fileUrlCache={fileUrlCache}/>
       }
 
       {

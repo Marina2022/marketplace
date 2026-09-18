@@ -5,7 +5,7 @@ import {showErrorToast} from "@/components/ui/ToastCustom/ToastCustom.jsx";
 
 const LIMIT = 20
 
-// Инициализация чата (Шаг 1 из вашего руководства)
+// Инициализация чата
 export const initChat = createAsyncThunk(
   "chat/initChat",
   async (currentProfileId, {dispatch, getState}) => {
@@ -394,6 +394,7 @@ export const initChat = createAsyncThunk(
       // 1. Запуск веб-сокет соединения
       await connection.start();
       dispatch(setConnectionState("Connected"))
+      dispatch(setReconnectionStatus("online"))
 
       // 2. Представляемся бэкенду текущим профилем
       dispatch(setChatProfileStatus("sending"))
@@ -474,7 +475,7 @@ const initialState = {
   newMessage: null,  // сюда попадает новое received сообщение, при условии, что оно не мое и принадлежит текущему chatRoom
   currentRequestInfo: null,
   reconnectedNumber: 0,  // числовое значение - чтобы поймать в компоненте факт реконнекта в текущем чате,
-  reconnectionStatus: "online"  // "reconnecting" - если такой статус, дизейблим отправку сообщений
+  reconnectionStatus: "online"  // "reconnecting" - если такой статус, дизейблим отправку сообщений, еще может быть offline
 }
 
 const chatSlice = createSlice({
