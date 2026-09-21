@@ -1,6 +1,7 @@
 @import "@/assets/styles/mixins";
 
 .manageRequestsWrapper {
+  padding-bottom: 10px;
 
   @include m {
     margin-top: 72px;
@@ -72,15 +73,12 @@
 }
 
 .requestsList {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(auto-fill, 346px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   height: calc(100 * var(--vh) - 280px);
-  align-content: start;
 
   @include t {
-    gap: 12px;
-    grid-template-columns: repeat(auto-fill, 346px);
     padding-inline: 14px;
     height: calc(100 * var(--vh) - 276px);
     padding-top: 0;
@@ -89,7 +87,6 @@
   @include m {
     padding-bottom: 14px;
     height: calc(100 * var(--vh) - 240px);
-    grid-template-columns: 1fr;
     padding-inline: 14px;
   }
 }
@@ -123,7 +120,7 @@
 .subtitle {
   font-size: 12px;
   color: #9AA1AC;
-  min-height: 13.8px;
+  padding-bottom: 14px;
 }
 
 .btnText {
@@ -155,4 +152,8 @@
   @include m {
     height: calc(100 * var(--vh) - 240px);
   }
+}
+
+.loadingWrapper {
+  height: calc(100vh - 280px);
 }

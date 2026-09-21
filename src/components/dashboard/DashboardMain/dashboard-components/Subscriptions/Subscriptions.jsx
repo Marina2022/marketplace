@@ -19,9 +19,6 @@ const Subscriptions = () => {
       try {
         setLoading(true)
         const result = await axiosInstance('subscriptions/me')
-        const result2 = await axiosInstance('requests/history/filters')
-
-        console.log("result2 = ", result2.data)
         dispatch(setSubscriptions(result.data))
       } catch (err) {
         console.log(err)
@@ -84,7 +81,6 @@ const Subscriptions = () => {
 
       <Button black className={s.btn}>
         <span>Сменить план</span>
-
         <svg width="16" height="8" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M11.8333 6.58333L14.75 3.66667L11.8333 0.75M14.75 3.66667H0.75" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
