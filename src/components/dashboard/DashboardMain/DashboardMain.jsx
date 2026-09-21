@@ -46,7 +46,7 @@ const DashboardMain = () => {
 
       result.data.recentResponses.forEach(response => {
         if (pictures2.data.items[response.requestId]) {
-          response.picture = pictures.data.items[response.requestId].url
+          response.picture = pictures2.data.items[response.requestId].url
         } else {
           response.picture = placeHolderImg
         }
@@ -68,7 +68,7 @@ const DashboardMain = () => {
 
   const [requestToEdit, setRequestToEdit] = useState(null)
 
-  if (loading) return (
+  if (loading ) return (
     <div>
       <Spinner/>
     </div>

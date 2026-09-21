@@ -8,6 +8,8 @@ import {getActiveProfileId} from "@/store/userSlice.js";
 import axiosInstance from "@/api/axiosInstance.js";
 import RequestHistoryTabs
   from "@/components/manage-requests/MyRequests/RequestsHistory/RequestHistoryTabs/RequestHistoryTabs.jsx";
+import RequestsHistoryCard
+  from "@/components/manage-requests/MyRequests/RequestsHistory/RequestsHistoryCard/RequestsHistoryCard.jsx";
 
 const RequestsHistory = ({setShowHistoryPage}) => {
 
@@ -55,7 +57,6 @@ const RequestsHistory = ({setShowHistoryPage}) => {
       setPage(1);
 
 
-
     } catch (err) {
       console.log(err);
     } finally {
@@ -69,7 +70,6 @@ const RequestsHistory = ({setShowHistoryPage}) => {
     if (!activeProfileId) return;
     resetRequests();
   }, [status, year, activeProfileId]);
-
 
 
   // Подгрузка по скроллу (вызывается из обзервера)
@@ -143,7 +143,6 @@ const RequestsHistory = ({setShowHistoryPage}) => {
   }, [mainLoading, requests, page]);
 
 
-
   return (
     <div className={s.manageRequestsWrapper}>
 
@@ -179,9 +178,8 @@ const RequestsHistory = ({setShowHistoryPage}) => {
 
         {!mainLoading && requests && requests.items.length > 0 && (
           <ul ref={containerRef} className={`${s.requestsList} scroll`}>
-            {requests.items.map((request) => (
-              <div key={request.title}>{request.title}</div>
-            ))}
+            {requests.items.map((request) => <RequestsHistoryCard request={request} key={request.requestId}/>
+            )}
 
             {/* Обзервер находится внутри тега <ul> как элемент списка */}
             {requests && (requests.items.length < requests.totalCount) && (

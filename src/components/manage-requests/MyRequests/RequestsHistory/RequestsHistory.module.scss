@@ -76,17 +76,18 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  height: calc(100 * var(--vh) - 280px);
+  height: calc(100 * var(--vh) - 286px);
+
 
   @include t {
     padding-inline: 14px;
-    height: calc(100 * var(--vh) - 276px);
+    height: calc(100 * var(--vh) - 290px);
     padding-top: 0;
   }
 
   @include m {
     padding-bottom: 14px;
-    height: calc(100 * var(--vh) - 240px);
+    height: calc(100 * var(--vh) - 250px);
     padding-inline: 14px;
   }
 }

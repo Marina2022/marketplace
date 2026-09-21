@@ -1,0 +1,122 @@
+@import "@/assets/styles/mixins";
+
+.card {
+  background: #F9F9FB;
+  border: 1px solid #DFE2E7;
+  border-radius: 12px;
+  padding: 10px 16px;
+  display: flex;
+  margin-right: 6px;
+
+  @include t {
+    margin-right: 0px;
+  }
+
+  @include m {
+    padding: 12px 14px;
+    border-radius: 4px;
+  }
+}
+
+.img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  object-position: center;
+  margin-right: 8px;
+}
+
+.desc {
+  margin-right: 10px;
+
+}
+
+.title {
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.greyInfo {
+  margin-bottom: 12px;
+  font-size: 11px;
+  color: #8A8F98;
+
+  @include t {
+    font-size: 12px;
+  }
+}
+.rounds {
+  width: 26px;
+  height: 26px;
+  background: #764BA2;
+  border-radius: 50%;
+}
+
+.requestNumber {
+  color: #9AA1AC;
+  font-size: 12px;
+  text-wrap: nowrap;
+  margin-right: 10px;
+
+  @include t {
+    margin-left: auto;
+  }
+}
+
+
+.rightCardPart {
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: auto;
+
+  @include t {
+    margin-left: 0;
+  }
+}
+
+
+.btn {
+  border-radius: 8px;
+  gap: 8px;
+  width: 100%;
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+.topRightBlock {
+  display: flex;
+  justify-content: space-between;
+}
+
+.requestStatus {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 5px;
+  color: #565C68;
+  font-weight: 600;
+  gap: 10px;
+}
+
+.views {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.viewsRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #9AA1AC;
+  font-size: 12px;
+  font-weight: 500;
+  justify-content: flex-end;
+}

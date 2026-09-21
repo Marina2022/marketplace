@@ -13,7 +13,7 @@ import MiniSpinnerPagination from "@/components/ui/miniSpinner/MiniSpinnerPagina
 import EmptyPageResponses from "@/components/manage-requests/MyResponses/EmptyPageResponses/EmptyPageResponses.jsx";
 
 const ManageResponses = () => {
-  const PAGE_SIZE = 2;
+  const PAGE_SIZE = 10;
 
   const [tab, setTab] = useState("all");
   const [responses, setResponses] = useState(null);
