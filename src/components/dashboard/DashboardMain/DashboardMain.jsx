@@ -41,6 +41,7 @@ const DashboardMain = () => {
       })
 
       // картинки для откликов
+
       const payload2 = getPreviewPayload(result.data.recentResponses)
       const pictures2 = await axiosInstance.post(`/requests/preview`, payload2)
 

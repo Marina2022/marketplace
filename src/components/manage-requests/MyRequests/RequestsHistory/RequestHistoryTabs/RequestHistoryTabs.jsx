@@ -3,6 +3,8 @@ import {useEffect, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.js";
 import YearFilter
   from "@/components/manage-requests/MyRequests/RequestsHistory/RequestHistoryTabs/YearFilter/YearFilter.jsx";
+import {useSelector} from "react-redux";
+import {getActiveProfileId} from "@/store/userSlice.js";
 
 const RequestHistoryTabs = ({
                               setShowHistoryPage,
@@ -16,6 +18,9 @@ const RequestHistoryTabs = ({
 
   const [filtersValues, setFiltersValues] = useState();
 
+  console.log("filtersValues = ", filtersValues)
+
+  const profileId = useSelector(getActiveProfileId)
   // загрузка фильтров
   useEffect(() => {
     const getFilters = async () => {
@@ -27,7 +32,7 @@ const RequestHistoryTabs = ({
       }
     }
     getFilters()
-  }, [])
+  }, [profileId])
 
   const handleGoToRequests = () => {
     setShowHistoryPage(false)
@@ -56,32 +61,37 @@ const RequestHistoryTabs = ({
         </li>
 
         <li
-            className={`${s.tab} ${!status ? s.tabActive : ''}`}
-            onClick={handleAllClick}
+          className={`${s.tab} ${!status ? s.tabActive : ''}`}
+          onClick={handleAllClick}
         >
           <span>Все</span>
           <span className={`${s.count} ${!status ? s.countActive : ''}`}>{requestsCount}</span>
         </li>
 
-        {
-          filtersValues.statuses.map((statusTab, i) => {
-              const handleStatusClick = () => {
-                setStatus(statusTab.code)
-              }
-              const isActive = status === statusTab.code;
+        <li
+          className={`${s.tab} ${status === "completed" ? s.tabActive : ''}`}
+          onClick={() => setStatus("completed")}
+        >
+          <span>Завершены</span>
+          <span
+            className={`${s.count} ${status === "completed" ? s.countActive : ''}`}>
+            {filtersValues.statuses.length > 0 ? filtersValues.statuses[0].count : 0}
+          </span>
+        </li>
 
-              return (
-                <li key={i}
-                    className={`${s.tab} ${isActive ? s.tabActive : ''}`}
-                    onClick={handleStatusClick}
-                >
-                  <span>{statusTab.label}</span>
-                  <span className={`${s.count} ${isActive ? s.countActive : ''}`}>{statusTab.count}</span>
-                </li>
-              )
-            }
-          )
-        }
+        <li
+          className={`${s.tab} ${status === "cancelled" ? s.tabActive : ''}`}
+          onClick={() => setStatus("cancelled")}
+        >
+          <span>Отменены</span>
+
+
+          <span
+            className={`${s.count} ${status === "cancelled" ? s.countActive : ''}`}>
+            {filtersValues.statuses.length > 0 ? filtersValues.statuses[1].count : 0}
+          </span>
+        </li>
+
         <YearFilter years={filtersValues.years} year={year} setYear={setYear}/>
         <li className={s.tabletEndItem}></li>
       </ul>
