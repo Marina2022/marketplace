@@ -179,3 +179,87 @@ export function formatRequestsNumber(count) {
 
   return `${count} заявок`;
 }
+
+
+export function formatRecords(count) {
+  const abs = Math.abs(count) % 100
+  const last = abs % 10
+
+  if (abs > 10 && abs < 20) {
+    return `${count} записей`
+  }
+
+  if (last > 1 && last < 5) {
+    return `${count} записи`
+  }
+
+  if (last === 1) {
+    return `${count} запись`
+  }
+
+  return `${count} записей`
+}
+
+export function formatCompleted(count) {
+  const abs = Math.abs(count) % 100
+  const last = abs % 10
+
+  if (abs > 10 && abs < 20) {
+    return `${count} завершены`
+  }
+
+  if (last === 1) {
+    return `${count} завершена`
+  }
+
+  if (last > 1 && last < 5) {
+    return `${count} завершены`
+  }
+
+  return `${count} завершены`
+}
+
+export function formatCancelled(count) {
+  const abs = Math.abs(count) % 100
+  const last = abs % 10
+
+  if (abs > 10 && abs < 20) {
+    return `${count} отменены`
+  }
+
+  if (last === 1) {
+    return `${count} отменена`
+  }
+
+  if (last > 1 && last < 5) {
+    return `${count} отменены`
+  }
+
+  return `${count} отменены`
+}
+
+export function getRandomColors(count = 3) {
+
+  const colors = [
+    "#9CA3AF",
+    "#6B7280",
+    "#658092",
+    "#764BA2",
+    "#F5576C",
+    "#5F8A8B",
+    "#5C6BC0",
+    "#9E7B9B",
+    "#C97B63",
+    "#8A9A5B",
+    "#C8963E",
+  ]
+
+  const copy = [...colors]
+
+    for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[copy[i], copy[j]] = [copy[j], copy[i]]
+  }
+
+  return copy.slice(0, count)
+}

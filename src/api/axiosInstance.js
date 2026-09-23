@@ -78,7 +78,7 @@ axios.interceptors.response.use(
     const originalRequest = error.config;
     const status = error.response?.status;
 
-    console.log("error.response?.status из интерцептора = ", status)
+    // console.log("error.response?.status из интерцептора = ", status)
 
     // не трогаем refresh
     if (originalRequest?.url?.includes('/auth/refresh')) {

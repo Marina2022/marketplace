@@ -26,8 +26,6 @@ import {getContext} from "@/store/geoSlice.js";
 
 const EditRequest = ({requestToEdit, setRequestToEdit, resetRequests}) => {
 
-  console.log("requestToEdit = ", requestToEdit)
-
   const isNew = requestToEdit === "new"
   const [showMenu, setShowMenu] = useState(false)
   const handleMenuClick = (e) => {

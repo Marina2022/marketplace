@@ -2,13 +2,11 @@
 
 .dashboardTablet {
   padding-block: 14px;
-
 }
 
 .dashboardTabletContent {
   padding-inline: 14px;
   height: calc(var(--vh) * 100 - 134px - 62px - 28px);
-
 }
 
 .header {
@@ -30,7 +28,6 @@
   font-size: 12px;
 }
 
-
 .mainBlock {
   display: flex;
   gap: 12px;
@@ -40,7 +37,6 @@
 .leftBlock {
   width: 62.6%;
 }
-
 
 .rightBlock {
   width: 35.6%;

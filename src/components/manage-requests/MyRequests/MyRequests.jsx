@@ -13,7 +13,9 @@ const MyRequests = () => {
         <div className={s.requestsPage}>
           <div className={s.contentWrapper}>
             <div className={s.content}>
-              <RequestsHistory setShowHistoryPage={setShowHistoryPage}></RequestsHistory>
+              <RequestsHistory
+                setShowHistoryPage={setShowHistoryPage}
+              />
             </div>
           </div>
         </div>
@@ -26,7 +28,9 @@ const MyRequests = () => {
       <div className={s.requestsPage}>
         <div className={s.contentWrapper}>
           <div className={s.content}>
-            <ManageRequests setShowHistoryPage={setShowHistoryPage}/>
+            <ManageRequests
+              setShowHistoryPage={setShowHistoryPage}
+            />
           </div>
         </div>
       </div>

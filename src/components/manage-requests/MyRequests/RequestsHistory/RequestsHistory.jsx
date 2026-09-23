@@ -1,6 +1,12 @@
 import s from './RequestsHistory.module.scss';
 import MobileHeaderLk from "@/components/layout/Header/MobileHeader/MobileHeaderLK/MobileHeaderLK.jsx";
-import {getPreviewPayload, getRequestsWithPictures} from "@/utils/requests.js";
+import {
+  formatCancelled,
+  formatCompleted,
+  formatRecords,
+  getPreviewPayload,
+  getRequestsWithPictures
+} from "@/utils/requests.js";
 import Spinner from "@/components/ui/Spinner/Spinner.jsx";
 import {useEffect, useRef, useState} from "react";
 import {useSelector} from "react-redux";
@@ -10,15 +16,14 @@ import RequestHistoryTabs
   from "@/components/manage-requests/MyRequests/RequestsHistory/RequestHistoryTabs/RequestHistoryTabs.jsx";
 import RequestsHistoryCard
   from "@/components/manage-requests/MyRequests/RequestsHistory/RequestsHistoryCard/RequestsHistoryCard.jsx";
+import EmptyHistoryPage
+  from "@/components/manage-requests/MyRequests/RequestsHistory/EmptyHistoryPage/EmptyHistoryPage.jsx";
 
 const RequestsHistory = ({setShowHistoryPage}) => {
 
   const PAGE_SIZE = 12;
 
-  // const [tab, setTab] = useState("all");
   const [requests, setRequests] = useState(null);
-
-  console.log("requests = ", requests)
 
   const [mainLoading, setMainLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -26,11 +31,9 @@ const RequestsHistory = ({setShowHistoryPage}) => {
 
   const activeProfileId = useSelector(getActiveProfileId)
 
-  // Ссылки на элементы в DOM
   const observerRef = useRef(null);
   const containerRef = useRef(null); // Реф для самого списка ul со скроллом
 
-  // Замок для защиты от лишних запросов во время быстрого скролла
   const isLoadingRef = useRef(false);
   const [status, setStatus] = useState(null)
   const [year, setYear] = useState(null)
@@ -78,7 +81,7 @@ const RequestsHistory = ({setShowHistoryPage}) => {
     if (isLoadingRef.current || !activeProfileId || !requests) return;
 
     // Проверяем, не загрузили ли мы уже абсолютно все элементы
-    if (requests.items.length >= requests.totalCount) return;
+    if (requests.items.length >= requests.meta.totalCount) return;
 
     try {
       isLoadingRef.current = true; // Закрываем замок
@@ -142,22 +145,20 @@ const RequestsHistory = ({setShowHistoryPage}) => {
     // Массив зависимостей обновляет обзервер, спасая от старых замыканий флагов
   }, [mainLoading, requests, page]);
 
-
   return (
     <div className={s.manageRequestsWrapper}>
-
       <MobileHeaderLk/>
-
       <div>
         <div className={s.header}>
           <div className={s.leftHeader}>
             <h1 className={s.title}>История заявок</h1>
             <div className={s.subtitle}>
-              тут что-то появится потом
-              {/*{requests && formatRequestsNumber(requests.tabCount.all)}*/}
-              {/*{requests && requests.tabCount.active > 0 && ` · ${requests.tabCount.active} активных`}*/}
-              {/*{requests && requests.tabCount.inProgress > 0 && ` · ${requests.tabCount.inProgress} в работе`}*/}
-              {/*{requests && requests.tabCount.expired > 0 && ` · ${requests.tabCount.expired} истекли`}*/}
+              {
+                requests && requests.items.length === 0 && "Нет записей · завершённые заявки и отклики появятся здесь"
+              }
+              {requests && requests.stats.total > 0 && formatRecords(requests.stats.total)}
+              {requests && requests.stats.completedCount > 0 && ` · ${formatCompleted(requests.stats.completedCount)} `}
+              {requests && requests.stats.cancelledCount > 0 && ` · ${formatCancelled(requests.stats.cancelledCount)} `}
             </div>
           </div>
         </div>
@@ -169,9 +170,7 @@ const RequestsHistory = ({setShowHistoryPage}) => {
             setStatus={setStatus}
             year={year}
             setYear={setYear}
-            requests={requests}
           />
-
         </div>
 
         {mainLoading && <Spinner/>}
@@ -181,8 +180,7 @@ const RequestsHistory = ({setShowHistoryPage}) => {
             {requests.items.map((request) => <RequestsHistoryCard request={request} key={request.requestId}/>
             )}
 
-            {/* Обзервер находится внутри тега <ul> как элемент списка */}
-            {requests && (requests.items.length < requests.totalCount) && (
+            {requests && (requests.items.length < requests.meta.totalCount) && (
               <li ref={observerRef} className={s.observerDiv}
                   style={{listStyleType: 'none', width: '100%', minHeight: '30px'}}>
                 {isOnScrollLoading && <div className={s.onScrollSpinnerWrapper}>
@@ -195,15 +193,13 @@ const RequestsHistory = ({setShowHistoryPage}) => {
         {
           !mainLoading && requests && requests.items.length === 0 && (
             <div className={s.emptyPageWrapper}>
-              {/*<EmptyPage /> */} todo
+              <EmptyHistoryPage resetRequests={resetRequests}/>
             </div>
           )
         }
-
       </div>
     </div>
   )
-
 }
 
 export default RequestsHistory;

@@ -1,11 +1,53 @@
 @import "@/assets/styles/mixins";
 
-.tabs {
+.dropdownBtnWrapper {
+  position: relative;
+}
+
+.yearDropdown {
+  right: 0;
+  box-shadow: 0 2px 8px 0 #E8EAED;
+  background: #fff;
+  border-radius: 4px;
+  position: fixed;
+  top: 252px;
+  width: 115px;
+
+  @include m {
+    top: 170px;
+    width: 92px;
+  }
+}
+
+.yearItem {
+  text-wrap: nowrap;
+  cursor: pointer;
+  user-select: none;
   display: flex;
-  font-size: 14px;
-  color: #658092;
-  margin-bottom: 16px;
+  align-items: center;
+  justify-content: space-between;
   gap: 6px;
+  height: 38px;
+  padding: 10px;
+
+  @media (hover: hover) {
+    &:hover {
+      background: #FBFBFC;
+    }
+  }
+}
+
+.yearFilter {
+  gap: 12px;
+  margin-left: 18px;
+  color: #3D4A66 !important;
+  font-size: 13px !important;
+  text-wrap: nowrap;
+
+  @include m {
+    font-size: 11px !important;
+    margin-left: 6px;
+  }
 }
 
 .tab {
@@ -57,13 +99,6 @@
   color: #8A8F98;
   font-size: 10px;
   font-weight: 600;
-
-  @include m {
-    font-size: 9px;
-    font-weight: 700;
-    height: 14px;
-    min-width: 12px;
-  }
 }
 
 .countActive {
@@ -71,40 +106,16 @@
   color: white;
 }
 
-.tabsWrapperForScroll {
+.yearItemActive {
+  background: #ECEFF5;
 
-  @include t {
-    position: absolute;
-    padding-inline: 14px;
-    overflow-x: auto;
-    width: auto;
-    max-width: 100%;
-  }
-
-  @include m {
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; // Firefox
-    -ms-overflow-style: none; // IE/Edge
-
-    &::-webkit-scrollbar {
-      display: none; // Chrome/Safari
-    }
+  &:hover {
+    background: #ECEFF5;
   }
 }
 
-.tabletEndItem {
-  display: none;
-
-  @include t {
-    display: block;
-    width: 8px;
-    height: 10px;
-    background-color: transparent;
-    flex-shrink: 0;
-  }
+.yearItemText {
+  color: #3D4A66;
+  font-size: 13px;
+  font-weight: 500;
 }
-
-.loadingWrapper {
-  height: 50px;
-}
-

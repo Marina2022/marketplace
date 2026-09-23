@@ -1,0 +1,24 @@
+@import "@/assets/styles/mixins";
+
+.info {
+  margin-bottom: 6px;
+  font-size: 11px;
+  color: #8A8F98;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  @include t {
+    font-size: 12px;
+  }
+
+  @include m {
+    margin-bottom: 0;
+  }
+}
+
+.infoItem {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}

@@ -9,9 +9,7 @@ import RecentResponse
   from "@/components/dashboard/DashboardMain/dashboard-components/RecentResponse/RecentResponse.jsx";
 
 const MobileRequestAndResponses = ({data, setRequestToEdit}) => {
-
   const [tab, setTab] = useState("requests") // requests | responses
-
   const navigate = useNavigate()
   const tabs = useSelector(getTabs)
   const dispatch = useDispatch()
@@ -50,16 +48,12 @@ const MobileRequestAndResponses = ({data, setRequestToEdit}) => {
           </svg>
         </div>
       </div>
-
       {
-        tab === "requests" && <ActiveRequests requests={data.recentRequests} setRequestToEdit={setRequestToEdit} />
+        tab === "requests" && <ActiveRequests requests={data.recentRequests} setRequestToEdit={setRequestToEdit}/>
       }
-
       {
         tab === "responses" && <RecentResponse responses={data.recentResponses}/>
       }
-
-
     </div>
   )
 }

@@ -1,0 +1,13 @@
+@import "@/assets/styles/mixins";
+
+.requestStatus {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 5px;
+  color: #565C68;
+  font-weight: 600;
+  gap: 10px;
+}

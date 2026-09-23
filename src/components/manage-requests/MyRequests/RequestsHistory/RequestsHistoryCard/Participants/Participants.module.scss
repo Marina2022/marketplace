@@ -1,0 +1,23 @@
+@import "@/assets/styles/mixins";
+
+.round {
+  height: 26px;
+  width: 26px;
+  border: 1px solid #fff;
+  background: #764BA2;
+  border-radius: 50%;
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 600;
+  margin-left: -4px;
+  padding-inline: 2px;
+  flex-shrink: 0;
+}
+
+.rounds {
+  display: flex;
+}

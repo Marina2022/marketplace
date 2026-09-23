@@ -12,7 +12,7 @@ import EditRequest from "@/components/manage-requests/MyRequests/ManageRequests/
 import EmptyPage from "@/components/manage-requests/MyRequests/ManageRequests/EmptyPage/EmptyPage.jsx";
 import MobileHeaderLk from "@/components/layout/Header/MobileHeader/MobileHeaderLK/MobileHeaderLK.jsx";
 
-const ManageRequests = ({setShowHistoryPage }) => {
+const ManageRequests = ({setShowHistoryPage}) => {
   const PAGE_SIZE = 12;
 
   const [tab, setTab] = useState("all");

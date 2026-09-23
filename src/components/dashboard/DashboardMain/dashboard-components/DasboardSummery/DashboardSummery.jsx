@@ -199,7 +199,6 @@ const DashboardSummery = ({data}) => {
           )
         }
       </li>
-
     </ul>
   )
 }

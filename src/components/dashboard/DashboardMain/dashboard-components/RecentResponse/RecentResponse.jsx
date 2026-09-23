@@ -38,16 +38,14 @@ const RecentResponse = ({responses}) => {
           </svg>
         </div>
       </div>
-      {/*<div className={s.contentWrapper}>*/}
+      {
+        responses.length === 0 && <DashboardEmptyResponses/>
+      }
+      <ul className={`${s.responsesList} scroll`}>
         {
-          responses.length === 0 && <DashboardEmptyResponses/>
+          responses.map((response) => <DashboardResponseCard key={response.chatRoomId} response={response}/>)
         }
-        <ul className={`${s.responsesList} scroll`}>
-          {
-            responses.map((response) => <DashboardResponseCard key={response.chatRoomId} response={response} />)
-          }
-        </ul>
-      {/*</div>*/}
+      </ul>
     </div>
   )
 }

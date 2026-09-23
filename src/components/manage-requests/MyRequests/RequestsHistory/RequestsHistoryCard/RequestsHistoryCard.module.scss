@@ -4,7 +4,7 @@
   background: #F9F9FB;
   border: 1px solid #DFE2E7;
   border-radius: 12px;
-  padding: 10px 16px;
+  padding: 11px 16px;
   display: flex;
   margin-right: 6px;
 
@@ -15,6 +15,7 @@
   @include m {
     padding: 12px 14px;
     border-radius: 4px;
+    flex-direction: column;
   }
 }
 
@@ -28,29 +29,16 @@
 
 .desc {
   margin-right: 10px;
-
 }
 
 .title {
   margin-bottom: 8px;
   font-size: 14px;
   font-weight: 600;
-}
 
-.greyInfo {
-  margin-bottom: 12px;
-  font-size: 11px;
-  color: #8A8F98;
-
-  @include t {
+  @include m {
     font-size: 12px;
   }
-}
-.rounds {
-  width: 26px;
-  height: 26px;
-  background: #764BA2;
-  border-radius: 50%;
 }
 
 .requestNumber {
@@ -62,8 +50,11 @@
   @include t {
     margin-left: auto;
   }
-}
 
+  @include m {
+    font-size: 11px ;
+  }
+}
 
 .rightCardPart {
   width: 180px;
@@ -75,8 +66,11 @@
   @include t {
     margin-left: 0;
   }
-}
 
+  @include m {
+    width: 100%;
+  }
+}
 
 .btn {
   border-radius: 8px;
@@ -91,6 +85,12 @@
 .topRightBlock {
   display: flex;
   justify-content: space-between;
+
+  @include m {
+    margin-bottom: 8px;
+    justify-content: flex-start;
+    gap: 8px;
+  }
 }
 
 .requestStatus {
@@ -109,6 +109,11 @@
   display: flex;
   flex-direction: column;
   gap: 1px;
+
+  @include m {
+    flex-direction: row;
+    gap: 6px;
+  }
 }
 
 .viewsRow {
@@ -119,4 +124,30 @@
   font-size: 12px;
   font-weight: 500;
   justify-content: flex-end;
+}
+
+.photoDescBlock {
+  display: flex;
+  margin-right: 10px;
+
+  @include t {
+    margin-right: auto;
+  }
+
+  @include m {
+    margin-bottom: 4px;
+  }
+}
+
+.numberAndStatus {
+  display: none;
+
+  @include m {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #DBDFE4;
+    margin-bottom: 12px;
+  }
 }
