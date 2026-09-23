@@ -170,6 +170,7 @@ const RequestsHistory = ({setShowHistoryPage}) => {
             setStatus={setStatus}
             year={year}
             setYear={setYear}
+            requestsCount={requests?.items.length}
           />
         </div>
 

@@ -64,8 +64,6 @@ const DashboardMain = () => {
     getData()
   }, [profileId])
 
-  console.log("data = ", data)
-
   const [requestToEdit, setRequestToEdit] = useState(null)
 
   if (loading ) return (

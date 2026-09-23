@@ -9,7 +9,8 @@ const RequestHistoryTabs = ({
                               status,
                               setStatus,
                               year,
-                              setYear
+                              setYear,
+                              requestsCount
 
                             }) => {
 
@@ -31,7 +32,13 @@ const RequestHistoryTabs = ({
   const handleGoToRequests = () => {
     setShowHistoryPage(false)
   }
+
+  const handleAllClick = () => {
+    setStatus(null)
+  }
+
   if (!filtersValues) return <div className={s.loadingWrapper}></div>
+
 
   return (
     <div className={s.tabsWrapperForScroll}>
@@ -46,6 +53,14 @@ const RequestHistoryTabs = ({
               fill="#658092"/>
           </svg>
           <span>Все заявки</span>
+        </li>
+
+        <li
+            className={`${s.tab} ${!status ? s.tabActive : ''}`}
+            onClick={handleAllClick}
+        >
+          <span>Все</span>
+          <span className={`${s.count} ${!status ? s.countActive : ''}`}>{requestsCount}</span>
         </li>
 
         {

@@ -30,6 +30,8 @@ const Subscriptions = () => {
     getSubscription()
   }, [profileId])
 
+  if(subscriptions && !subscriptions.currentPlan) return null
+
   if (loading) return <div className={s.subscriptionsWrapper}></div>
 
   const requestsPercent = subscriptions.usage.activeRequests.current / subscriptions.usage.activeRequests.max * 100

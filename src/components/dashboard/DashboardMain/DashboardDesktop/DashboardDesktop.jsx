@@ -11,6 +11,9 @@ import Subscriptions from "@/components/dashboard/DashboardMain/dashboard-compon
 import QuickActions from "@/components/dashboard/DashboardMain/dashboard-components/QuickActions/QuickActions.jsx";
 
 const DashboardDesktop = ({data, setRequestToEdit}) => {
+
+  console.log("data = ", data)
+
   return (
     <div className={s.dashboardDesktop}>
       <div className={s.header}>
