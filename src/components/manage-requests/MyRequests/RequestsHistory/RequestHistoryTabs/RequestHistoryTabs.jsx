@@ -73,7 +73,7 @@ const RequestHistoryTabs = ({
           <span>Завершены</span>
           <span
             className={`${s.count} ${status === "completed" ? s.countActive : ''}`}>
-            {filtersValues.statuses.length > 0
+            {filtersValues.statuses.find(status => status.code=== "completed")
               ? filtersValues.statuses.find(status => status.code=== "completed").count
               : 0}
           </span>
@@ -88,7 +88,7 @@ const RequestHistoryTabs = ({
 
           <span
             className={`${s.count} ${status === "cancelled" ? s.countActive : ''}`}>
-            {filtersValues.statuses.length > 0
+            {filtersValues.statuses.find(status => status.code=== "cancelled")
               ? filtersValues.statuses.find(status => status.code=== "cancelled").count
               : 0}
           </span>
