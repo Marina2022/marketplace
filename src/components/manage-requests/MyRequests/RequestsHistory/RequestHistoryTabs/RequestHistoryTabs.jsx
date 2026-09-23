@@ -18,8 +18,6 @@ const RequestHistoryTabs = ({
 
   const [filtersValues, setFiltersValues] = useState();
 
-  console.log("filtersValues = ", filtersValues)
-
   const profileId = useSelector(getActiveProfileId)
   // загрузка фильтров
   useEffect(() => {

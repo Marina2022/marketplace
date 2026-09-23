@@ -12,8 +12,6 @@ import QuickActions from "@/components/dashboard/DashboardMain/dashboard-compone
 
 const DashboardDesktop = ({data, setRequestToEdit}) => {
 
-  console.log("data = ", data)
-
   return (
     <div className={s.dashboardDesktop}>
       <div className={s.header}>
